@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 38 — Endocrine: Testosterone, Adrenal & Clinical Trials</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:    #2563EB;
+    --blue-l:  #DBEAFE;
+    --blue-m:  #93C5FD;
+    --green:   #059669;
+    --green-l: #D1FAE5;
+    --green-m: #6EE7B7;
+    --purple:  #7C3AED;
+    --purple-l:#EDE9FE;
+    --purple-m:#C4B5FD;
+    --orange:  #D97706;
+    --orange-l:#FEF3C7;
+    --orange-m:#FCD34D;
+    --red:     #DC2626;
+    --red-l:   #FEE2E2;
+    --red-m:   #FCA5A5;
+    --teal:    #0D9488;
+    --teal-l:  #CCFBF1;
+    --teal-m:  #5EEAD4;
+    --gray:    #374151;
+    --gray-l:  #F3F4F6;
+    --gray-m:  #D1D5DB;
+    --ink:     #111827;
+    --white:   #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #F8FAFF;
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1E3A5F 0%, #1D4ED8 45%, #7C3AED 100%);
+    color: white;
+    padding: 48px 40px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.05) 0%, transparent 60%);
+  }
+  .hero h1 { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.5px; position: relative; }
+  .hero p  { margin-top: 8px; font-size: 1rem; opacity: 0.85; position: relative; }
+  .color-legend {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-top: 28px; position: relative;
+  }
+  .legend-pill {
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px; padding: 5px 14px 5px 8px;
+    font-size: 0.82rem; font-weight: 700; color: white; backdrop-filter: blur(4px);
+  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  .part-sep {
+    display: flex; align-items: center; gap: 16px;
+    margin: 48px 0 8px;
+  }
+  .part-sep .line { flex: 1; height: 2px; background: var(--gray-m); border-radius: 2px; }
+  .part-sep .part-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; white-space: nowrap;
+    padding: 5px 16px; border-radius: 999px;
+    border: 1.5px solid var(--blue-m);
+    background: var(--blue-l); color: var(--blue);
+  }
+  .part-sep.orange .part-label {
+    border-color: var(--orange-m); background: var(--orange-l); color: var(--orange);
+  }
+  .part-sep.purple .part-label {
+    border-color: var(--purple-m); background: var(--purple-l); color: var(--purple);
+  }
+
+  .section-card {
+    border-radius: 20px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 28px; color: white;
+    font-weight: 900; font-size: 1.15rem; letter-spacing: -0.2px;
+  }
+  .section-icon { font-size: 1.5rem; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 700;
+    background: rgba(255,255,255,0.2);
+    border-radius: 6px; padding: 3px 8px;
+    letter-spacing: 0.05em; flex-shrink: 0;
+  }
+  .plo-q {
+    font-size: 0.8rem; opacity: 0.85; font-weight: 600;
+    margin-top: 4px; font-style: italic; font-family: 'Nunito', sans-serif;
+    letter-spacing: 0;
+  }
+  .section-body { padding: 24px 28px; background: white; }
+
+  .s-blue   .section-header { background: linear-gradient(90deg, var(--blue), #60A5FA); }
+  .s-blue   { border: 2px solid var(--blue-m); }
+  .s-green  .section-header { background: linear-gradient(90deg, var(--green), #34D399); }
+  .s-green  { border: 2px solid var(--green-m); }
+  .s-purple .section-header { background: linear-gradient(90deg, var(--purple), #A78BFA); }
+  .s-purple { border: 2px solid var(--purple-m); }
+  .s-orange .section-header { background: linear-gradient(90deg, var(--orange), #FBBF24); }
+  .s-orange { border: 2px solid var(--orange-m); }
+  .s-red    .section-header { background: linear-gradient(90deg, var(--red), #F87171); }
+  .s-red    { border: 2px solid var(--red-m); }
+  .s-teal   .section-header { background: linear-gradient(90deg, var(--teal), #2DD4BF); }
+  .s-teal   { border: 2px solid var(--teal-m); }
+  .s-gray   .section-header { background: linear-gradient(90deg, var(--gray), #6B7280); }
+  .s-gray   { border: 2px solid var(--gray-m); }
+
+  .subsection { margin-bottom: 22px; }
+  .subsection-title {
+    font-size: 0.92rem; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .s-blue   .subsection-title { color: var(--blue); }
+  .s-green  .subsection-title { color: var(--green); }
+  .s-purple .subsection-title { color: var(--purple); }
+  .s-orange .subsection-title { color: var(--orange); }
+  .s-red    .subsection-title { color: var(--red); }
+  .s-teal   .subsection-title { color: var(--teal); }
+  .s-gray   .subsection-title { color: var(--gray); }
+
+  .eli5 {
+    border-radius: 12px; padding: 12px 16px; margin-bottom: 14px;
+    font-size: 0.93rem; font-weight: 600;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .eli5-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+  .s-blue   .eli5 { background: var(--blue-l);   border-left: 4px solid var(--blue); }
+  .s-green  .eli5 { background: var(--green-l);  border-left: 4px solid var(--green); }
+  .s-purple .eli5 { background: var(--purple-l); border-left: 4px solid var(--purple); }
+  .s-orange .eli5 { background: var(--orange-l); border-left: 4px solid var(--orange); }
+  .s-red    .eli5 { background: var(--red-l);    border-left: 4px solid var(--red); }
+  .s-teal   .eli5 { background: var(--teal-l);   border-left: 4px solid var(--teal); }
+  .s-gray   .eli5 { background: var(--gray-l);   border-left: 4px solid var(--gray); }
+
+  .alert {
+    border-radius: 10px; padding: 11px 15px; margin: 10px 0 14px;
+    font-size: 0.9rem; font-weight: 700;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .alert-warn { background: #FFF7ED; border: 1.5px solid #FB923C; color: #92400E; }
+  .alert-tip  { background: #F0FDF4; border: 1.5px solid #4ADE80; color: #166534; }
+  .alert-key  { background: #FFF1F2; border: 1.5px solid #FB7185; color: #9F1239; }
+  .alert-purple { background: var(--purple-l); border: 1.5px solid var(--purple-m); color: #4C1D95; }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 0.88rem; }
+  th {
+    padding: 9px 12px; text-align: left; font-weight: 800;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; color: white;
+  }
+  .s-blue   th { background: var(--blue); }
+  .s-green  th { background: var(--green); }
+  .s-purple th { background: var(--purple); }
+  .s-orange th { background: #B45309; }
+  .s-red    th { background: var(--red); }
+  .s-teal   th { background: var(--teal); }
+  .s-gray   th { background: var(--gray); }
+  td { padding: 8px 12px; border-bottom: 1px solid #F1F5F9; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFBFF; }
+
+  .tag {
+    display: inline-block; border-radius: 6px; padding: 1px 7px;
+    font-size: 0.8rem; font-weight: 800; line-height: 1.6; white-space: nowrap;
+  }
+  .tag-blue   { background: var(--blue-l);   color: var(--blue); }
+  .tag-green  { background: var(--green-l);  color: var(--green); }
+  .tag-purple { background: var(--purple-l); color: var(--purple); }
+  .tag-orange { background: var(--orange-l); color: var(--orange); }
+  .tag-red    { background: var(--red-l);    color: var(--red); }
+  .tag-teal   { background: var(--teal-l);   color: var(--teal); }
+  .tag-gray   { background: var(--gray-l);   color: var(--gray); }
+
+  ul { padding-left: 20px; margin: 6px 0 10px; }
+  ul li { margin-bottom: 5px; }
+  ol { padding-left: 22px; margin: 6px 0 10px; }
+  ol li { margin-bottom: 6px; }
+
+  .hl-red    { color: var(--red);    font-weight: 800; }
+  .hl-green  { color: var(--green);  font-weight: 800; }
+  .hl-blue   { color: var(--blue);   font-weight: 800; }
+  .hl-orange { color: var(--orange); font-weight: 800; }
+  .hl-purple { color: var(--purple); font-weight: 800; }
+  .hl-teal   { color: var(--teal);   font-weight: 800; }
+
+  .step-list { list-style: none; padding: 0; margin: 8px 0; }
+  .step-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 8px 12px; margin-bottom: 6px;
+    background: #FAFBFF; border-radius: 10px;
+    border-left: 3px solid var(--blue-m);
+    font-size: 0.9rem;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700; font-size: 0.75rem;
+    background: var(--blue); color: white;
+    border-radius: 50%; width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .s-green  .step-list li { border-left-color: var(--green-m); }
+  .s-green  .step-num    { background: var(--green); }
+  .s-purple .step-list li { border-left-color: var(--purple-m); }
+  .s-purple .step-num    { background: var(--purple); }
+  .s-orange .step-list li { border-left-color: var(--orange-m); }
+  .s-orange .step-num    { background: var(--orange); }
+  .s-red    .step-list li { border-left-color: var(--red-m); }
+  .s-red    .step-num    { background: var(--red); }
+  .s-teal   .step-list li { border-left-color: var(--teal-m); }
+  .s-teal   .step-num    { background: var(--teal); }
+  .s-gray   .step-list li { border-left-color: var(--gray-m); }
+  .s-gray   .step-num    { background: var(--gray); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0; }
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .mini-card {
+    background: var(--gray-l); border-radius: 12px; padding: 14px 16px;
+    font-size: 0.88rem; display: flex; flex-direction: column; gap: 5px;
+  }
+  .mini-card strong { display: block; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; color: var(--gray); }
+
+  .pathway-box {
+    background: linear-gradient(135deg, #F0F4FF, #EDE9FE);
+    border: 2px solid var(--purple-m);
+    border-radius: 14px; padding: 16px 20px; margin: 12px 0;
+    font-size: 0.92rem; font-weight: 700; text-align: center;
+    letter-spacing: 0.3px;
+  }
+  .pathway-arrow { color: var(--purple); font-size: 1.2rem; margin: 0 6px; }
+
+  .zone-box {
+    border-radius: 12px; padding: 12px 16px; margin: 6px 0;
+    font-size: 0.9rem; font-weight: 600;
+  }
+  .zone-outer { background: #D1FAE5; border-left: 5px solid var(--green); }
+  .zone-mid   { background: #FEF3C7; border-left: 5px solid var(--orange); }
+  .zone-inner { background: #FEE2E2; border-left: 5px solid var(--red); }
+
+  .feedback-box {
+    border-radius: 12px; padding: 14px 18px;
+    background: linear-gradient(120deg, #FFF1F2, #FEE2E2);
+    border: 2px solid var(--red-m); margin: 10px 0; font-size: 0.9rem;
+  }
+
+  .divider { border: none; border-top: 2px dashed var(--gray-m); margin: 18px 0; }
+
+  .ci-visual {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; padding: 14px; background: #F8FAFF; border-radius: 12px;
+    border: 1.5px solid var(--gray-m); margin: 10px 0; font-size: 0.85rem; font-weight: 700;
+    flex-wrap: wrap;
+  }
+  .ci-bar {
+    height: 10px; border-radius: 5px;
+    display: inline-block; position: relative;
+  }
+  .ci-green  { background: var(--green); }
+  .ci-red    { background: var(--red); }
+  .ci-orange { background: var(--orange); }
+
+  .adrenal-layers {
+    border-radius: 14px; overflow: hidden; border: 2px solid var(--gray-m);
+    margin: 12px 0; font-size: 0.9rem;
+  }
+  .adrenal-row {
+    display: flex; align-items: stretch;
+  }
+  .adrenal-label {
+    padding: 12px 16px; font-weight: 900; min-width: 180px;
+    display: flex; align-items: center;
+  }
+  .adrenal-content {
+    padding: 12px 16px; flex: 1; border-left: 2px solid rgba(0,0,0,0.1);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .adrenal-outer { background: #D1FAE5; }
+  .adrenal-mid   { background: #FEF3C7; }
+  .adrenal-inner { background: #FEE2E2; }
+  .adrenal-med   { background: #EDE9FE; }
+
+  .hpa-flow {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0; margin: 14px auto; max-width: 400px;
+  }
+  .hpa-node {
+    padding: 12px 28px; border-radius: 50px; font-weight: 900;
+    font-size: 0.95rem; text-align: center; width: 100%; max-width: 300px;
+    position: relative;
+  }
+  .hpa-arrow {
+    font-size: 1.6rem; color: var(--gray); line-height: 1; margin: -2px 0;
+  }
+  .hpa-arrow.neg { color: var(--red); }
+  .hpa-label {
+    font-size: 0.75rem; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em; color: var(--orange); margin-left: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🧬 Week 38 — Endocrine</h1>
+  <p>Dr. Johnson · Dr. Morganelli · Dr. Ly · Dr. Ferland &nbsp;|&nbsp; Testosterone · Adrenal Gland · Clinical Trials</p>
+  <div class="color-legend">
+    <div class="legend-pill"><div class="legend-dot" style="background:#DC2626"></div>High-Yield / Tested</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#D97706"></div>Important Mechanism</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#059669"></div>Key Fact</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#2563EB"></div>Pathway / Process</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#7C3AED"></div>Clinical Correlation</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  DR. JOHNSON — TESTOSTERONE                         -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">👨‍⚕️ Dr. Johnson — Testosterone Physiology</div>
+  <div class="line"></div>
+</div>
+
+<!-- PLO 1 -->
+<div class="section-card s-blue">
+  <div class="section-header">
+    <span class="section-num">PLO 1</span>
+    <span class="section-icon">⚗️</span>
+    <div>
+      Testicular Synthesis of Testosterone &amp; Androgen Receptor Binding
+      <div class="plo-q">Describe testicular synthesis of testosterone and testosterone binding to the androgen receptor</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">🔬 Synthesis — Basics</div>
+      <div class="eli5">
+        <span class="eli5-icon">💡</span>
+        <span>Testosterone is synthesized in <strong class="hl-red">Leydig cells</strong> of the testes under regulation of the <strong>hypothalamic-pituitary-gonadal (HPG) axis</strong>. LH is the key driver — it mobilizes cholesterol and activates steroidogenic enzymes.</span>
+      </div>
+      <ul>
+        <li><span class="hl-red">LH</span> stimulates mobilization &amp; transport of <strong>cholesterol</strong> into the steroidogenic pathway</li>
+        <li>LH stimulates gene expression and activity of <strong>steroidogenic enzymes</strong></li>
+        <li>Steroidogenic enzymes convert cholesterol → testosterone</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">📋 Synthesis Steps</div>
+      <ol class="step-list">
+        <li><span class="step-num">1</span><span>Hypothalamus secretes <span class="hl-red">GnRH (gonadotropin-releasing hormone)</span> → stimulates anterior pituitary to release <span class="hl-red">LH</span></span></li>
+        <li><span class="step-num">2</span><span>LH binds to LH receptors on <span class="hl-red">Leydig cells</span>, activating the <strong>cAMP-PKA pathway</strong> → upregulates steroidogenic enzymes</span></li>
+        <li><span class="step-num">3</span><span>Cholesterol is transported into mitochondria via <span class="hl-orange">StAR protein</span> (steroidogenic acute regulatory protein) — the <strong>rate-limiting step</strong></span></li>
+      </ol>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">🔄 Steroidogenic Pathway</div>
+      <div class="pathway-box">
+        <span class="hl-blue">Cholesterol</span>
+        <span class="pathway-arrow">→</span>
+        <span class="hl-red">Pregnenolone</span>
+        <small style="color:#6B7280">(inner mitochondrial membrane)</small>
+        <span class="pathway-arrow">→</span>
+        <span class="hl-orange">Progesterone</span>
+        <small style="color:#6B7280">(smooth ER)</small>
+        <span class="pathway-arrow">→</span>
+        <span class="hl-orange">17α-Hydroxyprogesterone</span>
+        <span class="pathway-arrow">→</span>
+        <span class="hl-orange">Androstenedione</span>
+        <span class="pathway-arrow">→</span>
+        <span class="hl-red">Testosterone</span>
+      </div>
+      <table>
+        <tr><th>Enzyme</th><th>Reaction</th><th>Location</th></tr>
+        <tr><td><strong>Cholesterol side-chain cleavage</strong></td><td>Cholesterol → Pregnenolone</td><td>Inner mitochondrial membrane</td></tr>
+        <tr><td><strong>3β-hydroxysteroid dehydrogenase</strong></td><td>Pregnenolone → Progesterone</td><td>Smooth ER</td></tr>
+        <tr><td><strong class="hl-orange">17α-hydroxylase</strong></td><td>Progesterone → 17α-OH-Progesterone</td><td>Smooth ER</td></tr>
+        <tr><td><strong class="hl-orange">17,20-lyase</strong></td><td>→ Androstenedione</td><td>Smooth ER</td></tr>
+        <tr><td><strong class="hl-red">17β-hydroxysteroid dehydrogenase</strong></td><td>Androstenedione → <strong>Testosterone</strong></td><td>Smooth ER</td></tr>
+        <tr><td><strong class="hl-red">5α-reductase</strong></td><td>Testosterone → <strong>DHT</strong> (in peripheral tissues)</td><td>Target tissues</td></tr>
+      </table>
+      <div class="alert alert-key">
+        <span class="alert-icon">🔥</span>
+        <span><strong>Androgen Potency (Relative):</strong> DHT (100%) &gt; Testosterone (50%) &gt; Androstenedione (8%) &gt; DHEA (4%)</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">🩸 Testosterone in the Bloodstream</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>98% Bound (Inactive)</strong>
+          <span class="tag tag-red">SHBG</span> (sex hormone-binding globulin) — primary carrier<br>
+          <span class="tag tag-orange">Albumin</span> — loosely bound<br>
+          <span class="tag tag-blue">ABP</span> (androgen-binding protein) — within testes only
+        </div>
+        <div class="mini-card">
+          <strong>2% Free = Biologically Active</strong>
+          <span class="tag tag-green">Diffuses freely into target cells</span><br>
+          Only free testosterone can bind to the androgen receptor<br>
+          Also called <span class="tag tag-green">bioavailable</span> fraction
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">🎯 Androgen Receptor (AR) Binding</div>
+      <div class="eli5">
+        <span class="eli5-icon">🔑</span>
+        <span>Testosterone works by binding to the <span class="hl-red">androgen receptor (AR)</span> — a nuclear receptor that regulates gene expression. In some tissues, it's first converted to the more potent <span class="hl-red">DHT</span> by 5α-reductase.</span>
+      </div>
+      <ol class="step-list">
+        <li><span class="step-num">1</span><span><span class="hl-red">Free testosterone</span> diffuses across the plasma membrane into target cells</span></li>
+        <li><span class="step-num">2</span><span>In some tissues, testosterone → <span class="hl-red">DHT</span> by <span class="hl-red">5α-reductase</span> (DHT has <strong>higher AR affinity</strong>)</span></li>
+        <li><span class="step-num">3</span><span>Testosterone or DHT binds to <strong>cytoplasmic AR</strong> → conformational change, dissociation of heat shock proteins (HSPs)</span></li>
+        <li><span class="step-num">4</span><span>Activated AR complex translocates to nucleus → binds <strong>androgen response elements (AREs)</strong> → activates <span class="hl-red">gene transcription</span></span></li>
+      </ol>
+      <div class="alert alert-tip">
+        <span class="alert-icon">✅</span>
+        <span><strong>Effects of AR activation:</strong> Development of male reproductive organs · Spermatogenesis · Secondary sex characteristics (muscle mass, voice deepening, hair growth) · Libido &amp; mood regulation</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLO 2 -->
+<div class="section-card s-green">
+  <div class="section-header">
+    <span class="section-num">PLO 2</span>
+    <span class="section-icon">🧠</span>
+    <div>
+      Central Regulation: GnRH, FSH, and LH
+      <div class="plo-q">Describe the central regulation of testosterone synthesis — the role of GnRH, FSH, and LH</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🔄</span>
+      <span>Testosterone synthesis is controlled by the <span class="hl-red">HPG axis</span>. Think of it as a chain of command: Hypothalamus → GnRH → Pituitary → LH/FSH → Testes → Testosterone → Negative Feedback back up the chain.</span>
+    </div>
+
+    <table>
+      <tr><th>Hormone</th><th>Source</th><th>Target</th><th>Mechanism of Action</th><th>Effect on Testosterone</th></tr>
+      <tr>
+        <td><strong class="hl-red">GnRH</strong></td>
+        <td>Hypothalamus</td>
+        <td>Anterior Pituitary</td>
+        <td>Binds GPCR → activates phospholipase C → ↑IP3 → ↑intracellular Ca²⁺ → ↑cAMP → <strong>releases LH &amp; FSH</strong><br><small class="hl-green">Stimulated by: NE, Neuropeptide Y, leptin</small><br><small class="hl-red">Inhibited by: β-endorphin, IL-1, GABA, dopamine</small></td>
+        <td><span class="tag tag-green">Indirectly stimulates</span> by promoting LH &amp; FSH release<br><span class="tag tag-red">↑Testosterone → inhibits GnRH &amp; LH (negative feedback)</span></td>
+      </tr>
+      <tr>
+        <td><strong class="hl-red">LH</strong></td>
+        <td>Anterior Pituitary</td>
+        <td><strong class="hl-red">Leydig Cells</strong></td>
+        <td>Binds LH receptors (LHR) → activates <strong>cAMP-PKA signaling</strong> → ↑StAR protein + steroidogenic enzymes</td>
+        <td><span class="tag tag-red">Directly stimulates testosterone production in Leydig cells</span></td>
+      </tr>
+      <tr>
+        <td><strong class="hl-orange">FSH</strong></td>
+        <td>Anterior Pituitary</td>
+        <td><strong>Sertoli Cells</strong></td>
+        <td>Binds FSHR → promotes <strong>androgen-binding protein (ABP)</strong> and <strong>inhibin B</strong> secretion</td>
+        <td><span class="tag tag-green">Supports spermatogenesis</span> by maintaining high intratesticular testosterone levels</td>
+      </tr>
+    </table>
+
+    <div class="subsection">
+      <div class="subsection-title">🔁 Negative Feedback Hormones</div>
+      <table>
+        <tr><th>Hormone</th><th>Source</th><th>Target</th><th>Effect</th><th>Overall Impact</th></tr>
+        <tr><td><strong class="hl-red">Testosterone</strong></td><td>Leydig cells</td><td>Hypothalamus, Pituitary</td><td>Inhibits GnRH (hypothalamus) + <span class="hl-red">LH, FSH</span> (pituitary)</td><td>Reduces testosterone production</td></tr>
+        <tr><td><strong class="hl-red">DHT</strong></td><td>Leydig cells (via 5α-reductase)</td><td>Hypothalamus, Pituitary</td><td><span class="hl-red">Stronger inhibition of GnRH and LH</span></td><td>Reinforces suppression</td></tr>
+        <tr><td><strong>Estradiol</strong></td><td>Leydig cells, adipose (aromatase)</td><td>Hypothalamus, Pituitary</td><td>Inhibits GnRH and LH</td><td>Decreases testosterone synthesis</td></tr>
+        <tr><td><strong class="hl-orange">Inhibin B</strong></td><td>Sertoli cells</td><td>Anterior Pituitary</td><td><span class="hl-orange">Selectively inhibits FSH secretion</span></td><td>Controls spermatogenesis</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLO 3 -->
+<div class="section-card s-red">
+  <div class="section-header">
+    <span class="section-num">PLO 3</span>
+    <span class="section-icon">⬅️</span>
+    <div>
+      Control of Glandular Secretion by Negative Feedback
+      <div class="plo-q">Discuss the control of glandular secretion by negative feedback</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🔄</span>
+      <span>Two primary negative feedback loops control testosterone: one for <span class="hl-red">LH</span> (via testosterone + estradiol) and one for <span class="hl-red">FSH</span> (via inhibin B from Sertoli cells).</span>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="subsection-title" style="color:var(--red)">Loop 1 — LH Feedback</div>
+        <div class="feedback-box">
+          <ol style="padding-left:18px; margin:0; font-size:0.9rem;">
+            <li><strong>LH</strong> acts on Leydig cells → stimulates testosterone</li>
+            <li>Testosterone partly converts to <strong>17β-estradiol</strong></li>
+            <li class="hl-red">Testosterone + 17β-estradiol feedback on hypothalamus &amp; pituitary → inhibit LH release → decrease amplitude of LH pulses</li>
+          </ol>
+        </div>
+      </div>
+      <div>
+        <div class="subsection-title" style="color:var(--red)">Loop 2 — FSH Feedback</div>
+        <div class="feedback-box">
+          <ol style="padding-left:18px; margin:0; font-size:0.9rem;">
+            <li><strong>FSH</strong> acts on Sertoli cells → supports spermatogenesis</li>
+            <li>Sertoli cells secrete <strong>Inhibin B</strong> in response to FSH</li>
+            <li class="hl-red">Inhibin B acts at the pituitary level to specifically inhibit FSH secretion</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-key">
+      <span class="alert-icon">🔑</span>
+      <span><strong>Key distinction:</strong> Testosterone/estradiol inhibit both GnRH and LH/FSH. Inhibin B <em>selectively</em> inhibits <span class="hl-red">FSH only</span> — it does NOT affect LH or GnRH.</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLO 4 -->
+<div class="section-card s-purple">
+  <div class="section-header">
+    <span class="section-num">PLO 4</span>
+    <span class="section-icon">🩸</span>
+    <div>
+      Significance of Hormone Binding to Plasma Proteins
+      <div class="plo-q">Explain the significance of hormone binding to plasma proteins</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">📦</span>
+      <span>Plasma binding proteins (made by the liver — e.g., albumin, globulin) serve as hormone "taxis" — they transport lipid-soluble hormones through blood, protect them from degradation, and regulate how much free (active) hormone is available.</span>
+    </div>
+
+    <table>
+      <tr><th>Effect</th><th>Details</th></tr>
+      <tr><td><span class="hl-purple">Transport</span></td><td><strong>Facilitates transport</strong> of lipid-soluble hormones (steroids, thyroid) through the aqueous bloodstream</td></tr>
+      <tr><td><span class="hl-purple">Protection</span></td><td><strong>Protects hormones from degradation</strong> — prolongs half-life and ensures stability in circulation</td></tr>
+      <tr><td><span class="hl-red">Inactivation</span></td><td><strong>Bound hormones are inactive</strong> — cannot bind receptors on target cells. Only <span class="hl-green">unbound (free)</span> hormones are active</td></tr>
+      <tr><td><span class="hl-orange">Feedback regulation</span></td><td>If liver ↑ production of binding proteins → ↓ free hormone → triggers feedback to release more hormone to restore balance</td></tr>
+    </table>
+
+    <div class="alert alert-purple">
+      <span class="alert-icon">💜</span>
+      <span><strong>Bioavailable hormones:</strong> Steroids bind <em>weakly</em> to albumin → dissociate quickly → available for cell uptake. These albumin-bound + free hormones = <span class="hl-purple">bioavailable</span> fraction.</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  DR. MORGANELLI — ADRENAL GLAND                     -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="part-sep orange">
+  <div class="line"></div>
+  <div class="part-label">👩‍⚕️ Dr. Morganelli — Adrenal Gland</div>
+  <div class="line"></div>
+</div>
+
+<!-- PLO 5 -->
+<div class="section-card s-orange">
+  <div class="section-header">
+    <span class="section-num">PLO 5</span>
+    <span class="section-icon">🧅</span>
+    <div>
+      Adrenal Cortex: Steroid Hormones &amp; Their Zones
+      <div class="plo-q">Learn the steroid hormones produced by the adrenal cortex and the zones in which they are produced</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="alert alert-tip">
+      <span class="alert-icon">🧂</span>
+      <span><strong>Mnemonic:</strong> <span class="hl-green">Salt</span> · <span class="hl-orange">Stress/Sugar</span> · <span class="hl-red">Sex</span> — from outer to inner layer</span>
+    </div>
+
+    <div class="adrenal-layers">
+      <div class="adrenal-row adrenal-outer">
+        <div class="adrenal-label"><span class="hl-green">🟢 Zona Glomerulosa</span><br><small>(Outer layer)</small></div>
+        <div class="adrenal-content">
+          <span class="tag tag-green">Aldosterone (Mineralocorticoid)</span>
+          <span>→ <strong>Regulates Na⁺/K⁺ balance</strong>: ↑Na⁺ retention + K⁺ excretion in kidneys → controls blood pressure</span>
+        </div>
+      </div>
+      <div class="adrenal-row adrenal-mid">
+        <div class="adrenal-label"><span class="hl-orange">🟡 Zona Fasciculata</span><br><small>(Middle layer)</small></div>
+        <div class="adrenal-content">
+          <span class="tag tag-orange">Cortisol (Glucocorticoid)</span>
+          <span>→ <span class="hl-orange">Manages stress response</span>, <span class="hl-orange">increases blood glucose</span>, <span class="hl-orange">suppresses immune function</span>, regulates metabolism</span>
+        </div>
+      </div>
+      <div class="adrenal-row adrenal-inner">
+        <div class="adrenal-label"><span class="hl-red">🔴 Zona Reticularis</span><br><small>(Inner layer)</small></div>
+        <div class="adrenal-content">
+          <span class="tag tag-red">Androgens (DHEA, Androstenedione)</span>
+          <span>→ <span class="hl-red">Precursor to sex hormones</span> (testosterone, estrogen); secondary sex characteristics in females</span>
+        </div>
+      </div>
+      <div class="adrenal-row adrenal-med">
+        <div class="adrenal-label"><span class="hl-purple">🟣 Adrenal Medulla</span><br><small>(Center)</small></div>
+        <div class="adrenal-content">
+          <span class="tag tag-purple">Catecholamines</span>
+          <span>→ Epinephrine (~80%), Norepinephrine (~20%) — fight-or-flight response</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLO 6 -->
+<div class="section-card s-blue">
+  <div class="section-header">
+    <span class="section-num">PLO 6</span>
+    <span class="section-icon">🔬</span>
+    <div>
+      Forms of Cortisol &amp; Corticosteroid-Binding Globulin
+      <div class="plo-q">Learn the forms of cortisol in the bloodstream and how they are affected by CBG and other plasma proteins</div>
+    </div>
+  </div>
+  <div class="section-body">
+    <table>
+      <tr><th>Form</th><th>% in Blood</th><th>Binding Protein</th><th>Function</th></tr>
+      <tr>
+        <td><strong class="hl-red">Bound Cortisol (Inactive)</strong></td>
+        <td>~90%</td>
+        <td><span class="tag tag-red">CBG (Corticosteroid-Binding Globulin)</span> ~80%<br><span class="tag tag-orange">Albumin</span> ~10%</td>
+        <td>Acts as a <span class="hl-red">reservoir</span>, <span class="hl-red">prolongs half-life</span>, and <span class="hl-red">prevents rapid metabolism/excretion</span></td>
+      </tr>
+      <tr>
+        <td><strong class="hl-green">Free Cortisol (Active)</strong></td>
+        <td>~10%</td>
+        <td>Unbound (circulating freely)</td>
+        <td><span class="hl-green">Biologically active</span> — diffuses into cells, binds glucocorticoid receptors, exerts physiological effects</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- PLO 7 -->
+<div class="section-card s-purple">
+  <div class="section-header">
+    <span class="section-num">PLO 7</span>
+    <span class="section-icon">⚡</span>
+    <div>
+      Adrenal Medulla Catecholamines &amp; Release Mechanism
+      <div class="plo-q">Learn the catecholamines produced by the adrenal medulla and explain the mechanism by which they are released</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">⚡</span>
+      <span>The adrenal medulla synthesizes catecholamines <span class="hl-red">derived from tyrosine</span>. The pathway: Tyrosine → DOPA → Dopamine → Norepinephrine → (via <span class="hl-red">PNMT</span>) → Epinephrine</span>
+    </div>
+
+    <table>
+      <tr><th>Catecholamine</th><th>% Produced</th><th>Function</th></tr>
+      <tr><td><strong class="hl-red">Epinephrine (Adrenaline)</strong></td><td>~80%</td><td>↑Heart rate, <span class="hl-red">dilates airways</span>, mobilizes glucose, ↑blood flow to muscles — fight-or-flight</td></tr>
+      <tr><td><strong class="hl-orange">Norepinephrine (Noradrenaline)</strong></td><td>~20%</td><td>↑Blood pressure via <span class="hl-orange">vasoconstriction</span>, maintains basal vascular tone</td></tr>
+      <tr><td><strong>Dopamine</strong></td><td>&lt;1%</td><td>Precursor for norepinephrine; mild vasodilatory effects</td></tr>
+    </table>
+
+    <div class="subsection">
+      <div class="subsection-title">🔁 Release Mechanism — Steps</div>
+      <ol class="step-list">
+        <li><span class="step-num">1</span><span>Body detects <strong>stress</strong> → activation of sympathetic nervous system</span></li>
+        <li><span class="step-num">2</span><span>Brain signals <strong>preganglionic sympathetic neurons</strong> to fire via the <span class="hl-purple">splanchnic nerve</span></span></li>
+        <li><span class="step-num">3</span><span>Neurons release <span class="hl-red">ACh</span> onto <span class="hl-red">chromaffin cells</span> in the adrenal medulla</span></li>
+        <li><span class="step-num">4</span><span>ACh binds to <span class="hl-red">nicotinic receptors</span> → triggering <strong>calcium influx</strong> into chromaffin cells</span></li>
+        <li><span class="step-num">5</span><span>↑Ca²⁺ causes vesicles to release <span class="hl-red">epinephrine (80%) and norepinephrine (20%)</span> into the bloodstream</span></li>
+      </ol>
+      <div class="alert alert-key">
+        <span class="alert-icon">🔥</span>
+        <span><strong>PNMT:</strong> Phenylethanolamine-N-methyltransferase converts norepinephrine → epinephrine. Production of PNMT in chromaffin cells is <span class="hl-red">stimulated and maintained by cortisol</span> from the adrenal cortex.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLO 8 -->
+<div class="section-card s-orange">
+  <div class="section-header">
+    <span class="section-num">PLO 8</span>
+    <span class="section-icon">🏛️</span>
+    <div>
+      HPA Axis: CRH, ACTH &amp; Cortisol Regulation
+      <div class="plo-q">Define CRH and ACTH; explain how cortisol production is regulated by the hypothalamic-pituitary-adrenal (HPA) axis</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="hpa-flow">
+      <div class="hpa-node" style="background:#EDE9FE; border:2px solid var(--purple-m); color:var(--purple)">
+        🧠 Hypothalamus <span class="hpa-label">Secretes CRH</span>
+      </div>
+      <div class="hpa-arrow">↓</div>
+      <div class="hpa-node" style="background:#DBEAFE; border:2px solid var(--blue-m); color:var(--blue)">
+        🫛 Anterior Pituitary <span class="hpa-label">Secretes ACTH</span>
+      </div>
+      <div class="hpa-arrow">↓</div>
+      <div class="hpa-node" style="background:#FEF3C7; border:2px solid var(--orange-m); color:var(--orange)">
+        🔶 Adrenal Cortex (Zona Fasciculata) <span class="hpa-label">Produces Cortisol</span>
+      </div>
+      <div class="hpa-arrow neg">↖ ⊖ Negative Feedback</div>
+    </div>
+
+    <table>
+      <tr><th>Hormone</th><th>Source</th><th>Target</th><th>Function</th><th>Regulation</th></tr>
+      <tr>
+        <td><strong class="hl-red">CRH</strong></td>
+        <td>Hypothalamus (paraventricular nucleus)</td>
+        <td>Anterior pituitary</td>
+        <td>Stimulates ACTH secretion</td>
+        <td><span class="hl-red">Stimulated by stress &amp; circadian rhythm</span>; inhibited by cortisol (negative feedback)</td>
+      </tr>
+      <tr>
+        <td><strong class="hl-red">ACTH</strong></td>
+        <td>Anterior pituitary (in response to CRH)</td>
+        <td>Adrenal cortex (Zona Fasciculata)</td>
+        <td><span class="hl-red">Stimulates cortisol production</span> by binding to MC2R receptors</td>
+        <td>Stimulated by CRH; <span class="hl-red">inhibited by high cortisol</span> (negative feedback)</td>
+      </tr>
+    </table>
+
+    <div class="alert alert-key">
+      <span class="alert-icon">🔑</span>
+      <span><strong>Negative Feedback:</strong> <span class="hl-red">High cortisol → inhibits both CRH and ACTH release</span> → prevents excessive hormone release. This is the classic "long loop" feedback.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">📊 Primary vs Secondary vs Tertiary Endocrine Disease</div>
+      <table>
+        <tr><th>Disease Type</th><th>Hypothalamus Hormone</th><th>Pituitary Hormone</th><th>Final Hormone</th></tr>
+        <tr><td><strong class="hl-red">Primary</strong> (gland issue)</td><td><span class="tag tag-red">Increased</span></td><td><span class="tag tag-red">Increased</span></td><td><span class="tag tag-green">Decreased</span></td></tr>
+        <tr><td><strong class="hl-orange">Secondary</strong> (pituitary issue)</td><td><span class="tag tag-red">Increased</span></td><td><span class="tag tag-green">Decreased</span></td><td><span class="tag tag-green">Decreased</span></td></tr>
+        <tr><td><strong>Tertiary</strong> (hypothalamus issue)</td><td><span class="tag tag-green">Decreased</span></td><td><span class="tag tag-green">Decreased</span></td><td><span class="tag tag-green">Decreased</span></td></tr>
+      </table>
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <span><strong>Primary disease</strong> is the only one where upstream hormones are <span class="hl-red">ELEVATED</span> — because there's no negative feedback from the damaged gland. In <span class="hl-red">Addison's disease</span>: no cortisol → high ACTH → <span class="hl-red">hyperpigmentation</span> (ACTH acts on melanocytes).</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLO 9 -->
+<div class="section-card s-teal">
+  <div class="section-header">
+    <span class="section-num">PLO 9</span>
+    <span class="section-icon">🌅</span>
+    <div>
+      Diurnal Pattern of Cortisol Production
+      <div class="plo-q">Describe the diurnal pattern of cortisol production and learn its physiologic basis</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🕐</span>
+      <span>Cortisol follows a <span class="hl-red">circadian (diurnal) rhythm</span> — highest in early morning (~6–8 AM) to prepare for wakefulness, lowest at midnight. Controlled by the <span class="hl-teal">SCN (suprachiasmatic nucleus)</span> via light/dark cycles.</span>
+    </div>
+
+    <table>
+      <tr><th>Time of Day</th><th>Cortisol Level</th><th>Physiologic Significance</th></tr>
+      <tr><td><strong>Early Morning (4–8 AM, peak ~6–8 AM)</strong></td><td><span class="tag tag-red">Highest</span></td><td>Prepares body for wakefulness, ↑alertness, mobilizes energy (gluconeogenesis)</td></tr>
+      <tr><td><strong>Daytime (Midday to Afternoon)</strong></td><td><span class="tag tag-orange">Gradual Decline</span></td><td>Supports metabolism, stress response, immune regulation</td></tr>
+      <tr><td><strong>Evening (Late Afternoon to Early Night)</strong></td><td><span class="tag tag-teal">Low</span></td><td>Allows relaxation and transition to rest</td></tr>
+      <tr><td><strong>Night (Midnight to ~4 AM)</strong></td><td><span class="tag tag-green">Lowest</span></td><td>Facilitates sleep, tissue repair, immune function</td></tr>
+    </table>
+
+    <div class="subsection">
+      <div class="subsection-title">🎛️ What Controls the Rhythm</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Light Exposure</strong>
+          Morning light → ↑CRH &amp; ACTH → <span class="hl-teal">high cortisol</span> (wakefulness &amp; energy)<br>
+          Nighttime darkness → suppresses CRH → <span class="hl-green">low cortisol</span> (sleep &amp; recovery)
+        </div>
+        <div class="mini-card">
+          <strong>SCN (Suprachiasmatic Nucleus)</strong>
+          Detects light/dark cycles in the hypothalamus<br>
+          Signals hypothalamus to <span class="hl-teal">release CRH</span> → ↑ACTH → ↑cortisol
+        </div>
+      </div>
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <span><strong>Chronic stress</strong> can alter the rhythm → <span class="hl-red">elevated evening cortisol</span>. <strong>Sleep deprivation</strong> dysregulates cortisol → affects immune function and metabolism.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLO 10 -->
+<div class="section-card s-green">
+  <div class="section-header">
+    <span class="section-num">PLO 10</span>
+    <span class="section-icon">🧬</span>
+    <div>
+      Glucocorticoid Receptors &amp; Cortisol's Cellular Mechanism
+      <div class="plo-q">Learn the two types of glucocorticoid receptors and their hormone binding properties; learn the cellular mechanism of action by which cortisol regulates gene activation</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <table>
+      <tr><th>Feature</th><th>GRα (GR1)</th><th>GRβ (GR2)</th></tr>
+      <tr><td><strong>Location</strong></td><td>Found in most tissues (cytoplasm)</td><td>Primarily in immune &amp; inflammatory cells</td></tr>
+      <tr><td><strong>Cortisol Binding</strong></td><td><span class="hl-green">Binds cortisol with HIGH affinity; also binds aldosterone</span></td><td><span class="hl-red">Only binds cortisol</span></td></tr>
+      <tr><td><strong>Function</strong></td><td>Mediates cortisol's <span class="hl-green">metabolic, anti-inflammatory, immunosuppressive</span> effects</td><td>Acts as a <span class="hl-red">dominant-negative inhibitor of GRα</span> — reduces glucocorticoid responsiveness</td></tr>
+      <tr><td><strong>Gene Regulation</strong></td><td><span class="hl-green">Activates or represses gene transcription via GREs</span></td><td><span class="hl-red">Inhibits GRα-mediated gene expression</span> → steroid resistance</td></tr>
+      <tr><td><strong>Disease Role</strong></td><td>Regulates stress response, metabolism, immune suppression</td><td>↑GRβ expression linked to <span class="hl-red">glucocorticoid resistance</span> in asthma, RA</td></tr>
+    </table>
+
+    <div class="subsection">
+      <div class="subsection-title">⚙️ Cellular Mechanism — Steps</div>
+      <ol class="step-list">
+        <li><span class="step-num">1</span><span>Cortisol enters cell by <strong>freely diffusing</strong> (lipophilic steroid hormone)</span></li>
+        <li><span class="step-num">2</span><span>Binds to <strong>inactive GRα</strong> in cytoplasm → conformational change → releases <strong>heat shock proteins (HSPs)</strong></span></li>
+        <li><span class="step-num">3</span><span>Activated <strong>cortisol-GR complex</strong> translocates to nucleus → binds <span class="hl-green">GREs (Glucocorticoid Response Elements)</span> in DNA → acts as transcription factor</span></li>
+        <li><span class="step-num">4</span><span>↑Transcription of genes for <span class="hl-green">gluconeogenesis, metabolism, anti-inflammatory proteins</span> + <span class="hl-red">suppresses pro-inflammatory genes</span></span></li>
+      </ol>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">💊 Relative Potency of Glucocorticoids</div>
+      <table>
+        <tr><th>Compound</th><th>GR2 (All cells)</th><th>GR1 (Kidney)</th></tr>
+        <tr><td>Cortisol</td><td>1</td><td>1</td></tr>
+        <tr><td>Aldosterone</td><td>&lt;0.1</td><td><strong class="hl-red">500</strong></td></tr>
+        <tr><td>Fludrocortisone</td><td>10</td><td>12.5</td></tr>
+        <tr><td>Methylprednisolone</td><td>5</td><td>5</td></tr>
+        <tr><td>Prednisone</td><td>4</td><td>&lt;0.1</td></tr>
+        <tr><td><strong class="hl-red">Dexamethasone</strong></td><td><strong class="hl-red">30</strong></td><td>&lt;0.1</td></tr>
+        <tr><td>Betamethasone</td><td>25</td><td>&lt;0.1</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  DR. LY — ADRENAL DISEASE & PHARMACOLOGY            -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="part-sep orange">
+  <div class="line"></div>
+  <div class="part-label">👩‍⚕️ Dr. Ly — Adrenal Disease &amp; Corticosteroid Pharmacology</div>
+  <div class="line"></div>
+</div>
+
+<!-- PLO 13 -->
+<div class="section-card s-red">
+  <div class="section-header">
+    <span class="section-num">PLO 13</span>
+    <span class="section-icon">🚨</span>
+    <div>
+      Adrenal Insufficiency — Primary, Secondary, &amp; Acute
+      <div class="plo-q">Define primary adrenal insufficiency, secondary adrenal insufficiency, and acute adrenal insufficiency</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <table>
+      <tr><th>Type</th><th>Definition</th><th>Mechanism/Pathophysiology</th><th>Key Clinical Features</th></tr>
+      <tr>
+        <td><strong class="hl-red">Primary Adrenal Insufficiency</strong><br><small>(Addison's Disease)</small></td>
+        <td><span class="hl-red">Direct damage to the adrenal glands</span> → hormone deficiency</td>
+        <td><span class="hl-red">Damage to adrenal cortex</span> → ↓cortisol &amp; aldosterone. <strong class="hl-red">High ACTH → hyperpigmentation</strong></td>
+        <td>Fatigue · Weight loss · Hypotension · Salt craving · <strong class="hl-red">Hyperpigmentation ★</strong></td>
+      </tr>
+      <tr>
+        <td><strong class="hl-orange">Secondary Adrenal Insufficiency</strong></td>
+        <td><span class="hl-orange">Insufficient ACTH secretion</span> by pituitary → cortisol deficiency</td>
+        <td><span class="hl-orange">Pituitary dysfunction → inadequate ACTH</span>. <span class="hl-green">Aldosterone usually normal</span> (renin-angiotensin regulation intact)</td>
+        <td>Fatigue · Weight loss · Hypotension · <strong>No hyperpigmentation ★</strong></td>
+      </tr>
+      <tr>
+        <td><strong class="hl-red">Acute Adrenal Insufficiency (Adrenal Crisis)</strong></td>
+        <td><span class="hl-red">Sudden, life-threatening drop in cortisol</span> — often in stressed or undiagnosed patients</td>
+        <td>Acute decompensation triggered by <strong class="hl-red">stress (infection, trauma, surgery)</strong>. May occur with abrupt glucocorticoid withdrawal. <span class="hl-red">Requires urgent care!</span></td>
+        <td>Severe hypotension · <strong class="hl-red">Shock</strong> · Abdominal pain · Vomiting · Confusion<br><span class="tag tag-red">Treat: Rapid IV Hydrocortisone + Fluid support</span></td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+
+<!-- PLO 14 -->
+<div class="section-card s-purple">
+  <div class="section-header">
+    <span class="section-num">PLO 14</span>
+    <span class="section-icon">💊</span>
+    <div>
+      Synthetic Corticosteroids — Pharmacodynamics &amp; Pharmacokinetics
+      <div class="plo-q">Describe the pharmacodynamics (MOA) of synthetic corticosteroids (glucocorticoids and mineralocorticoids) and pharmacokinetics (ADME) of synthetic glucocorticoids</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">💊</span>
+      <span>Corticosteroids = hormones produced by the adrenal cortex OR their synthetic analogs. Two classes: <span class="hl-orange">Glucocorticoids</span> (anti-inflammatory, immunosuppressive) and <span class="hl-purple">Mineralocorticoids</span> (electrolyte/fluid regulation).</span>
+    </div>
+
+    <table>
+      <tr><th>Drug Class</th><th>Drugs</th><th>MOA</th><th>Overall Effect</th><th>Adverse Effects</th><th>Excretion</th></tr>
+      <tr>
+        <td><strong class="hl-orange">Glucocorticoids</strong></td>
+        <td>Cortisol · Prednisone · Triamcinolone · <span class="tag tag-red">Dexamethasone</span></td>
+        <td><span class="hl-orange">Binds glucocorticoid receptors (GRs)</span> in cytoplasm → complex → nucleus → regulates gene expression (activate or inhibit transcription)</td>
+        <td>Anti-inflammatory · Immunosuppressive</td>
+        <td>Adrenal atrophy · Osteoporosis · Diabetes · <span class="hl-red">Cushingoid symptoms</span> · Weight gain · Muscle wasting · HTN · Steroid psychosis</td>
+        <td>Metabolized by <span class="hl-red">CYP3A</span>. <strong class="hl-red">CYP3A inducers ↓ levels</strong></td>
+      </tr>
+      <tr>
+        <td><strong class="hl-purple">Mineralocorticoids</strong></td>
+        <td>Aldosterone · <span class="tag tag-purple">Fludrocortisone</span></td>
+        <td><span class="hl-purple">Binds mineralocorticoid receptors (MRs)</span> in kidney, colon, sweat glands → ↑Na⁺ reabsorption + K⁺ excretion (upregulates Na⁺/K⁺ ATPase &amp; ENaC in distal tubules)</td>
+        <td>Electrolyte &amp; fluid retention</td>
+        <td>Fludrocortisone: <span class="hl-red">Hypertension · Edema · Hypokalemia</span> (due to Na⁺ retention and K⁺ excretion)</td>
+        <td>Not extensively metabolized</td>
+      </tr>
+    </table>
+
+    <div class="alert alert-warn">
+      <span class="alert-icon">⚠️</span>
+      <span><strong>Key PK point:</strong> Glucocorticoids are metabolized by CYP3A. <span class="hl-red">CYP3A inducers</span> (rifampin, phenytoin, carbamazepine) <strong>decrease glucocorticoid levels</strong> → risk of treatment failure.</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!--  DR. FERLAND — CLINICAL TRIAL DESIGN                -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="part-sep purple">
+  <div class="line"></div>
+  <div class="part-label">👨‍⚕️ Dr. Ferland — Clinical Trial Design</div>
+  <div class="line"></div>
+</div>
+
+<!-- PLO 11 -->
+<div class="section-card s-teal">
+  <div class="section-header">
+    <span class="section-num">PLO 11</span>
+    <span class="section-icon">🔬</span>
+    <div>
+      Superiority, Non-Inferiority &amp; Equivalence Trials
+      <div class="plo-q">Define the conditions for the application of superiority, non-inferiority, and equivalence trials</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <table>
+      <tr><th>Feature</th><th>Superiority Trial</th><th>Non-Inferiority Trial</th><th>Equivalence Trial</th></tr>
+      <tr>
+        <td><strong>Characteristics</strong></td>
+        <td>Tests if new intervention is <span class="hl-green">better</span> than control</td>
+        <td>Tests if new intervention is <span class="hl-orange">not unacceptably worse</span> than standard</td>
+        <td>Tests if new intervention is <span class="hl-blue">similar (neither significantly worse nor better)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Condition</strong></td>
+        <td>Novel vs <span class="hl-red">non-standard</span> intervention</td>
+        <td>Novel vs <span class="hl-red">standard</span> intervention</td>
+        <td>Novel vs <span class="hl-red">standard</span> (e.g., generic drug)</td>
+      </tr>
+      <tr>
+        <td><strong>Control</strong></td>
+        <td>Placebo or non-standard</td>
+        <td>Standard intervention</td>
+        <td>Standard intervention</td>
+      </tr>
+      <tr>
+        <td><strong>Hypothesis Type</strong></td>
+        <td>Two-tailed</td>
+        <td>One-tailed</td>
+        <td>Two-tailed</td>
+      </tr>
+      <tr>
+        <td><strong>Statistical Range</strong></td>
+        <td><span class="tag tag-teal">μ₁ − μ₀ ≠ 0</span></td>
+        <td><span class="tag tag-teal">μ₁ − μ₀ &gt; −Δ</span></td>
+        <td><span class="tag tag-teal">−Δ ≤ μ₁ − μ₀ ≤ Δ</span></td>
+      </tr>
+      <tr>
+        <td><strong>Key to Hypothesis</strong></td>
+        <td>Effect size (d)</td>
+        <td>Effect size (d) + clinically meaningful difference (Δ)</td>
+        <td>Effect size (d) + clinically meaningful difference (Δ)</td>
+      </tr>
+      <tr>
+        <td><strong>Analysis</strong></td>
+        <td>ITT (Intention-to-Treat)</td>
+        <td>ITT + per-protocol</td>
+        <td>ITT + per-protocol</td>
+      </tr>
+      <tr>
+        <td><strong>Reporting</strong></td>
+        <td>P-value + CI</td>
+        <td><span class="hl-red">Confidence Interval (CI)</span></td>
+        <td><span class="hl-red">Confidence Interval (CI)</span></td>
+      </tr>
+    </table>
+
+    <div class="subsection">
+      <div class="subsection-title">📘 Examples</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Superiority Trial</strong>
+          A pharmaceutical company develops a new BP medication and wants to test if it is <em>more effective</em> than an existing drug.
+        </div>
+        <div class="mini-card">
+          <strong>Non-Inferiority Trial</strong>
+          A once-daily antibiotic vs a twice-daily standard antibiotic for pneumonia. Goal: new drug is <em>not significantly worse</em>, while offering better adherence and fewer side effects.
+        </div>
+        <div class="mini-card">
+          <strong>Equivalence Trial</strong>
+          A generic inhaler manufacturer wants to show their drug delivers the <em>same therapeutic effect</em> as the brand-name inhaler within a predefined equivalence margin.
+        </div>
+        <div class="mini-card" style="background:var(--teal-l)">
+          <strong style="color:var(--teal)">Key Distinction</strong>
+          Superiority uses <span class="tag tag-teal">non-standard/placebo control</span><br>
+          Non-inferiority &amp; Equivalence use <span class="tag tag-red">standard treatment control</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PLO 12 -->
+<div class="section-card s-gray">
+  <div class="section-header">
+    <span class="section-num">PLO 12</span>
+    <span class="section-icon">📊</span>
+    <div>
+      Plotting &amp; Interpreting Trial Results
+      <div class="plo-q">Describe the ways in which superiority, noninferiority, and equivalence trials are plotted and interpreted</div>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">📈</span>
+      <span>Trial results are presented as <span class="hl-red">Confidence Intervals (CIs)</span> on a number line, centered around 0 (no difference). Where the CI falls relative to 0 and Δ determines the conclusion. <strong>The CI must avoid key boundaries to declare success.</strong></span>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="subsection-title" style="color:var(--gray)">Superiority — CI vs 0</div>
+        <table>
+          <tr><th>CI Position</th><th>Interpretation</th></tr>
+          <tr><td><span class="tag tag-green">CI entirely above 0</span></td><td>New treatment is <strong>superior</strong> ✅</td></tr>
+          <tr><td><span class="tag tag-orange">CI crosses 0</span></td><td>No significant difference (superiority not proven) ❌</td></tr>
+          <tr><td><span class="tag tag-red">CI entirely below 0</span></td><td>Control is superior ❌</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="subsection-title" style="color:var(--gray)">Non-Inferiority — CI vs −Δ</div>
+        <table>
+          <tr><th>CI Position</th><th>Interpretation</th></tr>
+          <tr><td><span class="tag tag-green">CI entirely above −Δ</span></td><td>Non-inferiority is proven ✅</td></tr>
+          <tr><td><span class="tag tag-orange">CI crosses −Δ</span></td><td>Non-inferiority not proven ❌</td></tr>
+          <tr><td><span class="tag tag-red">CI entirely below −Δ</span></td><td>New treatment is inferior ❌</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Equivalence — CI vs Both Boundaries (−Δ and +Δ)</div>
+      <table>
+        <tr><th>CI Position</th><th>Interpretation</th></tr>
+        <tr><td><span class="tag tag-green">CI entirely within (−Δ, +Δ)</span></td><td>Treatments are <strong>equivalent</strong> ✅</td></tr>
+        <tr><td><span class="tag tag-red">CI extends beyond −Δ or +Δ</span></td><td>Equivalence is not proven ❌</td></tr>
+      </table>
+    </div>
+
+    <div class="alert alert-key">
+      <span class="alert-icon">🔑</span>
+      <span><strong>Remember:</strong> For <span class="hl-gray">Superiority</span> the boundary is 0. For <span class="hl-gray">Non-Inferiority</span> the boundary is <strong>−Δ</strong> (one side only). For <span class="hl-gray">Equivalence</span> the CI must fit inside <strong>both −Δ and +Δ</strong>.</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- HIGH YIELD SUMMARY -->
+<div class="section-card s-red">
+  <div class="section-header">
+    <span class="section-num">★★★</span>
+    <span class="section-icon">⭐</span>
+    Ultra-High Yield Exam Triggers — Week 38
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title" style="color:var(--red)">Testosterone &amp; HPG Axis ★★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Key Pathways</strong>
+          <span class="tag tag-red">Leydig cells → testosterone synthesis (under LH)</span><br>
+          <span class="tag tag-red">StAR protein = rate-limiting step</span><br>
+          <span class="tag tag-red">5α-reductase: Testosterone → DHT (more potent)</span><br>
+          <span class="tag tag-orange">DHT has higher AR affinity than testosterone</span><br>
+          <span class="tag tag-blue">98% bound (SHBG/albumin), only 2% free &amp; active</span>
+        </div>
+        <div class="mini-card">
+          <strong>Feedback Buzzwords</strong>
+          <span class="tag tag-red">↑Testosterone → inhibits GnRH &amp; LH (negative feedback)</span><br>
+          <span class="tag tag-red">Inhibin B → selectively inhibits FSH ONLY</span><br>
+          <span class="tag tag-orange">FSH → Sertoli cells → ABP + Inhibin B</span><br>
+          <span class="tag tag-green">GnRH released by NE, Leptin, Neuropeptide Y</span><br>
+          <span class="tag tag-purple">GnRH inhibited by β-endorphin, GABA, dopamine</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title" style="color:var(--red)">Adrenal Gland ★★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Zones (Salt-Sugar-Sex)</strong>
+          <span class="tag tag-green">Zona Glomerulosa → Aldosterone (Salt)</span><br>
+          <span class="tag tag-orange">Zona Fasciculata → Cortisol (Stress/Sugar)</span><br>
+          <span class="tag tag-red">Zona Reticularis → Androgens (Sex)</span><br>
+          <span class="tag tag-purple">Medulla → Epi (80%) + NorEpi (20%)</span>
+        </div>
+        <div class="mini-card">
+          <strong>Key Clinical Points</strong>
+          <span class="tag tag-red">Primary adrenal insufficiency = HIGH ACTH → hyperpigmentation</span><br>
+          <span class="tag tag-orange">Secondary = no hyperpigmentation (aldosterone usually normal)</span><br>
+          <span class="tag tag-red">Adrenal crisis → Rapid IV hydrocortisone + fluids</span><br>
+          <span class="tag tag-purple">PNMT (NE → Epi) maintained by cortisol</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title" style="color:var(--red)">Cortisol &amp; HPA ★★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>HPA Axis Chain</strong>
+          <span class="tag tag-purple">Hypothalamus → CRH</span><br>
+          <span class="tag tag-blue">Anterior Pituitary → ACTH</span><br>
+          <span class="tag tag-orange">Adrenal Cortex (Zona Fasciculata) → Cortisol</span><br>
+          <span class="tag tag-red">High cortisol → inhibits CRH + ACTH (neg. feedback)</span>
+        </div>
+        <div class="mini-card">
+          <strong>Cortisol Circadian Rhythm</strong>
+          <span class="tag tag-red">Peak: 6–8 AM (prepare for wakefulness)</span><br>
+          <span class="tag tag-green">Lowest: midnight–4 AM (sleep &amp; tissue repair)</span><br>
+          Controlled by: SCN + light exposure + HPA axis<br>
+          Chronic stress → <span class="tag tag-red">elevated evening cortisol</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title" style="color:var(--red)">Clinical Trials ★★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Trial Type Triggers</strong>
+          <span class="tag tag-teal">Novel vs placebo/non-standard → Superiority</span><br>
+          <span class="tag tag-orange">Novel vs standard, show "not worse" → Non-Inferiority</span><br>
+          <span class="tag tag-blue">Generic vs brand, show "same" → Equivalence</span>
+        </div>
+        <div class="mini-card">
+          <strong>CI Interpretation Rules</strong>
+          <span class="tag tag-red">Superiority: CI entirely ABOVE 0 ✅</span><br>
+          <span class="tag tag-orange">Non-Inferiority: CI entirely ABOVE −Δ ✅</span><br>
+          <span class="tag tag-blue">Equivalence: CI fits WITHIN (−Δ, +Δ) ✅</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<p style="text-align:center;font-size:0.8rem;color:#9CA3AF;margin-top:20px;padding-bottom:20px">
+  Week 38 Endocrine Notes · Dr. Johnson · Dr. Morganelli · Dr. Ly · Dr. Ferland · Colored = High Yield
+</p>
+
+</div><!-- end container -->
+</body>
+</html>
