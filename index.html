@@ -203,6 +203,17 @@ body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);colo
 .cd-go.pause{background:var(--amber)}
 
 /* ═══ TOOLBAR ═══ */
+.mode-toggle{display:flex;gap:0;margin-bottom:20px;background:var(--white);border-radius:var(--r);border:2px solid var(--rule2);overflow:hidden;box-shadow:var(--sh);animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{flex:1;padding:12px 20px;text-align:center;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:first-child{border-right:2px solid var(--rule2)}
+.mode-btn:hover{color:var(--ink)}
+.mode-btn.active{background:var(--navy);color:#fff}
+.mode-btn .mode-icon{display:block;font-size:20px;margin-bottom:4px}
+.exam-submit-row{margin-top:24px;text-align:center;padding:20px;background:var(--white);border-radius:var(--r);border:2px solid var(--rule2);box-shadow:var(--sh)}
+.exam-submit-row .exam-progress{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--mist);margin-bottom:12px}
+.exam-submit-btn{padding:15px 52px;border-radius:var(--r);background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 4px 16px rgba(224,122,95,0.3)}
+.exam-submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(224,122,95,0.4)}
+.exam-submit-btn:disabled{opacity:0.25;cursor:not-allowed;box-shadow:none;transform:none}
 .tool-panel{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
 .q-tool{padding:9px 20px;border-radius:24px;font-size:14px;font-weight:700;border:2px solid var(--rule);background:var(--white);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);box-shadow:var(--sh)}
 .q-tool:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
@@ -261,7 +272,7 @@ body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);colo
 .qdots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
 .qd{width:14px;height:14px;border-radius:50%;border:2.5px solid var(--rule);background:#fff;cursor:pointer;transition:var(--tr)}
 .qd:hover{transform:scale(1.2)}
-.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,0.2)}.qd.acor{border-color:var(--green);background:var(--green)}.qd.ainc{border-color:var(--red);background:var(--red)}
+.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,0.2)}.qd.acor{border-color:var(--green);background:var(--green)}.qd.ainc{border-color:var(--red);background:var(--red)}.qd.asel{border-color:var(--gold);background:var(--gold)}
 
 /* PLO overlay */
 .plo-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:250;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
@@ -300,6 +311,10 @@ body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);colo
 <div class="score-box correct"><div class="sv" id="sC">0</div><div class="sl">Correct</div></div>
 <div class="score-box incorrect"><div class="sv" id="sI">0</div><div class="sl">Incorrect</div></div>
 <div class="score-box"><div class="sv" id="sP">&mdash;</div><div class="sl">Score</div></div>
+</div>
+<div class="mode-toggle" id="modeToggle">
+<button class="mode-btn active" id="modeLearn" onclick="setMode('learn')"><span class="mode-icon">&#128218;</span>Learn Mode</button>
+<button class="mode-btn" id="modeExam" onclick="setMode('exam')"><span class="mode-icon">&#128221;</span>Exam Mode</button>
 </div>
 <div class="timer-panel">
 <div class="timer-card" id="tD">
@@ -491,6 +506,8 @@ var TI=null,TS=0,TR=false;
 var CDminutes=10,CDrem=0,CDrun=false,CDint=null;
 var toolMode='';
 var selAnswer={};
+var quizMode='learn'; /* 'learn' or 'exam' */
+var examDone=false;
 var LOGO='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYmm1AklYXu49IjGprhVR1dd28rLsVLlIcuA&s';
 
 /* Progress Tests / CE Config */
@@ -509,29 +526,8 @@ document.addEventListener('mouseup',function(){
   if(!qbd)return;
   var r=sel.getRangeAt(0);
   if(!qbd.contains(r.commonAncestorContainer))return;
-  var tag=toolMode==='hl'?'MARK':'S';
-  /* Check if selection is entirely inside an existing tag of same type — toggle off */
-  var parent=r.commonAncestorContainer;
-  if(parent.nodeType===3)parent=parent.parentNode;
-  if(parent&&parent.tagName===tag){
-    /* Unwrap: replace the tag with its text */
-    var txt=document.createTextNode(parent.textContent);
-    parent.parentNode.replaceChild(txt,parent);
-    sel.removeAllRanges();return;
-  }
-  /* Also check if any child of range is already tagged — remove those first */
-  var existing=r.cloneContents().querySelectorAll(tag.toLowerCase()+','+tag);
-  if(existing.length>0){
-    /* Unwrap existing tags in selection first */
-    var container=r.commonAncestorContainer.nodeType===3?r.commonAncestorContainer.parentNode:r.commonAncestorContainer;
-    container.querySelectorAll(tag.toLowerCase()+','+tag).forEach(function(el){
-      if(sel.containsNode(el,true)){
-        el.replaceWith(document.createTextNode(el.textContent));
-      }
-    });
-    sel.removeAllRanges();return;
-  }
-  try{var wrap=document.createElement(tag);r.surroundContents(wrap)}catch(e){var frag=r.extractContents();var wrap2=document.createElement(tag);wrap2.appendChild(frag);r.insertNode(wrap2)}
+  lastRange=r.cloneRange();
+  applyToolToRange(r,toolMode);
   sel.removeAllRanges();
 })}
 
@@ -595,13 +591,31 @@ function openPLO(wn,ai){var a=DATA[CC].weeks[wn].assessments[ai];if(a.ploFile){w
 function closePLO(){document.getElementById('ploOv').classList.remove('open')}
 
 /* ═══ QUIZ ═══ */
-function openQ(wn,qi,src){var qz=src==='assess'?DATA[CC].weeks[wn].assessments[qi]:DATA[CC].weeks[wn].quizzes[qi];AQ={w:wn,i:qi,q:qz,src:src};CQ=0;AQS={};NC=0;NI=0;selAnswer={};toolMode='';rstT();stopCd();CDminutes=10;document.getElementById('cdVal').textContent='10';document.getElementById('cdTime').textContent='--:--';document.getElementById('cdBox').classList.remove('active','warn');document.getElementById('cdGoBtn').innerHTML='&#9654; Start';document.getElementById('hlTool').classList.remove('active');document.getElementById('stTool').classList.remove('active');document.getElementById('qoT').textContent=qz.name;document.getElementById('qo').classList.add('open');document.body.style.overflow='hidden';document.getElementById('printBtn').style.display='none';uSt();rQ()}
+function openQ(wn,qi,src){var qz=src==='assess'?DATA[CC].weeks[wn].assessments[qi]:DATA[CC].weeks[wn].quizzes[qi];AQ={w:wn,i:qi,q:qz,src:src};CQ=0;AQS={};NC=0;NI=0;selAnswer={};toolMode='';quizMode='learn';examDone=false;lastRange=null;rstT();stopCd();CDminutes=10;document.getElementById('cdVal').textContent='10';document.getElementById('cdTime').textContent='--:--';document.getElementById('cdBox').classList.remove('active','warn');document.getElementById('cdGoBtn').innerHTML='&#9654; Start';document.getElementById('hlTool').classList.remove('active');document.getElementById('stTool').classList.remove('active');document.getElementById('modeLearn').classList.add('active');document.getElementById('modeExam').classList.remove('active');document.getElementById('qoT').textContent=qz.name;document.getElementById('qo').classList.add('open');document.body.style.overflow='hidden';document.getElementById('printBtn').style.display='none';uSt();rQ()}
 function closeQ(){document.getElementById('qo').classList.remove('open');document.body.style.overflow='';pT();stopCd();AQ=null;document.getElementById('printBtn').style.display='none'}
-function resetQ(){CQ=0;AQS={};NC=0;NI=0;selAnswer={};toolMode='';rstT();stopCd();CDminutes=10;document.getElementById('cdVal').textContent='10';document.getElementById('cdTime').textContent='--:--';document.getElementById('cdBox').classList.remove('active','warn');document.getElementById('cdGoBtn').innerHTML='&#9654; Start';document.getElementById('hlTool').classList.remove('active');document.getElementById('stTool').classList.remove('active');uSt();rQ();document.getElementById('printBtn').style.display='none'}
+function resetQ(){CQ=0;AQS={};NC=0;NI=0;selAnswer={};toolMode='';examDone=false;lastRange=null;rstT();stopCd();CDminutes=10;document.getElementById('cdVal').textContent='10';document.getElementById('cdTime').textContent='--:--';document.getElementById('cdBox').classList.remove('active','warn');document.getElementById('cdGoBtn').innerHTML='&#9654; Start';document.getElementById('hlTool').classList.remove('active');document.getElementById('stTool').classList.remove('active');uSt();rQ();document.getElementById('printBtn').style.display='none'}
 function uSt(){document.getElementById('sC').textContent=NC;document.getElementById('sI').textContent=NI;var t=NC+NI;document.getElementById('sP').textContent=t>0?Math.round(NC/t*100)+'%':'\u2014';if(AQ&&t===AQ.q.questions.length&&t>0)document.getElementById('printBtn').style.display='inline-block'}
 
 /* tools */
-function toggleTool(t){if(toolMode===t){toolMode='';document.getElementById(t==='hl'?'hlTool':'stTool').classList.remove('active')}else{toolMode=t;document.getElementById('hlTool').classList.toggle('active',t==='hl');document.getElementById('stTool').classList.toggle('active',t==='st')}}
+var lastRange=null;
+function toggleTool(t){
+  var wasMode=toolMode;
+  if(toolMode===t){toolMode='';document.getElementById(t==='hl'?'hlTool':'stTool').classList.remove('active')}
+  else{toolMode=t;document.getElementById('hlTool').classList.toggle('active',t==='hl');document.getElementById('stTool').classList.toggle('active',t==='st')}
+  /* Fix #2: If switching tools and there was a saved range, apply new tool to it */
+  if(toolMode&&lastRange&&wasMode&&wasMode!==toolMode){
+    applyToolToRange(lastRange,toolMode);lastRange=null;
+  }
+}
+function applyToolToRange(r,mode){
+  var tag=mode==='hl'?'MARK':'S';
+  var parent=r.commonAncestorContainer;
+  if(parent.nodeType===3)parent=parent.parentNode;
+  if(parent&&parent.tagName===tag){var txt=document.createTextNode(parent.textContent);parent.parentNode.replaceChild(txt,parent);return}
+  var existing=r.cloneContents().querySelectorAll(tag.toLowerCase()+','+tag);
+  if(existing.length>0){var container=r.commonAncestorContainer.nodeType===3?r.commonAncestorContainer.parentNode:r.commonAncestorContainer;container.querySelectorAll(tag.toLowerCase()+','+tag).forEach(function(el){el.replaceWith(document.createTextNode(el.textContent))});return}
+  try{var wrap=document.createElement(tag);r.surroundContents(wrap)}catch(e){var frag=r.extractContents();var wrap2=document.createElement(tag);wrap2.appendChild(frag);r.insertNode(wrap2)}
+}
 function clearMarks(){var qbd=document.querySelector('.qbd');if(!qbd)return;qbd.querySelectorAll('mark,s').forEach(function(m){m.replaceWith(document.createTextNode(m.textContent))})}
 
 /* countdown +/- */
@@ -611,18 +625,53 @@ function resetCd(){stopCd();CDrem=0;document.getElementById('cdTime').textConten
 function stopCd(){CDrun=false;clearInterval(CDint)}
 function uCdD(){var m=Math.floor(CDrem/60),s=CDrem%60;document.getElementById('cdTime').textContent=m+':'+s.toString().padStart(2,'0');document.getElementById('cdBox').classList.toggle('warn',CDrem<=60)}
 
-/* click choice */
-function clickChoice(i){if(!AQ||AQS[CQ]||toolMode)return;selAnswer[CQ]=i;rQ()}
+/* click choice - works regardless of toolMode */
+function clickChoice(i){if(!AQ)return;if(quizMode==='exam'){if(examDone)return}else{if(AQS[CQ])return}selAnswer[CQ]=i;rQ()}
 function submitAns(){if(!AQ||AQS[CQ]||selAnswer[CQ]===undefined)return;var i=selAnswer[CQ],q=AQ.q.questions[CQ],ok=i===q.correct;AQS[CQ]={s:i,r:ok?'c':'i'};if(ok)NC++;else NI++;uSt();rQ()}
+/* Exam mode: submit all at once */
+function submitExam(){if(!AQ)return;var qs=AQ.q.questions;NC=0;NI=0;
+for(var i=0;i<qs.length;i++){if(selAnswer[i]!==undefined){var ok=selAnswer[i]===qs[i].correct;AQS[i]={s:selAnswer[i],r:ok?'c':'i'};if(ok)NC++;else NI++}else{AQS[i]={s:-1,r:'i'};NI++}}
+examDone=true;uSt();CQ=0;rQ()}
 
-function rQ(){if(!AQ)return;var a=document.getElementById('qA'),qs=AQ.q.questions,q=qs[CQ],tot=qs.length,ans=AQS[CQ],pg=(CQ+1)/tot*100,L=['A','B','C','D','E'],hasSel=selAnswer[CQ]!==undefined;
-var dots='<div class="qdots">';for(var i=0;i<tot;i++){var c='';if(i===CQ)c='cur';else if(AQS[i]&&AQS[i].r==='c')c='acor';else if(AQS[i]&&AQS[i].r==='i')c='ainc';dots+='<div class="qd '+c+'" onclick="gQ('+i+')"></div>'}dots+='</div>';
+function setMode(m){if(Object.keys(AQS).length>0)return;/* can't switch after answering */quizMode=m;examDone=false;document.getElementById('modeLearn').classList.toggle('active',m==='learn');document.getElementById('modeExam').classList.toggle('active',m==='exam');rQ()}
+
+function rQ(){if(!AQ)return;var a=document.getElementById('qA'),qs=AQ.q.questions,q=qs[CQ],tot=qs.length,L=['A','B','C','D','E'],hasSel=selAnswer[CQ]!==undefined;
+var isExam=quizMode==='exam';
+var ans=AQS[CQ]; /* only set if graded */
+var pg=(CQ+1)/tot*100;
+
+/* Lock mode toggle once started */
+var mt=document.getElementById('modeToggle');
+if(Object.keys(selAnswer).length>0||Object.keys(AQS).length>0)mt.style.opacity='0.4';else mt.style.opacity='1';
+
+/* dots */
+var dots='<div class="qdots">';for(var i=0;i<tot;i++){var c='';
+if(i===CQ)c='cur';
+else if(AQS[i]&&AQS[i].r==='c')c='acor';
+else if(AQS[i]&&AQS[i].r==='i')c='ainc';
+else if(isExam&&selAnswer[i]!==undefined)c='asel';
+dots+='<div class="qd '+c+'" onclick="gQ('+i+')"></div>'}dots+='</div>';
+
+/* choices */
 var ch=q.choices.map(function(c,i){var cl='';
-if(ans){cl='dis';if(i===q.correct)cl+=' shc';if(ans.s===i&&i===q.correct)cl='dis cor';if(ans.s===i&&i!==q.correct)cl='dis inc'}else{if(selAnswer[CQ]===i)cl='sel'}
+if(ans){cl='dis';if(i===q.correct)cl+=' shc';if(ans.s===i&&i===q.correct)cl='dis cor';if(ans.s===i&&i!==q.correct)cl='dis inc'}
+else{if(selAnswer[CQ]===i)cl='sel'}
 return'<div class="ac '+cl+'" onclick="clickChoice('+i+')"><div class="cl">'+L[i]+'</div><div class="ctx">'+c.replace(/^[A-E]\.\s*/,'')+'</div></div>'}).join('');
-var submitH='';if(!ans){submitH='<div class="submit-row"><button class="submit-btn" onclick="submitAns()"'+(hasSel?'':' disabled')+'>Submit Answer</button></div>'}
+
+/* bottom action */
+var submitH='';
+if(isExam&&!examDone){
+  /* In exam mode: show exam submit panel at bottom */
+  var answered=Object.keys(selAnswer).length;
+  submitH='<div class="exam-submit-row"><div class="exam-progress">'+answered+' of '+tot+' answered</div><button class="exam-submit-btn" onclick="submitExam()"'+(answered>0?'':' disabled')+'>Submit Exam ('+answered+'/'+tot+')</button></div>';
+}else if(!isExam&&!ans){
+  submitH='<div class="submit-row"><button class="submit-btn" onclick="submitAns()"'+(hasSel?'':' disabled')+'>Submit Answer</button></div>';
+}
+
+/* explanations - only show if graded */
 var yw='';if(ans&&ans.s!==q.correct&&q.wrongExplanations&&q.wrongExplanations[ans.s])yw='<div class="exs exw"><div class="exl">\u2717 Why '+L[ans.s]+' is Wrong</div><div class="ext">'+q.wrongExplanations[ans.s]+'</div></div>';
-var ow='';if(q.wrongExplanations){var ot=Object.keys(q.wrongExplanations).filter(function(k){return+k!==q.correct&&(!ans||+k!==ans.s)}).map(function(k){return'<div class="wce"><strong>'+L[+k]+':</strong> '+q.wrongExplanations[k]+'</div>'}).join('');if(ot)ow='<div class="exs exw"><div class="exl">\u2717 Other Wrong Choices</div><div class="ext">'+ot+'</div></div>'}
+var ow='';if(ans&&q.wrongExplanations){var ot=Object.keys(q.wrongExplanations).filter(function(k){return+k!==q.correct&&(!ans||+k!==ans.s)}).map(function(k){return'<div class="wce"><strong>'+L[+k]+':</strong> '+q.wrongExplanations[k]+'</div>'}).join('');if(ot)ow='<div class="exs exw"><div class="exl">\u2717 Other Wrong Choices</div><div class="ext">'+ot+'</div></div>'}
+
 a.innerHTML='<div class="qcd"><div class="qpg"><div class="qpf" style="width:'+pg+'%"></div></div><div class="qbd"><div class="qnum">Question '+(CQ+1)+' of '+tot+'</div><div class="qstem">'+q.stem+'</div><div class="ach">'+ch+'</div>'+submitH+'<div class="exb'+(ans?' vis':'')+'"><div class="exs exc"><div class="exl">\u2713 Why '+L[q.correct]+' is Correct</div><div class="ext">'+q.explanation+'</div></div>'+yw+ow+'<div class="exs exe"><div class="exl">\uD83D\uDCA1 ELI5</div><div class="ext">'+q.eli5+'</div></div></div></div><div class="qnv"><button class="nb" onclick="pQ()" '+(CQ===0?'disabled':'')+'>&#8592; Prev</button>'+dots+'<button class="nb pr" onclick="nQ()" '+(CQ===tot-1?'disabled':'')+'>Next &#8594;</button></div></div>'}
 
 function nQ(){if(CQ<AQ.q.questions.length-1){CQ++;rQ()}}
