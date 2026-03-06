@@ -38,6 +38,105 @@
     color: var(--ink);
     font-size: 15px;
     line-height: 1.7;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 0;
+  }
+  @media (max-width: 1200px) {
+    body {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Sidebar Navigation */
+  .sidebar-nav {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFF 100%);
+    border-right: 2px solid #E5EAF3;
+    padding: 28px 0;
+    overflow-y: auto;
+    z-index: 100;
+  }
+  .sidebar-nav::-webkit-scrollbar {
+    width: 6px;
+  }
+  .sidebar-nav::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .sidebar-nav::-webkit-scrollbar-thumb {
+    background: #D1D5DB;
+    border-radius: 3px;
+  }
+  .sidebar-nav::-webkit-scrollbar-thumb:hover {
+    background: #9CA3AF;
+  }
+
+  .nav-title {
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #9CA3AF;
+    padding: 0 16px;
+    margin-bottom: 12px;
+    margin-top: 20px;
+  }
+  .nav-title:first-child {
+    margin-top: 0;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 8px 16px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-left: 3px solid transparent;
+    transition: all 200ms ease;
+    cursor: pointer;
+  }
+  .nav-link:hover {
+    background: #DBEAFE;
+    border-left-color: var(--blue);
+    color: var(--blue);
+  }
+  .nav-link.active {
+    background: var(--blue-l);
+    border-left-color: var(--blue);
+    color: var(--blue);
+  }
+  .nav-link.orange-cat:hover {
+    background: var(--orange-l);
+    border-left-color: var(--orange);
+    color: var(--orange);
+  }
+  .nav-link.orange-cat.active {
+    background: var(--orange-l);
+    border-left-color: var(--orange);
+    color: var(--orange);
+  }
+  .nav-link.purple-cat:hover {
+    background: var(--purple-l);
+    border-left-color: var(--purple);
+    color: var(--purple);
+  }
+  .nav-link.purple-cat.active {
+    background: var(--purple-l);
+    border-left-color: var(--purple);
+    color: var(--purple);
+  }
+
+  .main-content {
+    overflow-y: auto;
+  }
+
+  @media (max-width: 1200px) {
+    .sidebar-nav {
+      display: none;
+    }
   }
   .hero {
     background: linear-gradient(135deg, #1E3A5F 0%, #1D4ED8 45%, #7C3AED 100%);
@@ -471,16 +570,48 @@
     overflow: hidden;
     box-shadow: 0 6px 18px rgba(15,23,42,0.04);
     background: white;
+    margin: 16px 0 20px;
   }
   th {
-    padding: 10px 12px;
+    padding: 12px 14px;
     font-size: 0.77rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    position: sticky;
+    top: 0;
   }
   td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #EEF2F7;
+    padding: 12px 14px;
+    border-bottom: 1px solid #F1F5F9;
+    font-size: 0.9rem;
   }
-  tr:nth-child(even) td { background: #FBFCFE; }
+  tr:nth-child(even) td { 
+    background: #FBFCFE; 
+  }
+  tr:hover td {
+    background: #F0F4F9;
+    transition: background 150ms ease;
+  }
+  
+  /* Table role-based styling */
+  .table-mechanism td:first-child,
+  .table-function td:first-child {
+    font-weight: 700;
+    color: #1E3A8A;
+  }
+  .table-effect td:first-child {
+    font-weight: 700;
+    color: var(--red);
+  }
+  .table-inhibition td:nth-child(3) {
+    color: var(--red);
+    font-weight: 600;
+  }
+  .table-stimulation td:nth-child(3) {
+    color: var(--green);
+    font-weight: 600;
+  }
 
   .figure-block {
     position: relative;
@@ -613,6 +744,32 @@
 </style>
 </head>
 <body>
+<div class="sidebar-nav" id="sidebarNav">
+  <div class="nav-title">Topics</div>
+  <a class="nav-link" href="#plo1" data-section="plo1">Testosterone Synthesis</a>
+  <a class="nav-link" href="#plo2" data-section="plo2">HPG Axis & LH/FSH</a>
+  <a class="nav-link" href="#plo3" data-section="plo3">Negative Feedback</a>
+  <a class="nav-link" href="#plo4" data-section="plo4">Plasma Proteins</a>
+  
+  <div class="nav-title orange-cat">Adrenal</div>
+  <a class="nav-link orange-cat" href="#plo5" data-section="plo5">Adrenal Zones</a>
+  <a class="nav-link orange-cat" href="#plo6" data-section="plo6">Cortisol Forms</a>
+  <a class="nav-link orange-cat" href="#plo7" data-section="plo7">Catecholamines</a>
+  <a class="nav-link orange-cat" href="#plo8" data-section="plo8">HPA Axis</a>
+  <a class="nav-link orange-cat" href="#plo9" data-section="plo9">Circadian Rhythm</a>
+  <a class="nav-link orange-cat" href="#plo10" data-section="plo10">Glucocorticoid Receptors</a>
+  <a class="nav-link orange-cat" href="#plo13" data-section="plo13">Adrenal Insufficiency</a>
+  <a class="nav-link orange-cat" href="#plo14" data-section="plo14">Corticosteroids</a>
+  
+  <div class="nav-title purple-cat">Clinical Trials</div>
+  <a class="nav-link purple-cat" href="#plo11" data-section="plo11">Trial Design</a>
+  <a class="nav-link purple-cat" href="#plo12" data-section="plo12">CI Interpretation</a>
+  
+  <div class="nav-title">Exam Focus</div>
+  <a class="nav-link" href="#exam-focus" data-section="exam">High-Yield Summary</a>
+</div>
+
+<div class="main-content">
 <div class="hero">
 <h1>🧬 Week 38 — Endocrine</h1>
 <p>Dr. Johnson · Dr. Morganelli · Dr. Ly · Dr. Ferland  |  Testosterone · Adrenal Gland · Clinical Trials</p>
@@ -634,7 +791,7 @@
 <div class="line"></div>
 </div>
 <!-- PLO 1 -->
-<div class="section-card s-blue">
+<div class="section-card s-blue" id="plo1">
 <div class="section-header">
 <span class="section-num">PLO 1</span>
 <span class="section-icon">⚗️</span>
@@ -730,7 +887,7 @@
 </div>
 </div>
 <!-- PLO 2 -->
-<div class="section-card s-green">
+<div class="section-card s-green" id="plo2">
 <div class="section-header">
 <span class="section-num">PLO 2</span>
 <span class="section-icon">🧠</span>
@@ -783,7 +940,7 @@
 </div>
 </div>
 <!-- PLO 3 -->
-<div class="section-card s-red">
+<div class="section-card s-red" id="plo3">
 <div class="section-header">
 <span class="section-num">PLO 3</span>
 <span class="section-icon">⬅️</span>
@@ -828,7 +985,7 @@
 </div>
 </div>
 <!-- PLO 4 -->
-<div class="section-card s-purple">
+<div class="section-card s-purple" id="plo4">
 <div class="section-header">
 <span class="section-num">PLO 4</span>
 <span class="section-icon">🩸</span>
@@ -861,7 +1018,7 @@
 <div class="line"></div>
 </div>
 <!-- PLO 5 -->
-<div class="section-card s-orange">
+<div class="section-card s-orange" id="plo5">
 <div class="section-header">
 <span class="section-num">PLO 5</span>
 <span class="section-icon">🧅</span>
@@ -983,7 +1140,7 @@
 </div>
 </div>
 <!-- PLO 8 -->
-<div class="section-card s-orange">
+<div class="section-card s-orange" id="plo8">
 <div class="section-header">
 <span class="section-num">PLO 8</span>
 <span class="section-icon">🏛️</span>
@@ -1139,7 +1296,7 @@
 <div class="line"></div>
 </div>
 <!-- PLO 13 -->
-<div class="section-card s-red">
+<div class="section-card s-red" id="plo13">
 <div class="section-header">
 <span class="section-num">PLO 13</span>
 <span class="section-icon">🚨</span>
@@ -1218,7 +1375,7 @@
 <div class="line"></div>
 </div>
 <!-- PLO 11 -->
-<div class="section-card s-teal">
+<div class="section-card s-teal" id="plo11">
 <div class="section-header">
 <span class="section-num">PLO 11</span>
 <span class="section-icon">🔬</span>
@@ -1304,7 +1461,7 @@
 </div>
 </div>
 <!-- PLO 12 -->
-<div class="section-card s-gray">
+<div class="section-card s-gray" id="plo12">
 <div class="section-header">
 <span class="section-num">PLO 12</span>
 <span class="section-icon">📊</span>
@@ -1354,7 +1511,7 @@
 </div>
 </div>
 <!-- HIGH YIELD SUMMARY -->
-<div class="section-card s-red">
+<div class="section-card s-red" id="exam">
 <div class="section-header">
 <span class="section-num">★★★</span>
 <span class="section-icon">⭐</span>
@@ -1443,6 +1600,7 @@
   Week 38 Endocrine Notes · Dr. Johnson · Dr. Morganelli · Dr. Ly · Dr. Ferland · Colored = High Yield
 </p>
 </div><!-- end container -->
+</div><!-- end main-content -->
 
 <div aria-hidden="true" class="image-lightbox" id="imageLightbox">
   <button aria-label="Close enlarged image" class="image-lightbox-close" id="lightboxClose" type="button">×</button>
@@ -1451,6 +1609,46 @@
     <div class="image-lightbox-caption" id="lightboxCaption"></div>
   </div>
 </div>
+
+<script>
+// Sidebar Navigation Active State
+document.addEventListener('DOMContentLoaded', function() {
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  // Smooth scroll on link click
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const section = this.getAttribute('data-section');
+      const target = document.getElementById(section);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  
+  // Update active link on scroll
+  window.addEventListener('scroll', function() {
+    let current = '';
+    const sections = document.querySelectorAll('[id^="plo"]');
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop - 200) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('data-section') === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+});
+</script>
 
 <script>
 (function () {
