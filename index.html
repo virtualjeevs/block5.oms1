@@ -584,8 +584,8 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
 }
 
 
-.easter-egg-modal{position:fixed;inset:0;z-index:12000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(3,11,20,.72);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .28s ease}
-.easter-egg-modal.open{opacity:1;pointer-events:auto}
+.easter-egg-modal{position:fixed;inset:0;z-index:12000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,11,20,.72);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .28s ease}
+.easter-egg-modal.open{display:flex;opacity:1;pointer-events:auto}
 .easter-egg-shell{width:min(760px,92vw);transform:translateY(20px) scale(.98);transition:transform .3s ease}
 .easter-egg-modal.open .easter-egg-shell{transform:translateY(0) scale(1)}
 .easter-egg-card{position:relative;overflow:hidden;padding:28px;border-radius:28px;background:linear-gradient(180deg, rgba(11,22,38,.96), rgba(7,15,27,.96));border:1px solid rgba(255,255,255,.08);box-shadow:0 28px 80px rgba(0,0,0,.34)}
@@ -620,8 +620,9 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
 }
 
 
-.media-modal{position:fixed;inset:0;z-index:12100;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(3,11,20,.72);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .28s ease}
-.media-modal.open{opacity:1;pointer-events:auto}
+.media-modal{position:fixed;inset:0;z-index:12100;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,11,20,.72);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .28s ease}
+.media-modal.open{display:flex;opacity:1;pointer-events:auto}
+/* Keep closed fullscreen modals out of the hit-testing tree so they can't steal wheel/scroll in Safari. */
 .media-shell{width:min(1040px,94vw);transform:translateY(20px) scale(.98);transition:transform .3s ease}
 .media-modal.open .media-shell{transform:translateY(0) scale(1)}
 .media-card{position:relative;overflow:hidden;padding:22px;border-radius:28px;background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(246,243,236,.98));border:1px solid rgba(18,32,60,.08);box-shadow:0 28px 80px rgba(0,0,0,.24)}
@@ -852,7 +853,7 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
         </div>
       </div>
       <div class="media-frame-wrap">
-        <iframe class="media-frame" id="mediaFrame" src="" title="Embedded review media" width="640" height="480" frameborder="0" allowfullscreen></iframe>
+        <iframe class="media-frame" id="mediaFrame" src="" title="Embedded review media" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   </div>
@@ -1420,6 +1421,11 @@ var AUTH_CUSTOM_USERS=loadCustomUsers();
 var AUTH_USERS={};
 var AUTH_STATE={user:null,admin:false};
 var AUTH_SPECIAL_WELCOMES={
+  'cguan@une.edu':{
+    src:'https://i.chzbgr.com/full/9292157696/hE57BA7E2/vertebrate',
+    alt:'Cindy special welcome image',
+    caption:'<strong>Cindy mode activated.</strong> A very important vertebrate has entered the study hub.'
+  },
   'deverly@une.edu':{
     src:'https://media.tenor.com/JN_A8-7-KlgAAAAM/what%27s-up-sup.gif',
     alt:'Duck waving hello',
@@ -2137,27 +2143,27 @@ function closeMediaModal(){
 }
 function openMediaModal(title,kicker,previewUrl,openUrl,opts){
   var modal=document.getElementById('mediaModal');
-  var frameWrap=document.querySelector('#mediaModal .media-frame-wrap');
+  var frame=document.getElementById('mediaFrame');
   var titleEl=document.getElementById('mediaTitle');
   var kickerEl=document.getElementById('mediaKicker');
   var subEl=document.getElementById('mediaSub');
   var linkEl=document.getElementById('mediaOpenLink');
   var options=opts||{};
-  if(!modal||!frameWrap)return;
+  if(!modal||!frame)return;
   if(titleEl)titleEl.textContent=title||'Embedded review';
   if(kickerEl)kickerEl.textContent=kicker||'Embedded review';
-  if(subEl)subEl.textContent=options.subtext||'Press Esc or click outside to close. This is using the plain Google Drive preview iframe.';
+  if(subEl)subEl.textContent=options.subtext||'Press Esc or click outside to close. If the embed stays blank, use the Google Drive button.';
   modal.classList.toggle('is-podcast',!!options.isPodcast);
   if(linkEl){
     linkEl.href=openUrl||previewUrl||'#';
     linkEl.style.display=(openUrl||previewUrl)?'inline-flex':'none';
   }
-  var safeUrl=previewUrl||'';
-  var frameTitle=(title||'Embedded review media')+(options.isPodcast?' audio player':'');
-  frameWrap.innerHTML='<iframe class="media-frame" id="mediaFrame" src="'+safeUrl+'" title="'+frameTitle.replace(/"/g,'&quot;')+'" width="640" height="480" frameborder="0" allowfullscreen></iframe>';
+  frame.removeAttribute('src');
+  frame.src=previewUrl||'';
+  frame.title=(title||'Embedded review media')+(options.isPodcast?' audio player':'');
   modal.classList.add('open');
   modal.setAttribute('aria-hidden','false');
-  MEDIA_MODAL_CLEANUP=function(){document.body.style.overflow=''; modal.classList.remove('is-podcast'); frameWrap.innerHTML='<iframe class="media-frame" id="mediaFrame" src="" title="Embedded review media" width="640" height="480" frameborder="0" allowfullscreen></iframe>';};
+  MEDIA_MODAL_CLEANUP=function(){document.body.style.overflow=''; modal.classList.remove('is-podcast');};
   document.body.style.overflow='hidden';
 }
 function openAssessMedia(weekIdx,assessIdx,type){
@@ -2258,6 +2264,11 @@ function handleEasterEggKeydown(ev){
     triggerQuackEgg();
     return;
   }
+  if(EASTER_EGG_BUFFER.endsWith('hvla')){
+    EASTER_EGG_BUFFER='';
+    triggerHvlaEgg();
+    return;
+  }
   if(EASTER_EGG_BUFFER.endsWith('cat')){
     EASTER_EGG_BUFFER='';
     triggerNyanEgg();
@@ -2326,22 +2337,19 @@ function closeEasterEgg(){
   modal.setAttribute('aria-hidden','true');
 }
 function triggerQuackEgg(){
-  var popup=openEggPopup('https://youtu.be/A4OFJktwIog?t=43','quackEgg',1120,760);
   launchEasterEgg({
     theme:'duck',
     icon:'🦆',
     title:'QUACK MODE',
     toastLabel:'Secret unlocked • quack',
-    body:popup
-      ? 'Duck protocol engaged. The anthem popped open at 0:43 in its own window so it behaves on GitHub Pages without the flaky YouTube embed error.'
-      : 'Duck protocol engaged. Your browser blocked the popup, so use the button below to open the anthem at 0:43.',
+    body:'Duck protocol engaged. The anthem now opens right inside the easter-egg modal using the YouTube embed player.',
     mediaSrc:'https://media.tenor.com/JN_A8-7-KlgAAAAM/what%27s-up-sup.gif',
     mediaAlt:'Duck reaction GIF',
-    linkLabel:'Open duck anthem at 0:43',
+    playerSrc:'https://www.youtube.com/embed/A4OFJktwIog?autoplay=1&start=43',
+    playerTitle:'Quack Quack (Captain Feathersword Fell Asleep on His Pirate Ship)',
+    linkLabel:'Open duck anthem on YouTube',
     linkHref:'https://youtu.be/A4OFJktwIog?t=43',
-    note:popup
-      ? 'This skips the broken in-page YouTube player and should be much more reliable.'
-      : 'Allow popups for this site if you want it to auto-open next time.'
+    note:'If YouTube acts up again, the button below still opens the track directly at 0:43.'
   });
 }
 function triggerNyanEgg(){
@@ -2363,20 +2371,30 @@ function triggerNyanEgg(){
   });
 }
 function triggerLogLadyEgg(){
-  var popup=openEggPopup('https://www.youtube.com/watch?v=waxIG84goUQ','logLadyEgg',1120,760);
   launchEasterEgg({
     theme:'loglady',
     icon:'🪵',
     title:'LOG LADY MODE',
     toastLabel:'Secret unlocked • loglady',
-    body:popup
-      ? 'The actual creamed-corn clip opened in its own window so you do not get the broken Reddit preview/comment GIF again.'
-      : 'Your browser blocked the popup, so use the button below to open the actual creamed-corn clip.',
+    body:'The Log Lady has arrived. I swapped in your new photo so the modal finally feels like a proper Twin Peaks shrine.',
+    mediaSrc:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCBj2s6UXzx3CmEMj9BmFu9MTomAjEqxZTcw&s',
+    mediaAlt:'Log Lady portrait',
     linkLabel:'Open Log Lady video',
     linkHref:'https://www.youtube.com/watch?v=waxIG84goUQ',
-    note:popup
-      ? 'I left Reddit out of the player flow because that post kept surfacing a broken preview instead of the video itself.'
-      : 'Allow popups for this site if you want it to auto-open next time.'
+    note:'Use the button below if you want the clip itself; the modal now leads with the new image you found.'
+  });
+}
+function triggerHvlaEgg(){
+  launchEasterEgg({
+    icon:'⚡',
+    title:'HVLA MODE',
+    toastLabel:'Secret unlocked • hvla',
+    body:'High-velocity, low-amplitude unlocked. This one uses the exact Google Drive preview embed you dropped in.',
+    playerSrc:'https://drive.google.com/file/d/1nA6gapO7wW39P_LZEhdhBOnGqiWCMHNc/preview',
+    playerTitle:'HVLA easter egg',
+    linkLabel:'Open HVLA in Google Drive',
+    linkHref:'https://drive.google.com/file/d/1nA6gapO7wW39P_LZEhdhBOnGqiWCMHNc/view',
+    note:'If the preview ever goes dark, the Drive button underneath should still get you there.'
   });
 }
 
