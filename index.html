@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Block 5 — UNE COM Study Hub</title>
 <link id="dynamicFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Ctext y=%2250%22 x=%2232%22 text-anchor=%22middle%22 font-size=%2248%22%3E%F0%9F%A9%BA%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -91,6 +92,7 @@ body,.sb,.auth-card,.mn,.tt,.modal-card,.chip,.qbd,.cd,.r-box,.box,.panel,.auth-
 .mn-hd{padding:30px 48px 26px;flex-shrink:0;background:var(--white);border-bottom:1px solid var(--rule2)}
 .mn-hd h2{font-family:'Crimson Pro',serif;font-size:34px;font-weight:700;color:var(--navy);letter-spacing:-0.5px;line-height:1.15}
 .mn-hd .bc{font-size:15px;color:var(--slate);margin-top:5px}
+.mn-hd .hd-hint{font-size:12px;color:var(--mist);margin-top:8px;letter-spacing:.02em;text-transform:none}
 .mn-bd{flex:1;padding:40px 48px 80px}
 .mn-inner{max-width:900px}
 
@@ -135,6 +137,8 @@ body,.sb,.auth-card,.mn,.tt,.modal-card,.chip,.qbd,.cd,.r-box,.box,.panel,.auth-
 .rat-btn{padding:10px 20px;border-radius:var(--rs);font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);border:none}
 .rat-btn.plo{background:var(--plum);color:#fff}.rat-btn.plo:hover{background:#6A4F90;transform:translateY(-1px)}
 .rat-btn.prac{background:var(--coral);color:#fff}.rat-btn.prac:hover{background:#C96A52;transform:translateY(-1px)}
+.rat-btn.review{background:var(--sky);color:#fff}.rat-btn.review:hover{background:#3A88D6;transform:translateY(-1px)}
+.rat-btn.podcast{background:var(--teal);color:#fff}.rat-btn.podcast:hover{background:var(--teal-deep);transform:translateY(-1px)}
 
 /* anki */
 .anki-card{padding:24px;background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:var(--r);color:#fff;display:flex;align-items:center;gap:20px;transition:var(--tr);overflow:hidden;position:relative}
@@ -579,6 +583,72 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
   .theme-panel{width:min(300px,calc(100vw - 24px))}
 }
 
+
+.easter-egg-modal{position:fixed;inset:0;z-index:12000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,11,20,.72);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .28s ease}
+.easter-egg-modal.open{display:flex;opacity:1;pointer-events:auto}
+.easter-egg-shell{width:min(760px,92vw);transform:translateY(20px) scale(.98);transition:transform .3s ease}
+.easter-egg-modal.open .easter-egg-shell{transform:translateY(0) scale(1)}
+.easter-egg-card{position:relative;overflow:hidden;padding:28px;border-radius:28px;background:linear-gradient(180deg, rgba(11,22,38,.96), rgba(7,15,27,.96));border:1px solid rgba(255,255,255,.08);box-shadow:0 28px 80px rgba(0,0,0,.34)}
+.easter-egg-card::before{content:'';position:absolute;inset:-20% auto auto -10%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, rgba(62,196,178,.2), rgba(62,196,178,0) 70%);pointer-events:none}
+.easter-egg-card.cat-mode::before{background:radial-gradient(circle, rgba(246,123,197,.24), rgba(246,123,197,0) 70%)}
+.easter-egg-close{position:absolute;top:16px;right:16px;width:42px;height:42px;border:none;border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:24px;line-height:1;cursor:pointer;transition:transform .2s ease, background .2s ease}
+.easter-egg-close:hover{transform:scale(1.06);background:rgba(255,255,255,.14)}
+.easter-egg-top{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;margin-bottom:18px;position:relative;z-index:1}
+.easter-egg-icon{display:grid;place-items:center;width:68px;height:68px;border-radius:22px;background:rgba(255,255,255,.08);font-size:34px;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.easter-egg-kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:8px}
+.easter-egg-title{font-family:'Crimson Pro',serif;font-size:38px;line-height:1;color:#fff;margin:0 0 8px}
+.easter-egg-body{font-size:16px;line-height:1.7;color:rgba(255,255,255,.78);margin:0}
+.easter-egg-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;position:relative;z-index:1}
+.easter-egg-link,.easter-egg-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:14px;font-weight:800;text-decoration:none;transition:transform .2s ease, box-shadow .2s ease}
+.easter-egg-link{background:linear-gradient(135deg, var(--teal-glow), var(--teal));color:var(--navy2);box-shadow:0 16px 34px rgba(62,196,178,.24)}
+.easter-egg-secondary{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.08)}
+.easter-egg-link:hover,.easter-egg-secondary:hover{transform:translateY(-1px)}
+.easter-egg-player-wrap{margin-top:22px;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);position:relative;z-index:1}
+.easter-egg-player{display:block;width:100%;height:min(46vw,360px);min-height:220px;border:0;background:#000}
+.easter-egg-note{margin-top:14px;font-size:13px;color:rgba(255,255,255,.56);position:relative;z-index:1}
+.easter-egg-media-wrap{margin-top:20px;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);position:relative;z-index:1}
+.easter-egg-media{display:block;width:100%;max-height:min(58vw,420px);object-fit:cover;background:#0b1220}
+.secret-toast{position:fixed;left:50%;top:28px;z-index:12500;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:rgba(7,15,27,.94);border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 44px rgba(0,0,0,.28);color:#fff;font-weight:800;letter-spacing:.02em;transform:translate(-50%,-18px) scale(.96);opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease}
+.secret-toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
+.secret-toast-badge{display:grid;place-items:center;width:28px;height:28px;border-radius:999px;background:linear-gradient(135deg,var(--teal-glow),var(--teal));color:var(--navy2);font-size:16px;box-shadow:0 8px 22px rgba(62,196,178,.28)}
+.secret-toast-text{font-size:13px;text-transform:uppercase}
+@media(max-width:640px){
+  .easter-egg-card{padding:24px 20px 20px}
+  .easter-egg-top{grid-template-columns:1fr;gap:14px}
+  .easter-egg-icon{width:58px;height:58px;border-radius:18px;font-size:30px}
+  .easter-egg-title{font-size:32px}
+}
+
+
+.media-modal{position:fixed;inset:0;z-index:12100;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,11,20,.72);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .28s ease}
+.media-modal.open{display:flex;opacity:1;pointer-events:auto}
+/* Keep closed fullscreen modals out of the hit-testing tree so they can't steal wheel/scroll in Safari. */
+.media-shell{width:min(1040px,94vw);transform:translateY(20px) scale(.98);transition:transform .3s ease}
+.media-modal.open .media-shell{transform:translateY(0) scale(1)}
+.media-card{position:relative;overflow:hidden;padding:22px;border-radius:28px;background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(246,243,236,.98));border:1px solid rgba(18,32,60,.08);box-shadow:0 28px 80px rgba(0,0,0,.24)}
+.media-card::before{content:'';position:absolute;inset:auto auto 0 -6%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, rgba(74,154,232,.12), rgba(74,154,232,0) 72%);pointer-events:none}
+.media-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:16px;position:relative;z-index:1}
+.media-title-wrap{min-width:0}
+.media-kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:var(--mist);margin-bottom:8px}
+.media-title{font-family:'Crimson Pro',serif;font-size:34px;line-height:1.02;color:var(--navy);margin:0 0 8px}
+.media-sub{font-size:14px;line-height:1.6;color:var(--slate);max-width:62ch}
+.media-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}
+.media-link,.media-close{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border-radius:14px;font-weight:800;text-decoration:none;transition:transform .2s ease, box-shadow .2s ease;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px}
+.media-link{background:linear-gradient(135deg, var(--sky), #77B8F3);color:#fff;box-shadow:0 14px 28px rgba(74,154,232,.22)}
+.media-close{background:rgba(18,32,60,.06);color:var(--navy);border:1px solid rgba(18,32,60,.08)}
+.media-link:hover,.media-close:hover{transform:translateY(-1px)}
+.media-frame-wrap{position:relative;z-index:1;border-radius:22px;overflow:hidden;border:1px solid rgba(18,32,60,.08);background:#0b1220;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.media-frame{display:block;width:100%;height:min(70vh,720px);min-height:320px;border:0;background:#0b1220}
+.media-modal.is-podcast .media-frame{height:min(34vh,220px);min-height:120px}
+@media(max-width:800px){
+  .media-card{padding:18px;border-radius:24px}
+  .media-head{flex-direction:column;align-items:stretch}
+  .media-actions{justify-content:flex-start}
+  .media-title{font-size:28px}
+  .media-frame{height:min(58vh,520px);min-height:280px}
+  .media-modal.is-podcast .media-frame{height:min(28vh,180px);min-height:110px}
+}
+
 </style>
 </head>
 <body class="auth-locked">
@@ -604,6 +674,12 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
       <div class="auth-kicker">Access granted</div>
       <div class="auth-welcome-text" id="authWelcomeText">Welcome</div>
       <div class="auth-welcome-name shimmer-text" id="authWelcomeName">Jeevs</div>
+      <div class="auth-special-media" id="authSpecialMedia" aria-hidden="true">
+        <div class="auth-special-frame">
+          <img class="auth-special-img" id="authSpecialImage" alt="" loading="eager" decoding="async">
+          <div class="auth-special-caption" id="authSpecialCaption"></div>
+        </div>
+      </div>
       <div class="auth-welcome-sub" id="authWelcomeSub">Loading your study hub…</div>
       <div class="auth-welcome-meta" id="authWelcomeMeta"></div>
       <div class="auth-welcome-quote" id="authWelcomeQuote"></div>
@@ -729,6 +805,60 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
 </div>
 </div></div>
 <div class="plo-overlay" id="ploOv" onclick="if(event.target===this)closePLO()"><div class="plo-box"><div class="plo-hd"><h3 id="ploTitle">PLOs</h3><button class="plo-close" onclick="closePLO()">&#10005; Close</button></div><div class="plo-bd" id="ploBd"></div></div></div>
+
+<div class="secret-toast" id="secretToast" aria-hidden="true">
+  <span class="secret-toast-badge">✨</span>
+  <span class="secret-toast-text">Secret unlocked</span>
+</div>
+
+<div class="easter-egg-modal" id="easterEggModal" aria-hidden="true">
+  <div class="easter-egg-shell">
+    <div class="easter-egg-card" id="easterEggCard">
+      <button class="easter-egg-close" id="easterEggClose" type="button" aria-label="Close easter egg">×</button>
+      <div class="easter-egg-top">
+        <div class="easter-egg-icon" id="easterEggIcon">🦆</div>
+        <div>
+          <div class="easter-egg-kicker">Secret unlocked</div>
+          <h3 class="easter-egg-title" id="easterEggTitle">QUACK MODE</h3>
+          <p class="easter-egg-body" id="easterEggBody">You found the duck.</p>
+        </div>
+      </div>
+      <div class="easter-egg-media-wrap" id="easterEggMediaWrap" hidden>
+        <img class="easter-egg-media" id="easterEggMedia" src="" alt="Easter egg media">
+      </div>
+      <div class="easter-egg-player-wrap" id="easterEggPlayerWrap" hidden>
+        <iframe class="easter-egg-player" id="easterEggPlayer" src="" title="Easter egg player" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="easter-egg-actions">
+        <a class="easter-egg-link" id="easterEggLink" href="#" target="_blank" rel="noopener noreferrer">Open source</a>
+        <button class="easter-egg-secondary" id="easterEggDismiss" type="button">Back to studying</button>
+      </div>
+      <div class="easter-egg-note" id="easterEggNote">Press Esc or click outside to close.</div>
+    </div>
+  </div>
+</div>
+
+<div class="media-modal" id="mediaModal" aria-hidden="true">
+  <div class="media-shell">
+    <div class="media-card">
+      <div class="media-head">
+        <div class="media-title-wrap">
+          <div class="media-kicker" id="mediaKicker">Embedded review</div>
+          <h3 class="media-title" id="mediaTitle">Video Review</h3>
+          <div class="media-sub" id="mediaSub">Press Esc or click outside to close.</div>
+        </div>
+        <div class="media-actions">
+          <a class="media-link" id="mediaOpenLink" href="#" target="_blank" rel="noopener noreferrer">Open in Google Drive</a>
+          <button class="media-close" id="mediaCloseBtn" type="button">Close</button>
+        </div>
+      </div>
+      <div class="media-frame-wrap">
+        <iframe class="media-frame" id="mediaFrame" src="" title="Embedded review media" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 var DATA={
 OMK:{fullName:"Osteopathic Manipulative Knowledge",
@@ -738,8 +868,12 @@ OMK:{fullName:"Osteopathic Manipulative Knowledge",
     notes:[],
     quizzes:[],
     assessments:[{
-      name:"Testosterone & HPG Axis",
+      name:"RAT 1 — Testosterone & HPG Axis",
       ploFile:"notes/week38-endocrine.html",
+      videoReview:"https://drive.google.com/file/d/1j0jDpTkhaKvHLWliFthSu3rk4C55PsrC/preview",
+      videoReviewOpen:"https://drive.google.com/file/d/1j0jDpTkhaKvHLWliFthSu3rk4C55PsrC/view?usp=sharing",
+      podcast:"https://drive.google.com/file/d/1gT0jeLrYVrhCnF5GlB72vSEAqPESFKRX/preview",
+      podcastOpen:"https://drive.google.com/file/d/1gT0jeLrYVrhCnF5GlB72vSEAqPESFKRX/view?usp=sharing",
       plos:[],
       questions:[{stem:"A researcher blocks StAR protein function in Leydig cells. Which of the following best describes the immediate consequence?",choices:["A. Testosterone cannot be converted to DHT in peripheral tissues","B. Cholesterol cannot be transported into mitochondria, halting steroidogenesis","C. LH cannot bind to its receptor on Leydig cells; which typically presents with progressive symptom onset over weeks to months","D. GnRH secretion is increased due to lack of negative feedback","E. Pregnenolone accumulates in the smooth endoplasmic reticulum"],correct:1,explanation:"StAR (steroidogenic acute regulatory protein) is the rate-limiting step — it transports cholesterol from the outer to the inner mitochondrial membrane. Without it, cholesterol cannot enter the mitochondria to be converted to pregnenolone, immediately halting all downstream steroidogenesis.",wrongExplanations:{0:"5α-reductase (in peripheral tissues) handles T→DHT conversion, not StAR. StAR operates upstream, inside Leydig cell mitochondria.",2:"LH receptor binding is a separate event upstream of StAR. LH binding activates cAMP-PKA, which then upregulates StAR — so LHR binding is unaffected.",3:"GnRH would eventually increase due to loss of negative feedback, but this is a delayed downstream consequence, not the immediate result of StAR blockade.",4:"Pregnenolone is produced inside the mitochondria from cholesterol — if cholesterol can't get in, pregnenolone can't form at all. There's nothing to accumulate anywhere."},eli5:"StAR protein is like the doorman of the mitochondria specifically for cholesterol. If the doorman is blocked, cholesterol can't get inside, and the whole steroid factory shuts down — because cholesterol is the very first ingredient."},
 {stem:"A male patient is found to have a deficiency in 5α-reductase type 2. Which clinical finding would you MOST expect?",choices:["A. Elevated testosterone with underdevelopment of the prostate and external genitalia","B. Low testosterone with normal spermatogenesis, as seen in patients with underlying predisposing genetic or environmental factors","C. Elevated DHT with virilization of female external genitalia, often accompanied by nonspecific constitutional symptoms in the early stages","D. Absent spermatogenesis due to loss of intratesticular testosterone","E. Normal male development with decreased libido only, which would be confirmed by characteristic findings on additional laboratory testing"],correct:0,explanation:"5α-reductase type 2 converts testosterone → DHT in the prostate, seminal vesicles, and genital skin. DHT is required for development of male external genitalia and prostate. Without it, testosterone levels are normal or elevated (no DHT feedback), but DHT-dependent structures underdevelop. Classic 5α-RD2 deficiency presents as 46,XY with ambiguous/female external genitalia at birth.",wrongExplanations:{1:"Testosterone is not low — in fact it's often elevated because DHT normally contributes to negative feedback. Spermatogenesis depends on intratesticular testosterone (not DHT), so it remains intact.",2:"This would be the opposite — 5α-reductase MAKES DHT. A deficiency means LESS DHT, not more. Elevated DHT causes virilization; this is not what you see with the deficiency.",3:"Spermatogenesis requires high intratesticular testosterone (maintained by LH on Leydig cells and FSH on Sertoli cells). 5α-reductase deficiency does not eliminate testosterone.",4:"Libido is mediated by testosterone and the androgen receptor in the brain — not primarily by DHT type 2. The major deficit is structural development of DHT-dependent tissues."},eli5:"DHT (made from testosterone by 5α-reductase) is what builds the prostate and external male genitalia during development. If you can't make DHT, testosterone is still there and normal, but the tissues that need DHT specifically (like the prostate and external genitals) don't develop properly."},
@@ -762,8 +896,12 @@ OMK:{fullName:"Osteopathic Manipulative Knowledge",
 {stem:"A male infant with congenital adrenal hyperplasia (CAH) due to 21-hydroxylase deficiency has elevated androgens. Which statement best explains the mechanism?",choices:["A. 21-hydroxylase deficiency increases 17α-hydroxylase activity by substrate feedback","B. Cortisol deficiency leads to elevated ACTH, driving excess flux through the androgen synthesis pathway","C. Aldosterone deficiency causes compensatory overproduction of androgens to maintain sodium balance","D. 21-hydroxylase is required to convert androgens to cortisol; its deficiency blocks this conversion","E. Elevated ACTH directly stimulates testicular Leydig cells to produce more testosterone"],correct:1,explanation:"21-hydroxylase converts progesterone → deoxycorticosterone (aldosterone pathway) and 17α-hydroxyprogesterone → 11-deoxycortisol (cortisol pathway). When blocked, cortisol cannot be synthesized → no negative feedback on ACTH → ACTH rises dramatically → the adrenal cortex is overstimulated. Precursors accumulate upstream (17α-hydroxyprogesterone, progesterone) and are shunted through the intact androgen synthesis pathway (17,20-lyase → androstenedione → testosterone), causing androgen excess.",wrongExplanations:{0:"21-hydroxylase deficiency does not directly increase 17α-hydroxylase activity through substrate feedback. The mechanism is an ACTH-driven increase in overall adrenal cortex stimulation, not enzyme upregulation.",2:"Aldosterone deficiency causes sodium wasting and fluid loss, but it does not drive androgen overproduction as compensation. The androgen excess comes from ACTH-driven precursor accumulation, not aldosterone deficit.",3:"21-hydroxylase is NOT involved in converting androgens to cortisol. It acts on progesterone and 17α-OHP. Androgens are made from 17α-OHP and androstenedione, which are upstream of where 21-hydroxylase acts.",4:"ACTH acts on adrenal cortex (zona fasciculata/reticularis), NOT on testicular Leydig cells. Leydig cells are stimulated by LH only. ACTH has no direct role in testicular steroidogenesis."},eli5:"Think of 21-hydroxylase as a road that goes toward cortisol. If that road is blocked, the cortisol factory can't make cortisol, so the body keeps screaming for more (ACTH keeps rising). But all those precursors that can't become cortisol get diverted onto a different road — the androgen road — and you get a flood of androgens instead."},
 {stem:"After the AR-ligand complex enters the nucleus and binds androgen response elements (AREs), which of the following outcomes is directly mediated?",choices:["A. Post-translational modification of existing androgen receptor protein, as seen in patients with underlying predisposing genetic or environmental factors","B. Recruitment of co-activators or co-repressors to modulate RNA polymerase II activity at target gene promoters","C. Direct methylation of histone H3 to silence pro-inflammatory genes, often accompanied by nonspecific constitutional symptoms in the early stages","D. Export of mRNA from the nucleus via AR-regulated nuclear pore proteins, which would be confirmed by characteristic findings on additional laboratory testing","E. Stimulation of ribosomal assembly for androgen-specific protein synthesis, as demonstrated by the classic clinical presentation and expected lab abnormalities"],correct:1,explanation:"After AR dimerizes and binds AREs in the promoter/enhancer regions of target genes, it recruits transcriptional co-regulators — co-activators (e.g., SRC-1, p300/CBP) that enhance RNA Pol II activity, or co-repressors that suppress transcription. These co-regulators bridge the AR to the general transcription machinery and modify chromatin (histone acetylation, etc.), ultimately regulating target gene expression (e.g., PSA, IGF-1, muscle protein genes).",wrongExplanations:{0:"Post-translational modification of the AR (phosphorylation, ubiquitination) occurs in the cytoplasm as regulatory events — not as the primary nuclear outcome after ARE binding. The nuclear event is transcription regulation.",2:"Histone methylation (particularly H3K27me3 for silencing) is mediated by specific histone methyltransferases (e.g., PRC2 complex). While AR can influence chromatin remodeling, direct H3 methylation is not the immediate mechanism of ARE-bound AR signaling.",3:"mRNA export through nuclear pores is a downstream event (after transcription) controlled by export factors. AR doesn't regulate nuclear pore proteins as a primary transcriptional mechanism.",4:"Ribosome assembly is a separate process occurring in the nucleolus, involving rRNA. AR-mediated gene transcription produces mRNA for specific proteins, but ribosomal assembly itself is not directly stimulated by ARE-bound AR."},eli5:"Once the AR sticks to the DNA at an ARE, it acts like a recruiter — it calls in helper proteins (co-activators or co-repressors) that talk to the RNA polymerase machinery to either turn the gene up or turn it off. The AR itself doesn't do the transcribing; it organizes the crew that does."}]
     },{
-      name:"Adrenal, HPA & Clinical Trials",
+      name:"RAT 2 — Adrenal, HPA & Clinical Trials",
       ploFile:"notes/week38-endocrine.html",
+      videoReview:"https://drive.google.com/file/d/1j0jDpTkhaKvHLWliFthSu3rk4C55PsrC/preview",
+      videoReviewOpen:"https://drive.google.com/file/d/1j0jDpTkhaKvHLWliFthSu3rk4C55PsrC/view?usp=sharing",
+      podcast:"https://drive.google.com/file/d/1gT0jeLrYVrhCnF5GlB72vSEAqPESFKRX/preview",
+      podcastOpen:"https://drive.google.com/file/d/1gT0jeLrYVrhCnF5GlB72vSEAqPESFKRX/view?usp=sharing",
       plos:[],
       questions:[{stem:"A patient with a zona glomerulosa adenoma presents with hypertension and hypokalemia. Lab work shows low renin, high aldosterone, low cortisol, and low ACTH. Which of the following best explains the low ACTH?",choices:["A. Aldosterone directly inhibits ACTH secretion from the pituitary","B. High aldosterone → sodium retention → expanded volume → suppresses renin, but ACTH is unaffected by aldosterone; low ACTH here reflects concurrent cortisol deficiency suppressing HPA axis feedback","C. Low ACTH is expected because aldosterone excess suppresses CRH at the hypothalamus","D. Low ACTH is not expected; this finding suggests a secondary rather than primary aldosteronism","E. High sodium caused by aldosterone excess inhibits CRH release from the paraventricular nucleus"],correct:3,explanation:"In primary hyperaldosteronism (Conn's syndrome), only the zona glomerulosa is overactive. Cortisol is produced by zona fasciculata (under ACTH control), and this axis is unaffected. ACTH should be NORMAL in a pure zona glomerulosa adenoma. Low ACTH in this scenario is inconsistent with primary aldosteronism and instead suggests a pituitary or secondary process. Aldosterone does NOT regulate ACTH secretion.",wrongExplanations:{0:"Aldosterone has NO direct inhibitory effect on ACTH. The feedback on ACTH is via cortisol (not aldosterone). These are entirely separate regulatory axes.",1:"Cortisol levels would be normal in isolated zona glomerulosa adenoma — there is no cortisol deficiency. The framing of 'cortisol deficiency suppressing HPA feedback' is contradictory and incorrect.",2:"Aldosterone does not suppress CRH. The HPA axis (CRH → ACTH → cortisol) is a completely separate axis from the renin-angiotensin-aldosterone system. Aldosterone cannot suppress CRH.",4:"Sodium levels do not regulate CRH secretion from the paraventricular nucleus. CRH is regulated by stress, circadian rhythm, and cortisol negative feedback — not sodium."},eli5:"In a zona glomerulosa adenoma (Conn's syndrome), only aldosterone is elevated. Cortisol and ACTH should be completely normal because they're controlled by a separate axis (HPA). If ACTH is low, that's a red flag — it suggests the problem might be in the pituitary (secondary), not the adrenal gland itself."},
 {stem:"A patient is started on oral contraceptives (OCP), which increase hepatic production of corticosteroid-binding globulin (CBG). What would you expect to happen to free cortisol?",choices:["A. Free cortisol increases permanently because estrogen also stimulates adrenal cortisol synthesis, a finding typically associated with chronic rather than acute disease processes","B. Free cortisol drops transiently, but the HPA axis compensates — ACTH rises and total cortisol increases to restore free cortisol","C. Free cortisol drops permanently due to irreversible CBG-cortisol binding, which is commonly observed in clinical practice among similar patient populations","D. Free cortisol is unaffected because albumin always compensates for CBG changes, supported by the epidemiological data and known pathophysiological mechanisms","E. Free cortisol increases because CBG competes with albumin, displacing cortisol into the free fraction"],correct:1,explanation:"Estrogen (from OCP) stimulates hepatic CBG synthesis → more CBG binds cortisol → free cortisol transiently decreases → less negative feedback on HPA → ACTH rises → adrenal cortex increases cortisol production until free cortisol normalizes. Net result: elevated total serum cortisol (most of the extra is CBG-bound/inactive), but free cortisol is normal. This is clinically important — OCP can falsely elevate total cortisol measurements.",wrongExplanations:{0:"Estrogen does not directly stimulate adrenal cortisol synthesis. The effect is indirect via CBG elevation, and the final free cortisol normalizes through HPA compensation.",2:"CBG-cortisol binding is reversible. There is no permanent increase in binding or permanent free cortisol suppression. The HPA axis compensates effectively.",3:"Albumin has lower affinity for cortisol than CBG and cannot fully compensate for large increases in CBG. Additionally, the compensatory mechanism is primarily through increased cortisol production (via ACTH), not albumin binding.",4:"CBG and albumin don't compete in a displacement reaction. Increased CBG simply increases total cortisol-binding capacity, pulling more cortisol into the bound (inactive) pool — not releasing more into the free pool."},eli5:"OCP raises CBG (more cages). Cages fill up with cortisol → free cortisol drops. But the HPA thermostat detects less free cortisol, thinks production is low, cranks up ACTH → adrenal makes more cortisol → free cortisol is restored. End result: normal free cortisol, but higher TOTAL cortisol (more is bound)."},
@@ -873,128 +1011,9 @@ OCS:{fullName:"Osteopathic Clinical Skills",
 {stem:"The phrenic nerve arises from which spinal roots?",choices:["A. C1-C3","B. C3-C5","C. C5-C7","D. C4-C6"],correct:1,explanation:"The phrenic nerve (C3, C4, C5) innervates the diaphragm. Remember: 'C3, 4, 5 keeps the diaphragm alive.'",wrongExplanations:{},eli5:""},
 {stem:"Which nerve of the cervical plexus innervates the diaphragm?",choices:["A. Ansa cervicalis","B. Lesser occipital nerve","C. Phrenic nerve","D. Great auricular nerve"],correct:2,explanation:"The phrenic nerve (C3-C5) is the deep motor branch of the cervical plexus that innervates the diaphragm.",wrongExplanations:{},eli5:""},
 {stem:"All of the following are superficial branches of the cervical plexus EXCEPT:",choices:["A. Lesser occipital nerve","B. Great auricular nerve","C. Ansa cervicalis","D. Supraclavicular nerves"],correct:2,explanation:"The ansa cervicalis is a DEEP (motor) branch. The superficial branches are: lesser occipital, great auricular, transverse cervical, and supraclavicular nerves.",wrongExplanations:{},eli5:""},
-{stem:"The thyroid gland receives arterial blood from which two sources?",choices:["A. Superior thyroid (external carotid) and inferior thyroid (thyrocervical trunk)","B. Internal carotid and vertebral arteries — which serves important functional roles in the relevant physiological processes","C. Common carotid and subclavian directly — recognized for its significance in clinical examination and surgical anatomy","D. Ascending pharyngeal and lingual arteries, which is commonly observed in clinical practice among similar patient populations"],correct:0,explanation:"The thyroid is supplied by the superior thyroid artery (from external carotid) and the inferior thyroid artery (from the thyrocervical trunk off the subclavian).",wrongExplanations:{},eli5:""}]},{name:"Head & Neck — Clinical Application Quiz",questions:[
-{stem:"The anterior fontanelle normally closes at approximately what age?",choices:["A. 2 months","B. 6 months","C. 9–18 months","D. 3–4 years","E. At birth"],correct:2,explanation:"The anterior (bregmatic) fontanelle closes between 9–18 months. The posterior fontanelle closes much earlier (~2 months). A persistently open anterior fontanelle beyond 18 months may indicate raised ICP, hypothyroidism, or rickets.",wrongExplanations:{0:"2 months is when the posterior fontanelle closes, not the anterior.",1:"6 months is too early — the anterior fontanelle is still normally open at this age.",3:"3–4 years would be abnormally late; if still open past 18 months, pathology should be ruled out.",4:"Both fontanelles are open at birth — that is normal and expected."},eli5:"The soft spot on a baby's head (anterior fontanelle) takes 9–18 months to close as the skull bones fuse together."},
-{stem:"Which cranial foramen specifically transmits the hypoglossal nerve (CN XII)?",choices:["A. Foramen ovale","B. Jugular foramen","C. Hypoglossal canal","D. Foramen magnum","E. Foramen rotundum"],correct:2,explanation:"CN XII travels through the hypoglossal canal in the occipital bone. The jugular foramen carries CN IX, X, XI + IJV. Foramen ovale = CN V3. Foramen magnum = brainstem + vertebral arteries. Foramen rotundum = CN V2.",wrongExplanations:{0:"Foramen ovale transmits CN V3 (mandibular), not CN XII.",1:"The jugular foramen carries CN IX, X, and XI — not CN XII.",3:"The foramen magnum transmits the brainstem, vertebral arteries, and spinal root of CN XI — not CN XII.",4:"Foramen rotundum carries CN V2 (maxillary division of trigeminal)."},eli5:"CN XII (tongue movement) has its own private tunnel in the occipital bone called the hypoglossal canal."},
-{stem:"A diver strikes the top of his head causing axial compression. CT shows C1 burst with bilateral outward displacement of lateral masses. What is this fracture called?",choices:["A. Hangman's fracture","B. Jefferson fracture","C. Clay-shoveler's fracture","D. Odontoid type II fracture","E. Flexion teardrop fracture"],correct:1,explanation:"A Jefferson fracture is a burst fracture of C1 from axial loading (diving, heavy object). The ring breaks in multiple places and lateral masses spread outward. Hangman's = bilateral C2 pedicle fractures from hyperextension.",wrongExplanations:{0:"Hangman's fracture involves bilateral C2 pedicle fractures from hyperextension — not axial compression of C1.",2:"Clay-shoveler's is an avulsion of a lower cervical or upper thoracic spinous process tip.",3:"Odontoid type II fractures occur at the base of the dens — not a burst ring fracture.",4:"Flexion teardrop fractures occur at the anteroinferior vertebral body corner from hyperflexion."},eli5:"Crushing force straight down on C1 bursts the ring open like a pried-apart bagel — that's a Jefferson fracture."},
-{stem:"The hyoid bone is unique because it does not articulate with any other bone. At what vertebral level does it lie?",choices:["A. C2","B. C3","C. C4","D. C5","E. C6"],correct:1,explanation:"The hyoid lies at C3, suspended entirely by muscles and ligaments. It is the only bone in the human body with no bony articulation. It anchors suprahyoid muscles (floor of mouth/tongue) and infrahyoid strap muscles.",wrongExplanations:{0:"C2 is the level of the axis — the hyoid is lower than this.",2:"C4 is where the thyroid cartilage begins — the hyoid is above the thyroid cartilage.",3:"C5 is below both the hyoid and thyroid cartilage.",4:"C6 is where the trachea and esophagus begin — well below the hyoid."},eli5:"The hyoid floats at C3 — totally free-floating, held up only by muscles on all sides, with no bony connection to anything."},
-{stem:"Which layer of deep cervical fascia forms the roof of the neck triangles and is continuous with the deep surface of the platysma?",choices:["A. Pretracheal fascia","B. Prevertebral fascia","C. Investing (superficial) layer of deep cervical fascia","D. Carotid sheath","E. Buccopharyngeal fascia"],correct:2,explanation:"The investing layer encircles the entire neck, splits to enclose the SCM and trapezius, and forms the roof of all neck triangles. It lies just deep to platysma and attaches to the mandible, mastoid, and nuchal lines superiorly.",wrongExplanations:{0:"Pretracheal fascia wraps the viscera (trachea, thyroid, esophagus) — it does not form the roof of the triangles.",1:"Prevertebral fascia lies behind the vertebral column and covers the deep muscles of the back — not the roof of the triangles.",3:"The carotid sheath is a distinct tube around the carotid artery, IJV, and vagus nerve — not a broad roof layer.",4:"Buccopharyngeal fascia covers the pharyngeal constrictors and buccinator — it does not form the roof of the neck triangles."},eli5:"The investing layer is like plastic wrap around the whole neck — it covers everything and forms the ceiling of each neck triangle."},
-{stem:"Which muscle forms the floor of the submental triangle?",choices:["A. Geniohyoid","B. Mylohyoid","C. Thyrohyoid","D. Anterior belly of digastric","E. Sternohyoid"],correct:1,explanation:"The submental triangle is bounded by the anterior bellies of the digastric muscles and the hyoid. Its floor is the mylohyoid. It contains submental lymph nodes draining the tongue tip, floor of mouth, and central lower lip.",wrongExplanations:{0:"Geniohyoid lies superior to the mylohyoid — it is not the floor of the submental triangle.",2:"Thyrohyoid is an infrahyoid strap muscle connecting the thyroid cartilage to the hyoid — it is not part of the submental triangle.",3:"The anterior belly of digastric forms the lateral borders (sides) of the submental triangle, not its floor.",4:"Sternohyoid is an infrahyoid muscle on the anterior neck — it is not in the submental region."},eli5:"Mylohyoid is the muscular floor you'd feel if you pressed up under your chin — it's the carpet of the submental triangle."},
-{stem:"During thyroid surgery, ligation of the inferior thyroid artery near the inferior thyroid pole puts which nerve at greatest risk?",choices:["A. External laryngeal nerve","B. Internal laryngeal nerve","C. Recurrent laryngeal nerve","D. Hypoglossal nerve","E. Ansa cervicalis"],correct:2,explanation:"The RLN crosses the inferior thyroid artery near the inferior thyroid pole — its position varies (anterior, posterior, or between branches). Injury causes ipsilateral vocal cord paralysis. Bilateral RLN injury causes life-threatening airway obstruction.",wrongExplanations:{0:"The external laryngeal nerve runs with the superior thyroid artery (at the superior pole) — it is at risk during superior thyroid artery ligation, not inferior.",1:"The internal laryngeal nerve is sensory to the larynx above the vocal cords — it does not cross the inferior thyroid artery.",3:"The hypoglossal nerve (CN XII) is in the floor of the mouth region — it does not pass near the inferior thyroid artery.",4:"The ansa cervicalis innervates strap muscles — it does not cross the inferior thyroid artery."},eli5:"The RLN runs right across the inferior thyroid artery — they cross paths like two roads. Cutting the artery without identifying the nerve first can silence one vocal cord permanently."},
-{stem:"A stab wound at the root of the right neck injures the subclavian artery proximal to the thyrocervical trunk. Which artery would NOT be directly affected?",choices:["A. Inferior thyroid artery","B. Suprascapular artery","C. Vertebral artery","D. External carotid artery","E. Transverse cervical artery"],correct:3,explanation:"The external carotid arises from the common carotid, which on the right comes from the brachiocephalic trunk — completely separate from the subclavian. The inferior thyroid, suprascapular, and transverse cervical all arise from the thyrocervical trunk (subclavian branch). The vertebral also branches directly from the subclavian.",wrongExplanations:{0:"The inferior thyroid artery arises from the thyrocervical trunk, which comes off the subclavian — it would be directly affected.",1:"The suprascapular artery comes from the thyrocervical trunk (subclavian branch) — directly affected.",2:"The vertebral artery branches directly from the first part of the subclavian — directly affected.",4:"The transverse cervical artery also comes from the thyrocervical trunk off the subclavian — directly affected."},eli5:"The external carotid's blood supply runs on a completely separate highway (brachiocephalic trunk → common carotid) — nothing to do with the subclavian."},
-{stem:"The common carotid artery bifurcates at approximately which vertebral level?",choices:["A. C2–C3","B. C3–C4","C. C4 (upper border of thyroid cartilage)","D. C5","E. C6"],correct:2,explanation:"The CCA bifurcates at C4, at the upper border of the thyroid cartilage. Here lie the carotid sinus (baroreceptor, CN IX) and carotid body (chemoreceptor). This is the most common site of atherosclerotic stenosis causing stroke.",wrongExplanations:{0:"C2–C3 is too high — near the atlas/axis level, well above the thyroid cartilage.",1:"C3–C4 is slightly too high; the thyroid cartilage upper border sits at C4.",3:"C5 is below the thyroid cartilage upper border — too low for the carotid bifurcation.",4:"C6 is where the trachea and esophagus begin — the carotid bifurcation is well above this."},eli5:"The carotid splits at C4 — right at the upper edge of the Adam's apple. That's also where you can feel your pulse and where strokes most commonly start."},
-{stem:"An enlarged right supraclavicular lymph node biopsy shows metastatic squamous cell carcinoma. The primary tumor is most likely located where?",choices:["A. Left thorax/lung","B. Abdomen or pelvis","C. Right head and neck","D. Left breast","E. Right lower extremity"],correct:2,explanation:"Right supraclavicular nodes drain the right head/neck, right upper thorax, and right arm. Left supraclavicular (Virchow's node) receives the thoracic duct and signals thoracic or abdominal malignancy. SCC in a right supraclavicular node most commonly represents spread from an ipsilateral head and neck primary.",wrongExplanations:{0:"Left thoracic malignancies typically drain to the left supraclavicular nodes (Virchow's) via the thoracic duct.",1:"Abdominal or pelvic malignancies drain to the left supraclavicular (Virchow's) node via the thoracic duct — not the right.",3:"Left breast drains predominantly to left axillary and left supraclavicular nodes.",4:"Lower extremity lymphatics drain upward through inguinal and then paraaortic nodes — not the supraclavicular chain."},eli5:"Right supraclavicular node = right-sided head and neck problem. Left supraclavicular (Virchow's) node = thoracic or abdominal problem. That's the classic side-matters rule."},
-{stem:"A superficial cervical plexus block at Erb's point will NOT reliably block which nerve?",choices:["A. Great auricular nerve","B. Transverse cervical nerve","C. Lesser occipital nerve","D. Phrenic nerve","E. Supraclavicular nerves"],correct:3,explanation:"Erb's point is where all four cutaneous branches emerge (great auricular, lesser occipital, transverse cervical, supraclavicular). The phrenic nerve is a DEEP branch running on the anterior scalene deep to prevertebral fascia — inaccessible with a superficial block. Inadvertent phrenic block is a risk of deep cervical plexus blocks.",wrongExplanations:{0:"The great auricular nerve emerges at Erb's point — it is reliably blocked with a superficial injection here.",1:"The transverse cervical nerve exits at Erb's point and is blocked with a superficial cervical plexus block.",2:"The lesser occipital nerve emerges at or just above Erb's point and is included in the superficial block.",4:"The supraclavicular nerves emerge at Erb's point — they are reliably blocked superficially."},eli5:"Erb's point catches the four skin nerves of the neck just as they surface. The phrenic nerve never comes to the surface here — it stays deep on the scalene muscle."},
-{stem:"After a right neck dissection, a patient has numbness over the entire right ear (both surfaces) and the angle of the jaw. Which nerve was injured?",choices:["A. Lesser occipital nerve (C2)","B. Great auricular nerve (C2–C3)","C. Transverse cervical nerve (C2–C3)","D. Auriculotemporal nerve (V3)","E. Supraclavicular nerve (C3–C4)"],correct:1,explanation:"The great auricular nerve (C2–C3) ascends across the SCM and supplies BOTH surfaces of the auricle, the parotid region, and the angle of the jaw. It is the most commonly injured nerve in parotidectomy and neck dissection. The lesser occipital supplies the scalp BEHIND the ear only.",wrongExplanations:{0:"The lesser occipital nerve supplies the scalp posterior to the ear — not the ear surfaces or jaw angle.",2:"The transverse cervical nerve supplies skin over the anterior and lateral neck — not the ear or jaw angle.",3:"The auriculotemporal nerve (V3) supplies the temporal scalp and anterior auricle, but it is in the face/temple region, not the neck.",4:"The supraclavicular nerves supply the shoulder and clavicular skin — not the ear or jaw angle."},eli5:"The great auricular nerve is the ear's best friend — it wraps around the SCM to cover both sides of the ear and the jaw angle. Neck surgery near the SCM can take it out."},
-{stem:"Following thoracic aortic aneurysm repair, a patient develops an elevated right hemidiaphragm and orthopnea. Which nerve is injured?",choices:["A. Right vagus nerve (CN X)","B. Right recurrent laryngeal nerve","C. Right phrenic nerve (C3–C5)","D. Right accessory nerve (CN XI)","E. Right hypoglossal nerve (CN XII)"],correct:2,explanation:"The phrenic nerve (C3–C5) is the sole motor supply to each hemidiaphragm. Injury = ipsilateral hemidiaphragm paralysis → elevated, paradoxically moving hemidiaphragm. Orthopnea occurs because the paralyzed diaphragm cannot resist abdominal organ displacement when lying flat.",wrongExplanations:{0:"The vagus nerve (CN X) carries autonomic fibers to thoracic and abdominal viscera but does not innervate the diaphragm.",1:"The RLN innervates the intrinsic laryngeal muscles — its injury causes vocal cord paralysis and hoarseness, not diaphragm paralysis.",3:"CN XI innervates the trapezius and SCM — not the diaphragm.",4:"CN XII innervates tongue muscles — completely unrelated to the diaphragm."},eli5:"The phrenic nerve is the diaphragm's one and only motor nerve. If it's cut in the chest, that half of the diaphragm just hangs there — you can see it sitting higher than it should on X-ray."},
-{stem:"After total thyroidectomy a patient develops bilateral vocal cord paralysis with cords in the paramedian position causing stridor. Which nerve was injured bilaterally?",choices:["A. External laryngeal nerves","B. Internal laryngeal nerves","C. Recurrent laryngeal nerves","D. Superior laryngeal nerve trunks","E. Ansa cervicalis"],correct:2,explanation:"The RLN innervates ALL intrinsic laryngeal muscles except cricothyroid. Bilateral injury paralyzes abductors and adductors; cords sit paramedian (adducted) due to residual cricothyroid tension → airway obstruction. Unilateral = hoarseness. Bilateral = potential respiratory emergency requiring tracheostomy.",wrongExplanations:{0:"The external laryngeal nerves innervate only the cricothyroid muscles — injury causes a subtle change in vocal pitch/projection, not cord paralysis.",1:"The internal laryngeal nerves are purely sensory (above the vocal cords) — they carry no motor fibers to laryngeal muscles.",3:"Injuring both superior laryngeal nerve trunks would affect cricothyroid (external branch) and laryngeal sensation (internal branch) — not cause cord paralysis.",4:"The ansa cervicalis innervates the infrahyoid strap muscles — completely unrelated to vocal cord motion."},eli5:"The RLN runs every intrinsic laryngeal muscle except one. Cutting both RLNs is catastrophic — the cords drift inward and you can barely breathe."},
-{stem:"During emergency tracheostomy between the 2nd and 3rd tracheal rings, which structure is most likely encountered directly in the surgical field?",choices:["A. Common carotid artery","B. Isthmus of the thyroid gland","C. External jugular vein","D. Cervical esophagus","E. Ansa cervicalis"],correct:1,explanation:"The thyroid isthmus overlies the 2nd–4th tracheal rings and must be retracted or divided to access the trachea. This is why cricothyrotomy (through the cricothyroid membrane) is preferred in true emergencies — it avoids the isthmus entirely.",wrongExplanations:{0:"The common carotid arteries lie lateral in the carotid sheath — they are not in the midline tracheostomy field.",2:"The external jugular vein runs superficially and laterally on the neck — not in the midline deep field.",3:"The esophagus lies posterior to the trachea — it is not encountered during anterior tracheal incision.",4:"The ansa cervicalis loops around the IJV region — it is not a structure directly overlying the tracheal rings."},eli5:"The thyroid isthmus sits like a bridge across the 2nd–4th tracheal rings. To cut into the trachea below, you have to either push it aside or divide it."},
-{stem:"On barium swallow, a posterior indentation at C6 represents the transition from pharynx to esophagus. What creates this impression?",choices:["A. Aortic arch","B. Left main bronchus","C. Thyroid isthmus","D. Anterior longitudinal ligament","E. Cricopharyngeus muscle (upper esophageal sphincter)"],correct:4,explanation:"The cricopharyngeus (lower fibers of inferior pharyngeal constrictor) forms the UES and creates a posterior indentation at C6 on barium swallow — the 'cricopharyngeal bar.' Zenker's diverticulum herniates through Killian's dehiscence just above it. The aortic arch and left bronchus create indentations in the thoracic esophagus.",wrongExplanations:{0:"The aortic arch creates an indentation on the LEFT side of the thoracic esophagus at approximately T4 — well below C6.",1:"The left main bronchus creates an anterior indentation on the thoracic esophagus around T5-T6 — not at C6.",2:"The thyroid isthmus overlies the trachea anteriorly — it does not create a barium indentation on the posterior pharyngoesophageal junction.",3:"The anterior longitudinal ligament runs along the anterior surface of the vertebral bodies — it does not indent the esophageal lumen."},eli5:"The cricopharyngeus is a muscular door between the throat and esophagus. On a barium swallow it looks like someone pressed a thumb into the back wall at C6."},
-{stem:"An anterior pituitary cell stains basophilic and immunoreacts for ACTH. Using the B-FLAT mnemonic, what cell type is this?",choices:["A. Somatotrope (GH)","B. Lactotrope (prolactin)","C. Corticotrope (ACTH)","D. Gonadotrope (LH/FSH)","E. Thyrotrope (TSH)"],correct:2,explanation:"B-FLAT: Basophils → FSH/LH (gonadotropes), ACTH (corticotropes), TSH (thyrotropes). Acidophils → GH (somatotropes), Prolactin (lactotropes). An ACTH-positive basophil = corticotrope. Corticotrope hyperplasia → Cushing's disease. Crooke's hyaline change = perinuclear keratin accumulation in corticotropes under chronic cortisol excess.",wrongExplanations:{0:"Somatotropes are acidophilic and secrete GH — not basophilic or ACTH-positive.",1:"Lactotropes are acidophilic and produce prolactin — not basophilic or ACTH-positive.",3:"Gonadotropes are basophilic and secrete LH and FSH — they are ACTH-negative.",4:"Thyrotropes are basophilic and secrete TSH — they are ACTH-negative."},eli5:"B-FLAT: Basophils make FSH, LH, ACTH, and TSH. Acidophils make GH and prolactin. If it's basophilic AND makes ACTH, it's a corticotrope."},
-{stem:"Large pale cells in thyroid histology do NOT border the follicular lumen, and stain positive for calcitonin. What is their embryological origin?",choices:["A. Pharyngeal pouch IV endoderm (same as follicular cells)","B. Neural crest — parafollicular (C) cells","C. Lateral plate mesoderm","D. Pituitary intermediate lobe","E. Third pharyngeal arch"],correct:1,explanation:"C cells (parafollicular cells) derive from neural crest and secrete calcitonin (lowers serum Ca²⁺ by inhibiting osteoclasts). They sit at the base of follicles, never touching the colloid. They are the cell of origin for medullary thyroid carcinoma (MTC), associated with MEN 2A/2B and RET mutations.",wrongExplanations:{0:"Follicular epithelial cells (which produce thyroglobulin/T3/T4) derive from thyroid bud endoderm, not from the same origin as C cells.",2:"Lateral plate mesoderm gives rise to cardiovascular and limb structures — not thyroid cell types.",3:"The pituitary intermediate lobe gives rise to melanotropes (MSH) — completely unrelated to thyroid C cells.",4:"The third pharyngeal arch contributes to the hyoid body and some tongue musculature — not to thyroid C cells."},eli5:"C cells are neural crest immigrants that moved into the thyroid. They don't make thyroid hormone — they make calcitonin, which tells bones to keep calcium in."},
-{stem:"The widest adrenal cortical zone has cells arranged in parallel cords with pale vacuolated cytoplasm on H&E due to stored lipid. This is the zona fasciculata, and its primary product is:",choices:["A. Aldosterone","B. Cortisol","C. DHEA/androgens","D. Epinephrine","E. Norepinephrine"],correct:1,explanation:"Zona fasciculata (middle, widest, ~75% of cortex): cells = spongiocytes (lipid-rich, pale vacuolated); product = cortisol (glucocorticoid); stimulated by ACTH. GFR mnemonic: Glomerulosa → Aldosterone; Fasciculata → Cortisol; Reticularis → Androgens. Medulla → Epi/Norepi.",wrongExplanations:{0:"Aldosterone is produced in the zona glomerulosa (outermost zone) — stimulated by angiotensin II, potassium, and ACTH.",2:"DHEA and other androgens are produced in the zona reticularis (innermost cortical zone).",3:"Epinephrine is produced in the adrenal medulla (chromaffin cells) — not the cortex.",4:"Norepinephrine is also a medullary product from chromaffin cells — not from the cortical zones."},eli5:"Zona fasciculata is the wide, pale middle zone — it's all about cortisol. The fat droplets you see are cholesterol waiting to be made into cortisol."},
-{stem:"On immunostaining of a pancreatic islet, peripheral cells are glucagon-positive. Central cells are insulin-positive. What is the correct spatial architecture?",choices:["A. Peripheral = beta (insulin); central = alpha (glucagon)","B. Peripheral = delta (somatostatin); central = alpha (glucagon)","C. Peripheral = alpha (glucagon); central = beta (insulin)","D. Peripheral = PP cells; central = delta (somatostatin)","E. All cell types randomly distributed throughout"],correct:2,explanation:"Alpha cells (~20%, glucagon) form the peripheral mantle; beta cells (~70%, insulin) occupy the central core; delta cells (~10%, somatostatin) are scattered between. Beta cells are the most numerous and are selectively destroyed in type 1 diabetes. Glucagonomas arise from alpha cells.",wrongExplanations:{0:"This is the reverse — beta cells are central, alpha cells are peripheral. Do not invert these.",1:"Delta cells (somatostatin) are scattered between alpha and beta cells — they do not form a peripheral mantle.",3:"PP cells (pancreatic polypeptide) are the rarest cell type and are more common in the head of the pancreas — they do not form a central core.",4:"Islet architecture is NOT random — there is a defined mantle-core arrangement that is testable."},eli5:"Think of a pancreatic islet like a bull's-eye: glucagon (alpha) on the outside ring, insulin (beta) in the bullseye center."},
-{stem:"A pineal region tumor causes Parinaud syndrome. Biopsy of normal adjacent pineal tissue shows the characteristic calcified structures that increase with age. What are they called?",choices:["A. Psammoma bodies","B. Corpora arenacea (brain sand)","C. Verocay bodies","D. Drusen","E. Corpora amylacea"],correct:1,explanation:"Corpora arenacea ('brain sand') are calcified concretions unique to the pineal gland. They increase with age, are visible on plain skull X-ray, and are the classic histological identifier of pineal tissue. The secretory cells are pineocytes. Parinaud syndrome (upgaze palsy) results from superior colliculus compression.",wrongExplanations:{0:"Psammoma bodies are calcified concentric laminar structures found in meningioma, papillary thyroid carcinoma, serous ovarian tumors, and mesothelioma — not specific to the pineal.",2:"Verocay bodies are nuclear palisading structures characteristic of schwannoma — not the pineal gland.",3:"Drusen are deposits in the retinal pigment epithelium associated with age-related macular degeneration — not the pineal.",4:"Corpora amylacea are polyglucosan inclusions found in aging neurons and astrocytes — not the pineal's characteristic structure."},eli5:"Brain sand (corpora arenacea) is the pineal's calling card — calcium deposits that build up over a lifetime and tell the pathologist they're in the right place."},
-{stem:"A 26-year-old is rear-ended at low speed. MRI is normal. She has posterior neck pain, occipital headache, and restricted ROM. Which structures are most characteristically injured in whiplash?",choices:["A. Spinal cord anterior horn cells","B. Facet joint capsules, cervical muscles/tendons, and anterior longitudinal ligament","C. Vertebral artery intima causing dissection","D. C5–C6 nucleus pulposus herniation","E. Brachial plexus root avulsion"],correct:1,explanation:"Whiplash primarily injures soft tissues: facet joint capsules (dominant pain generator), ligaments (anterior and posterior longitudinal), annulus fibrosus, and paraspinal muscles. Neurological signs are absent and imaging is normal. Prior whiplash is a recognized risk factor for later cervical facet OA.",wrongExplanations:{0:"Anterior horn cell injury would cause lower motor neuron signs (weakness, atrophy, fasciculations) — not seen in typical whiplash.",2:"Vertebral artery dissection is a rare but serious complication of cervical trauma — it is not the characteristic injury pattern in low-speed rear-end whiplash.",3:"Disc herniation causing radiculopathy involves arm pain and neurological deficit — absent here. MRI also being normal argues against this.",4:"Brachial plexus avulsion requires high-energy trauma (motorcycle accidents) with severe arm neurological deficit — not a low-speed rear-end collision."},eli5:"Whiplash snaps the neck forward and backward. The joint capsules and soft tissues get overstretched — but nothing shows on MRI because these are soft tissue injuries, not fractures or disc herniations."},
-{stem:"A 42-year-old presents with right arm pain to the thumb and index finger, weak wrist extension, and a diminished brachioradialis reflex. MRI shows a C5–C6 disc herniation with right foraminal stenosis. Which root is compressed?",choices:["A. C4","B. C5","C. C6","D. C7","E. C8"],correct:2,explanation:"C6 radiculopathy: thumb/index finger dermatomal pain; weak wrist extension and biceps; diminished brachioradialis reflex (C5–C6). C5–C6 is the most common level for cervical disc herniation — the herniated disc compresses the EXITING C6 root.",wrongExplanations:{0:"C4 radiculopathy causes neck/shoulder cape pain — no arm or hand dermatomal symptoms, no arm reflex changes.",1:"C5 radiculopathy causes lateral arm/deltoid region pain, deltoid/biceps weakness, and diminished biceps reflex — not thumb/index finger symptoms.",3:"C7 radiculopathy causes middle finger pain, weak triceps/pronation/wrist flexion, and diminished triceps reflex.",4:"C8 radiculopathy causes ring/little finger pain and grip weakness — no reflex is classically assigned to C8."},eli5:"Thumb and index finger numbness + brachioradialis reflex gone = C6. The C5–C6 disc squeezes the C6 root as it exits the foramen."},
-{stem:"A 4-month-old has a long, narrow head shape (scaphocephaly). Premature fusion of which suture caused this?",choices:["A. Coronal suture","B. Metopic suture","C. Lambdoid suture","D. Sagittal suture","E. Squamosal suture"],correct:3,explanation:"Sagittal craniosynostosis is the most common type. Premature fusion prevents lateral expansion → compensatory anteroposterior growth → scaphocephaly. Coronal = brachycephaly (bilateral) or plagiocephaly (unilateral). Metopic = trigonocephaly. Lambdoid = posterior plagiocephaly.",wrongExplanations:{0:"Bilateral coronal synostosis causes brachycephaly (short, wide head); unilateral coronal causes anterior plagiocephaly.",1:"Metopic synostosis causes trigonocephaly — a triangular keel-shaped forehead from premature midline frontal fusion.",2:"Lambdoid synostosis causes posterior plagiocephaly (flat posterior head on one side) — must be distinguished from positional/deformational plagiocephaly.",4:"Squamosal suture synostosis is very rare and not classically associated with a distinct named head shape."},eli5:"The sagittal suture runs front-to-back along the top of the skull. If it fuses early, the skull can only grow forward and backward — making the head long and narrow like a boat (scaphocephaly)."},
-{stem:"The 'danger space' between the alar and prevertebral fascia communicates inferiorly to the posterior mediastinum. What layer forms the anterior wall of the danger space?",choices:["A. Investing layer of deep cervical fascia","B. Pretracheal fascia","C. Prevertebral fascia","D. Alar fascia","E. Carotid sheath"],correct:3,explanation:"The danger space lies between the alar fascia (anteriorly) and prevertebral fascia (posteriorly). Alar fascia fuses laterally with carotid sheaths and inferiorly around T2–T4. Deep neck infections tracking past the alar fascia enter the danger space and can spread unimpeded to the posterior mediastinum.",wrongExplanations:{0:"The investing layer forms the outer wrap of the neck — it is the superficial boundary of the neck, not the anterior wall of the deep danger space.",1:"Pretracheal fascia wraps the viscera anteriorly — it is anterior to the esophagus and does not form the anterior wall of the danger space.",2:"Prevertebral fascia forms the POSTERIOR wall of the danger space (covering the vertebral column and prevertebral muscles).",4:"The carotid sheath forms the lateral boundaries where the alar fascia fuses — not the anterior wall per se."},eli5:"Think of it as a sandwich: alar fascia is the front slice of bread, prevertebral fascia is the back slice. The danger space is the filling in between — and it runs all the way down to the chest."},
-{stem:"The dens (odontoid process) derives embryologically from which structure?",choices:["A. Anterior arch of C1","B. A separate ossification center independent of C1 and C2","C. The centrum (body) of C1, which migrates to fuse with C2","D. Neural crest cells from the rhombencephalon","E. Posterior arch of C2"],correct:2,explanation:"The embryological body (centrum) of C1 separates and migrates superiorly to fuse with the body of C2, becoming the dens. This is why adult C1 lacks a vertebral body — it was donated to C2. Type II odontoid fractures (base of dens) are the most common odontoid fracture type.",wrongExplanations:{0:"The anterior arch of C1 is a separate bony structure that forms from the proatlas — it does not become the dens.",1:"The dens does NOT arise from an independent center unrelated to C1 or C2 — it is specifically the migrated body of C1.",3:"Neural crest cells form craniofacial bones and peripheral nerves — they do not form the vertebral bodies of C1 or C2.",4:"The posterior arch of C2 forms part of the ring of C2 — it has no embryological contribution to the dens."},eli5:"C1 'donated' its vertebral body to C2 during development — that donated body became the dens. That's why C1 is a ring with no body."},
-{stem:"Post-thyroidectomy a patient develops perioral tingling, muscle cramps, and positive Trousseau sign. The superior parathyroid glands that were removed or devascularized derive from which pharyngeal pouch?",choices:["A. Pharyngeal pouch I","B. Pharyngeal pouch II","C. Pharyngeal pouch III","D. Pharyngeal pouch IV","E. Pharyngeal pouch V"],correct:3,explanation:"Superior parathyroids derive from pharyngeal pouch IV (shorter migration → consistent posterior thyroid position). Inferior parathyroids derive from pouch III (longer migration with the thymus → more variable position). Mnemonic: Superior from IV, Inferior from III — counterintuitive! All four glands are usually supplied by the inferior thyroid artery.",wrongExplanations:{0:"Pharyngeal pouch I forms the auditory tube and middle ear cavity — no parathyroid contribution.",1:"Pharyngeal pouch II forms the palatine tonsils — no parathyroid contribution.",2:"Pharyngeal pouch III gives rise to the INFERIOR parathyroid glands and the thymus — not the superior parathyroids.",4:"Pharyngeal pouch V (ultrabrachial body) gives rise to the thyroid C cells — not the parathyroid glands."},eli5:"Superior parathyroids come from pouch 4, inferior from pouch 3 — counterintuitive but a classic exam flip. Remember: S=4, I=3."},
-{stem:"In the posterior pituitary (neurohypophysis), elongated glial-like supporting cells with lipid-rich processes closely invest the axon terminals. What are these cells?",choices:["A. Chromophobes","B. Pituicytes","C. Corticotropes","D. Folliculostellate cells","E. Chief cells"],correct:1,explanation:"Pituicytes are modified astrocytes forming the stromal support of the neurohypophysis. They envelop hypothalamic axon terminals and Herring bodies (ADH/oxytocin storage dilations). On H&E, pituicytes are the dominant visible cell — the secretory 'parenchyma' is actually the axon terminals themselves.",wrongExplanations:{0:"Chromophobes are poorly-staining anterior pituitary cells that appear agranular — they are NOT in the posterior pituitary.",2:"Corticotropes are ACTH-secreting basophilic cells of the anterior pituitary (pars distalis) — not found in the neurohypophysis.",3:"Folliculostellate cells are non-secretory stellate-shaped support cells of the anterior pituitary — not the neurohypophysis.",4:"Chief cells are the principal secretory cells of the parathyroid gland — they have no role in the pituitary."},eli5:"Pituicytes are the astrocytes of the posterior pituitary — their job is to wrap around and regulate release from the axon terminals that store ADH and oxytocin."}
-,
-{name:"Head & Neck — 80 MCQ Quiz",questions:[{stem:"Which of the following correctly states the number of neurocranial vs viscerocranial bones?",choices:["A. 6 neurocranial, 16 viscerocranial","B. 8 neurocranial, 14 viscerocranial","C. 10 neurocranial, 12 viscerocranial","D. 14 neurocranial, 8 viscerocranial","E. 7 neurocranial, 15 viscerocranial"],correct:1,explanation:"8 neurocranial, 14 viscerocranial The skull has 22 bones total: 8 neurocranial bones (frontal, parietal ×2, temporal ×2, occipital, sphenoid, ethmoid) that enclose the brain, and 14 viscerocranial (facial) bones.",wrongExplanations:{},eli5:""},
-{stem:"A student lists the 14 facial bones. Which of the following is one of only TWO unpaired viscerocranial bones?",choices:["A. Zygomatic","B. Palatine","C. Lacrimal","D. Vomer","E. Nasal"],correct:3,explanation:"Vomer The vomer and the mandible are the only two unpaired facial bones. Nasal (×2), lacrimal (×2), inferior nasal concha (×2), maxilla (×2), palatine (×2), and zygomatic (×2) are all paired.",wrongExplanations:{},eli5:""},
-{stem:"The sella turcica, which houses the pituitary gland, is a feature of which cranial bone?",choices:["A. Ethmoid","B. Occipital","C. Temporal","D. Frontal","E. Sphenoid"],correct:4,explanation:"Sphenoid The sella turcica is a saddle-shaped depression on the superior surface of the sphenoid body. The sphenoid is considered the central 'keystone' of the cranial base and articulates with all other cranial bones.",wrongExplanations:{},eli5:""},
-{stem:"A basilar skull fracture involves the jugular foramen. Which set of structures is most at risk?",choices:["A. CN VII, VIII, and the facial nerve","B. CN IX, X, XI, and the internal jugular vein","C. CN III, IV, VI, and the ophthalmic vein","D. CN V2, V3, and the middle meningeal artery","E. CN II and the optic nerve"],correct:1,explanation:"CN IX, X, XI, and the internal jugular vein The jugular foramen transmits CN IX (glossopharyngeal), CN X (vagus), CN XI (accessory — cranial root), and the internal jugular vein (IJV). CN VII and VIII pass through the internal acoustic meatus (IAM) of the temporal bone.",wrongExplanations:{},eli5:""},
-{stem:"The temporal, sphenoid, and occipital bones are called 'composite' cranial bones. What makes them composite?",choices:["A. Each forms entirely from a single ossification center","B. They are the only bones to contain pneumatic (air) sinuses","C. Each is formed from multiple developmental parts that fuse postnatally","D. They are derived exclusively from neural crest cells","E. Each articulates with more than four other skull bones"],correct:2,explanation:"Each is formed from multiple developmental parts that fuse postnatally Composite cranial bones are formed from multiple independent developmental components that fuse postnatally. For example, the temporal bone has squamous, tympanic, and petrous parts; the occipital has basilar, condylar, and squamous parts; the sphenoid has presphenoid, postsphenoid, and wing components.",wrongExplanations:{},eli5:""},
-{stem:"The temporal bone consists of three developmental parts. Which option correctly lists all three?",choices:["A. Squamous, tympanic, and petrous","B. Basilar, condylar, and squamous","C. Greater wing, lesser wing, and pterygoid","D. Mastoid, orbital, and zygomatic","E. Squamous, styloid, and foramen magnum parts"],correct:0,explanation:"Squamous, tympanic, and petrous The temporal bone = squamous part (lateral cranial wall and zygomatic process) + tympanic part (forms the bony external acoustic meatus) + petrous part (contains the internal ear, IAM for CN VII/VIII, carotid canal, jugular fossa).",wrongExplanations:{},eli5:""},
-{stem:"The hyoid body and lesser horns derive from which branchial arch cartilage?",choices:["A. 1st arch (Meckel's cartilage)","B. 2nd arch (Reichert's cartilage)","C. 3rd arch cartilage","D. 4th arch cartilage","E. Occipital somites"],correct:1,explanation:"2nd arch (Reichert's cartilage) The body and lesser horns of the hyoid arise from the 2nd pharyngeal arch (Reichert's cartilage). The greater horns and caudal part of the body derive from the 3rd pharyngeal arch cartilage. The hyoid is the only bone in the body with no bony articulations.",wrongExplanations:{},eli5:""},
-{stem:"The hyoid bone at the C3 vertebral level serves as an attachment site for both suprahyoid and infrahyoid muscle groups. Which of the following correctly distinguishes their primary actions?",choices:["A. Suprahyoid muscles depress the hyoid; infrahyoid muscles elevate it","B. Suprahyoid muscles elevate the hyoid and floor of mouth; infrahyoid muscles depress the hyoid and larynx","C. Both groups elevate the hyoid — they act synergistically during phonation","D. Suprahyoid muscles assist in head flexion; infrahyoid muscles extend the neck","E. Infrahyoid muscles elevate the larynx during swallowing; suprahyoid muscles close the jaw"],correct:1,explanation:"Suprahyoid muscles elevate the hyoid and floor of mouth; infrahyoid muscles depress the hyoid and larynx Suprahyoid muscles (mylohyoid, digastric, geniohyoid, stylohyoid) elevate the hyoid, floor of the mouth, and larynx during swallowing and opening the jaw. Infrahyoid (strap) muscles (sternohyoid, sternothyroid, thyrohyoid, omohyoid) depress the hyoid and laryngeal structures after swallowing.",wrongExplanations:{},eli5:""},
-{stem:"Which of the following structural features is ABSENT from the atlas (C1) compared to all other cervical vertebrae?",choices:["A. Transverse foramina","B. Articular facets","C. A vertebral body and spinous process","D. A vertebral foramen","E. Posterior arch"],correct:2,explanation:"A vertebral body and spinous process The atlas (C1) uniquely lacks a vertebral body and a spinous process. It is a ring-shaped bone with anterior and posterior arches and two lateral masses. Its superior articular facets cradle the occipital condyles; its inferior facets articulate with C2.",wrongExplanations:{},eli5:""},
-{stem:"During an MRI review, a structure is described as a 'bony peg projecting superiorly from the body of C2 into the ring of C1, enabling rotation.' What is this structure?",choices:["A. Articular pillar","B. Uncinate process","C. Dens (odontoid process)","D. Bifid spinous process","E. Anterior tubercle"],correct:2,explanation:"Dens (odontoid process) The dens (odontoid process) is the defining feature of the axis (C2). It represents the embryonic body of C1 that fused onto C2. The transverse ligament of the atlas holds the dens against the anterior arch of C1, allowing ~50% of cervical rotation to occur here.",wrongExplanations:{},eli5:""},
-{stem:"A radiologist uses a palpable posterior landmark to count vertebral levels. The vertebra prominens has the most prominent spinous process in the cervical region. Which vertebra is this?",choices:["A. C4","B. C5","C. C6","D. C7","E. T1"],correct:3,explanation:"C7 C7 is the vertebra prominens — it has the longest, most prominent non-bifid spinous process in the cervical region, easily palpated at the base of the neck. This is the primary posterior landmark for counting spinal levels. (T1 can occasionally be equally prominent but C7 is the answer.)",wrongExplanations:{},eli5:""},
-{stem:"The investing layer of deep cervical fascia encircles the entire neck. Which two muscles does it enclose within its splits?",choices:["A. Platysma and omohyoid","B. Sternohyoid and sternothyroid","C. Sternocleidomastoid and trapezius","D. Scalenes and prevertebral muscles","E. Mylohyoid and digastric"],correct:2,explanation:"Sternocleidomastoid and trapezius The investing layer of deep cervical fascia splits to enclose the sternocleidomastoid (anterolaterally) and the trapezius (posteriorly). The platysma is in the superficial (subcutaneous) fascia; the strap muscles are enclosed in the middle/pretracheal layer.",wrongExplanations:{},eli5:""},
-{stem:"The middle (pretracheal) layer of deep cervical fascia has two distinct parts. What are they?",choices:["A. Investing part (SCM) and prevertebral part","B. Muscular part (strap muscles) and visceral part (trachea/esophagus)","C. Carotid sheath and alar fascia","D. Superficial lamina and deep lamina","E. Cervical and thoracic portions"],correct:1,explanation:"Muscular part (strap muscles) and visceral part (trachea/esophagus) The middle/pretracheal layer has a muscular part enclosing the infrahyoid (strap) muscles and a visceral part enclosing the trachea and esophagus. It merges laterally with the carotid sheath.",wrongExplanations:{},eli5:""},
-{stem:"From lateral to medial, what are the three main contents of the carotid sheath?",choices:["A. Common carotid artery → CN X → IJV","B. IJV → CN X → common carotid artery","C. IJV → common carotid artery → CN X","D. CN X → IJV → common carotid artery","E. Common carotid → IJV → CN X"],correct:1,explanation:"IJV → CN X → common carotid artery Lateral to medial: Internal jugular vein (IJV) is most lateral, the vagus nerve (CN X) lies between them, and the common carotid artery is most medial. This arrangement is consistent from the thoracic inlet to the skull base.",wrongExplanations:{},eli5:""},
-{stem:"A patient develops Ludwig's angina that spreads into the posterior mediastinum. Which fascial plane allowed this spread, and to what approximate level does it extend?",choices:["A. Investing fascia, extending to T1","B. Carotid sheath, extending to the diaphragm","C. Retropharyngeal danger space, extending to ~T4","D. Prevertebral fascia, limited to the cervical region","E. Pretracheal space, extending to T8"],correct:2,explanation:"Retropharyngeal danger space, extending to ~T4 The retropharyngeal danger space lies between the alar fascia anteriorly and the prevertebral fascia posteriorly. It extends inferiorly from the skull base to approximately T4 (some sources say T6), allowing rapid spread of deep neck infections into the posterior mediastinum.",wrongExplanations:{},eli5:""},
-{stem:"Which muscle divides the posterior cervical triangle into the occipital (superior) and supraclavicular (inferior) triangles?",choices:["A. Posterior belly of the digastric","B. Anterior belly of the omohyoid","C. Inferior belly of the omohyoid","D. Middle scalene","E. Sternohyoid"],correct:2,explanation:"Inferior belly of the omohyoid The inferior belly of the omohyoid crosses the posterior triangle obliquely, attaching to the superior border of the scapula. It divides the posterior triangle into the larger occipital triangle above and the smaller supraclavicular triangle below.",wrongExplanations:{},eli5:""},
-{stem:"A patient cannot shrug their right shoulder and has a drooping scapula. Damage to CN XI (spinal accessory nerve) in which cervical triangle explains this?",choices:["A. Submandibular triangle","B. Carotid triangle","C. Muscular triangle","D. Occipital triangle","E. Submental triangle"],correct:3,explanation:"Occipital triangle CN XI passes through the occipital triangle of the posterior cervical region, where it is superficial and vulnerable. Injury causes paralysis of the trapezius, resulting in shoulder drooping, inability to shrug, and winging of the scapula.",wrongExplanations:{},eli5:""},
-{stem:"A vascular surgeon is working in the carotid triangle and identifies the carotid bifurcation. Which of the following structures is also found here?",choices:["A. Submandibular salivary gland","B. Subclavian artery","C. Brachial plexus","D. Ansa cervicalis and CN XII","E. Thyroid gland and strap muscles"],correct:3,explanation:"Ansa cervicalis and CN XII The carotid triangle contains the carotid sheath contents (IJV, CCA, CN X), the carotid bifurcation and sinus/body, the ansa cervicalis, and CN XII (hypoglossal nerve). The submandibular gland is in the submandibular triangle; the brachial plexus is in the supraclavicular triangle.",wrongExplanations:{},eli5:""},
-{stem:"A surgeon performing a thyroidectomy accesses the neck through the midline. Which triangle gives anterior access to the thyroid, larynx, trachea, and esophagus?",choices:["A. Carotid triangle","B. Submental triangle","C. Occipital triangle","D. Submandibular triangle","E. Muscular (median) triangle"],correct:4,explanation:"Muscular (median) triangle The muscular triangle (bounded by the SCM laterally, the omohyoid superolaterally, and the midline medially) contains the infrahyoid muscles and, deep to them, the thyroid, parathyroids, larynx, trachea, and esophagus.",wrongExplanations:{},eli5:""},
-{stem:"The superior thyroid artery, supplying the superior thyroid pole and superior laryngeal region, is typically the first branch of which vessel?",choices:["A. Internal carotid artery","B. Common carotid artery","C. External carotid artery","D. Thyrocervical trunk","E. Subclavian artery"],correct:2,explanation:"External carotid artery The superior thyroid artery is classically described as the first anterior branch of the external carotid artery. It also gives off the superior laryngeal artery. The inferior thyroid artery comes from the thyrocervical trunk.",wrongExplanations:{},eli5:""},
-{stem:"The inferior thyroid artery is the single most important vessel for the cervical viscera because it supplies three structures. What is its origin, and what are those three structures?",choices:["A. External carotid artery; thyroid, trachea, pharynx","B. Subclavian artery directly; thyroid, larynx, esophagus","C. Thyrocervical trunk; thyroid inferior pole, trachea, cervical esophagus","D. Costocervical trunk; thyroid, parathyroids, pharynx","E. Common carotid artery; thyroid isthmus, trachea, carotid sinus"],correct:2,explanation:"Thyrocervical trunk; thyroid inferior pole, trachea, cervical esophagus The inferior thyroid artery arises from the thyrocervical trunk (a branch of the subclavian artery). It supplies the thyroid inferior pole, trachea, and cervical esophagus — making it the anchor vessel for all three major cervical viscera.",wrongExplanations:{},eli5:""},
-{stem:"The vertebral artery ascends through the transverse foramina of the cervical vertebrae. At which level does it typically enter the transverse foramina?",choices:["A. C3","B. C4","C. C5","D. C6","E. C7"],correct:3,explanation:"C6 The vertebral artery typically enters the transverse foramen at C6 and ascends through C6–C5–C4–C3–C2–C1 before arcing posteriorly around the atlas and entering the cranium through the foramen magnum. It does NOT pass through the C7 transverse foramen in most individuals.",wrongExplanations:{},eli5:""},
-{stem:"Which of the following correctly pairs thyroid veins with their drainage destinations?",choices:["A. Superior thyroid v. → subclavian; inferior thyroid v. → IJV","B. Superior & middle thyroid vv. → IJV; inferior thyroid vv. → brachiocephalic veins","C. All thyroid veins drain into the external jugular vein","D. Superior thyroid v. → IJV; inferior thyroid v. → subclavian vein","E. Superior & inferior thyroid vv. → IJV; middle thyroid v. → EJV"],correct:1,explanation:"Superior & middle thyroid vv. → IJV; inferior thyroid vv. → brachiocephalic veins Superior and middle thyroid veins drain into the IJV. Inferior thyroid veins (often 2–3 vessels) drain into the brachiocephalic veins (left and right). This asymmetric pattern is a classic exam fact.",wrongExplanations:{},eli5:""},
-{stem:"Why is the right adrenal vein particularly at risk during right-sided adrenalectomy?",choices:["A. It drains into the right renal vein via a tortuous path","B. It has multiple tributaries from the inferior phrenic vein","C. It is a short vessel draining directly into the IVC","D. It crosses posterior to the right ureter making access difficult","E. It connects to the portal venous system via small anastomoses"],correct:2,explanation:"It is a short vessel draining directly into the IVC The right suprarenal vein is short and drains directly into the IVC. Inadvertent avulsion causes immediate, difficult-to-control hemorrhage. The left suprarenal vein is longer and drains into the left renal vein, providing more surgical working length.",wrongExplanations:{},eli5:""},
-{stem:"A 58-year-old woman with weight loss and early satiety is found to have a hard, painless left supraclavicular lymph node. Why is the left side specifically implicated in abdominal malignancy?",choices:["A. The left subclavian vein is larger and receives more lymph from the abdomen","B. The left supraclavicular node (Virchow's) receives the thoracic duct, which drains thoracic and abdominal viscera","C. Gastric lymphatics preferentially cross to the left side via mesenteric vessels","D. The left internal jugular vein has a lower pressure, promoting lymph stasis","E. Abdominal organs are predominantly left-sided in most individuals"],correct:1,explanation:"The left supraclavicular node (Virchow's) receives the thoracic duct, which drains thoracic and abdominal viscera Virchow's node (left supraclavicular / Signal node) sits at the termination of the thoracic duct, which carries lymph from the entire abdomen, pelvis, and both lower limbs. Metastatic abdominal or thoracic malignancy can seed this node via the thoracic duct.",wrongExplanations:{},eli5:""},
-{stem:"The jugulodigastric node is the primary draining node for the palatine tonsil and posterior tongue. It is found where the posterior belly of the digastric crosses which vessel?",choices:["A. External jugular vein","B. Subclavian vein","C. Common carotid artery","D. Internal jugular vein","E. Facial artery"],correct:3,explanation:"Internal jugular vein The jugulodigastric node is located where the posterior belly of the digastric muscle crosses the internal jugular vein. It drains the tonsil and posterior tongue, and becomes noticeably enlarged in tonsillitis ('tonsillar node').",wrongExplanations:{},eli5:""},
-{stem:"The cervical plexus is formed from the ventral rami of which spinal levels?",choices:["A. C1–C3","B. C1–C4","C. C2–C5","D. C1–C5","E. C2–C4"],correct:1,explanation:"C1–C4 The cervical plexus is formed by the ventral rami of C1–C4. C5 onwards joins with C5–T1 to form the brachial plexus. The cervical plexus provides superficial cutaneous branches and deep motor branches.",wrongExplanations:{},eli5:""},
-{stem:"All four superficial cervical plexus branches emerge at Erb's point. Where is this point?",choices:["A. Anterior border of trapezius at the level of C6","B. Midpoint of the posterior border of the sternocleidomastoid","C. Behind the angle of the mandible deep to the parotid","D. At the junction of the anterior and middle scalene muscles","E. 2 cm inferior to the mastoid process"],correct:1,explanation:"Midpoint of the posterior border of the sternocleidomastoid Erb's point (nerve point of the neck) is at the midpoint of the posterior border of the SCM. It is where the lesser occipital, great auricular, transverse cervical, and supraclavicular nerves become superficial and fan outward. Vulnerable during posterior neck surgery.",wrongExplanations:{},eli5:""},
-{stem:"A patient has sensory loss over the lower auricle and the skin overlying the parotid gland after a facelift. Which nerve is most likely injured?",choices:["A. Lesser occipital nerve (C2)","B. Transverse cervical nerve (C2–C3)","C. Great auricular nerve (C2–C3)","D. Supraclavicular nerve (C3–C4)","E. Auriculotemporal nerve (CN V3)"],correct:2,explanation:"Great auricular nerve (C2–C3) The great auricular nerve (C2–C3) provides cutaneous sensation to the lower ear (anterior → parotid region; posterior → mastoid and back of auricle). It is the most commonly injured nerve during parotidectomy and facelift procedures.",wrongExplanations:{},eli5:""},
-{stem:"The ansa cervicalis (C1–C3) innervates which group of muscles?",choices:["A. Suprahyoid muscles (mylohyoid, digastric, stylohyoid)","B. Infrahyoid muscles: sternohyoid, sternothyroid, and omohyoid","C. Scalene muscles (anterior, middle, posterior)","D. Prevertebral muscles (longus capitis, longus colli)","E. Infrahyoid muscles including thyrohyoid"],correct:1,explanation:"Infrahyoid muscles: sternohyoid, sternothyroid, and omohyoid The ansa cervicalis (superior root C1–C2 via CN XII; inferior root C2–C3) innervates the sternohyoid, sternothyroid, and omohyoid. Thyrohyoid is NOT in this list — it is innervated by C1 fibers hitchhiking on CN XII directly.",wrongExplanations:{},eli5:""},
-{stem:"C1 fibres travel briefly with which cranial nerve before branching to supply geniohyoid and thyrohyoid?",choices:["A. CN IX (glossopharyngeal)","B. CN X (vagus)","C. CN XI (accessory)","D. CN XII (hypoglossal)","E. CN VII (facial)"],correct:3,explanation:"CN XII (hypoglossal) C1 fibres join and travel with the hypoglossal nerve (CN XII) before branching away to supply the geniohyoid and thyrohyoid muscles. They also contribute the superior root of the ansa cervicalis. CN XII itself does not innervate these muscles.",wrongExplanations:{},eli5:""},
-{stem:"A patient with a C4 spinal cord injury requires mechanical ventilation. The mnemonic 'C3, 4, 5 keeps the diaphragm alive' applies here. Which nerve is responsible for diaphragmatic motor innervation?",choices:["A. Greater splanchnic nerve","B. Vagus nerve","C. Phrenic nerve","D. Long thoracic nerve","E. Thoracodorsal nerve"],correct:2,explanation:"Phrenic nerve The phrenic nerve (C3–C4–C5) provides motor innervation to the diaphragm (and sensory to the central diaphragm and pericardium). A C3–C4 injury disrupts both phrenic nerve roots and causes complete diaphragm paralysis requiring ventilatory support.",wrongExplanations:{},eli5:""},
-{stem:"Which cervical roots supply the supraclavicular nerves, providing sensation to the skin over the clavicle, shoulder cap, and upper chest?",choices:["A. C1–C2","B. C2–C3","C. C3–C4","D. C4–C5","E. C2–C4"],correct:2,explanation:"C3–C4 The supraclavicular nerves arise from C3–C4. They divide into medial, intermediate, and lateral branches covering the skin over the clavicle, shoulder cap (including the acromioclavicular joint), and upper anterior chest. This is why cardiac referred pain can be felt at the shoulder (C3–C4 / phrenic overlap).",wrongExplanations:{},eli5:""},
-{stem:"From anterior to posterior, what is the correct order of the three main cervical viscera?",choices:["A. Esophagus → trachea → thyroid","B. Trachea → esophagus → thyroid","C. Thyroid → trachea → esophagus","D. Thyroid → esophagus → trachea","E. Esophagus → thyroid → trachea"],correct:2,explanation:"Thyroid → trachea → esophagus Anterior to posterior: Thyroid (anteriorly placed, wrapping the upper trachea) → Trachea (midline air column) → Esophagus (most posterior, directly behind the trachea). The carotid sheaths flank this column laterally.",wrongExplanations:{},eli5:""},
-{stem:"At what vertebral level does the trachea begin, marked by the inferior border of the cricoid cartilage?",choices:["A. C4","B. C5","C. C6","D. C7","E. T1"],correct:2,explanation:"C6 Both the trachea and the esophagus begin at the level of C6, which corresponds to the inferior border of the cricoid cartilage. This is a key surgical and anaesthetic landmark.",wrongExplanations:{},eli5:""},
-{stem:"During thyroid surgery, inadvertent ligation of the inferior thyroid artery just lateral to the thyroid lobe risks damaging which clinically critical structure?",choices:["A. Superior laryngeal nerve (external branch)","B. Ansa cervicalis","C. Recurrent laryngeal nerve","D. Hypoglossal nerve (CN XII)","E. Phrenic nerve"],correct:2,explanation:"Recurrent laryngeal nerve The recurrent laryngeal nerve (RLN) runs in the tracheoesophageal groove, passing very close to — and sometimes through — the inferior thyroid artery branches just lateral to the thyroid lobe. Inadvertent damage causes hoarseness (unilateral) or aphonia and airway compromise (bilateral).",wrongExplanations:{},eli5:""},
-{stem:"Which statement about the thyroid ima artery is correct?",choices:["A. It is a constant branch of the external carotid artery","B. It supplies only the superior thyroid poles","C. It is a variable vessel arising from the aortic arch or brachiocephalic trunk, entering the thyroid inferiorly","D. It supplies the superior parathyroid glands exclusively","E. It anastomoses directly with the inferior thyroid veins"],correct:2,explanation:"It is a variable vessel arising from the aortic arch or brachiocephalic trunk, entering the thyroid inferiorly The thyroid ima artery is an inconstant vessel (present in ~10% of individuals) that arises from the aortic arch, brachiocephalic trunk, or another great vessel and approaches the thyroid from below. It is surgically important because it can cause unexpected hemorrhage during tracheostomy or inferior thyroid dissection.",wrongExplanations:{},eli5:""},
-{stem:"The parasympathetic innervation to the cervical esophagus is provided by which nerve?",choices:["A. Glossopharyngeal nerve (CN IX)","B. Ansa cervicalis","C. Phrenic nerve","D. Vagus nerve (recurrent laryngeal branches)","E. Sympathetic cervical trunk"],correct:3,explanation:"Vagus nerve (recurrent laryngeal branches) The parasympathetic innervation to the cervical esophagus is provided by the vagus nerve via its recurrent laryngeal branches. The sympathetic innervation comes from the cervical sympathetic trunk. The ansa cervicalis innervates only the infrahyoid strap muscles.",wrongExplanations:{},eli5:""},
-{stem:"Using the B-FLAT mnemonic for anterior pituitary basophils, which of the following is a product of an ACIDOPHILIC cell?",choices:["A. FSH","B. LH","C. ACTH","D. TSH","E. Prolactin"],correct:4,explanation:"Prolactin B-FLAT = Basophils produce FSH, LH (gonadotropes), ACTH (corticotropes), and TSH (thyrotropes). Acidophils produce Growth Hormone (somatotropes) and Prolactin (lactotropes). Prolactin is the acidophilic product here.",wrongExplanations:{},eli5:""},
-{stem:"ADH and oxytocin are stored in Herring bodies in the posterior pituitary. Where are these hormones SYNTHESIZED?",choices:["A. Anterior pituitary acidophils","B. Anterior pituitary basophils","C. Pinealocytes","D. Hypothalamic nuclei (supraoptic and paraventricular)","E. Chromophobe cells of the pars intermedia"],correct:3,explanation:"Hypothalamic nuclei (supraoptic and paraventricular) ADH and oxytocin are synthesized in hypothalamic nuclei — ADH primarily in the supraoptic nucleus, oxytocin primarily in the paraventricular nucleus. They are transported via axons down the infundibular stalk and stored as Herring bodies in the pars nervosa (posterior pituitary) until released.",wrongExplanations:{},eli5:""},
-{stem:"Which vessels form the primary capillary plexus of the hypophyseal portal system, carrying hypothalamic releasing hormones to the anterior pituitary?",choices:["A. Inferior hypophyseal arteries","B. Anterior cerebral arteries","C. Superior hypophyseal arteries","D. Middle cerebral arteries","E. Posterior communicating arteries"],correct:2,explanation:"Superior hypophyseal arteries The superior hypophyseal arteries supply the upper infundibular stalk and form the primary plexus of the hypophyseal portal system. Portal blood then flows to the secondary plexus in the adenohypophysis, delivering releasing hormones. The inferior hypophyseal arteries supply the neurohypophysis.",wrongExplanations:{},eli5:""},
-{stem:"A pathologist views a histology slide showing cellular clusters with a gland-like appearance and scattered calcified deposits. The patient is a 45-year-old with a CT scan showing a calcified midline structure near the roof of the 3rd ventricle. What are the calcified deposits called?",choices:["A. Psammoma bodies","B. Corpora amylacea","C. Corpora arenacea (brain sand)","D. Hassal's corpuscles","E. Gamma-Gandy bodies"],correct:2,explanation:"Corpora arenacea (brain sand) Corpora arenacea ('brain sand') are calcified concretions unique to the pineal gland. They increase in number with age and are the classic histological identifier. Psammoma bodies are seen in papillary thyroid carcinoma, meningioma, and ovarian cancer; Hassal's corpuscles are in the thymus.",wrongExplanations:{},eli5:""},
-{stem:"On H&E, thyroid follicles appear as round structures lined by simple cuboidal epithelium containing homogeneous pink material. Which statement about this pink material is correct?",choices:["A. It is fibrous stroma supporting the follicular cells","B. It is stored thyroglobulin (secretory product), not stroma","C. It is produced by parafollicular C cells and contains calcitonin","D. It represents chromophobe cells in a degranulated state","E. It is the parenchymal tissue of the gland and produces T3/T4 directly"],correct:1,explanation:"It is stored thyroglobulin (secretory product), not stroma The pink material is thyroid colloid — stored thyroglobulin awaiting proteolytic cleavage and release as T3/T4. It is NOT stroma (which is the capsule, septa, and capillary network). Calcitonin is made by parafollicular C cells, not stored in the colloid.",wrongExplanations:{},eli5:""},
-{stem:"Moving from the outer capsule to the medulla, what is the correct order of adrenal cortical zones and primary hormone products?",choices:["A. Fasciculata-cortisol → Glomerulosa-aldosterone → Reticularis-androgens → Medulla-catecholamines","B. Glomerulosa-aldosterone → Fasciculata-cortisol → Reticularis-androgens → Medulla-catecholamines","C. Glomerulosa-androgens → Fasciculata-aldosterone → Reticularis-cortisol → Medulla-catecholamines","D. Reticularis-cortisol → Fasciculata-aldosterone → Glomerulosa-androgens → Medulla","E. Glomerulosa-cortisol → Fasciculata-aldosterone → Medulla-androgens → Reticularis-catecholamines"],correct:1,explanation:"Glomerulosa-aldosterone → Fasciculata-cortisol → Reticularis-androgens → Medulla-catecholamines Outer to inner: Zona Glomerulosa → Aldosterone. Zona Fasciculata → Cortisol. Zona Reticularis → Androgens. Medulla → Epinephrine/Norepinephrine (chromaffin cells). Mnemonic: G-F-R-M / 'Salt, Sugar, Sex, then the medulla.'",wrongExplanations:{},eli5:""},
-{stem:"Which of the following correctly describes the venous drainage of both adrenal glands?",choices:["A. Both drain into their respective renal veins","B. Both drain directly into the inferior vena cava","C. Right adrenal vein → IVC (short, direct); left adrenal vein → left renal vein","D. Right adrenal vein → right renal vein; left adrenal vein → IVC","E. Both drain into the inferior phrenic veins"],correct:2,explanation:"Right adrenal vein → IVC (short, direct); left adrenal vein → left renal vein Right suprarenal vein → IVC directly (short vessel, surgical hazard). Left suprarenal vein → left renal vein (often joining the left inferior phrenic vein first). This asymmetry is a classic vascular anatomy exam question.",wrongExplanations:{},eli5:""},
-{stem:"A histology question asks you to identify cells within a pancreatic islet. Which pairing of cell type and hormone is INCORRECT?",choices:["A. Alpha cells → glucagon","B. Beta cells → insulin","C. Delta cells → somatostatin","D. PP cells → pancreatic polypeptide","E. Epsilon cells → insulin"],correct:4,explanation:"Epsilon cells → insulin Alpha → glucagon; Beta → insulin; Delta → somatostatin; PP cells → pancreatic polypeptide. Epsilon cells (if counted) produce ghrelin, not insulin. Beta cells are the insulin producers.",wrongExplanations:{},eli5:""},
-{stem:"A student examining a pancreatic islet section labels the surrounding exocrine acinar tissue as 'stroma.' Why is this incorrect?",choices:["A. Acinar cells lack nuclei and are therefore connective tissue elements","B. Acinar cells produce enzymes only in pathological states","C. The surrounding acinar tissue is exocrine parenchyma — true stroma is the thin reticular CT and capillary network within the islet","D. Stroma must contain lymphocytes, which acinar tissue lacks","E. Acinar cells are derived from neural crest, making them neuroendocrine parenchyma"],correct:2,explanation:"The surrounding acinar tissue is exocrine parenchyma — true stroma is the thin reticular CT and capillary network within the islet Exocrine acinar cells are the secretory parenchyma of the exocrine pancreas — they are not stroma. True islet stroma is the thin reticular connective tissue and fenestrated capillaries directly supporting the endocrine islet cells. Calling the acini 'stroma' is the classic exam mistake.",wrongExplanations:{},eli5:""},
-{stem:"Which of the following best describes the epidemiology of whiplash injury?",choices:["A. Prevalence 1.2–5.8/1000; mean age 48; higher in males","B. Global incidence 16–200/100,000; more common in women; most often follows rear-end or side-impact MVCs","C. Common in adults >50; C6/C7 is the most affected segment; associated with obesity","D. Rare condition occurring exclusively in high-speed collisions >60 mph","E. Equal incidence in men and women; predominantly a thoracic spine injury"],correct:1,explanation:"Global incidence 16–200/100,000; more common in women; most often follows rear-end or side-impact MVCs Whiplash incidence is 16–200 per 100,000 globally. It is more common in women (9.6%) than men (7.7%) and most commonly follows rear-end or side-impact MVCs. The pathophysiology is described as unclear, involving proposed microvascular bleeding and inflammatory mediator release.",wrongExplanations:{},eli5:""},
-{stem:"A 52-year-old man has neck pain radiating to his right middle finger with weakness elbow extension and a depressed triceps reflex. Which nerve root is compressed, and which reflex is characteristically diminished?",choices:["A. C5; biceps reflex","B. C6; brachioradialis reflex","C. C7; triceps reflex","D. C8; finger flexor reflex","E. C4; no reflex change"],correct:2,explanation:"C7; triceps reflex C7 is the most commonly compressed cervical nerve root. Its classic triad: pain/numbness to the middle finger; weak elbow extension (triceps), pronation, and wrist flexion; and diminished triceps reflex. C6 diminishes the biceps/brachioradialis and produces lateral forearm/hand sensory loss.",wrongExplanations:{},eli5:""},
-{stem:"A 68-year-old woman presents with stiff neck, pain on cervical rotation, reduced ROM, and referred discomfort to her right periscapular area. Neurological exam of both arms is entirely normal. Imaging reveals C6/C7 joint space narrowing and osteophytes. She has smoked for 30 years and had a whiplash injury in her 40s. What is the most likely diagnosis?",choices:["A. C7 cervical radiculopathy from foraminal stenosis","B. Whiplash injury with delayed chronic presentation","C. Cervical facet osteoarthritis","D. Thoracic outlet syndrome","E. Brachial neuritis (Parsonage-Turner syndrome)"],correct:2,explanation:"Cervical facet osteoarthritis This is textbook cervical facet OA: older patient (>50), axial mechanical pain with stiffness and reduced ROM, referred pain to shoulder/periscapular region, NO upper extremity neurological deficit, C6/C7 (most common level), with risk factors of smoking and prior whiplash. Radiculopathy requires dermatomal arm/hand neurological findings.",wrongExplanations:{},eli5:""},
-{stem:"The anterior fontanelle normally closes at approximately what age?",choices:["A. 2 months","B. 6 months","C. 9–18 months","D. 3–4 years","E. At birth"],correct:2,explanation:"9–18 months The anterior (bregmatic) fontanelle, at the junction of the coronal and sagittal sutures, typically closes between 9–18 months of age. The posterior fontanelle (lambdoid–sagittal junction) closes much earlier, by about 2 months. A persistently open anterior fontanelle beyond 18 months may indicate raised ICP, hypothyroidism, or rickets.",wrongExplanations:{},eli5:""},
-{stem:"Which cranial foramen specifically transmits the hypoglossal nerve (CN XII)?",choices:["A. Foramen ovale","B. Jugular foramen","C. Hypoglossal canal","D. Foramen magnum","E. Foramen rotundum"],correct:2,explanation:"Hypoglossal canal CN XII travels through the hypoglossal canal in the occipital bone. The jugular foramen transmits CN IX, X, XI + internal jugular vein. Foramen ovale carries CN V3. Foramen magnum transmits the brainstem, vertebral arteries, and the spinal root of CN XI. Foramen rotundum carries CN V2.",wrongExplanations:{},eli5:""},
-{stem:"A 24-year-old man dives into a shallow pool and strikes the top of his head. Imaging shows a burst fracture of C1 with bilateral outward displacement of the lateral masses beyond the lateral edges of C2. What is this injury called?",choices:["A. Hangman's fracture","B. Jefferson fracture","C. Clay-shoveler's fracture","D. Odontoid type II fracture","E. Flexion teardrop fracture"],correct:1,explanation:"Jefferson fracture A Jefferson fracture is a burst fracture of C1 (atlas) caused by axial compressive loading (e.g., diving, heavy object falling on head). The ring of C1 breaks in multiple places and the lateral masses spread outward. Hangman's fracture = bilateral C2 pedicle fractures from hyperextension (e.g., judicial hanging). Clay-shoveler's = avulsion of lower cervical/upper thoracic spinous process.",wrongExplanations:{},eli5:""},
-{stem:"The hyoid bone lies at the level of which cervical vertebra, and is unique because it does not articulate with any other bone?",choices:["A. C2","B. C3","C. C4","D. C5","E. C6"],correct:1,explanation:"C3 The hyoid bone lies at the level of C3. It is suspended by muscles and ligaments and is the only bone in the human body that does not articulate with another bone. It serves as an attachment for the suprahyoid muscles (floor of mouth, tongue) and infrahyoid (strap) muscles, and is critical for swallowing and speaking.",wrongExplanations:{},eli5:""},
-{stem:"Which layer of deep cervical fascia forms the roof of both the anterior and posterior triangles of the neck and is continuous with the deep surface of the platysma?",choices:["A. Pretracheal fascia","B. Prevertebral fascia","C. Investing (superficial) layer of deep cervical fascia","D. Carotid sheath","E. Buccopharyngeal fascia"],correct:2,explanation:"Investing (superficial) layer of deep cervical fascia The investing layer encircles the entire neck, splitting to enclose the SCM and trapezius. It forms the roof of all the neck triangles and the floor of the subcutaneous compartment (just deep to platysma). It attaches superiorly to the mandible, mastoid, occipital, and nuchal lines, and inferiorly to the manubrium, clavicle, and acromion.",wrongExplanations:{},eli5:""},
-{stem:"Which muscle forms the floor of the submental triangle?",choices:["A. Geniohyoid","B. Mylohyoid","C. Thyrohyoid","D. Anterior belly of digastric","E. Sternohyoid"],correct:1,explanation:"Mylohyoid The submental triangle is an unpaired midline triangle bounded by the anterior belly of the digastric muscles bilaterally and the hyoid bone inferiorly. Its floor is the mylohyoid muscle. It contains the submental lymph nodes, which drain the tip of the tongue, floor of mouth, and central lower lip.",wrongExplanations:{},eli5:""},
-{stem:"During thyroid surgery, the inferior thyroid artery must be ligated carefully. It crosses which nerve at the inferior pole of the thyroid gland, putting that nerve at greatest risk?",choices:["A. External laryngeal nerve","B. Internal laryngeal nerve","C. Recurrent laryngeal nerve","D. Hypoglossal nerve","E. Ansa cervicalis"],correct:2,explanation:"Recurrent laryngeal nerve The recurrent laryngeal nerve (branch of CN X) crosses the inferior thyroid artery near the inferior pole of the thyroid — its position varies (anterior, posterior, or between arterial branches). This is the most common site of RLN injury during thyroidectomy. Injury causes ipsilateral vocal cord paralysis and hoarseness; bilateral injury causes airway compromise. The external laryngeal nerve is at risk near the superior thyroid artery.",wrongExplanations:{},eli5:""},
-{stem:"A stab wound at the root of the right neck injures the right subclavian artery proximal to the origin of the thyrocervical trunk. Which of the following arteries would NOT be directly affected?",choices:["A. Inferior thyroid artery","B. Suprascapular artery","C. Vertebral artery","D. External carotid artery","E. Transverse cervical artery"],correct:3,explanation:"External carotid artery The external carotid artery arises from the common carotid, which on the right originates from the brachiocephalic trunk — completely separate from the subclavian. The inferior thyroid and suprascapular/transverse cervical arteries all arise from the thyrocervical trunk (subclavian branch). The vertebral artery also branches directly from the subclavian. ECA blood flow is therefore unaffected by subclavian injury.",wrongExplanations:{},eli5:""},
-{stem:"At approximately what vertebral level does the common carotid artery bifurcate into the internal and external carotid arteries?",choices:["A. C2–C3","B. C3–C4","C. C4 (upper border of thyroid cartilage)","D. C5","E. C6"],correct:2,explanation:"C4 — upper border of thyroid cartilage The common carotid bifurcates at approximately C4, corresponding to the upper border of the thyroid cartilage. At this level lies the carotid sinus (baroreceptor, innervated by CN IX) and the carotid body (chemoreceptor, senses PO₂/PCO₂/pH). This is the most frequent site of atherosclerotic stenosis causing stroke.",wrongExplanations:{},eli5:""},
-{stem:"A 38-year-old man is found to have an enlarged right supraclavicular lymph node. Fine-needle aspiration reveals metastatic squamous cell carcinoma. The primary tumor is most likely located where?",choices:["A. Left thorax / lung","B. Abdomen or pelvis","C. Right head and neck","D. Left breast","E. Right lower extremity"],correct:2,explanation:"Right head and neck Right supraclavicular nodes drain the right side of the head/neck, right upper thorax, and right arm. Left supraclavicular (Virchow's node / Troisier's sign) receives the thoracic duct and signals thoracic or abdominal malignancy. Squamous cell carcinoma in a right supraclavicular node most commonly represents spread from an ipsilateral head and neck primary (oral cavity, pharynx, larynx).",wrongExplanations:{},eli5:""},
-{stem:"A superficial cervical plexus block is performed by injecting local anesthetic at Erb's point (midpoint of the posterior SCM border). Which of the following nerves will NOT be reliably blocked by this technique alone?",choices:["A. Great auricular nerve","B. Transverse cervical nerve","C. Lesser occipital nerve","D. Phrenic nerve","E. Supraclavicular nerves"],correct:3,explanation:"Phrenic nerve Erb's point is where all four cutaneous branches of the superficial cervical plexus emerge (great auricular, lesser occipital, transverse cervical, supraclavicular) — these are all blocked by a superficial injection. The phrenic nerve (C3–C5) is a deep branch of the cervical plexus that runs on the anterior surface of the anterior scalene, deep to prevertebral fascia — not accessible with a superficial block. Inadvertent phrenic nerve block is actually a risk of deep cervical plexus or interscalene blocks.",wrongExplanations:{},eli5:""},
-{stem:"After a right neck dissection, a patient complains of numbness over the right ear (both surfaces) and angle of the jaw. Which nerve was most likely injured as it wrapped around the posterior border of the SCM?",choices:["A. Lesser occipital nerve (C2)","B. Great auricular nerve (C2–C3)","C. Transverse cervical nerve (C2–C3)","D. Auriculotemporal nerve (V3)","E. Supraclavicular nerve (C3–C4)"],correct:1,explanation:"Great auricular nerve (C2–C3) The great auricular nerve is the largest cutaneous branch of the cervical plexus. It ascends across the SCM toward the ear and supplies both surfaces of the ear, the parotid region, and the angle of the jaw. It is the most commonly injured nerve in parotidectomy and neck dissection. The lesser occipital supplies the scalp behind the ear, not the ear itself. The auriculotemporal (V3) supplies the temporal scalp and part of the anterior auricle but is not in the neck.",wrongExplanations:{},eli5:""},
-{stem:"Following repair of a thoracic aortic aneurysm, a patient develops an elevated right hemidiaphragm on chest X-ray and orthopnea. Which nerve is most likely injured?",choices:["A. Right vagus nerve (CN X)","B. Right recurrent laryngeal nerve","C. Right phrenic nerve (C3–C5)","D. Right accessory nerve (CN XI)","E. Right hypoglossal nerve (CN XII)"],correct:2,explanation:"Right phrenic nerve (C3–C5) The phrenic nerve provides the sole motor innervation to each hemidiaphragm. Injury results in ipsilateral hemidiaphragm paralysis → elevated, paradoxically moving hemidiaphragm on fluoroscopy. Orthopnea (worse supine) is characteristic because the paralyzed hemidiaphragm cannot resist abdominal organ displacement when lying flat. The right phrenic courses along the right side of the mediastinum and can be stretched or divided during thoracic aortic surgery.",wrongExplanations:{},eli5:""},
-{stem:"A woman undergoes total thyroidectomy. Post-operatively she develops stridor and bilateral vocal cord paralysis in the paramedian position. Bilateral injury to which nerve explains this presentation?",choices:["A. External laryngeal nerves (cricothyroid only)","B. Internal laryngeal nerves (sensory only)","C. Recurrent laryngeal nerves","D. Superior laryngeal nerve trunks (both internal and external divisions)","E. Ansa cervicalis"],correct:2,explanation:"Recurrent laryngeal nerves The RLN (branch of CN X) innervates all intrinsic laryngeal muscles except the cricothyroid (external laryngeal nerve). Bilateral RLN injury paralyzes all abductors and adductors — cords tend to sit in the paramedian (adducted) position due to residual cricothyroid activity, causing life-threatening airway obstruction (stridor, respiratory distress). Unilateral injury causes hoarseness only. The RLN crosses the inferior thyroid artery — the classic danger zone during thyroidectomy.",wrongExplanations:{},eli5:""},
-{stem:"During an emergency tracheostomy, the surgeon incises between the 2nd and 3rd tracheal rings. Which structure, if not retracted or divided, is most likely to be encountered directly in this field?",choices:["A. Common carotid artery","B. Isthmus of the thyroid gland","C. External jugular vein","D. Cervical esophagus","E. Ansa cervicalis"],correct:1,explanation:"Isthmus of the thyroid gland The thyroid isthmus bridges the two thyroid lobes and overlies the 2nd–4th tracheal rings. It must be retracted (or occasionally divided) to access the tracheal rings for tracheostomy. Cricothyrotomy (through the cricothyroid membrane, between thyroid and cricoid cartilages) is preferred in emergencies precisely because it avoids the isthmus. The trachea lies anterior to the esophagus; the carotid arteries are lateral within the carotid sheath.",wrongExplanations:{},eli5:""},
-{stem:"On barium swallow, the cervical esophagus shows a discrete posterior indentation at the level of C6 representing the transition from pharynx to esophagus. What structure creates this impression?",choices:["A. Aortic arch","B. Left main bronchus","C. Thyroid isthmus","D. Anterior longitudinal ligament","E. Cricopharyngeus muscle (upper esophageal sphincter)"],correct:4,explanation:"Cricopharyngeus muscle (upper esophageal sphincter) The cricopharyngeus muscle (lower fibers of inferior pharyngeal constrictor) forms the upper esophageal sphincter and creates a posterior indentation on barium swallow at C6 — known as the \"cricopharyngeal bar.\" It is tonically contracted at rest to prevent air entry into the esophagus. A Zenker's (pharyngoesophageal) diverticulum herniates through Killian's dehiscence, just above the cricopharyngeus. The aortic arch and left bronchus create indentations lower in the thoracic esophagus.",wrongExplanations:{},eli5:""},
-{stem:"Anterior pituitary cells that appear basophilic and immunostain positive for ACTH represent which cell type, and in which zone of the pars distalis are corticotropes most concentrated?",choices:["A. Somatotropes (acidophils) — peripheral zone","B. Gonadotropes (basophils) — central mucoid wedge","C. Corticotropes (basophils) — central mucoid wedge / pars tuberalis border","D. Thyrotropes (basophils) — anteromedial region","E. Lactotropes (acidophils) — lateral wings"],correct:2,explanation:"Corticotropes (basophils) Corticotropes are basophilic cells (PAS-positive) that produce ACTH (and other POMC-derived peptides). B-FLAT mnemonic: Basophils → FSH, LH (gonadotropes), ACTH (corticotropes), TSH (thyrotropes). Acidophils → GH (somatotropes), Prolactin (lactotropes). Corticotropes are concentrated in the central mucoid wedge of the pars distalis. In Cushing's disease, they become hyperplastic; after adrenalectomy, Crooke's hyaline change occurs.",wrongExplanations:{},eli5:""},
-{stem:"On a thyroid histology slide, large pale cells are scattered between follicular epithelial cells but do NOT border the follicular lumen. Immunostaining is positive for calcitonin. What are these cells and what is their embryological origin?",choices:["A. Chief cells — pharyngeal pouch IV","B. Parafollicular (C) cells — neural crest","C. Oxyphil cells — parathyroid gland","D. Follicular epithelial cells — thyroid bud","E. Chromaffin cells — neural crest"],correct:1,explanation:"Parafollicular (C) cells — neural crest C cells (parafollicular cells) are derived from neural crest and produce calcitonin (lowers serum calcium by inhibiting osteoclasts). They are positioned between follicular cells at the base, do not contact the colloid lumen, and are larger/paler than follicular cells. They are the cell of origin for medullary thyroid carcinoma (MTC), which stains for calcitonin and CEA. MTC is associated with MEN 2A and 2B (RET proto-oncogene mutations).",wrongExplanations:{},eli5:""},
-{stem:"A histological section of the adrenal cortex shows the widest zone, with cells arranged in long parallel cords that appear pale and vacuolated on H&E due to abundant stored lipid droplets. Which zone is this and what is its primary secretory product?",choices:["A. Zona glomerulosa → aldosterone","B. Zona fasciculata → cortisol","C. Zona reticularis → androgens","D. Adrenal medulla → epinephrine","E. Zona fasciculata → aldosterone"],correct:1,explanation:"Zona fasciculata → cortisol The zona fasciculata is the widest cortical zone (~75% of cortex). Its cells (\"spongiocytes\") are arranged in straight parallel cords and are packed with lipid droplets (cholesterol stores for steroidogenesis), giving a characteristic pale/vacuolated appearance on H&E. It produces glucocorticoids (cortisol) under ACTH stimulation. GFR mnemonic: Glomerulosa (outermost) → Aldosterone; Fasciculata (middle, widest) → Cortisol; Reticularis (innermost) → Androgens.",wrongExplanations:{},eli5:""},
-{stem:"On immunostaining of a pancreatic islet, cells at the periphery of the islet are glucagon-positive. What is the correct identification and spatial arrangement of islet cell types?",choices:["A. Peripheral = beta cells (insulin); central = alpha cells (glucagon)","B. Peripheral = delta cells (somatostatin); central = alpha cells (glucagon)","C. Peripheral = alpha cells (glucagon); central = beta cells (insulin)","D. Peripheral = PP cells; central = delta cells (somatostatin)","E. Peripheral = epsilon cells; central = alpha cells (glucagon)"],correct:2,explanation:"Peripheral = alpha (glucagon); central = beta (insulin) In a typical islet of Langerhans: alpha cells (~20%) producing glucagon sit at the periphery (mantle); beta cells (~70%) producing insulin occupy the central core; delta cells (~10%, somatostatin) are scattered between them; PP cells (pancreatic polypeptide) are rare. Beta cells are the most numerous and are destroyed in type 1 diabetes. Glucagonomas arise from alpha cells.",wrongExplanations:{},eli5:""},
-{stem:"A 19-year-old develops Parinaud syndrome (loss of upward gaze) due to a pineal region mass. A biopsy would show which cell type and which pathognomonic histological structure of normal pineal tissue?",choices:["A. Follicular cells + colloid pools","B. Pineocytes + corpora arenacea (brain sand)","C. Chief cells + lipid vacuoles","D. Chromaffin cells + neurosecretory granules","E. Somatotropes + acidophilic granules"],correct:1,explanation:"Pineocytes + corpora arenacea (brain sand) Pineocytes are modified photoreceptor neurons that secrete melatonin (regulating circadian rhythms). The defining histological feature of pineal tissue is corpora arenacea (\"brain sand\") — calcified concretions that increase with age and are visible on plain skull X-ray. Parinaud syndrome results from superior colliculus compression by a pineal region tumor (pineocytoma, germinoma, or teratoma). Pineal tumors are the classic cause of precocious puberty via β-hCG secretion in males.",wrongExplanations:{},eli5:""},
-{stem:"A 26-year-old is rear-ended at low speed. She presents 18 hours later with posterior neck pain, occipital headache, and restricted cervical ROM. Cervical X-rays and MRI are normal. Which anatomical structures are most characteristically injured in whiplash?",choices:["A. Spinal cord anterior horn cells","B. Facet joint capsules, cervical muscles/tendons, and anterior longitudinal ligament","C. Vertebral artery intima leading to dissection","D. C5–C6 nucleus pulposus herniation","E. Brachial plexus root avulsion"],correct:1,explanation:"Facet joint capsules, cervical muscles/tendons, and anterior longitudinal ligament Whiplash (cervical acceleration-deceleration) primarily injures soft tissues: facet joint capsules (most common anatomical pain generator), anterior and posterior longitudinal ligaments, intervertebral disc annulus fibrosus, and cervical paraspinal muscles. Neurological signs are absent; imaging is usually normal. No arm neurological deficit distinguishes it from radiculopathy. Prior whiplash is a recognized risk factor for later cervical facet OA.",wrongExplanations:{},eli5:""},
-{stem:"A 42-year-old IT worker presents with right arm pain radiating to the thumb and index finger, weakness of wrist extension, and a diminished brachioradialis reflex. MRI shows a C5–C6 disc herniation with right foraminal stenosis. Which nerve root is compressed?",choices:["A. C4","B. C5","C. C6","D. C7","E. C8"],correct:2,explanation:"C6 radiculopathy C6 radiculopathy: dermatomal pain/numbness to the thumb and index finger; weakness of wrist extension and biceps; diminished brachioradialis reflex (C5–C6). C5–C6 is the most common level for cervical disc herniation. Comparison: C5 → lateral arm/deltoid weakness/biceps reflex; C7 → middle finger, triceps weakness/triceps reflex; C8 → ring/little finger, grip weakness. The C5–C6 disc herniates to compress the exiting C6 root.",wrongExplanations:{},eli5:""},
-{stem:"A 64-year-old with confirmed cervical facet syndrome (positive diagnostic medial branch blocks) seeks definitive longer-term pain relief. Which interventional procedure provides the most durable benefit by targeting the nerve supply to the facet joints?",choices:["A. Anterior cervical discectomy and fusion (ACDF)","B. Radiofrequency ablation (denervation) of medial branches","C. Transforaminal epidural steroid injection","D. Intradiscal electrothermal therapy (IDET)","E. Cervical sympathetic chain block"],correct:1,explanation:"Radiofrequency ablation (RFA) of medial branches Facet joints are innervated by medial branches of the dorsal rami. Diagnostic medial branch blocks confirm the facet as the pain source; if ≥50–80% relief confirmed on two separate blocks, RFA (radiofrequency denervation) of the corresponding medial branches is performed. RFA provides 6–24 months of relief (until nerve regenerates). ACDF is for disc herniation with radiculopathy; transforaminal epidurals target the nerve root, not the facet joint; IDET is for discogenic pain.",wrongExplanations:{},eli5:""},
-{stem:"A 4-month-old infant has a long, narrow head shape (scaphocephaly). Premature fusion of which cranial suture is responsible?",choices:["A. Coronal suture","B. Metopic suture","C. Lambdoid suture","D. Sagittal suture","E. Squamosal suture"],correct:3,explanation:"Sagittal suture Sagittal craniosynostosis is the most common craniosynostosis. Premature fusion prevents lateral expansion → compensatory growth anteriorly and posteriorly → scaphocephaly (long, narrow skull; \"boat-shaped\"). Coronal synostosis → brachycephaly (bilateral) or plagiocephaly (unilateral). Metopic synostosis → trigonocephaly (triangular forehead, keel-shaped). Lambdoid synostosis → posterior plagiocephaly (must distinguish from positional).",wrongExplanations:{},eli5:""},
-{stem:"A patient with a dental abscess develops deep neck infection tracking into the retropharyngeal space. The \"danger space\" (between alar and prevertebral fascia) communicates inferiorly as far as the posterior mediastinum. Which fascial layer forms the anterior wall of the danger space?",choices:["A. Investing layer (superficial layer of deep cervical fascia)","B. Pretracheal (visceral) fascia","C. Prevertebral fascia","D. Alar fascia","E. Carotid sheath"],correct:3,explanation:"Alar fascia The alar fascia is a thin layer between the retropharyngeal space (anteriorly) and the \"danger space\" (posteriorly), itself bounded posteriorly by the prevertebral fascia. The danger space extends from the skull base to the diaphragm and provides a highway for mediastinal spread of deep neck infections — explaining why retropharyngeal abscess can be rapidly fatal. The alar fascia fuses laterally with the carotid sheaths and inferiorly around T2–T4.",wrongExplanations:{},eli5:""},
-{stem:"A 34-year-old woman is evaluated for neck pain after a motor vehicle accident. CT cervical spine shows an isolated fracture through the base of the odontoid process (dens), classified as a type II odontoid fracture. What is the embryological origin of the dens?",choices:["A. Develops from the anterior arch of C1","B. Develops from a separate ossification center independent of C1 and C2","C. Derives from the embryological body (centrum) of C1, which migrates and fuses with C2","D. Derives from neural crest cells migrating from the rhombencephalon","E. Develops from the posterior arch of C2"],correct:2,explanation:"Derives from the centrum (body) of C1 During development, the embryological body of C1 separates and migrates superiorly to fuse with the body of C2, becoming the dens (odontoid process). This is why C1 (atlas) lacks a vertebral body in the adult — it was \"donated\" to C2 as the dens. Type II odontoid fractures (at the base of the dens) are the most common and have poor healing potential, sometimes requiring surgical stabilization.",wrongExplanations:{},eli5:""},
-{stem:"Postoperatively following a total thyroidectomy, a patient develops perioral tingling, muscle cramps, and a positive Trousseau sign. Which structure was inadvertently removed or devascularized, and what is the primary embryological source of the superior parathyroid glands?",choices:["A. Inferior parathyroid glands — pharyngeal pouch IV","B. Superior parathyroid glands — pharyngeal pouch IV","C. Superior parathyroid glands — pharyngeal pouch III","D. Thyroid C cells — pharyngeal pouch IV","E. Inferior parathyroid glands — pharyngeal pouch III"],correct:1,explanation:"Superior parathyroids — pharyngeal pouch IV; inferior — pouch III Hypocalcemia post-thyroidectomy (perioral tingling, carpal spasm = Trousseau sign, Chvostek sign) = inadvertent parathyroid removal or devascularization. Superior parathyroids derive from pharyngeal pouch IV (shorter migration → consistent posterior thyroid position). Inferior parathyroids derive from pouch III (longer migration with the thymus → more variable position). All four glands are typically supplied by the inferior thyroid artery. The mnemonic: \"Superior comes from IV, Inferior from III\" — counterintuitive!",wrongExplanations:{},eli5:""},
-{stem:"A patient sustains a C5 spinal cord injury. Which finding would BEST confirm that phrenic nerve function is at least partially intact and spontaneous ventilation may be possible?",choices:["A. Intact shoulder shrug (trapezius via CN XI)","B. Preserved biceps reflex bilaterally","C. Visible diaphragmatic excursion on ultrasound or fluoroscopy","D. Intact gag reflex (CN IX/X)","E. Normal deltoid strength (C5, axillary nerve)"],correct:2,explanation:"Diaphragmatic excursion on imaging The phrenic nerve (C3–C4–C5) provides the sole motor supply to the diaphragm. Because C3 and C4 contribute to the phrenic nerve above the C5 injury level, some phrenic function may be preserved even with a complete C5 injury. Direct visualization of diaphragm contraction (ultrasound M-mode or fluoroscopy) is the definitive functional test. Shoulder shrug is CN XI (not phrenic); deltoid is C5 via axillary nerve (brachial plexus, not phrenic); gag reflex is CN IX/X, unrelated to C5.",wrongExplanations:{},eli5:""},
-{stem:"In a histological section of the posterior pituitary (neurohypophysis), elongated glial-like supporting cells with lipid-rich processes are seen closely investing unmyelinated axon terminals. These cells are the stroma of the neurohypophysis. What are they called?",choices:["A. Chromophobes","B. Pituicytes","C. Corticotropes","D. Folliculostellate cells","E. Chief cells"],correct:1,explanation:"Pituicytes Pituicytes are modified astrocytes (glial cells) that form the stromal support of the neurohypophysis. They have irregular nuclei, lipid-containing processes, and closely envelop the axon terminals of hypothalamic neurons (supraoptic and paraventricular nuclei) and the Herring bodies (axonal dilations storing ADH and oxytocin). They are the dominant cell type visible on H&E in the posterior pituitary — the secretory \"parenchyma\" is actually the axon terminals, not distinct secretory cells. Chromophobes and chromophils are anterior pituitary cells.",wrongExplanations:{},eli5:""}]}
-]}],
+{stem:"The thyroid gland receives arterial blood from which two sources?",choices:["A. Superior thyroid (external carotid) and inferior thyroid (thyrocervical trunk)","B. Internal carotid and vertebral arteries — which serves important functional roles in the relevant physiological processes","C. Common carotid and subclavian directly — recognized for its significance in clinical examination and surgical anatomy","D. Ascending pharyngeal and lingual arteries, which is commonly observed in clinical practice among similar patient populations"],correct:0,explanation:"The thyroid is supplied by the superior thyroid artery (from external carotid) and the inferior thyroid artery (from the thyrocervical trunk off the subclavian).",wrongExplanations:{},eli5:""}]}],
     assessments:[]},
-  2:{label:"Week 2",weekNum:39,notes:[],quizzes:[],assessments:[
-    {name:"LO 1 — Head & Neck Organization + Cervical & Cranial Bones",plos:[{title:"LO 1",content:"Describe the basic organization of the head and neck, and demonstrate basic familiarity with cervical and cranial bones."}],ploFile:"notes/head_neck_organization_notes_LO1.html",questions:[]},
-    {name:"LO 2 — Cervical Spine, Hyoid & Basicranium",plos:[{title:"LO 2",content:"Describe the structure and development of the cervical spine, hyoid, and basicranium, comprising the three composite cranial bones, and the general structure of the cranial base."}],ploFile:"notes/objective_38b_cervical_hyoid_basicranium_notes_LO2.html",questions:[]},
-    {name:"LO 3 — Cervical Fascia + Neck Triangles",plos:[{title:"LO 3",content:"Describe the cervical fascial layers and the borders of the superficial muscular triangles of the neck, and identify the underlying deep structures in each triangle."}],ploFile:"notes/cervical_fascia_neck_triangles_notes_LO3.html",questions:[]},
-    {name:"LO 4 — Arterial Supply, Venous Drainage & Lymphatics of the Neck",plos:[{title:"LO 4",content:"Describe and demonstrate the arterial supply and venous and lymphatic drainage of the neck."}],ploFile:"notes/neck_arterial_venous_lymphatic_notes_LO_4.html",questions:[]},
-    {name:"LO 5 — Superficial + Deep Cervical Plexuses",plos:[{title:"LO 5",content:"Describe the distribution and function of the superficial and deep cervical plexuses, including the spinal cord levels for each nerve."}],ploFile:"notes/cervical_plexus_distribution_function_notes_LO_5.html",questions:[]},
-    {name:"LO 6 — Cervical Viscera: Esophagus, Trachea & Thyroid",plos:[{title:"LO 6",content:"Describe the cervical viscera (esophagus, trachea, and thyroid gland): their position, relationships, blood supply, and innervation."}],ploFile:"notes/cervical_viscera_esophagus_trachea_thyroid_notes_Lo_6.html",questions:[]},
-    {name:"LO 7 — Endocrine Glands Histology",plos:[{title:"LO 7",content:"Of the following endocrine glands, describe location, relate hormones produced to cells of origin, describe blood supply and venous drainage, and differentiate between parenchymal and stromal tissue based upon histological sections: pituitary gland, thyroid gland, adrenal gland, pancreatic islets, and pineal gland."}],ploFile:"notes/endocrine_histology_master_notes_LO_7.html",questions:[]},
-    {name:"LO 8 — Cervical Pain Syndromes",plos:[{title:"LO 8",content:"Describe the epidemiology, clinical presentation, and pathophysiology of whiplash injury, cervical radiculopathy, and cervical facet osteoarthritis."}],ploFile:"notes/cervical_pain_syndromes_notes_LO_8html.html",questions:[]}
-  ]},
+  2:{label:"Week 2",weekNum:39,notes:[],quizzes:[],assessments:[]},
   3:{label:"Week 3",weekNum:40,notes:[],quizzes:[],assessments:[]},
   4:{label:"Week 4",weekNum:41,notes:[],quizzes:[],assessments:[]},
   5:{label:"Week 5",weekNum:42,notes:[],quizzes:[],assessments:[]},
@@ -1063,13 +1082,12 @@ function rSB(){var w=DATA[CC].weeks,al=DATA[CC].assessLabel;var oldList=document
 var h='<div class="sb-hd"><div class="sb-brand"><img src="'+LOGO+'" alt="UNE"><div class="sb-brand-txt"><h1>Block <em>5</em></h1><small>UNE COM Study Hub</small></div></div></div><div class="sb-tabs"><button class="sb-tab'+(CC==='OMK'?' on':'')+'" onclick="swC(\'OMK\')">OMK</button><button class="sb-tab'+(CC==='OCS'?' on':'')+'" onclick="swC(\'OCS\')">OCS</button></div><div class="sb-list">';
 for(var k in w){var wk=w[k],a=+k===CW,e=EW[k],hA=wk.assessments&&wk.assessments.length>0,weekExams=WEEK_EXAMS[k]||[];
 h+='<div class="wk'+(a?' on':'')+(e?' ex':'')+'" data-week="'+k+'"><div class="wk-hd" onclick="swW('+k+')"><span class="wk-n">'+wk.weekNum+'</span><span class="wk-l">'+wk.label+'</span><span class="wk-dots">'+(wk.notes.length?'<span class="wk-d dn"></span>':'')+(wk.quizzes.length?'<span class="wk-d dq"></span>':'')+(hA?'<span class="wk-d dr"></span>':'')+(weekExams.length?'<span class="wk-d da"></span>':'')+'</span><span class="wk-ch">▾</span></div><div class="wk-sub"><div class="si'+(a&&CV==='overview'?' on':'')+'" data-week="'+k+'" data-view="overview" onclick="go('+k+',\'overview\')"><span class="sii">🗂️</span>Overview</div><div class="si'+(a&&CV==='notes'?' on':'')+'" data-week="'+k+'" data-view="notes" onclick="go('+k+',\'notes\')"><span class="sii">📝</span>Notes'+(wk.notes.length?'<span class="sic">'+wk.notes.length+'</span>':'')+'</div><div class="si'+(a&&CV==='quizzes'?' on':'')+'" data-week="'+k+'" data-view="quizzes" onclick="go('+k+',\'quizzes\')"><span class="sii">📚</span>Quizzes'+(wk.quizzes.length?'<span class="sic">'+wk.quizzes.length+'</span>':'')+'</div><div class="si'+(a&&CV==='assess'?' on':'')+'" data-week="'+k+'" data-view="assess" onclick="go('+k+',\'assess\')"><span class="sii">🧪</span>'+al+(hA?'<span class="sic">'+(wk.assessments.length)+'</span>':'')+'</div><div class="si'+(a&&CV==='anki'?' on':'')+'" data-week="'+k+'" data-view="anki" onclick="go('+k+',\'anki\')"><span class="sii">🃏</span>Anki</div>';
-weekExams.forEach(function(ex){h+='<div class="si'+(CV==='pt'+ex.ptIndex?' on':'')+'" data-pt="'+ex.ptIndex+'" onclick="goPT('+ex.ptIndex+')"><span class="sii">'+ex.icon+'</span>'+ex.label+'</div>'});
+weekExams.forEach(function(ex){h+='<div class="si'+(CV==='pt'+ex.ptIndex?' on':'')+'" data-week="'+k+'" data-view="pt'+ex.ptIndex+'" onclick="goPT('+ex.ptIndex+')"><span class="sii">'+ex.icon+'</span>'+ex.label+'</div>'});
 h+='</div></div>'}
 document.getElementById('sb').innerHTML=h;var newList=document.querySelector('#sb .sb-list');if(newList)newList.scrollTop=prevScroll}
 
 function syncSB(){var sb=document.getElementById('sb');if(!sb||!sb.querySelector('.sb-list')){rSB();return}var weeks=sb.querySelectorAll('.wk');for(var i=0;i<weeks.length;i++){var wkEl=weeks[i],wkNum=+wkEl.getAttribute('data-week');wkEl.classList.toggle('on',wkNum===CW);wkEl.classList.toggle('ex',!!EW[wkNum]);}
-var tabs=sb.querySelectorAll('.sb-tab');for(var j=0;j<tabs.length;j++){tabs[j].classList.toggle('on',tabs[j].textContent.trim()===CC);}
-var items=sb.querySelectorAll('.si');for(var k=0;k<items.length;k++){var it=items[k],view=it.getAttribute('data-view'),week=+(it.getAttribute('data-week')||0),pt=it.getAttribute('data-pt');var on=false;if(pt){on=CV==='pt'+pt}else{on=(week===CW&&view===CV)}it.classList.toggle('on',on);}}
+var items=sb.querySelectorAll('.si');for(var j=0;j<items.length;j++){var item=items[j],itemWeek=+item.getAttribute('data-week'),itemView=item.getAttribute('data-view');item.classList.toggle('on',itemWeek===CW&&itemView===CV);}}
 
 function swC(c){CC=c;CW=1;CV='overview';EW={1:true};rSB();rMN();document.querySelector('.sb').classList.remove('mo')}
 function swW(w){w=+w;if(CW===w){var isOpen=!!EW[w];EW={};if(!isOpen)EW[w]=true}else{CW=w;CV='overview';EW={};EW[w]=true}syncSB();rMN();document.querySelector('.sb').classList.remove('mo')}
@@ -1077,7 +1095,8 @@ function go(w,v){CW=+w;CV=v;EW={};EW[w]=true;syncSB();rMN();document.querySelect
 function goPT(i){var owner=findWeekForPt(i);if(owner){CW=owner;EW={};EW[owner]=true}CV='pt'+i;syncSB();rMNpt(i);document.querySelector('.sb').classList.remove('mo')}
 
 function rMN(){var wk=DATA[CC].weeks[CW],cn=DATA[CC].fullName,vn=CV==='overview'?'Overview':CV==='assess'?DATA[CC].assessFull:CV==='anki'?'Anki Decks':CV.charAt(0).toUpperCase()+CV.slice(1);
-document.getElementById('hd').innerHTML='<div><h2>'+wk.label+' \u2014 '+vn+'</h2><div class="bc">'+cn+' \u203A Week '+wk.weekNum+'</div></div>';
+var helper=(CC==='OCS'&&CV==='overview')?'<div class="hd-hint">type willard to be directed to his site</div>':'';
+document.getElementById('hd').innerHTML='<div><h2>'+wk.label+' \u2014 '+vn+'</h2><div class="bc">'+cn+' \u203A Week '+wk.weekNum+'</div>'+helper+'</div>';
 var b='';if(CV==='overview')b=rNT(wk)+rQZ(wk)+rAS(wk)+rPT();else if(CV==='notes')b=rNT(wk);else if(CV==='quizzes')b=rQZ(wk);else if(CV==='assess')b=rAS(wk);else if(CV==='anki')b=rAK();
 document.getElementById('bd').innerHTML=b}
 function rMNpt(i){var p=PTESTS[i];
@@ -1108,7 +1127,7 @@ function dlN(f){var a=document.createElement('a');a.href=f;a.download=f.split('/
 
 function rQZ(wk){var h='<div class="sec"><div class="sec-hd"><h3>\uD83D\uDCDA Quizzes</h3><span class="cnt">'+wk.quizzes.length+'</span></div>';if(!wk.quizzes.length)return h+'<div class="emp"><div class="ei">\uD83D\uDCDA</div><h4>No quizzes yet</h4><p>Add quizzes to the DATA section</p></div></div>';h+='<div class="qg">';wk.quizzes.forEach(function(q,i){h+='<div class="qc" onclick="openQ('+CW+','+i+',\'quiz\')"><div class="qn">'+q.name+'</div><div class="qs">'+q.questions.length+' question'+(q.questions.length!==1?'s':'')+'</div></div>'});return h+'</div></div>'}
 
-function rAS(wk){var al=DATA[CC].assessLabel,af=DATA[CC].assessFull,ai=DATA[CC].assessIcon,arr=wk.assessments||[];var h='<div class="sec"><div class="sec-hd"><h3>'+ai+' '+af+'</h3><span class="cnt">'+arr.length+'</span></div>';if(!arr.length)return h+'<div class="emp"><div class="ei">'+ai+'</div><h4>No '+al+' yet</h4><p>Add assessments to the DATA section</p></div></div>';arr.forEach(function(r,i){var np=r.plos?r.plos.length:0,nq=r.questions?r.questions.length:0,hasFile=!!r.ploFile;h+='<div class="rat-card"><div class="rat-name">'+r.name+'</div><div class="rat-meta">'+(np?'<span>\uD83D\uDCCB '+np+' PLO'+(np!==1?'s':'')+'</span>':'')+'<span>\uD83D\uDCDA '+nq+' Practice Q'+(nq!==1?'s':'')+'</span></div><div class="rat-btns">'+(np||hasFile?'<button class="rat-btn plo" onclick="openPLO('+CW+','+i+')">'+(hasFile?'Open PLO Notes \u2192':'View PLOs')+'</button>':'')+(nq?'<button class="rat-btn prac" onclick="openQ('+CW+','+i+',\'assess\')">Practice Questions</button>':'')+'</div></div>'});return h+'</div>'}
+function rAS(wk){var al=DATA[CC].assessLabel,af=DATA[CC].assessFull,ai=DATA[CC].assessIcon,arr=wk.assessments||[];var h='<div class="sec"><div class="sec-hd"><h3>'+ai+' '+af+'</h3><span class="cnt">'+arr.length+'</span></div>';if(!arr.length)return h+'<div class="emp"><div class="ei">'+ai+'</div><h4>No '+al+' yet</h4><p>Add assessments to the DATA section</p></div></div>';arr.forEach(function(r,i){var np=r.plos?r.plos.length:0,nq=r.questions?r.questions.length:0,hasFile=!!r.ploFile,hasVideo=!!r.videoReview,hasPodcast=!!r.podcast;h+='<div class="rat-card"><div class="rat-name">'+r.name+'</div><div class="rat-meta">'+(np?'<span>📋 '+np+' PLO'+(np!==1?'s':'')+'</span>':'')+'<span>📚 '+nq+' Practice Q'+(nq!==1?'s':'')+'</span></div><div class="rat-btns">'+(np||hasFile?'<button class="rat-btn plo" onclick="openPLO('+CW+','+i+')">'+(hasFile?'Open PLO Notes →':'View PLOs')+'</button>':'')+(nq?'<button class="rat-btn prac" onclick="openQ('+CW+','+i+',\'assess\')">Practice Questions</button>':'')+(hasVideo?'<button class="rat-btn review" onclick="openAssessMedia('+CW+','+i+',\'video\')">Video Review ↗</button>':'')+(hasPodcast?'<button class="rat-btn podcast" onclick="openAssessMedia('+CW+','+i+',\'podcast\')">Podcast ↗</button>':'')+'</div></div>'});return h+'</div>'}
 
 /* Anki */
 function rAK(){return'<div class="sec"><div class="sec-hd"><h3>\uD83D\uDCCE Anki Decks</h3></div><div class="anki-card"><div class="anki-icon">\uD83C\uDFB4</div><div class="anki-info"><h4>Anki Flashcard Decks</h4><p>Access your shared Anki decks for Block 5</p></div><div class="anki-links"><a class="anki-link gdrive" href="https://drive.google.com" target="_blank">\uD83D\uDCC1 Google Drive</a><a class="anki-link onedrive" href="https://onedrive.live.com" target="_blank">\u2601\uFE0F OneDrive</a></div></div></div>'}
@@ -1258,6 +1277,8 @@ var w2=window.open('','_blank');if(w2){w2.document.write(h);w2.document.close();
 
 /* ═══ AUTH CONFIG ═══ */
 var ADMIN_ACCOUNT={email:'jmehta@une.edu',password:'test123',name:'Jeevs'};
+// Seeded users are baked into the file so GitHub Pages works across browsers.
+// Custom users added through the admin modal still live in localStorage on that device only.
 var AUTH_STORAGE_KEY='une-study-hub-custom-users-v1';
 var AUTH_LAST_LOGIN_KEY='une-study-hub-last-login-v1';
 var EXAM_WEEK_RANGES=[
@@ -1374,7 +1395,6 @@ var QUOTE_OF_THE_DAY=[
   "Let today's job be simple: understand one thing deeply enough to keep."
 ];
 var AUTH_SEED_USERS={
-  'jmehta@une.edu':{name:'Jeevs'},
   'ahjort@une.edu':{name:'Abigail Hjort'},
   'agerges@une.edu':{name:'Alexandra Gerges'},
   'aonorati@une.edu':{name:'Angelique Onorati'},
@@ -1384,6 +1404,7 @@ var AUTH_SEED_USERS={
   'deverly@une.edu':{name:'David Everly'},
   'hnaeem@une.edu':{name:'Haad Naeem'},
   'hatif@une.edu':{name:'Haris Atif'},
+  'jmehta@une.edu':{name:'Jeevs'},
   'kboateng@une.edu':{name:'Kofi Boateng'},
   'lphung1@une.edu':{name:'Landon'},
   'lli3@une.edu':{name:'Linghua Li'},
@@ -1399,6 +1420,23 @@ var AUTH_SEED_USERS={
 var AUTH_CUSTOM_USERS=loadCustomUsers();
 var AUTH_USERS={};
 var AUTH_STATE={user:null,admin:false};
+var AUTH_SPECIAL_WELCOMES={
+  'cguan@une.edu':{
+    src:'https://i.chzbgr.com/full/9292157696/hE57BA7E2/vertebrate',
+    alt:'Cindy special welcome image',
+    caption:'<strong>Cindy mode activated.</strong> A very important vertebrate has entered the study hub.'
+  },
+  'deverly@une.edu':{
+    src:'https://media.tenor.com/JN_A8-7-KlgAAAAM/what%27s-up-sup.gif',
+    alt:'Duck waving hello',
+    caption:'<strong>David mode activated.</strong> The duck has officially entered the study hub.'
+  },
+  'rwolfe4@une.edu':{
+    src:'https://media.tenor.com/NESZUSrsmOYAAAAM/fenrir-god-of-war.gif',
+    alt:'Fenrir animation',
+    caption:'<strong>Rachael mode activated.</strong> Fenrir has arrived to escort you into Block 5.'
+  }
+};
 var GREETING_GROUPS={
   morning:[
     {lead:'Good morning,',sub:'Sunrise mode activated. Loading your study hub…'},
@@ -1587,8 +1625,7 @@ function setupAuth(){
     setTimeout(function(){input.focus()},120);
   }
 }
-function setupAdmin(){if(safeStorageRead("une-hub-admin-v1")==="1"){AUTH_STATE.admin=true;}
-
+function setupAdmin(){
   var loginForm=document.getElementById('adminLoginForm');
   var userForm=document.getElementById('adminUserForm');
   var modal=document.getElementById('adminModal');
@@ -1900,6 +1937,29 @@ function renderWelcomeMeta(user,date){
   metaEl.innerHTML=chips.map(function(text){return '<div class="auth-welcome-chip">'+escapeHtml(text)+'</div>';}).join('');
   quoteEl.textContent='';
 }
+function getSpecialWelcome(email){
+  return AUTH_SPECIAL_WELCOMES[normEmail(email)]||null;
+}
+function renderSpecialWelcome(user){
+  var card=document.getElementById('authWelcomeCard');
+  var media=document.getElementById('authSpecialMedia');
+  var image=document.getElementById('authSpecialImage');
+  var caption=document.getElementById('authSpecialCaption');
+  var special=getSpecialWelcome(user&&user.email);
+  if(card)card.classList.toggle('special-user',!!special);
+  if(media)media.setAttribute('aria-hidden',special?'false':'true');
+  if(!special){
+    if(image){image.removeAttribute('src');image.alt='';}
+    if(caption)caption.innerHTML='';
+    return null;
+  }
+  if(image){
+    image.src=special.src;
+    image.alt=special.alt||'Special welcome animation';
+  }
+  if(caption)caption.innerHTML=special.caption||'';
+  return special;
+}
 function playWelcome(user){
   var overlay=document.getElementById('authOverlay');
   var nameEl=document.getElementById('authWelcomeName');
@@ -1910,11 +1970,12 @@ function playWelcome(user){
   var greeting=pickGreeting(now);
   if(nameEl)nameEl.textContent=user.name||nameFromEmail(user.email);
   if(textEl)textEl.textContent=greeting.lead;
+  var special=renderSpecialWelcome(user);
   if(subEl)subEl.textContent=greeting.sub;
   renderWelcomeMeta(user,now);
   if(overlay)overlay.classList.add('welcome-state');
   writeLastLogin(user.email);
-  setTimeout(unlockApp,3200);
+  setTimeout(unlockApp,special?4300:3200);
 }
 function unlockApp(){
   var overlay=document.getElementById('authOverlay');
@@ -1968,7 +2029,7 @@ function verifyAdminLogin(ev){
     setAdminMsg('Admin email or password is incorrect.','error');
     return;
   }
-  AUTH_STATE.admin=true;safeStorageWrite("une-hub-admin-v1","1");
+  AUTH_STATE.admin=true;
   setAdminMsg('Administrator verified. You can now manage approved users.','success');
   syncAdminPanels();
 }
@@ -1998,7 +2059,7 @@ function handleAdminCreateUser(ev){
   setAdminMsg('Approved access saved for '+name+' ('+email+').','success');
 }
 function continueAsAdmin(){
-  AUTH_STATE.admin=true;safeStorageWrite("une-hub-admin-v1","1");
+  AUTH_STATE.admin=true;
   AUTH_STATE.user={email:ADMIN_ACCOUNT.email,name:AUTH_SEED_USERS[ADMIN_ACCOUNT.email].name||ADMIN_ACCOUNT.name};
   closeAdminModal();
   if(document.body.classList.contains('auth-locked')){
@@ -2053,6 +2114,319 @@ function escapeHtml(value){
     .replace(/'/g,'&#39;');
 }
 
+
+var EASTER_EGG_BUFFER='';
+var EASTER_EGG_LAST_TYPED=0;
+var EASTER_EGG_TIMEOUT_MS=1600;
+var SECRET_TOAST_TIMER=null;
+var MEDIA_MODAL_CLEANUP=null;
+function setupMediaModal(){
+  var modal=document.getElementById('mediaModal');
+  var closeBtn=document.getElementById('mediaCloseBtn');
+  if(closeBtn)closeBtn.addEventListener('click',closeMediaModal);
+  if(modal){
+    modal.addEventListener('click',function(ev){
+      if(ev.target===modal)closeMediaModal();
+    });
+  }
+}
+function closeMediaModal(){
+  var modal=document.getElementById('mediaModal');
+  var frame=document.getElementById('mediaFrame');
+  if(modal){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+  }
+  if(frame)frame.src='';
+  if(typeof MEDIA_MODAL_CLEANUP==='function')MEDIA_MODAL_CLEANUP();
+  MEDIA_MODAL_CLEANUP=null;
+}
+function openMediaModal(title,kicker,previewUrl,openUrl,opts){
+  var modal=document.getElementById('mediaModal');
+  var frame=document.getElementById('mediaFrame');
+  var titleEl=document.getElementById('mediaTitle');
+  var kickerEl=document.getElementById('mediaKicker');
+  var subEl=document.getElementById('mediaSub');
+  var linkEl=document.getElementById('mediaOpenLink');
+  var options=opts||{};
+  if(!modal||!frame)return;
+  if(titleEl)titleEl.textContent=title||'Embedded review';
+  if(kickerEl)kickerEl.textContent=kicker||'Embedded review';
+  if(subEl)subEl.textContent=options.subtext||'Press Esc or click outside to close. If the embed stays blank, use the Google Drive button.';
+  modal.classList.toggle('is-podcast',!!options.isPodcast);
+  if(linkEl){
+    linkEl.href=openUrl||previewUrl||'#';
+    linkEl.style.display=(openUrl||previewUrl)?'inline-flex':'none';
+  }
+  frame.removeAttribute('src');
+  frame.src=previewUrl||'';
+  frame.title=(title||'Embedded review media')+(options.isPodcast?' audio player':'');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  MEDIA_MODAL_CLEANUP=function(){document.body.style.overflow=''; modal.classList.remove('is-podcast');};
+  document.body.style.overflow='hidden';
+}
+function openAssessMedia(weekIdx,assessIdx,type){
+  var week=DATA[CC]&&DATA[CC].weeks?DATA[CC].weeks[weekIdx]:null;
+  var assess=week&&week.assessments?week.assessments[assessIdx]:null;
+  if(!assess)return;
+  var isPodcast=type==='podcast';
+  var previewUrl=isPodcast?assess.podcast:assess.videoReview;
+  var openUrl=isPodcast?(assess.podcastOpen||assess.podcast):(assess.videoReviewOpen||assess.videoReview);
+  if(!previewUrl&&!openUrl)return;
+  showSecretToast(isPodcast?'Loading embedded podcast…':'Loading embedded video review…');
+  setTimeout(function(){
+    openMediaModal(
+      isPodcast?'Podcast':'Video Review',
+      isPodcast?'Embedded audio review':'Embedded video review',
+      previewUrl,
+      openUrl,
+      {isPodcast:isPodcast}
+    );
+  },220);
+}
+function setupEasterEggs(){
+  var modal=document.getElementById('easterEggModal');
+  var closeBtn=document.getElementById('easterEggClose');
+  var dismissBtn=document.getElementById('easterEggDismiss');
+  if(closeBtn)closeBtn.addEventListener('click',closeEasterEgg);
+  if(dismissBtn)dismissBtn.addEventListener('click',closeEasterEgg);
+  if(modal){
+    modal.addEventListener('click',function(ev){
+      if(ev.target===modal)closeEasterEgg();
+    });
+  }
+  document.addEventListener('keydown',handleEasterEggKeydown,true);
+}
+function isTypingContext(target){
+  return !!(target&&(target.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/i.test(target.tagName)));
+}
+function showSecretToast(label){
+  var toast=document.getElementById('secretToast');
+  if(!toast)return;
+  var textEl=toast.querySelector('.secret-toast-text');
+  if(textEl)textEl.textContent=label||'Secret unlocked';
+  toast.classList.add('show');
+  toast.setAttribute('aria-hidden','false');
+  if(SECRET_TOAST_TIMER)clearTimeout(SECRET_TOAST_TIMER);
+  SECRET_TOAST_TIMER=setTimeout(function(){
+    toast.classList.remove('show');
+    toast.setAttribute('aria-hidden','true');
+  },1150);
+}
+function openEggPopup(url,name,width,height){
+  if(!url)return null;
+  var left=Math.max(0,Math.round((window.screen.width-(width||1100))/2));
+  var top=Math.max(0,Math.round((window.screen.height-(height||760))/2));
+  var features=['noopener','noreferrer','popup=yes','resizable=yes','scrollbars=yes','width='+(width||1100),'height='+(height||760),'left='+left,'top='+top].join(',');
+  try{
+    var popup=window.open(url,name||'_blank',features);
+    if(popup&&typeof popup.focus==='function')popup.focus();
+    return popup;
+  }catch(err){
+    return null;
+  }
+}
+function launchEasterEgg(config){
+  showSecretToast((config&&config.toastLabel)||'Secret unlocked');
+  window.setTimeout(function(){ openEasterEgg(config); }, 220);
+}
+function handleEasterEggKeydown(ev){
+  if(ev.key==='Escape'){
+    closeEasterEgg();
+    closeMediaModal();
+    return;
+  }
+  if(ev.defaultPrevented||ev.metaKey||ev.ctrlKey||ev.altKey||isTypingContext(ev.target))return;
+  var key=String(ev.key||'').toLowerCase();
+  if(!/^[a-z]$/.test(key))return;
+  var now=Date.now();
+  if(now-EASTER_EGG_LAST_TYPED>EASTER_EGG_TIMEOUT_MS)EASTER_EGG_BUFFER='';
+  EASTER_EGG_LAST_TYPED=now;
+  EASTER_EGG_BUFFER=(EASTER_EGG_BUFFER+key).slice(-14);
+  if(EASTER_EGG_BUFFER.endsWith('loglady')){
+    EASTER_EGG_BUFFER='';
+    triggerLogLadyEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('willard')){
+    EASTER_EGG_BUFFER='';
+    triggerWillardEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('kitten')){
+    EASTER_EGG_BUFFER='';
+    triggerNyanEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('quack')){
+    EASTER_EGG_BUFFER='';
+    triggerQuackEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('hvla')){
+    EASTER_EGG_BUFFER='';
+    triggerHvlaEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('cat')){
+    EASTER_EGG_BUFFER='';
+    triggerNyanEgg();
+  }
+  if(EASTER_EGG_BUFFER.endsWith('barrel')){
+    EASTER_EGG_BUFFER='';
+    triggerBarrelRoll();
+  }
+}
+function openEasterEgg(config){
+  var modal=document.getElementById('easterEggModal');
+  var card=document.getElementById('easterEggCard');
+  var icon=document.getElementById('easterEggIcon');
+  var title=document.getElementById('easterEggTitle');
+  var body=document.getElementById('easterEggBody');
+  var link=document.getElementById('easterEggLink');
+  var note=document.getElementById('easterEggNote');
+  var wrap=document.getElementById('easterEggPlayerWrap');
+  var player=document.getElementById('easterEggPlayer');
+  var mediaWrap=document.getElementById('easterEggMediaWrap');
+  var media=document.getElementById('easterEggMedia');
+  if(!modal||!card)return;
+  card.classList.toggle('cat-mode',config&&config.theme==='cat');
+  card.classList.toggle('loglady-mode',config&&config.theme==='loglady');
+  if(icon)icon.textContent=(config&&config.icon)||'✨';
+  if(title)title.textContent=(config&&config.title)||'Secret unlocked';
+  if(body)body.textContent=(config&&config.body)||'';
+  if(note)note.textContent=(config&&config.note)||'Press Esc or click outside to close.';
+  if(link){
+    link.textContent=(config&&config.linkLabel)||'Open source';
+    link.href=(config&&config.linkHref)||'#';
+  }
+  if(mediaWrap&&media){
+    if(config&&config.mediaSrc){
+      mediaWrap.hidden=false;
+      media.src=config.mediaSrc;
+      media.alt=(config&&config.mediaAlt)||'Easter egg media';
+    }else{
+      mediaWrap.hidden=true;
+      media.removeAttribute('src');
+      media.alt='Easter egg media';
+    }
+  }
+  if(wrap&&player){
+    if(config&&config.playerSrc){
+      wrap.hidden=false;
+      player.src=config.playerSrc;
+      player.title=(config&&config.playerTitle)||'Easter egg player';
+    }else{
+      wrap.hidden=true;
+      player.removeAttribute('src');
+      player.title='Easter egg player';
+    }
+  }
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+}
+function closeEasterEgg(){
+  var modal=document.getElementById('easterEggModal');
+  var player=document.getElementById('easterEggPlayer');
+  var wrap=document.getElementById('easterEggPlayerWrap');
+  var media=document.getElementById('easterEggMedia');
+  var mediaWrap=document.getElementById('easterEggMediaWrap');
+  if(player)player.removeAttribute('src');
+  if(wrap)wrap.hidden=true;
+  if(media)media.removeAttribute('src');
+  if(mediaWrap)mediaWrap.hidden=true;
+  if(!modal)return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+}
+function triggerQuackEgg(){
+  launchEasterEgg({
+    theme:'duck',
+    icon:'🦆',
+    title:'QUACK MODE',
+    toastLabel:'Secret unlocked • quack',
+    body:'Duck protocol engaged. The anthem now opens right inside the easter-egg modal using the YouTube embed player.',
+    mediaSrc:'https://media.tenor.com/JN_A8-7-KlgAAAAM/what%27s-up-sup.gif',
+    mediaAlt:'Duck reaction GIF',
+    playerSrc:'https://www.youtube.com/embed/A4OFJktwIog?autoplay=1&start=43',
+    playerTitle:'Quack Quack (Captain Feathersword Fell Asleep on His Pirate Ship)',
+    linkLabel:'Open duck anthem on YouTube',
+    linkHref:'https://youtu.be/A4OFJktwIog?t=43',
+    note:'If YouTube acts up again, the button below still opens the track directly at 0:43.'
+  });
+}
+function triggerNyanEgg(){
+  var popup=window.open('https://www.nyan.cat','_blank','noopener,noreferrer,popup=yes,width=960,height=720');
+  if(popup&&typeof popup.focus==='function')popup.focus();
+  launchEasterEgg({
+    theme:'cat',
+    icon:'🐱',
+    title:'NYAN MODE',
+    toastLabel:'Secret unlocked • nyan',
+    body:popup
+      ? 'Nyan Cat launched in its own window so the song can do its full chaotic thing.'
+      : 'Your browser blocked the popup, so use the button below to launch Nyan Cat manually.',
+    linkLabel:'Open Nyan Cat',
+    linkHref:'https://www.nyan.cat',
+    note:popup
+      ? 'Type cat or kitten again anytime you want to re-open it.'
+      : 'Popups can be blocked in some browsers until you allow them for this site.'
+  });
+}
+function triggerLogLadyEgg(){
+  launchEasterEgg({
+    theme:'loglady',
+    icon:'🪵',
+    title:'LOG LADY MODE',
+    toastLabel:'Secret unlocked • loglady',
+    body:'The Log Lady has arrived. I swapped in your new photo so the modal finally feels like a proper Twin Peaks shrine.',
+    mediaSrc:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCBj2s6UXzx3CmEMj9BmFu9MTomAjEqxZTcw&s',
+    mediaAlt:'Log Lady portrait',
+    linkLabel:'Open Log Lady video',
+    linkHref:'https://www.youtube.com/watch?v=waxIG84goUQ',
+    note:'Use the button below if you want the clip itself; the modal now leads with the new image you found.'
+  });
+}
+function triggerHvlaEgg(){
+  launchEasterEgg({
+    icon:'⚡',
+    title:'HVLA MODE',
+    toastLabel:'Secret unlocked • hvla',
+    body:'High-velocity, low-amplitude unlocked. This one uses the exact Google Drive preview embed you dropped in.',
+    playerSrc:'https://drive.google.com/file/d/1nA6gapO7wW39P_LZEhdhBOnGqiWCMHNc/preview',
+    playerTitle:'HVLA easter egg',
+    linkLabel:'Open HVLA in Google Drive',
+    linkHref:'https://drive.google.com/file/d/1nA6gapO7wW39P_LZEhdhBOnGqiWCMHNc/view',
+    note:'If the preview ever goes dark, the Drive button underneath should still get you there.'
+  });
+}
+
+function triggerBarrelRoll(){
+  showSecretToast('Do a barrel roll! • barrel');
+  var body=document.body;
+  body.style.transition='transform 1s ease-in-out';
+  body.style.transform='rotate(360deg)';
+  setTimeout(function(){
+    body.style.transform='rotate(0deg)';
+    setTimeout(function(){body.style.transition='';body.style.transform='';},1050);
+  },1050);
+}
+
+
+function triggerWillardEgg(){
+  var willardUrl='https://brightspace.une.edu/content/enforced/6696-COM-Anatomy-template_20201102022258/csfiles/home_dir/Donor%20Lab%20Resources/Anatomy_core_site/index.html?ou=6696%2c42527%2c98200';
+  showSecretToast('Secret unlocked • willard');
+  window.setTimeout(function(){
+    try{
+      window.location.assign(willardUrl);
+    }catch(err){
+      window.location.href=willardUrl;
+    }
+  },260);
+}
+
+
 loadThemeOverride();
 renderThemePanel();
 applyDynamicTheme(new Date());
@@ -2063,6 +2437,8 @@ init();
 setupAuth();
 setupAdmin();
 syncAdminControls();
+setupEasterEggs();
+setupMediaModal();
 document.addEventListener('click',function(ev){
   var dock=document.getElementById('themeDock');
   if(dock&&!dock.contains(ev.target))closeThemePanel();
