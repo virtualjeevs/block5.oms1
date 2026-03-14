@@ -866,10 +866,18 @@ OMK:{fullName:"Osteopathic Manipulative Knowledge",
   weeks:{
   1:{label:"Week 1",weekNum:38,
     notes:[
-      {title:"Ferland — Confidence Intervals, Superiority, Non-Inferiority, and Equivalence Trials",file:"notes/ferland_ebm_trials_notes_v3.html",icon:"📊",group:"EBM"},
-      {title:"Johnson — Endocrine, Reproductive Steroids, and CAH",file:"notes/johnson_html_notes_tables_fullwidth.html",icon:"🔬",group:"Physiology"},
-      {title:"Ly — The Pharmacology of Corticosteroids",file:"notes/ly_corticosteroids_notes.html",icon:"💊",group:"Pharmacology"},
-      {title:"Morganelli — Cortisol / HPA Axis",file:"notes/morganelli_hpa_axis_notes_standalone_v2.html",icon:"🧠",group:"Physiology"}
+      {title:"Ferland — Confidence Intervals, Superiority, Non-Inferiority, and Equivalence Trials",file:"notes/ferland_ebm_trials_notes_v3.html",icon:"📊",group:"EBM",
+        videoReview:"https://drive.google.com/file/d/1ROj84JSfoTv0iztU28CM7Q-TTOOmS82w/preview",
+        podcast:"https://drive.google.com/file/d/1P4eiG8Xqx7z1cY0Bz3DNIwEASUSA72R0/preview"},
+      {title:"Johnson — Endocrine, Reproductive Steroids, and CAH",file:"notes/johnson_html_notes_tables_fullwidth.html",icon:"🔬",group:"Physiology",
+        videoReview:"https://drive.google.com/file/d/13DFfiQ8mH8kAguD1J-oogFmmWPYrt4gw/preview",
+        podcast:"https://drive.google.com/file/d/1QFGqdjjMpBB5c9FksADckXwm4HsNPXlA/preview"},
+      {title:"Ly — The Pharmacology of Corticosteroids",file:"notes/ly_corticosteroids_notes.html",icon:"💊",group:"Pharmacology",
+        videoReview:"https://drive.google.com/file/d/1F3RtdQIkz7J3jl7wCTk-fo6hSp8kHjHW/preview",
+        podcast:"https://drive.google.com/file/d/1nVOZ_KWhDVkg-ckVuwgXeWlIOkHGvE7q/preview"},
+      {title:"Morganelli — Cortisol / HPA Axis",file:"notes/morganelli_hpa_axis_notes_standalone_v2.html",icon:"🧠",group:"Physiology",
+        videoReview:"https://drive.google.com/file/d/1c3cD01loNlKwGTP0jByG3x4Q96cMysQp/preview",
+        podcast:"https://drive.google.com/file/d/1nsFcbLlATFsnbSilhcOQV_VO8me1X0m2/preview"}
     ],
     quizzes:[
 {name:"Ferland — Confidence Intervals, Superiority, Non-Inferiority, and Equivalence Trials",banks:[{label:"Bank 1",questions:[{stem:"A researcher runs a superiority trial comparing a new antihypertensive to placebo. The 95% CI for the mean difference in blood pressure reduction is −8.2 to −1.4 mmHg (negative = new drug lowers BP more). What is the correct interpretation?",choices:["A. The new drug is superior; the CI is entirely below zero","B. Non-inferiority is established; the CI does not cross the margin","C. The result is inconclusive; the CI crosses zero so no difference is proven","D. Equivalence is established; the CI falls within the pre-specified margin"],correct:0,explanation:"In a superiority trial where negative values favor the new drug, a CI entirely below 0 (no zero crossing) means the new treatment outperforms control — superiority is declared.",wrongExplanations:{1:"Non-inferiority uses a -Δ margin, not zero. This is a superiority trial with a placebo control, so non-inferiority language doesn't apply here.",2:"This would be true if the CI crossed zero. Here it does not — it goes from −8.2 to −1.4, entirely below zero, so superiority IS demonstrated.",3:"Equivalence requires the CI to fall entirely within (−Δ, +Δ). This trial has no equivalence margin defined and uses placebo, making equivalence framing inapplicable."},eli5:""},
@@ -1384,6 +1392,21 @@ if(p.quiz!==null)b+='<div class="qg"><div class="qc" onclick="openPTQ('+i+')"><d
 else b+='<div class="emp"><div class="ei">\uD83D\uDCDA</div><h4>No practice questions yet</h4><p>Add quiz data in PTESTS config</p></div>';
 b+='</div>';document.getElementById('bd').innerHTML=b}
 
+/* Media registry — maps index → {previewUrl, openUrl, isPodcast} so onclick never needs escaped quotes */
+var MEDIA_REG=[];
+function regMedia(previewUrl,isPodcast){
+  var openUrl=previewUrl.replace('preview','view');
+  MEDIA_REG.push({previewUrl:previewUrl,openUrl:openUrl,isPodcast:!!isPodcast});
+  return MEDIA_REG.length-1;
+}
+function openRegMedia(idx){
+  var m=MEDIA_REG[idx];
+  if(!m)return;
+  var title=m.isPodcast?'Podcast':'Video Review';
+  var kicker=m.isPodcast?'Embedded podcast':'Embedded video review';
+  openMediaModal(title,kicker,m.previewUrl,m.openUrl,{isPodcast:m.isPodcast});
+}
+
 function ncCard(n,wk){
   /* Returns HTML for a single note card, handling layout:list for wide multi-link cards */
   if(n.layout==='list'&&n.links&&n.links.length){
@@ -1408,6 +1431,8 @@ function ncCard(n,wk){
     n.links.forEach(function(lk){btns+='<a class="nc-btn '+lk.style+'" href="'+lk.href+'" target="_blank" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">'+(lk.icon?lk.icon+' ':'')+lk.label+(lk.note?'<span style="font-size:10px;opacity:0.7;font-weight:600;letter-spacing:.3px;">'+lk.note+'</span>':'')+'</a>';});
   } else {
     btns='<button class="nc-btn open" onclick="window.open(\''+n.file+'\',\'_blank\')">Open \u2192</button><button class="nc-btn dl" onclick="dlN(\''+n.file+'\')">&#8595; Download</button>';
+    if(n.videoReview){var vi=regMedia(n.videoReview,false);btns+='<button class="nc-btn" onclick="openRegMedia('+vi+')" style="background:var(--sky);color:#fff;flex:1;padding:10px 0;text-align:center;border-radius:var(--rs);font-family:\'Nunito\',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);border:none;">\uD83C\uDFA5 Video</button>';}
+    if(n.podcast){var pi=regMedia(n.podcast,true);btns+='<button class="nc-btn" onclick="openRegMedia('+pi+')" style="background:var(--teal);color:#fff;flex:1;padding:10px 0;text-align:center;border-radius:var(--rs);font-family:\'Nunito\',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);border:none;">\uD83C\uDFA7 Podcast</button>';}
   }
   return '<div class="nc"><div class="nc-top"><span class="ni">'+(n.icon||'\uD83D\uDCC4')+'</span><div><div class="nt">'+n.title+'</div>'+(n.file?'<div class="nf">'+n.file+'</div>':'')+'</div></div><div class="nc-btns">'+btns+'</div></div>';
 }
