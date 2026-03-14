@@ -465,9 +465,31 @@ body.auth-locked .sb-tog{
 @keyframes welcomePop{0%{opacity:0;transform:translateY(18px) scale(.97)}100%{opacity:1;transform:none}}
 @keyframes shimmerSweep{0%{background-position:200% center}100%{background-position:-200% center}}
 @keyframes authFadeOut{0%{opacity:1}100%{opacity:0;visibility:hidden}}
+.auth-clock{
+  position:absolute;top:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  pointer-events:none;z-index:2;
+}
+.auth-clock-time{
+  font-family:'IBM Plex Mono',monospace;font-size:52px;font-weight:600;
+  color:#fff;letter-spacing:-1px;line-height:1;
+  text-shadow:0 2px 24px rgba(62,196,178,.35);
+}
+.auth-clock-time span.auth-clock-colon{
+  opacity:1;animation:authClockBlink 1s step-end infinite;
+}
+.auth-clock-date{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.52);
+  margin-top:2px;
+}
+@keyframes authClockBlink{0%,100%{opacity:1}50%{opacity:.25}}
 @media(max-width:768px){
-  .auth-shell{padding:16px}
-  .auth-card{padding:26px 22px;border-radius:20px}
+  .auth-clock-time{font-size:38px}
+  .auth-clock{top:18px}
+}
+
+
   .auth-login h1{font-size:34px}
   .auth-welcome-name{font-size:54px}
   .auth-welcome-meta{gap:8px}
@@ -656,6 +678,10 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
   <div class="auth-orb auth-orb-a"></div>
   <div class="auth-orb auth-orb-b"></div>
   <div class="auth-grid"></div>
+  <div class="auth-clock" id="authClock" aria-hidden="true">
+    <div class="auth-clock-time" id="authClockTime">00<span class="auth-clock-colon">:</span>00<span class="auth-clock-colon">:</span>00</div>
+    <div class="auth-clock-date" id="authClockDate">—</div>
+  </div>
   <div class="auth-shell">
     <div class="auth-card auth-login" id="authLoginCard">
       <div class="auth-kicker">UNE COM Study Hub</div>
@@ -2766,6 +2792,23 @@ function triggerWillardEgg(){
   },260);
 }
 
+
+/* ── Auth clock ── */
+function tickAuthClock(){
+  var now=new Date();
+  var h=now.getHours(),m=now.getMinutes(),s=now.getSeconds();
+  var ampm=h>=12?'PM':'AM';
+  var h12=h%12||12;
+  var pad=function(n){return n<10?'0'+n:n};
+  var timeEl=document.getElementById('authClockTime');
+  var dateEl=document.getElementById('authClockDate');
+  if(timeEl)timeEl.innerHTML=pad(h12)+'<span class="auth-clock-colon">:</span>'+pad(m)+'<span class="auth-clock-colon">:</span>'+pad(s)+' <span style="font-size:22px;opacity:.65;letter-spacing:0;">'+ampm+'</span>';
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  if(dateEl)dateEl.textContent=days[now.getDay()]+' \u2022 '+months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear();
+}
+tickAuthClock();
+setInterval(tickAuthClock,1000);
 
 loadThemeOverride();
 renderThemePanel();
