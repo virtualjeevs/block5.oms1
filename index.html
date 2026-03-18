@@ -1854,7 +1854,9 @@ var AUTH_SEED_USERS={
   'pabdulakbar@une.edu':{name:'Princess Maryam Abdul-Akbar'},
   'rwolfe4@une.edu':{name:'Rachael Wolfe'},
   'jgraber@une.edu':{name:'Remi Graber'},
-  'smukherjee@une.edu':{name:'Sohini Mukherjee'}
+  'smukherjee@une.edu':{name:'Sohini Mukherjee'},
+  'ssalhi@une.edu':{name:'Sirine Salhi'},
+  'bafzal@une.edu':{name:'Bilal Afzal'}
 };
 var AUTH_CUSTOM_USERS=loadCustomUsers();
 var AUTH_USERS={};
@@ -1874,6 +1876,28 @@ var AUTH_SPECIAL_WELCOMES={
     src:'https://media.tenor.com/NESZUSrsmOYAAAAM/fenrir-god-of-war.gif',
     alt:'Fenrir animation',
     caption:'<strong>Rachael mode activated.</strong> Fenrir has arrived to escort you into Block 5.'
+  },
+  'ssalhi@une.edu':{
+    srcs:[
+      {src:'https://media.tenor.com/uRJWlUDvjyMAAAAM/lock-in-locked-in.gif',alt:'Locked in gif',caption:'<strong>Sirine mode activated.</strong> Locked in, locked out of distractions, loading your notes…'},
+      {src:'https://c.tenor.com/PotvWKsMjPYAAAAd/tenor.gif',alt:'Celsius lift off gif',caption:'<strong>Sirine mode activated.</strong> Crack open a Celsius — it\'s got you. T-minus 3 seconds to liftoff. Study hub launching now…'}
+    ]
+  },
+  'bafzal@une.edu':{
+    srcs:[
+      {src:'https://media1.giphy.com/media/v1.Y2lkPTZjMDliOTUyOXMzMHdyYjkyaGNmajhxcDZ4ZGk1YW9meHhtMzM2ajh6cWZmdGJsdSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ZCdRHIclu9FPa/giphy.gif',alt:'Bilal special gif',caption:'<strong>Bilal mode activated.</strong> The study hub is ready when you are.'},
+      {src:'https://media.tenor.com/Q7bL_ho7804AAAAM/fight-yuh.gif',alt:'Bilal fight gif',caption:'<strong>Bilal mode activated.</strong> Let\'s get it. The notes are waiting.'}
+    ]
+  },
+  'hnaeem@une.edu':{
+    src:'https://media.tenor.com/TqTVBgHGS4kAAAAM/dancing.gif',
+    alt:'Haad dancing gif',
+    caption:'<strong>Haad mode activated.</strong> The study hub has entered its dance era.'
+  },
+  'aonorati@une.edu':{
+    src:'https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUydDIzc3NheXdxeTRpMTl4M3lkZnZ3bjBwb29kMWg5aHZmaTBoazZnZiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/HJz5cRs4M4mhSn8vrg/200w.gif',
+    alt:'Angelique special gif',
+    caption:'<strong>Angelique mode activated.</strong> The vibes have entered the building.'
   }
 };
 var GREETING_GROUPS={
@@ -2392,12 +2416,17 @@ function renderSpecialWelcome(user){
     if(caption)caption.innerHTML='';
     return null;
   }
-  if(image){
-    image.src=special.src;
-    image.alt=special.alt||'Special welcome animation';
+  // Support srcs array (random pick) or single src
+  var chosen=special;
+  if(special.srcs&&special.srcs.length){
+    chosen=special.srcs[Math.floor(Math.random()*special.srcs.length)];
   }
-  if(caption)caption.innerHTML=special.caption||'';
-  return special;
+  if(image){
+    image.src=chosen.src;
+    image.alt=chosen.alt||'Special welcome animation';
+  }
+  if(caption)caption.innerHTML=chosen.caption||'';
+  return chosen;
 }
 function playWelcome(user){
   var overlay=document.getElementById('authOverlay');
