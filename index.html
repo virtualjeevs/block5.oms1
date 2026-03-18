@@ -405,13 +405,14 @@ body.auth-locked .sb-tog{
 .auth-orb{position:absolute;border-radius:50%;filter:blur(10px);opacity:.75;animation:authFloat 13s ease-in-out infinite}
 .auth-orb-a{width:340px;height:340px;left:-90px;top:-80px;background:radial-gradient(circle, rgba(62,196,178,.55), rgba(62,196,178,0) 70%)}
 .auth-orb-b{width:420px;height:420px;right:-120px;bottom:-110px;background:radial-gradient(circle, rgba(212,168,67,.48), rgba(212,168,67,0) 70%);animation-duration:17s}
-.auth-shell{position:relative;width:min(560px,92vw);padding:24px}
+.auth-shell{position:relative;width:min(560px,92vw);padding:24px;max-height:92vh;overflow-y:auto;scrollbar-width:none;}
 .auth-card{
   position:relative;overflow:hidden;padding:34px 32px;border-radius:24px;
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
   box-shadow:0 20px 80px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.12);
   backdrop-filter:blur(18px);
 }
+.auth-card.special-user{overflow-y:auto;max-height:90vh;}
 .auth-card::before{
   content:'';position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,0) 42%);
@@ -422,6 +423,7 @@ body.auth-locked .sb-tog{
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);
   color:rgba(255,255,255,.82);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.8px;text-transform:uppercase
 }
+.auth-card.auth-login>.auth-kicker{display:flex;justify-content:center;}
 .auth-login h1{font-size:42px;line-height:1.02;color:#fff;font-weight:700;letter-spacing:-.6px;margin-bottom:14px}
 .auth-sub{font-size:16px;line-height:1.7;color:rgba(255,255,255,.78);margin-bottom:22px}
 .auth-form{display:grid;gap:14px}
@@ -442,7 +444,7 @@ body.auth-locked .sb-tog{
 .auth-msg{margin-top:16px;min-height:24px;font-size:14px;color:rgba(255,255,255,.72)}
 .auth-msg.error{color:#FFD7D7}
 .auth-msg.success{color:#DDFDED}
-.auth-welcome{display:none;text-align:center;min-height:360px;align-items:center;justify-content:center;flex-direction:column}
+.auth-welcome{display:none;text-align:center;min-height:0;align-items:center;justify-content:center;flex-direction:column;gap:6px;}
 .auth-overlay.welcome-state .auth-login{display:none}
 .auth-overlay.welcome-state .auth-welcome{display:flex;animation:welcomePop .75s cubic-bezier(.2,.8,.2,1) both}
 .auth-welcome-ring{
@@ -461,6 +463,12 @@ body.auth-locked .sb-tog{
 .auth-welcome-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:18px}
 .auth-welcome-chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);font-size:12px;line-height:1.35;color:rgba(255,255,255,.84);backdrop-filter:blur(10px)}
 .auth-welcome-quote{margin-top:16px;max-width:520px;font-size:15px;line-height:1.7;color:rgba(255,255,255,.78)}
+.auth-special-media{margin:14px 0 4px;width:100%;display:flex;justify-content:center;transition:opacity .3s ease}
+.auth-special-media[aria-hidden=true]{display:none}
+.auth-special-frame{display:flex;flex-direction:column;align-items:center;gap:10px;max-width:340px}
+.auth-special-img{width:220px;height:auto;max-height:180px;object-fit:cover;border-radius:16px;box-shadow:0 8px 28px rgba(0,0,0,.35);display:block}
+.auth-special-caption{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.78);text-align:center;max-width:320px}
+.auth-card.special-user .auth-welcome-ring{display:none}
 .auth-login-quote{margin-top:20px;padding:16px 18px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);max-width:560px}
 .auth-login-quote-label{font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.52);font-weight:800;margin-bottom:8px}
 .auth-login-quote-text{font-family:'Crimson Pro',serif;font-size:22px;line-height:1.55;color:rgba(255,255,255,.92);font-style:italic}
@@ -475,26 +483,33 @@ body.auth-locked .sb-tog{
 @keyframes authFadeOut{0%{opacity:1}100%{opacity:0;visibility:hidden}}
 .auth-clock{
   position:absolute;top:28px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:2px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
   pointer-events:none;z-index:2;
 }
 .auth-clock-time{
-  font-family:'IBM Plex Mono',monospace;font-size:52px;font-weight:600;
-  color:#fff;letter-spacing:-1px;line-height:1;
-  text-shadow:0 2px 24px rgba(62,196,178,.35);
+  font-family:'IBM Plex Mono',monospace;font-size:72px;font-weight:300;
+  color:#fff;letter-spacing:-2px;line-height:1;
+  text-shadow:0 2px 40px rgba(62,196,178,.2);
+  display:flex;align-items:flex-end;gap:0;
+}
+.auth-clock-ampm{
+  font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:500;letter-spacing:2.5px;
+  color:rgba(255,255,255,.4);margin-bottom:10px;margin-left:10px;flex-shrink:0;
 }
 .auth-clock-time span.auth-clock-colon{
   opacity:1;animation:authClockBlink 1s step-end infinite;
+  color:rgba(255,255,255,.28);letter-spacing:0;font-weight:200;
 }
 .auth-clock-date{
-  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
-  letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.52);
-  margin-top:2px;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+  letter-spacing:3.5px;text-transform:uppercase;color:rgba(255,255,255,.35);
+  margin-top:1px;
 }
-@keyframes authClockBlink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes authClockBlink{0%,100%{opacity:1}50%{opacity:.15}}
 @media(max-width:768px){
-  .auth-clock-time{font-size:38px}
-  .auth-clock{top:18px}
+  .auth-clock-time{font-size:44px;letter-spacing:-1px}
+  .auth-clock-ampm{font-size:12px;margin-bottom:6px}
+  .auth-clock{top:16px}
 }
 
 
@@ -688,7 +703,7 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
   <div class="auth-orb auth-orb-b"></div>
   <div class="auth-grid"></div>
   <div class="auth-clock" id="authClock" aria-hidden="true">
-    <div class="auth-clock-time" id="authClockTime">00<span class="auth-clock-colon">:</span>00<span class="auth-clock-colon">:</span>00</div>
+    <div class="auth-clock-time" id="authClockTime">00<span class="auth-clock-colon">:</span>00<span class="auth-clock-colon">:</span>00<span class="auth-clock-ampm" id="authClockAmpm">AM</span></div>
     <div class="auth-clock-date" id="authClockDate">—</div>
   </div>
   <div class="auth-shell">
@@ -718,6 +733,7 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
       <div class="auth-welcome-sub" id="authWelcomeSub">Loading your study hub…</div>
       <div class="auth-welcome-meta" id="authWelcomeMeta"></div>
       <div class="auth-welcome-quote" id="authWelcomeQuote"></div>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);text-align:center;font-size:12px;color:rgba(255,255,255,.38);letter-spacing:.3px;line-height:1.6;font-family:'IBM Plex Mono',monospace;">Thank you <span style="color:rgba(255,255,255,.6);font-weight:600;">Stephen McRae</span> for your beautiful notes.</div>
     </div>
   </div>
   <button class="top-admin-btn" id="authAdminBtn" type="button" onclick="openAdminModal()">Administrator</button>
@@ -2904,7 +2920,7 @@ function tickAuthClock(){
   var pad=function(n){return n<10?'0'+n:n};
   var timeEl=document.getElementById('authClockTime');
   var dateEl=document.getElementById('authClockDate');
-  if(timeEl)timeEl.innerHTML=pad(h12)+'<span class="auth-clock-colon">:</span>'+pad(m)+'<span class="auth-clock-colon">:</span>'+pad(s)+' <span style="font-size:22px;opacity:.65;letter-spacing:0;">'+ampm+'</span>';
+  if(timeEl)timeEl.innerHTML=pad(h12)+'<span class="auth-clock-colon">:</span>'+pad(m)+'<span class="auth-clock-colon">:</span>'+pad(s)+'<span class="auth-clock-ampm">'+ampm+'</span>';
   var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   if(dateEl)dateEl.textContent=days[now.getDay()]+' \u2022 '+months[now.getMonth()]+' '+now.getDate()+', '+now.getFullYear();
