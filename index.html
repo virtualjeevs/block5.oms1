@@ -596,15 +596,19 @@ body:not(.auth-locked) .app-admin-btn{display:none}
 .admin-note{font-size:13px;color:rgba(255,255,255,.54);margin-top:16px;line-height:1.6}
 
 .theme-dock{position:fixed;right:18px;bottom:18px;z-index:570;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.theme-fab{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border:none;border-radius:999px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.3px;transition:var(--tr);box-shadow:0 14px 34px rgba(0,0,0,.14)}
-.theme-fab:hover{transform:translateY(-2px)}
-.theme-fab .theme-fab-icon{font-size:16px;line-height:1}
-.theme-fab .theme-fab-label{white-space:nowrap}
-.theme-panel{width:min(320px,calc(100vw - 32px));padding:16px;border-radius:20px;box-shadow:0 22px 50px rgba(0,0,0,.18);display:none;transform-origin:bottom right;animation:themePanelIn .22s cubic-bezier(.2,.8,.2,1)}
+.theme-fab{width:46px;height:46px;border-radius:14px;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;transition:var(--tr);box-shadow:0 8px 24px rgba(0,0,0,.14);flex-shrink:0}
+.theme-fab:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.18)}
+.theme-fab-bar{width:18px;height:2.5px;border-radius:2px;transition:var(--tr)}
+body.auth-locked .theme-fab-bar{background:rgba(255,255,255,.8)}
+body:not(.auth-locked) .theme-fab-bar{background:var(--navy)}
+.theme-fab .theme-fab-icon,.theme-fab .theme-fab-label{display:none}
+.theme-panel{width:min(340px,calc(100vw - 32px));padding:20px;border-radius:22px;box-shadow:0 22px 60px rgba(0,0,0,.2);display:none;transform-origin:bottom right;animation:themePanelIn .22s cubic-bezier(.2,.8,.2,1)}
 .theme-panel.open{display:block}
-.theme-panel-title{font-family:'Crimson Pro',serif;font-size:24px;font-weight:700;line-height:1.05;margin-bottom:6px}
-.theme-panel-sub{font-size:13px;line-height:1.6;color:var(--slate);margin-bottom:14px}
+.theme-panel-title{font-family:'Crimson Pro',serif;font-size:22px;font-weight:700;line-height:1.05;margin-bottom:4px}
+.theme-panel-sub{font-size:12.5px;line-height:1.6;color:var(--slate);margin-bottom:16px}
 .theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.theme-quiz-link{display:flex;align-items:center;gap:10px;width:100%;margin-top:14px;padding:11px 14px;border-radius:14px;border:1.5px dashed rgba(123,94,167,.5);background:var(--plum-bg);color:var(--plum);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;text-align:left;text-decoration:none;font-size:13px;font-weight:800}
+.theme-quiz-link:hover{border-color:var(--plum);transform:translateY(-1px);background:#ede7f8}
 .theme-option{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border-radius:14px;border:1.5px solid var(--rule2);background:var(--white);color:var(--ink);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;text-align:left}
 .theme-option:hover{border-color:var(--teal);transform:translateY(-1px)}
 .theme-option.active{border-color:var(--teal);background:var(--teal-light);box-shadow:0 0 0 3px rgba(26,122,109,.08)}
@@ -803,8 +807,9 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
 <div class="theme-dock" id="themeDock">
   <div class="theme-panel" id="themePanel" aria-hidden="true"></div>
   <button class="theme-fab" id="themeFab" type="button" aria-expanded="false" aria-controls="themePanel" onclick="toggleThemePanel()">
-    <span class="theme-fab-icon">🎨</span>
-    <span class="theme-fab-label" id="themeFabLabel">Theme · Auto</span>
+    <span class="theme-fab-bar"></span>
+    <span class="theme-fab-bar"></span>
+    <span class="theme-fab-bar"></span>
   </button>
 </div>
 <button class="sb-tog" onclick="document.querySelector('.sb').classList.toggle('mo')">&#9776;</button>
@@ -1569,6 +1574,11 @@ if(hasGroups){
   return h;
 }
 var h='<div class="sec"><div class="sec-hd"><h3>\uD83D\uDCDA Quizzes</h3><span class="cnt">'+wk.quizzes.length+'</span></div>';if(!wk.quizzes.length)return h+'<div class="emp"><div class="ei">\uD83D\uDCDA</div><h4>No quizzes yet</h4><p>Add quizzes to the DATA section</p></div></div>';h+='<div class="qg">';wk.quizzes.forEach(function(q,i){if(q.banks&&q.banks.length){h+='<div class="qc" style="cursor:default"><div class="qn">'+q.name+'</div><div class="qs" style="margin-bottom:14px">'+q.banks.reduce(function(s,b){return s+b.questions.length},0)+' questions \u2022 '+q.banks.length+' banks</div><div style="display:flex;gap:8px;flex-wrap:wrap">';q.banks.forEach(function(b,bi){h+='<button onclick="event.stopPropagation();openQBank('+CW+','+i+','+bi+')" style="flex:1;padding:10px 0;text-align:center;border-radius:var(--rs);font-family:\'Nunito\',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:var(--tr);border:none;background:var(--teal);color:#fff">'+b.label+' <span style="opacity:.75;font-size:11px">('+b.questions.length+')</span></button>';});h+='</div></div>';}else{h+='<div class="qc" onclick="openQ('+CW+','+i+',\'quiz\')"><div class="qn">'+q.name+'</div><div class="qs">'+q.questions.length+' question'+(q.questions.length!==1?'s':'')+'</div></div>';}});return h+'</div></div>'}
+function openCustomQuizBuilder(name){
+  var url='quizbuilder/index.html';
+  if(name)url+='?quiz='+encodeURIComponent(name);
+  window.open(url,'_blank');
+}
 function openQBank(wn,qi,bi){var qz=DATA[CC].weeks[wn].quizzes[qi];var bank=qz.banks[bi];var qzProxy={name:qz.name+' \u2014 '+bank.label,questions:bank.questions};var qo=document.getElementById('qo');AQ={w:wn,i:qi,q:qzProxy,src:'quiz'};CQ=0;AQS={};NC=0;NI=0;selAnswer={};toolMode='';quizMode='learn';examDone=false;lastRange=null;FS_IDX=1;qo.setAttribute('data-fs','md');buildShuffleMap();rstT();stopCd();CDminutes=10;document.getElementById('cdVal').textContent='10';document.getElementById('cdTime').textContent='--:--';document.getElementById('cdBox').classList.remove('active','warn');document.getElementById('cdGoBtn').innerHTML='&#9654; Start';document.getElementById('hlTool').classList.remove('active');document.getElementById('stTool').classList.remove('active');document.getElementById('modeLearn').classList.add('active');document.getElementById('modeExam').classList.remove('active');document.getElementById('qoT').textContent=qzProxy.name;qo.classList.remove('closing');qo.classList.add('open');document.body.style.overflow='hidden';document.getElementById('printBtn').style.display='none';uSt();rQ()}
 
 function rAS(wk){var al=DATA[CC].assessLabel,af=DATA[CC].assessFull,ai=DATA[CC].assessIcon,arr=wk.assessments||[];var h='<div class="sec"><div class="sec-hd"><h3>'+ai+' '+af+'</h3><span class="cnt">'+arr.length+'</span></div>';if(!arr.length)return h+'<div class="emp"><div class="ei">'+ai+'</div><h4>No '+al+' yet</h4><p>Add assessments to the DATA section</p></div></div>';
@@ -2222,8 +2232,18 @@ function getFaviconEmoji(date){
 
 var THEME_OVERRIDE_KEY='une_study_hub_theme_override_v1';
 var THEME_OVERRIDE='auto';
-var THEME_OPTION_META={auto:'Follows the current vibe',morning:'Bright and fresh',afternoon:'Classic study hub',evening:'Soft and focused',late:'Moody night study',weekend:'Looser weekend energy',exam:'Locked-in intensity'};
-var THEME_SWATCHES={auto:'linear-gradient(135deg,#59CEBF,#ECCA73)',morning:'linear-gradient(135deg,#59CEBF,#ECCA73)',afternoon:'linear-gradient(135deg,#3EC4B2,#E07A5F)',evening:'linear-gradient(135deg,#6FC4CE,#D97C74)',late:'linear-gradient(135deg,#8FB6D0,#B97FA4)',weekend:'linear-gradient(135deg,#7DCCC2,#D68EA2)',exam:'linear-gradient(135deg,#4CB3AA,#C95B52)'};
+var THEME_OPTION_META={auto:'Follows the current vibe',morning:'Bright and fresh',afternoon:'Classic study hub',evening:'Soft and focused',late:'Moody night study',weekend:'Looser weekend energy',exam:'Locked-in intensity',nightshift:'Warm amber — easy on eyes',mono:'Black & white focus mode'};
+var THEME_SWATCHES={
+  auto:      'conic-gradient(from 180deg, #3EC4B2 0%, #D4A843 33%, #E07A5F 66%, #7B5EA7 100%)',
+  morning:   'linear-gradient(135deg,#FFD97A 0%,#FF9A6C 50%,#FF6B9D 100%)',
+  afternoon: 'linear-gradient(135deg,#3EC4B2 0%,#1B2A4A 100%)',
+  evening:   'linear-gradient(135deg,#6B8DD6 0%,#8E4EA6 50%,#C9485B 100%)',
+  late:      'linear-gradient(135deg,#1a1a2e 0%,#7B5EA7 60%,#3EC4B2 100%)',
+  weekend:   'linear-gradient(135deg,#74EBD5 0%,#9FACE6 100%)',
+  exam:      'linear-gradient(135deg,#232526 0%,#C44040 60%,#E07A5F 100%)',
+  nightshift:'linear-gradient(135deg,#1C1208 0%,#3D2B0A 50%,#C8831A 100%)',
+  mono:      'linear-gradient(135deg,#111 0%,#666 50%,#ddd 100%)'
+};
 
 var THEME_PRESETS={
   morning:{name:'Morning mode',vars:{
@@ -2256,6 +2276,24 @@ var THEME_PRESETS={
     '--navy':'#2D274D','--navy2':'#1E1A39','--coral':'#C95B52','--coral-bg':'#FDECEA','--gold':'#D19A2A','--gold-bg':'#FEF4E0','--gold-warm':'#E2B957',
     '--plum':'#7E5AA8','--plum-bg':'#F3EEF9','--sky':'#5D8EE3','--sky-bg':'#EEF3FD','--warm':'#FAF4EE','--cream':'#F4EEE7',
     '--red':'#B83F3F','--red-bg':'#FCEEEE','--amber':'#B97718','--amber-bg':'#FFF2E2'
+  }},
+  nightshift:{name:'Night shift',vars:{
+    '--teal':'#C8831A','--teal-deep':'#A06210','--teal-light':'#3D2B0A','--teal-mid':'#D4951F','--teal-glow':'#E8A93A',
+    '--navy':'#1C1208','--navy2':'#120C04','--coral':'#C8631A','--coral-bg':'#2A1A08','--gold':'#C8831A','--gold-bg':'#2A1E08','--gold-warm':'#E8A93A',
+    '--plum':'#A07040','--plum-bg':'#281A08','--sky':'#C8831A','--sky-bg':'#221508',
+    '--ink':'#F5DEB3','--ink2':'#D4B896','--slate':'#A08060','--mist':'#806040',
+    '--warm':'#1C1208','--cream':'#140E06','--white':'#1C1208','--rule':'#3D2B0A','--rule2':'#2A1E0A',
+    '--red':'#C84020','--red-bg':'#2A1008','--amber':'#C8831A','--amber-bg':'#2A1E08',
+    '--green':'#6A8040','--green-bg':'#1A2008'
+  }},
+  mono:{name:'Monochrome',vars:{
+    '--teal':'#444','--teal-deep':'#222','--teal-light':'#eee','--teal-mid':'#555','--teal-glow':'#666',
+    '--navy':'#111','--navy2':'#000','--coral':'#888','--coral-bg':'#f0f0f0','--gold':'#555','--gold-bg':'#eee','--gold-warm':'#777',
+    '--plum':'#444','--plum-bg':'#ececec','--sky':'#555','--sky-bg':'#ebebeb',
+    '--ink':'#111','--ink2':'#333','--slate':'#666','--mist':'#999',
+    '--warm':'#f9f9f9','--cream':'#f2f2f2','--white':'#ffffff','--rule':'#ddd','--rule2':'#e8e8e8',
+    '--red':'#333','--red-bg':'#eeeeee','--amber':'#444','--amber-bg':'#ebebeb',
+    '--green':'#333','--green-bg':'#ebebeb'
   }}
 };
 function getActiveTheme(date){
@@ -2282,23 +2320,19 @@ function getThemeLabel(themeKey){
   if(themeKey==='auto')return 'Auto';
   return (THEME_PRESETS[themeKey]&&THEME_PRESETS[themeKey].name)||'Theme';
 }
-function updateThemeFabLabel(){
-  var label=document.getElementById('themeFabLabel');
-  if(!label)return;
-  label.textContent='Theme · '+getThemeLabel(THEME_OVERRIDE==='auto'?'auto':getResolvedTheme(new Date()));
-}
+function updateThemeFabLabel(){ /* hamburger — no label */ }
 function renderThemePanel(){
   var panel=document.getElementById('themePanel');
   if(!panel)return;
-  var keys=['auto','morning','afternoon','evening','late','weekend','exam'];
+  var keys=['auto','morning','afternoon','evening','late','weekend','exam','nightshift','mono'];
   panel.innerHTML='';
   var title=document.createElement('div');
   title.className='theme-panel-title';
-  title.textContent='Theme settings';
+  title.textContent='Appearance';
   panel.appendChild(title);
   var sub=document.createElement('div');
   sub.className='theme-panel-sub';
-  sub.textContent='Keep it on auto or pick the vibe you want.';
+  sub.textContent='Pick a vibe or let it follow the time of day.';
   panel.appendChild(sub);
   var grid=document.createElement('div');
   grid.className='theme-grid';
@@ -2309,8 +2343,7 @@ function renderThemePanel(){
     btn.setAttribute('data-theme-option',key);
     btn.onclick=function(){setThemePreference(key);};
     var swatch=document.createElement('span');
-    swatch.className='theme-swatch';
-    swatch.style.background=THEME_SWATCHES[key]||THEME_SWATCHES.afternoon;
+    swatch.style.cssText='width:26px;height:26px;border-radius:8px;flex-shrink:0;border:2px solid rgba(255,255,255,.7);box-shadow:0 2px 8px rgba(0,0,0,.15);background:'+(THEME_SWATCHES[key]||THEME_SWATCHES.afternoon);
     var txt=document.createElement('span');
     txt.className='theme-option-text';
     var name=document.createElement('span');
@@ -2326,9 +2359,19 @@ function renderThemePanel(){
     grid.appendChild(btn);
   });
   panel.appendChild(grid);
+  var divider=document.createElement('div');
+  divider.style.cssText='height:1px;background:var(--rule);margin:14px 0 2px';
+  panel.appendChild(divider);
+  var quizLink=document.createElement('a');
+  quizLink.href='quizbuilder/index.html';
+  quizLink.target='_blank';
+  quizLink.className='theme-quiz-link';
+  quizLink.innerHTML='<span style="font-size:18px">🧪</span><span><div style="font-size:13px;font-weight:800">Build My Quiz</div><div style="font-size:11px;font-weight:600;opacity:.7;margin-top:1px">Generate a custom quiz from any AI</div></span>';
+  panel.appendChild(quizLink);
   var foot=document.createElement('div');
   foot.className='theme-panel-foot';
-  foot.textContent='Saved on this browser so your preferred look sticks.';
+  foot.style.marginTop='12px';
+  foot.textContent='Theme saved on this browser.';
   panel.appendChild(foot);
   updateThemePanelUI();
 }
