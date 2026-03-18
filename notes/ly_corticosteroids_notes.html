@@ -650,7 +650,7 @@
   function apply() { img.style.width = (600*scale)+'px'; img.style.height = 'auto'; stage.style.width = Math.max(viewer.clientWidth, 600*scale+48)+'px'; stage.style.height = Math.max(viewer.clientHeight, img.offsetHeight*scale+48)+'px'; viewer.classList.toggle('can-pan', scale>1); }
   function open(src,cap) { img.src=src; title.textContent=cap||'Figure'; scale=1; modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); setTimeout(()=>{apply();center()},50); }
   function close() { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); img.removeAttribute('src'); }
-  document.querySelectorAll('[data-img]').forEach(btn => btn.addEventListener('click', () => open(btn.querySelector('img').src, btn.dataset.title || getCaption(btn))));
+  document.querySelectorAll('.figure-card button[data-title]').forEach(btn => btn.addEventListener('click', () => open(btn.querySelector('img').src, btn.dataset.title || getCaption(btn))));
   document.getElementById('zoomIn').addEventListener('click', () => { scale=clamp(scale+0.25,1,5); apply(); });
   document.getElementById('zoomOut').addEventListener('click', () => { scale=clamp(scale-0.25,1,5); apply(); });
   document.getElementById('resetZoom').addEventListener('click', () => { scale=1; apply(); center(); });
