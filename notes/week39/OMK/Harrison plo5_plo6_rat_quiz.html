@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLOs 5 & 6 — Gel Electrophoresis & Protein Analysis RAT Quiz</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&display=swap');
+
+  :root {
+    --bg: #0b0f14;
+    --card: #141920;
+    --card-border: #252d38;
+    --card-hover: #1a2230;
+    --text: #dde4ed;
+    --text-dim: #6e7a8a;
+    --accent: #4dabf7;
+    --accent-soft: rgba(77,171,247,0.12);
+    --correct: #51cf66;
+    --correct-bg: rgba(81,207,102,0.1);
+    --wrong: #ff6b6b;
+    --wrong-bg: rgba(255,107,107,0.1);
+    --tag-yellow: #fcc419;
+    --tag-yellow-bg: rgba(252,196,25,0.1);
+    --tag-red: #ff8787;
+    --tag-red-bg: rgba(255,135,135,0.1);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Literata', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 18px 60px;
+  }
+
+  header {
+    padding: 36px 0 28px;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  header h1 {
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  header .sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  header .sub .hy { color: var(--tag-red); font-weight: 600; }
+
+  .controls-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .ctrl-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 5px 14px;
+    background: var(--card);
+    color: var(--text-dim);
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .ctrl-btn:hover { color: var(--text); border-color: var(--accent); }
+
+  .progress-wrap {
+    height: 6px;
+    background: var(--card);
+    border-radius: 6px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), #748ffc);
+    border-radius: 6px;
+    transition: width 0.35s ease;
+  }
+
+  .stats-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+    padding: 0 2px;
+  }
+
+  .qcard {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 24px 24px 20px;
+    margin-bottom: 18px;
+    transition: border-color 0.3s;
+  }
+
+  .qcard.done-right { border-color: var(--correct); }
+  .qcard.done-wrong { border-color: var(--wrong); }
+
+  .qcard-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .qnum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 8px;
+    border-radius: 5px;
+  }
+
+  .qtag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 5px;
+  }
+
+  .qtag.plo5 { color: var(--tag-yellow); background: var(--tag-yellow-bg); }
+  .qtag.plo6 { color: var(--tag-red); background: var(--tag-red-bg); }
+
+  .qstem {
+    font-size: 1.02rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.55;
+  }
+
+  .qstem .hy { color: var(--tag-red); font-weight: 700; }
+  .qstem .hy2 { color: var(--tag-yellow); font-weight: 700; }
+
+  .opts { display: flex; flex-direction: column; gap: 7px; }
+
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    background: transparent;
+    border: 1px solid var(--card-border);
+    border-radius: 7px;
+    padding: 11px 14px;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    font-size: 0.93rem;
+    color: var(--text);
+    transition: all 0.2s;
+    line-height: 1.5;
+  }
+
+  .opt:hover:not(.locked) {
+    background: var(--card-hover);
+    border-color: var(--accent);
+  }
+
+  .opt .ltr {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 0.75rem;
+    min-width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .opt.locked { cursor: default; }
+  .opt.pick-right { background: var(--correct-bg); border-color: var(--correct); }
+  .opt.pick-right .ltr { background: var(--correct); color: #fff; }
+  .opt.pick-wrong { background: var(--wrong-bg); border-color: var(--wrong); }
+  .opt.pick-wrong .ltr { background: var(--wrong); color: #fff; }
+  .opt.show-right { border-color: var(--correct); background: var(--correct-bg); }
+  .opt.show-right .ltr { background: var(--correct); color: #fff; }
+
+  .exp {
+    display: none;
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: #111720;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 7px 7px 0;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .exp .elabel {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 7px;
+  }
+
+  .exp .gc { color: var(--correct); font-weight: 600; }
+  .exp .gw { color: var(--wrong); opacity: 0.85; }
+  .exp p { margin-bottom: 7px; }
+  .exp p:last-child { margin-bottom: 0; }
+
+  .results {
+    display: none;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 32px 24px;
+    text-align: center;
+    margin-top: 18px;
+  }
+
+  .results h2 { font-size: 1.3rem; margin-bottom: 6px; }
+
+  .results .bigscore {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin: 14px 0;
+  }
+
+  .results .bigscore.pass { color: var(--correct); }
+  .results .bigscore.fail { color: var(--wrong); }
+
+  .results .msg { color: var(--text-dim); font-size: 0.92rem; }
+
+  .reset-btn {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 11px 28px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .reset-btn:hover { opacity: 0.85; }
+
+  @media (max-width: 600px) {
+    .container { padding: 14px 12px 40px; }
+    .qcard { padding: 18px 16px 16px; }
+    header h1 { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>PLOs 5 &amp; 6 — RAT Quiz</h1>
+    <div class="sub">
+      Dr. Harrison · Steve's Notes · Block 5<br>
+      <span class="hy">PLO 5</span> Gel Electrophoresis &nbsp;·&nbsp; <span class="hy">PLO 6</span> Protein Analysis &amp; Blotting<br>
+      20 Questions · Length-Calibrated Distractors
+    </div>
+  </header>
+
+  <div class="controls-row">
+    <button class="ctrl-btn" onclick="fontSize(-1)">A−</button>
+    <button class="ctrl-btn" onclick="fontSize(0)">Reset</button>
+    <button class="ctrl-btn" onclick="fontSize(1)">A+</button>
+  </div>
+
+  <div class="progress-wrap"><div class="progress-fill" id="pbar"></div></div>
+  <div class="stats-row">
+    <span id="countTxt">0 / 20 answered</span>
+    <span id="scoreTxt">Score: 0</span>
+  </div>
+
+  <div id="quizBox"></div>
+
+  <div class="results" id="resCard">
+    <h2>Quiz Complete</h2>
+    <div class="bigscore" id="resBig"></div>
+    <p class="msg" id="resMsg"></p>
+    <button class="reset-btn" onclick="restart()">Shuffle &amp; Retry</button>
+  </div>
+</div>
+
+<script>
+const Q = [
+  // ==================== PLO 5: GEL ELECTROPHORESIS ====================
+  {
+    tag:"plo5", label:"PLO 5 · Gel Electrophoresis",
+    q:"Gel electrophoresis is used to separate <span class='hy'>DNA (or protein) fragments</span> according to:",
+    correct:"The molecular size of each fragment",
+    wrong:[
+      "Net electrical charge of the fragment",
+      "Three-dimensional conformation as determined by intramolecular hydrogen bonding patterns",
+      "Melting temperature of the fragment",
+      "Hydrophobicity of the nitrogenous bases exposed along the single-stranded DNA backbone"
+    ],
+    exp:`<p><span class="gc">✓ Molecular size</span> — Steve's red text: gel electrophoresis separates fragments <em>according to size</em>. The gel acts as a molecular sieve — smaller fragments pass through pores more easily and travel further.</p>
+<p><span class="gw">✗ Net electrical charge</span> — DNA has a uniform charge-to-mass ratio from its phosphate backbone, so charge doesn't differentiate fragments.</p>
+<p><span class="gw">✗ 3D conformation</span> — Samples are typically linearized before loading. Separation is by length, not shape.</p>
+<p><span class="gw">✗ Melting temperature</span> — Tm matters for PCR annealing conditions, not gel migration distance.</p>
+<p><span class="gw">✗ Hydrophobicity</span> — The gel is a physical sieve, not a hydrophobic interaction medium.</p>`
+  },
+  {
+    tag:"plo5", label:"PLO 5 · Gel Electrophoresis",
+    q:"Samples are loaded into wells at one side of the gel. What pulls the fragments through the gel matrix?",
+    correct:"An electric current applied across the gel",
+    wrong:[
+      "Capillary action from the gel pores",
+      "Gravitational force pulling fragments downward through a vertically oriented gel cassette",
+      "Centrifugal force from spinning the gel",
+      "Osmotic pressure created by a hypertonic buffer solution on the opposite end of the gel"
+    ],
+    exp:`<p><span class="gc">✓ An electric current</span> — Per Steve's notes: samples are loaded into wells and <em>an electric current pulls them through the gel</em>. Charged molecules migrate in the applied electric field.</p>
+<p><span class="gw">✗ Capillary action</span> — Capillary action is used in some blotting transfer methods, not in gel electrophoresis separation.</p>
+<p><span class="gw">✗ Gravitational force</span> — Gravity plays no meaningful role in gel electrophoresis.</p>
+<p><span class="gw">✗ Centrifugal force</span> — That's ultracentrifugation — a completely different separation technique.</p>
+<p><span class="gw">✗ Osmotic pressure</span> — Osmosis involves water moving across membranes, not fragment migration through gels.</p>`
+  },
+  {
+    tag:"plo5", label:"PLO 5 · Gel Electrophoresis",
+    q:"DNA fragments are <span class='hy'>negatively charged</span> due to their phosphate backbone. During electrophoresis, they migrate toward:",
+    correct:"The positive electrode, since opposite charges attract each other",
+    wrong:[
+      "The negative electrode (cathode)",
+      "Both electrodes equally, since DNA has no net charge once suspended in running buffer",
+      "Neither electrode — fragments stay in the wells until a salt gradient is applied manually",
+      "The positive electrode initially, but then reverse direction halfway through the run time"
+    ],
+    exp:`<p><span class="gc">✓ Positive electrode (anode)</span> — Steve's red text: DNA is negatively charged, so it travels <em>toward the positive electrode</em>. Basic physics: opposite charges attract.</p>
+<p><span class="gw">✗ Negative electrode (cathode)</span> — Negative DNA is repelled by the cathode, not attracted. DNA moves <em>away</em> from the negative terminal.</p>
+<p><span class="gw">✗ Both equally</span> — DNA carries a strong net negative charge from its phosphate groups; it moves directionally toward the anode.</p>
+<p><span class="gw">✗ Stays in wells</span> — DNA begins migrating immediately once current is applied.</p>
+<p><span class="gw">✗ Reverses direction</span> — Standard gel electrophoresis uses constant polarity; pulsed-field gel electrophoresis alternates angles but that's a specialized variant not described here.</p>`
+  },
+  {
+    tag:"plo5", label:"PLO 5 · Gel Electrophoresis",
+    q:"<span class='hy'>Larger</span> DNA strands behave how during gel electrophoresis?",
+    correct:"They move more slowly through the gel and do not travel as far from the wells",
+    wrong:[
+      "They travel farther than small fragments",
+      "They move faster because their greater total negative charge gives them more electrophoretic force",
+      "They travel the same distance as smaller fragments but form thicker, more diffuse bands",
+      "They remain completely stationary in the loading wells because they cannot enter the gel pores"
+    ],
+    exp:`<p><span class="gc">✓ Move slowly, don't go as far</span> — Steve's notes: larger DNA strands <em>will move more slowly through and not make it as far</em>. The gel pores physically impede larger molecules more.</p>
+<p><span class="gw">✗ Travel farther</span> — The opposite — larger fragments are retarded by the gel matrix and stay closer to the wells.</p>
+<p><span class="gw">✗ Move faster due to charge</span> — All DNA has roughly the same charge-to-mass ratio, so size (not charge) determines speed.</p>
+<p><span class="gw">✗ Same distance, thicker bands</span> — Band thickness depends on quantity loaded; migration distance depends on fragment size.</p>
+<p><span class="gw">✗ Completely stationary</span> — Even very large fragments migrate; they just travel shorter distances than small ones.</p>`
+  },
+  {
+    tag:"plo5", label:"PLO 5 · Gel Electrophoresis",
+    q:"<span class='hy'>Smaller</span> DNA fragments behave how during gel electrophoresis?",
+    correct:"They move more freely through the gel matrix and will travel further down the gel",
+    wrong:[
+      "They migrate toward the cathode instead",
+      "They aggregate in the wells due to their high surface-area-to-mass ratio and fail to enter the gel",
+      "They move at the same speed as large fragments but produce fainter bands on the gel image",
+      "They get trapped near the wells because they lack sufficient charge to overcome gel resistance"
+    ],
+    exp:`<p><span class="gc">✓ Move freely, travel further</span> — Steve's notes: smaller DNA fragments <em>can move more freely through the gel matrix and will travel further down the gel</em>.</p>
+<p><span class="gw">✗ Toward cathode</span> — ALL DNA migrates toward the anode regardless of size. Size determines how far, not which direction.</p>
+<p><span class="gw">✗ Aggregate in wells</span> — Small fragments enter and move through the gel very easily; it's large genomic DNA that may have trouble entering.</p>
+<p><span class="gw">✗ Same speed, fainter bands</span> — Band intensity depends on quantity; migration speed depends on size.</p>
+<p><span class="gw">✗ Trapped near wells</span> — The exact opposite — small fragments are the ones that travel farthest from the wells.</p>`
+  },
+  {
+    tag:"plo5", label:"PLO 5 · Gel Electrophoresis",
+    q:"On a gel image, the bands nearest to the loading wells represent fragments that are:",
+    correct:"The largest in the sample, because they migrated the shortest distance",
+    wrong:[
+      "The smallest in the sample",
+      "Degraded or fragmented DNA that lost its charge during the electrophoresis run and stopped moving",
+      "Primer dimers and other very short artifacts",
+      "An unresolved mix of all sizes that failed to separate properly due to insufficient voltage"
+    ],
+    exp:`<p><span class="gc">✓ Largest fragments</span> — Larger fragments move more slowly and stay closest to the wells (origin). The smallest fragments end up at the far end of the gel.</p>
+<p><span class="gw">✗ Smallest fragments</span> — Small fragments travel the farthest; they'd be at the bottom of the gel, far from the wells.</p>
+<p><span class="gw">✗ Degraded DNA</span> — Degraded DNA is usually small and would migrate far down the gel, not sit near the wells.</p>
+<p><span class="gw">✗ Primer dimers</span> — Primer dimers are extremely small (~40-60 bp) and run to the very bottom of any standard gel.</p>
+<p><span class="gw">✗ Unresolved mix</span> — Poor resolution shows as a smear throughout the lane, not discrete bands near the wells.</p>`
+  },
+  {
+    tag:"plo5", label:"PLO 5 · Gel Electrophoresis",
+    q:"Gel electrophoresis can be used to separate fragments of both DNA and:",
+    correct:"Protein — for example, using SDS-PAGE as the gel electrophoresis method",
+    wrong:[
+      "Lipids, using a detergent-loaded gel",
+      "Carbohydrates, sorted by glycosidic bond number",
+      "Inorganic ions like Na⁺ and K⁺",
+      "Water molecules of different isotopic compositions such as H₂O versus D₂O"
+    ],
+    exp:`<p><span class="gc">✓ Protein (via SDS-PAGE)</span> — Steve's red text: gel electrophoresis separates DNA <em>(or protein)</em> fragments according to size. For proteins, SDS-PAGE is the gel electrophoresis method.</p>
+<p><span class="gw">✗ Lipids</span> — Lipids are separated by thin-layer chromatography or HPLC, not gel electrophoresis.</p>
+<p><span class="gw">✗ Carbohydrates</span> — Carbohydrate analysis typically uses HPLC, mass spectrometry, or lectin-based methods.</p>
+<p><span class="gw">✗ Inorganic ions</span> — Ions are separated by ion exchange chromatography or electrolyte analyzers.</p>
+<p><span class="gw">✗ Water molecules</span> — Isotope separation requires distillation or mass spectrometry, not gels.</p>`
+  },
+
+  // ==================== PLO 6: PROTEIN ANALYSIS / BLOTTING ====================
+  {
+    tag:"plo6", label:"PLO 6 · Blotting Overview",
+    q:"Blotting techniques are used to <span class='hy'>detect, identify, and analyze proteins</span> based on their size, abundance, and:",
+    correct:"Post-translational and other modifications present on the protein",
+    wrong:[
+      "Isoelectric point as the primary variable",
+      "Solubility in aqueous versus organic solvents as determined by partitioning during transfer",
+      "Amino acid sequence read from the blot",
+      "Enzymatic activity, since only catalytically active proteins bind the membrane during transfer"
+    ],
+    exp:`<p><span class="gc">✓ Modifications</span> — Steve's red/bold text: blotting is used to detect, identify, and analyze proteins based on <em>size, abundance, and modifications</em> (e.g., phosphorylation, glycosylation, ubiquitination).</p>
+<p><span class="gw">✗ Isoelectric point</span> — pI is measured by isoelectric focusing, not standard blotting.</p>
+<p><span class="gw">✗ Solubility</span> — Blotting transfer preserves the size-separated pattern; it's not a solubility-based partitioning.</p>
+<p><span class="gw">✗ Amino acid sequence</span> — Blotting doesn't read sequence; you'd need mass spectrometry or Edman degradation.</p>
+<p><span class="gw">✗ Enzymatic activity</span> — SDS-PAGE denatures proteins, destroying activity. Blots detect presence, not function.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · General Steps",
+    q:"The three general steps of blotting are: (1) gel electrophoresis to separate by size, (2) transfer to a solid support membrane, and (3):",
+    correct:"Probing — using complementary molecules like DNA/RNA probes or antibodies to detect the specific target",
+    wrong:[
+      "High-speed centrifugation of the membrane",
+      "Incubation in a proteolytic enzyme bath to digest non-target molecules off the membrane",
+      "Sequencing the transferred molecules by automated Sanger analysis of each band individually",
+      "Staining with ethidium bromide to reveal all transferred molecules at once without specificity"
+    ],
+    exp:`<p><span class="gc">✓ Probing</span> — Steve's notes describe step 3 as probing: detecting specific DNA, RNA, or protein on the membrane by using <em>complementary or specific molecules that bind to the target</em>. For nucleic acids → complementary DNA/RNA probes. For protein → specific primary antibody.</p>
+<p><span class="gw">✗ Centrifugation</span> — There is no centrifugation step in standard blotting workflows.</p>
+<p><span class="gw">✗ Proteolytic digestion</span> — Digesting the membrane would destroy the targets you're trying to detect.</p>
+<p><span class="gw">✗ Sequencing</span> — Blotting identifies presence/absence and size, not sequence.</p>
+<p><span class="gw">✗ Ethidium bromide</span> — EtBr is a non-specific DNA stain used on gels; the point of blotting step 3 is specific detection of one target.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · SDS-PAGE",
+    q:"<span class='hy'>SDS-PAGE</span> is classified as which type of laboratory technique?",
+    correct:"A type of gel electrophoresis that separates proteins by molecular weight",
+    wrong:[
+      "A type of affinity chromatography",
+      "A type of mass spectrometry that ionizes proteins and sorts them by mass-to-charge ratio",
+      "A type of immunoprecipitation",
+      "A type of ultracentrifugation method"
+    ],
+    exp:`<p><span class="gc">✓ Gel electrophoresis</span> — Steve's red/bold text: proteins are separated via <em>SDS-PAGE, a type of gel electrophoresis</em>. SDS coats proteins with uniform negative charge so they separate purely by molecular weight through the polyacrylamide gel.</p>
+<p><span class="gw">✗ Affinity chromatography</span> — Affinity chromatography uses specific binding on a column, not a gel.</p>
+<p><span class="gw">✗ Mass spectrometry</span> — MS ionizes and detects molecules; it's not a gel-based separation technique.</p>
+<p><span class="gw">✗ Immunoprecipitation</span> — IP uses antibody-coated beads in solution to pull down targets, not gel migration.</p>
+<p><span class="gw">✗ Ultracentrifugation</span> — That separates by sedimentation coefficient, not electrophoresis through a gel.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · Blocking",
+    q:"After electrophoresis and transfer, the membrane is treated with a <span class='hy'>blocking solution</span>. What is the purpose of this step?",
+    correct:"To prevent non-specific binding of the probe or antibody to empty sites on the membrane",
+    wrong:[
+      "To permanently fix transferred proteins via covalent cross-linking to the membrane surface",
+      "To denature any remaining native proteins",
+      "To stain all proteins on the membrane so they can be visualized before probing begins",
+      "To strip residual gel fragments that may have transferred along with the proteins"
+    ],
+    exp:`<p><span class="gc">✓ Prevent non-specific binding</span> — Steve's notes: the membrane is treated with a blocking solution to <em>prevent binding</em> — it saturates empty sites (with BSA, non-fat milk, etc.) so that the probe/antibody only binds its specific target, not bare membrane.</p>
+<p><span class="gw">✗ Chemical cross-linking</span> — Blocking is non-covalent saturation, not fixation.</p>
+<p><span class="gw">✗ Denature remaining proteins</span> — Proteins were already denatured by SDS during electrophoresis.</p>
+<p><span class="gw">✗ Stain proteins</span> — Blocking is invisible; Coomassie or Ponceau S staining is a separate optional step.</p>
+<p><span class="gw">✗ Strip gel fragments</span> — Gel fragments don't transfer to the membrane in standard blotting protocols.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · Probes",
+    q:"When probing for <span class='hy'>DNA or RNA</span> targets on a blot, the detection molecule used is:",
+    correct:"A complementary DNA or RNA probe that hybridizes to the target via base pairing",
+    wrong:[
+      "A specific primary antibody raised in a rabbit or mouse host against the nucleic acid target",
+      "A restriction enzyme that cleaves at a recognition site",
+      "An enzyme-linked lectin that recognizes sugar residues on the nucleotide backbone",
+      "Ethidium bromide applied directly to the membrane surface for UV visualization"
+    ],
+    exp:`<p><span class="gc">✓ Complementary DNA or RNA probe</span> — Steve's notes: for detecting DNA and RNA on blots, a <em>complementary DNA or RNA probe</em> is used. The labeled probe hybridizes via Watson-Crick base pairing.</p>
+<p><span class="gw">✗ Primary antibody</span> — Antibodies detect protein targets (Western blot), not nucleic acids on Southern/Northern blots.</p>
+<p><span class="gw">✗ Restriction enzyme</span> — Restriction enzymes cut DNA in solution before electrophoresis; they don't detect targets on membranes.</p>
+<p><span class="gw">✗ Lectin</span> — Lectins bind carbohydrates, not nucleic acids.</p>
+<p><span class="gw">✗ Ethidium bromide</span> — EtBr is a non-specific gel stain; blotting aims for specific detection of one target sequence.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · Probes",
+    q:"When probing for a <span class='hy'>protein</span> target on a Western blot membrane, the detection molecule is:",
+    correct:"A specific primary antibody that recognizes the target protein",
+    wrong:[
+      "A labeled complementary DNA probe",
+      "A synthetic RNA oligonucleotide designed to base-pair with the protein's amino acid residues",
+      "Coomassie blue stain, which specifically highlights only the protein of interest on the membrane",
+      "A fluorescent lipid dye that intercalates into hydrophobic regions of the denatured polypeptide"
+    ],
+    exp:`<p><span class="gc">✓ Specific primary antibody</span> — Steve's notes: for protein targets, a <em>specific primary antibody</em> is used. This antibody binds its target epitope on the membrane-bound protein.</p>
+<p><span class="gw">✗ DNA probe</span> — DNA probes hybridize to nucleic acid targets, not proteins.</p>
+<p><span class="gw">✗ RNA oligonucleotide</span> — RNA probes also detect nucleic acid targets, not proteins.</p>
+<p><span class="gw">✗ Coomassie blue</span> — Coomassie stains ALL proteins non-specifically; it cannot pick out your target from everything else.</p>
+<p><span class="gw">✗ Fluorescent lipid dye</span> — Not a real detection method used in Western blotting.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · SNoW DRoP",
+    q:"Using the <span class='hy'>SNoW DRoP</span> mnemonic, which blot type detects DNA?",
+    correct:"Southern blot — the 'S' in SNoW corresponds to the 'D' in DRoP",
+    wrong:[
+      "Northern blot — DNA detection",
+      "Western blot — DNA detection",
+      "Southwestern blot — the standard method for all DNA detection by hybridization",
+      "Northern blot — the 'N' in SNoW corresponds to nucleic acids broadly, including DNA"
+    ],
+    exp:`<p><span class="gc">✓ Southern blot</span> — SNoW DRoP: <strong>S</strong>outhern=<strong>D</strong>NA, <strong>N</strong>orthern=<strong>R</strong>NA, <strong>W</strong>estern=<strong>P</strong>rotein. Named after Edwin Southern; Northern and Western are directional puns.</p>
+<p><span class="gw">✗ Northern = DNA</span> — Northern detects RNA, not DNA.</p>
+<p><span class="gw">✗ Western = DNA</span> — Western detects protein (W→P).</p>
+<p><span class="gw">✗ Southwestern</span> — Southwestern blot studies DNA-protein interactions, not a simple DNA detection method.</p>
+<p><span class="gw">✗ Northern = nucleic acids broadly</span> — Northern is specifically for RNA, not all nucleic acids. Southern handles DNA.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · SNoW DRoP",
+    q:"A <span class='hy'>Northern blot</span> detects RNA. Its listed applications include analysis of gene expression and:",
+    correct:"RNA size determination",
+    wrong:[
+      "Gene mapping and detection of chromosomal rearrangements in genomic DNA samples",
+      "Protein identification and detection of post-translational modifications",
+      "Amplification of target sequences via thermocycling with forward and reverse primers",
+      "Visualization of chromosomal banding patterns after Giemsa staining for karyotype analysis"
+    ],
+    exp:`<p><span class="gc">✓ RNA size determination</span> — Per Steve's table: Northern blot applications = <em>analysis of gene expression</em> and <em>RNA size determination</em>.</p>
+<p><span class="gw">✗ Gene mapping / rearrangements</span> — Those are Southern blot applications (DNA).</p>
+<p><span class="gw">✗ Protein identification / PTMs</span> — Those are Western blot applications (protein).</p>
+<p><span class="gw">✗ Amplification via thermocycling</span> — That's PCR, a completely different technique.</p>
+<p><span class="gw">✗ Karyotype banding</span> — Karyotyping uses cytogenetic methods, not Northern blot.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · SNoW DRoP",
+    q:"Per Steve's table, <span class='hy'>Southern blot</span> applications include gene mapping, identification of specific DNA sequences, and:",
+    correct:"Detection of gene rearrangements",
+    wrong:[
+      "Analysis of gene expression levels",
+      "Protein expression analysis using enzyme-conjugated secondary antibodies on a membrane",
+      "RNA size determination via migration distance relative to an RNA molecular weight ladder",
+      "Detection of protein glycosylation via lectin-based probing on a PVDF membrane"
+    ],
+    exp:`<p><span class="gc">✓ Detection of gene rearrangements</span> — Steve's table: Southern blot applications = gene mapping, <em>detection of gene rearrangements</em>, and identification of specific DNA sequences.</p>
+<p><span class="gw">✗ Gene expression levels</span> — That's a Northern blot application (RNA level = expression).</p>
+<p><span class="gw">✗ Protein expression</span> — That's a Western blot application.</p>
+<p><span class="gw">✗ RNA size determination</span> — That's a Northern blot application.</p>
+<p><span class="gw">✗ Protein glycosylation</span> — That's a Western blot application.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · SNoW DRoP",
+    q:"Western blot applications from Steve's table include protein identification, expression analysis, and:",
+    correct:"Detection of post-translational modifications on the target protein",
+    wrong:[
+      "Gene mapping across chromosomes",
+      "RNA size determination and quantification of messenger RNA transcript abundance",
+      "Detection of gene rearrangements like translocations, deletions, or inversions in DNA",
+      "Analysis of gene expression at the transcriptional level by measuring mRNA levels"
+    ],
+    exp:`<p><span class="gc">✓ Post-translational modifications</span> — Steve's table: Western blot applications = protein identification, expression analysis, and <em>detection of post-translational modifications</em> (phosphorylation, glycosylation, ubiquitination).</p>
+<p><span class="gw">✗ Gene mapping</span> — Southern blot application.</p>
+<p><span class="gw">✗ RNA size determination</span> — Northern blot application.</p>
+<p><span class="gw">✗ Gene rearrangements</span> — Southern blot application.</p>
+<p><span class="gw">✗ mRNA-level gene expression</span> — Northern blot application.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · Western Blot Protocol",
+    q:"Harrison's slides detail the Western blot protocol. The correct sequence of steps is:",
+    correct:"Denature the sample → separate proteins by electrophoresis → transfer to membrane → detect with labeled antibodies",
+    wrong:[
+      "Separate by electrophoresis → detect with antibodies → denature → transfer to membrane",
+      "Transfer unseparated sample to membrane → block → detect with DNA probes → electrophoresis",
+      "Detect with antibodies → denature → transfer to membrane → separate by electrophoresis",
+      "Denature the sample → transfer directly to membrane → separate on membrane → probe with DNA"
+    ],
+    exp:`<p><span class="gc">✓ Denature → Electrophoresis → Transfer → Antibody detection</span> — From Harrison slide 34 and Steve's notes: (1) denature the complex sample, (2) separate proteins by SDS-PAGE, (3) transfer onto a membrane, (4) detect specific proteins with labeled antibodies.</p>
+<p><span class="gw">✗ Detect before transfer</span> — You can't probe before the proteins are on a membrane.</p>
+<p><span class="gw">✗ Transfer first</span> — You must separate BEFORE transferring; otherwise you'd just have an unseparated mixture on the membrane.</p>
+<p><span class="gw">✗ Detect first</span> — Detection is always the final step in the protocol.</p>
+<p><span class="gw">✗ DNA probes</span> — Western blots use antibodies for protein detection, not DNA probes. DNA probes are for Southern/Northern blots.</p>`
+  },
+  {
+    tag:"plo6", label:"PLO 6 · Western Blot Reading",
+    q:"On a Western blot for HIV, bands are labeled gp160, gp41, p24. The <span class='hy'>'gp'</span> prefix indicates the protein is a:",
+    correct:"Glycoprotein — a protein with attached carbohydrate modifications",
+    wrong:[
+      "Globular protein with a spherical shape",
+      "G-protein, meaning it functions as a GTPase in intracellular signal transduction pathways",
+      "Gene product that hasn't undergone any processing in the ER or Golgi apparatus yet",
+      "Genomic protein encoded by the host genome rather than by the viral genome"
+    ],
+    exp:`<p><span class="gc">✓ Glycoprotein</span> — Per Harrison's HIV Western blot slide: "gp" = glycoprotein, "p" = protein. The number = molecular weight in kilodaltons. So gp160 is a 160-kDa glycoprotein, while p24 is a 24-kDa non-glycosylated protein.</p>
+<p><span class="gw">✗ Globular protein</span> — "Globular" describes 3D folding; it wouldn't be abbreviated "gp" on a blot.</p>
+<p><span class="gw">✗ G-protein (GTPase)</span> — G-proteins are signal transduction molecules; "gp" on a blot means glycoprotein.</p>
+<p><span class="gw">✗ Unprocessed gene product</span> — Glycoproteins are actually heavily processed (glycosylated in ER/Golgi).</p>
+<p><span class="gw">✗ Host genomic protein</span> — These are viral proteins (HIV envelope glycoproteins), not host-encoded.</p>`
+  }
+];
+
+// ===== ENGINE =====
+let fontPct = 100, ans = 0, sc = 0;
+
+function shuffle(a) {
+  const b = [...a];
+  for (let i = b.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [b[i], b[j]] = [b[j], b[i]];
+  }
+  return b;
+}
+
+function build() {
+  const box = document.getElementById('quizBox');
+  box.innerHTML = '';
+  const qs = shuffle(Q);
+  const L = 'ABCDE';
+
+  qs.forEach((q, i) => {
+    let opts = [{ t: q.correct, c: true }, ...q.wrong.map(w => ({ t: w, c: false }))];
+    opts = shuffle(opts);
+
+    const d = document.createElement('div');
+    d.className = 'qcard';
+    d.id = 'qc-' + i;
+
+    let oh = '';
+    opts.forEach((o, j) => {
+      oh += `<button class="opt" data-c="${o.c}" onclick="pick(this,${i})"><span class="ltr">${L[j]}</span><span>${o.t}</span></button>`;
+    });
+
+    d.innerHTML = `
+      <div class="qcard-head">
+        <span class="qnum">Q${i + 1}</span>
+        <span class="qtag ${q.tag}">${q.label}</span>
+      </div>
+      <div class="qstem">${q.q}</div>
+      <div class="opts">${oh}</div>
+      <div class="exp" id="ex-${i}"><div class="elabel">Explanation</div>${q.exp}</div>
+    `;
+    box.appendChild(d);
+  });
+}
+
+function pick(btn, i) {
+  const card = document.getElementById('qc-' + i);
+  if (card.classList.contains('done-right') || card.classList.contains('done-wrong')) return;
+
+  card.querySelectorAll('.opt').forEach(b => b.classList.add('locked'));
+  ans++;
+
+  if (btn.dataset.c === 'true') {
+    sc++;
+    btn.classList.add('pick-right');
+    card.classList.add('done-right');
+  } else {
+    btn.classList.add('pick-wrong');
+    card.classList.add('done-wrong');
+    card.querySelectorAll('.opt').forEach(b => {
+      if (b.dataset.c === 'true') b.classList.add('show-right');
+    });
+  }
+
+  document.getElementById('ex-' + i).style.display = 'block';
+  upd();
+  if (ans === Q.length) done();
+}
+
+function upd() {
+  document.getElementById('pbar').style.width = (ans / Q.length * 100) + '%';
+  document.getElementById('countTxt').textContent = ans + ' / ' + Q.length + ' answered';
+  document.getElementById('scoreTxt').textContent = 'Score: ' + sc;
+}
+
+function done() {
+  const pct = Math.round(sc / Q.length * 100);
+  const r = document.getElementById('resCard');
+  const b = document.getElementById('resBig');
+  b.textContent = sc + ' / ' + Q.length + ' (' + pct + '%)';
+  b.className = 'bigscore ' + (pct >= 70 ? 'pass' : 'fail');
+  document.getElementById('resMsg').textContent =
+    pct >= 90 ? "SNoW DRoP master. You know your blots." :
+    pct >= 80 ? "Strong grasp of PLOs 5 & 6." :
+    pct >= 70 ? "Passing — review the red text from Steve's notes." :
+    "Go back to Steve's notes. Focus on the SNoW DRoP table and gel electrophoresis fundamentals.";
+  r.style.display = 'block';
+  r.scrollIntoView({ behavior: 'smooth' });
+}
+
+function restart() {
+  ans = 0; sc = 0; upd();
+  document.getElementById('resCard').style.display = 'none';
+  build();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function fontSize(d) {
+  if (d === 0) fontPct = 100;
+  else fontPct = Math.max(80, Math.min(130, fontPct + d * 8));
+  document.querySelector('.container').style.fontSize = fontPct + '%';
+}
+
+build();
+</script>
+</body>
+</html>
