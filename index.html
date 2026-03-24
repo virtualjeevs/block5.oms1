@@ -2955,6 +2955,11 @@ function handleEasterEggKeydown(ev){
     triggerMinecraftEgg();
     return;
   }
+  if(EASTER_EGG_BUFFER.endsWith('pika')){
+    EASTER_EGG_BUFFER='';
+    triggerPikaEgg();
+    return;
+  }
   if(EASTER_EGG_BUFFER.endsWith('cat')){
     EASTER_EGG_BUFFER='';
     triggerNyanEgg();
@@ -3113,6 +3118,24 @@ function triggerMinecraftEgg(){
     linkHref:minecraftUrl,
     note:popup
       ? 'Type minecraft again anytime you want to launch it.'
+      : 'Popups can be blocked in some browsers until you allow them for this site.'
+  });
+}
+
+function triggerPikaEgg(){
+  var pikaUrl='https://luttje.github.io/css-pokemon-gameboy/';
+  var popup=openEggPopup(pikaUrl,'pika_mode',1100,820);
+  launchEasterEgg({
+    icon:'⚡',
+    title:'PIKA MODE',
+    toastLabel:'Secret unlocked • pika',
+    body:popup
+      ? 'The CSS Pokémon Game Boy is open in its own window — Pikachu is ready.'
+      : 'Your browser blocked the popup, so use the button below to launch the CSS Pokémon Game Boy manually.',
+    linkLabel:'Open CSS Pokémon Game Boy',
+    linkHref:pikaUrl,
+    note:popup
+      ? 'Type pika again anytime you want to launch it.'
       : 'Popups can be blocked in some browsers until you allow them for this site.'
   });
 }
