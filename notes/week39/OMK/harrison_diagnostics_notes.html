@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STI Diagnostics — Dr. Harrison</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:    #2563EB;
+    --blue-l:  #DBEAFE;
+    --blue-m:  #93C5FD;
+    --green:   #059669;
+    --green-l: #D1FAE5;
+    --green-m: #6EE7B7;
+    --purple:  #7C3AED;
+    --purple-l:#EDE9FE;
+    --purple-m:#C4B5FD;
+    --orange:  #D97706;
+    --orange-l:#FEF3C7;
+    --orange-m:#FCD34D;
+    --red:     #DC2626;
+    --red-l:   #FEE2E2;
+    --red-m:   #FCA5A5;
+    --gray:    #374151;
+    --gray-l:  #F3F4F6;
+    --gray-m:  #D1D5DB;
+    --teal:    #0D9488;
+    --teal-l:  #CCFBF1;
+    --teal-m:  #5EEAD4;
+    --ink:     #111827;
+    --white:   #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #F8FAFF;
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1E3A5F 0%, #2563EB 40%, #3B82F6 100%);
+    color: white;
+    padding: 48px 40px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.05) 0%, transparent 60%);
+  }
+  .hero h1 { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.5px; position: relative; }
+  .hero p  { margin-top: 8px; font-size: 1rem; opacity: 0.85; position: relative; }
+  .color-legend {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-top: 28px; position: relative;
+  }
+  .legend-pill {
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px; padding: 5px 14px 5px 8px;
+    font-size: 0.82rem; font-weight: 700; color: white; backdrop-filter: blur(4px);
+  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  .part-sep {
+    display: flex; align-items: center; gap: 16px;
+    margin: 48px 0 8px;
+  }
+  .part-sep .line { flex: 1; height: 2px; background: var(--gray-m); border-radius: 2px; }
+  .part-sep .part-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; white-space: nowrap;
+    padding: 5px 16px; border-radius: 999px;
+    border: 1.5px solid var(--blue-m);
+    background: var(--blue-l); color: var(--blue);
+  }
+
+  .section-card {
+    border-radius: 20px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 28px; color: white;
+    font-weight: 900; font-size: 1.15rem; letter-spacing: -0.2px;
+  }
+  .section-icon { font-size: 1.5rem; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 700;
+    background: rgba(255,255,255,0.2);
+    border-radius: 6px; padding: 3px 8px;
+    letter-spacing: 0.05em; flex-shrink: 0;
+  }
+  .section-body { padding: 24px 28px; background: white; }
+
+  .s-blue   .section-header { background: linear-gradient(90deg, var(--blue), #60A5FA); }
+  .s-blue   { border: 2px solid var(--blue-m); }
+  .s-green  .section-header { background: linear-gradient(90deg, var(--green), #34D399); }
+  .s-green  { border: 2px solid var(--green-m); }
+  .s-purple .section-header { background: linear-gradient(90deg, var(--purple), #A78BFA); }
+  .s-purple { border: 2px solid var(--purple-m); }
+  .s-orange .section-header { background: linear-gradient(90deg, var(--orange), #FBBF24); }
+  .s-orange { border: 2px solid var(--orange-m); }
+  .s-red    .section-header { background: linear-gradient(90deg, var(--red), #F87171); }
+  .s-red    { border: 2px solid var(--red-m); }
+  .s-gray   .section-header { background: linear-gradient(90deg, var(--gray), #6B7280); }
+  .s-gray   { border: 2px solid var(--gray-m); }
+  .s-teal   .section-header { background: linear-gradient(90deg, var(--teal), #2DD4BF); }
+  .s-teal   { border: 2px solid var(--teal-m); }
+
+  .subsection { margin-bottom: 22px; }
+  .subsection-title {
+    font-size: 0.92rem; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .s-blue   .subsection-title { color: var(--blue); }
+  .s-green  .subsection-title { color: var(--green); }
+  .s-purple .subsection-title { color: var(--purple); }
+  .s-orange .subsection-title { color: var(--orange); }
+  .s-red    .subsection-title { color: var(--red); }
+  .s-gray   .subsection-title { color: var(--gray); }
+  .s-teal   .subsection-title { color: var(--teal); }
+
+  .eli5 {
+    border-radius: 12px; padding: 12px 16px; margin-bottom: 14px;
+    font-size: 0.93rem; font-weight: 600;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .eli5-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+  .s-blue   .eli5 { background: var(--blue-l);   border-left: 4px solid var(--blue); }
+  .s-green  .eli5 { background: var(--green-l);  border-left: 4px solid var(--green); }
+  .s-purple .eli5 { background: var(--purple-l); border-left: 4px solid var(--purple); }
+  .s-orange .eli5 { background: var(--orange-l); border-left: 4px solid var(--orange); }
+  .s-red    .eli5 { background: var(--red-l);    border-left: 4px solid var(--red); }
+  .s-gray   .eli5 { background: var(--gray-l);   border-left: 4px solid var(--gray); }
+  .s-teal   .eli5 { background: var(--teal-l);   border-left: 4px solid var(--teal); }
+
+  .alert {
+    border-radius: 10px; padding: 11px 15px; margin: 10px 0 14px;
+    font-size: 0.9rem; font-weight: 700;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .alert-warn { background: #FFF7ED; border: 1.5px solid #FB923C; color: #92400E; }
+  .alert-tip  { background: #F0FDF4; border: 1.5px solid #4ADE80; color: #166534; }
+  .alert-key  { background: #FFF1F2; border: 1.5px solid #FB7185; color: #9F1239; }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 0.88rem; }
+  th {
+    padding: 9px 12px; text-align: left; font-weight: 800;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; color: white;
+  }
+  .s-blue   th { background: var(--blue); }
+  .s-green  th { background: var(--green); }
+  .s-purple th { background: var(--purple); }
+  .s-orange th { background: #B45309; }
+  .s-red    th { background: var(--red); }
+  .s-gray   th { background: var(--gray); }
+  .s-teal   th { background: var(--teal); }
+  td { padding: 8px 12px; border-bottom: 1px solid #F1F5F9; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFBFF; }
+
+  .tag {
+    display: inline-block; border-radius: 999px; padding: 2px 10px;
+    font-size: 0.75rem; font-weight: 800; margin: 2px 3px 2px 0;
+  }
+  .tag-red    { background: var(--red-l);    color: var(--red);    border: 1px solid var(--red-m); }
+  .tag-green  { background: var(--green-l);  color: var(--green);  border: 1px solid var(--green-m); }
+  .tag-blue   { background: var(--blue-l);   color: var(--blue);   border: 1px solid var(--blue-m); }
+  .tag-orange { background: var(--orange-l); color: var(--orange); border: 1px solid var(--orange-m); }
+  .tag-purple { background: var(--purple-l); color: var(--purple); border: 1px solid var(--purple-m); }
+  .tag-gray   { background: var(--gray-l);   color: var(--gray);   border: 1px solid var(--gray-m); }
+  .tag-teal   { background: var(--teal-l);   color: var(--teal);   border: 1px solid var(--teal-m); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0 14px; }
+  .mini-card { border-radius: 12px; padding: 14px 16px; font-size: 0.87rem; }
+  .mini-card strong { display: block; font-size: 0.82rem; font-weight: 900; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .s-blue   .mini-card { background: var(--blue-l);   border: 1.5px solid var(--blue-m); }
+  .s-blue   .mini-card strong { color: var(--blue); }
+  .s-green  .mini-card { background: var(--green-l);  border: 1.5px solid var(--green-m); }
+  .s-green  .mini-card strong { color: var(--green); }
+  .s-purple .mini-card { background: var(--purple-l); border: 1.5px solid var(--purple-m); }
+  .s-purple .mini-card strong { color: var(--purple); }
+  .s-orange .mini-card { background: var(--orange-l); border: 1.5px solid var(--orange-m); }
+  .s-orange .mini-card strong { color: var(--orange); }
+  .s-red    .mini-card { background: var(--red-l);    border: 1.5px solid var(--red-m); }
+  .s-red    .mini-card strong { color: var(--red); }
+  .s-gray   .mini-card { background: var(--gray-l);   border: 1.5px solid var(--gray-m); }
+  .s-gray   .mini-card strong { color: var(--gray); }
+  .s-teal   .mini-card { background: var(--teal-l);   border: 1.5px solid var(--teal-m); }
+  .s-teal   .mini-card strong { color: var(--teal); }
+
+  .step-list { list-style: none; counter-reset: steps; margin: 10px 0 4px; }
+  .step-list li {
+    counter-increment: steps;
+    display: flex; gap: 12px; align-items: flex-start;
+    margin-bottom: 8px; font-size: 0.91rem;
+  }
+  .step-list li::before {
+    content: counter(steps); width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 0.8rem; flex-shrink: 0; color: white;
+  }
+  .s-blue   .step-list li::before { background: var(--blue); }
+  .s-green  .step-list li::before { background: var(--green); }
+  .s-purple .step-list li::before { background: var(--purple); }
+  .s-orange .step-list li::before { background: var(--orange); }
+  .s-red    .step-list li::before { background: var(--red); }
+  .s-gray   .step-list li::before { background: var(--gray); }
+  .s-teal   .step-list li::before { background: var(--teal); }
+
+  .mono { font-family: 'JetBrains Mono', monospace; background: #F1F5F9; border-radius: 6px; padding: 2px 7px; font-size: 0.82rem; color: var(--gray); }
+
+  ul.bullet-list { list-style: disc; padding-left: 20px; margin: 6px 0 10px; font-size: 0.9rem; }
+  ul.bullet-list li { margin-bottom: 4px; }
+
+  .diagram-box {
+    background: #F8FAFC; border: 1.5px solid #E2E8F0; border-radius: 14px;
+    padding: 20px; margin: 14px 0; text-align: center;
+    overflow-x: auto;
+  }
+  .diagram-box svg { max-width: 100%; height: auto; }
+  .diagram-caption {
+    font-size: 0.78rem; color: var(--gray); font-weight: 700;
+    margin-top: 10px; text-align: center;
+  }
+
+  @media(max-width: 600px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.7rem; }
+    .section-body { padding: 18px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>🔬 STI Diagnostics Notes</h1>
+  <p>Dr. Ben Harrison · OMK1 Block 5 · First Principles of Protein &amp; Nucleic Acid Detection · STI Testing</p>
+  <div class="color-legend">
+    <div class="legend-pill"><div class="legend-dot" style="background:#F87171"></div> High-Yield / Board-Tested</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#60A5FA"></div> Mechanism / First Principle</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#34D399"></div> Clinical Pearl / ELI5</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#FCD34D"></div> Terminology / Key Vocab</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#A78BFA"></div> STI-Specific Diagnostics</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════
+     PART I — DETECTING PROTEINS
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part I · Detecting Proteins</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 01 — FIRST PRINCIPLES -->
+<div class="section-card s-blue">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-icon">🧠</span>
+    First Principles — Harrison's Framework
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🎯</span>
+      <span><strong>Harrison's Core Message:</strong> If you learn first principles, you can figure out <em>any</em> new diagnostic test — even ones that didn't exist when you were in med school. Ask two questions about every assay, and you can reason through its strengths and limitations.</span>
+    </div>
+
+    <div class="alert alert-key">
+      <span class="alert-icon">🔑</span>
+      <span>For ANY diagnostic assay, always ask: <strong>(1) What is the specimen?</strong> and <strong>(2) What, in the specimen, are we detecting?</strong> — e.g., are we detecting patient antibody (serology) or pathogen antigen/DNA?</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Why First Principles Matter ★</div>
+      <ul class="bullet-list">
+        <li>Arm clinicians with fundamental knowledge to <span class="tag tag-red">critically assess results</span> — what are the likely errors? How accurate is the method?</li>
+        <li>Clinical practice is <span class="tag tag-red">rapidly evolving</span> — how much will change by the time you graduate or finish residency?</li>
+        <li>Lab techniques are <span class="tag tag-red">tested on board exams</span>!</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Two Types of Antibody-Based Tests</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Test FOR Antibody (Serology)</strong>
+          Detects <span class="tag tag-red">patient antibody</span> in serum<br>
+          The antibody IS the analyte<br>
+          Lab-made antigen is on the plate<br>
+          → Tells you: patient was exposed (past or current infection)
+        </div>
+        <div class="mini-card">
+          <strong>Test USING Antibody (ELISA)</strong>
+          Uses <span class="tag tag-blue">commercial antibody</span> as a tool<br>
+          Detects <span class="tag tag-red">pathogen protein/antigen</span><br>
+          Sample antigen is on the plate<br>
+          → Tells you: pathogen is present in the specimen
+        </div>
+      </div>
+    </div>
+
+    <!-- SVG DIAGRAM -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" font-family="Nunito, sans-serif">
+        <!-- Serology side -->
+        <rect x="20" y="10" width="310" height="220" rx="14" fill="#DBEAFE" stroke="#93C5FD" stroke-width="2"/>
+        <text x="175" y="38" text-anchor="middle" font-size="13" font-weight="900" fill="#2563EB">SEROLOGICAL TEST</text>
+        <text x="175" y="56" text-anchor="middle" font-size="10" fill="#6B7280">(Detect patient antibody)</text>
+        <!-- Well -->
+        <rect x="100" y="140" width="150" height="30" rx="4" fill="#E0E7FF" stroke="#818CF8" stroke-width="1.5"/>
+        <text x="175" y="160" text-anchor="middle" font-size="9" font-weight="700" fill="#4338CA">WELL SURFACE</text>
+        <!-- Antigen on well -->
+        <circle cx="135" cy="130" r="8" fill="#FBBF24" stroke="#D97706" stroke-width="1.5"/>
+        <circle cx="175" cy="130" r="8" fill="#FBBF24" stroke="#D97706" stroke-width="1.5"/>
+        <circle cx="215" cy="130" r="8" fill="#FBBF24" stroke="#D97706" stroke-width="1.5"/>
+        <text x="175" y="118" text-anchor="middle" font-size="9" font-weight="700" fill="#92400E">Lab Antigen (B)</text>
+        <!-- Antibody from sample -->
+        <text x="175" y="82" text-anchor="middle" font-size="9" font-weight="700" fill="#DC2626">Patient Ab from sample (A)</text>
+        <path d="M155,90 L155,100 L145,110 M155,100 L165,110" stroke="#DC2626" stroke-width="2" fill="none"/>
+        <path d="M195,90 L195,100 L185,110 M195,100 L205,110" stroke="#DC2626" stroke-width="2" fill="none"/>
+        <text x="175" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">A from specimen, B from lab</text>
+
+        <!-- ELISA side -->
+        <rect x="370" y="10" width="310" height="220" rx="14" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="2"/>
+        <text x="525" y="38" text-anchor="middle" font-size="13" font-weight="900" fill="#DC2626">ELISA (Detect Pathogen)</text>
+        <text x="525" y="56" text-anchor="middle" font-size="10" fill="#6B7280">(Detect pathogen antigen)</text>
+        <!-- Well -->
+        <rect x="450" y="140" width="150" height="30" rx="4" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text x="525" y="160" text-anchor="middle" font-size="9" font-weight="700" fill="#991B1B">WELL SURFACE</text>
+        <!-- Antigen from sample on well -->
+        <circle cx="485" cy="130" r="8" fill="#F87171" stroke="#DC2626" stroke-width="1.5"/>
+        <circle cx="525" cy="130" r="8" fill="#F87171" stroke="#DC2626" stroke-width="1.5"/>
+        <circle cx="565" cy="130" r="8" fill="#F87171" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="525" y="118" text-anchor="middle" font-size="9" font-weight="700" fill="#991B1B">Sample Antigen (B)</text>
+        <!-- Commercial Ab -->
+        <text x="525" y="82" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">Commercial Ab + Enzyme (A)</text>
+        <path d="M505,90 L505,100 L495,110 M505,100 L515,110" stroke="#2563EB" stroke-width="2" fill="none"/>
+        <path d="M545,90 L545,100 L535,110 M545,100 L555,110" stroke="#2563EB" stroke-width="2" fill="none"/>
+        <text x="525" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#991B1B">B from specimen, A from lab</text>
+      </svg>
+      <div class="diagram-caption">Harrison's "flipped" concept: Serology has lab antigen on plate & detects patient Ab. ELISA has sample antigen on plate & uses commercial Ab.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 02 — ELISA -->
+<div class="section-card s-green">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-icon">🧪</span>
+    ELISA — Enzyme-Linked Immunosorbent Assay ★
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">💡</span>
+      <span><strong>ELI5:</strong> Stick the target protein to the bottom of a tiny well. Add an antibody with an enzyme glued to it. If the antibody sticks, the enzyme makes a color (or light). More color = more target. It's like a color-changing dip test for proteins.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">ELISA Protocol Steps ★</div>
+      <ol class="step-list">
+        <li><strong>Adsorb</strong> — Sample containing pathogen-specific antigen sticks to the bottom of a <span class="tag tag-green">microwell plate</span></li>
+        <li><strong>Add Antibody</strong> — Antigen-specific antibody (conjugated to an <span class="tag tag-red">enzyme</span>) is added to the plate</li>
+        <li><strong>Wash</strong> — Unbound antibody is washed away (removes non-specific noise)</li>
+        <li><strong>Detect</strong> — Bound antibody detected by <span class="tag tag-red">enzyme activity</span> → produces a <strong>colored compound</strong> (colorimetric) or <strong>emits light</strong> (chemiluminescence)</li>
+      </ol>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Enzyme Detection Systems</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>A. Colorimetric</strong>
+          Enzyme converts substrate → <span class="tag tag-green">colored product</span><br>
+          Measured by optical density (OD) at specific wavelength<br>
+          Common enzymes: <span class="tag tag-orange">Peroxidase</span>, <span class="tag tag-orange">Phosphatase</span>
+        </div>
+        <div class="mini-card">
+          <strong>B. Chemiluminescence</strong>
+          Enzyme converts substrate → <span class="tag tag-green">emits light</span><br>
+          Detected by luminometer<br>
+          Often more sensitive than colorimetric
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Direct vs. Indirect Assays ★★</div>
+      <table>
+        <tr><th>Feature</th><th>Direct Assay</th><th>Indirect Assay</th></tr>
+        <tr>
+          <td><strong>Antibodies used</strong></td>
+          <td><span class="tag tag-blue">ONE</span> antibody (directly labeled)</td>
+          <td><span class="tag tag-red">TWO</span> antibodies (1st Ab + labeled 2nd Ab)</td>
+        </tr>
+        <tr>
+          <td><strong>Detection system on...</strong></td>
+          <td>Primary antibody itself</td>
+          <td>Secondary antibody</td>
+        </tr>
+        <tr>
+          <td><strong>Advantage</strong></td>
+          <td>Faster, simpler protocol</td>
+          <td>Signal amplification (multiple 2nd Abs bind each 1st Ab)</td>
+        </tr>
+        <tr>
+          <td><strong>Label type</strong></td>
+          <td>Enzyme-linked or fluorophore on 1st Ab</td>
+          <td>Enzyme-linked or fluorophore on 2nd Ab</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="alert alert-tip">
+      <span class="alert-icon">🧬</span>
+      <span><strong>ELISA vs. IHC:</strong> Same first principle (antibody-based detection), different "detection surface." ELISA → <span class="tag tag-green">microwell</span>. IHC → <span class="tag tag-green">tissue slide</span>.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Antibody Terminology</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Polyclonal Antibody</strong>
+          One antigen can have <span class="tag tag-blue">multiple epitopes</span><br>
+          Polyclonal = mix of antibodies targeting different epitopes on the same antigen
+        </div>
+        <div class="mini-card">
+          <strong>Monoclonal Antibody</strong>
+          Binds to <span class="tag tag-red">one specific epitope</span> on the antigen<br>
+          Higher specificity, less batch variation<br>
+          Key for precise diagnostic assays
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Fluorophore Detection</div>
+      <p style="font-size:0.9rem;margin-bottom:8px;">Instead of an enzyme, the antibody can be conjugated to a <span class="tag tag-purple">fluorophore</span> (fluorescent molecule). Sometimes manufacturers lazily call these "probes" — Harrison warns this terminology can be confusing. Think back to first principles: what is the detection system?</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 03 — SEROLOGICAL TESTS & TITRE -->
+<div class="section-card s-orange">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-icon">🩸</span>
+    Serological Tests &amp; Measuring Titre ★★
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">💡</span>
+      <span><strong>ELI5:</strong> Serology = "ELISA flipped around." Instead of detecting pathogen, you immobilize <em>lab-made antigen</em> on the plate and look for <em>patient antibody</em> in the sample. If antibody is present → patient was exposed (past or current infection).</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Serial Dilution &amp; Titre ★★</div>
+
+      <div class="alert alert-key">
+        <span class="alert-icon">🔑</span>
+        <span><strong>Titre</strong> = "The highest dilution factor that still yields a positive reading." A higher titre number means MORE analyte in the original sample (it took more diluting to make the signal disappear).</span>
+      </div>
+
+      <!-- SVG for serial dilution concept -->
+      <div class="diagram-box">
+        <svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" font-family="Nunito, sans-serif">
+          <!-- Tubes -->
+          <rect x="40" y="60" width="60" height="80" rx="6" fill="#F87171" stroke="#DC2626" stroke-width="1.5"/>
+          <text x="70" y="105" text-anchor="middle" font-size="9" font-weight="800" fill="white">1:100</text>
+          <rect x="130" y="60" width="60" height="80" rx="6" fill="#FB923C" stroke="#EA580C" stroke-width="1.5"/>
+          <text x="160" y="105" text-anchor="middle" font-size="9" font-weight="800" fill="white">1:200</text>
+          <rect x="220" y="60" width="60" height="80" rx="6" fill="#FBBF24" stroke="#D97706" stroke-width="1.5"/>
+          <text x="250" y="105" text-anchor="middle" font-size="9" font-weight="800" fill="white">1:400</text>
+          <rect x="310" y="60" width="60" height="80" rx="6" fill="#A3E635" stroke="#65A30D" stroke-width="1.5"/>
+          <text x="340" y="105" text-anchor="middle" font-size="9" font-weight="800" fill="white">1:800</text>
+          <rect x="400" y="60" width="60" height="80" rx="6" fill="#86EFAC" stroke="#16A34A" stroke-width="1.5"/>
+          <text x="430" y="105" text-anchor="middle" font-size="9" font-weight="700" fill="#166534">1:1600</text>
+          <rect x="490" y="60" width="60" height="80" rx="6" fill="#E2E8F0" stroke="#94A3B8" stroke-width="1.5"/>
+          <text x="520" y="105" text-anchor="middle" font-size="9" font-weight="700" fill="#475569">1:3200</text>
+          <rect x="580" y="60" width="60" height="80" rx="6" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="610" y="105" text-anchor="middle" font-size="9" font-weight="700" fill="#94A3B8">1:6400</text>
+          <!-- Arrows between -->
+          <path d="M105,100 L125,100" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arw)"/>
+          <path d="M195,100 L215,100" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arw)"/>
+          <path d="M285,100 L305,100" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arw)"/>
+          <path d="M375,100 L395,100" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arw)"/>
+          <path d="M465,100 L485,100" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arw)"/>
+          <path d="M555,100 L575,100" stroke="#6B7280" stroke-width="1.5" marker-end="url(#arw)"/>
+          <defs><marker id="arw" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#6B7280"/></marker></defs>
+          <!-- Labels -->
+          <text x="70" y="48" text-anchor="middle" font-size="10" font-weight="900" fill="#DC2626">Strong</text>
+          <text x="610" y="48" text-anchor="middle" font-size="10" font-weight="900" fill="#94A3B8">Negative</text>
+          <!-- Titre marker -->
+          <line x1="430" y1="148" x2="430" y2="162" stroke="#059669" stroke-width="2.5"/>
+          <text x="430" y="178" text-anchor="middle" font-size="11" font-weight="900" fill="#059669">★ TITRE = 1:1600</text>
+          <text x="430" y="195" text-anchor="middle" font-size="9" fill="#6B7280">Last dilution still above background</text>
+          <!-- Intensity label -->
+          <text x="350" y="28" text-anchor="middle" font-size="11" font-weight="800" fill="#374151">Color fades as sample is diluted →</text>
+        </svg>
+        <div class="diagram-caption">Serial dilution: each tube is more dilute. The titre is the highest dilution that still gives a positive signal above the control/background.</div>
+      </div>
+
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <span>When plotting serial dilution data, the x-axis gets "bunched up" on a linear scale. Solution: <strong>log-transform the x-axis</strong>. This spreads the data points evenly and makes the titre easier to read from the graph.</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Clinical Significance of Titre Changes ★</div>
+      <table>
+        <tr><th>Observation</th><th>Interpretation</th><th>Clinical Meaning</th></tr>
+        <tr>
+          <td>Titre <span class="tag tag-red">increases</span> (e.g., 1:200 → 1:3200)</td>
+          <td>More analyte in sample</td>
+          <td>If measuring pathogen → <strong>worsening infection</strong>. If measuring Ab → <strong>mounting immune response</strong></td>
+        </tr>
+        <tr>
+          <td>Titre <span class="tag tag-green">decreases</span> (e.g., 1:10000 → 1:500)</td>
+          <td>Less analyte in sample</td>
+          <td>If measuring pathogen → <strong>successful treatment</strong>. If measuring Ab → <strong>resolving infection or waning immunity</strong></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Titre Question from Lecture ★</div>
+      <div class="alert alert-key">
+        <span class="alert-icon">📝</span>
+        <span>Given an ELISA titre graph with OD vs. log dilution factor and a control (background) line: <strong>the titre is the dilution at which the sample curve drops to meet the control line</strong>. The answer is expressed as a ratio (e.g., <span class="tag tag-red">1:128</span>), NOT as an OD value or concentration.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 04 — DOT BLOT & WESTERN BLOT -->
+<div class="section-card s-purple">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-icon">🧫</span>
+    Dot Blot &amp; Western Blot ★
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">Dot Blot</div>
+      <ul class="bullet-list">
+        <li>Detects specific <span class="tag tag-purple">proteins OR nucleic acids</span></li>
+        <li>Does <strong>NOT</strong> involve fractionation — sample is applied directly to membrane <span class="tag tag-red">without electrophoresis</span></li>
+        <li>Uses a serial dilution of known concentration as a reference → compare dot intensity of unknown samples to estimate concentration</li>
+        <li>Example: Tick-borne pathogen tests (Lyme disease)</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Western Blot — Protein Detection ★★</div>
+      <div class="eli5">
+        <span class="eli5-icon">💡</span>
+        <span><strong>ELI5:</strong> Like a dot blot but with an extra step: you first <em>separate</em> the proteins by size (SDS-PAGE), THEN transfer to a membrane, THEN probe with antibodies. This tells you both <em>whether</em> the protein is there AND <em>how big</em> it is.</span>
+      </div>
+
+      <ol class="step-list">
+        <li><strong>Denature</strong> — Complex sample (e.g., serum) is denatured with SDS</li>
+        <li><strong>Separate</strong> — Proteins separated by <span class="tag tag-red">SDS-PAGE</span> (electrophoresis by size)</li>
+        <li><strong>Transfer</strong> — Separated proteins "blotted" onto a membrane</li>
+        <li><strong>Probe</strong> — Membrane treated with <span class="tag tag-red">labeled antibodies</span> to detect specific proteins</li>
+      </ol>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Reading a Western Blot</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Band Labels</strong>
+          <span class="tag tag-purple">gp</span> = glycoprotein<br>
+          <span class="tag tag-purple">p</span> = protein<br>
+          Numbers = molecular weight in <span class="tag tag-orange">kilodaltons (kDa)</span><br>
+          e.g., gp160 = 160 kDa glycoprotein
+        </div>
+        <div class="mini-card">
+          <strong>Clinical Use</strong>
+          Historically: HIV seroconversion confirmation<br>
+          Currently: <span class="tag tag-red">confirmatory test for Lyme disease</span> (two-tiered testing)<br>
+          Bands show which proteins the patient's antibodies recognize
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Lyme Disease Two-Tiered Testing ★</div>
+      <ol class="step-list">
+        <li><strong>First Test:</strong> EIA (enzyme immunoassay) or IFA — if positive or equivocal → proceed</li>
+        <li><strong>Second Test:</strong> Symptoms ≤30 days → <span class="tag tag-red">IgM AND IgG Western Blot</span>. Symptoms &gt;30 days → <span class="tag tag-red">IgG Western Blot ONLY</span></li>
+      </ol>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Comparison: Dot Blot vs. Western Blot</div>
+      <table>
+        <tr><th>Feature</th><th>Dot Blot</th><th>Western Blot</th></tr>
+        <tr><td><strong>Fractionation</strong></td><td><span class="tag tag-red">No</span> — sample applied directly</td><td><span class="tag tag-green">Yes</span> — SDS-PAGE first</td></tr>
+        <tr><td><strong>Size info</strong></td><td>No molecular weight data</td><td>Yes — bands at specific kDa</td></tr>
+        <tr><td><strong>Target</strong></td><td>Proteins or nucleic acids</td><td>Proteins</td></tr>
+        <tr><td><strong>Use</strong></td><td>Quick concentration estimate</td><td>Specific protein identification + confirmation</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PART II — DETECTING NUCLEIC ACIDS
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part II · Detecting Nucleic Acids</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 05 — DNA PROBE TESTS & FISH -->
+<div class="section-card s-teal">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-icon">🧬</span>
+    DNA Probe Tests &amp; FISH ★
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">1. DNA Probe Tests (ASO) ★</div>
+      <div class="eli5">
+        <span class="eli5-icon">🎯</span>
+        <span><strong>First Principle:</strong> Relies on the <span class="tag tag-red">specificity of Watson-Crick base pairing</span> (hybridization). A labeled probe complementary to the target sequence binds if the target is present; it does not bind if the sequence doesn't match.</span>
+      </div>
+      <ul class="bullet-list">
+        <li>Also called: <span class="tag tag-teal">Allele-Specific Oligonucleotide Test (ASO)</span> / Molecular Probe Test</li>
+        <li>Example: Probe specific to cystic fibrosis allele — binds sequence #1 (complementary) but not sequence #2 (non-complementary)</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">2. Fluorescence In-Situ Hybridization (FISH) ★</div>
+      <ul class="bullet-list">
+        <li>Fluorescent probes stain oligonucleotide sequences <span class="tag tag-teal">in situ</span> (inside cells, on chromosomes)</li>
+        <li>Sometimes called <span class="tag tag-orange">"chromosome painting"</span></li>
+      </ul>
+
+      <div class="alert alert-key">
+        <span class="alert-icon">🔑</span>
+        <span><strong>Board-Tested Example: BCR-ABL fusion (Philadelphia translocation)</strong><br>
+        ABL gene (chr 9) labeled <span class="tag tag-red">RED</span> · BCR gene (chr 22) labeled <span class="tag tag-green">GREEN</span> · Fused gene = <span class="tag tag-orange">YELLOW</span> (mix)<br>
+        Found in: <strong>CML</strong> (chronic myelogenous leukemia), ALL, AML</span>
+      </div>
+
+      <!-- FISH SVG diagram -->
+      <div class="diagram-box">
+        <svg viewBox="0 0 600 160" xmlns="http://www.w3.org/2000/svg" font-family="Nunito, sans-serif">
+          <!-- Normal cell -->
+          <circle cx="120" cy="80" r="55" fill="#EFF6FF" stroke="#93C5FD" stroke-width="2"/>
+          <text x="120" y="25" text-anchor="middle" font-size="11" font-weight="900" fill="#1E40AF">Normal Cell</text>
+          <circle cx="100" cy="65" r="5" fill="#EF4444"/><text x="112" y="69" font-size="8" fill="#6B7280">ABL (red)</text>
+          <circle cx="100" cy="85" r="5" fill="#EF4444"/>
+          <circle cx="140" cy="65" r="5" fill="#22C55E"/><text x="152" y="69" font-size="8" fill="#6B7280">BCR (green)</text>
+          <circle cx="140" cy="85" r="5" fill="#22C55E"/>
+          <text x="120" y="115" text-anchor="middle" font-size="9" fill="#6B7280">2 red + 2 green (separate)</text>
+
+          <!-- Arrow -->
+          <text x="300" y="75" text-anchor="middle" font-size="28" fill="#9CA3AF">→</text>
+          <text x="300" y="100" text-anchor="middle" font-size="9" font-weight="700" fill="#DC2626">Translocation t(9;22)</text>
+
+          <!-- Fusion cell -->
+          <circle cx="480" cy="80" r="55" fill="#FFF7ED" stroke="#FDBA74" stroke-width="2"/>
+          <text x="480" y="25" text-anchor="middle" font-size="11" font-weight="900" fill="#EA580C">CML Cell</text>
+          <circle cx="460" cy="65" r="5" fill="#EF4444"/>
+          <circle cx="460" cy="85" r="5" fill="#22C55E"/>
+          <circle cx="500" cy="65" r="5" fill="#EF4444"/>
+          <circle cx="500" cy="85" r="7" fill="#F59E0B" stroke="#D97706" stroke-width="1.5"/>
+          <text x="515" y="89" font-size="8" font-weight="700" fill="#92400E">FUSION</text>
+          <text x="480" y="115" text-anchor="middle" font-size="9" fill="#6B7280">1 red + 1 green + 1 yellow (fused)</text>
+        </svg>
+        <div class="diagram-caption">FISH for BCR-ABL: Normal cells show separate red and green dots. CML cells show yellow fusion signal from the Philadelphia translocation.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 06 — PCR -->
+<div class="section-card s-red">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-icon">🔄</span>
+    PCR — Polymerase Chain Reaction ★★★
+  </div>
+  <div class="section-body">
+
+    <div class="alert alert-key">
+      <span class="alert-icon">⭐</span>
+      <span>Harrison: "It is very important that you understand these. I'll be available at the review sessions to talk more about this."</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">NAAT Terminology ★</div>
+      <p style="font-size:0.9rem;margin-bottom:10px;">You'll see many overlapping terms. All these describe nucleic acid amplification:</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Terms You'll Encounter</strong>
+          <span class="tag tag-red">NAT</span> — Nucleic Acid Test<br>
+          <span class="tag tag-red">NAAT</span> — Nucleic Acid Amplification Test<br>
+          <span class="tag tag-red">DNA Probe Test</span><br>
+          <span class="tag tag-red">Molecular Probe Test</span>
+        </div>
+        <div class="mini-card">
+          <strong>NAAT Methods</strong>
+          <span class="tag tag-orange">PCR</span> — Polymerase Chain Reaction<br>
+          <span class="tag tag-orange">SDA</span> — Standard Displacement Amplification<br>
+          <span class="tag tag-orange">TMA</span> — Transcription-Mediated Amplification<br>
+          <span class="tag tag-orange">LCR</span> — Ligase Chain Reaction
+        </div>
+      </div>
+      <div class="alert alert-tip">
+        <span class="alert-icon">✅</span>
+        <span>All NAATs share 3 things: (1) Require <span class="tag tag-red">DNA polymerases</span>, (2) Amplify a specific <span class="tag tag-red">template</span> from the clinical sample, (3) Use a synthetic <span class="tag tag-red">probe/primer</span> (often proprietary).</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Why Are Primers ~20 Bases Long? ★★</div>
+      <div class="eli5">
+        <span class="eli5-icon">🧮</span>
+        <span><strong>The Math:</strong> A 1-base primer would match 1 in 4 bases. A 2-base primer: (1/4)² = 1/16. A <strong>20-base primer</strong>: probability of a random match on the human genome (2×10⁹ bases) = (2×10⁹) × (1/4)²⁰ ≈ <span class="tag tag-red">1 in 5,000</span>. This makes the primer highly specific to its pathogen target.</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">The 3 Steps of Each PCR Cycle ★★★</div>
+
+      <!-- SVG PCR diagram -->
+      <div class="diagram-box">
+        <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" font-family="Nunito, sans-serif">
+          <!-- Step 1 -->
+          <rect x="10" y="40" width="200" height="160" rx="12" fill="#FEE2E2" stroke="#FCA5A5" stroke-width="1.5"/>
+          <text x="110" y="30" text-anchor="middle" font-size="12" font-weight="900" fill="#DC2626">STEP 1: Denature</text>
+          <text x="110" y="65" text-anchor="middle" font-size="10" font-weight="700" fill="#991B1B">95°C</text>
+          <!-- Double helix splitting -->
+          <line x1="70" y1="85" x2="70" y2="155" stroke="#3B82F6" stroke-width="4" stroke-linecap="round"/>
+          <line x1="150" y1="85" x2="150" y2="155" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+          <text x="110" y="130" text-anchor="middle" font-size="18" fill="#9CA3AF">⟷</text>
+          <text x="70" y="175" text-anchor="middle" font-size="8" fill="#3B82F6" font-weight="700">5'→3'</text>
+          <text x="150" y="175" text-anchor="middle" font-size="8" fill="#EF4444" font-weight="700">3'→5'</text>
+          <text x="110" y="195" text-anchor="middle" font-size="9" fill="#6B7280">Strands separate</text>
+
+          <!-- Arrow -->
+          <text x="235" y="125" font-size="22" fill="#9CA3AF">→</text>
+
+          <!-- Step 2 -->
+          <rect x="260" y="40" width="200" height="160" rx="12" fill="#FEF3C7" stroke="#FCD34D" stroke-width="1.5"/>
+          <text x="360" y="30" text-anchor="middle" font-size="12" font-weight="900" fill="#D97706">STEP 2: Anneal</text>
+          <text x="360" y="65" text-anchor="middle" font-size="10" font-weight="700" fill="#92400E">~60°C</text>
+          <line x1="310" y1="85" x2="310" y2="155" stroke="#3B82F6" stroke-width="4" stroke-linecap="round"/>
+          <line x1="410" y1="85" x2="410" y2="155" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+          <!-- Primers -->
+          <rect x="302" y="90" width="16" height="18" rx="3" fill="#22C55E" stroke="#16A34A" stroke-width="1"/>
+          <rect x="402" y="130" width="16" height="18" rx="3" fill="#22C55E" stroke="#16A34A" stroke-width="1"/>
+          <text x="340" y="103" font-size="7" font-weight="800" fill="#166534">Fwd Primer</text>
+          <text x="380" y="143" font-size="7" font-weight="800" fill="#166534">Rev Primer</text>
+          <text x="360" y="195" text-anchor="middle" font-size="9" fill="#6B7280">Primers bind target</text>
+
+          <!-- Arrow -->
+          <text x="485" y="125" font-size="22" fill="#9CA3AF">→</text>
+
+          <!-- Step 3 -->
+          <rect x="510" y="40" width="180" height="160" rx="12" fill="#D1FAE5" stroke="#6EE7B7" stroke-width="1.5"/>
+          <text x="600" y="30" text-anchor="middle" font-size="12" font-weight="900" fill="#059669">STEP 3: Elongate</text>
+          <text x="600" y="65" text-anchor="middle" font-size="10" font-weight="700" fill="#065F46">72°C</text>
+          <line x1="555" y1="85" x2="555" y2="155" stroke="#3B82F6" stroke-width="4" stroke-linecap="round"/>
+          <line x1="565" y1="90" x2="565" y2="130" stroke="#A78BFA" stroke-width="3" stroke-linecap="round" stroke-dasharray="4,3"/>
+          <line x1="645" y1="85" x2="645" y2="155" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+          <line x1="635" y1="105" x2="635" y2="155" stroke="#A78BFA" stroke-width="3" stroke-linecap="round" stroke-dasharray="4,3"/>
+          <text x="600" y="180" text-anchor="middle" font-size="8" font-weight="700" fill="#7C3AED">New DNA (purple)</text>
+          <text x="600" y="195" text-anchor="middle" font-size="9" fill="#6B7280">Polymerase builds new strand</text>
+        </svg>
+        <div class="diagram-caption">PCR Cycling: (1) Denature at 95°C → (2) Anneal primers at ~60°C → (3) Elongate with DNA polymerase. Repeat 35 cycles.</div>
+      </div>
+
+      <div class="alert alert-key">
+        <span class="alert-icon">🧮</span>
+        <span><strong>Amplification Math:</strong> Starting with 1 copy of target DNA, after 35 cycles: 2³⁵ = <span class="tag tag-red">34,359,738,368 copies</span> (~34 billion). This is why PCR can detect even a single pathogen molecule!</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">End-Point PCR vs. Quantitative PCR (qPCR) ★★</div>
+      <table>
+        <tr><th>Feature</th><th>End-Point PCR</th><th>Quantitative PCR (qPCR)</th></tr>
+        <tr>
+          <td><strong>Result type</strong></td>
+          <td><span class="tag tag-blue">Positive or Negative</span> (presence/absence)</td>
+          <td><span class="tag tag-red">Relative or Absolute measurement</span></td>
+        </tr>
+        <tr>
+          <td><strong>What it tells you</strong></td>
+          <td>Is the pathogen there?</td>
+          <td>How MUCH pathogen? (viral load, response to treatment)</td>
+        </tr>
+        <tr>
+          <td><strong>Detection</strong></td>
+          <td>Run gel after PCR, look for band</td>
+          <td>Measures DNA during cycling in <span class="tag tag-red">real time</span></td>
+        </tr>
+        <tr>
+          <td><strong>Clinical example</strong></td>
+          <td>Is N. gonorrhoeae DNA present?</td>
+          <td>What is the HIV viral load? Is Chlamydia responding to treatment?</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Reading a qPCR Curve ★★★</div>
+      <div class="alert alert-key">
+        <span class="alert-icon">🔑</span>
+        <span><strong>Detection threshold</strong> = "Where the amplification curve first straightens" (enters the <span class="tag tag-red">exponential phase</span>). Read down from that point to the X-axis to get the <strong>cycle number (Ct/Cq)</strong>.</span>
+      </div>
+
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Lower Ct = More Starting DNA</strong>
+          Fewer cycles needed → sample had lots of template<br>
+          e.g., Ct = 14 → <span class="tag tag-red">HIGH</span> pathogen load
+        </div>
+        <div class="mini-card">
+          <strong>Higher Ct = Less Starting DNA</strong>
+          More cycles needed → sample had little template<br>
+          e.g., Ct = 33 → <span class="tag tag-green">LOW</span> pathogen load
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">Standard Curve for Absolute Quantification</div>
+        <p style="font-size:0.9rem;margin-bottom:8px;">Run qPCR on samples with known DNA concentrations (1, 2, 4, 8, 16, 32 ng). Plot Ct vs. amount of DNA. This creates a standard curve. Then read unknown samples' Ct values against the curve to determine their concentration (e.g., viral load in copies/mL or ng of DNA).</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">★ Integration Question from Harrison's Slide ★</div>
+      <div class="alert alert-key">
+        <span class="alert-icon">📝</span>
+        <span><strong>Q: Which results confirm reduced pathogen after antibiotics?</strong><br>
+        ✅ <strong>Before:</strong> PCR Ct = 5, titre = 1:10,000 → <strong>After:</strong> PCR Ct = 36, titre = 1:500<br>
+        <em>Why?</em> Ct went up (less DNA → needed more cycles) AND titre dropped (less antigen → signal disappears at lower dilution). Both indicate pathogen reduction.</span>
+      </div>
+    </div>
+
+    <div class="alert alert-warn">
+      <span class="alert-icon">⚠️</span>
+      <span><strong>Terminology Trap:</strong> qPCR is sometimes called "RT-PCR" (real-time PCR). Don't confuse with <strong>Reverse-Transcription PCR</strong> (also RT-PCR!) which uses RNA as template. Combining both gives the delightful <span class="mono">RT-RT-PCR</span>.</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PART III — STI-SPECIFIC DIAGNOSTICS
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part III · STI-Specific Diagnostics</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 07 — GONORRHEA & CHLAMYDIA -->
+<div class="section-card s-purple">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <span class="section-icon">🦠</span>
+    Gonorrhea &amp; Chlamydia Diagnostics ★★
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🎯</span>
+      <span><strong>Key Point:</strong> Both gonorrhea and chlamydia have similar symptoms and are often tested together. <span class="tag tag-red">NAAT is the recommended method for both</span> — more sensitive and specific than any other available test.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Gonorrhea (N. gonorrhoeae) ★</div>
+      <table>
+        <tr><th>Method</th><th>Details</th><th>Limitations</th></tr>
+        <tr>
+          <td><strong>Gram Stain + Culture</strong></td>
+          <td>Look for Gram-negative diplococci from urethral sample</td>
+          <td><span class="tag tag-red">Not reliable in women</span> — normal female genital flora look similar. Also can't rule out in asymptomatic men.</td>
+        </tr>
+        <tr>
+          <td><strong>NAAT ★ (Recommended)</strong></td>
+          <td>Detects <em>N. gonorrhoeae</em> genetic material; can use vaginal swab or urine from both sexes</td>
+          <td><span class="tag tag-green">Most sensitive and specific</span>. Eliminates need for pelvic exam in women.</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Chlamydia (C. trachomatis)</div>
+      <ul class="bullet-list">
+        <li>Signs/symptoms overlap heavily with gonorrhea → often <span class="tag tag-purple">tested simultaneously</span></li>
+        <li>NAAT is the standard diagnostic method</li>
+        <li>Samples: vaginal swab (women), urine (both), urethral swab (men)</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Screening Recommendations (Both)</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Women</strong>
+          Yearly testing if:<br>
+          • Sexually active &lt;25 years old<br>
+          • ≥25 and at increased risk<br>
+          • Pregnant or considering pregnancy
+        </div>
+        <div class="mini-card">
+          <strong>Men</strong>
+          Yearly testing if:<br>
+          • Men who have sex with men (MSM)<br><br>
+          <strong>Both sexes:</strong><br>
+          • When symptomatic<br>
+          • Repeat testing ~3 months post-treatment
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">NAAT Sensitivity Comparison</div>
+      <div class="alert alert-tip">
+        <span class="alert-icon">📊</span>
+        <span>NAAT is orders of magnitude more sensitive than other methods. Detection thresholds: <span class="tag tag-red">NAAT → ~1 organism</span> · Signal Amplification → ~10³ · Direct Probe → ~10⁴ · Enzyme Immunoassay → ~10⁵. NAAT testing dramatically increases detection rates.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 08 — SYPHILIS -->
+<div class="section-card s-red">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <span class="section-icon">🔴</span>
+    Syphilis Diagnostics — Two-Test Algorithm ★★★
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">💡</span>
+      <span><strong>ELI5:</strong> Syphilis uses antibody tests (serology), NOT PCR. There are two types of antibody tests, and you always need BOTH to make a diagnosis. One type stays positive forever; the other goes away after treatment. That difference is the key to interpreting results.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Two Types of Syphilis Tests ★★★</div>
+      <table>
+        <tr><th>Feature</th><th>Treponemal Test</th><th>Nontreponemal Test</th></tr>
+        <tr>
+          <td><strong>What it detects</strong></td>
+          <td>Antibodies <span class="tag tag-red">specifically targeting T. pallidum</span></td>
+          <td>Antibodies against <span class="tag tag-orange">biomarkers from cellular damage</span> (indirect)</td>
+        </tr>
+        <tr>
+          <td><strong>Examples</strong></td>
+          <td><span class="tag tag-red">FTA-ABS</span>, TP-PA, EIA (immunoassay)</td>
+          <td><span class="tag tag-orange">RPR</span>, <span class="tag tag-orange">VDRL</span></td>
+        </tr>
+        <tr>
+          <td><strong>Specificity</strong></td>
+          <td>Highly specific for syphilis</td>
+          <td>Less specific (can have false positives)</td>
+        </tr>
+        <tr>
+          <td><strong>After treatment</strong></td>
+          <td><span class="tag tag-red">Stays positive for LIFE</span></td>
+          <td><span class="tag tag-green">Disappears ~3 years</span> after adequate treatment</td>
+        </tr>
+        <tr>
+          <td><strong>Key clinical use</strong></td>
+          <td>Confirms syphilis exposure occurred</td>
+          <td>Distinguishes active vs. treated infection</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="alert alert-key">
+      <span class="alert-icon">⭐</span>
+      <span><strong>HIGHEST YIELD:</strong> <span class="tag tag-red">Falling titres on nontreponemal tests indicate SUCCESSFUL TREATMENT.</span> A positive treponemal test + negative nontreponemal test = past infection, successfully treated.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Why You Need Both Tests</div>
+      <p style="font-size:0.9rem;margin-bottom:8px;">Since treponemal antibodies stay positive for life, a positive treponemal screening alone can't distinguish between active infection and one that was treated years ago. The nontreponemal test resolves this — if it's also positive, the infection is active (or reinfection). If negative, the past infection was successfully treated.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">FTA-ABS (Fluorescent Treponemal Antibody Absorption)</div>
+      <ul class="bullet-list">
+        <li>Useful after first 3-4 weeks following exposure</li>
+        <li>Can test blood AND <span class="tag tag-red">CSF</span> (for neurosyphilis diagnosis)</li>
+        <li>The "absorption" step removes cross-reactive antibodies to improve specificity</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Testing Algorithm (Know Conceptually, Not Memorize)</div>
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <span>Harrison says you don't need to memorize the exact algorithm — but know that (1) the algorithm is constantly evolving, (2) both traditional and "reverse" algorithms exist, (3) a second confirmatory test of a different type is always required.</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Screening Recommendations</div>
+      <ul class="bullet-list">
+        <li>When symptoms are present</li>
+        <li>Risk of exposure (MSM, multiple partners, partner diagnosed)</li>
+        <li>HIV infection (screen routinely)</li>
+        <li><span class="tag tag-red">Pregnant women</span> — always screen</li>
+        <li>When another STD is diagnosed</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 09 — MULTIPLEXING & OTHER STIs -->
+<div class="section-card s-gray">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <span class="section-icon">🔬</span>
+    Multiplexing &amp; Other NAATs in STI Diagnostics
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">Multiplex PCR ★</div>
+      <div class="eli5">
+        <span class="eli5-icon">💡</span>
+        <span><strong>ELI5:</strong> Multiplex = run multiple primer sets in a single PCR reaction tube. One patient sample → simultaneously test for gonorrhea, chlamydia, trich, HSV, and more. Saves time, sample volume, and cost.</span>
+      </div>
+      <p style="font-size:0.9rem;margin-bottom:8px;">Commercial multiplex STI panels can detect 7-14 pathogens in 30 minutes to 4-5 hours, using real-time PCR with fluorescence detection. Detection targets include: <em>C. trachomatis, N. gonorrhoeae, T. vaginalis, M. genitalium, U. urealyticum, U. parvum, M. hominis, HSV1, HSV2, H. ducreyi, T. pallidum</em>, and more.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">PCR Applications by STI</div>
+      <table>
+        <tr><th>STI</th><th>Primary Test</th><th>Notes</th></tr>
+        <tr>
+          <td><strong>Gonorrhea</strong></td>
+          <td><span class="tag tag-red">NAAT</span></td>
+          <td>Gold standard; urine or swab</td>
+        </tr>
+        <tr>
+          <td><strong>Chlamydia</strong></td>
+          <td><span class="tag tag-red">NAAT</span></td>
+          <td>Often co-tested with gonorrhea</td>
+        </tr>
+        <tr>
+          <td><strong>HSV</strong></td>
+          <td><span class="tag tag-red">PCR</span></td>
+          <td>Can differentiate <span class="tag tag-orange">HSV-1 vs HSV-2</span></td>
+        </tr>
+        <tr>
+          <td><strong>HIV</strong></td>
+          <td><span class="tag tag-purple">Immunoassay</span> (preferred for detection); <span class="tag tag-red">qPCR</span> for viral load</td>
+          <td>qPCR determines viral load; diagnostic algorithm beyond this lecture's scope</td>
+        </tr>
+        <tr>
+          <td><strong>HPV</strong></td>
+          <td><span class="tag tag-red">Multiplex PCR</span></td>
+          <td>Detects carcinogenic HPV types using type-specific primers</td>
+        </tr>
+        <tr>
+          <td><strong>Syphilis</strong></td>
+          <td><span class="tag tag-purple">Serology</span> (treponemal + nontreponemal)</td>
+          <td>PCR is NOT the primary diagnostic method for syphilis</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 10 — BLOTTING REVIEW (from Steve's PLOs) -->
+<div class="section-card s-blue">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <span class="section-icon">📋</span>
+    PLO 5 &amp; 6 Quick Review — Gel Electrophoresis &amp; Blotting (SNoW DRoP) ★★
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">Gel Electrophoresis (PLO 5)</div>
+      <ul class="bullet-list">
+        <li>Separates <span class="tag tag-red">DNA (or protein) fragments by SIZE</span></li>
+        <li>Samples loaded into wells; <span class="tag tag-red">electric current</span> pulls them through gel</li>
+        <li>DNA is <span class="tag tag-red">negatively charged</span> → migrates toward <span class="tag tag-blue">positive electrode (anode)</span></li>
+        <li>Larger fragments = slower, closer to wells. Smaller fragments = faster, travel further</li>
+        <li>For proteins: <span class="tag tag-red">SDS-PAGE</span> is the gel electrophoresis method</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Blotting Techniques (PLO 6) — SNoW DRoP ★★★</div>
+      <table>
+        <tr><th>Blot</th><th>Target</th><th>Methodology</th><th>Applications</th></tr>
+        <tr>
+          <td><strong><span class="tag tag-red">S</span>outhern</strong></td>
+          <td><span class="tag tag-red">D</span>NA</td>
+          <td>Gel electrophoresis → membrane → labeled DNA probe</td>
+          <td>Gene mapping, gene rearrangements, specific DNA sequence ID</td>
+        </tr>
+        <tr>
+          <td><strong><span class="tag tag-red">N</span>orthern</strong></td>
+          <td><span class="tag tag-red">R</span>NA</td>
+          <td>Electrophoresis → membrane → labeled complementary nucleic acid</td>
+          <td>Gene expression analysis, RNA size determination</td>
+        </tr>
+        <tr>
+          <td><strong><span class="tag tag-red">W</span>estern</strong></td>
+          <td><span class="tag tag-red">P</span>rotein</td>
+          <td>SDS-PAGE → membrane → specific antibodies</td>
+          <td>Protein ID, expression analysis, post-translational modifications</td>
+        </tr>
+      </table>
+
+      <div class="alert alert-tip">
+        <span class="alert-icon">🧠</span>
+        <span><strong>Mnemonic: SNoW DRoP</strong> — Read down: <strong>S</strong>outhern, <strong>N</strong>orthern, <strong>W</strong>estern = <strong>D</strong>NA, <strong>R</strong>NA, <strong>P</strong>rotein. All three share the same steps: (1) separate by size, (2) transfer to membrane (with blocking), (3) probe with specific detection molecule.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 11 — ULTRA HIGH YIELD -->
+<div class="section-card s-red">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <span class="section-icon">⭐</span>
+    Ultra-High Yield Exam Triggers — Memorize These
+  </div>
+  <div class="section-body">
+
+    <div class="alert alert-key">
+      <span class="alert-icon">🔴</span>
+      <span>Items in <strong>brown</strong> from Harrison's slides = "very likely to be tested in progress and comp. exams."</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Board-Tested Methods ★★★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Protein Detection</strong>
+          <span class="tag tag-red">ELISA</span> — enzyme on antibody, microwell plate<br>
+          <span class="tag tag-red">Serological assays</span> — ELISA "flipped," detect patient Ab<br>
+          <span class="tag tag-red">Western blots</span> — SDS-PAGE + membrane + Ab<br>
+          <span class="tag tag-red">Dot Blots</span> — no fractionation, direct to membrane
+        </div>
+        <div class="mini-card">
+          <strong>Nucleic Acid Detection</strong>
+          <span class="tag tag-red">Karyotyping / FISH</span> — BCR-ABL, Philadelphia<br>
+          <span class="tag tag-red">Southern/Northern blotting</span> — SNoW DRoP<br>
+          <span class="tag tag-red">PCR</span> — 3 steps, 35 cycles, 2³⁵<br>
+          <span class="tag tag-red">Quantitative PCR</span> — Ct, standard curve, viral load<br>
+          <span class="tag tag-red">In situ Hybridization</span> — FISH<br>
+          <span class="tag tag-red">Gene Fingerprinting</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Quick Triggers ★★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Diagnostic Logic</strong>
+          <span class="tag tag-red">Titre = highest dilution still positive</span><br>
+          <span class="tag tag-red">Rising titre = more analyte (worsening or immune response)</span><br>
+          <span class="tag tag-red">Falling nontreponemal titre = successful syphilis treatment</span><br>
+          <span class="tag tag-red">Lower Ct = more starting DNA</span><br>
+          <span class="tag tag-red">Higher Ct = less starting DNA</span><br>
+          <span class="tag tag-orange">Log-transform x-axis for serial dilution data</span>
+        </div>
+        <div class="mini-card">
+          <strong>STI Diagnostics</strong>
+          <span class="tag tag-red">Gonorrhea + Chlamydia → NAAT (recommended)</span><br>
+          <span class="tag tag-red">Syphilis → Treponemal + Nontreponemal serology</span><br>
+          <span class="tag tag-red">HSV → PCR (differentiates HSV-1 vs HSV-2)</span><br>
+          <span class="tag tag-red">HIV → Immunoassay (detection) + qPCR (viral load)</span><br>
+          <span class="tag tag-red">HPV → Multiplex PCR (carcinogenic types)</span><br>
+          <span class="tag tag-orange">Lyme → EIA/IFA first, then Western blot confirmation</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Harrison's First Principles Cheat Sheet</div>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>For Any Assay</strong>
+          1. What is the specimen?<br>
+          2. What are we detecting?
+        </div>
+        <div class="mini-card">
+          <strong>Antibody Source</strong>
+          Serology = patient Ab<br>
+          ELISA = commercial Ab
+        </div>
+        <div class="mini-card">
+          <strong>NAAT Key Facts</strong>
+          All need: polymerase + template + probe/primer
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<p style="text-align:center;font-size:0.8rem;color:#9CA3AF;margin-top:20px;padding-bottom:20px">
+  STI Diagnostics Notes · Dr. Ben Harrison · OMK1 Block 5 · Protein Detection, Nucleic Acid Detection, STI Testing · Red = High Yield / Board-Tested
+</p>
+
+</div><!-- end container -->
+</body>
+</html>
