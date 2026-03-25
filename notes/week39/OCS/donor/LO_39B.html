@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LO 39.B — Pharyngeal Arches Development</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --arch1: #2E8B57;
+    --arch1-bg: #e8f5ee;
+    --arch2: #D4A017;
+    --arch2-bg: #fdf6e3;
+    --arch3: #7B3FA0;
+    --arch3-bg: #f3ecf8;
+    --arch4: #C0392B;
+    --arch4-bg: #fdecea;
+    --arch6: #2471A3;
+    --arch6-bg: #eaf2f8;
+    --pouch: #E67E22;
+    --pouch-bg: #fef5e7;
+    --pouch-border: #E67E22;
+    --cleft: #1ABC9C;
+    --cleft-bg: #e8faf6;
+    --cleft-border: #1ABC9C;
+    --clinical: #E74C3C;
+    --clinical-bg: #fdedec;
+    --text: #1a1a2e;
+    --text-muted: #555;
+    --bg: #f8f6f1;
+    --card-bg: #ffffff;
+    --heading-font: 'Crimson Pro', Georgia, serif;
+    --body-font: 'DM Sans', -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--body-font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 70%, rgba(46,139,87,.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(212,160,23,.1) 0%, transparent 50%);
+    animation: drift 20s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-3%, 2%); }
+  }
+  .hero h1 {
+    font-family: var(--heading-font);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    position: relative;
+    margin-bottom: .5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero .lo-tag {
+    display: inline-block;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 6px;
+    padding: .25rem .8rem;
+    font-size: .85rem;
+    font-weight: 600;
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .hero p { position: relative; opacity: .85; max-width: 700px; margin: 0 auto; font-size: .95rem; }
+
+  .nav-bar {
+    background: #fff;
+    border-bottom: 1px solid #e0ddd5;
+    padding: .6rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  }
+  .nav-bar a {
+    display: inline-block;
+    font-size: .78rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-muted);
+    padding: .35rem .65rem;
+    border-radius: 6px;
+    margin-right: .25rem;
+    transition: all .15s;
+  }
+  .nav-bar a:hover { background: #f0f0ec; color: var(--text); }
+  .nav-a1 { border-bottom: 3px solid var(--arch1); }
+  .nav-a2 { border-bottom: 3px solid var(--arch2); }
+  .nav-a3 { border-bottom: 3px solid var(--arch3); }
+  .nav-a4 { border-bottom: 3px solid var(--arch4); }
+  .nav-a6 { border-bottom: 3px solid var(--arch6); }
+  .nav-pouch { border-bottom: 3px solid var(--pouch); }
+  .nav-cleft { border-bottom: 3px solid var(--cleft); }
+  .nav-quiz { border-bottom: 3px solid var(--clinical); }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 1.5rem; }
+
+  .section-header {
+    font-family: var(--heading-font);
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: .5rem;
+    border-bottom: 3px solid;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    scroll-margin-top: 60px;
+  }
+  .section-header .icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .arch-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border-left: 5px solid;
+    padding: 1.5rem 1.5rem 1.2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  }
+  .arch-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+  .arch-card h3 { font-family: var(--heading-font); font-size: 1.3rem; font-weight: 700; margin-bottom: .2rem; }
+  .arch-card .aka { font-size: .82rem; color: var(--text-muted); margin-bottom: 1rem; font-style: italic; }
+
+  .sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+  @media (max-width: 640px) { .sub-grid { grid-template-columns: 1fr; } }
+  .sub-box { border-radius: 8px; padding: .9rem 1rem; font-size: .9rem; }
+  .sub-box h4 { font-weight: 700; font-size: .85rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: .4rem; display: flex; align-items: center; gap: .35rem; }
+  .sub-box ul { padding-left: 1.1rem; }
+  .sub-box li { margin-bottom: .25rem; }
+
+  .arch1 { border-color: var(--arch1); } .arch1 h3 { color: var(--arch1); }
+  .arch2 { border-color: var(--arch2); } .arch2 h3 { color: var(--arch2); }
+  .arch3 { border-color: var(--arch3); } .arch3 h3 { color: var(--arch3); }
+  .arch4 { border-color: var(--arch4); } .arch4 h3 { color: var(--arch4); }
+  .arch6 { border-color: var(--arch6); } .arch6 h3 { color: var(--arch6); }
+  .bg-skel { background: #f0f7f3; } .bg-musc { background: #fef9ed; } .bg-nerve { background: #f3ecf8; } .bg-art { background: #fdecea; }
+
+  .pouch-card { background: var(--card-bg); border-radius: 12px; border-left: 5px solid var(--pouch-border); padding: 1.2rem 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+  .pouch-card h4 { font-family: var(--heading-font); font-weight: 700; color: var(--pouch); font-size: 1.05rem; margin-bottom: .3rem; }
+  .cleft-card { background: var(--card-bg); border-radius: 12px; border-left: 5px solid var(--cleft-border); padding: 1.2rem 1.5rem; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,.05); }
+  .cleft-card h4 { font-family: var(--heading-font); font-weight: 700; color: var(--cleft); font-size: 1.05rem; margin-bottom: .3rem; }
+  .clinical-box { background: var(--clinical-bg); border: 1px solid #f5c6cb; border-left: 5px solid var(--clinical); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+  .clinical-box h4 { color: var(--clinical); font-weight: 700; font-size: .95rem; margin-bottom: .4rem; }
+  .clinical-box h4::before { content: '⚕ '; }
+
+  .figure { margin: 1.5rem 0; text-align: center; background: var(--card-bg); border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+  .figure svg { max-width: 100%; height: auto; }
+  .figure figcaption { font-size: .8rem; color: var(--text-muted); margin-top: .8rem; font-style: italic; }
+
+  .summary-table-wrap { overflow-x: auto; margin: 1.5rem 0; border-radius: 12px; box-shadow: 0 3px 15px rgba(0,0,0,.08); }
+  table { width: 100%; border-collapse: collapse; background: var(--card-bg); font-size: .85rem; }
+  thead th { background: #1a1a2e; color: #fff; padding: .7rem .6rem; font-weight: 600; text-align: left; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+  tbody td { padding: .6rem; border-bottom: 1px solid #eee; vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  .row-arch1 td:first-child { border-left: 4px solid var(--arch1); }
+  .row-arch2 td:first-child { border-left: 4px solid var(--arch2); }
+  .row-arch3 td:first-child { border-left: 4px solid var(--arch3); }
+  .row-arch4 td:first-child { border-left: 4px solid var(--arch4); }
+  .row-arch6 td:first-child { border-left: 4px solid var(--arch6); }
+
+  .mnemonic { background: linear-gradient(135deg, #fef9ed, #fff8e7); border: 2px dashed #D4A017; border-radius: 12px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; text-align: center; }
+  .mnemonic h4 { color: #b8860b; font-weight: 700; font-size: .95rem; margin-bottom: .5rem; }
+  .mnemonic p { font-size: .95rem; }
+  .key-point { background: #eaf7ff; border-left: 4px solid #3498db; border-radius: 0 8px 8px 0; padding: .8rem 1rem; margin: 1rem 0; font-size: .9rem; }
+  .key-point strong { color: #2471A3; }
+  .overview-box { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,.06); margin-bottom: 1.5rem; }
+  .overview-box p { margin-bottom: .6rem; }
+
+  .timeline { position: relative; padding-left: 2rem; margin: 1rem 0 1.5rem; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--arch1), var(--arch2), var(--arch3), var(--arch4)); border-radius: 3px; }
+  .timeline-item { position: relative; margin-bottom: .8rem; font-size: .9rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -1.65rem; top: .45rem; width: 12px; height: 12px; border-radius: 50%; background: var(--card-bg); border: 3px solid var(--arch1); }
+  .timeline-item:nth-child(2)::before { border-color: var(--arch2); }
+  .timeline-item:nth-child(3)::before { border-color: var(--arch3); }
+  .timeline-item:nth-child(4)::before { border-color: var(--arch4); }
+  .timeline-item .day { font-weight: 700; }
+
+  .hy-green { color: var(--arch1); font-weight: 600; }
+  .hy-gold { color: var(--arch2); font-weight: 600; }
+  .hy-purple { color: var(--arch3); font-weight: 600; }
+  .hy-red { color: var(--arch4); font-weight: 600; }
+  .hy-blue { color: var(--arch6); font-weight: 600; }
+
+  .sources { margin-top: 3rem; padding: 1.5rem; background: var(--card-bg); border-radius: 12px; font-size: .8rem; color: var(--text-muted); }
+  .sources h4 { font-weight: 700; margin-bottom: .5rem; color: var(--text); }
+
+  /* ═══ QUIZ ═══ */
+  .quiz-section { margin-top: 2rem; scroll-margin-top: 60px; }
+  .q-card { background: var(--card-bg); border-radius: 12px; padding: 1.3rem 1.5rem; margin-bottom: 1.2rem; box-shadow: 0 2px 12px rgba(0,0,0,.06); border-left: 4px solid #ccc; }
+  .q-card.answered-correct { border-left-color: var(--arch1); }
+  .q-card.answered-wrong { border-left-color: var(--clinical); }
+  .q-stem { font-weight: 600; margin-bottom: .8rem; font-size: .95rem; }
+  .q-num { display: inline-block; background: #1a1a2e; color: #fff; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: .75rem; font-weight: 700; margin-right: .5rem; vertical-align: middle; }
+  .q-options { list-style: none; padding: 0; }
+  .q-options li { padding: .55rem .8rem; margin-bottom: .35rem; border-radius: 8px; border: 2px solid #e8e8e4; cursor: pointer; font-size: .88rem; transition: all .15s; }
+  .q-options li:hover:not(.disabled) { border-color: #3498db; background: #f0f7ff; }
+  .q-options li.selected-correct { border-color: var(--arch1); background: var(--arch1-bg); font-weight: 600; }
+  .q-options li.selected-wrong { border-color: var(--clinical); background: var(--clinical-bg); text-decoration: line-through; }
+  .q-options li.reveal-correct { border-color: var(--arch1); background: var(--arch1-bg); }
+  .q-options li.disabled { cursor: default; opacity: .7; }
+  .q-options li.disabled.selected-correct, .q-options li.disabled.selected-wrong, .q-options li.disabled.reveal-correct { opacity: 1; }
+  .q-explanation { display: none; margin-top: .8rem; padding: .9rem 1rem; background: #f9f9f6; border-radius: 8px; font-size: .85rem; line-height: 1.65; border: 1px solid #e8e8e4; }
+  .q-explanation.visible { display: block; }
+  .q-explanation strong { color: var(--arch1); }
+  .quiz-score { background: linear-gradient(135deg, #1a1a2e, #0f3460); color: #fff; border-radius: 12px; padding: 1.5rem; text-align: center; margin-top: 1.5rem; display: none; }
+  .quiz-score.visible { display: block; }
+  .quiz-score .big-num { font-family: var(--heading-font); font-size: 2.5rem; font-weight: 700; }
+  .quiz-score p { opacity: .8; margin-top: .3rem; }
+  .btn-reset { display: inline-block; margin-top: 1rem; padding: .6rem 1.5rem; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); color: #fff; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: .85rem; font-family: var(--body-font); }
+  .btn-reset:hover { background: rgba(255,255,255,.25); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="lo-tag">LO 39.B</div>
+  <h1>The Six Pharyngeal Arches</h1>
+  <p>Development of each arch and its cranial nerve, muscles, skeletal elements, and other derivatives</p>
+</div>
+
+<nav class="nav-bar">
+  <a href="#overview">Overview</a>
+  <a href="#arch1" class="nav-a1">1st Arch</a>
+  <a href="#arch2" class="nav-a2">2nd Arch</a>
+  <a href="#arch3" class="nav-a3">3rd Arch</a>
+  <a href="#arch4" class="nav-a4">4th Arch</a>
+  <a href="#arch6" class="nav-a6">6th Arch</a>
+  <a href="#pouches" class="nav-pouch">Pouches</a>
+  <a href="#clefts" class="nav-cleft">Clefts</a>
+  <a href="#ear">Ear</a>
+  <a href="#table">Table</a>
+  <a href="#quiz" class="nav-quiz">Quiz (15 Qs)</a>
+</nav>
+
+<div class="container">
+
+<!-- OVERVIEW -->
+<h2 id="overview" class="section-header" style="border-color: #1a1a2e;"><span class="icon" style="background:#1a1a2e;">📋</span> Overview</h2>
+<div class="overview-box">
+  <p>During <strong>weeks 4–5</strong>, neural crest cells migrate into the head and neck region and pile up between the surface ectoderm (outside) and the pharyngeal endoderm (inside). This creates paired swellings called <strong>pharyngeal arches</strong> (also called branchial arches).</p>
+  <p>Each arch contains <strong>four core components</strong>:</p>
+  <div class="sub-grid" style="margin-top:.8rem;">
+    <div class="sub-box bg-skel"><h4>🦴 Skeletal / Cartilage</h4>Bones, cartilages, and ligaments</div>
+    <div class="sub-box bg-musc"><h4>💪 Muscles</h4>Striated muscles that migrate with their nerve</div>
+    <div class="sub-box bg-nerve"><h4>🧠 Cranial Nerve</h4>Motor, sensory, and/or autonomic innervation</div>
+    <div class="sub-box bg-art"><h4>❤️ Artery</h4>An aortic arch artery</div>
+  </div>
+</div>
+<div class="key-point"><strong>Key concept:</strong> As muscles of each arch migrate, they <em>always</em> drag their cranial nerve with them. Know the arch → know the nerve.</div>
+
+<!-- SVG: Overview cross-section -->
+<figure class="figure">
+  <svg viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif">
+    <rect width="720" height="440" fill="#fafaf7" rx="8"/>
+    <text x="360" y="28" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Cross-Section of the Pharyngeal Apparatus</text>
+    <!-- Central pharynx -->
+    <ellipse cx="360" cy="235" rx="75" ry="130" fill="#ffe8d6" stroke="#E67E22" stroke-width="2.5" stroke-dasharray="6 3"/>
+    <text x="360" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#E67E22">PHARYNX</text>
+    <text x="360" y="242" text-anchor="middle" font-size="9" fill="#b87333">(endoderm-lined)</text>
+    <!-- LEFT arches -->
+    <rect x="70" y="72" width="150" height="52" rx="26" fill="#2E8B57" opacity=".9"/><text x="145" y="103" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">1st Arch — CN V</text>
+    <rect x="60" y="144" width="160" height="52" rx="26" fill="#D4A017" opacity=".9"/><text x="140" y="175" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">2nd Arch — CN VII</text>
+    <rect x="70" y="216" width="150" height="48" rx="24" fill="#7B3FA0" opacity=".9"/><text x="145" y="245" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">3rd Arch — CN IX</text>
+    <rect x="80" y="284" width="140" height="48" rx="24" fill="#C0392B" opacity=".9"/><text x="150" y="313" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">4th Arch — CN X</text>
+    <rect x="90" y="352" width="130" height="48" rx="24" fill="#2471A3" opacity=".9"/><text x="155" y="381" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">6th Arch — CN X</text>
+    <!-- RIGHT arches -->
+    <rect x="500" y="72" width="150" height="52" rx="26" fill="#2E8B57" opacity=".9"/><text x="575" y="103" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">1st Arch — CN V</text>
+    <rect x="500" y="144" width="160" height="52" rx="26" fill="#D4A017" opacity=".9"/><text x="580" y="175" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">2nd Arch — CN VII</text>
+    <rect x="500" y="216" width="150" height="48" rx="24" fill="#7B3FA0" opacity=".9"/><text x="575" y="245" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">3rd Arch — CN IX</text>
+    <rect x="500" y="284" width="140" height="48" rx="24" fill="#C0392B" opacity=".9"/><text x="570" y="313" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">4th Arch — CN X</text>
+    <rect x="500" y="352" width="130" height="48" rx="24" fill="#2471A3" opacity=".9"/><text x="565" y="381" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">6th Arch — CN X</text>
+    <!-- Pouches (orange triangles internal) -->
+    <polygon points="275,128 285,140 275,152" fill="#E67E22"/><text x="258" y="145" text-anchor="end" font-size="9" font-weight="600" fill="#E67E22">P1</text>
+    <polygon points="275,200 285,212 275,224" fill="#E67E22"/><text x="258" y="217" text-anchor="end" font-size="9" font-weight="600" fill="#E67E22">P2</text>
+    <polygon points="280,268 290,280 280,292" fill="#E67E22"/><text x="263" y="285" text-anchor="end" font-size="9" font-weight="600" fill="#E67E22">P3</text>
+    <polygon points="285,336 295,348 285,360" fill="#E67E22"/><text x="268" y="353" text-anchor="end" font-size="9" font-weight="600" fill="#E67E22">P4</text>
+    <!-- Clefts (teal markers external) -->
+    <circle cx="50" cy="128" r="6" fill="#1ABC9C"/><text x="42" y="118" text-anchor="end" font-size="9" font-weight="600" fill="#1ABC9C">C1</text>
+    <circle cx="42" cy="200" r="6" fill="#1ABC9C"/><text x="34" y="190" text-anchor="end" font-size="9" font-weight="600" fill="#1ABC9C">C2</text>
+    <circle cx="50" cy="268" r="6" fill="#1ABC9C"/><text x="42" y="258" text-anchor="end" font-size="9" font-weight="600" fill="#1ABC9C">C3</text>
+    <!-- Labels -->
+    <rect x="15" y="42" width="100" height="22" rx="4" fill="#1ABC9C" opacity=".12"/><text x="65" y="58" text-anchor="middle" font-size="10" font-weight="700" fill="#1ABC9C">ECTODERM</text>
+    <rect x="310" y="405" width="100" height="22" rx="4" fill="#E67E22" opacity=".12"/><text x="360" y="421" text-anchor="middle" font-size="10" font-weight="700" fill="#E67E22">ENDODERM</text>
+    <!-- Legend -->
+    <rect x="560" y="410" width="150" height="22" rx="4" fill="none" stroke="#999" stroke-width="1"/><text x="635" y="425" text-anchor="middle" font-size="9" fill="#666">P = Pouch | C = Cleft</text>
+  </svg>
+  <figcaption>Schematic cross-section of the pharyngeal apparatus. Arches (color-coded by nerve) are separated externally by clefts (teal) and internally by pouches (orange).</figcaption>
+</figure>
+
+<h3 style="font-family:var(--heading-font); font-size:1.15rem; margin:1.5rem 0 .5rem;">When Do They Appear?</h3>
+<div class="timeline">
+  <div class="timeline-item"><span class="day">Day 23:</span> 1st pharyngeal arch forms (most cranial position)</div>
+  <div class="timeline-item"><span class="day">Day 24:</span> 2nd arch appears → 1st groove forms between them</div>
+  <div class="timeline-item"><span class="day">Day 26:</span> 3rd arch develops → 2nd groove appears</div>
+  <div class="timeline-item"><span class="day">Day 28:</span> 4th arch (last visible externally). 5th and 6th develop internally — 5th almost entirely disappears</div>
+</div>
+<div class="key-point"><strong>Important:</strong> The <span class="hy-gold">2nd arch</span> overgrows the 3rd and 4th, pulling them inward → smooth neck contour. This buries a temporary <strong>cervical sinus</strong>.</div>
+
+
+<!-- ARCH 1 -->
+<h2 id="arch1" class="section-header" style="border-color: var(--arch1);"><span class="icon" style="background:var(--arch1);">1</span> First Pharyngeal Arch</h2>
+<div class="arch-card arch1">
+  <h3>1st Arch — The Mandibular Arch</h3>
+  <p class="aka">Nerve: <strong>CN V — Trigeminal</strong> &nbsp;|&nbsp; Cartilage: <strong>Meckel's</strong></p>
+  <p>Two parts: <strong>maxillary prominence</strong> (upper jaw) and <strong>mandibular prominence</strong> (lower jaw). Meckel's cartilage disappears — the mandible forms <em>lateral to it</em> via intramembranous ossification.</p>
+  <div class="sub-grid">
+    <div class="sub-box bg-skel"><h4>🦴 Skeletal</h4><ul>
+      <li><strong>Meckel's cartilage</strong> → disappears; perichondrium → <strong>sphenomandibular ligament</strong> + <strong>anterior lig. of malleus</strong></li>
+      <li><strong>Malleus</strong> & <strong>incus</strong> (middle ear ossicles)</li>
+      <li><strong>Mandible</strong> (intramembranous ossification)</li>
+      <li><strong>Maxilla</strong>, zygomatic bone, part of temporal bone</li>
+    </ul></div>
+    <div class="sub-box bg-musc"><h4>💪 Muscles</h4><ul>
+      <li><strong>Muscles of mastication</strong> — temporalis, masseter, med. & lat. pterygoids</li>
+      <li><strong>Mylohyoid</strong> (floor of mouth)</li>
+      <li><strong>Anterior belly of digastric</strong></li>
+      <li><strong>Tensor veli palatini</strong></li>
+      <li><strong>Tensor tympani</strong></li>
+    </ul></div>
+    <div class="sub-box bg-nerve"><h4>🧠 CN V (Trigeminal)</h4><ul>
+      <li><strong>V2 (Maxillary)</strong> — purely sensory, upper jaw</li>
+      <li><strong>V3 (Mandibular)</strong> — sensory + motor, lower jaw</li>
+      <li>Motor to all muscles of mastication</li>
+      <li>Sensory: face, mouth, nose, touch/proprioception to anterior ⅔ of tongue</li>
+    </ul></div>
+    <div class="sub-box bg-art"><h4>❤️ Artery</h4><p>Terminal <strong>maxillary artery</strong> (branch of external carotid)</p></div>
+  </div>
+</div>
+
+<!-- ARCH 2 -->
+<h2 id="arch2" class="section-header" style="border-color: var(--arch2);"><span class="icon" style="background:var(--arch2);">2</span> Second Pharyngeal Arch</h2>
+<div class="arch-card arch2">
+  <h3>2nd Arch — The Hyoid Arch</h3>
+  <p class="aka">Nerve: <strong>CN VII — Facial</strong> &nbsp;|&nbsp; Cartilage: <strong>Reichert's</strong></p>
+  <p>Unlike Meckel's, <strong>Reichert's cartilage ossifies</strong> (endochondral ossification) to form bony structures.</p>
+  <div class="sub-grid">
+    <div class="sub-box bg-skel"><h4>🦴 Skeletal</h4><ul>
+      <li><strong>Stapes</strong> (3rd ossicle) — dorsal Reichert's</li>
+      <li><strong>Styloid process</strong> of temporal bone — dorsal Reichert's</li>
+      <li><strong>Stylohyoid ligament</strong> — middle Reichert's</li>
+      <li><strong>Lesser horn</strong> + upper body of <strong>hyoid</strong> — ventral Reichert's</li>
+    </ul></div>
+    <div class="sub-box bg-musc"><h4>💪 Muscles</h4><ul>
+      <li><strong>Muscles of facial expression</strong> — frontalis, orbicularis oculi/oris, buccinator, etc.</li>
+      <li><strong>Stapedius</strong></li>
+      <li><strong>Stylohyoid</strong></li>
+      <li><strong>Posterior belly of digastric</strong></li>
+      <li><strong>Platysma</strong></li>
+      <li>Occipitalis, auricular muscles</li>
+    </ul></div>
+    <div class="sub-box bg-nerve"><h4>🧠 CN VII (Facial)</h4><ul>
+      <li>Motor to all muscles of facial expression</li>
+      <li><strong>Chorda tympani</strong> → crosses tympanic membrane → <strong>taste to anterior ⅔ of tongue</strong></li>
+    </ul></div>
+    <div class="sub-box bg-art"><h4>❤️ Arteries</h4><ul>
+      <li><strong>Stapedial artery</strong> — regresses before birth</li>
+      <li><strong>Hyoid artery</strong> → corticotympanic artery</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- ARCH 3 -->
+<h2 id="arch3" class="section-header" style="border-color: var(--arch3);"><span class="icon" style="background:var(--arch3);">3</span> Third Pharyngeal Arch</h2>
+<div class="arch-card arch3">
+  <h3>3rd Arch</h3>
+  <p class="aka">Nerve: <strong>CN IX — Glossopharyngeal</strong> &nbsp;|&nbsp; Cartilage: <em>unnamed</em></p>
+  <p>A smaller arch — only <strong>one muscle</strong>.</p>
+  <div class="sub-grid">
+    <div class="sub-box bg-skel"><h4>🦴 Skeletal</h4><ul>
+      <li><strong>Greater horn (cornu)</strong> of hyoid</li>
+      <li><strong>Lower body</strong> of hyoid</li>
+    </ul></div>
+    <div class="sub-box bg-musc"><h4>💪 Muscles</h4><ul><li><strong>Stylopharyngeus</strong> — just one!</li></ul></div>
+    <div class="sub-box bg-nerve"><h4>🧠 CN IX (Glossopharyngeal)</h4><ul>
+      <li>Motor to stylopharyngeus</li>
+      <li>Taste + general sensation to <strong>posterior ⅓ of tongue</strong></li>
+      <li><strong>Tympanic nerve</strong> → parasympathetics to <strong>parotid gland</strong></li>
+    </ul></div>
+    <div class="sub-box bg-art"><h4>❤️ Artery</h4><p><strong>Common carotid</strong> + proximal <strong>internal carotid</strong></p></div>
+  </div>
+</div>
+
+<!-- SVG: Nerve-to-Arch Map -->
+<figure class="figure">
+  <svg viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif">
+    <rect width="680" height="240" fill="#fafaf7" rx="8"/>
+    <text x="340" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Nerve → Arch → Key Muscle Quick Map</text>
+    <!-- Arch boxes -->
+    <rect x="20" y="50" width="115" height="80" rx="10" fill="var(--arch1)" opacity=".15" stroke="var(--arch1)" stroke-width="2"/>
+    <text x="77" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="var(--arch1)">1st Arch</text>
+    <text x="77" y="90" text-anchor="middle" font-size="10" font-weight="600" fill="#333">CN V</text>
+    <text x="77" y="105" text-anchor="middle" font-size="8.5" fill="#555">Mastication</text>
+    <text x="77" y="118" text-anchor="middle" font-size="8.5" fill="#555">Tensor tympani</text>
+
+    <rect x="155" y="50" width="115" height="80" rx="10" fill="var(--arch2)" opacity=".15" stroke="var(--arch2)" stroke-width="2"/>
+    <text x="212" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="var(--arch2)">2nd Arch</text>
+    <text x="212" y="90" text-anchor="middle" font-size="10" font-weight="600" fill="#333">CN VII</text>
+    <text x="212" y="105" text-anchor="middle" font-size="8.5" fill="#555">Facial expression</text>
+    <text x="212" y="118" text-anchor="middle" font-size="8.5" fill="#555">Stapedius</text>
+
+    <rect x="290" y="50" width="115" height="80" rx="10" fill="var(--arch3)" opacity=".15" stroke="var(--arch3)" stroke-width="2"/>
+    <text x="347" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="var(--arch3)">3rd Arch</text>
+    <text x="347" y="90" text-anchor="middle" font-size="10" font-weight="600" fill="#333">CN IX</text>
+    <text x="347" y="105" text-anchor="middle" font-size="8.5" fill="#555">Stylopharyngeus</text>
+    <text x="347" y="118" text-anchor="middle" font-size="8.5" fill="#555">(only one!)</text>
+
+    <rect x="425" y="50" width="115" height="80" rx="10" fill="var(--arch4)" opacity=".15" stroke="var(--arch4)" stroke-width="2"/>
+    <text x="482" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="var(--arch4)">4th Arch</text>
+    <text x="482" y="90" text-anchor="middle" font-size="10" font-weight="600" fill="#333">CN X (sup. laryng.)</text>
+    <text x="482" y="105" text-anchor="middle" font-size="8.5" fill="#555">Cricothyroid</text>
+    <text x="482" y="118" text-anchor="middle" font-size="8.5" fill="#555">Constrictors</text>
+
+    <rect x="560" y="50" width="105" height="80" rx="10" fill="var(--arch6)" opacity=".15" stroke="var(--arch6)" stroke-width="2"/>
+    <text x="612" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="var(--arch6)">6th Arch</text>
+    <text x="612" y="90" text-anchor="middle" font-size="10" font-weight="600" fill="#333">CN X (rec. laryng.)</text>
+    <text x="612" y="105" text-anchor="middle" font-size="8.5" fill="#555">Intrinsic laryngeal</text>
+    <text x="612" y="118" text-anchor="middle" font-size="8.5" fill="#555">(except cricothyroid)</text>
+
+    <!-- Tongue innervation bar -->
+    <rect x="60" y="160" width="560" height="60" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
+    <text x="340" y="178" text-anchor="middle" font-size="11" font-weight="700" fill="#1a1a2e">Tongue Sensation Summary</text>
+    <text x="180" y="200" text-anchor="middle" font-size="10" fill="var(--arch1)">Anterior ⅔: <tspan font-weight="700">CN V</tspan> (touch)</text>
+    <text x="180" y="213" text-anchor="middle" font-size="10" fill="var(--arch2)">Anterior ⅔: <tspan font-weight="700">CN VII</tspan> (taste via chorda tympani)</text>
+    <text x="490" y="200" text-anchor="middle" font-size="10" fill="var(--arch3)">Posterior ⅓: <tspan font-weight="700">CN IX</tspan> (touch + taste)</text>
+    <text x="490" y="213" text-anchor="middle" font-size="10" fill="var(--arch4)">Root: <tspan font-weight="700">CN X</tspan> (sup. laryngeal)</text>
+  </svg>
+  <figcaption>Quick-reference: each arch's nerve and key muscles, plus tongue innervation summary.</figcaption>
+</figure>
+
+
+<!-- ARCH 4 -->
+<h2 id="arch4" class="section-header" style="border-color: var(--arch4);"><span class="icon" style="background:var(--arch4);">4</span> Fourth Pharyngeal Arch</h2>
+<div class="arch-card arch4">
+  <h3>4th Arch</h3>
+  <p class="aka">Nerve: <strong>CN X — Vagus (Superior Laryngeal Branch)</strong></p>
+  <p>Derivatives are mostly cartilaginous (laryngeal cartilages), not bony.</p>
+  <div class="sub-grid">
+    <div class="sub-box bg-skel"><h4>🦴 Skeletal</h4><ul>
+      <li><strong>Thyroid cartilage</strong> (upper portion)</li>
+      <li><strong>Corniculate</strong> &amp; <strong>cuneiform</strong> cartilages</li>
+      <li>Epiglottic cartilage</li>
+    </ul></div>
+    <div class="sub-box bg-musc"><h4>💪 Muscles</h4><ul>
+      <li><strong>Cricothyroid</strong></li>
+      <li><strong>Pharyngeal constrictors</strong></li>
+      <li><strong>Levator veli palatini</strong></li>
+    </ul></div>
+    <div class="sub-box bg-nerve"><h4>🧠 CN X, Superior Laryngeal</h4><ul>
+      <li>Motor to cricothyroid, constrictors, levator palatini</li>
+      <li>Sensory to root of tongue</li>
+    </ul></div>
+    <div class="sub-box bg-art"><h4>❤️ Arteries</h4><ul>
+      <li><strong>Right:</strong> Proximal <strong>subclavian</strong></li>
+      <li><strong>Left:</strong> <strong>Aortic arch</strong></li>
+    </ul></div>
+  </div>
+</div>
+<div class="key-point"><strong>5th Pharyngeal Arch:</strong> Forms briefly then regresses. No significant adult derivatives.</div>
+
+<!-- ARCH 6 -->
+<h2 id="arch6" class="section-header" style="border-color: var(--arch6);"><span class="icon" style="background:var(--arch6);">6</span> Sixth Pharyngeal Arch</h2>
+<div class="arch-card arch6">
+  <h3>6th Arch</h3>
+  <p class="aka">Nerve: <strong>CN X — Vagus (Recurrent Laryngeal Branch)</strong></p>
+  <p>Key difference from 4th: innervated by <em>recurrent</em> laryngeal (not superior).</p>
+  <div class="sub-grid">
+    <div class="sub-box bg-skel"><h4>🦴 Skeletal</h4><ul>
+      <li><strong>Cricoid cartilage</strong></li>
+      <li><strong>Arytenoid cartilages</strong></li>
+      <li>Lower <strong>thyroid cartilage</strong></li>
+    </ul></div>
+    <div class="sub-box bg-musc"><h4>💪 Muscles</h4><ul>
+      <li><strong>All intrinsic laryngeal muscles EXCEPT cricothyroid</strong></li>
+      <li>Thyroarytenoid, cricoarytenoids, transverse arytenoid, vocalis</li>
+    </ul></div>
+    <div class="sub-box bg-nerve"><h4>🧠 CN X, Recurrent Laryngeal</h4><ul>
+      <li>Motor to intrinsic laryngeal muscles (except cricothyroid)</li>
+      <li>Sensory: pharynx, larynx, esophagus, tympanic membrane, external ear</li>
+      <li>Parasympathetic to thoracic/abdominal viscera</li>
+    </ul></div>
+    <div class="sub-box bg-art"><h4>❤️ Arteries</h4><ul>
+      <li><strong>Right:</strong> Proximal <strong>pulmonary arteries</strong></li>
+      <li><strong>Left:</strong> <strong>Ductus arteriosus</strong></li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- SVG: Laryngeal cartilages -->
+<figure class="figure">
+  <svg viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif">
+    <rect width="520" height="310" fill="#fafaf7" rx="8"/>
+    <text x="260" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a2e">Laryngeal Cartilages — 4th vs 6th Arch</text>
+    <!-- Thyroid -->
+    <path d="M170,60 L260,105 L350,60 L350,185 C350,195 320,205 260,205 C200,205 170,195 170,185 Z" fill="#C0392B" opacity=".18" stroke="#C0392B" stroke-width="2"/>
+    <text x="260" y="120" text-anchor="middle" font-size="12" font-weight="700" fill="#C0392B">Thyroid Cartilage</text>
+    <text x="260" y="140" text-anchor="middle" font-size="9" fill="#C0392B">(upper = 4th arch)</text>
+    <text x="260" y="155" text-anchor="middle" font-size="9" fill="#2471A3">(lower = 6th arch)</text>
+    <!-- Cricoid -->
+    <ellipse cx="260" cy="245" rx="70" ry="30" fill="#2471A3" opacity=".18" stroke="#2471A3" stroke-width="2"/>
+    <text x="260" y="243" text-anchor="middle" font-size="12" font-weight="700" fill="#2471A3">Cricoid Cartilage</text>
+    <text x="260" y="260" text-anchor="middle" font-size="9" fill="#2471A3">(6th arch exclusively)</text>
+    <!-- Arytenoids -->
+    <ellipse cx="238" cy="198" rx="14" ry="11" fill="#2471A3" opacity=".25" stroke="#2471A3" stroke-width="1.5"/>
+    <ellipse cx="282" cy="198" rx="14" ry="11" fill="#2471A3" opacity=".25" stroke="#2471A3" stroke-width="1.5"/>
+    <text x="260" y="198" text-anchor="middle" font-size="8" fill="#2471A3">Arytenoids</text>
+    <!-- Epiglottis -->
+    <path d="M248,55 C252,32 268,32 272,55" fill="#C0392B" opacity=".12" stroke="#C0392B" stroke-width="1.5"/>
+    <text x="260" y="40" text-anchor="middle" font-size="9" fill="#C0392B">Epiglottis</text>
+    <!-- Legend boxes -->
+    <rect x="385" y="70" width="125" height="55" rx="6" fill="#fdecea" stroke="#C0392B" stroke-width="1.5"/>
+    <text x="447" y="90" text-anchor="middle" font-size="10" font-weight="700" fill="#C0392B">4th Arch Nerve</text>
+    <text x="447" y="105" text-anchor="middle" font-size="9" fill="#333">Superior Laryngeal</text>
+    <text x="447" y="118" text-anchor="middle" font-size="8" fill="#888">→ cricothyroid only</text>
+    <rect x="385" y="145" width="125" height="60" rx="6" fill="#eaf2f8" stroke="#2471A3" stroke-width="1.5"/>
+    <text x="447" y="165" text-anchor="middle" font-size="10" font-weight="700" fill="#2471A3">6th Arch Nerve</text>
+    <text x="447" y="180" text-anchor="middle" font-size="9" fill="#333">Recurrent Laryngeal</text>
+    <text x="447" y="193" text-anchor="middle" font-size="8" fill="#888">→ all intrinsic EXCEPT</text>
+    <text x="447" y="203" text-anchor="middle" font-size="8" fill="#888">cricothyroid</text>
+  </svg>
+  <figcaption>Laryngeal cartilages: thyroid cartilage upper = 4th arch, lower + cricoid + arytenoids = 6th arch.</figcaption>
+</figure>
+
+
+<!-- POUCHES -->
+<h2 id="pouches" class="section-header" style="border-color: var(--pouch);"><span class="icon" style="background:var(--pouch);">🫁</span> Pharyngeal Pouches</h2>
+<p style="margin-bottom:1rem;">Pouches = <strong>internal</strong> (endoderm-lined) outpocketings between adjacent arches.</p>
+<div class="pouch-card"><h4>1st Pouch</h4><p>→ <strong>Tubotympanic recess</strong> → <strong>tympanic cavity</strong> (middle ear) + <strong>Eustachian tube</strong>.</p><p>1st <strong>membrane</strong> → <strong>tympanic membrane</strong> (ectoderm outside, mesoderm middle, endoderm inside).</p></div>
+<div class="pouch-card"><h4>2nd Pouch</h4><p>→ <strong>Palatine tonsil</strong>. Endoderm lines tonsillar crypts; lymphoid tissue from mesenchyme.</p></div>
+<div class="pouch-card"><h4>3rd Pouch</h4><p>Splits into two — and the numbering <strong>flips</strong>:</p><ul style="padding-left:1.2rem;margin-top:.3rem;"><li><strong>Dorsal</strong> → <span class="hy-red">INFERIOR parathyroid</span> — migrates farther down!</li><li><strong>Ventral</strong> → <span class="hy-purple">Thymus</span> — endoderm → epithelial reticular cells + Hassall's corpuscles.</li></ul></div>
+<div class="pouch-card"><h4>4th Pouch</h4><ul style="padding-left:1.2rem;margin-top:.3rem;"><li><strong>Dorsal</strong> → <span class="hy-red">SUPERIOR parathyroid</span> (stays higher)</li><li><strong>Ventral</strong> → <strong>Ultimobranchial body</strong> → enters thyroid → <strong>parafollicular C cells</strong> (calcitonin)</li></ul></div>
+
+<!-- SVG: Pouch derivatives -->
+<figure class="figure">
+  <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" style="font-family:'DM Sans',sans-serif">
+    <rect width="680" height="220" fill="#fafaf7" rx="8"/>
+    <text x="340" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a2e">Pharyngeal Pouch Derivatives</text>
+    <!-- P1 -->
+    <rect x="10" y="40" width="148" height="85" rx="8" fill="#E67E22" opacity=".1" stroke="#E67E22" stroke-width="2"/>
+    <text x="84" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="#E67E22">1st Pouch</text>
+    <text x="84" y="76" text-anchor="middle" font-size="9" fill="#333">→ Tympanic cavity</text>
+    <text x="84" y="90" text-anchor="middle" font-size="9" fill="#333">→ Eustachian tube</text>
+    <text x="84" y="108" text-anchor="middle" font-size="8" fill="#888">Membrane → eardrum</text>
+    <!-- P2 -->
+    <rect x="172" y="40" width="148" height="85" rx="8" fill="#E67E22" opacity=".1" stroke="#E67E22" stroke-width="2"/>
+    <text x="246" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="#E67E22">2nd Pouch</text>
+    <text x="246" y="78" text-anchor="middle" font-size="9" fill="#333">→ Palatine tonsil</text>
+    <text x="246" y="96" text-anchor="middle" font-size="8.5" fill="#666">Endoderm → crypt lining</text>
+    <!-- P3 -->
+    <rect x="334" y="40" width="162" height="100" rx="8" fill="#E67E22" opacity=".1" stroke="#E67E22" stroke-width="2"/>
+    <text x="415" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="#E67E22">3rd Pouch</text>
+    <rect x="342" y="65" width="146" height="28" rx="4" fill="#C0392B" opacity=".1" stroke="#C0392B"/>
+    <text x="415" y="83" text-anchor="middle" font-size="9" fill="#C0392B">Dorsal → <tspan font-weight="700">INF. parathyroid</tspan></text>
+    <rect x="342" y="100" width="146" height="28" rx="4" fill="#7B3FA0" opacity=".1" stroke="#7B3FA0"/>
+    <text x="415" y="118" text-anchor="middle" font-size="9" fill="#7B3FA0">Ventral → <tspan font-weight="700">Thymus</tspan></text>
+    <!-- P4 -->
+    <rect x="510" y="40" width="162" height="100" rx="8" fill="#E67E22" opacity=".1" stroke="#E67E22" stroke-width="2"/>
+    <text x="591" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="#E67E22">4th Pouch</text>
+    <rect x="518" y="65" width="146" height="28" rx="4" fill="#C0392B" opacity=".1" stroke="#C0392B"/>
+    <text x="591" y="83" text-anchor="middle" font-size="9" fill="#C0392B">Dorsal → <tspan font-weight="700">SUP. parathyroid</tspan></text>
+    <rect x="518" y="100" width="146" height="28" rx="4" fill="#2471A3" opacity=".1" stroke="#2471A3"/>
+    <text x="591" y="112" text-anchor="middle" font-size="8.5" fill="#2471A3">Ventral → Ultimobranchial</text>
+    <text x="591" y="124" text-anchor="middle" font-size="8.5" fill="#2471A3">→ <tspan font-weight="700">C cells</tspan></text>
+    <!-- Flip warning -->
+    <rect x="190" y="165" width="300" height="40" rx="8" fill="#fdecea" stroke="#C0392B" stroke-width="2"/>
+    <text x="340" y="183" text-anchor="middle" font-size="10" font-weight="700" fill="#C0392B">⚠ PARATHYROID FLIP</text>
+    <text x="340" y="198" text-anchor="middle" font-size="9" fill="#333">3rd → Inferior &nbsp; | &nbsp; 4th → Superior</text>
+  </svg>
+  <figcaption>All four pouch derivatives at a glance. Remember: 3rd and 4th pouch parathyroids swap positions!</figcaption>
+</figure>
+
+<div class="mnemonic"><h4>🧠 Parathyroid Trick</h4><p><strong>3rd pouch → Inferior</strong> (migrates far) &nbsp;|&nbsp; <strong>4th pouch → Superior</strong> (stays put)<br><strong>"3 and 4 flip!"</strong></p></div>
+
+
+<!-- CLEFTS -->
+<h2 id="clefts" class="section-header" style="border-color: var(--cleft);"><span class="icon" style="background:var(--cleft);">〰️</span> Pharyngeal Clefts</h2>
+<p style="margin-bottom:1rem;">Clefts = <strong>external</strong> (ectoderm-lined) grooves between adjacent arches.</p>
+<div class="cleft-card"><h4>1st Cleft</h4><p>Only one that persists → <strong>external acoustic meatus</strong>. Auricle: anterior from 1st arch, posterior (helix + lobe) from 2nd arch.</p></div>
+<div class="cleft-card"><h4>2nd–4th Clefts</h4><p>All <strong>disappear</strong> → buried as <strong>cervical sinus</strong> by 2nd arch overgrowth → normally degenerates.</p></div>
+<div class="clinical-box"><h4>Branchial Cysts & Fistulae</h4><p><strong>Branchial cyst</strong> = cervical sinus fails to degenerate → lateral neck mass anterior to SCM (often mid-adolescence).</p><p style="margin-top:.4rem;"><strong>Branchial fistula</strong> = membrane also breaks down → connects pharynx to external neck → weeps mucus.</p></div>
+
+<!-- EAR -->
+<h2 id="ear" class="section-header" style="border-color: #2471A3;"><span class="icon" style="background:#2471A3;">🦻</span> The Ear — Putting It Together</h2>
+<div class="clinical-box" style="background: #eaf7ff; border-color: #3498db; border-left-color: #2471A3;">
+  <h4 style="color:#2471A3;">🦻 Multi-Arch Integration</h4>
+  <ul style="padding-left:1.2rem; margin-top:.3rem;">
+    <li><strong>External ear canal</strong> → 1st cleft</li>
+    <li><strong>Auricle</strong> → anterior = 1st arch, posterior = 2nd arch</li>
+    <li><strong>Tympanic membrane</strong> → 1st membrane (ecto + meso + endo)</li>
+    <li><strong>Middle ear + Eustachian tube</strong> → 1st pouch</li>
+    <li><strong>Malleus & Incus</strong> → 1st arch &nbsp;|&nbsp; <strong>Stapes</strong> → 2nd arch</li>
+    <li><strong>Tensor tympani</strong> → 1st arch (CN V) &nbsp;|&nbsp; <strong>Stapedius</strong> → 2nd arch (CN VII)</li>
+  </ul>
+</div>
+
+
+<!-- MASTER TABLE -->
+<h2 id="table" class="section-header" style="border-color: #1a1a2e;"><span class="icon" style="background:#1a1a2e;">📊</span> Master Summary Table</h2>
+<div class="summary-table-wrap">
+<table><thead><tr><th>Arch</th><th>Nerve</th><th>Muscles</th><th>Skeletal</th><th>Artery</th></tr></thead><tbody>
+  <tr class="row-arch1"><td><strong>1st</strong><br><em style="font-size:.75rem">Mandibular</em></td><td><strong>CN V</strong></td><td>Mastication, mylohyoid, ant. digastric, tensor veli palatini, tensor tympani</td><td>Malleus, incus, mandible, maxilla, sphenomandibular lig.</td><td>Maxillary a.</td></tr>
+  <tr class="row-arch2"><td><strong>2nd</strong><br><em style="font-size:.75rem">Hyoid</em></td><td><strong>CN VII</strong></td><td>Facial expression, stapedius, stylohyoid, post. digastric, platysma</td><td>Stapes, styloid process, stylohyoid lig., lesser horn + upper hyoid</td><td>Stapedial, hyoid a.</td></tr>
+  <tr class="row-arch3"><td><strong>3rd</strong></td><td><strong>CN IX</strong></td><td>Stylopharyngeus</td><td>Greater horn + lower body of hyoid</td><td>Common carotid, prox. ICA</td></tr>
+  <tr class="row-arch4"><td><strong>4th</strong></td><td><strong>CN X</strong> (sup. laryng.)</td><td>Cricothyroid, constrictors, levator palatini</td><td>Thyroid cart. (upper), cuneiform, corniculate</td><td>R: subclavian; L: aortic arch</td></tr>
+  <tr class="row-arch6"><td><strong>6th</strong></td><td><strong>CN X</strong> (rec. laryng.)</td><td>Intrinsic laryngeal (except cricothyroid)</td><td>Cricoid, arytenoids, thyroid cart. (lower)</td><td>R: pulmonary; L: ductus arteriosus</td></tr>
+</tbody></table>
+</div>
+<div class="summary-table-wrap" style="margin-top:1rem;">
+<table><thead><tr><th>Pouch</th><th>Derivatives</th></tr></thead><tbody>
+  <tr><td><strong>1st</strong></td><td>Tympanic cavity, Eustachian tube</td></tr>
+  <tr><td><strong>2nd</strong></td><td>Palatine tonsil</td></tr>
+  <tr><td><strong>3rd</strong></td><td>Dorsal: Inferior parathyroid | Ventral: Thymus</td></tr>
+  <tr><td><strong>4th</strong></td><td>Dorsal: Superior parathyroid | Ventral: Ultimobranchial body → C cells</td></tr>
+</tbody></table>
+</div>
+<div class="summary-table-wrap" style="margin-top:1rem;">
+<table><thead><tr><th>Cleft</th><th>Derivatives</th></tr></thead><tbody>
+  <tr><td><strong>1st</strong></td><td>External acoustic meatus</td></tr>
+  <tr><td><strong>2nd–4th</strong></td><td>Obliterated (cervical sinus → disappears)</td></tr>
+</tbody></table>
+</div>
+<div class="mnemonic"><h4>🧠 Arch → Nerve</h4><p><strong>1</strong>=CN V &nbsp;|&nbsp; <strong>2</strong>=CN VII &nbsp;|&nbsp; <strong>3</strong>=CN IX &nbsp;|&nbsp; <strong>4 & 6</strong>=CN X (diff. branches)</p></div>
+
+
+<!-- ═══════════════ 15 MCQs ═══════════════ -->
+<h2 id="quiz" class="section-header quiz-section" style="border-color: var(--clinical);"><span class="icon" style="background:var(--clinical);">✏️</span> Quiz — 15 Questions</h2>
+<p style="margin-bottom:1rem; font-size:.9rem;">Click an answer. Explanations appear after each pick. Answers shuffle each attempt.</p>
+<div id="quiz-container"></div>
+<div id="quiz-score" class="quiz-score">
+  <div class="big-num"><span id="score-num">0</span>/15</div>
+  <p id="score-msg"></p>
+  <button class="btn-reset" onclick="resetQuiz()">🔄 Shuffle & Retry</button>
+</div>
+
+<!-- SOURCES -->
+<div class="sources">
+  <h4>Sources</h4>
+  <p>Moore's <em>The Developing Human</em> — referenced pages 160–174<br>
+  Schoenwolf's <em>Larsen's Human Embryology</em><br>
+  TeachMeAnatomy — <a href="https://teachmeanatomy.info/the-basics/embryology/head-neck/pharyngeal-arches/" target="_blank">Pharyngeal Arches</a><br>
+  Netter's <em>Atlas of Human Embryology</em></p>
+</div>
+
+</div>
+
+<script>
+const QUESTIONS=[{stem:"A newborn has a lateral neck mass anterior to the sternocleidomastoid that weeps mucus. This most likely results from failure of which pharyngeal arch to properly overgrow the others?",options:[{text:"1st pharyngeal arch",correct:false},{text:"2nd pharyngeal arch",correct:true},{text:"3rd pharyngeal arch",correct:false},{text:"4th pharyngeal arch",correct:false},{text:"6th pharyngeal arch",correct:false}],explanation:"<strong>Correct: 2nd pharyngeal arch.</strong> The 2nd arch normally overgrows the 3rd and 4th arches, burying the cervical sinus. If it doesn't, that sinus persists as a branchial cyst/fistula.<br><br>• 1st arch — forms the jaw/face, doesn't overgrow anything.<br>• 3rd, 4th, 6th arches — they get buried under the 2nd arch, not the other way around."},{stem:"Which cranial nerve innervates ALL the muscles of mastication?",options:[{text:"CN VII (facial)",correct:false},{text:"CN V (trigeminal)",correct:true},{text:"CN IX (glossopharyngeal)",correct:false},{text:"CN X (vagus)",correct:false},{text:"CN XII (hypoglossal)",correct:false}],explanation:"<strong>Correct: CN V (trigeminal).</strong> Temporalis, masseter, medial and lateral pterygoids all come from the 1st arch → CN V (specifically V3).<br><br>• CN VII — facial expression muscles (2nd arch).<br>• CN IX — only stylopharyngeus (3rd arch).<br>• CN X — laryngeal muscles (4th/6th arches).<br>• CN XII — tongue muscles (not from pharyngeal arches)."},{stem:"The stapes bone develops from which pharyngeal arch cartilage?",options:[{text:"Meckel's cartilage (1st arch)",correct:false},{text:"Reichert's cartilage (2nd arch)",correct:true},{text:"Unnamed cartilage of the 3rd arch",correct:false},{text:"4th arch cartilage",correct:false},{text:"6th arch cartilage",correct:false}],explanation:"<strong>Correct: Reichert's cartilage (2nd arch).</strong> The dorsal end of Reichert's undergoes endochondral ossification → stapes + styloid process.<br><br>• Meckel's (1st) → malleus and incus, then disappears.<br>• 3rd arch cart. → greater horn + body of hyoid.<br>• 4th/6th → laryngeal cartilages."},{stem:"The inferior parathyroid glands develop from which pharyngeal pouch?",options:[{text:"1st pharyngeal pouch",correct:false},{text:"2nd pharyngeal pouch",correct:false},{text:"3rd pharyngeal pouch (dorsal part)",correct:true},{text:"4th pharyngeal pouch (dorsal part)",correct:false},{text:"4th pharyngeal pouch (ventral part)",correct:false}],explanation:"<strong>Correct: 3rd pouch, dorsal part.</strong> Classic 'parathyroid flip' — the 3rd pouch dorsal wing migrates farther caudally, ending up as the INFERIOR parathyroid.<br><br>• 1st pouch → middle ear + Eustachian tube.<br>• 2nd pouch → palatine tonsil.<br>• 4th dorsal → SUPERIOR parathyroid.<br>• 4th ventral → ultimobranchial body (C cells)."},{stem:"A patient cannot make facial expressions on the right side. The damaged nerve comes from which pharyngeal arch?",options:[{text:"1st arch",correct:false},{text:"2nd arch",correct:true},{text:"3rd arch",correct:false},{text:"4th arch",correct:false},{text:"6th arch",correct:false}],explanation:"<strong>Correct: 2nd arch.</strong> All muscles of facial expression = 2nd arch = CN VII.<br><br>• 1st (CN V) — mastication, not expression.<br>• 3rd (CN IX) — only stylopharyngeus.<br>• 4th/6th (CN X) — laryngeal muscles."},{stem:"Which is the ONLY muscle derived from the 3rd pharyngeal arch?",options:[{text:"Stylopharyngeus",correct:true},{text:"Stylohyoid",correct:false},{text:"Styloglossus",correct:false},{text:"Cricothyroid",correct:false},{text:"Posterior belly of digastric",correct:false}],explanation:"<strong>Correct: Stylopharyngeus.</strong> The 3rd arch is unique — just one muscle, innervated by CN IX.<br><br>• Stylohyoid → 2nd arch (CN VII).<br>• Styloglossus → tongue muscle (CN XII, not from arches).<br>• Cricothyroid → 4th arch (CN X sup. laryngeal).<br>• Post. digastric → 2nd arch (CN VII)."},{stem:"The external acoustic meatus (ear canal) is derived from which structure?",options:[{text:"1st pharyngeal pouch",correct:false},{text:"1st pharyngeal cleft",correct:true},{text:"2nd pharyngeal cleft",correct:false},{text:"1st pharyngeal membrane",correct:false},{text:"2nd pharyngeal pouch",correct:false}],explanation:"<strong>Correct: 1st pharyngeal cleft.</strong> The 1st cleft is the only one that persists → external ear canal. All others get obliterated by the 2nd arch.<br><br>• 1st pouch → middle ear (internal).<br>• 2nd cleft → disappears (cervical sinus).<br>• 1st membrane → tympanic membrane.<br>• 2nd pouch → palatine tonsil."},{stem:"The parafollicular C cells of the thyroid originate from which structure?",options:[{text:"3rd pouch, dorsal wing",correct:false},{text:"3rd pouch, ventral wing",correct:false},{text:"4th pouch, dorsal wing",correct:false},{text:"4th pouch, ventral wing (ultimobranchial body)",correct:true},{text:"Thyroglossal duct endoderm",correct:false}],explanation:"<strong>Correct: 4th pouch ventral wing.</strong> The ultimobranchial body migrates into the thyroid, fragments, and becomes parafollicular C cells (calcitonin).<br><br>• 3rd dorsal → inferior parathyroid.<br>• 3rd ventral → thymus.<br>• 4th dorsal → superior parathyroid.<br>• Thyroglossal duct → connects thyroid to foramen cecum, not C cells."},{stem:"Meckel's cartilage of the 1st arch gives rise to which two middle ear ossicles?",options:[{text:"Malleus and stapes",correct:false},{text:"Incus and stapes",correct:false},{text:"Malleus and incus",correct:true},{text:"Only the malleus",correct:false},{text:"All three ossicles (malleus, incus, stapes)",correct:false}],explanation:"<strong>Correct: Malleus and incus.</strong> Both from the 1st arch / Meckel's cartilage. The stapes = 2nd arch / Reichert's cartilage.<br><br>• 'All three' is wrong — stapes is 2nd arch.<br>• 'Only malleus' is incomplete."},{stem:"The chorda tympani carries taste to the anterior 2/3 of the tongue. It branches from which cranial nerve?",options:[{text:"CN V (trigeminal)",correct:false},{text:"CN VII (facial)",correct:true},{text:"CN IX (glossopharyngeal)",correct:false},{text:"CN X (vagus)",correct:false},{text:"CN XII (hypoglossal)",correct:false}],explanation:"<strong>Correct: CN VII (facial).</strong> Chorda tympani = branch of CN VII (2nd arch). It crosses the tympanic membrane and hitchhikes with V3 to reach the anterior ⅔ tongue for taste.<br><br>• CN V → general sensation (touch) to anterior ⅔, not taste.<br>• CN IX → taste to posterior ⅓.<br>• CN X → sensory to larynx/pharynx.<br>• CN XII → motor to tongue muscles."},{stem:"Which pharyngeal arch forms the cricothyroid muscle?",options:[{text:"2nd arch",correct:false},{text:"3rd arch",correct:false},{text:"4th arch",correct:true},{text:"5th arch",correct:false},{text:"6th arch",correct:false}],explanation:"<strong>Correct: 4th arch.</strong> Cricothyroid is the ONE intrinsic laryngeal muscle from the 4th arch (superior laryngeal branch of CN X). All other intrinsic laryngeal muscles → 6th arch (recurrent laryngeal).<br><br>• 2nd → facial expression muscles.<br>• 3rd → stylopharyngeus only.<br>• 5th → disappears.<br>• 6th → all intrinsic laryngeal EXCEPT cricothyroid."},{stem:"The palatine tonsil develops from which pharyngeal pouch?",options:[{text:"1st pharyngeal pouch",correct:false},{text:"2nd pharyngeal pouch",correct:true},{text:"3rd pharyngeal pouch",correct:false},{text:"2nd pharyngeal cleft",correct:false},{text:"Foramen cecum",correct:false}],explanation:"<strong>Correct: 2nd pouch.</strong> The endodermal lining of the 2nd pouch becomes the epithelium lining the tonsillar crypts. Lymphoid tissue comes from surrounding mesenchyme.<br><br>• 1st pouch → middle ear + Eustachian tube.<br>• 3rd pouch → inferior parathyroid + thymus.<br>• 2nd cleft → external groove, obliterated.<br>• Foramen cecum → thyroid gland origin."},{stem:"The tympanic membrane (eardrum) is derived from which structure?",options:[{text:"1st pharyngeal cleft only",correct:false},{text:"1st pharyngeal pouch only",correct:false},{text:"1st pharyngeal membrane",correct:true},{text:"2nd pharyngeal membrane",correct:false},{text:"1st pharyngeal arch mesenchyme only",correct:false}],explanation:"<strong>Correct: 1st pharyngeal membrane.</strong> It sits between the 1st cleft and 1st pouch with 3 layers: ectoderm (outside, from cleft), mesoderm (middle), endoderm (inside, from pouch).<br><br>• 1st cleft alone → external ear canal.<br>• 1st pouch alone → middle ear cavity + Eustachian tube.<br>• 2nd membrane → disappears."},{stem:"The thymus gland develops from which pharyngeal pouch?",options:[{text:"1st pouch",correct:false},{text:"2nd pouch",correct:false},{text:"3rd pouch (ventral wing)",correct:true},{text:"4th pouch (ventral wing)",correct:false},{text:"4th pouch (dorsal wing)",correct:false}],explanation:"<strong>Correct: 3rd pouch, ventral wing.</strong> The thymus migrates down to the anterior mediastinum. Its endodermal lining → epithelial reticular cells + Hassall's corpuscles.<br><br>• 1st pouch → middle ear.<br>• 2nd pouch → palatine tonsil.<br>• 4th ventral → ultimobranchial body (C cells).<br>• 4th dorsal → superior parathyroid."},{stem:"The left recurrent laryngeal nerve hooks under the ligamentum arteriosum. The ductus arteriosus (its fetal precursor) was the artery of which arch?",options:[{text:"3rd arch (left side)",correct:false},{text:"4th arch (left side)",correct:false},{text:"5th arch (left side)",correct:false},{text:"6th arch (left side)",correct:true},{text:"6th arch (right side)",correct:false}],explanation:"<strong>Correct: 6th arch, left side.</strong> The left 6th arch artery → ductus arteriosus → ligamentum arteriosum after birth. The recurrent laryngeal (6th arch nerve) loops under this vessel on the left.<br><br>• 3rd arch artery → common carotid / proximal ICA.<br>• 4th left → aortic arch. 4th right → subclavian.<br>• 5th → essentially disappears.<br>• 6th right → proximal pulmonary arteries (not ductus)."}];
+
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+let answered=0,correct=0;
+function renderQuiz(){const c=document.getElementById('quiz-container');c.innerHTML='';answered=0;correct=0;document.getElementById('quiz-score').classList.remove('visible');const qs=shuffle(QUESTIONS);qs.forEach((q,qi)=>{const d=document.createElement('div');d.className='q-card';d.id='q'+qi;const so=shuffle(q.options);d.innerHTML=`<div class="q-stem"><span class="q-num">${qi+1}</span>${q.stem}</div><ul class="q-options">${so.map((o,oi)=>`<li data-correct="${o.correct}" onclick="sel(this,${qi})">${String.fromCharCode(65+oi)}. ${o.text}</li>`).join('')}</ul><div class="q-explanation" id="exp${qi}">${q.explanation}</div>`;c.appendChild(d);});}
+function sel(li,qi){const card=document.getElementById('q'+qi);if(card.classList.contains('answered-correct')||card.classList.contains('answered-wrong'))return;const ok=li.getAttribute('data-correct')==='true';answered++;card.querySelectorAll('.q-options li').forEach(e=>e.classList.add('disabled'));if(ok){li.classList.add('selected-correct');card.classList.add('answered-correct');correct++;}else{li.classList.add('selected-wrong');card.classList.add('answered-wrong');card.querySelectorAll('.q-options li').forEach(e=>{if(e.getAttribute('data-correct')==='true')e.classList.add('reveal-correct');});}document.getElementById('exp'+qi).classList.add('visible');if(answered===QUESTIONS.length){const s=document.getElementById('quiz-score');document.getElementById('score-num').textContent=correct;const p=Math.round(correct/QUESTIONS.length*100);let m=p>=90?"Excellent!":p>=70?"Good — review the misses.":"Keep at it!";document.getElementById('score-msg').textContent=`${p}% — ${m}`;s.classList.add('visible');}}
+function resetQuiz(){renderQuiz();window.scrollTo({top:document.getElementById('quiz').offsetTop-60,behavior:'smooth'});}
+renderQuiz();
+</script>
+</body>
+</html>
