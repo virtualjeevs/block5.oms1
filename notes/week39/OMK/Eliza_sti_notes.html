@@ -5,353 +5,818 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>STI Study Notes — Dr. Grlickova-Duzevik | OMK1 Block 5</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
 
 :root {
-  --bg: #0d0d0d;
-  --surface: #161616;
-  --surface2: #1e1e1e;
-  --surface3: #252525;
-  --border: #333;
-  --text: #d4d4d4;
-  --text-dim: #888;
-  --text-bright: #f0f0f0;
-  --red: #ff4d4d;
-  --red-dim: #cc3333;
-  --blue: #4da6ff;
-  --cyan: #00e5ff;
-  --magenta: #e040fb;
-  --yellow: #ffd740;
-  --green: #69f0ae;
-  --orange: #ffab40;
-  --purple: #b388ff;
-  --teal: #64ffda;
-  --pink: #ff80ab;
+  --bg: #eef3f9;
+  --bg-soft: #f7f9fc;
+  --surface: rgba(255,255,255,0.88);
+  --surface-strong: #ffffff;
+  --surface2: #f7f9fc;
+  --surface3: #eef3f8;
+  --border: #d9e2ee;
+  --border-light: #c9d5e4;
+  --text: #243247;
+  --text-dim: #6d7b8e;
+  --text-bright: #102033;
+  --red: #c95a67;
+  --red-dim: rgba(201,90,103,0.12);
+  --blue: #5e85d6;
+  --blue-dim: rgba(94,133,214,0.12);
+  --cyan: #2f90b1;
+  --cyan-dim: rgba(47,144,177,0.12);
+  --magenta: #8e67d4;
+  --yellow: #a57614;
+  --yellow-dim: rgba(165,118,20,0.12);
+  --green: #2f9d68;
+  --green-dim: rgba(47,157,104,0.12);
+  --orange: #c97526;
+  --purple: #8366cf;
+  --teal: #2b8e83;
+  --pink: #d26b9a;
+  --radius: 24px;
+  --shadow: 0 20px 55px rgba(35, 57, 86, 0.08);
+  --shadow-soft: 0 8px 24px rgba(35, 57, 86, 0.06);
+  --page-width: 980px;
 }
+
+body[data-theme="cool"] {
+  --bg: #eef4fb;
+  --bg-soft: #f8fbff;
+  --surface: rgba(255,255,255,0.86);
+  --surface-strong: #ffffff;
+  --surface2: #f6f9fe;
+  --surface3: #eaf0fa;
+  --border: #d5deed;
+  --border-light: #c6d2e6;
+  --text: #22314a;
+  --text-dim: #697b97;
+  --text-bright: #10203a;
+  --red: #516fba;
+  --red-dim: rgba(81,111,186,0.12);
+  --blue: #4a84db;
+  --blue-dim: rgba(74,132,219,0.14);
+  --cyan: #2f8db0;
+  --cyan-dim: rgba(47,141,176,0.12);
+  --magenta: #7b74d6;
+  --yellow: #8d6f1f;
+  --yellow-dim: rgba(141,111,31,0.12);
+  --green: #2c9b88;
+  --green-dim: rgba(44,155,136,0.12);
+  --orange: #c97526;
+  --purple: #7b74d6;
+  --teal: #2c9b88;
+  --shadow: 0 22px 56px rgba(54, 86, 132, 0.08);
+}
+
+body[data-theme="sage"] {
+  --bg: #eff4ef;
+  --bg-soft: #f8fbf7;
+  --surface: rgba(255,255,255,0.9);
+  --surface-strong: #ffffff;
+  --surface2: #f6faf5;
+  --surface3: #ebf2ea;
+  --border: #d7e3d4;
+  --border-light: #c8d8c4;
+  --text: #27382f;
+  --text-dim: #6d7e74;
+  --text-bright: #15261c;
+  --red: #7b9a54;
+  --red-dim: rgba(123,154,84,0.14);
+  --blue: #4e7d71;
+  --blue-dim: rgba(78,125,113,0.14);
+  --cyan: #347f73;
+  --cyan-dim: rgba(52,127,115,0.12);
+  --magenta: #7c69ad;
+  --yellow: #8d7428;
+  --yellow-dim: rgba(141,116,40,0.12);
+  --green: #2d8f5d;
+  --green-dim: rgba(45,143,93,0.12);
+  --orange: #b96f2d;
+  --purple: #7c69ad;
+  --teal: #347f73;
+  --shadow: 0 22px 58px rgba(55, 77, 61, 0.08);
+}
+
+body[data-theme="blush"] {
+  --bg: #f7f0f4;
+  --bg-soft: #fcf8fa;
+  --surface: rgba(255,255,255,0.9);
+  --surface-strong: #ffffff;
+  --surface2: #fbf6f8;
+  --surface3: #f4ebf1;
+  --border: #e5d6e0;
+  --border-light: #dac6d4;
+  --text: #3a2938;
+  --text-dim: #866f83;
+  --text-bright: #241724;
+  --red: #b96188;
+  --red-dim: rgba(185,97,136,0.12);
+  --blue: #8a78bc;
+  --blue-dim: rgba(138,120,188,0.13);
+  --cyan: #7a6db8;
+  --cyan-dim: rgba(122,109,184,0.12);
+  --magenta: #a65db7;
+  --yellow: #9a6f34;
+  --yellow-dim: rgba(154,111,52,0.12);
+  --green: #7d9c78;
+  --green-dim: rgba(125,156,120,0.12);
+  --orange: #c77f58;
+  --purple: #8a78bc;
+  --teal: #8a6499;
+  --shadow: 0 20px 52px rgba(95, 68, 97, 0.08);
+}
+
+body[data-theme="amber"] {
+  --bg: #f8f1e6;
+  --bg-soft: #fdf8f1;
+  --surface: rgba(255,255,255,0.9);
+  --surface-strong: #fffdf9;
+  --surface2: #fbf4ea;
+  --surface3: #f5ead8;
+  --border: #e7d4b6;
+  --border-light: #dcbf96;
+  --text: #3a2c1f;
+  --text-dim: #8c7156;
+  --text-bright: #24180f;
+  --red: #b8642b;
+  --red-dim: rgba(184,100,43,0.12);
+  --blue: #9a6a33;
+  --blue-dim: rgba(154,106,51,0.12);
+  --cyan: #8f6538;
+  --cyan-dim: rgba(143,101,56,0.12);
+  --magenta: #9a5a57;
+  --yellow: #996515;
+  --yellow-dim: rgba(153,101,21,0.14);
+  --green: #8a7a39;
+  --green-dim: rgba(138,122,57,0.12);
+  --orange: #c57a2a;
+  --purple: #8f6854;
+  --teal: #8a6a3d;
+  --shadow: 0 20px 52px rgba(120, 82, 36, 0.08);
+}
+
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
+html { scroll-behavior: smooth; }
 body {
-  font-family: 'IBM Plex Sans', system-ui, sans-serif;
-  background: var(--bg);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.9), transparent 32%),
+    linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
   color: var(--text);
-  line-height: 1.7;
+  line-height: 1.75;
   font-size: 15px;
+  min-height: 100vh;
+  transition: background 0.25s ease, color 0.2s ease;
 }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,255,255,0.65), transparent 25%),
+    radial-gradient(circle at 90% 20%, rgba(255,255,255,0.35), transparent 22%);
+  pointer-events: none;
+  z-index: -1;
+}
+::selection { background: rgba(94,133,214,0.22); color: var(--text-bright); }
 
-/* ── NAV SIDEBAR ── */
+a { color: inherit; }
+
 .sidebar {
   position: fixed;
-  top: 0; left: 0;
-  width: 260px;
-  height: 100vh;
+  top: 16px;
+  left: 16px;
+  width: 274px;
+  height: calc(100vh - 32px);
   background: var(--surface);
-  border-right: 1px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: 30px;
   overflow-y: auto;
-  padding: 20px 16px;
+  padding: 22px 18px 28px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   z-index: 100;
-  transition: transform 0.3s;
+  transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
 }
-.sidebar.hidden { transform: translateX(-260px); }
-.sidebar h3 {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.sidebar::-webkit-scrollbar { width: 7px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(120, 136, 159, 0.25); border-radius: 999px; }
+.sidebar.hidden { transform: translateX(-290px); }
+.sidebar .brand {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--text-bright);
+  letter-spacing: -0.03em;
+}
+.sidebar .brand-sub {
+  font-size: 0.74rem;
   color: var(--text-dim);
-  margin: 16px 0 8px;
+  margin: 8px 0 20px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+.sidebar h3 {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 2.2px;
+  color: var(--text-dim);
+  margin: 20px 0 10px;
+  font-weight: 700;
 }
 .sidebar a {
   display: block;
-  padding: 6px 10px;
+  padding: 9px 12px;
   color: var(--text);
   text-decoration: none;
-  font-size: 0.85rem;
-  border-radius: 6px;
-  margin-bottom: 2px;
-  transition: background 0.15s;
+  font-size: 0.84rem;
+  border-radius: 12px;
+  margin-bottom: 3px;
+  transition: all 0.16s ease;
+  font-weight: 500;
 }
-.sidebar a:hover { background: var(--surface3); color: var(--text-bright); }
-.sidebar a.active { background: rgba(255,77,77,0.15); color: var(--red); font-weight: 600; }
-.sidebar .brand {
-  font-weight: 700;
-  font-size: 0.95rem;
+.sidebar a:hover {
+  background: var(--surface2);
+  color: var(--text-bright);
+  transform: translateX(2px);
+}
+.sidebar a.active {
+  background: var(--red-dim);
   color: var(--red);
-  margin-bottom: 4px;
+  font-weight: 700;
 }
-.sidebar .brand-sub { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 16px; }
 
 .menu-toggle {
   position: fixed;
-  top: 12px; left: 12px;
+  top: 18px;
+  left: 18px;
   z-index: 200;
-  background: var(--surface2);
+  background: var(--surface-strong);
   border: 1px solid var(--border);
   color: var(--text);
-  width: 40px; height: 40px;
-  border-radius: 8px;
-  font-size: 1.2rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  font-size: 1.1rem;
   cursor: pointer;
   display: none;
+  box-shadow: var(--shadow-soft);
 }
 
-/* ── MAIN ── */
 .main {
-  margin-left: 260px;
-  max-width: 900px;
-  padding: 40px 40px 100px;
+  margin-left: 320px;
+  max-width: var(--page-width);
+  padding: 28px 36px 96px;
 }
 
-/* ── HEADER ── */
 .page-header {
-  border-bottom: 2px solid var(--red);
-  padding-bottom: 20px;
-  margin-bottom: 36px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  padding: 30px 34px;
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, var(--red-dim), transparent 34%, transparent 66%, var(--blue-dim));
+  opacity: 0.9;
+  pointer-events: none;
+}
+.page-header::after {
+  content: '';
+  position: absolute;
+  left: 34px;
+  bottom: 0;
+  width: 132px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--red), var(--blue));
 }
 .page-header h1 {
-  font-size: 2rem;
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 3.6vw, 2.9rem);
   font-weight: 700;
   color: var(--text-bright);
-  line-height: 1.2;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
 }
 .page-header .meta {
+  position: relative;
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 16px;
 }
-.page-header .tag {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 4px;
-  font-size: 0.72rem;
-  font-weight: 600;
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
+  letter-spacing: 1px;
+  border: 1px solid transparent;
 }
-.tag-red { background: rgba(255,77,77,0.15); color: var(--red); }
-.tag-blue { background: rgba(77,166,255,0.15); color: var(--blue); }
-.tag-green { background: rgba(105,240,174,0.15); color: var(--green); }
-.tag-purple { background: rgba(179,136,255,0.15); color: var(--purple); }
+.tag-red { background: var(--red-dim); color: var(--red); border-color: rgba(0,0,0,0.02); }
+.tag-blue { background: var(--blue-dim); color: var(--blue); }
+.tag-green { background: var(--green-dim); color: var(--green); }
+.tag-purple { background: rgba(131,102,207,0.12); color: var(--purple); }
 
-/* ── SECTIONS ── */
+.study-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 15px 18px;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 28px;
+}
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.toolbar-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+.theme-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(120,136,159,0.18);
+  transition: transform 0.16s ease, border-color 0.16s ease;
+}
+.theme-swatch:hover { transform: translateY(-1px); }
+.theme-swatch[aria-pressed="true"] {
+  border-color: var(--text-bright);
+  transform: scale(1.05);
+}
+.theme-paper { background: linear-gradient(135deg, #ffffff, #edf3fb); }
+.theme-cool { background: linear-gradient(135deg, #ffffff, #e4ecfa); }
+.theme-sage { background: linear-gradient(135deg, #ffffff, #e7f0e6); }
+.theme-blush { background: linear-gradient(135deg, #fffafc, #f4e6ef); }
+.theme-amber { background: linear-gradient(135deg, #fff8ef, #f0d9b4); }
+.text-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
+  color: var(--text-bright);
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+}
+.text-scale {
+  min-width: 46px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--text-dim);
+  font-size: 0.86rem;
+}
+
 .lo-section {
-  margin-bottom: 48px;
+  margin-bottom: 52px;
   scroll-margin-top: 24px;
 }
 .lo-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 14px;
+  margin-bottom: 18px;
 }
 .lo-num {
-  background: var(--red);
-  color: #000;
-  font-weight: 700;
-  font-size: 0.78rem;
-  padding: 4px 10px;
-  border-radius: 4px;
+  background: linear-gradient(135deg, var(--red), color-mix(in srgb, var(--red) 65%, white 35%));
+  color: white;
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 7px 13px;
+  border-radius: 999px;
   white-space: nowrap;
+  letter-spacing: 0.8px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
 }
 .lo-title {
-  font-size: 1.15rem;
-  font-weight: 600;
+  font-size: 1.08rem;
+  font-weight: 700;
   color: var(--text-bright);
 }
 
-/* ── CONTENT BLOCKS ── */
-.note-block {
+.note-block,
+.case-block,
+.history-box {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px 24px;
-  margin-bottom: 16px;
+  border-radius: 28px;
+  box-shadow: var(--shadow);
 }
-.note-block h3 {
+.note-block {
+  padding: 24px 28px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+.note-block h3,
+.history-box h3 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--cyan);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.note-block p { margin-bottom: 10px; }
+.note-block p { margin-bottom: 12px; }
 .note-block ul { margin-left: 20px; margin-bottom: 10px; }
-.note-block li { margin-bottom: 4px; }
+.note-block li { margin-bottom: 5px; }
 
-/* Highlight styles matching Steve's notes */
-.hy { color: var(--red); font-weight: 600; } /* high yield red */
-.hy-u { color: var(--red); font-weight: 600; text-decoration: underline; }
-.key { color: var(--yellow); font-weight: 500; }
+.hy { color: var(--red); font-weight: 700; }
+.hy-u { color: var(--red); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.key { color: var(--yellow); font-weight: 700; }
 .path { color: var(--cyan); font-style: italic; }
-.struct { color: var(--blue); font-weight: 500; }
-.warn { color: var(--orange); font-weight: 600; }
+.struct { color: var(--blue); font-weight: 700; }
+.warn { color: var(--orange); font-weight: 700; }
 .vir { color: var(--magenta); }
 .bac { color: var(--green); }
-.note-dim { color: var(--text-dim); font-size: 0.88rem; }
+.note-dim { color: var(--text-dim); font-size: 0.9rem; }
 
-/* ── TABLES ── */
 .data-table {
   width: 100%;
-  border-collapse: collapse;
-  margin: 12px 0 16px;
-  font-size: 0.88rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 16px 0 18px;
+  font-size: 0.89rem;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
 }
 .data-table th {
   background: var(--surface3);
   color: var(--text-bright);
-  font-weight: 600;
+  font-weight: 700;
   text-align: left;
-  padding: 10px 14px;
-  border: 1px solid var(--border);
-  font-size: 0.82rem;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.74rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.95px;
 }
 .data-table td {
-  padding: 10px 14px;
-  border: 1px solid var(--border);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
   vertical-align: top;
-  background: var(--surface);
+  background: transparent;
 }
+.data-table tr:last-child td { border-bottom: none; }
 .data-table tr:hover td { background: var(--surface2); }
+.row-bac td:first-child { border-left: 4px solid var(--blue); }
+.row-vir td:first-child { border-left: 4px solid var(--red); }
+.row-proto td:first-child { border-left: 4px solid var(--magenta); }
+.row-para td:first-child { border-left: 4px solid var(--orange); }
 
-/* Pathogen type row colors */
-.row-bac td:first-child { border-left: 3px solid var(--blue); }
-.row-vir td:first-child { border-left: 3px solid var(--red); }
-.row-proto td:first-child { border-left: 3px solid var(--magenta); }
-.row-para td:first-child { border-left: 3px solid var(--orange); }
-
-/* ── IMAGE ── */
-.img-wrap {
-  margin: 16px 0;
-  border-radius: 8px;
-  overflow: hidden;
+.data-table th:not(:last-child),
+.data-table td:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+.table-quiz-shell {
+  margin: 16px 0 18px;
+}
+.table-quiz-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 10px;
+}
+.table-quiz-left,
+.table-quiz-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.table-quiz-btn {
+  appearance: none;
   border: 1px solid var(--border);
+  background: var(--surface-strong);
+  color: var(--text-dim);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
 }
-.img-wrap img {
-  width: 100%;
-  display: block;
-}
-.img-caption {
-  background: var(--surface2);
-  padding: 8px 14px;
-  font-size: 0.8rem;
+.table-quiz-btn:hover { color: var(--text-bright); transform: translateY(-1px); }
+.table-quiz-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
   color: var(--text-dim);
 }
+.table-quiz-switch {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface3);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.02);
+  cursor: pointer;
+}
+.table-quiz-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--surface-strong);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+  transition: transform 0.18s ease;
+}
+.table-quiz-shell.quiz-mode .table-quiz-switch {
+  background: color-mix(in srgb, var(--blue-dim) 70%, white 30%);
+  border-color: color-mix(in srgb, var(--blue) 35%, var(--border) 65%);
+}
+.table-quiz-shell.quiz-mode .table-quiz-switch::after {
+  transform: translateX(20px);
+}
+.table-quiz-shell .data-table { margin: 0; }
+.table-quiz-shell.quiz-mode tbody td.quiz-hidden {
+  position: relative;
+  color: transparent !important;
+  user-select: none;
+}
+.table-quiz-shell.quiz-mode tbody td.quiz-hidden > * {
+  visibility: hidden;
+}
+.table-quiz-shell.quiz-mode tbody td.quiz-hidden::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: linear-gradient(135deg, rgba(255,255,255,0.68), rgba(245,248,252,0.84));
+}
+.table-quiz-shell.quiz-mode tbody td.quiz-hidden::after {
+  content: 'Tap to reveal';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+.table-quiz-shell.quiz-mode tbody td.quiz-hidden.quiz-revealed {
+  color: inherit !important;
+}
+.table-quiz-shell.quiz-mode tbody td.quiz-hidden.quiz-revealed > * {
+  visibility: visible;
+}
+.table-quiz-shell.quiz-mode tbody td.quiz-hidden.quiz-revealed::before,
+.table-quiz-shell.quiz-mode tbody td.quiz-hidden.quiz-revealed::after {
+  display: none;
+}
+.table-quiz-shell.table-expanded {
+  position: fixed;
+  inset: 18px;
+  z-index: 999;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+  padding: 16px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.16);
+  overflow: auto;
+}
+.table-quiz-shell.table-expanded::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 28, 40, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: -1;
+}
+body.table-expanded-open {
+  overflow: hidden;
+}
+@media (max-width: 820px) {
+  .table-quiz-controls { align-items: flex-start; }
+  .table-quiz-shell.table-expanded { inset: 10px; padding: 12px; }
+}
 
-/* ── CALLOUT BOXES ── */
+
 .callout {
-  padding: 14px 18px;
-  border-radius: 8px;
-  margin: 12px 0;
+  padding: 16px 18px;
+  border-radius: 18px;
+  margin: 16px 0;
   font-size: 0.9rem;
+  line-height: 1.7;
+  border: 1px solid var(--border);
 }
-.callout-red {
-  background: rgba(255,77,77,0.08);
-  border-left: 3px solid var(--red);
-}
-.callout-blue {
-  background: rgba(77,166,255,0.08);
-  border-left: 3px solid var(--blue);
-}
-.callout-yellow {
-  background: rgba(255,215,64,0.08);
-  border-left: 3px solid var(--yellow);
-}
-.callout-green {
-  background: rgba(105,240,174,0.08);
-  border-left: 3px solid var(--green);
-}
+.callout-red { background: color-mix(in srgb, var(--red-dim) 70%, white 30%); border-left: 4px solid var(--red); }
+.callout-blue { background: color-mix(in srgb, var(--blue-dim) 70%, white 30%); border-left: 4px solid var(--blue); }
+.callout-yellow { background: color-mix(in srgb, var(--yellow-dim) 70%, white 30%); border-left: 4px solid var(--yellow); }
+.callout-green { background: color-mix(in srgb, var(--green-dim) 70%, white 30%); border-left: 4px solid var(--green); }
 
-/* ── COMPARISON CARDS ── */
 .card-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 12px 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 14px 0;
 }
 .card {
   background: var(--surface2);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 16px;
+  border-radius: 22px;
+  padding: 18px 18px;
+  box-shadow: var(--shadow-soft);
 }
 .card h4 {
-  font-size: 0.88rem;
-  font-weight: 600;
-  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 .card ul { margin-left: 16px; font-size: 0.88rem; }
-.card li { margin-bottom: 3px; }
+.card li { margin-bottom: 4px; }
 
-/* ── STAGE TIMELINE ── */
 .timeline {
   position: relative;
-  margin: 16px 0 16px 20px;
-  padding-left: 24px;
-  border-left: 2px solid var(--border);
+  margin: 18px 0 18px 20px;
+  padding-left: 28px;
+  border-left: 2px solid var(--border-light);
 }
 .timeline-item {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
+.timeline-item:last-child { margin-bottom: 0; }
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: -30px;
-  top: 6px;
-  width: 12px; height: 12px;
+  left: -35px;
+  top: 5px;
+  width: 13px;
+  height: 13px;
   border-radius: 50%;
   background: var(--red);
-  border: 2px solid var(--bg);
+  border: 3px solid var(--surface-strong);
+  box-shadow: 0 0 0 4px var(--red-dim);
 }
 .timeline-item h4 {
-  font-size: 0.92rem;
+  font-size: 0.93rem;
   color: var(--yellow);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  font-weight: 700;
 }
-.timeline-item p, .timeline-item ul {
-  font-size: 0.9rem;
-}
+.timeline-item p,
+.timeline-item ul { font-size: 0.89rem; }
 
-/* ── FONT CONTROLS ── */
-.font-controls {
-  position: fixed;
-  bottom: 16px; right: 16px;
-  display: flex;
-  gap: 6px;
-  z-index: 100;
+.case-block {
+  margin-bottom: 18px;
+  overflow: hidden;
 }
-.font-controls button {
-  background: var(--surface2);
-  border: 1px solid var(--border);
+.case-header {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.case-header h3 {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--yellow);
+  margin-bottom: 10px;
+}
+.case-stem {
+  font-size: 0.92rem;
+  line-height: 1.75;
   color: var(--text);
-  width: 34px; height: 34px;
-  border-radius: 6px;
+}
+.case-stem em { color: var(--text-dim); font-style: normal; }
+.case-question {
+  margin-top: 14px;
+  color: var(--cyan);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+.case-reveal-btn {
+  display: block;
+  width: 100%;
+  padding: 13px 28px;
+  background: var(--surface2);
+  border: none;
+  color: var(--green);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
+  text-align: left;
+  transition: all 0.2s;
 }
-.font-controls button:hover { background: var(--surface3); }
+.case-reveal-btn:hover { background: var(--surface3); }
+.case-reveal-btn::before { content: '▶ '; font-size: 0.7rem; }
+.case-reveal-btn.open::before { content: '▼ '; }
+.case-answer {
+  display: none;
+  padding: 22px 28px;
+  border-top: 1px solid var(--border);
+  background: var(--surface-strong);
+}
+.case-answer.show { display: block; }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 768px) {
-  .sidebar { transform: translateX(-260px); }
+.history-box {
+  padding: 24px 28px;
+  margin-bottom: 18px;
+}
+.history-box .principle {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--teal);
+  padding: 11px 16px;
+  margin-bottom: 8px;
+  border-radius: 16px;
+  font-size: 0.88rem;
+  box-shadow: var(--shadow-soft);
+}
+.history-box .principle strong { color: var(--text-bright); }
+
+.font-controls { display: none; }
+
+@media (max-width: 1024px) {
+  .sidebar {
+    transform: translateX(-304px);
+    top: 10px;
+    left: 10px;
+    height: calc(100vh - 20px);
+  }
   .sidebar.show { transform: translateX(0); }
-  .menu-toggle { display: block; }
-  .main { margin-left: 0; padding: 60px 16px 80px; }
-  .card-grid { grid-template-columns: 1fr; }
+  .menu-toggle { display: flex; align-items: center; justify-content: center; }
+  .main {
+    margin-left: 0;
+    padding: 72px 18px 84px;
+    max-width: 100%;
+  }
 }
 
-/* ── PRINT ── */
+@media (max-width: 768px) {
+  .page-header,
+  .study-toolbar,
+  .note-block,
+  .case-header,
+  .case-answer,
+  .history-box { padding-left: 18px; padding-right: 18px; }
+  .page-header { border-radius: 26px; }
+  .study-toolbar { border-radius: 20px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 1.75rem; }
+  .lo-header { align-items: flex-start; }
+  .toolbar-group:last-child { width: 100%; justify-content: space-between; }
+}
+
 @media print {
-  .sidebar, .menu-toggle, .font-controls { display: none !important; }
-  .main { margin-left: 0; max-width: 100%; }
-  body { background: #fff; color: #111; }
-  .note-block { border: 1px solid #ccc; }
+  .sidebar, .menu-toggle, .study-toolbar, .font-controls { display: none !important; }
+  .main { margin-left: 0; max-width: 100%; padding: 0; }
+  body { background: #fff !important; color: #111; font-size: 12px; }
+  .note-block, .case-block, .history-box, .page-header { border: 1px solid #ccc; box-shadow: none; background: #fff; }
   .hy, .hy-u { color: #c00; }
+  .case-answer { display: block !important; }
 }
 </style>
 </head>
@@ -361,46 +826,80 @@ body {
 
 <nav class="sidebar" id="sidebar">
   <div class="brand">STI Study Notes</div>
-  <div class="brand-sub">Dr. Grlickova-Duzevik · Block 5</div>
+  <div class="brand-sub">Dr. Grlickova-Duzevik · OMK1 Block 5 · March 25, 2025</div>
 
   <h3>Learning Objectives</h3>
-  <a href="#lo1">LO 1 · Pathogen Identification</a>
-  <a href="#lo2">LO 2 · Virulence & Immune Evasion</a>
-  <a href="#lo3">LO 3 · Pathogenesis & Clinical</a>
+  <a href="#lo1">LO 1 · Pathogen ID</a>
+  <a href="#lo2">LO 2 · Virulence &amp; Evasion</a>
+  <a href="#lo3">LO 3 · Pathogenesis &amp; Clinical</a>
   <a href="#lo4">LO 4 · Prevention</a>
 
-  <h3>Pathogens — Viral</h3>
+  <h3>Viral Pathogens</h3>
   <a href="#hsv">HSV (Herpes Simplex)</a>
   <a href="#hpv">HPV (Papillomavirus)</a>
   <a href="#hiv">HIV</a>
 
-  <h3>Pathogens — Bacterial</h3>
+  <h3>Bacterial Pathogens</h3>
   <a href="#chlamydia">Chlamydia trachomatis</a>
   <a href="#gonorrhea">Neisseria gonorrhoeae</a>
   <a href="#syphilis">Treponema pallidum</a>
 
-  <h3>Pathogens — Other</h3>
+  <h3>Other</h3>
   <a href="#trich">Trichomonas vaginalis</a>
+  <a href="#pid">PID</a>
 
   <h3>Integration</h3>
-  <a href="#pid">PID</a>
-  <a href="#cases">Practice Cases</a>
+  <a href="#discharge">Discharge Comparison</a>
+  <a href="#cases">Practice Cases (5)</a>
 </nav>
 
 <div class="main">
 
-<!-- ═══════════════════ HEADER ═══════════════════ -->
+<!-- ════════════════════ HEADER ════════════════════ -->
 <div class="page-header">
   <h1>Sexually Transmitted Infections</h1>
   <div class="meta">
     <span class="tag tag-red">OMK1 · Block 5</span>
     <span class="tag tag-blue">Dr. Grlickova-Duzevik</span>
     <span class="tag tag-green">March 25, 2025</span>
-    <span class="tag tag-purple">RAT Prep</span>
+    <span class="tag tag-purple">RAT &amp; Exam Prep</span>
   </div>
 </div>
 
-<!-- ═══════════════════ LO 1 ═══════════════════ -->
+<div class="study-toolbar">
+  <div class="toolbar-group">
+    <span class="toolbar-label">Background</span>
+    <button class="theme-swatch theme-paper" type="button" data-theme="paper" aria-label="Paper theme" aria-pressed="false"></button>
+    <button class="theme-swatch theme-cool" type="button" data-theme="cool" aria-label="Cool blue theme" aria-pressed="false"></button>
+    <button class="theme-swatch theme-sage" type="button" data-theme="sage" aria-label="Sage theme" aria-pressed="false"></button>
+    <button class="theme-swatch theme-blush" type="button" data-theme="blush" aria-label="Blush theme" aria-pressed="false"></button>
+    <button class="theme-swatch theme-amber" type="button" data-theme="amber" aria-label="Amber theme" aria-pressed="false"></button>
+  </div>
+  <div class="toolbar-group">
+    <span class="toolbar-label">Text</span>
+    <button class="text-btn" type="button" onclick="changeFontSize(-1)" aria-label="Decrease text size">A−</button>
+    <span class="text-scale" id="fontScaleLabel">100%</span>
+    <button class="text-btn" type="button" onclick="changeFontSize(1)" aria-label="Increase text size">A+</button>
+  </div>
+</div>
+
+<!-- ════════════════════ SEXUAL HISTORY ════════════════════ -->
+<div class="lo-section" id="sexual-history">
+  <div class="history-box">
+    <h3>📋 Approaching Patients with Suspected STI — Sexual History</h3>
+    <p style="margin-bottom:14px;font-size:0.88rem;color:var(--text-dim)">Dr. Grlickova-Duzevik emphasized these principles before discussing any pathogen:</p>
+    <div class="principle"><strong>Be considerate</strong> of the spectrum of human sexuality</div>
+    <div class="principle"><strong>Sexual history is an important part</strong> of the medical history</div>
+    <div class="principle"><strong>Be considerate of all patients' needs</strong> when taking sexual history</div>
+    <div class="principle"><strong>Use gender neutral terms</strong> — partner, significant other</div>
+    <div class="principle"><strong>Ask open ended questions</strong> — allow your patient to describe their identity, anatomy, behaviors, sexual partners</div>
+    <div class="callout callout-blue" style="margin-top:16px">
+      <strong>Sample Questions:</strong> Are you having sex? How many partners in the past year? · Who are you having sex with? What types of sex? · How do you protect yourself from STIs? · What STIs have you had in the past? · Has your partner(s) been diagnosed with any STIs? · Do you use alcohol or drugs when you have sex? · Do you exchange sex for money, drugs, or a place to stay?
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ LO 1 ════════════════════ -->
 <div class="lo-section" id="lo1">
   <div class="lo-header">
     <span class="lo-num">LO 1</span>
@@ -414,152 +913,160 @@ body {
         <tr><th>STI / Condition</th><th>Causative Pathogen</th><th>Type</th><th>Key Structural Feature</th></tr>
       </thead>
       <tbody>
-        <tr class="row-bac"><td><span class="struct">Bacterial Vaginosis</span></td><td>Mixed bacterial overgrowth*</td><td><span class="struct">Bacterial</span> (dysbiosis)</td><td>Not a single pathogen — imbalance of composition</td></tr>
+        <tr class="row-vir"><td><span class="hy">Genital Herpes</span></td><td>HSV-1, HSV-2</td><td><span class="hy">Viral</span></td><td><span class="hy">Enveloped, dsDNA</span></td></tr>
+        <tr class="row-vir"><td><span class="hy">HPV</span></td><td>Human papillomavirus</td><td><span class="hy">Viral</span></td><td><span class="hy-u">No envelope (naked), dsDNA</span></td></tr>
+        <tr class="row-vir"><td><span class="hy">HIV/AIDS</span></td><td>Human immunodeficiency virus</td><td><span class="hy">Viral</span></td><td><span class="hy">Retrovirus, 2 strands ssRNA</span>, enveloped</td></tr>
+        <tr class="row-vir"><td>Hepatitis</td><td>Hepatitis viruses</td><td>Viral</td><td>Various (enveloped/non-enveloped)</td></tr>
         <tr class="row-bac"><td><span class="struct">Chlamydia</span></td><td><span class="path">Chlamydia trachomatis</span></td><td><span class="struct">Bacterial</span></td><td>Gram (−), <span class="hy">obligate intracellular</span></td></tr>
         <tr class="row-bac"><td><span class="struct">Gonorrhea</span></td><td><span class="path">Neisseria gonorrhoeae</span></td><td><span class="struct">Bacterial</span></td><td><span class="hy">Gram (−) diplococci</span> (coffee beans), nonmotile</td></tr>
-        <tr class="row-bac"><td><span class="struct">Mycoplasma (Mgen)</span></td><td><span class="path">Mycoplasma genitalium</span></td><td><span class="struct">Bacterial</span></td><td>No cell wall (invisible on gram stain)</td></tr>
-        <tr class="row-bac"><td><span class="struct">PID</span></td><td><span class="path">C. trachomatis</span> + <span class="path">N. gonorrhoeae</span></td><td><span class="struct">Bacterial</span></td><td>Ascending infection → uterus, tubes, pelvis</td></tr>
-        <tr class="row-bac"><td><span class="struct">Syphilis</span></td><td><span class="path">Treponema pallidum</span></td><td><span class="struct">Bacterial</span></td><td>Gram (−), <span class="hy">spiral spirochete</span>, silver stain</td></tr>
-        <tr class="row-vir"><td><span class="hy">HIV/AIDS</span></td><td>Human immunodeficiency virus</td><td><span class="hy">Viral</span></td><td><span class="hy">Retrovirus, 2 strands ssRNA</span>, enveloped</td></tr>
-        <tr class="row-vir"><td><span class="hy">Genital Herpes</span></td><td>HSV-1, HSV-2</td><td><span class="hy">Viral</span></td><td><span class="hy">Enveloped, dsDNA</span></td></tr>
-        <tr class="row-vir"><td><span class="hy">HPV</span></td><td>Human papillomavirus</td><td><span class="hy">Viral</span></td><td><span class="hy-u">Naked (non-enveloped), dsDNA</span></td></tr>
-        <tr class="row-proto"><td><span class="vir">Trichomoniasis</span></td><td><span class="path">Trichomonas vaginalis</span></td><td><span class="vir">Protozoan parasite</span></td><td><span class="hy">Flagellated protozoan</span>, extracellular</td></tr>
-        <tr class="row-para"><td><span class="warn">Pediculosis Pubis</span></td><td><span class="path">Phthirus pubis</span></td><td><span class="warn">Parasite</span></td><td>Ectoparasite (pubic louse)</td></tr>
+        <tr class="row-bac"><td><span class="struct">Syphilis</span></td><td><span class="path">Treponema pallidum</span></td><td><span class="struct">Bacterial</span></td><td>Gram (−), <span class="hy">spiral spirochete</span>, visualized with silver stain</td></tr>
+        <tr class="row-proto"><td><span class="vir">Trichomoniasis</span></td><td><span class="path">Trichomonas vaginalis</span></td><td><span class="vir">Protozoan</span></td><td><span class="hy">Flagellated protozoan</span>, extracellular, no cyst form</td></tr>
       </tbody>
     </table>
-
     <div class="callout callout-red">
-      <strong>High-Yield Distinction:</strong> Chlamydia is the <span class="hy">most commonly reported</span> STI in the US. Gonorrhea is most common among <span class="hy">adolescents and young adults</span>. HPV is the only <span class="hy">naked</span> (non-enveloped) virus on this list.
+      <strong>High-Yield:</strong> Chlamydia is the <span class="hy">most common reported STI</span> in the US. Gonorrhea is most common among <span class="hy">adolescents and young adults</span>. HPV is the only <span class="hy">naked</span> (non-enveloped) dsDNA virus here — it lacks an envelope.
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════ LO 2 ═══════════════════ -->
+<!-- ════════════════════ LO 2 ════════════════════ -->
 <div class="lo-section" id="lo2">
   <div class="lo-header">
     <span class="lo-num">LO 2</span>
-    <span class="lo-title">Identify pathogen virulence factors & describe mechanisms of host defense evasion</span>
+    <span class="lo-title">Identify pathogen virulence factors &amp; describe mechanisms of host defense evasion</span>
   </div>
 
   <!-- HSV -->
   <div class="note-block" id="hsv">
-    <h3>🦠 HSV — Virulence & Immune Evasion</h3>
+    <h3>🦠 Herpes Simplex Virus (HSV) — Structure, Virulence &amp; Evasion</h3>
+    <p>Structurally, herpesviruses contain <span class="hy">four layers</span>: (1) <span class="struct">dsDNA genome</span>, (2) <span class="struct">protein capsid</span>, (3) <span class="struct">tegument</span> (amorphous protein matrix), (4) <span class="struct">lipid envelope</span> with viral glycoproteins and host cellular proteins.</p>
+    <div class="callout callout-blue">
+      <strong>HSV-1 vs HSV-2:</strong> The two glycoproteins on the lipid bilayer envelope define them. <span class="hy">Glycoprotein G1 → HSV-1</span>. <span class="hy">Glycoprotein G2 → HSV-2</span>. Although each is a distinct virus, they share some antigenic components.
+    </div>
     <table class="data-table">
-      <thead><tr><th style="width:35%">Virulence Factors</th><th>Mechanism of Host Defense Evasion</th></tr></thead>
+      <thead><tr><th style="width:38%">Virulence / Structure</th><th>Immune Evasion Mechanism</th></tr></thead>
       <tbody>
-        <tr><td>Envelope aids attachment; cell fusion yields syncytia with <span class="hy">inclusion bodies</span></td><td>Remains <span class="hy">latent in neurons</span> to avoid immune surveillance</td></tr>
-        <tr><td>High viral load in vesicles (<span class="hy">"super infectious"</span>)</td><td>Lytic phase triggers inflammation, but <span class="hy">latency helps the virus persist</span></td></tr>
-        <tr><td>Hides in neuronal cells; undergoes lytic phase when active</td><td>Only <span class="key">LAT transcripts</span> produced during latency — no viral proteins → invisible to immune system</td></tr>
+        <tr><td>Entry via <span class="hy">receptor-mediated endocytosis</span> or endosome formation (two steps: binding → fusion)</td><td>Establishes <span class="hy">latency in sensory neurons</span> — hides from immune system</td></tr>
+        <tr><td>Replicates in dermis/epidermis → cellular destruction → inflammation</td><td>During latency: only <span class="key">LAT transcripts</span> produced, <span class="hy">no viral proteins</span> → invisible to immune cells</td></tr>
+        <tr><td>Both lytic (productive) and latent (dormant) life cycles</td><td>VP16 tegument transcription factor active <em>only in lytic stage</em>, not in neurons during latency</td></tr>
+        <tr><td>High viral load in vesicles</td><td>Reactivates periodically due to host factors → returns to primary site → lytic replication until immune response forces it back into latency</td></tr>
       </tbody>
     </table>
-    <div class="callout callout-blue">
-      <strong>Key Concept:</strong> HSV has four structural layers: <span class="struct">dsDNA core → protein capsid → tegument → lipid envelope</span>. Glycoprotein G1 = HSV-1, Glycoprotein G2 = HSV-2. Virus enters via <span class="hy">receptor-mediated endocytosis</span> or endosome formation.
+    <div class="callout callout-yellow">
+      <strong>Host Defense:</strong> Neuronal antiviral response is driven by <span class="hy">IFN signaling</span> (stimulates innate immunity, inhibits viral spread). <span class="hy">TLRs</span> bind HSV-1 proteins or viral nucleic acid and activate innate immune response by inducing chemokines and proinflammatory cytokines. The IFN response is critical for establishing lifelong latent infection.
     </div>
   </div>
 
   <!-- HPV -->
   <div class="note-block" id="hpv">
-    <h3>🦠 HPV — Virulence & Immune Evasion</h3>
+    <h3>🦠 Human Papillomavirus (HPV) — Structure, Virulence &amp; Evasion</h3>
+    <p><span class="struct">dsDNA virus that lacks envelope</span>. L1 and L2 encode for the major and minor capsid proteins. HPV reaches its target tissue — the <span class="hy">basal cells of stratified squamous epithelium</span> — only through <span class="hy">micro-abrasions</span> or epithelial trauma.</p>
+    <div class="callout callout-blue">
+      <strong>Entry Mechanism:</strong> After basement membrane is exposed, HPV <span class="struct">L1 major capsid protein</span> binds <span class="key">heparin sulfate proteoglycans (HSPGs)</span> on basement membrane → conformational changes of L1 → releases proteinase activity of L2 → further rearrangements → viral movement to keratinocyte zone → endocytosis.
+    </div>
     <table class="data-table">
-      <thead><tr><th style="width:35%">Virulence Factors</th><th>Mechanism of Host Defense Evasion</th></tr></thead>
+      <thead><tr><th style="width:38%">Virulence Factor</th><th>Mechanism</th></tr></thead>
       <tbody>
-        <tr><td>Oncogenes <span class="hy">E6 and E7</span></td><td><span class="hy-u">E6 binds to p53</span> → mediates degradation → uncontrolled proliferation & resistance to apoptosis</td></tr>
-        <tr><td>Capsid proteins L1/L2</td><td><span class="hy">E7 binds to pRb</span> → frees E2F → unrestricted entry into S-phase</td></tr>
-        <tr><td>E6 stimulates expression of <span class="key">TERT</span> (telomerase)</td><td>Downregulation of <span class="hy">type I interferon responses</span> prevents macrophage detection</td></tr>
-        <tr><td>Early genes (E1-E7) for replication; Late genes (L1/L2) structural</td><td><span class="hy">No lytic phase → no cell death → no inflammation</span> → invisible to immune system</td></tr>
+        <tr><td>Early genes (E1–E7): virus replication</td><td>E1 = helicase; E2 = transcriptional activator; E4 = viral release; E5 = immune evasion</td></tr>
+        <tr><td>Late genes (L1/L2): structural proteins</td><td>L1 = major capsid protein (self-assembles into capsids; <span class="hy">immunogen in HPV vaccine</span>)</td></tr>
+        <tr><td><span class="hy">E6</span> oncogene</td><td>Mediates <span class="hy">degradation of p53</span> → uncontrolled proliferation, resistance to apoptosis. Also stimulates <span class="key">TERT</span> (telomerase) expression.</td></tr>
+        <tr><td><span class="hy">E7</span> oncogene</td><td><span class="hy">Binds Rb</span> → frees E2F transcription factor → unrestricted entry into S-phase</td></tr>
       </tbody>
     </table>
     <div class="callout callout-red">
-      <strong>Oncogenic Mechanism:</strong> E6 degrades <span class="hy">p53</span> (normally promotes cell cycle arrest/apoptosis) → uncontrolled proliferation. E7 binds <span class="hy">Rb</span> (normally blocks E2F) → unrestricted S-phase entry. Both together = malignant transformation. Viral DNA <em>integrates</em> into host DNA in cancer.
+      <strong>Immune Evasion — "Invisible infection":</strong> <span class="hy">Very low viral protein production, no viremia</span>. No cell death → <span class="hy">no inflammation</span> → no danger signal. The virus <span class="hy">downregulates keratinocyte innate immune sensors</span>. E6 and E7 <span class="hy">downregulate type I interferon responses</span>. No activation of Langerhans cells or dendritic cells.
     </div>
+    <p style="margin-top:12px"><strong>Infectious cycle timing:</strong> Virus and cell replicate together in basal layer (~50–100 copies). When host cell <em>stops dividing and begins to differentiate</em>, the virus activates all genes → amplifies genome to thousands of copies. In the top layers, L1/L2 are expressed, genomes are encapsidated, and infectious particles exit. The cycle from infection to new virus takes <span class="hy">at least 3 weeks</span>. HPV has <span class="hy">no blood-borne phase</span> and does not cause cell death.</p>
   </div>
 
   <!-- HIV -->
   <div class="note-block" id="hiv">
-    <h3>🦠 HIV — Virulence & Immune Evasion</h3>
+    <h3>🦠 Human Immunodeficiency Virus (HIV) — Virulence &amp; Pathogenesis</h3>
+    <p>Retrovirus with 2 strands of ssRNA. Transmission: blood, contact of semen or vaginal fluid with mucous membranes with or without micro-abrasions. <span class="hy">The presence of other STIs increases the probability for transmission.</span></p>
     <table class="data-table">
-      <thead><tr><th style="width:35%">Virulence Factors</th><th>Role</th></tr></thead>
+      <thead><tr><th style="width:35%">Virulence Factor</th><th>Role</th></tr></thead>
       <tbody>
-        <tr><td><span class="hy">gp120 / gp41</span> envelope proteins</td><td>Viral attachment to host <span class="hy">CD4 receptor</span></td></tr>
+        <tr><td><span class="hy">gp120 / gp41</span></td><td>Viral <span class="hy">attachment</span> to host cells</td></tr>
+        <tr><td>Host receptor: <span class="hy">CD4</span></td><td>Primary receptor on T-helper cells, macrophages, DCs</td></tr>
         <tr><td><span class="hy">Reverse transcriptase</span></td><td>Synthesizes DNA from genome RNA</td></tr>
-        <tr><td><span class="hy">Integrase</span></td><td>Integration of proviral DNA into host genome → <span class="hy-u">gets integrated into host DNA</span></td></tr>
-        <tr><td><span class="hy">p24</span> nucleocapsid antigen</td><td>Important <span class="hy">serologic marker</span> for diagnosis</td></tr>
+        <tr><td><span class="hy">Integrase</span></td><td>Integration of proviral DNA into host genome</td></tr>
+        <tr><td><span class="hy">p24</span></td><td>Nucleocapsid antigen — important <span class="hy">serologic marker</span></td></tr>
       </tbody>
     </table>
     <div class="callout callout-yellow">
-      <strong>Transmission:</strong> Blood, semen, vaginal fluid contact with mucous membrane ± micro-abrasions. Enters via direct infection, <span class="key">transcytosis</span>, or transmigration. The presence of other STIs <span class="hy">increases</span> probability of HIV transmission. <span class="hy">Disrupts cell-mediated immunity.</span>
+      <strong>Entry mechanisms at mucosal sites:</strong> (a) Direct infection of epithelial cells, (b) Transcytosis across epithelial cells or M cells, (c) Epithelial transmigration of infected donor cells, (d) Uptake by intra-epithelial Langerhans cells, (e) Access via abrasions in epithelial tissue. Once past the epithelium, virus reaches DCs, <span class="hy">CD4+ T cells</span>, and macrophages in stromal tissue → trafficking and trans-infection → <span class="hy">seroconversion</span>.
     </div>
   </div>
 
   <!-- Chlamydia -->
   <div class="note-block" id="chlamydia">
-    <h3>🦠 Chlamydia trachomatis — Virulence & Immune Evasion</h3>
+    <h3>🦠 Chlamydia trachomatis — Virulence &amp; Pathogenesis</h3>
+    <p><span class="hy">Most common reported STI in the US.</span> Gram (−), obligate intracellular. Transmitted by direct contact with <span class="hy">EB (elementary body)</span>.</p>
     <table class="data-table">
-      <thead><tr><th style="width:35%">Virulence Factors</th><th>Mechanism of Host Defense Evasion</th></tr></thead>
+      <thead><tr><th style="width:35%">Virulence Factor</th><th>Mechanism</th></tr></thead>
       <tbody>
-        <tr><td><span class="hy">Elementary Body (EB)</span> — for host cell entry</td><td>EB survives <em>outside</em> cells and initiates infection</td></tr>
-        <tr><td><span class="hy">Reticulate Body (RB)</span> — for replication</td><td>RB multiplies <em>within</em> host cells, triggering immune response only <em>after</em> intracellular replication</td></tr>
-        <tr><td><span class="key">Type III Secretion System</span> (T3SS) effectors</td><td>Injected into cytoplasm; modifies <span class="hy">inclusion membrane</span> to prevent lysosomal degradation</td></tr>
-        <tr><td>Inclusion formation ensures intracellular survival</td><td>Lysis releases EBs to continue infection cycle → host cell death</td></tr>
+        <tr><td><span class="hy">Elementary Body (EB)</span></td><td><span class="hy">Infectious</span>, non-dividing form — survives extracellularly, initiates infection by attaching to host plasma membrane</td></tr>
+        <tr><td><span class="hy">Reticulate Body (RB)</span></td><td><span class="hy">Non-infectious</span>, proliferative form — multiplies inside host cell by binary fission</td></tr>
+        <tr><td><span class="key">T3SS effectors</span></td><td>Injected into cytoplasm upon EB entry; modifies <span class="hy">inclusion membrane</span> to <span class="hy">prevent lysosomal degradation</span></td></tr>
+        <tr><td>Inclusion formation</td><td>RBs transported to nutrient-rich environment near Golgi; inclusion expands, fills cytoplasm</td></tr>
       </tbody>
     </table>
     <div class="callout callout-green">
-      <strong>Life Cycle:</strong> EB attaches → enters vacuole (= <span class="hy">inclusion</span>) → differentiates into RB → RB proliferates by binary fission → RB → EB → <span class="hy">lysis releases new EBs</span>. The inclusion expands, hijacks nutrients from Golgi/ER, fills the cytoplasm, then bursts.
+      <strong>Life Cycle (simplified):</strong> 1. EB attachment to host cells → 2. EB enters vacuole, differentiates into larger <span class="hy">RB</span> → 3. RB proliferates by binary fission, differentiates back to <span class="hy">EB</span> → 4. Cycle completes with <span class="hy">release of intracellular chlamydiae → host cell death</span>.
     </div>
   </div>
 
   <!-- Neisseria -->
   <div class="note-block" id="gonorrhea">
-    <h3>🦠 Neisseria gonorrhoeae — Virulence & Immune Evasion</h3>
+    <h3>🦠 Neisseria gonorrhoeae — Virulence &amp; Pathogenesis</h3>
+    <p>Nonmotile <span class="hy">Gram-negative diplococci (coffee beans)</span>. Most common among adolescents and young adults. Transmitted by contact with exudate from infected individuals.</p>
     <table class="data-table">
       <thead><tr><th style="width:35%">Virulence Factor</th><th>Mechanism</th></tr></thead>
       <tbody>
-        <tr><td><span class="hy">Pili</span> (with antigenic variation)</td><td>Mediate attachment to host cells; <span class="hy">antigenic variation</span> helps evade initial immune detection</td></tr>
-        <tr><td><span class="hy">Opacity (Opa) proteins</span></td><td>Promote uptake into cells, sheltering the pathogen; evade immune response</td></tr>
-        <tr><td><span class="hy">Porin proteins</span></td><td><span class="hy">Prevent phagolysosome formation</span> and aid in nutrition</td></tr>
-        <tr><td><span class="hy">Reduction modifiable proteins (Rmp)</span></td><td><span class="hy">Block host bactericidal antibodies</span>, diminishing the immune response</td></tr>
+        <tr><td><span class="hy">Pili</span></td><td>Adherence to urogenital epithelium; <span class="hy">antigenic variation</span> helps escape immune response</td></tr>
+        <tr><td><span class="hy">Opacity (Opa) proteins</span></td><td>Mediates uptake into cells; evades immune response</td></tr>
+        <tr><td><span class="hy">Porin proteins</span></td><td><span class="hy">Prevents phagolysosome formation</span></td></tr>
+        <tr><td><span class="hy">Reduction modifiable proteins (Rmp)</span></td><td><span class="hy">Blocks host bactericidal antibodies</span></td></tr>
       </tbody>
     </table>
     <div class="callout callout-blue">
-      <strong>Pathogenesis:</strong> Colonizes → invades and undergoes transcytosis → releases peptidoglycan, <span class="key">LOS</span>, and <span class="key">OMVs</span> → activates TLR/NOD signaling → cytokine/chemokine release → massive <span class="hy">neutrophil influx</span> → <span class="hy-u">purulent exudate</span> that facilitates transmission.
+      <strong>Pathogenesis cascade:</strong> Colonizes epithelium → invasion and transcytosis → releases <span class="key">peptidoglycan, LOS, and OMVs</span> → activates <span class="hy">TLR and NOD signaling</span> in epithelial cells, macrophages, DCs → cytokine/chemokine release → massive <span class="hy">neutrophil influx</span> → <span class="hy-u">neutrophil-rich, purulent exudate</span> that then <em>facilitates transmission</em>.
     </div>
   </div>
 
   <!-- Syphilis -->
   <div class="note-block" id="syphilis">
-    <h3>🦠 Treponema pallidum — Virulence & Immune Evasion</h3>
+    <h3>🦠 Treponema pallidum — Virulence &amp; Pathogenesis</h3>
+    <p>Gram-negative, <span class="hy">spiral shaped bacteria</span>. Usually visualized with <span class="hy">silver stain</span> or dark field microscopy. Transmitted through spirochete-containing lesions of skin or mucous membranes by <span class="hy">intimate contact</span>.</p>
     <table class="data-table">
       <thead><tr><th style="width:35%">Virulence Factor</th><th>Mechanism</th></tr></thead>
       <tbody>
-        <tr><td>Adhesion molecules (TP0453/Tpp17)</td><td>Adhere to epithelial cells and extracellular matrix</td></tr>
-        <tr><td>Flagellar apparatus</td><td>Flagellar rotation assists tissue penetration — <span class="hy">"hides and goes where it likes"</span></td></tr>
-        <tr><td>TP0751 protease</td><td>Penetrates extracellular matrix via proteolytic activity</td></tr>
-        <tr><td><span class="hy">TprK</span> (Tpr proteins)</td><td><span class="hy">Antigenic variation</span> → immune evasion of spirochetes</td></tr>
+        <tr><td>TP0453 (Tpp17)</td><td>Spirochetes <span class="hy">adhere to epithelial cells and extracellular matrix</span></td></tr>
+        <tr><td>Flagellar rotation + TP0751 protease</td><td>Penetrates extracellular matrix; passes through intercellular junctions by motility</td></tr>
+        <tr><td><span class="hy">TprK</span></td><td><span class="hy">Antigenic variation</span> → immune evasion of spirochetes</td></tr>
       </tbody>
     </table>
     <div class="callout callout-yellow">
-      <strong>Note from Steve:</strong> <span class="note-dim">"don't need to memorize names"</span> of surface proteins. Key concept: produces <span class="hy">no important toxins or enzymes</span>. Pathology is from <span class="hy">proliferative endarteritis</span> → vascular lesions → ischemia. Antigenic variation helps evade immune response. Systemic infection persists despite immune response.
+      <strong>Key Concepts:</strong> T. pallidum produces <span class="hy">no important toxins or enzymes</span>. The organism infects the endothelium of small blood vessels, causing <span class="hy">proliferative endarteritis</span> — this occurs in <em>all stages</em> of syphilis. Pathology results from <span class="hy">ischemia produced by vascular lesions</span>. Chancres and rashes are superficial sites of infection from intense inflammatory response. Immune response reduces bacterial burden but <span class="hy">does not eliminate systemic infection</span>.
     </div>
   </div>
 
   <!-- Trichomonas -->
   <div class="note-block" id="trich">
-    <h3>🦠 Trichomonas vaginalis — Virulence & Immune Evasion</h3>
+    <h3>🦠 Trichomonas vaginalis — Structure &amp; Virulence</h3>
+    <p><span class="hy">Flagellated protozoan</span>, extracellular. Pear-shaped with a central nucleus and four anterior flagella. Has an undulating membrane extending ~⅔ its length. It exists <span class="hy">only as a trophozoite — there is no cyst form</span>. Transmitted by sexual contact (no need for environmental durability). Primary locations: vagina and prostate. Found only in humans, no animal reservoir.</p>
     <table class="data-table">
       <thead><tr><th style="width:35%">Virulence Factor</th><th>Mechanism</th></tr></thead>
       <tbody>
-        <tr><td><span class="hy">LPG</span> (lipophosphoglycan)</td><td>Binds host receptor <span class="hy">galectin-1</span> → secures attachment and colonization</td></tr>
-        <tr><td>Membrane proteins</td><td>Additional adhesion factors for epithelial attachment</td></tr>
-        <tr><td>Proteases</td><td>Released by parasite; associated with pathogenesis and immune evasion</td></tr>
+        <tr><td><span class="hy">LPG</span> (lipophosphoglycan)</td><td>Binds host receptor <span class="hy">galectin-1</span> → adhesion to epithelium</td></tr>
+        <tr><td>Membrane proteins</td><td>Additional adhesion factors required for parasite survival near host cells</td></tr>
+        <tr><td>Proteases</td><td>Released by parasite; may be associated with pathogenesis</td></tr>
       </tbody>
     </table>
-    <div class="callout callout-green">
-      <strong>Key Feature:</strong> Exists <span class="hy">only as a trophozoite</span> — no cyst form. Pear-shaped with 4 anterior flagella and an undulating membrane. Transmitted sexually so doesn't need environmental durability.
-    </div>
   </div>
 </div>
 
-<!-- ═══════════════════ LO 3 ═══════════════════ -->
+<!-- ════════════════════ LO 3 ════════════════════ -->
 <div class="lo-section" id="lo3">
   <div class="lo-header">
     <span class="lo-num">LO 3</span>
@@ -568,31 +1075,30 @@ body {
 
   <!-- HSV Clinical -->
   <div class="note-block">
-    <h3>🔬 HSV — Clinical Presentation</h3>
+    <h3>🔬 HSV — Clinical Presentation &amp; Complications</h3>
     <div class="card-grid">
       <div class="card">
-        <h4 style="color:var(--cyan)">Pathogenesis</h4>
+        <h4 style="color:var(--cyan)">Clinical Features</h4>
         <ul>
-          <li>Transmitted via <span class="hy">direct contact with infected mucosa/body fluids</span></li>
-          <li><span class="struct">Enveloped, dsDNA</span> virus</li>
-          <li>Replicates at site of entry → travels via <span class="hy">sensory neurons</span> → <span class="hy">latent infection</span></li>
-          <li>HSV-1: oral/facial lesions</li>
-          <li>HSV-2: anogenital lesions</li>
+          <li>Fever, malaise, <span class="hy">tender inguinal lymph nodes</span>, 3–7 days after exposure</li>
+          <li><span class="hy-u">Red papules → vesicles → painful ulcers</span></li>
+          <li>Vesicles contain <span class="hy">large number of viral particles</span></li>
+          <li>Lesions heal spontaneously in 1–3 weeks</li>
+          <li>Cervical/vaginal lesions → <span class="hy">whitish mucopurulent discharge</span>, pelvic pain, painful urination</li>
         </ul>
       </div>
       <div class="card">
-        <h4 style="color:var(--red)">Clinical Features</h4>
+        <h4 style="color:var(--red)">Cytopathic Effect &amp; Dx</h4>
         <ul>
-          <li>Fever, malaise, <span class="hy">tender inguinal lymph nodes</span> (3–7 days post-exposure)</li>
-          <li><span class="hy-u">Lesions:</span> red papules → <span class="hy">vesicles</span> → <span class="hy">painful ulcers</span></li>
-          <li>Vesicles = high viral load (<span class="hy">"super infectious"</span>)</li>
-          <li>Cervical/vaginal lesions → <span class="hy">whitish mucopurulent discharge</span></li>
-          <li>Lesions heal spontaneously in 1–3 weeks</li>
+          <li><span class="hy">Eosinophilic intranuclear inclusions (Cowdry type A)</span> = viral replication proteins and virions pushing chromatin to edges of nucleus</li>
+          <li>Cell fusion → <span class="hy">inclusion-bearing multinucleate syncytia</span></li>
+          <li><span class="hy">Tzanck smear</span>: cells from base of vesicle stained with Giemsa → multinucleated giant cells</li>
+          <li>DFA (direct fluorescent antibody) test on vesicular fluid</li>
         </ul>
       </div>
     </div>
     <div class="callout callout-red">
-      <strong>Complications:</strong> Histology shows <span class="hy">eosinophilic intranuclear inclusions (Cowdry type A)</span>. Multinucleated giant cells on <span class="hy">Tzanck smear</span>. <span class="hy">Neonatal herpes</span> if HSV-2 in genital tract during delivery → severe neurological disability or death. Risk highest with <em>first-time</em> maternal infection during pregnancy.
+      <strong>Neonatal Herpes:</strong> HSV-2 in genital tract during delivery → severe neurological disability or death. Risk is <span class="hy">highest when the mother is infected for the first time during pregnancy</span>. Most infections are <span class="hy">asymptomatic despite active shedding</span>, leading to undetected transmission.
     </div>
   </div>
 
@@ -601,25 +1107,23 @@ body {
     <h3>🔬 HPV — Clinical Presentation</h3>
     <div class="card-grid">
       <div class="card">
-        <h4 style="color:var(--cyan)">Pathogenesis</h4>
+        <h4 style="color:var(--cyan)">Benign Manifestations</h4>
         <ul>
-          <li><span class="struct">Non-enveloped, dsDNA</span> — transmitted via <span class="hy">skin-to-skin contact</span> (abrasions)</li>
-          <li>Targets <span class="hy">basal cells of stratified squamous epithelium</span></li>
-          <li>L1 binds HSPGs on basement membrane</li>
-          <li>Uses host RNA polymerase for mRNA synthesis</li>
-          <li><span class="hy">Minimal cell death and inflammation</span> → <span class="hy">↓ immune responses</span></li>
+          <li>4 known HPV types cause benign squamous cell papillomas</li>
+          <li><span class="hy">HPV-6 and HPV-11</span> → anogenital warts (<span class="key">condylomata acuminata</span>) and laryngeal papillomas</li>
         </ul>
       </div>
       <div class="card">
-        <h4 style="color:var(--red)">Clinical Features</h4>
+        <h4 style="color:var(--red)">Malignant Manifestations</h4>
         <ul>
-          <li><span class="hy">Benign squamous cell papillomas</span> (condylomata acuminata)</li>
-          <li><span class="hy">Anogenital warts</span></li>
-          <li>HPV-6 and HPV-11 → warts + laryngeal papillomas</li>
-          <li><span class="hy-u">High-risk types (HPV-16, HPV-18) → squamous cell carcinoma</span> of cervix, head/neck, anogenital region</li>
-          <li>Koilocytes on biopsy (small nucleus + large perinuclear vacuole)</li>
+          <li><span class="hy-u">High-risk HPV-16 and HPV-18</span> → squamous cell carcinoma of the <span class="hy">cervix, head and neck, anogenital region</span></li>
+          <li>Viral DNA integrates into cell DNA → large amounts E6/E7 → inactivate p53 and Rb → <span class="hy">malignant transformation</span></li>
+          <li>No late proteins, no progeny virions produced in cancer cells</li>
         </ul>
       </div>
+    </div>
+    <div class="callout callout-yellow">
+      <strong>Histology:</strong> <span class="hy">Koilocytes</span> = small condensed nucleus + large perinuclear cytoplasmic vacuole (seen in biopsy of cervical intraepithelial neoplasia). <span class="key">Acetowhite lesion</span> on colposcopy — acetic acid causes swelling of abnormal squamous epithelial areas and reversible coagulation of nuclear proteins/cytokeratins.
     </div>
   </div>
 
@@ -631,13 +1135,13 @@ body {
         <h4>Early Acute Stage (resolves in ~2 wks)</h4>
         <ul>
           <li>Fever, lethargy, sore throat, generalized lymphadenopathy</li>
-          <li><span class="hy">Maculopapular rash</span> on trunk, arms, legs — but <span class="hy-u">NOT on palms and soles</span></li>
+          <li><span class="hy">Maculopapular rash</span> on trunk, arms, legs — <span class="hy-u">but NOT on palms and soles</span></li>
         </ul>
       </div>
       <div class="timeline-item">
         <h4>Middle/Latent Stage (years)</h4>
         <ul>
-          <li><span class="key">Often asymptomatic</span></li>
+          <li>Asymptomatic</li>
           <li>CD4 counts gradually decline</li>
         </ul>
       </div>
@@ -645,13 +1149,11 @@ body {
         <h4>Late Stage (AIDS)</h4>
         <ul>
           <li><span class="hy-u">Opportunistic infections</span> due to immunodeficiency</li>
-          <li><span class="hy">p24</span> serves as a serologic marker</li>
-          <li><span class="hy">Disrupts cell-mediated immunity</span></li>
         </ul>
       </div>
     </div>
-    <div class="callout callout-yellow">
-      <strong>Distinguish from Syphilis:</strong> HIV acute rash is on trunk/arms/legs but <span class="hy">spares palms/soles</span>. Secondary syphilis rash <span class="hy">includes palms/soles</span>. This is a classic exam differentiator.
+    <div class="callout callout-red">
+      <strong>HIV vs Syphilis Rash:</strong> HIV acute rash = trunk/arms/legs, <span class="hy">spares palms and soles</span>. Secondary syphilis rash = <span class="hy">includes palms and soles</span>. Classic exam differentiator.
     </div>
   </div>
 
@@ -660,25 +1162,23 @@ body {
     <h3>🔬 Chlamydia trachomatis — Clinical Presentation</h3>
     <div class="card-grid">
       <div class="card">
-        <h4 style="color:var(--magenta)">In Females (PWU)</h4>
+        <h4 style="color:var(--magenta)">People with Uteruses (PWU)</h4>
         <ul>
           <li><span class="hy">Often asymptomatic</span></li>
           <li>Cervicitis: <span class="hy">mucopurulent discharge</span>, <span class="hy-u">easily induced endocervical bleeding</span></li>
-          <li>Endometritis, salpingitis, proctitis, perihepatic inflammation</li>
-          <li>Complications: <span class="hy">PID and salpingitis</span></li>
+          <li>Pelvic inflammatory disease, perihepatic inflammation</li>
         </ul>
       </div>
       <div class="card">
-        <h4 style="color:var(--blue)">In Males (PWP)</h4>
+        <h4 style="color:var(--blue)">People with Penises (PWP)</h4>
         <ul>
-          <li>Urethritis, epididymitis with <span class="hy-u">clear discharge</span></li>
-          <li>Prostatitis</li>
-          <li>Also: proctitis, pharyngitis, conjunctivitis</li>
+          <li>Epididymitis and prostatitis (<span class="hy">clear discharge</span>)</li>
+          <li>Urethritis, proctitis, pharyngitis, conjunctivitis</li>
         </ul>
       </div>
     </div>
     <div class="callout callout-blue">
-      <strong>LGV (Lymphogranuloma Venereum):</strong> Caused by C. trachomatis <span class="hy">L serotypes (L1-L3)</span>. Primary = small papule that heals spontaneously. Second stage (2–6 wks later): <span class="hy">tender local lymphadenopathy</span>, fever, headache. Untreated → fibrosis/strictures. Inflammatory response is <span class="key">granulomatous and neutrophilic</span>.
+      <strong>LGV (Lymphogranuloma Venereum):</strong> Caused by C. trachomatis <span class="hy">L1–L3 serovars</span>. Primary lesion = small papule in genital area that <span class="hy">heals spontaneously</span>. Days to weeks later → second stage: <span class="hy">tender local lymphadenopathy</span> + fever, headache, myalgia. If untreated → fibrosis and strictures in anogenital tract. LGV lesions show <span class="key">granulomatous and neutrophilic</span> inflammatory response. <em>Infection leads to antibody and cell-mediated reactions but <span class="hy">NOT to resistance to reinfection</span>.</em>
     </div>
   </div>
 
@@ -687,68 +1187,69 @@ body {
     <h3>🔬 Neisseria gonorrhoeae — Clinical Presentation</h3>
     <div class="card-grid">
       <div class="card">
-        <h4 style="color:var(--magenta)">In Females (PWU)</h4>
+        <h4 style="color:var(--magenta)">PWU</h4>
         <ul>
-          <li><span class="hy">Often asymptomatic</span></li>
-          <li>Cervicitis with <span class="hy">purulent vaginal discharge</span></li>
-          <li>Intermenstrual bleeding</li>
-          <li>Complication: <span class="hy">ascending infection → salpingitis → PID</span></li>
+          <li><span class="hy">Infections often asymptomatic</span></li>
+          <li>If symptomatic: cervicitis with <span class="hy">purulent vaginal discharge</span>; intermenstrual bleeding</li>
+          <li>Complication: <span class="hy">ascending infection, salpingitis</span></li>
         </ul>
       </div>
       <div class="card">
-        <h4 style="color:var(--blue)">In Males (PWP)</h4>
+        <h4 style="color:var(--blue)">PWP</h4>
         <ul>
-          <li>Urethritis with <span class="hy-u">purulent discharge</span></li>
-          <li>Epididymitis, prostatitis, urethral stricture</li>
+          <li>Usually present with urethritis with <span class="hy-u">purulent discharge</span></li>
+          <li>May develop epididymitis, prostatitis, urethral stricture</li>
         </ul>
       </div>
     </div>
     <div class="callout callout-red">
-      <strong>Key Distinction:</strong> Gonorrhea = <span class="hy">purulent</span> discharge. Chlamydia = <span class="hy">clear/mucopurulent</span> discharge. Disseminated gonococcal infection can cause tenosynovitis, macular/pustular rash, and migratory arthritis (Practice Case #2).
+      <strong>Key:</strong> Gonorrhea = <span class="hy">purulent (thick, creamy) discharge</span>. Chlamydia = <span class="hy">clear/mucopurulent discharge</span>. Neonatal gonococcal conjunctivitis can occur during delivery.
     </div>
   </div>
 
-  <!-- Syphilis Clinical -->
+  <!-- Syphilis Stages -->
   <div class="note-block">
     <h3>🔬 Treponema pallidum — Stages of Syphilis</h3>
     <div class="timeline">
       <div class="timeline-item">
         <h4>Primary Syphilis (~3 wks post-exposure)</h4>
         <ul>
-          <li><span class="hy-u">Chancre</span>: single, firm, <span class="hy">painless</span> red raised lesion</li>
-          <li>High bacterial load in chancre</li>
+          <li><span class="hy-u">Chancre</span>: single, firm, <span class="hy">non-tender</span>, red raised lesion where treponema invaded the skin</li>
+          <li><span class="hy">High level of bacteria present in the chancre</span></li>
           <li><span class="hy">Heals with or without treatment</span></li>
-          <li>Bacteria disseminate via blood/lymphatic system</li>
+          <li>Bacteria disseminate via blood or lymphatic system</li>
         </ul>
       </div>
       <div class="timeline-item">
-        <h4>Secondary Syphilis (2–10 wks after chancre)</h4>
+        <h4>Secondary Syphilis (2–10 wks after primary chancre)</h4>
         <ul>
-          <li>Generalized <span class="hy-u">papular rash including palms and soles</span></li>
-          <li><span class="hy">Condylomata lata</span> = flat-topped, moist papules on genitals</li>
-          <li>Mild fever, malaise, weight loss, lymphadenopathy</li>
-          <li>Patchy alopecia may occur</li>
+          <li><span class="hy">Painless superficial lesions</span> on skin and mucosa; <span class="hy-u">palms and soles of the feet</span></li>
+          <li><span class="hy">Condylomata lata</span> = moist papules on the genitals (rich in spirochetes, highly infectious)</li>
+          <li><span class="hy">Mild fever, malaise, weight loss and lymphadenopathy</span> is common in this stage</li>
+          <li>Patchy alopecia may also occur</li>
+          <li>Can last for several weeks; lesions heal spontaneously</li>
         </ul>
       </div>
       <div class="timeline-item">
         <h4>Latent Period</h4>
         <ul>
-          <li>Early latent (1–2 yrs): can relapse to secondary symptoms, still infectious</li>
-          <li>Late latent (years): asymptomatic, <em>not</em> infectious</li>
+          <li>~⅓ will "cure" without treatment, ~⅓ remain <span class="key">latent</span></li>
+          <li><span class="hy">Early latent</span> (1–2 yrs): secondary symptoms can reappear, patients still infectious</li>
+          <li><span class="hy">Late latent</span> (many years): no symptoms, patients <em>not</em> infectious</li>
         </ul>
       </div>
       <div class="timeline-item">
-        <h4>Tertiary Syphilis (after 5+ years)</h4>
+        <h4>Tertiary Syphilis (after 5+ years latent period)</h4>
         <ul>
-          <li>1/3 of untreated patients</li>
-          <li><span class="hy">Neurosyphilis:</span> meningeal, meningovascular, general paresis, <span class="hy">tabes dorsalis</span></li>
-          <li><span class="hy">Gummas:</span> nodular lesions from delayed hypersensitivity (bones, skin, mucous membranes)</li>
-          <li><span class="hy">Cardiovascular syphilis:</span> syphilitic aortitis → progressive dilation → aortic valve insufficiency and <span class="hy">aneurysm of ascending aorta</span></li>
+          <li>1/3 of untreated patients develop this stage</li>
+          <li><span class="hy">Neurosyphilis</span> — Early: asymptomatic, meningeal, meningovascular. Late: <span class="hy">general paresis, tabes dorsalis</span></li>
+          <li><span class="hy">Benign tertiary syphilis — Gummas:</span> nodular lesions most probably due to <span class="key">delayed hypersensitivity</span> to bacteria (bones, skin, mucous membranes of mouth/upper respiratory tract)</li>
+          <li><span class="hy">Cardiovascular syphilis:</span> syphilitic aortitis → progressive dilation of aortic root/arch → <span class="hy">aortic valve insufficiency and aneurysms of the proximal aorta</span>. Intense inflammatory infiltrate but treponemas are rare.</li>
         </ul>
       </div>
     </div>
     <div class="callout callout-red">
-      <strong>Congenital Syphilis:</strong> Crosses placenta after 3rd month. Findings: Hutchinson's teeth, mulberry molars, saber shins, saddle nose, rhagades, snuffles, frontal bossing, hepatosplenomegaly, interstitial keratitis, 8th nerve deafness. <span class="hy">All pregnant women should be tested ≥2x during pregnancy.</span>
+      <strong>Congenital Syphilis:</strong> Organism crosses placenta typically <span class="hy">after the third month of pregnancy</span>. Neonatal findings: <span class="hy">Hutchinson's teeth, mulberry molars, saber shins, saddle nose, rhagades, snuffles, frontal bossing</span>. Also: hepatosplenomegaly, interstitial keratitis, eighth nerve deafness. Can result in <span class="hy">stillbirth</span>. <span class="hy-u">All pregnant women should be tested for syphilis at least twice during pregnancy.</span>
     </div>
   </div>
 
@@ -757,56 +1258,56 @@ body {
     <h3>🔬 Trichomonas vaginalis — Clinical Presentation</h3>
     <div class="card-grid">
       <div class="card">
-        <h4 style="color:var(--magenta)">In Females</h4>
+        <h4 style="color:var(--magenta)">In Females (PWU)</h4>
         <ul>
-          <li>Often asymptomatic</li>
-          <li><span class="hy-u">Yellow, frothy vaginal discharge</span></li>
-          <li>Vulvovaginal discomfort</li>
-          <li>Dysuria, dyspareunia</li>
-          <li><span class="hy-u">"Strawberry cervix"</span> — fiery red from dilated mucosal blood vessels</li>
+          <li>Can be asymptomatic</li>
+          <li>If symptomatic: <span class="hy-u">yellow frothy vaginal discharge</span>, vulvovaginal discomfort, dysuria and dyspareunia</li>
+          <li>PE: <span class="hy-u">"Strawberry cervix"</span> — fiery red appearance due to dilation of cervical mucosa blood vessels</li>
+          <li>In pregnant patients: risk for <span class="hy">preterm delivery</span></li>
         </ul>
       </div>
       <div class="card">
-        <h4 style="color:var(--blue)">In Males</h4>
+        <h4 style="color:var(--blue)">In Males (PWP)</h4>
         <ul>
-          <li>Usually asymptomatic (~10% symptomatic)</li>
+          <li>Usually asymptomatic (~10% have urethritis)</li>
           <li>Itching, irritation, dysuria, discharge</li>
         </ul>
       </div>
     </div>
-    <div class="callout callout-yellow">
-      <strong>Pregnancy Risk:</strong> In pregnant patients, trichomoniasis increases risk for <span class="hy">preterm delivery</span>. Diagnosis: wet mount shows pear-shaped trophozoites with <span class="key">typical jerky motion</span>.
+    <div class="callout callout-green">
+      <strong>Dx:</strong> In a <span class="hy">wet mount</span> of vaginal discharge, the pear-shaped trophozoites have a <span class="key">typical jerky motion</span>. Trichomoniasis is one of the most common infections worldwide — roughly 25–50% of women in the US harbor the organism.
     </div>
   </div>
 
   <!-- PID -->
   <div class="note-block" id="pid">
-    <h3>🔬 Pelvic Inflammatory Disease (PID)</h3>
-    <p>Infectious/inflammatory disorder of the <span class="hy">upper female genital tract</span> (uterus, fallopian tubes, adjacent pelvic structures). Can spread to abdomen including <span class="hy">perihepatic structures</span> (RUQ pain).</p>
+    <h3>🔬 Pelvic Inflammatory Disease (PID) — N. gonorrhoeae &amp; C. trachomatis</h3>
+    <p><span class="hy">Salpingitis and pelvic inflammatory disease (PID)</span> are common ascending infections in PWU. PID is an infectious and inflammatory disorder of the <span class="hy">upper female genital tract</span> — uterus, fallopian tubes, and adjacent pelvic structures. Infection and inflammation may spread to the abdomen, including <span class="hy">perihepatic structures</span>.</p>
     <div class="card-grid">
       <div class="card">
         <h4 style="color:var(--red)">Presentation</h4>
         <ul>
-          <li>Lower abdominal pain (dull, aching, crampy, bilateral)</li>
+          <li>Lower abdominal pain (dull, aching, crampy, bilateral, constant)</li>
           <li>Abnormal vaginal discharge (~75%)</li>
           <li>Postcoital bleeding (~40%)</li>
           <li>Fever >38°C (~30%, late finding)</li>
-          <li>Gonococcal PID: more abrupt, more toxic</li>
+          <li><span class="hy">Gonococcal PID: more abrupt onset, more toxic symptoms</span></li>
+          <li>Symptoms often near end of menses or first 10 days after menstruation</li>
+          <li>Pain usually lasts &lt;7 days (if >3 weeks, PID less likely)</li>
         </ul>
       </div>
       <div class="card">
         <h4 style="color:var(--orange)">Complications</h4>
         <ul>
-          <li><span class="hy">Salpingitis</span></li>
-          <li><span class="hy">Perihepatitis</span> (Fitz-Hugh-Curtis)</li>
-          <li>Repeated episodes → <span class="hy-u">infertility and ectopic pregnancy</span></li>
+          <li><span class="hy">Perihepatitis</span> (RUQ pain)</li>
+          <li>Repeated episodes of salpingitis and PID can lead to <span class="hy-u">infertility and ectopic pregnancy</span></li>
         </ul>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════ LO 4 ═══════════════════ -->
+<!-- ════════════════════ LO 4 ════════════════════ -->
 <div class="lo-section" id="lo4">
   <div class="lo-header">
     <span class="lo-num">LO 4</span>
@@ -814,72 +1315,37 @@ body {
   </div>
 
   <div class="note-block">
-    <h3>🛡️ Preventative Measures</h3>
+    <h3>🛡️ HPV Vaccination — Prevention</h3>
+    <p><span class="hy">Gardasil 9-valent HPV vaccine</span> is currently approved in the US.</p>
     <table class="data-table">
-      <thead><tr><th>Strategy</th><th>Details</th></tr></thead>
+      <thead><tr><th>Category</th><th>Details</th></tr></thead>
       <tbody>
-        <tr><td><span class="hy">Vaccination</span></td><td><span class="hy">Gardasil 9-valent HPV vaccine</span> for preteens (routine at age 11–12, can start at 9); Hep B vaccination</td></tr>
-        <tr><td><span class="key">Reduce number of sex partners</span></td><td>Monogamy decreases exposure risk</td></tr>
-        <tr><td><span class="key">Use protection</span></td><td>Condoms, barriers; <span class="hy">PrEP/PEP</span> for HIV</td></tr>
-        <tr><td><span class="key">Get tested</span></td><td>Regular screening; make sure partners are aware of test results</td></tr>
+        <tr><td><span class="hy">Routine vaccination</span></td><td>Age <span class="hy">11–12 years</span>; can be started at age 9</td></tr>
+        <tr><td>Catch-up vaccination</td><td>Age <span class="hy">13–26 years</span>, if not adequately vaccinated</td></tr>
+        <tr><td>Shared clinical decision-making</td><td>Some adults age <span class="hy">27–45 years</span>, if not adequately vaccinated</td></tr>
       </tbody>
     </table>
     <div class="callout callout-green">
-      <strong>HPV Vaccine Schedule:</strong> Age 9–14 at initial vaccination → <span class="hy">2-dose series</span> (0, 6–12 months). Age ≥15 at initial vaccination → <span class="hy">3-dose series</span> (0, 1–2 months, 6 months). Special situations: immunocompromised (including HIV) → 3-dose series even if age 9–14. Pregnancy: delay vaccination until after delivery.
+      <strong>Schedule:</strong> Age <span class="hy">9–14 at initial vaccination</span>: 2-dose series at 0 and 6–12 months. Age <span class="hy">15+ at initial vaccination</span>: 3-dose series at 0, 1–2 months, and 6 months. <strong>Special situations:</strong> Immunocompromising conditions (including HIV): 3-dose series even for ages 9–14. History of sexual abuse/assault: start at age 9. Pregnancy: HPV vaccination not recommended until after pregnancy; no intervention needed if vaccinated while pregnant.
     </div>
+  </div>
+
+  <div class="note-block">
+    <h3>🛡️ General STI Prevention Strategies</h3>
+    <table class="data-table">
+      <thead><tr><th>Strategy</th><th>Details</th></tr></thead>
+      <tbody>
+        <tr><td><span class="hy">Vaccination</span></td><td>HPV (Gardasil 9), Hepatitis B</td></tr>
+        <tr><td><span class="key">Barrier protection</span></td><td>Condoms, dental dams; PrEP/PEP for HIV</td></tr>
+        <tr><td><span class="key">Reduce partners</span></td><td>Monogamy decreases exposure risk</td></tr>
+        <tr><td><span class="key">Regular screening</span></td><td>Especially for Chlamydia (often asymptomatic); all pregnant women tested for syphilis ≥2x</td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
-<!-- ═══════════════════ PRACTICE CASES ═══════════════════ -->
-<div class="lo-section" id="cases">
-  <div class="lo-header">
-    <span class="lo-num">CASES</span>
-    <span class="lo-title">Practice Cases from Lecture</span>
-  </div>
-
-  <div class="note-block">
-    <h3>📝 Case #1 — Trichomoniasis</h3>
-    <p><em>28 y/o with vaginal itching, frothy yellow discharge, dysuria, multiple sexual partners. PE: strawberry cervix.</em></p>
-    <div class="callout callout-green">
-      <strong>Dx:</strong> <span class="hy">Trichomonas vaginalis</span>. Classic triad: frothy yellow discharge + dysuria + strawberry cervix. Not viral — the frothy discharge and strawberry cervix distinguish it from HSV, chlamydia, and gonorrhea.
-    </div>
-  </div>
-
-  <div class="note-block">
-    <h3>📝 Case #2 — Disseminated Gonococcal Infection</h3>
-    <p><em>23 y/o woman with finger tenosynovitis → painful rash on extremities (macular + pustular) → ankle pain → temp 39.4°C.</em></p>
-    <div class="callout callout-green">
-      <strong>Dx:</strong> <span class="hy">Disseminated N. gonorrhoeae</span>. Triad of migratory polyarthralgia/tenosynovitis + dermatitis (pustules/macules) + fever. Think gonorrhea when you see joint involvement + skin lesions in a young sexually active patient.
-    </div>
-  </div>
-
-  <div class="note-block">
-    <h3>📝 Case #3 — Syphilis (Primary + Secondary overlap)</h3>
-    <p><em>39 y/o with nonhealing, nonpainful ulcer on upper lip + nonpruritic rash on trunk. Oral sex with partner who had penile lesion.</em></p>
-    <div class="callout callout-green">
-      <strong>Dx:</strong> <span class="hy">Treponema pallidum (syphilis)</span>. Painless ulcer = primary chancre (can be extragenital). Rash on trunk = secondary syphilis. Key: nonpainful + nonpruritic. This patient may have overlapping stages.
-    </div>
-  </div>
-
-  <div class="note-block">
-    <h3>📝 Case #4 — LGV (Chlamydia L serotype)</h3>
-    <p><em>26 y/o male with tender, swollen groin. Unilateral firm inguinal lymphadenopathy. No previous ulcer, discharge, or rash.</em></p>
-    <div class="callout callout-green">
-      <strong>Dx:</strong> <span class="hy">Chlamydia trachomatis L1-L3 (LGV)</span>. The primary papule healed spontaneously (patient didn't notice it). Now in second stage with tender lymphadenopathy. No rash or discharge rules out secondary syphilis and gonorrhea.
-    </div>
-  </div>
-
-  <div class="note-block">
-    <h3>📝 Case #5 — HSV-2 Reactivation</h3>
-    <p><em>32 y/o male with recurrent painful vesicles on penile shaft + tender groin adenopathy. Similar episode 1 year ago. 3 female sexual partners.</em></p>
-    <div class="callout callout-green">
-      <strong>Dx:</strong> <span class="hy">HSV-2 reactivation</span>. Painful vesicles that rupture + recurrent episodes = classic HSV. Latent virus in sacral ganglia reactivates periodically. Partners can be asymptomatic shedders.
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════ DISCHARGE COMPARISON ═══════════════════ -->
-<div class="lo-section">
+<!-- ════════════════════ DISCHARGE COMPARISON ════════════════════ -->
+<div class="lo-section" id="discharge">
   <div class="lo-header">
     <span class="lo-num">HY</span>
     <span class="lo-title">High-Yield Discharge Comparison</span>
@@ -888,45 +1354,278 @@ body {
     <table class="data-table">
       <thead><tr><th>STI</th><th>Discharge Character</th><th>Key Distinguisher</th></tr></thead>
       <tbody>
-        <tr><td><span class="path">C. trachomatis</span></td><td><span class="hy">Mucopurulent</span> (females) / <span class="hy">Clear</span> (males)</td><td>Easily induced endocervical bleeding</td></tr>
-        <tr><td><span class="path">N. gonorrhoeae</span></td><td><span class="hy-u">Purulent</span> (thick, creamy)</td><td>Heavy purulent exudate; neutrophil-rich</td></tr>
+        <tr><td><span class="path">C. trachomatis</span></td><td><span class="hy">Mucopurulent</span> (PWU) / <span class="hy">Clear</span> (PWP)</td><td>Easily induced endocervical bleeding; often asymptomatic</td></tr>
+        <tr><td><span class="path">N. gonorrhoeae</span></td><td><span class="hy-u">Purulent</span> (thick, heavy)</td><td>Neutrophil-rich purulent exudate; intracellular diplococci on Gram stain</td></tr>
         <tr><td><span class="path">T. vaginalis</span></td><td><span class="hy-u">Yellow, frothy</span></td><td>Strawberry cervix; jerky trophozoites on wet mount</td></tr>
         <tr><td>BV</td><td>Thin, grayish-white, <span class="key">fishy odor</span></td><td>Positive whiff test; clue cells</td></tr>
-        <tr><td>HSV</td><td><span class="key">Whitish mucopurulent</span> (cervical/vaginal lesions)</td><td>Painful vesicles/ulcers are the primary finding</td></tr>
+        <tr><td>HSV</td><td><span class="key">Whitish mucopurulent</span> (cervical/vaginal lesions)</td><td>Painful vesicles/ulcers are the primary finding; Tzanck smear</td></tr>
       </tbody>
     </table>
   </div>
 </div>
 
-</div><!-- /main -->
+<!-- ════════════════════ PRACTICE CASES ════════════════════ -->
+<div class="lo-section" id="cases">
+  <div class="lo-header">
+    <span class="lo-num">CASES</span>
+    <span class="lo-title">Practice Cases from Lecture</span>
+  </div>
+  <p style="margin-bottom:20px;font-size:0.86rem;color:var(--text-dim)">Click "Show Answer" to reveal the diagnosis and reasoning. These cases use Dr. Grlickova-Duzevik's exact wording from lecture.</p>
 
-<!-- Font size controls -->
-<div class="font-controls">
-  <button onclick="changeFontSize(-1)">A−</button>
-  <button onclick="changeFontSize(1)">A+</button>
+  <!-- Case 1 -->
+  <div class="case-block">
+    <div class="case-header">
+      <h3>Case #1</h3>
+      <div class="case-stem">
+        A 28-year old patient complains of vaginal itching and a frothy, yellow discharge. She also complains of painful urination.<br><br>
+        The patient has multiple sexual partners. And on physical exam the finding shows the following: <span class="hy">strawberry cervix</span>.
+      </div>
+      <div class="case-question">Does any of these symptoms appear to be associated with any of the viral pathogens discussed before? What would be the next step?</div>
+    </div>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Show Answer</button>
+    <div class="case-answer">
+      <p><span class="hy">Dx: Trichomonas vaginalis</span></p>
+      <p>None of the viral pathogens discussed (HSV, HPV, HIV) produce this presentation. The classic triad of <span class="hy">frothy yellow discharge + dysuria + strawberry cervix</span> points to T. vaginalis. Strawberry cervix = fiery red appearance from dilation of cervical mucosa blood vessels. Confirmed by wet mount showing pear-shaped trophozoites with jerky motion.</p>
+    </div>
+  </div>
+
+  <!-- Case 2 -->
+  <div class="case-block">
+    <div class="case-header">
+      <h3>Case #2</h3>
+      <div class="case-stem">
+        23-year-old woman with a one-week history of swelling and pain in her right third finger was seen by an orthopedist, who prescribed cephalexin and indomethacin for suspected tenosynovitis.<br><br>
+        Over the next several days, a painful rash developed on the patient's extremities. She presented to the emergency department the day after pain developed in her right ankle with generalized malaise.<br><br>
+        Physical examination showed a temperature of 39.4°C (103°F) and a rash that was composed of both <span class="hy">macular lesions</span> and <span class="hy">pustular lesions</span>.
+      </div>
+      <div class="case-question">What will you do next for this patient?</div>
+    </div>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Show Answer</button>
+    <div class="case-answer">
+      <p><span class="hy">Dx: Disseminated Neisseria gonorrhoeae infection</span></p>
+      <p>Classic triad: <span class="hy">migratory polyarthralgia/tenosynovitis + dermatitis (macular and pustular lesions) + fever</span> in a young, sexually active patient. The initial finger tenosynovitis that didn't respond to cephalexin should raise suspicion. Disseminated gonococcal infection requires blood cultures and joint fluid analysis; treatment is IV ceftriaxone.</p>
+    </div>
+  </div>
+
+  <!-- Case 3 -->
+  <div class="case-block">
+    <div class="case-header">
+      <h3>Case #3</h3>
+      <div class="case-stem">
+        A 39-year old patient presents with <span class="hy">nonhealing ulcer</span> over the upper lip for one week and new onset rash on her trunk.<br><br>
+        The patient had oral sex with the partner who had a lesion on his penis.<br><br>
+        The physician examines the <span class="hy">nonpainful ulcer</span> and <span class="hy">nonpruritic rash</span> on the trunk of this patient.
+      </div>
+      <div class="case-question">What is on differential for this patient?</div>
+    </div>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Show Answer</button>
+    <div class="case-answer">
+      <p><span class="hy">Dx: Treponema pallidum (Syphilis) — overlapping primary and secondary stages</span></p>
+      <p>The nonpainful ulcer on the upper lip = <span class="hy">primary chancre</span> (can occur at any site of inoculation — extragenital chancres are possible from oral sex). The nonpruritic rash on the trunk = <span class="hy">secondary syphilis</span>. Key features: <em>nonpainful</em> + <em>nonpruritic</em>. The partner's penile lesion was likely his own chancre. This patient has overlapping primary and secondary stages.</p>
+    </div>
+  </div>
+
+  <!-- Case 4 -->
+  <div class="case-block">
+    <div class="case-header">
+      <h3>Case #4</h3>
+      <div class="case-stem">
+        A 26-year-old male visits his doctor for a tender, swollen groin. Upon examination, the doctor notes <span class="hy">unilateral, firm inguinal lymphadenopathy</span>. The patient reports no previous ulcer, discharge, or rash.
+      </div>
+      <div class="case-question">What is the most probable pathogen causing this change?</div>
+    </div>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Show Answer</button>
+    <div class="case-answer">
+      <p><span class="hy">Dx: Chlamydia trachomatis L1–L3 (Lymphogranuloma Venereum)</span></p>
+      <p>LGV presents in stages. The <span class="hy">primary papule healed spontaneously</span> — the patient likely never noticed it. Now in the <span class="hy">second stage</span> with tender local lymphadenopathy and systemic symptoms. No rash or discharge rules out secondary syphilis and gonorrhea. The unilateral inguinal lymphadenopathy pattern is classic for LGV.</p>
+    </div>
+  </div>
+
+  <!-- Case 5 -->
+  <div class="case-block">
+    <div class="case-header">
+      <h3>Case #5</h3>
+      <div class="case-stem">
+        A 32-year-old man presents with complaints of <span class="hy">multiple painful vesicles</span> on the shaft of his penis associated with tender groin adenopathy. The vesicles broke 2 days ago and the pain has increased.<br><br>
+        He had similar lesions 1 year ago but never reached for healthcare.<br><br>
+        He has 3 different female sexual partners, but he is not aware of them having any sores or diseases.
+      </div>
+      <div class="case-question">What is the most likely diagnosis?</div>
+    </div>
+    <button class="case-reveal-btn" onclick="toggleCase(this)">Show Answer</button>
+    <div class="case-answer">
+      <p><span class="hy">Dx: HSV-2 Reactivation</span></p>
+      <p><span class="hy">Painful vesicles</span> that rupture into ulcers + <span class="hy">recurrent episodes</span> = classic HSV. The virus established latency in sacral ganglia after the initial infection a year ago and has now reactivated. Key: lesions are <em>painful</em> (unlike syphilis chancre which is painless). His partners can be <span class="hy">asymptomatic shedders</span> — most HSV infections are transmitted by individuals who are unaware they are infected.</p>
+    </div>
+  </div>
 </div>
 
+</div><!-- /main -->
+
+
 <script>
-// Font sizing
-let baseFontSize = 15;
-function changeFontSize(dir) {
-  baseFontSize = Math.max(12, Math.min(22, baseFontSize + dir));
-  document.body.style.fontSize = baseFontSize + 'px';
+const THEME_KEY = 'eliza-sti-theme';
+const FONT_KEY = 'eliza-sti-font';
+const BODY_BASE_SIZE = 15;
+let fontScale = parseInt(localStorage.getItem(FONT_KEY) || '100', 10);
+
+function applyFontScale(scale) {
+  fontScale = Math.max(85, Math.min(135, scale));
+  const ratio = fontScale / 100;
+  document.documentElement.style.fontSize = `${16 * ratio}px`;
+  document.body.style.fontSize = `${BODY_BASE_SIZE * ratio}px`;
+  const label = document.getElementById('fontScaleLabel');
+  if (label) label.textContent = `${fontScale}%`;
+  localStorage.setItem(FONT_KEY, String(fontScale));
 }
 
-// Sidebar active state on scroll
+function changeFontSize(direction) {
+  applyFontScale(fontScale + (direction * 5));
+}
+
+function setTheme(theme) {
+  const resolved = theme === 'paper' ? '' : theme;
+  if (resolved) {
+    document.body.dataset.theme = resolved;
+  } else {
+    document.body.removeAttribute('data-theme');
+  }
+  document.querySelectorAll('.theme-swatch').forEach(btn => {
+    btn.setAttribute('aria-pressed', String(btn.dataset.theme === theme));
+  });
+  localStorage.setItem(THEME_KEY, theme);
+}
+
+function toggleCase(btn) {
+  const answer = btn.nextElementSibling;
+  answer.classList.toggle('show');
+  btn.classList.toggle('open');
+  btn.textContent = answer.classList.contains('show') ? 'Hide Answer' : 'Show Answer';
+}
+
 const sections = document.querySelectorAll('.lo-section, .note-block[id]');
 const navLinks = document.querySelectorAll('.sidebar a');
-window.addEventListener('scroll', () => {
+function updateActiveNav() {
   let current = '';
-  sections.forEach(s => {
-    if (s.getBoundingClientRect().top < 120) current = s.id;
+  sections.forEach(section => {
+    if (section.getBoundingClientRect().top < 160) current = section.id;
   });
-  navLinks.forEach(a => {
-    a.classList.remove('active');
-    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+window.addEventListener('resize', updateActiveNav);
+
+document.querySelectorAll('.theme-swatch').forEach(btn => {
+  btn.addEventListener('click', () => setTheme(btn.dataset.theme));
+});
+
+document.querySelectorAll('.sidebar a').forEach(link => {
+  link.addEventListener('click', () => {
+    if (window.innerWidth <= 1024) {
+      document.querySelector('.sidebar')?.classList.remove('show');
+    }
   });
 });
+
+
+function setQuizHiddenState(shell, hidden) {
+  shell.querySelectorAll('tbody tr').forEach(row => {
+    Array.from(row.cells).forEach((cell, idx) => {
+      if (idx === 0) return;
+      cell.classList.toggle('quiz-hidden', hidden);
+      if (hidden) {
+        cell.classList.remove('quiz-revealed');
+      }
+    });
+  });
+}
+
+function initTableQuizModes() {
+  document.querySelectorAll('.data-table').forEach((table) => {
+    if (table.dataset.quizEnhanced === 'true') return;
+    table.dataset.quizEnhanced = 'true';
+
+    const shell = document.createElement('div');
+    shell.className = 'table-quiz-shell';
+    const controls = document.createElement('div');
+    controls.className = 'table-quiz-controls';
+    controls.innerHTML = `
+      <div class="table-quiz-left">
+        <button type="button" class="table-quiz-btn expand-btn" aria-expanded="false">Expand table</button>
+      </div>
+      <div class="table-quiz-right">
+        <label class="table-quiz-toggle" aria-label="Table quiz mode">
+          <span>Table Quiz</span>
+          <button type="button" class="table-quiz-switch" aria-pressed="false"></button>
+        </label>
+        <button type="button" class="table-quiz-btn reveal-btn" style="display:none">Reveal all</button>
+        <button type="button" class="table-quiz-btn reset-btn" style="display:none">Reset</button>
+      </div>
+    `;
+
+    table.parentNode.insertBefore(shell, table);
+    shell.appendChild(controls);
+    shell.appendChild(table);
+
+    const switchBtn = shell.querySelector('.table-quiz-switch');
+    const revealBtn = shell.querySelector('.reveal-btn');
+    const resetBtn = shell.querySelector('.reset-btn');
+    const expandBtn = shell.querySelector('.expand-btn');
+
+    const applyMode = (quizOn) => {
+      shell.classList.toggle('quiz-mode', quizOn);
+      switchBtn.setAttribute('aria-pressed', String(quizOn));
+      revealBtn.style.display = quizOn ? '' : 'none';
+      resetBtn.style.display = quizOn ? '' : 'none';
+      setQuizHiddenState(shell, quizOn);
+    };
+
+    switchBtn.addEventListener('click', () => {
+      applyMode(!shell.classList.contains('quiz-mode'));
+    });
+
+    revealBtn.addEventListener('click', () => {
+      shell.querySelectorAll('tbody td.quiz-hidden').forEach(cell => cell.classList.add('quiz-revealed'));
+    });
+
+    resetBtn.addEventListener('click', () => {
+      setQuizHiddenState(shell, true);
+    });
+
+    expandBtn.addEventListener('click', () => {
+      const expanded = !shell.classList.contains('table-expanded');
+      document.querySelectorAll('.table-quiz-shell.table-expanded').forEach(openShell => {
+        openShell.classList.remove('table-expanded');
+        const btn = openShell.querySelector('.expand-btn');
+        if (btn) {
+          btn.textContent = 'Expand table';
+          btn.setAttribute('aria-expanded', 'false');
+        }
+      });
+      shell.classList.toggle('table-expanded', expanded);
+      document.body.classList.toggle('table-expanded-open', expanded);
+      expandBtn.textContent = expanded ? 'Minimize' : 'Expand table';
+      expandBtn.setAttribute('aria-expanded', String(expanded));
+    });
+
+    shell.addEventListener('click', (event) => {
+      const cell = event.target.closest('td.quiz-hidden');
+      if (!cell || !shell.classList.contains('quiz-mode')) return;
+      cell.classList.toggle('quiz-revealed');
+    });
+
+    applyMode(false);
+  });
+}
+
+const savedTheme = localStorage.getItem(THEME_KEY) || 'paper';
+setTheme(savedTheme);
+initTableQuizModes();
+applyFontScale(fontScale);
+updateActiveNav();
 </script>
 </body>
 </html>
