@@ -2627,12 +2627,16 @@ body[data-bg-theme="slate"]::before {
 
 <script>
 function updateExpandButton() {
-  const btn = document.querySelector('.expand-btn');
-  if (!btn) return;
+  const buttons = Array.from(document.querySelectorAll('.expand-btn[onclick*="toggleAll"]'));
+  if (!buttons.length) return;
   const cards = Array.from(document.querySelectorAll('.nerve-card'));
   const allOpen = cards.length > 0 && cards.every(card => card.classList.contains('open'));
-  btn.textContent = allOpen ? 'Collapse all' : 'Expand all';
-  btn.setAttribute('aria-label', allOpen ? 'Collapse all nerve sections' : 'Expand all nerve sections');
+  buttons.forEach((btn, idx) => {
+    btn.textContent = allOpen
+      ? (idx === 0 ? 'Collapse all' : '▲ Collapse all sections')
+      : (idx === 0 ? 'Expand all' : '▼ Expand all sections');
+    btn.setAttribute('aria-label', allOpen ? 'Collapse all nerve sections' : 'Expand all nerve sections');
+  });
 }
 
 function setFilterFeedback(message, count) {
@@ -2661,10 +2665,18 @@ function toggleAll() {
   setFilterFeedback(anyClosed ? 'all nerve sections opened' : 'all nerve sections collapsed');
 }
 
-let currentSize = 15;
+let currentSize = 100;
+function applyFontSize() {
+  document.documentElement.style.fontSize = currentSize + '%';
+  document.body.style.fontSize = '1rem';
+  try {
+    localStorage.setItem('cranialNervesFontScale', String(currentSize));
+  } catch (err) {}
+}
+
 function changeFontSize(delta) {
-  currentSize = Math.max(12, Math.min(22, currentSize + delta));
-  document.body.style.fontSize = currentSize + 'px';
+  currentSize = Math.max(88, Math.min(128, currentSize + (delta * 6)));
+  applyFontSize();
 }
 
 function applyFilter(filter) {
@@ -2855,6 +2867,17 @@ document.addEventListener('DOMContentLoaded', () => {
     try { return localStorage.getItem('cranialNervesBgTheme') || 'sky'; } catch (err) { return 'sky'; }
   })();
   setBackgroundTheme(savedBgTheme);
+
+  const savedFontScale = (() => {
+    try {
+      const raw = parseInt(localStorage.getItem('cranialNervesFontScale') || '100', 10);
+      return Number.isFinite(raw) ? raw : 100;
+    } catch (err) {
+      return 100;
+    }
+  })();
+  currentSize = Math.max(88, Math.min(128, savedFontScale));
+  applyFontSize();
 
   document.querySelectorAll('.theme-swatch').forEach(btn => {
     btn.addEventListener('click', () => setBackgroundTheme(btn.dataset.theme));
