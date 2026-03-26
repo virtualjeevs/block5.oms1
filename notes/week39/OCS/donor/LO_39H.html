@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCS-1 Head & Neck Illness Scripts</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f3ea;
+    --surface: #ffffff;
+    --surface-hover: #fbf7f0;
+    --border: #ddd4c4;
+    --border-accent: #cbbd95;
+    --text: #2b2822;
+    --text-muted: #6f695b;
+    --text-dim: #9a917f;
+    --accent-migraine: #8a4ecb;
+    --accent-migraine-dim: rgba(138,78,203,0.10);
+    --accent-tth: #2d6db7;
+    --accent-tth-dim: rgba(45,109,183,0.10);
+    --accent-tmj: #2d8b67;
+    --accent-tmj-dim: rgba(45,139,103,0.10);
+    --accent-gca: #b96a22;
+    --accent-gca-dim: rgba(185,106,34,0.11);
+    --red: #c85151;
+    --red-dim: rgba(200,81,81,0.10);
+    --shadow-soft: 0 14px 40px rgba(82, 67, 38, 0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background:
+      radial-gradient(circle at top left, rgba(138,78,203,0.06), transparent 30%),
+      radial-gradient(circle at top right, rgba(185,106,34,0.05), transparent 26%),
+      linear-gradient(180deg, #fbf9f4 0%, var(--bg) 18%, #f5f0e5 100%);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(203,189,149,0.55);
+    background: linear-gradient(180deg, rgba(138,78,203,0.05) 0%, rgba(255,255,255,0.65) 100%);
+  }
+  .page-header .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+  .page-header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+  .page-header .subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  /* ── NAV TABS ── */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(248,244,236,0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(203,189,149,0.55);
+    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.2rem;
+    box-shadow: 0 8px 28px rgba(95, 78, 41, 0.06);
+  }
+  .nav-tab {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.85rem 1.05rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-tab:hover {
+    color: var(--text);
+    background: rgba(255,255,255,0.55);
+  }
+  .nav-tab.active[data-target="migraine"] { color: var(--accent-migraine); border-bottom-color: var(--accent-migraine); background: rgba(138,78,203,0.08); }
+  .nav-tab.active[data-target="tth"] { color: var(--accent-tth); border-bottom-color: var(--accent-tth); background: rgba(45,109,183,0.08); }
+  .nav-tab.active[data-target="tmj"] { color: var(--accent-tmj); border-bottom-color: var(--accent-tmj); background: rgba(45,139,103,0.08); }
+  .nav-tab.active[data-target="gca"] { color: var(--accent-gca); border-bottom-color: var(--accent-gca); background: rgba(185,106,34,0.08); }
+
+  /* ── CONTENT ── */
+  .content { max-width: 900px; margin: 0 auto; padding: 2.1rem 1.5rem 4rem; }
+  .condition-panel { display: none; animation: fadeIn 0.3s ease; }
+  .condition-panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── CONDITION HEADER ── */
+  .condition-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  .condition-aka {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+  .intro-text {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .condition-panel {
+    background: rgba(255,255,255,0.34);
+    border: 1px solid rgba(203,189,149,0.32);
+    border-radius: 24px;
+    padding: 1.7rem;
+    box-shadow: 0 22px 54px rgba(95, 78, 41, 0.06);
+  }
+
+
+  /* ── SECTION BLOCKS ── */
+  .section {
+    margin-bottom: 2rem;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Color-coded section labels */
+  [data-condition="migraine"] .section-label { color: var(--accent-migraine); }
+  [data-condition="tth"] .section-label { color: var(--accent-tth); }
+  [data-condition="tmj"] .section-label { color: var(--accent-tmj); }
+  [data-condition="gca"] .section-label { color: var(--accent-gca); }
+
+  /* ── CARDS ── */
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.98));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 0.75rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .card p, .card li {
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+  .card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .card ul li {
+    padding: 0.2rem 0 0.2rem 1.1rem;
+    position: relative;
+  }
+  .card ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    color: var(--text-dim);
+  }
+  .card ul ul { margin-top: 0.15rem; }
+  .card ul ul li { padding-left: 1.1rem; font-size: 0.85rem; color: var(--text-muted); }
+  .card ul ul li::before { content: '–'; color: var(--text-dim); }
+
+  /* ── HIGHLIGHT CHIP ── */
+  .hy {
+    font-weight: 600;
+    padding: 0.08em 0.35em;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+  [data-condition="migraine"] .hy { color: var(--accent-migraine); background: var(--accent-migraine-dim); }
+  [data-condition="tth"] .hy { color: var(--accent-tth); background: var(--accent-tth-dim); }
+  [data-condition="tmj"] .hy { color: var(--accent-tmj); background: var(--accent-tmj-dim); }
+  [data-condition="gca"] .hy { color: var(--accent-gca); background: var(--accent-gca-dim); }
+
+  .red { color: var(--red); font-weight: 600; background: var(--red-dim); padding: 0.08em 0.35em; border-radius: 4px; font-size: 0.88em; }
+
+  /* ── KEY FACT BOX ── */
+  .keyfact {
+    border-left: 3px solid;
+    padding: 0.9rem 1.2rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+  [data-condition="migraine"] .keyfact { border-color: var(--accent-migraine); background: var(--accent-migraine-dim); }
+  [data-condition="tth"] .keyfact { border-color: var(--accent-tth); background: var(--accent-tth-dim); }
+  [data-condition="tmj"] .keyfact { border-color: var(--accent-tmj); background: var(--accent-tmj-dim); }
+  [data-condition="gca"] .keyfact { border-color: var(--accent-gca); background: var(--accent-gca-dim); }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.82rem;
+    margin: 1rem 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    background: var(--surface);
+  }
+  .compare-table th {
+    background: #f8f4ec;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: rgba(134,112,69,0.035); }
+
+  /* ── DDX GRID ── */
+  .ddx-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.5rem;
+  }
+  .ddx-item {
+    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(251,247,240,0.98));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    box-shadow: 0 6px 18px rgba(95, 78, 41, 0.04);
+  }
+
+  /* ── DX CRITERIA BOX ── */
+  .dx-box {
+    background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(252,248,242,0.99));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.4rem;
+    font-size: 0.88rem;
+    line-height: 1.75;
+    box-shadow: var(--shadow-soft);
+  }
+  .dx-box strong { color: var(--text); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .page-header h1 { font-size: 1.5rem; }
+    .condition-title { font-size: 1.35rem; }
+    .nav-tab { padding: 0.75rem 0.8rem; font-size: 0.75rem; }
+    .content { padding: 1.5rem 1rem 3rem; }
+    .ddx-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="tag">UNE COM · OCS-1 · Clinical Backbone</div>
+  <h1>Head &amp; Neck Illness Scripts</h1>
+  <div class="subtitle">Migraine · Tension-Type Headache · TMJ Disorder · Giant Cell Arteritis</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav-bar">
+  <button class="nav-tab active" data-target="migraine" onclick="showPanel('migraine')">Migraine</button>
+  <button class="nav-tab" data-target="tth" onclick="showPanel('tth')">Tension Headache</button>
+  <button class="nav-tab" data-target="tmj" onclick="showPanel('tmj')">TMJ Disorder</button>
+  <button class="nav-tab" data-target="gca" onclick="showPanel('gca')">Giant Cell Arteritis</button>
+</nav>
+
+<div class="content">
+
+<!-- ╔═══════════════════════════════════════════╗ -->
+<!-- ║             MIGRAINE                      ║ -->
+<!-- ╚═══════════════════════════════════════════╝ -->
+<div class="condition-panel active" id="migraine" data-condition="migraine">
+  <h2 class="condition-title">Migraine Headache</h2>
+  <div class="condition-aka">Common Migraine (without aura) · Classic Migraine (with aura)</div>
+  <div class="intro-text">
+    A chronic condition punctuated by acute attacks of episodic, severe, <span class="hy">unilateral</span> head pain that is <span class="hy">throbbing</span> in nature. Divided into "Common" (no aura, 75% of cases) and "Classic" (with aura) subtypes.
+  </div>
+
+  <!-- Epidemiology -->
+  <div class="section">
+    <div class="section-label">Epidemiology</div>
+    <div class="card">
+      <ul>
+        <li>Affects up to <span class="hy">12% of the population</span></li>
+        <li><span class="hy">More frequent in women</span> than men</li>
+        <li>Migraine without aura is the most common type (<span class="hy">75%</span> of cases)</li>
+        <li>Peak prevalence in ages <span class="hy">30–39</span></li>
+        <li>Often an <span class="hy">inherited disorder</span>, though specific loci/genes are not yet identified</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Pathophysiology -->
+  <div class="section">
+    <div class="section-label">Pathophysiology</div>
+    <div class="card">
+      <ul>
+        <li><span class="hy">Neuronal dysfunction</span> in the cerebral cortex</li>
+        <li><span class="hy">Cortical spreading depression</span> — a wave of neuronal depolarization sweeps across the cortex</li>
+        <li>This depolarization triggers activity in <span class="hy">trigeminovascular sensory fibers</span> → perceived as pain</li>
+        <li>The <span class="hy">trigeminovascular system</span> = meningeal branches of CN V providing sensory innervation to meninges and head vessels</li>
+        <li><span class="hy">Sensitization</span> of primary afferent fibers and of the trigeminal complex in the brainstem plays a central role</li>
+      </ul>
+    </div>
+    <div class="keyfact">
+      <strong>Key Mechanism:</strong> Cortical spreading depression → trigeminovascular activation → meningeal nociceptor sensitization → headache pain
+    </div>
+  </div>
+
+  <!-- Clinical Presentation -->
+  <div class="section">
+    <div class="section-label">Clinical Presentation</div>
+    <div class="card">
+      <p style="margin-bottom:0.5rem; font-weight:600;">Without Aura (most common):</p>
+      <ul>
+        <li>Severe, <span class="hy">unilateral frontal or temporal</span> pain — <span class="hy">throbbing</span> in quality</li>
+        <li>Associated symptoms: <span class="hy">nausea, vomiting</span>, diarrhea, tremors, <span class="hy">photophobia, phonophobia</span>, sweating, chills</li>
+      </ul>
+      <p style="margin: 0.75rem 0 0.5rem; font-weight:600;">With Aura (precedes headache):</p>
+      <ul>
+        <li>Visual disturbance (scotomata)</li>
+        <li>Tremor, pallor, vertigo</li>
+        <li>Unilateral numbness or weakness</li>
+        <li>Transient aphasia, thick speech</li>
+      </ul>
+      <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.85rem;">Episodes can be separated by weeks or months.</p>
+    </div>
+  </div>
+
+  <!-- Diagnosis -->
+  <div class="section">
+    <div class="section-label">Diagnosis</div>
+    <div class="dx-box">
+      <ul style="list-style:none; padding:0;">
+        <li style="padding: 0.2rem 0 0.2rem 1.1rem; position: relative;"><span style="position:absolute;left:0;font-weight:700;color:var(--text-dim);">›</span> Based on <span class="hy">clinical presentation</span></li>
+        <li style="padding: 0.2rem 0 0.2rem 1.1rem; position: relative;"><span style="position:absolute;left:0;font-weight:700;color:var(--text-dim);">›</span> History, physical, and neurological exam are critical</li>
+        <li style="padding: 0.2rem 0 0.2rem 1.1rem; position: relative;"><span style="position:absolute;left:0;font-weight:700;color:var(--text-dim);">›</span> Neuroimaging not routinely necessary but consider for:</li>
+      </ul>
+      <div style="margin-left: 1.5rem; margin-top: 0.3rem; color: var(--text-muted); font-size: 0.85rem;">
+        Unexplained abnormal neuro exam finding · Atypical headache features · <span class="red">Red flags</span>: "worst headache of my life," change in pattern, always same side, new-onset after age 50
+      </div>
+    </div>
+    <div class="keyfact" style="margin-top:1rem;">
+      <strong>Complications:</strong> Status migrainosus · Medication overuse/addiction. No curative medications — <span class="hy">lifestyle changes</span> may be most important in modifying the disorder.
+    </div>
+  </div>
+
+  <!-- DDx -->
+  <div class="section">
+    <div class="section-label">Differential Diagnosis</div>
+    <div class="ddx-grid">
+      <div class="ddx-item">Tension headache</div>
+      <div class="ddx-item">Cluster headache</div>
+      <div class="ddx-item">Trauma / infection</div>
+      <div class="ddx-item">Intracranial lesion</div>
+      <div class="ddx-item">TIA (for aura DDx)</div>
+      <div class="ddx-item">Seizure / syncope</div>
+      <div class="ddx-item">Vestibular disorders</div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════╗ -->
+<!-- ║       TENSION-TYPE HEADACHE               ║ -->
+<!-- ╚═══════════════════════════════════════════╝ -->
+<div class="condition-panel" id="tth" data-condition="tth">
+  <h2 class="condition-title">Tension-Type Headache</h2>
+  <div class="condition-aka">TTH · Most common primary headache disorder</div>
+  <div class="intro-text">
+    A primary headache disorder characterized by <span class="hy">bilateral, non-throbbing</span> headache of <span class="hy">mild to moderate intensity</span>, typically without other associated features. The most common headache and most prevalent neurologic disorder in the population.
+  </div>
+
+  <!-- Epidemiology -->
+  <div class="section">
+    <div class="section-label">Epidemiology</div>
+    <div class="card">
+      <ul>
+        <li>One-year prevalence of episodic TTH in the U.S.: <span class="hy">38%</span> (ages 18–65)</li>
+        <li>Likely <span class="hy">underreported</span> — most with mild/infrequent TTH don't seek care</li>
+        <li>High burden of disability due to sheer prevalence</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Etiology / Risk Factors -->
+  <div class="section">
+    <div class="section-label">Etiology &amp; Risk Factors</div>
+    <div class="card">
+      <p style="margin-bottom:0.5rem;"><strong>Episodic TTH</strong> — <span class="hy">environmental factors</span> (stress, muscle tenderness) most impactful</p>
+      <p style="margin-bottom:0.75rem;"><strong>Chronic TTH</strong> — <span class="hy">genetic factors</span> play a key role</p>
+      <p style="font-weight:600; margin-bottom:0.35rem;">Risk Factors:</p>
+      <ul>
+        <li>Female sex</li>
+        <li>Younger age</li>
+        <li>Fatigue · Sleep disorders</li>
+        <li>Migraine history</li>
+        <li>Depression history</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Pathophysiology -->
+  <div class="section">
+    <div class="section-label">Pathophysiology</div>
+    <div class="card">
+      <ul>
+        <li><span class="hy">Peripheral activation/sensitization of myofascial nociceptors</span> — major contributor to episodic TTH</li>
+        <li>Continuous nociceptive input from peripheral myofascial structures → induces <span class="hy">central sensitization</span> → conversion of episodic → chronic TTH</li>
+        <li>Heightened sensitivity of <span class="hy">central pain pathways</span> plays a critical role</li>
+        <li>Elevated levels of <span class="hy">TGF</span> (Transforming Growth Factor) and <span class="hy">TNF</span> (Tumor Necrosis Factor) in peripheral blood</li>
+      </ul>
+    </div>
+    <div class="keyfact">
+      <strong>Episodic → Chronic Conversion:</strong> Peripheral myofascial nociception → continuous input → central sensitization → chronic TTH
+    </div>
+  </div>
+
+  <!-- Clinical Presentation -->
+  <div class="section">
+    <div class="section-label">Clinical Presentation</div>
+    <div class="card">
+      <ul>
+        <li>Mild to moderate intensity, <span class="hy">bilateral</span>, <span class="hy">non-throbbing</span></li>
+        <li>Pain quality: <span class="hy">dull, pressure, head fullness, band-like</span></li>
+        <li><span class="hy">Pericranial muscle tenderness</span></li>
+        <li>Triggered by stress and mental strain</li>
+        <li><span class="red">No nausea/vomiting</span> · No more than one of photophobia or phonophobia</li>
+        <li><span class="red">Not aggravated</span> by routine physical activity</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Diagnosis -->
+  <div class="section">
+    <div class="section-label">Diagnostic Criteria</div>
+    <div class="dx-box">
+      <p style="font-weight:600; margin-bottom:0.5rem;">Episodic TTH — ≥10 episodes, each lasting 30 min–7 days:</p>
+      <p style="margin-bottom:0.35rem; font-weight:500;">At least 2 of:</p>
+      <ul style="list-style:none; padding:0; margin-left:1rem; margin-bottom:0.65rem;">
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">✓ Bilateral location</li>
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">✓ Pressing or tightening quality</li>
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">✓ Mild or moderate intensity</li>
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">✓ Not aggravated by routine physical activity</li>
+      </ul>
+      <p style="margin-bottom:0.35rem; font-weight:500;">Both of:</p>
+      <ul style="list-style:none; padding:0; margin-left:1rem; margin-bottom:0.65rem;">
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">✓ No nausea or vomiting</li>
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">✓ No more than one of photophobia or phonophobia</li>
+      </ul>
+      <p style="font-weight:600; margin-top:0.75rem;">Chronic TTH — ≥15 days/month for >3 months, same criteria above.</p>
+    </div>
+    <div class="keyfact" style="margin-top:1rem;">
+      <strong>Clinical Pearl:</strong> Because TTH symptoms overlap heavily with secondary headaches (medication overuse, structural brain lesions), always consider secondary causes when patients present.
+    </div>
+  </div>
+
+  <!-- DDx -->
+  <div class="section">
+    <div class="section-label">Differential Diagnosis</div>
+    <div class="ddx-grid">
+      <div class="ddx-item">Migraine</div>
+      <div class="ddx-item">Medication overuse HA</div>
+      <div class="ddx-item">Hemicrania continua</div>
+      <div class="ddx-item">Hypnic headache</div>
+      <div class="ddx-item">External pressure HA</div>
+      <div class="ddx-item">Brain malignancy</div>
+      <div class="ddx-item">Sinus infection</div>
+      <div class="ddx-item">Idiopathic intracranial HTN</div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════╗ -->
+<!-- ║          TMJ DISORDER                     ║ -->
+<!-- ╚═══════════════════════════════════════════╝ -->
+<div class="condition-panel" id="tmj" data-condition="tmj">
+  <h2 class="condition-title">Temporomandibular Joint Disorder</h2>
+  <div class="condition-aka">TMD · TMJ Dysfunction</div>
+  <div class="intro-text">
+    A collective term encompassing pain involving the <span class="hy">muscles of mastication</span>, the temporomandibular joint, and other orofacial structures. Population studies find that <span class="hy">40–75% of adults</span> have at least one sign of TMJ dysfunction.
+  </div>
+
+  <!-- Etiology -->
+  <div class="section">
+    <div class="section-label">Etiology</div>
+    <div class="card">
+      <ul>
+        <li>Trauma</li>
+        <li>Muscle pain / Overuse syndrome</li>
+        <li>Emotional-psychological issues</li>
+        <li>Malocclusion</li>
+        <li>Poorly fitting or recently changed dental prosthesis</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Pathophysiology -->
+  <div class="section">
+    <div class="section-label">Pathophysiology</div>
+    <div class="card">
+      <p style="font-weight:600; margin-bottom:0.4rem;">Intra-capsular TMJ Pain Disorders:</p>
+      <ul>
+        <li><span class="hy">Osteoarthritis</span> — most common intra-capsular cause</li>
+        <li>Other arthritic etiologies: RA, psoriatic arthritis, hyperuricemia</li>
+        <li>Inflammatory response within the joint</li>
+      </ul>
+      <p style="font-weight:600; margin:0.75rem 0 0.4rem;">Masticatory Muscle Pain Disorders:</p>
+      <ul>
+        <li>Sensitization of <span class="hy">muscle nociceptors</span> and/or sensitization of <span class="hy">brainstem circuits</span> controlling muscles of mastication</li>
+        <li><span class="hy">Bruxism</span> (subconscious loading of teeth) — strong emotional component</li>
+      </ul>
+      <p style="font-weight:600; margin:0.75rem 0 0.4rem;">Pathology:</p>
+      <ul>
+        <li>Altered position of the <span class="hy">interarticular disc</span></li>
+        <li>Elongation of disc-supporting ligaments</li>
+        <li>Erosion of articular cartilage</li>
+      </ul>
+    </div>
+    <div class="keyfact">
+      <strong>Updated Understanding:</strong> TMJ pain of muscle origin was long thought to be myospasm — now understood to be most commonly due to a <span class="hy">sensitization process</span> at the peripheral nerve or brainstem level.
+    </div>
+  </div>
+
+  <!-- Clinical Presentation -->
+  <div class="section">
+    <div class="section-label">Clinical Presentation</div>
+    <div class="card">
+      <p style="font-weight:600; margin-bottom:0.4rem;">Primary Symptoms:</p>
+      <ul>
+        <li><span class="hy">Facial muscle pain</span></li>
+        <li><span class="hy">Preauricular (TMJ) pain</span></li>
+        <li>TMJ sounds: <span class="hy">clicking, popping, catching, or locking</span></li>
+        <li><span class="hy">Limited mouth opening</span></li>
+        <li>Increased pain associated with <span class="hy">chewing</span></li>
+      </ul>
+      <p style="font-weight:600; margin:0.75rem 0 0.4rem;">Secondary Symptoms:</p>
+      <ul>
+        <li>Earache · Headache · Neckache</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Diagnosis -->
+  <div class="section">
+    <div class="section-label">Screening Exam</div>
+    <div class="dx-box">
+      <ul style="list-style:none; padding:0;">
+        <li style="padding:0.25rem 0 0.25rem 1.1rem; position:relative;"><span style="position:absolute;left:0;font-weight:700;color:var(--text-dim);">1</span> Palpate for pain/tenderness in <span class="hy">masseter</span> and <span class="hy">temporalis</span></li>
+        <li style="padding:0.25rem 0 0.25rem 1.1rem; position:relative;"><span style="position:absolute;left:0;font-weight:700;color:var(--text-dim);">2</span> Palpate for pain/tenderness in the <span class="hy">preauricular area</span></li>
+        <li style="padding:0.25rem 0 0.25rem 1.1rem; position:relative;"><span style="position:absolute;left:0;font-weight:700;color:var(--text-dim);">3</span> Measure <span class="hy">ROM of mandible</span> — note incoordination or asymmetry</li>
+        <li style="padding:0.25rem 0 0.25rem 1.1rem; position:relative;"><span style="position:absolute;left:0;font-weight:700;color:var(--text-dim);">4</span> <span class="hy">Auscultate and palpate</span> for TMJ sounds during movement</li>
+        <li style="padding:0.25rem 0 0.25rem 1.1rem; position:relative;"><span style="position:absolute;left:0;font-weight:700;color:var(--text-dim);">5</span> Note excessive occlusal wear, tooth mobility, buccal mucosal ridging, lateral tongue scalloping</li>
+        <li style="padding:0.25rem 0 0.25rem 1.1rem; position:relative;"><span style="position:absolute;left:0;font-weight:700;color:var(--text-dim);">6</span> Inspect symmetry and alignment of face, jaw, and dental arches</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DDx -->
+  <div class="section">
+    <div class="section-label">Differential Diagnosis</div>
+    <div class="ddx-grid">
+      <div class="ddx-item">Dental pain</div>
+      <div class="ddx-item">Sinusitis</div>
+      <div class="ddx-item">Pulpitis</div>
+      <div class="ddx-item">Headache</div>
+      <div class="ddx-item">Otitis media</div>
+      <div class="ddx-item">Trigeminal neuralgia</div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════╗ -->
+<!-- ║       GIANT CELL ARTERITIS                ║ -->
+<!-- ╚═══════════════════════════════════════════╝ -->
+<div class="condition-panel" id="gca" data-condition="gca">
+  <h2 class="condition-title">Giant Cell Arteritis</h2>
+  <div class="condition-aka">Temporal Arteritis · Horton Disease · GCA</div>
+  <div class="intro-text">
+    A chronic, systemic vasculitis involving <span class="hy">large and medium-sized arteries</span>, most commonly affecting the <span class="hy">temporal artery</span> as well as the aorta and/or its major branches. The most important vasculitis to recognize in this block due to the risk of <span class="red">permanent vision loss</span>.
+  </div>
+
+  <!-- Epidemiology -->
+  <div class="section">
+    <div class="section-label">Epidemiology</div>
+    <div class="card">
+      <ul>
+        <li>Most common in adults <span class="hy">&gt;50 years old</span></li>
+        <li>More common in people of <span class="hy">northern European descent</span></li>
+        <li>Females affected <span class="hy">2–3× more</span> than males</li>
+        <li>Incidence increases with age, peaking at ages <span class="hy">70–80</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Risk Factors -->
+  <div class="section">
+    <div class="section-label">Etiology &amp; Risk Factors</div>
+    <div class="card">
+      <ul>
+        <li>Exact cause <span class="hy">unknown</span> — thought to be inflammatory (based on response to glucocorticoids)</li>
+        <li>Older age · Female sex</li>
+        <li>History of or current <span class="hy">smoking</span></li>
+        <li><span class="hy">HLA-DRB1*04</span> alleles</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Pathophysiology -->
+  <div class="section">
+    <div class="section-label">Pathophysiology</div>
+    <div class="card">
+      <p style="margin-bottom:0.5rem;">Complex inflammatory cascade → loss of smooth muscle → breakdown of elastic fibers → <span class="hy">vessel remodeling and occlusion</span>.</p>
+      <p style="font-weight:600; margin-bottom:0.4rem;">Cellular Mechanisms:</p>
+      <ul>
+        <li>Likely a <span class="hy">T-cell mediated response</span> to an unidentified antigen in the vessel wall</li>
+        <li><span class="hy">Dendritic cells</span> in the vessel wall become activated → recruit T cells and monocytes</li>
+        <li>Dendritic cells produce <span class="hy">IL-1, IL-6, IL-21</span>; together with <span class="hy">IL-12 and IL-18</span> → promote differentiation of T lymphocytes into <span class="hy">Th1 and Th17</span> subsets</li>
+        <li><span class="hy">Macrophages coalesce</span> → form <span class="hy">multinucleated giant cells</span> → <span class="hy">granuloma formation</span></li>
+        <li>Giant cells secrete <span class="hy">metalloproteinases</span> and <span class="hy">reactive oxygen species</span> → compromise structural integrity</li>
+        <li><span class="hy">Intimal proliferation</span> → reduced blood flow → partial or complete ischemia</li>
+      </ul>
+    </div>
+    <div class="keyfact">
+      <strong>Pathology Findings:</strong> Focal inflammatory lesions · Intimal thickening (possible thrombosis) · Granulomatous inflammation centered on internal elastic membrane · Elastic lamina fragmentation · Multinucleated giant cells in <span class="hy">75% of cases</span> · Adventitial thickening and fibrosis
+    </div>
+  </div>
+
+  <!-- Clinical Presentation -->
+  <div class="section">
+    <div class="section-label">Clinical Presentation</div>
+    <div class="card">
+      <ul>
+        <li><span class="hy">New headache</span> or change in characteristics of preexisting headache</li>
+        <li>Abrupt onset of <span class="hy">visual disturbances</span> — especially <span class="red">transient/permanent monocular visual loss</span></li>
+        <li><span class="hy">Jaw claudication</span></li>
+        <li>Unexplained fever or other constitutional symptoms</li>
+        <li>Signs of vascular abnormalities:
+          <ul>
+            <li>Limb claudication · Asymmetric blood pressures · Abnormal radial pulse</li>
+            <li>Vascular bruits</li>
+            <li><span class="hy">Temporal artery abnormalities</span>: tenderness to palpation, decreased pulse amplitude, nodules</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Diagnosis -->
+  <div class="section">
+    <div class="section-label">Diagnosis</div>
+    <div class="dx-box">
+      <p style="margin-bottom:0.5rem;"><span class="red">Should not be based on symptoms alone.</span></p>
+      <p style="font-weight:600; margin-bottom:0.35rem;">Initial Lab Testing:</p>
+      <ul style="list-style:none; padding:0; margin-left:1rem; margin-bottom:0.65rem;">
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">• Complete blood count</li>
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">• <span class="hy">ESR and CRP</span></li>
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">• Complete metabolic panel</li>
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">• Urine dipstick</li>
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">• Serum protein electrophoresis</li>
+      </ul>
+      <p style="font-weight:600; margin-bottom:0.35rem;">Confirmatory Testing:</p>
+      <ul style="list-style:none; padding:0; margin-left:1rem;">
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">• <span class="hy">Temporal artery biopsy</span></li>
+        <li style="padding:0.15rem 0; color:var(--text-muted); font-size:0.85rem;">• <span class="hy">Temporal artery CDUS</span> (Color Doppler Ultrasound)</li>
+      </ul>
+    </div>
+    <div class="keyfact" style="margin-top:1rem;">
+      <strong>Critical:</strong> <span class="red">Do NOT delay treatment</span> to schedule biopsy/CDUS. Start appropriate-dose <span class="hy">glucocorticoids immediately</span> when GCA is suspected.
+    </div>
+  </div>
+
+  <!-- DDx -->
+  <div class="section">
+    <div class="section-label">Differential Diagnosis</div>
+    <div class="card">
+      <p style="font-weight:600; margin-bottom:0.4rem;">Systemic Vascular:</p>
+      <div class="ddx-grid" style="margin-bottom:0.75rem;">
+        <div class="ddx-item">Takayasu arteritis</div>
+        <div class="ddx-item">Small/medium vessel vasculitides</div>
+        <div class="ddx-item">Primary CNS angiitis</div>
+      </div>
+      <p style="font-weight:600; margin-bottom:0.4rem;">Non-vasculitis:</p>
+      <div class="ddx-grid">
+        <div class="ddx-item">Idiopathic aortitis</div>
+        <div class="ddx-item">VEXAS syndrome</div>
+        <div class="ddx-item">NAION</div>
+        <div class="ddx-item">Endocarditis / infections</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════╗ -->
+<!-- ║        COMPARISON TABLE (always visible)   ║ -->
+<!-- ╚═══════════════════════════════════════════╝ -->
+<div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+  <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+    Quick Comparison
+    <span style="flex:1; height:1px; background:var(--border);"></span>
+  </div>
+  <div style="overflow-x: auto;">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width:16%;">Feature</th>
+          <th style="color:var(--accent-migraine);">Migraine</th>
+          <th style="color:var(--accent-tth);">TTH</th>
+          <th style="color:var(--accent-tmj);">TMJ</th>
+          <th style="color:var(--accent-gca);">GCA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:600;">Location</td>
+          <td>Unilateral (frontal / temporal)</td>
+          <td>Bilateral</td>
+          <td>Preauricular / facial</td>
+          <td>Temporal artery region</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">Quality</td>
+          <td>Throbbing</td>
+          <td>Pressing / tightening / band-like</td>
+          <td>Aching, clicking/popping</td>
+          <td>New or changed headache</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">Severity</td>
+          <td>Severe</td>
+          <td>Mild–moderate</td>
+          <td>Varies</td>
+          <td>Varies</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">Key Features</td>
+          <td>Aura, N/V, photo/phonophobia</td>
+          <td>Pericranial tenderness; no N/V</td>
+          <td>Clicking, limited opening, worse w/ chewing</td>
+          <td>Jaw claudication, vision loss, fever</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">Peak Age</td>
+          <td>30–39</td>
+          <td>Younger adults</td>
+          <td>Any adult</td>
+          <td>&gt;50 (peaks 70–80)</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">Diagnosis</td>
+          <td>Clinical + neuro exam</td>
+          <td>Clinical criteria (ICHD)</td>
+          <td>Screening exam (palpation, ROM, auscultation)</td>
+          <td>Labs (ESR/CRP) + temporal artery biopsy or CDUS</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<script>
+function showPanel(id) {
+  document.querySelectorAll('.condition-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector(`.nav-tab[data-target="${id}"]`).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
