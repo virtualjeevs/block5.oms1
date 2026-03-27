@@ -1,0 +1,293 @@
+@import url( 'reset.css' );
+@import url( 'text.css' );
+@import url( 'cdg.css' );
+/* FIXME: Eventually cdg.css should go away */
+
+body {
+	font-size: 14px;
+	color: #333;
+	line-height: 1.43;
+	-webkit-font-smoothing: antialiased;
+}
+
+@media only screen and ( min-width: 768px ) {
+	body {
+		font-size: 16px;
+	}
+}
+
+a {
+	color: #06C;
+	text-decoration: none;
+}
+
+#text a:hover {
+	text-decoration: underline;
+}
+
+#text h1 {
+	margin-top: 0;
+}
+
+a.vhd {
+	color: #D33;
+}
+
+.term {
+	font-weight: bold;
+}
+
+/* FIXME: This should just become a button element */
+a.button {
+	display: block;
+	/* Not supported in IE7 or IE8 but really only needed for retina */
+	background-size: contain;
+	background-repeat: no-repeat;
+	text-indent: -9999px;
+}
+
+/* General layout, header, menu and content. */
+body {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+#header {
+	position: relative;
+	z-index: 10;
+	background-color: black;
+	color: white;
+	font-size: 1.125em;
+	font-weight: bold;
+	line-height: 2em;
+	text-align: center;
+	box-shadow: 0 1px 6px black;
+}
+
+#menu {
+	display: none;
+	position: absolute;
+	top: 2.25em;
+	bottom: 0;
+	left: 0;
+	z-index: 5;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	margin: 0;
+}
+
+#content {
+	position: absolute;
+	top: 2.25em;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 0;
+}
+
+body.menu #menu {
+	right: 75%;
+	display: block;
+}
+
+body.menu #content {
+	left: 25%;
+}
+
+#menu-button {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding-left: 40px;
+	padding-right: 12px;
+	background-image: url( '../images/menu.png' );
+	/* Not supported in IE7 or IE8 but really only needed for retina */
+	/* FIXME: This should be somehow scaled with font size. */
+	background-size: 21px 15px;
+	background-repeat: no-repeat;
+	background-position: 12px center;
+	color: white;
+}
+
+@media only screen and ( -webkit-min-device-pixel-ratio: 2 ),
+only screen and ( min-device-pixel-ratio: 2 ) {
+	#menu-button {
+		background-image: url( '../images/menu%402x.png' );
+	}
+}
+
+#menu-button:hover {
+	text-decoration: none;
+}
+
+/* Content layout, header, text and media. */
+#content #content-header {
+	position: relative;
+	z-index: 10;
+	background-color: #f1f1f1;
+	border-bottom-width: 1px solid black;
+	font-weight: bold;
+	line-height: 2em;
+	text-align: center;
+	box-shadow: 0 1px 6px black;
+}
+
+#content #content-header .navigation {
+	margin: 0 1em;
+}
+
+#content #text {
+	position: absolute;
+	top: 2em;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 5;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	padding: 0.75em;
+}
+
+body.media #content #text {
+	right: 65%;
+	/* For browsers that don't support box-shadow */
+	/* border-right: 2px solid rgb( 50, 50, 50 ); */
+	box-shadow: 1px 0 6px black;
+}
+
+body.media #content #media {
+	position: absolute;
+	top: 2em;
+	bottom: 0;
+	left: 35%;
+	right: 0;
+	z-index: 0;
+}
+
+body.small-photo #content #text {
+	right: 30%;
+}
+
+body.small-photo #content #media {
+	left: 70%;
+}
+
+body.quiz #content #text {
+	right: auto;
+	width: 226px;
+	padding: 12px; /* Don't use em because we depend on pixel based calculations for width */
+}
+
+body.quiz #content #media {
+	left: 250px;
+}
+
+#text a.minimize, #text a.maximize {
+	float: right;
+	margin-left: 0.625em;
+	margin-bottom: 0.625em;
+	/* FIXME: This should be somehow scaled with font size. */
+	width: 14px;
+	height: 14px;
+}
+
+#text a.minimize {
+	background-image: url( '../images/minimize.png' );
+}
+
+#text a.maximize {
+	background-image: url( '../images/maximize.png' );
+}
+
+@media only screen and ( -webkit-min-device-pixel-ratio: 2 ),
+only screen and ( min-device-pixel-ratio: 2 ) {
+	#text a.minimize {
+		background-image: url( '../images/minimize%402x.png' );
+	}
+	
+	#text a.maximize {
+		background-image: url( '../images/maximize%402x.png' );
+	}
+}
+
+body.quiz div.pin {
+	position: absolute;
+	height: 39px;
+	width: 32px;
+	background-image: url( ../images/pin.png );
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	cursor: pointer;
+	margin-left: -7px;
+	margin-bottom: -4px;
+}
+
+body.quiz div.pin div.label {
+	display: none;
+	position: absolute;
+	bottom: 40px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+	background-color: white;
+	color: black;
+	padding: 0.25em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	text-align: center;
+	white-space: nowrap;
+	z-index: 75;
+}
+
+body.quiz div.pin div.label.left {
+	/* Width of pin image (32) less pin offset (7) plus label offset (10) */
+	right: 35px;
+}
+
+body.quiz div.pin div.label.right {
+	/* Pin offset (7) plus label offset (10) */
+	left: 17px;
+}
+
+body.quiz div.pin div.label.active, body.quiz div.pin:hover div.label {
+	display: block;
+}
+
+body.quiz #text {
+	background-color: rgb( 154, 154, 154 );
+}
+
+body.quiz #text a {
+	color: white;
+}
+
+body.quiz #text a:hover {
+	text-decoration: none;
+}
+
+body.quiz #text .thumbnail {
+	margin: auto;
+	margin-bottom: 12px;
+	border-style: solid;
+	border-width: 3px;
+	border-color: rgb( 51, 51, 51 );
+	background-color: rgb( 51, 51, 51 );
+	text-align: center;
+	width: 200px;
+}
+
+body.quiz #text a.current .thumbnail {
+	border-color: rgb( 228, 228, 100 );
+}
+
+body.quiz #text .thumbnail .caption {
+	padding: 0.25em;
+}
+
+body.quiz a.photo-browser {
+	background-image: none;
+	padding-right: 0;
+}

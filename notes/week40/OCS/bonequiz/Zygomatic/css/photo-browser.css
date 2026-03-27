@@ -1,0 +1,254 @@
+div.photo-browser {
+	position: relative; /* Start a new z-index stacking context and allow for child positioning */
+	background-color: #5a5a5a;
+	/* Shouldn't need this but it seems to fix rounding errors in IE7 */
+	overflow-y: hidden;
+}
+
+/* Main containers, toolbar, photo(s) and caption. */
+div.photo-browser div.toolbar {
+	position: relative; /* So z-index applies */
+	padding: 0.5em 48px; /* 12px + a.previous/next width = 31 */
+	z-index: 10;
+	background-color: #333333;
+	color: #3c3c3c;
+	box-shadow: 0 0 6px black;
+	text-align: center;
+	line-height: 1em;
+	color: #ffffff;
+}
+
+div.photo-browser div.photo {
+	display: none;
+	position: absolute;
+	top: 2em; /* Height of div.toolbar */
+	bottom: 2em; /* Height of div.caption */
+	width: 100%;
+	overflow: hidden;
+	cursor: move;
+}
+
+div.photo-browser div.caption {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	z-index: 10;
+	padding: 0.5em 0;
+	background-color: #333333;
+	box-shadow: 0 0 4px black;
+	text-align: center;
+	line-height: 1em;
+	color: #ffffff;
+}
+
+/* Override some jQuery UI settings. */
+div.photo-browser .ui-slider-horizontal {
+	/* FIXME: This should be somehow scaled with font size. */
+	top: -0.625em; /* (16px line-height - 4px height) / 2 + 4px height */
+	height: 0.25em;
+	border: none;
+	border-radius: 0.125em;
+	background: #ffffff;
+}
+
+div.photo-browser .ui-slider .ui-slider-handle {
+	width: 0.75em;
+	height: 0.75em;
+	border: none;
+	border-radius: 0.375em;
+	background: #ffffff;
+}
+
+div.photo-browser .ui-slider-horizontal .ui-slider-handle {
+	top: -4px;
+	margin-left: -6px;
+}
+
+/* Setup toolbar contents. */
+div.photo-browser div.toolbar a {
+	color: inherit;
+	font-weight: inherit;
+}
+
+div.photo-browser div.toolbar a.button {
+	display: block;
+	/* Not supported in IE7 or IE8 but really only needed for retina */
+	background-size: contain;
+	background-repeat: no-repeat;
+	text-indent: -9999px;
+}
+
+div.photo-browser div.toolbar a.previous {
+	float: left;
+	margin-left: -35px;
+	background-image: url( '../images/previous.png' );
+	width: 1.1875em;
+	height: 1em;
+}
+
+div.photo-browser div.toolbar a.next {
+	float: right;
+	margin-right: -35px;
+	background-image: url( '../images/next.png' );
+	width: 1.1875em;
+	height: 1em;
+}
+
+div.photo-browser div.toolbar div.controls {
+	display: inline-block;
+	width: 50%;
+}
+
+.lt-ie8 div.photo-browser div.toolbar div.controls {
+	display: inline;
+	zoom: 1;
+}
+
+div.photo-browser div.toolbar div.zoom {
+	display: inline-block;
+	position: relative;
+	top: 0;
+	width: 50%;
+	height: 1em;
+}
+
+.lt-ie8 div.photo-browser div.toolbar div.zoom {
+	display: inline;
+	zoom: 1;
+}
+
+div.photo-browser div.toolbar a.zoom-in, div.photo-browser div.toolbar a.zoom-out {
+	position: absolute;
+	top: 0;
+	width: 1em;
+	height: 1em;
+}
+
+div.photo-browser div.toolbar a.zoom-out {
+	left: 0;
+	background-image: url( '../images/zoom-out.png' );
+}
+
+div.photo-browser div.toolbar a.zoom-in {
+	right: 0;
+	background-image: url( '../images/zoom-in.png' );
+}
+
+div.photo-browser div.toolbar div.zoom div.zoom-slider {
+	margin: 0 26px;
+}
+
+@media only screen and ( -webkit-min-device-pixel-ratio: 2 ),
+only screen and ( min-device-pixel-ratio: 2 ) {
+	div.photo-browser div.toolbar a.previous {
+		background-image: url( '../images/previous%402x.png' );
+	}
+
+	div.photo-browser div.toolbar a.next {
+		background-image: url( '../images/next%402x.png' );
+	}
+	
+	div.photo-browser div.toolbar a.zoom-out {
+		background-image: url( '../images/zoom-out%402x.png' );
+	}
+	
+	div.photo-browser div.toolbar a.zoom-in {
+		background-image: url( '../images/zoom-in%402x.png' );
+	}
+}
+
+/* Setup photos. */
+div.photo-browser div.photo img, div.photo-browser div.photo div.overlay {
+	position: absolute;
+}
+
+div.photo-browser div.photo img.location {
+	height: 45%;
+	/* FIXME: Not supported in IE7 & IE8, http://stackoverflow.com/questions/2991623/make-background-size-work-in-ie */
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+@media only screen and ( min-height: 512px ) {
+	div.photo-browser div.photo img.location {
+		height: 30%;
+	}
+}
+
+div.photo-browser div.photo img.location.top {
+	top: 10px;
+}
+
+div.photo-browser div.photo img.location.left {
+	left: 10px;
+}
+
+div.photo-browser div.photo img.location.right {
+	right: 10px;
+}
+
+div.photo-browser div.photo img.location.bottom {
+	bottom: 10px;
+}
+
+div.photo-browser div.photo img.location.male-anterior {
+	background-image: url( '../images/male-anterior.png' );
+}
+
+div.photo-browser div.photo img.location.female-anterior {
+	background-image: url( '../images/female-anterior.png' );
+}
+
+div.photo-browser div.photo img.location.female-posterior {
+	background-image: url( '../images/female-posterior.png' );
+}
+
+div.photo-browser div.photo img.location.male-left-lateral-ant-up {
+	width: 30%;
+	height: auto;
+	background-image: url( '../images/male-left-lateral-ant-up.png' );
+}
+
+div.photo-browser div.photo img.location.male-left-lateral {
+	background-image: url( '../images/male-left-lateral.png' );
+}
+
+div.photo-browser div.photo img.location.male-posterior {
+	background-image: url( '../images/male-posterior.png' );
+}
+
+div.photo-browser div.photo img.location.male-right-lateral {
+	background-image: url( '../images/male-right-lateral.png' );
+}
+
+@media only screen and ( -webkit-min-device-pixel-ratio: 2 ),
+only screen and ( min-device-pixel-ratio: 2 ),
+only screen and ( min-height: 768px ) {
+	div.photo-browser div.photo img.location.male-anterior {
+		background-image: url( '../images/male-anterior%402x.png' );
+	}
+
+	div.photo-browser div.photo img.location.female-anterior {
+		background-image: url( '../images/female-anterior%402x.png' );
+	}
+
+	div.photo-browser div.photo img.location.female-posterior {
+		background-image: url( '../images/female-posterior%402x.png' );
+	}
+
+	div.photo-browser div.photo img.location.male-left-lateral-ant-up {
+		background-image: url( '../images/male-left-lateral-ant-up%402x.png' );
+	}
+
+	div.photo-browser div.photo img.location.male-left-lateral {
+		background-image: url( '../images/male-left-lateral%402x.png' );
+	}
+
+	div.photo-browser div.photo img.location.male-posterior {
+		background-image: url( '../images/male-posterior%402x.png' );
+	}
+
+	div.photo-browser div.photo img.location.male-right-lateral {
+		background-image: url( '../images/male-right-lateral%402x.png' );
+	}
+}
