@@ -862,6 +862,85 @@ body.table-expanded-open {
   font-style: italic;
 }
 
+
+/* ── CLICK TO ZOOM ── */
+.slide-figure img,
+.zoomable-image {
+  cursor: zoom-in;
+}
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 16, 26, 0.88);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  z-index: 5000;
+}
+.zoom-overlay.open {
+  display: flex;
+}
+.zoom-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+}
+.zoom-frame {
+  position: relative;
+  width: min(96vw, 1400px);
+  height: min(92vh, 980px);
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+  touch-action: none;
+}
+.zoom-overlay img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: none;
+  max-height: none;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center center;
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: grab;
+}
+.zoom-overlay img.dragging {
+  cursor: grabbing;
+}
+.zoom-close,
+.zoom-hint {
+  position: absolute;
+  z-index: 2;
+}
+.zoom-close {
+  top: 14px;
+  right: 14px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.zoom-hint {
+  left: 14px;
+  bottom: 14px;
+  color: rgba(255,255,255,0.9);
+  background: rgba(0,0,0,0.26);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  backdrop-filter: blur(8px);
+}
+
 </style>
 </head>
 <body>
@@ -1735,9 +1814,120 @@ function initTableQuizModes() {
   });
 }
 
+
+function initImageZoom() {
+  if (document.querySelector('.zoom-overlay')) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'zoom-overlay';
+  overlay.innerHTML = `
+    <div class="zoom-overlay-backdrop"></div>
+    <div class="zoom-frame">
+      <button type="button" class="zoom-close" aria-label="Close image viewer">Close ✕</button>
+      <div class="zoom-hint">Click image to zoom further · drag to pan · Esc to close</div>
+      <img alt="Expanded slide image">
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  const frame = overlay.querySelector('.zoom-frame');
+  const img = overlay.querySelector('img');
+  const closeBtn = overlay.querySelector('.zoom-close');
+  const backdrop = overlay.querySelector('.zoom-overlay-backdrop');
+
+  let scale = 1;
+  let x = 0;
+  let y = 0;
+  let dragging = false;
+  let startX = 0;
+  let startY = 0;
+
+  function render() {
+    img.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(${scale})`;
+  }
+
+  function resetView() {
+    scale = 1;
+    x = 0;
+    y = 0;
+    dragging = false;
+    img.classList.remove('dragging');
+    render();
+  }
+
+  function openZoom(src, alt) {
+    img.src = src;
+    img.alt = alt || 'Expanded slide image';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    resetView();
+  }
+
+  function closeZoom() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    img.removeAttribute('src');
+  }
+
+  function toggleScale() {
+    scale = scale >= 2.6 ? 1 : Math.min(scale + 0.8, 3.4);
+    if (scale === 1) {
+      x = 0;
+      y = 0;
+    }
+    render();
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target.closest('.slide-figure img, .zoomable-image');
+    if (!target) return;
+    event.preventDefault();
+    event.stopPropagation();
+    openZoom(target.currentSrc || target.src, target.alt || 'Expanded slide image');
+  });
+
+  img.addEventListener('click', (event) => {
+    event.stopPropagation();
+    toggleScale();
+  });
+
+  closeBtn.addEventListener('click', closeZoom);
+  backdrop.addEventListener('click', closeZoom);
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && overlay.classList.contains('open')) closeZoom();
+  });
+
+  img.addEventListener('pointerdown', (event) => {
+    if (scale <= 1) return;
+    dragging = true;
+    startX = event.clientX - x;
+    startY = event.clientY - y;
+    img.classList.add('dragging');
+    try { img.setPointerCapture(event.pointerId); } catch (e) {}
+  });
+
+  img.addEventListener('pointermove', (event) => {
+    if (!dragging) return;
+    x = event.clientX - startX;
+    y = event.clientY - startY;
+    render();
+  });
+
+  function endDrag(event) {
+    dragging = false;
+    img.classList.remove('dragging');
+    try { img.releasePointerCapture(event.pointerId); } catch (e) {}
+  }
+
+  img.addEventListener('pointerup', endDrag);
+  img.addEventListener('pointercancel', endDrag);
+}
+
 const savedTheme = localStorage.getItem(THEME_KEY) || 'paper';
 setTheme(savedTheme);
 initTableQuizModes();
+initImageZoom();
 applyFontScale(fontScale);
 updateActiveNav();
 </script>
