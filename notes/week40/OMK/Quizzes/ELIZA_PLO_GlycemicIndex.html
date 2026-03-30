@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PLO Quiz — Glycemic Index &amp; Carbohydrate Structures — Template Format</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+ radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+ radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+ linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%)}
+.launch-card{max-width:760px;width:min(100%,760px);background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:32px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:42px;line-height:1.02;color:var(--navy);margin-bottom:8px}
+.launch-card p{color:var(--slate);max-width:62ch}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 24px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.launch-btn{padding:14px 20px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--teal-glow) 18%, transparent), transparent 24%),
+  radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--plum) 16%, transparent), transparent 22%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+.qo.open .qt-bar,.qo.open .qin{will-change:transform,opacity}
+.qo.closing .qt-bar{animation:qBarOut .26s cubic-bezier(.4,0,.2,1) forwards}
+.qo.closing .qin{animation:qSheetOut .32s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes qBarOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-12px)}}
+@keyframes qSheetOut{from{opacity:1;transform:none;filter:blur(0)}to{opacity:0;transform:translateY(22px) scale(.985);filter:blur(2px)}}
+.qt-bar{position:sticky;top:0;z-index:12;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,color-mix(in srgb, var(--navy2) 94%, transparent),color-mix(in srgb, var(--navy) 92%, transparent));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:28px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap}
+.qt-btn{padding:10px 16px;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-1px)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900;box-shadow:0 8px 20px rgba(212,168,67,.24)}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(212,168,67,.28)}
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px 24px;align-items:start}
+.q-left{display:grid;gap:18px;align-content:start;align-self:start}
+.q-right{min-width:0;display:grid;gap:16px;align-content:start;align-self:start}
+#qA{min-width:0;align-self:start;position:relative}
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.score-box{position:relative;overflow:hidden;background:color-mix(in srgb, var(--white) 88%, var(--warm) 12%);backdrop-filter:blur(10px);border-radius:22px;padding:18px 14px 14px;text-align:center;box-shadow:0 14px 34px rgba(18,32,60,.08);border:1px solid rgba(18,32,60,.08);transition:var(--tr)}
+.score-box::before{content:'';position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 999px 999px;background:linear-gradient(90deg, rgba(26,122,109,.16), rgba(62,196,178,.5));opacity:.75}
+.score-box.correct{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(232,245,238,.98))}
+.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(253,240,240,.98))}
+.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:8px}
+.score-box.correct .sv{color:var(--green)}
+.score-box.incorrect .sv{color:var(--red)}
+.mode-toggle,.timer-panel,.tool-panel,.exam-submit-row{position:relative;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08)}
+.mode-toggle{display:flex;gap:8px;padding:8px;border-radius:24px;animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{flex:1;padding:14px 18px;border-radius:18px;text-align:center;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 12px 24px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:20px;margin-bottom:4px}
+.timer-panel{display:grid;grid-template-columns:1fr;gap:14px;padding:0;border-radius:24px;box-shadow:none;border:none;background:transparent;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.timer-card,.cd-card{position:relative;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:46px 18px 18px;background:rgba(255,255,255,.84);border-radius:24px;border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);transition:var(--tr)}
+.timer-lbl{position:absolute;top:14px;left:16px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(18,32,60,.04)}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:40px;font-weight:600;color:var(--navy);min-width:120px;text-align:center;letter-spacing:2px}
+.tbtn,.cd-pm{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(27,42,74,.24);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:var(--tr);color:var(--navy);flex-shrink:0;box-shadow:0 6px 18px rgba(18,32,60,.08)}
+.cd-pm{width:34px;height:34px;font-size:20px;font-weight:800;border-color:rgba(27,42,74,.16)}
+.tbtn:hover,.cd-pm:hover{background:var(--navy);color:#fff;transform:translateY(-1px) scale(1.04);border-color:var(--navy)}
+.cd-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;min-width:36px;text-align:center;color:var(--navy)}
+.cd-unit{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800}
+.cd-go{padding:11px 18px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:var(--tr);box-shadow:0 10px 22px rgba(224,122,95,.22)}
+.cd-go:hover{background:linear-gradient(135deg,#D86E53,#C95E45);transform:translateY(-1px)}
+.tool-panel{display:flex;flex-wrap:wrap;gap:10px;padding:10px;border-radius:24px;animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
+.q-tool{flex:1 1 180px;min-width:0;padding:13px 16px;border-radius:16px;font-size:13px;font-weight:800;border:1.5px solid rgba(18,32,60,.08);background:rgba(255,255,255,.86);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);box-shadow:0 8px 18px rgba(18,32,60,.06);text-align:left}
+.q-tool:hover{border-color:rgba(26,122,109,.32);color:var(--teal);transform:translateY(-1px);background:#fff}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00;box-shadow:0 0 0 3px rgba(211,175,43,.12)}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red);box-shadow:0 0 0 3px rgba(196,64,64,.08)}
+.exam-submit-row{padding:20px;border-radius:24px;text-align:center}
+.exam-submit-row .exam-progress{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--mist);margin-bottom:12px}
+.exam-submit-btn{padding:15px 52px;border-radius:18px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 22px rgba(224,122,95,.24)}
+.exam-submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(224,122,95,.32)}
+.qcd{background:color-mix(in srgb, var(--white) 94%, var(--warm) 6%);border-radius:28px;overflow:hidden;box-shadow:0 28px 70px rgba(18,32,60,.12);border:1px solid rgba(18,32,60,.08);animation:cardIn .45s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(0.99)}to{opacity:1;transform:none}}
+.qpg{height:6px;background:color-mix(in srgb, var(--teal) 10%, transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 34px 26px}
+.qnum{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.qstem{font-family:'Crimson Pro',serif;font-size:25px;line-height:1.35;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.15px}
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:15px 18px;border:1.5px solid rgba(18,32,60,.09);border-radius:18px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb, var(--warm) 78%, var(--white) 22%);position:relative;box-shadow:0 6px 18px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 12px 24px rgba(18,32,60,.08)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.cl{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 6px 14px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:16px;line-height:1.45;padding-top:4px;color:var(--ink)}
+.submit-row{margin-top:24px;text-align:center}
+.submit-btn{padding:15px 54px;border-radius:18px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.4px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+.exb{margin-top:26px;border-radius:22px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.exs{padding:22px 26px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:16px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:10px;padding:12px 16px;background:rgba(255,255,255,.58);border-radius:14px;font-size:15px;line-height:1.65}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 24px 20px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,color-mix(in srgb, var(--warm) 32%, transparent),color-mix(in srgb, var(--cream) 82%, transparent))}
+.nb{padding:12px 24px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 8px 18px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.qdots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:14px;height:14px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);box-shadow:0 4px 10px rgba(18,32,60,.04)}
+.qd:hover{transform:scale(1.18)}
+.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,0.14)}
+.qd.acor{border-color:var(--green);background:var(--green)}
+.qd.ainc{border-color:var(--red);background:var(--red)}
+.qd.asel{border-color:var(--gold);background:var(--gold)}
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:16px}
+#qo[data-fs="lg"] .ctx{font-size:19px}
+#qo[data-fs="xl"] .ctx{font-size:22px}
+.fs-ctrl{display:flex;align-items:center;gap:4px}
+.fs-btn{width:32px;height:32px;border-radius:10px;border:1.5px solid rgba(18,32,60,.14);background:#fff;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);color:var(--ink2);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(18,32,60,.06)}
+.fs-btn:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--mist);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+@media(max-width:920px){.qin{grid-template-columns:1fr;padding:22px 18px 72px;gap:16px}.score-panel{grid-template-columns:repeat(3,minmax(0,1fr))}.timer-panel{grid-template-columns:1fr 1fr}.tool-panel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.qt-bar{padding:14px 16px;align-items:flex-start;flex-direction:column}.qt-bar h2{font-size:24px}.qin{padding:18px 14px 64px}.score-panel{grid-template-columns:1fr}.timer-panel{grid-template-columns:1fr}.tool-panel{grid-template-columns:1fr}.qbd{padding:22px 18px 20px}.qstem{font-size:24px;line-height:1.42}.ctx{font-size:16px}.qnv{padding:16px 18px 20px;flex-direction:column;align-items:stretch}.qdots{order:3}.nb{width:100%}.launch-card h1{font-size:34px}}
+
+.ac.hl-applied{
+  background: linear-gradient(180deg, #FFF8B8, #FFF3A0) !important;
+  border-color: #D3AF2B !important;
+}
+.ac.hl-applied .ctx{
+  background: transparent !important;
+}
+.ac.st-applied{
+  background: linear-gradient(180deg, #fff, #FDF2F2) !important;
+  border-color: rgba(196,64,64,.45) !important;
+  opacity: .72;
+}
+.ac.st-applied .ctx{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.tool-status{
+  margin-top: 6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--mist);
+  padding: 0 4px;
+}
+.tool-status.active-highlight{ color:#8a6a00; }
+.tool-status.active-strike{ color:var(--red); }
+
+.ac.hl-applied{
+  background: #FFF4A8 !important;
+  border-color: #D4A843 !important;
+  box-shadow: 0 0 0 3px rgba(212,168,67,.18), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.hl-applied .cl{
+  background: #D4A843 !important;
+  border-color: #D4A843 !important;
+  color: #fff !important;
+}
+.ac.hl-applied .ctx{
+  color: #5c4400 !important;
+}
+.ac.st-applied{
+  background: #FFF3F3 !important;
+  border-color: rgba(196,64,64,.52) !important;
+  box-shadow: 0 0 0 3px rgba(196,64,64,.10), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.st-applied .cl{
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+  color:#fff !important;
+}
+.ac.st-applied .ctx{
+  color: #8B2C2C !important;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.qstem{
+  position: relative;
+  border-radius: 16px;
+  padding: 6px 8px;
+  margin: -6px -8px 22px -8px;
+  transition: var(--tr);
+}
+.qstem.tool-hover{
+  box-shadow: inset 0 0 0 2px rgba(26,122,109,.16);
+  background: rgba(26,122,109,.04);
+}
+.qstem.hl-applied{
+  background: linear-gradient(180deg, #FFF4A8, #FFF7C9) !important;
+  box-shadow: inset 0 0 0 2px rgba(212,168,67,.34);
+}
+.qstem.st-applied{
+  background: linear-gradient(180deg, #FFF3F3, #FFF8F8) !important;
+  box-shadow: inset 0 0 0 2px rgba(196,64,64,.22);
+}
+.qstem.st-applied .stem-text,
+.qstem .stem-st{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+  color: #8B2C2C !important;
+}
+.qstem .stem-hl{
+  background: #FFF1A6;
+  border-radius: 6px;
+  padding: 0 .12em;
+  box-shadow: 0 0 0 1px rgba(212,168,67,.18);
+}
+.qstem .stem-st{
+  background: #FFF3F3;
+  border-radius: 6px;
+  padding: 0 .12em;
+}
+
+
+.exam-submit-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:none;
+}
+.exam-submit-row.exam-live{
+  box-shadow:0 0 0 3px rgba(224,122,95,.10), 0 14px 34px rgba(18,32,60,.08);
+}
+.exam-submit-row.exam-done .exam-submit-btn{
+  background:linear-gradient(135deg,var(--green),#3aa56f);
+  box-shadow:0 10px 24px rgba(45,134,89,.24);
+}
+
+
+.q-subline{margin-top:8px;color:var(--slate);font-size:14px;font-weight:700}
+.q-tagline{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.q-mini-tag{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:var(--teal-light);color:var(--teal-deep);font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.q-mini-tag.plo{background:var(--plum-bg);color:var(--plum)}
+.q-mini-tag.lo{background:var(--sky-bg);color:var(--sky)}
+.exs.exm{background:var(--amber-bg);border-left:5px solid var(--amber)}
+.exs.exm .exl{color:var(--amber)}
+.tool-status{margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mist);padding:0 4px}
+.stem-hl{background:#FFF4A8;border-radius:4px;padding:0 .08em}
+.stem-st{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--red)}
+#openDemo code{font-family:'IBM Plex Mono',monospace}
+</style>
+</head>
+<body>
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>PLO Quiz — Glycemic Index &amp; Carbohydrate Structures</h1>
+    <p>Converted into your index quiz template shell with the overlay layout, learn/exam toggle, timers, highlighting, strikeout, and nav dots.</p>
+    <div class="q-subline">Dr. Grlickova-Duzevik • Week 40 • UNE COM</div>
+    <div class="launch-meta">
+      <span class="chip">20 MCQs • PLOs Only</span>
+      <span class="chip">20 questions</span>
+      <span class="chip">Template format</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz</button>
+  </div>
+</div>
+
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>PLO Quiz — Glycemic Index &amp; Carbohydrate Structures</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" onclick="window.print()">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCurrent">1</div><div class="sl">Current</div></div>
+        <div class="score-box correct"><div class="sv" id="svCorrect">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="svIncorrect">0</div><div class="sl">Incorrect</div></div>
+      </div>
+
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Timer</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <button class="tbtn" id="timerStart">▶</button>
+          <button class="tbtn" id="timerPause">⏸</button>
+          <button class="tbtn" id="timerReset">↺</button>
+        </div>
+
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">05:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">5</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+            <button class="cd-go" id="cdGo">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <button class="q-tool" id="toolHighlight">Highlight tool</button>
+        <button class="q-tool" id="toolStrike">Strikeout tool</button>
+        <button class="q-tool" id="toolReveal">Reveal explanation</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+
+      <div class="exam-submit-row">
+        <div class="exam-progress" id="examProgress">0 of 20 answered</div>
+        <button class="exam-submit-btn" id="submitExam">Submit Exam</button>
+      </div>
+    </div>
+
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qpg"><div class="qpf" id="qProgressFill" style="width:5.0000%"></div></div>
+          <div class="qbd">
+            <div class="qnum" id="qNum">Question 1 of 20</div>
+            <div class="q-tagline" id="qTagline"></div>
+            <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+
+            <div class="ach" id="choicesWrap"></div>
+
+            <div class="submit-row">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+
+            <div class="exb" id="exBlock">
+              <div class="exs exc"><div class="exl">Correct Answer</div><div class="ext" id="exCorrect"></div></div>
+              <div class="exs exm"><div class="exl">Teaching Point</div><div class="ext" id="exTeach"></div></div>
+              <div class="exs exw">
+                <div class="exl">Why the Others Are Wrong</div>
+                <div class="ext" id="exWrong"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Previous</button>
+            <div class="qdots" id="qDots"></div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [{"stem": "A patient asks about glycemic index after a prediabetes diagnosis. Which best defines it?", "choices": ["The total grams of digestible carbohydrate listed per serving on a nutrition label", "A measure of how much a food raises blood glucose within 2 hours versus pure glucose", "The ratio of simple sugars to complex carbohydrates present in a given food source", "The amount of insulin the pancreas needs to release to fully process a food item", "A measurement of how rapidly food passes from the stomach into the small intestine"], "correct": 1, "tag": "", "correctHtml": "<strong>B.</strong> A measure of how much a food raises blood glucose within 2 hours versus pure glucose", "teachingHtml": "GI (0–100) measures blood glucose response 2 hours after eating vs. pure glucose (GI=100).", "wrongHtml": {"A": "carb content ≠ GI", "C": "ratio isn’t GI", "D": "closer to insulin-to-carb ratio", "E": "gastric emptying isn’t the definition"}}, {"stem": "Your patient says table sugar has a LOW glycemic load. How do you explain this?", "choices": ["Table sugar has a very low glycemic index to begin with, so the load naturally follows", "Glycemic load only applies to complex carbohydrate sources, not to simple sugars", "GL equals GI times digestible carbs per serving divided by 100 — tiny serving makes it low", "Sugar is metabolized through the kidneys, making glycemic load irrelevant to it", "The glycemic load measurement is unreliable for any processed food product tested"], "correct": 2, "tag": "", "correctHtml": "<strong>C.</strong> GL equals GI times digestible carbs per serving divided by 100 — tiny serving makes it low", "teachingHtml": "Dr. G’s trick question. GL = GI × digestible carbs/serving ÷ 100. Sugar GI ~70, but serving 5–10 g. 70×5÷100 = 3.5 — very low.", "wrongHtml": {"A": "sugar does NOT have low GI", "B": "GL applies to all carbs", "D": "sugar is absorbed in the GI tract", "E": "GL is valid for all carb foods"}}, {"stem": "Which correctly states the difference between glycemic index and glycemic load?", "choices": ["Glycemic load is always numerically higher than glycemic index for any food tested", "GI is measured per 100 g of food; GL adjusts that value for actual serving size", "GI applies only to complex carbohydrates while GL covers all carb-containing foods", "GI measures how fast food is digested; GL measures total insulin secretion from it", "They are interchangeable terms that represent the same measurement in different units"], "correct": 1, "tag": "", "correctHtml": "<strong>B.</strong> GI is measured per 100 g of food; GL adjusts that value for actual serving size", "teachingHtml": "GI = per 100 g vs glucose. GL = GI × digestible carbs per serving ÷ 100. High GI + small serving → low GL (table sugar).", "wrongHtml": {"A": "GL can be lower (table sugar)", "C": "both apply to all carbs", "D": "GI = blood glucose response", "E": "fundamentally different"}}, {"stem": "Why does whole grain bread have a lower GI than white bread?", "choices": ["Whole grain bread has significantly more protein that blocks glucose absorption", "White bread contains higher fructose levels that accelerate intestinal absorption", "Whole grain bread has fewer total calories so it is metabolized more slowly overall", "The retained fiber slows starch digestion and delays glucose absorption significantly", "Whole grain products are stored at colder temperatures which alters the starch structure"], "correct": 3, "tag": "", "correctHtml": "<strong>D.</strong> The retained fiber slows starch digestion and delays glucose absorption significantly", "teachingHtml": "Whole grains retain bran/germ (fiber) — a physical barrier slowing enzymatic starch breakdown and glucose absorption. White bread = refined, fiber stripped.", "wrongHtml": {"A": "protein is similar", "B": "neither has fructose", "C": "calories don’t determine GI", "E": "store temperature not relevant"}}, {"stem": "Which is true about monosaccharide (glucose, fructose, galactose) digestion and glycemic impact?", "choices": ["They require extensive enzymatic breakdown before any absorption can occur", "They are directly absorbed without needing digestion, producing a rapid glucose spike", "They must be polymerized into polysaccharides before the body can use them at all", "They are only found in processed foods and never occur naturally in whole foods", "They all share an identical glycemic index value of exactly 100 on the scale"], "correct": 1, "tag": "", "correctHtml": "<strong>B.</strong> They are directly absorbed without needing digestion, producing a rapid glucose spike", "teachingHtml": "Monosaccharides = single sugar units, no digestion needed, directly absorbed. Rapid response. Glucose = GI 100.", "wrongHtml": {"A": "describes polysaccharides", "C": "they’re the end product", "D": "found in fruits, honey", "E": "only glucose = 100; fructose ~19–23"}}, {"stem": "Why doesn’t cellulose raise glycemic index despite being made of glucose units?", "choices": ["Cellulose has high GI but occurs in negligible amounts so the effect is unmeasurable", "It is absorbed as fructose rather than glucose, bypassing glycemic measurement entirely", "Pancreatic amylase breaks it down but the process exceeds the 2-hour GI window", "Human enzymes cannot cleave its β-1,4 glycosidic bonds so it passes as fiber", "Salivary enzymes convert it to short-chain fatty acids before it reaches the stomach"], "correct": 3, "tag": "", "correctHtml": "<strong>D.</strong> Human enzymes cannot cleave its β-1,4 glycosidic bonds so it passes as fiber", "teachingHtml": "Cellulose = β-1,4 bonds; amylase only cleaves α-1,4. We lack cellulase. Passes as insoluble fiber, traps other carbs → lowers GI.", "wrongHtml": {"A": "indigestible = no GI", "B": "not absorbed at all", "C": "amylase can’t target β-1,4", "E": "salivary enzymes don’t do this"}}, {"stem": "Which carbohydrate-containing food would have the HIGHEST glycemic index?", "choices": ["Raw celery — mostly cellulose and water with minimal digestible carbohydrate", "Black beans — complex starch tightly bound within a fiber-rich cell wall matrix", "A glucose tablet dissolved in water providing pure unbound glucose for absorption", "An apple eaten with skin on, providing both soluble and insoluble fiber content", "Steel-cut oats cooked with chia seeds providing soluble fiber and omega-3 fats"], "correct": 2, "tag": "", "correctHtml": "<strong>C.</strong> A glucose tablet dissolved in water providing pure unbound glucose for absorption", "teachingHtml": "Pure glucose in water = GI 100 reference. No fiber, fat, or protein. Immediate absorption.", "wrongHtml": {"A": "indigestible fiber", "B": "complex starch + fiber", "D": "apple fiber lowers GI", "E": "oats + chia = fiber + fat"}}, {"stem": "Oligosaccharides are digested faster than starch but slower than free glucose. Why?", "choices": ["They are absorbed intact and then cleaved inside the cell by cytoplasmic enzymes", "Amylase is more efficient than disaccharidases so starch is digested faster overall", "They are completely resistant to all known human digestive enzymes in the gut", "They require brush border disaccharidases for cleavage — a quick but extra step", "They bypass the small intestine and are only absorbed through colonic transporters"], "correct": 3, "tag": "", "correctHtml": "<strong>D.</strong> They require brush border disaccharidases for cleavage — a quick but extra step", "teachingHtml": "Oligosaccharides must be cleaved by brush border enzymes (sucrase, lactase) before absorption — fast but still a step vs. free glucose.", "wrongHtml": {"A": "cleavage is BEFORE absorption", "B": "starch is SLOWER", "C": "they ARE digestible", "E": "digested in small intestine"}}, {"stem": "Why do lentils produce a slower blood glucose rise than the same carbs from a sports drink?", "choices": ["Lentils are primarily fructose which undergoes a hepatic first-pass metabolic pathway", "Their starch is encased within a fiber matrix that physically slows enzymatic access", "Lentil carbohydrates are exclusively absorbed through colonocyte transport channels", "Sports drinks contain long-chain polysaccharides that are paradoxically digested slowly", "Lentils have substantially higher water content that dilutes the glucose absorption rate"], "correct": 1, "tag": "", "correctHtml": "<strong>B.</strong> Their starch is encased within a fiber matrix that physically slows enzymatic access", "teachingHtml": "Lentil starch (amylose) is encased in fiber cell walls — enzymes must work through the barrier. More fiber → slower digestion → lower GI.", "wrongHtml": {"A": "lentils have starch", "C": "absorption in small intestine", "D": "sports drinks have simple sugars", "E": "water doesn’t significantly affect GI"}}, {"stem": "Which food would have the LOWEST glycemic index?", "choices": ["Instant white rice served immediately while hot and fully gelatinized for digestion", "A freshly baked russet potato with its starch gelatinized and accessible to enzymes", "Kidney beans cooked with olive oil providing fiber and healthy monounsaturated fats", "Cornflakes cereal with skim milk — highly processed with minimal remaining fiber", "White bread toast with grape jelly combining refined flour and concentrated sugar"], "correct": 2, "tag": "", "correctHtml": "<strong>C.</strong> Kidney beans cooked with olive oil providing fiber and healthy monounsaturated fats", "teachingHtml": "Beans = complex starch + fiber, olive oil fat slows gastric emptying. All others = refined, high-GI.", "wrongHtml": {"A": "refined, high GI", "B": "gelatinized starch", "D": "processed, GI ~81", "E": "refined + sugar"}}, {"stem": "Freshly cooked pasta spikes glucose more than the same pasta refrigerated and reheated. Why?", "choices": ["Refrigeration kills gut bacteria that normally help with starch digestion in the lumen", "Cold temperatures make the gluten protein network completely indigestible by pepsin", "Water evaporates overnight, artificially concentrating the remaining dietary fiber content", "Cooling causes starch retrogradation creating resistant starch that acts like fiber", "Reheating enzymatically converts all the carbohydrate content directly into triglycerides"], "correct": 3, "tag": "", "correctHtml": "<strong>D.</strong> Cooling causes starch retrogradation creating resistant starch that acts like fiber", "teachingHtml": "Dr. G’s fun fact! Cooling → amylose re-crystallizes (retrogradation) → resistant starch → functions like fiber → lower spike.", "wrongHtml": {"A": "gut bacteria are in you", "B": "mechanism is starch", "C": "evaporation doesn’t create fiber", "E": "reheating doesn’t convert carbs to fat"}}, {"stem": "What MOST lowers a food’s glycemic index?", "choices": ["Its protein content, which competes with glucose for brush border transport proteins", "The color and visual presentation of the food when served to the patient at a meal", "Its dietary fiber content, which creates a physical barrier slowing glucose absorption", "Its sodium concentration, which affects osmotic gradients across the intestinal barrier", "The ambient temperature it was stored at in the grocery store before being purchased"], "correct": 2, "tag": "", "correctHtml": "<strong>C.</strong> Its dietary fiber content, which creates a physical barrier slowing glucose absorption", "teachingHtml": "Fiber = #1 factor. Physical barrier, slows gastric emptying, reduces glucose absorption. Dr. G: ‘Fiber is magic.’", "wrongHtml": {"A": "helps but fiber is MOST important", "B": "zero effect", "D": "sodium doesn’t affect GI", "E": "not a factor"}}, {"stem": "A candy bar (sucrose + cocoa butter) has lower GI than a baked potato. Best explanation?", "choices": ["Cocoa polyphenols directly block glucose transporter channels in the intestinal wall", "Sucrose yields fructose (liver-processed) and cocoa butter fat slows gastric emptying", "Candy bars cannot be accurately measured using the standard glycemic index methodology", "The baked potato was contaminated with exogenous added sugar during the preparation", "Baked potatoes actually contain substantially more fructose per gram than candy bars"], "correct": 1, "tag": "", "correctHtml": "<strong>B.</strong> Sucrose yields fructose (liver-processed) and cocoa butter fat slows gastric emptying", "teachingHtml": "Sucrose = 50% fructose (liver-processed) + cocoa butter fat slows gastric emptying. Potato = pure gelatinized starch → rapid glucose.", "wrongHtml": {"A": "polyphenols don’t block transporters", "C": "any carb food can be measured", "D": "potatoes naturally high GI", "E": "potatoes = starch"}}, {"stem": "Which correctly pairs a carbohydrate with its structural description?", "choices": ["Lactose — a long-chain polysaccharide made of hundreds of repeating glucose units", "Glycogen — a simple monosaccharide stored in liver and muscle for rapid energy", "Starch — a short oligosaccharide containing only 5 to 8 linked sugar unit residues", "Sucrose — a disaccharide composed of one glucose and one fructose joined together", "Cellulose — a single monosaccharide unit found in plant cell walls for structure"], "correct": 3, "tag": "", "correctHtml": "<strong>D.</strong> Sucrose — a disaccharide composed of one glucose and one fructose joined together", "teachingHtml": "Sucrose = disaccharide (glucose + fructose), α-1,2 bond. Cleaved by sucrase at brush border.", "wrongHtml": {"A": "lactose is a disaccharide", "B": "glycogen is a polysaccharide", "C": "starch has thousands of units", "E": "cellulose is a polysaccharide"}}, {"stem": "Which meal MOST effectively lowers glycemic response compared to white rice alone?", "choices": ["White rice with a large glass of fresh-pressed apple juice and drizzled honey", "An extra generous second helping of white rice on the side for increased satiety", "White rice accompanied by a regular cola and a handful of gummy candy for dessert", "White rice topped with maple syrup and dried sweetened cranberries for added flavor", "White rice with grilled salmon for protein, steamed broccoli for fiber, and olive oil"], "correct": 4, "tag": "", "correctHtml": "<strong>E.</strong> White rice with grilled salmon for protein, steamed broccoli for fiber, and olive oil", "teachingHtml": "Dr. G: ‘Put protein with carbs, fats, and fiber.’ Salmon = protein + PUFA, broccoli = fiber, olive oil = MUFA.", "wrongHtml": {"A": "juice + honey add sugar", "B": "more rice = more high-GI", "C": "cola + candy = simple sugar", "D": "syrup/cranberries increase GL"}}, {"stem": "Amylase digests starch. At which structural level does it primarily act?", "choices": ["Monosaccharides — breaking glucose into 3-carbon fragments for cellular glycolysis", "Disaccharides — specifically cleaving the bonds in sucrose and lactose molecules", "Polysaccharides — cleaving the α-1,4 glycosidic bonds within starch chain polymers", "Cellulose — hydrolyzing the β-1,4 glycosidic bonds in plant cell wall structures", "All structural levels equally — amylase has no meaningful substrate specificity"], "correct": 2, "tag": "", "correctHtml": "<strong>C.</strong> Polysaccharides — cleaving the α-1,4 glycosidic bonds within starch chain polymers", "teachingHtml": "Amylase targets α-1,4 bonds in starch → oligosaccharides + maltose for brush border processing.", "wrongHtml": {"A": "can’t break monosaccharides further", "B": "sucrase/lactase do that", "D": "can’t cleave β-1,4", "E": "specific to α-1,4"}}, {"stem": "Adding walnuts and blueberries to oatmeal — effect on glycemic response for a prediabetic?", "choices": ["Increases GI because blueberries contain fructose which is a simple sugar molecule", "No effect whatsoever — oatmeal’s GI is a fixed property that cannot be modified", "Walnut fat slows gastric emptying and blueberry fiber delays glucose absorption", "Increases hepatic insulin resistance because walnuts are very calorie-dense foods", "Blueberry anthocyanins directly lower blood glucose through GLUT4 upregulation"], "correct": 2, "tag": "", "correctHtml": "<strong>C.</strong> Walnut fat slows gastric emptying and blueberry fiber delays glucose absorption", "teachingHtml": "Walnut PUFA + fiber slow gastric emptying. Blueberry fiber delays absorption. Meal GI is affected by all components together.", "wrongHtml": {"A": "small fructose + fiber doesn’t raise meal GI", "B": "meal GI IS affected by composition", "D": "walnut fats improve glycemic profile", "E": "antioxidants don’t work that way"}}, {"stem": "Which GI classification is correct?", "choices": ["Low: 0–100; Medium: 100–200; High: above 200 on the extended reference scale", "Low: ≤55; Medium: 56–69; High: ≥70 on the standard glucose reference scale", "Low: any food containing fiber; High: any food completely devoid of fiber content", "Low: all foods consumed cold; High: all foods consumed hot regardless of content", "No established classification categories exist for glycemic index in clinical use"], "correct": 1, "tag": "", "correctHtml": "<strong>B.</strong> Low: ≤55; Medium: 56–69; High: ≥70 on the standard glucose reference scale", "teachingHtml": "Standard: Low ≤55, Medium 56–69, High ≥70. Scale maxes ~100.", "wrongHtml": {"A": "GI tops ~100", "C": "too simplistic", "D": "not how GI is classified", "E": "categories exist"}}, {"stem": "Which statement about dietary fiber is INCORRECT?", "choices": ["Fiber slows glucose absorption by creating a physical barrier to enzymatic access", "Fiber can limit the absorption of some dietary fats that contribute to dyslipidemia", "Fiber-rich foods tend to have lower glycemic index than their refined counterparts", "Soluble fiber is completely digested by human enzymes and absorbed as blood glucose", "Insoluble fiber passes through the entire GI tract largely intact and undigested"], "correct": 3, "tag": "", "correctHtml": "<strong>D.</strong> Soluble fiber is completely digested by human enzymes and absorbed as blood glucose", "teachingHtml": "<strong>Correct: D is INCORRECT.</strong> Soluble fiber is NOT digested into glucose. It forms a gel slowing digestion, then is fermented by colonic bacteria into SCFAs.<br><br>Others are correct: A — fiber slows absorption. B — limits fat absorption. C — fiber-rich = lower GI. E — insoluble passes intact.", "wrongHtml": {}}, {"stem": "A colleague says the gut microbiome makes GI an imperfect tool. What supports this?", "choices": ["GI actually measures urine glucose rather than blood glucose, making it unreliable", "Some people completely lack salivary amylase so all starch is indigestible for them", "Different gut bacteria process carbohydrates differently causing variable GI responses", "The microbiome only affects fat absorption and has no role in carb processing at all", "GI was developed exclusively in animal models and was never validated in humans"], "correct": 2, "tag": "", "correctHtml": "<strong>C.</strong> Different gut bacteria process carbohydrates differently causing variable GI responses", "teachingHtml": "Dr. G: ‘We all process things differently. Different bacteria chomp on fiber differently.’ Same food → different people → different response.", "wrongHtml": {"A": "GI = blood glucose", "B": "virtually all produce amylase", "D": "microbiome affects carb metabolism", "E": "developed in humans"}}];
+
+const qo = document.getElementById('qo');
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const submitOne = document.getElementById('submitOne');
+const exBlock = document.getElementById('exBlock');
+const examProgress = document.getElementById('examProgress');
+const modeLearn = document.getElementById('modeLearn');
+const modeExam = document.getElementById('modeExam');
+const toolHighlight = document.getElementById('toolHighlight');
+const toolStrike = document.getElementById('toolStrike');
+const toolReveal = document.getElementById('toolReveal');
+const toolStatus = document.getElementById('toolStatus');
+const qStem = document.getElementById('qStem');
+const qNum = document.getElementById('qNum');
+const qTagline = document.getElementById('qTagline');
+const choicesWrap = document.getElementById('choicesWrap');
+const submitExamBtn = document.getElementById('submitExam');
+const examSubmitRow = document.querySelector('.exam-submit-row');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const qDots = document.getElementById('qDots');
+const qProgressFill = document.getElementById('qProgressFill');
+const exCorrect = document.getElementById('exCorrect');
+const exTeach = document.getElementById('exTeach');
+const exWrong = document.getElementById('exWrong');
+const LETTERS = ['A','B','C','D','E'];
+
+let currentIndex = 0;
+let quizMode = 'learn';
+let toolMode = null;
+let examSubmitted = false;
+let revealForced = false;
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+const STATE = QUESTIONS.map(q => ({
+  selected: null,
+  submitted: false,
+  correct: null,
+  stemHtml: `<span class="stem-text">${escapeHtml(q.stem)}</span>`,
+  stemClasses: [],
+  choiceHighlight: Array(q.choices.length).fill(false),
+  choiceStrike: Array(q.choices.length).fill(false)
+}));
+
+function updateToolUI(){
+  toolHighlight.classList.toggle('active', toolMode === 'highlight');
+  toolHighlight.classList.toggle('hl-tool', toolMode === 'highlight');
+  toolStrike.classList.toggle('active', toolMode === 'strike');
+  toolStrike.classList.toggle('st-tool', toolMode === 'strike');
+  if (toolMode === 'highlight') {
+    toolStatus.textContent = 'Tool mode: highlight';
+    toolStatus.className = 'tool-status active-highlight';
+    qStem.classList.add('tool-hover');
+  } else if (toolMode === 'strike') {
+    toolStatus.textContent = 'Tool mode: strikeout';
+    toolStatus.className = 'tool-status active-strike';
+    qStem.classList.add('tool-hover');
+  } else {
+    toolStatus.textContent = 'Tool mode: none';
+    toolStatus.className = 'tool-status';
+    qStem.classList.remove('tool-hover');
+  }
+}
+
+function counts(){
+  let correct = 0, incorrect = 0, answered = 0;
+  STATE.forEach(s => {
+    if (s.selected !== null) answered += 1;
+    if (s.submitted) {
+      if (s.correct) correct += 1;
+      else incorrect += 1;
+    }
+  });
+  return {correct, incorrect, answered};
+}
+
+function updateScoreboard(){
+  const c = counts();
+  document.getElementById('svCurrent').textContent = String(currentIndex + 1);
+  document.getElementById('svCorrect').textContent = String(c.correct);
+  document.getElementById('svIncorrect').textContent = String(c.incorrect);
+  qProgressFill.style.width = `${((currentIndex + 1) / QUESTIONS.length) * 100}%`;
+  if (quizMode === 'exam' && !examSubmitted) {
+    examProgress.textContent = `${c.answered} of ${QUESTIONS.length} answered`;
+  } else if (quizMode === 'exam' && examSubmitted) {
+    examProgress.textContent = `Exam submitted • ${c.correct} / ${QUESTIONS.length} correct`;
+  } else {
+    examProgress.textContent = `${c.correct + c.incorrect} of ${QUESTIONS.length} graded`;
+  }
+  updateExamButton();
+}
+
+function updateExamButton(){
+  const c = counts();
+  const inExam = quizMode === 'exam';
+  submitExamBtn.disabled = !inExam || examSubmitted || c.answered === 0;
+  examSubmitRow.classList.toggle('exam-live', inExam && !examSubmitted);
+  examSubmitRow.classList.toggle('exam-done', examSubmitted);
+  submitExamBtn.textContent = examSubmitted ? 'Exam Submitted' : 'Submit Exam';
+}
+
+function setToolMode(mode){
+  toolMode = toolMode === mode ? null : mode;
+  updateToolUI();
+}
+
+function setMode(mode){
+  quizMode = mode;
+  modeLearn.classList.toggle('active', mode === 'learn');
+  modeExam.classList.toggle('active', mode === 'exam');
+  renderQuestion();
+  updateScoreboard();
+}
+
+function resetAll(){
+  currentIndex = 0;
+  quizMode = 'learn';
+  toolMode = null;
+  examSubmitted = false;
+  revealForced = false;
+  QUESTIONS.forEach((q, i) => {
+    STATE[i] = {
+      selected: null,
+      submitted: false,
+      correct: null,
+      stemHtml: `<span class="stem-text">${escapeHtml(q.stem)}</span>`,
+      stemClasses: [],
+      choiceHighlight: Array(q.choices.length).fill(false),
+      choiceStrike: Array(q.choices.length).fill(false)
+    };
+  });
+  modeLearn.classList.add('active');
+  modeExam.classList.remove('active');
+  toolReveal.classList.remove('active');
+  renderQuestion();
+  updateToolUI();
+  updateScoreboard();
+}
+
+function parseWrongHTML(q){
+  const wrongs = [];
+  LETTERS.forEach((letter, idx) => {
+    if (idx === q.correct) return;
+    const text = q.wrongHtml && q.wrongHtml[letter] ? q.wrongHtml[letter] : 'Not the best answer for this stem.';
+    wrongs.push(`<div class="wce"><strong>${letter}</strong> — ${text}</div>`);
+  });
+  return wrongs.join('');
+}
+
+function shouldShowExplanation(st) {
+  if (revealForced) return true;
+  if (quizMode === 'learn') return st.submitted;
+  if (quizMode === 'exam' && examSubmitted) return true;
+  return false;
+}
+
+function renderQuestion(){
+  const q = QUESTIONS[currentIndex];
+  const st = STATE[currentIndex];
+  qNum.textContent = `Question ${currentIndex + 1} of ${QUESTIONS.length}`;
+  qStem.innerHTML = st.stemHtml;
+  qStem.classList.remove('hl-applied','st-applied','tool-hover');
+  st.stemClasses.forEach(cls => qStem.classList.add(cls));
+  if (toolMode) qStem.classList.add('tool-hover');
+
+  qTagline.innerHTML = '';
+  const tags = [];
+  if (q.tag) tags.push(q.tag);
+  if (quizMode === 'exam') tags.push('Exam mode');
+  tags.forEach(tag => {
+    const span = document.createElement('span');
+    span.className = 'q-mini-tag ' + (tag === 'PLO' ? 'plo' : tag === 'LO' ? 'lo' : '');
+    span.textContent = tag;
+    qTagline.appendChild(span);
+  });
+
+  choicesWrap.innerHTML = '';
+  q.choices.forEach((choice, idx) => {
+    const div = document.createElement('div');
+    div.className = 'ac';
+    if (st.selected === idx) div.classList.add('sel');
+    if (st.choiceHighlight[idx]) div.classList.add('hl-applied');
+    if (st.choiceStrike[idx]) div.classList.add('st-applied');
+    if (st.submitted || (quizMode === 'exam' && examSubmitted)) div.classList.add('dis');
+    if (st.submitted || (quizMode === 'exam' && examSubmitted)) {
+      if (idx === q.correct) div.classList.add('cor');
+      if (st.selected === idx && idx !== q.correct) div.classList.add('inc');
+    }
+    div.dataset.choice = idx;
+    div.innerHTML = `<div class="cl">${LETTERS[idx]}</div><div class="ctx">${escapeHtml(choice)}</div>`;
+    div.addEventListener('click', onChoiceClick);
+    choicesWrap.appendChild(div);
+  });
+
+  submitOne.disabled = st.selected === null || st.submitted || (quizMode === 'exam');
+  exCorrect.innerHTML = q.correctHtml;
+  exTeach.innerHTML = q.teachingHtml;
+  exWrong.innerHTML = parseWrongHTML(q);
+  exBlock.classList.toggle('vis', shouldShowExplanation(st));
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === QUESTIONS.length - 1;
+
+  qDots.innerHTML = '';
+  QUESTIONS.forEach((_, idx) => {
+    const b = document.createElement('button');
+    const s = STATE[idx];
+    b.className = 'qd';
+    if (idx === currentIndex) b.classList.add('cur');
+    if (s.submitted && s.correct) b.classList.add('acor');
+    else if (s.submitted && s.correct === false) b.classList.add('ainc');
+    else if (s.selected !== null) b.classList.add('asel');
+    b.addEventListener('click', () => {
+      currentIndex = idx;
+      renderQuestion();
+      updateScoreboard();
+    });
+    qDots.appendChild(b);
+  });
+}
+
+function onChoiceClick(e){
+  e.preventDefault();
+  const idx = Number(e.currentTarget.dataset.choice);
+  const st = STATE[currentIndex];
+  if ((st.submitted || (quizMode === 'exam' && examSubmitted)) && !toolMode) return;
+
+  if (toolMode === 'highlight') {
+    st.choiceHighlight[idx] = !st.choiceHighlight[idx];
+    if (st.choiceHighlight[idx]) st.choiceStrike[idx] = false;
+    renderQuestion();
+    return;
+  }
+  if (toolMode === 'strike') {
+    st.choiceStrike[idx] = !st.choiceStrike[idx];
+    if (st.choiceStrike[idx]) st.choiceHighlight[idx] = false;
+    renderQuestion();
+    return;
+  }
+
+  if (st.submitted || (quizMode === 'exam' && examSubmitted)) return;
+  st.selected = idx;
+  renderQuestion();
+  updateScoreboard();
+}
+
+function gradeCurrentQuestion(){
+  const q = QUESTIONS[currentIndex];
+  const st = STATE[currentIndex];
+  if (st.selected === null || st.submitted) return false;
+  st.submitted = true;
+  st.correct = st.selected === q.correct;
+  renderQuestion();
+  updateScoreboard();
+  return true;
+}
+
+function saveStemState(){
+  const st = STATE[currentIndex];
+  st.stemHtml = qStem.innerHTML;
+  st.stemClasses = Array.from(qStem.classList).filter(cls => ['hl-applied','st-applied'].includes(cls));
+}
+
+function applyStemMarkup(type){
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+  const range = sel.getRangeAt(0);
+  if (!qStem.contains(range.commonAncestorContainer)) return false;
+
+  const wrapper = document.createElement('span');
+  wrapper.className = type === 'highlight' ? 'stem-hl' : 'stem-st';
+  try {
+    range.surroundContents(wrapper);
+  } catch (e) {
+    const frag = range.extractContents();
+    wrapper.appendChild(frag);
+    range.insertNode(wrapper);
+  }
+  sel.removeAllRanges();
+  saveStemState();
+  return true;
+}
+
+function toggleWholeStem(type){
+  if (type === 'highlight') {
+    qStem.classList.toggle('hl-applied');
+    qStem.classList.remove('st-applied');
+  } else {
+    qStem.classList.toggle('st-applied');
+    qStem.classList.remove('hl-applied');
+  }
+  saveStemState();
+}
+
+openDemo.addEventListener('click', () => qo.classList.add('open'));
+closeQuiz.addEventListener('click', () => {
+  qo.classList.add('closing');
+  setTimeout(() => qo.classList.remove('open','closing'), 320);
+});
+resetQuiz.addEventListener('click', resetAll);
+modeLearn.addEventListener('click', () => setMode('learn'));
+modeExam.addEventListener('click', () => setMode('exam'));
+toolHighlight.addEventListener('click', () => setToolMode('highlight'));
+toolStrike.addEventListener('click', () => setToolMode('strike'));
+toolReveal.addEventListener('click', () => {
+  revealForced = !revealForced;
+  toolReveal.classList.toggle('active', revealForced);
+  renderQuestion();
+});
+
+qStem.addEventListener('click', (e) => {
+  if (!toolMode) return;
+  const didApply = applyStemMarkup(toolMode);
+  if (!didApply) toggleWholeStem(toolMode);
+  e.preventDefault();
+});
+qStem.addEventListener('mouseup', () => {
+  if (toolMode) qStem.classList.add('tool-hover');
+});
+
+submitOne.addEventListener('click', () => gradeCurrentQuestion());
+prevBtn.addEventListener('click', () => {
+  if (currentIndex > 0) currentIndex -= 1;
+  renderQuestion();
+  updateScoreboard();
+});
+nextBtn.addEventListener('click', () => {
+  if (currentIndex < QUESTIONS.length - 1) currentIndex += 1;
+  renderQuestion();
+  updateScoreboard();
+});
+
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qo.dataset.fs = btn.dataset.fsBtn;
+  });
+});
+
+submitExamBtn.addEventListener('click', () => {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  let any = false;
+  QUESTIONS.forEach((q, idx) => {
+    const st = STATE[idx];
+    if (st.selected !== null) {
+      st.submitted = true;
+      st.correct = st.selected === q.correct;
+      any = true;
+    }
+  });
+  if (!any) return;
+  examSubmitted = true;
+  renderQuestion();
+  updateScoreboard();
+});
+
+let timerInt = null;
+let timerSec = 0;
+const timerTime = document.getElementById('timerTime');
+function renderTimer(){
+  const m = String(Math.floor(timerSec / 60)).padStart(2,'0');
+  const s = String(timerSec % 60).padStart(2,'0');
+  timerTime.textContent = `${m}:${s}`;
+}
+document.getElementById('timerStart').addEventListener('click', () => {
+  if (timerInt) return;
+  timerInt = setInterval(() => { timerSec += 1; renderTimer(); }, 1000);
+});
+document.getElementById('timerPause').addEventListener('click', () => {
+  clearInterval(timerInt); timerInt = null;
+});
+document.getElementById('timerReset').addEventListener('click', () => {
+  clearInterval(timerInt); timerInt = null; timerSec = 0; renderTimer();
+});
+
+let cdMinutes = 5;
+let cdInt = null;
+let cdSec = cdMinutes * 60;
+const cdVal = document.getElementById('cdVal');
+const cdTime = document.getElementById('cdTime');
+const cdGo = document.getElementById('cdGo');
+function renderCountdown(){
+  const m = String(Math.floor(cdSec / 60)).padStart(2,'0');
+  const s = String(cdSec % 60).padStart(2,'0');
+  cdTime.textContent = `${m}:${s}`;
+  cdVal.textContent = String(Math.max(1, Math.ceil(cdSec / 60) || 0));
+}
+document.getElementById('cdMinus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.max(1, cdMinutes - 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+document.getElementById('cdPlus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.min(99, cdMinutes + 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+cdGo.addEventListener('click', () => {
+  if (cdInt) {
+    clearInterval(cdInt);
+    cdInt = null;
+    cdGo.textContent = 'Start';
+    return;
+  }
+  cdGo.textContent = 'Pause';
+  cdInt = setInterval(() => {
+    if (cdSec <= 0) {
+      clearInterval(cdInt);
+      cdInt = null;
+      cdGo.textContent = 'Start';
+      return;
+    }
+    cdSec -= 1;
+    renderCountdown();
+  }, 1000);
+});
+
+renderTimer();
+renderCountdown();
+updateToolUI();
+renderQuestion();
+updateScoreboard();
+</script>
+</body>
+</html>
