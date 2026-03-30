@@ -1546,7 +1546,24 @@ OMK:{fullName:"Osteopathic Manipulative Knowledge",
 {stem:"A 68-year-old postmenopausal woman presents with progressive memory difficulties. Her neurologist mentions that estrogen has neuroprotective effects through both ERα and ERβ receptors in the central nervous system, and that the decline in estrogen with age is correlated with reduced cognitive protection. Which statement about estrogen's CNS effects is most accurate?",choices:["A. Estrogen provides neuroprotection and helps maintain cognitive function; its decline with age correlates with decreased cognitive protection","B. Estrogen only affects reproductive behavior in the CNS and has no role in cognition or neuroprotection","C. Estrogen is neurotoxic at high concentrations and its decline is actually protective for the aging brain","D. Estrogen's CNS effects are mediated exclusively through ERα in the hippocampus and are independent of age","E. Estrogen maintains cognitive function by increasing SHBG levels in cerebrospinal fluid"],correct:0,explanation:"Estrogen provides neuroprotection and maintains cognitive function through both ERα and ERβ in the CNS. Declining estrogen with age is associated with decreased cognitive protection. This is why there has been interest in whether hormone replacement therapy might help preserve cognition in postmenopausal women.",wrongExplanations:{1:"Estrogen has well-documented cognitive and neuroprotective effects in the CNS beyond just reproductive behavior. The notes explicitly list neuroprotection and cognitive function maintenance.",2:"Estrogen is neuroprotective, not neurotoxic. Its decline is associated with WORSE cognitive outcomes, not better ones.",3:"BOTH ERα AND ERβ are involved in CNS estrogen effects, and the effects are clearly age-dependent (declining estrogen → declining protection).",4:"SHBG binds sex hormones in the blood, it doesn't mediate estrogen's CNS effects. Estrogen's neuroprotection comes from direct receptor activation in neurons, not through SHBG."},eli5:""},
 {stem:"A medical student must match four scenarios to the correct laboratory technique. Scenario A: Identify a specific DNA mutation. Scenario B: Quantify mRNA expression of a tumor suppressor gene. Scenario C: Confirm the presence of a specific protein in a tissue lysate. Scenario D: Amplify a tiny amount of pathogen DNA from a patient's blood for diagnosis. Which matching is correct?",choices:["A. A = Southern blot, B = Northern blot, C = Western blot, D = PCR","B. A = Western blot, B = Southern blot, C = Northern blot, D = PCR","C. A = Northern blot, B = PCR, C = Southern blot, D = Western blot","D. A = PCR, B = Western blot, C = Northern blot, D = Southern blot","E. A = Southern blot, B = Western blot, C = PCR, D = Northern blot"],correct:0,explanation:"SNoW DRoP in action: Southern = DNA (Scenario A: DNA mutation), Northern = RNA (Scenario B: mRNA expression), Western = Protein (Scenario C: specific protein). PCR = amplifying DNA (Scenario D: amplify pathogen DNA for diagnosis). When you see 'DNA sequence/mutation' think Southern, 'mRNA/gene expression' think Northern, 'protein' think Western, 'amplify a small amount of DNA' think PCR.",wrongExplanations:{1:"This scrambles the SNoW DRoP mnemonic. Western blot detects proteins, not DNA mutations. Southern blot detects DNA, not mRNA.",2:"Northern blot detects RNA, not DNA. PCR amplifies DNA, it doesn't quantify mRNA (you'd need RT-qPCR for that). Southern doesn't detect proteins.",3:"PCR amplifies DNA — it doesn't detect DNA mutations in the blotting sense. Western blot is for proteins, not mRNA expression.",4:"Western blot is for proteins, not mRNA. PCR amplifies DNA, not proteins. Northern blot won't amplify pathogen DNA for diagnosis."},eli5:""}]}
     ]},
-  3:{label:"Week 3",weekNum:40,notes:[],quizzes:[],assessments:[]},
+  3:{label:"Week 3",weekNum:40,notes:[
+    {title:"Eliza — Nutrition Diabetes",file:"notes/week40/OMK/Notes/Eliza Nutrition Diabetes.html",icon:"🥗",group:"Nutrition"},
+    {title:"King — Hunger Satiety Notes",file:"notes/week40/OMK/Notes/King hunger_satiety_notes.html",icon:"🍽️",group:"Nutrition"},
+    {title:"Och — Endocrine Pancreas Diabetes",file:"notes/week40/OMK/Notes/Och endocrine pancreas diabetes.html",icon:"🩸",group:"Endocrine Physiology"},
+    {title:"Spicer — FA Synthesis",file:"notes/week40/OMK/Notes/spicer FA synthesis.html",icon:"🧪",group:"Biochemistry"}
+  ],quizzes:[
+    {name:"Och — Endocrine Pancreas Diabetes",links:[
+      {label:"Bank A",href:"notes/week40/OMK/Quizzes/Ochs_LO_BankA_20MCQ.html",style:"prac"},
+      {label:"Bank B",href:"notes/week40/OMK/Quizzes/Ochs_LO_BankB_20MCQ.html",style:"prac"}
+    ]}
+  ],assessments:[
+    {name:"Professor Specific Quiz",links:[
+      {label:"Eliza",style:"prac",disabled:true},
+      {label:"King",style:"prac",disabled:true},
+      {label:"Och",href:"notes/week40/OMK/Quizzes/Ochs_PLO_Quiz_20MCQ.html",style:"prac"},
+      {label:"Spicer",style:"prac",disabled:true}
+    ]}
+  ]},
   4:{label:"Week 4",weekNum:41,notes:[],quizzes:[],assessments:[]},
   5:{label:"Week 5",weekNum:42,notes:[],quizzes:[],assessments:[]},
   6:{label:"Week 6",weekNum:43,notes:[],quizzes:[],assessments:[]},
@@ -1732,7 +1749,7 @@ OCS:{fullName:"Osteopathic Clinical Skills",
 
 
 /* ═══ ENGINE ═══ */
-var CC='OMK',CW=1,CV='overview',EW={};
+var CC='OMK',CW=3,CV='notes',EW={};
 var AQ=null,CQ=0,AQS={},NC=0,NI=0;
 var TI=null,TS=0,TR=false;
 var CDminutes=10,CDrem=0,CDrun=false,CDint=null;
@@ -1898,7 +1915,7 @@ if(hasGroups){
   });
   return h;
 }
-var h='<div class="sec"><div class="sec-hd"><h3>\uD83D\uDCDA Quizzes</h3><span class="cnt">'+wk.quizzes.length+'</span></div>';if(!wk.quizzes.length)return h+'<div class="emp"><div class="ei">\uD83D\uDCDA</div><h4>No quizzes yet</h4><p>Add quizzes to the DATA section</p></div></div>';h+='<div class="qg">';wk.quizzes.forEach(function(q,i){if(q.banks&&q.banks.length){h+='<div class="qc" style="cursor:default"><div class="qn">'+q.name+'</div><div class="qs" style="margin-bottom:14px">'+q.banks.reduce(function(s,b){return s+b.questions.length},0)+' questions \u2022 '+q.banks.length+' banks</div><div style="display:flex;gap:8px;flex-wrap:wrap">';q.banks.forEach(function(b,bi){h+='<button onclick="event.stopPropagation();openQBank('+CW+','+i+','+bi+')" style="flex:1;padding:10px 0;text-align:center;border-radius:var(--rs);font-family:\'Nunito\',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:var(--tr);border:none;background:var(--teal);color:#fff">'+b.label+' <span style="opacity:.75;font-size:11px">('+b.questions.length+')</span></button>';});h+='</div></div>';}else{h+='<div class="qc" onclick="openQ('+CW+','+i+',\'quiz\')"><div class="qn">'+q.name+'</div><div class="qs">'+q.questions.length+' question'+(q.questions.length!==1?'s':'')+'</div></div>';}});return h+'</div></div>'}
+var h='<div class="sec"><div class="sec-hd"><h3>\uD83D\uDCDA Quizzes</h3><span class="cnt">'+wk.quizzes.length+'</span></div>';if(!wk.quizzes.length)return h+'<div class="emp"><div class="ei">\uD83D\uDCDA</div><h4>No quizzes yet</h4><p>Add quizzes to the DATA section</p></div></div>';h+='<div class="qg">';wk.quizzes.forEach(function(q,i){if(q.links&&q.links.length){h+='<div class="qc" style="cursor:default"><div class="qn">'+q.name+'</div><div class="qs" style="margin-bottom:14px">'+q.links.length+' link'+(q.links.length!==1?'s':'')+'</div><div style="display:flex;gap:8px;flex-wrap:wrap">';q.links.forEach(function(lk){if(lk.disabled){h+='<button class="rat-btn" disabled style="flex:1;min-width:120px;opacity:.5;cursor:not-allowed">'+lk.label+'</button>';}else{h+='<a class="rat-btn '+(lk.style||'prac')+'" href="'+lk.href+'" target="_blank" style="flex:1;min-width:120px;text-decoration:none;display:flex;align-items:center;justify-content:center">'+lk.label+'</a>';}});h+='</div></div>';}else if(q.banks&&q.banks.length){h+='<div class="qc" style="cursor:default"><div class="qn">'+q.name+'</div><div class="qs" style="margin-bottom:14px">'+q.banks.reduce(function(s,b){return s+b.questions.length},0)+' questions \u2022 '+q.banks.length+' banks</div><div style="display:flex;gap:8px;flex-wrap:wrap">';q.banks.forEach(function(b,bi){h+='<button onclick="event.stopPropagation();openQBank('+CW+','+i+','+bi+')" style="flex:1;padding:10px 0;text-align:center;border-radius:var(--rs);font-family:\'Nunito\',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:var(--tr);border:none;background:var(--teal);color:#fff">'+b.label+' <span style="opacity:.75;font-size:11px">('+b.questions.length+')</span></button>';});h+='</div></div>';}else{h+='<div class="qc" onclick="openQ('+CW+','+i+',\'quiz\')"><div class="qn">'+q.name+'</div><div class="qs">'+q.questions.length+' question'+(q.questions.length!==1?'s':'')+'</div></div>';}});return h+'</div></div>'}
 function openCustomQuizBuilder(name){
   var url='quizbuilder/index.html';
   if(name)url+='?quiz='+encodeURIComponent(name);
@@ -1920,7 +1937,11 @@ arr.forEach(function(r,i){
   if(r.links&&r.links.length){
     h+='<div class="rat-card"><div class="rat-name">'+r.name+'</div><div class="rat-btns link-grid">';
     r.links.forEach(function(lk){
-      h+='<a class="rat-btn '+(lk.style||'prac')+'" href="'+lk.href+'" target="_blank" style="text-decoration:none">'+lk.label+'</a>';
+      if(lk.disabled){
+        h+='<span class="rat-btn '+(lk.style||'prac')+'" style="text-decoration:none;opacity:.42;cursor:not-allowed;pointer-events:none">'+lk.label+'</span>';
+      }else{
+        h+='<a class="rat-btn '+(lk.style||'prac')+'" href="'+lk.href+'" target="_blank" style="text-decoration:none">'+lk.label+'</a>';
+      }
     });
     h+='</div></div>';
     return;
