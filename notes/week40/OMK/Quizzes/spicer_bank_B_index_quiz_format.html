@@ -164,6 +164,43 @@ body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45
 .fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--mist);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
 @media(max-width:920px){.qin{grid-template-columns:1fr;padding:22px 18px 72px;gap:16px}.score-panel{grid-template-columns:repeat(3,minmax(0,1fr))}.timer-panel{grid-template-columns:1fr 1fr}.tool-panel{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:700px){.qt-bar{padding:14px 16px;align-items:flex-start;flex-direction:column}.qt-bar h2{font-size:24px}.qin{padding:18px 14px 64px}.score-panel{grid-template-columns:1fr}.timer-panel{grid-template-columns:1fr}.tool-panel{grid-template-columns:1fr}.qbd{padding:22px 18px 20px}.qstem{font-size:24px;line-height:1.42}.ctx{font-size:16px}.qnv{padding:16px 18px 20px;flex-direction:column;align-items:stretch}.qdots{order:3}.nb{width:100%}.launch-card h1{font-size:34px}}
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,
+body.print-review-active .qo{display:none !important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:980px;margin:0 auto}
+.print-header{margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #d9e1ea}
+.print-header h1{margin:0 0 8px;font-size:28px;font-family:Arial,sans-serif;color:#142033}
+.print-summary{display:flex;gap:12px;flex-wrap:wrap;font-size:14px}
+.print-pill{padding:6px 10px;border:1px solid #c7d3e0;border-radius:999px;background:#f6f9fc}
+.print-card{break-inside:avoid;page-break-inside:avoid;margin:0 0 20px;padding:20px;border:1px solid #d7dee8;border-radius:16px;background:#fff}
+.print-qtag{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5a6c80;margin-bottom:8px}
+.print-card h2{margin:0 0 10px;font-size:20px;font-family:Arial,sans-serif;color:#142033}
+.print-stem{font-size:17px;font-weight:600;margin-bottom:14px}
+.print-choices{display:grid;gap:10px;margin-bottom:16px}
+.print-choice{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid #d7dee8;border-radius:12px}
+.print-choice-letter{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;border:1px solid #bcc9d6;flex:0 0 32px}
+.print-choice.correct{border-color:#2d8659;background:#eef8f1}
+.print-choice.correct .print-choice-letter{background:#2d8659;color:#fff;border-color:#2d8659}
+.print-choice.incorrect{border-color:#c44040;background:#fdf1f1}
+.print-choice.incorrect .print-choice-letter{background:#c44040;color:#fff;border-color:#c44040}
+.print-choice-badge{margin-top:6px;font-size:12px;font-weight:700;color:#41556b}
+.print-explainer{margin-top:12px;padding:14px;border-radius:12px}
+.correct-box{background:#eef8f1;border-left:5px solid #2d8659}
+.teach-box{background:#ebf7f5;border-left:5px solid #1a7a6d}
+.wrong-box{background:#fdf1f1;border-left:5px solid #c44040}
+.print-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.print-wrong{margin-top:8px}
+@media print{
+  body{background:#fff}
+  body:not(.print-review-active) .launch-wrap,
+  body:not(.print-review-active) .qo,
+  body:not(.print-review-active) #printReviewRoot{display:none !important}
+  body.print-review-active .launch-wrap,
+  body.print-review-active .qo{display:none !important}
+  body.print-review-active #printReviewRoot{display:block !important;padding:0;background:#fff}
+  .print-card{box-shadow:none}
+}
 
 .ac.hl-applied{
   background: linear-gradient(180deg, #FFF8B8, #FFF3A0) !important;
@@ -310,7 +347,7 @@ body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45
         <button class="fs-btn" data-fs-btn="lg">A+</button>
         <button class="fs-btn" data-fs-btn="xl">A++</button>
       </div>
-      <button class="qt-btn print" onclick="window.print()">Print</button>
+      <button class="qt-btn print" id="printQuiz">Print</button>
       <button class="qt-btn reset" id="resetQuiz">Reset</button>
       <button class="qt-btn close" id="closeQuiz">Close</button>
     </div>
@@ -404,6 +441,7 @@ body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45
     </div>
   </div>
 </div>
+<div id="printReviewRoot" aria-hidden="true"></div>
 
 <script>
 const QUIZ_TITLE = "FA & TAG Synthesis — Question Bank B";
@@ -419,6 +457,7 @@ const resetQuiz = document.getElementById('resetQuiz');
 const submitOne = document.getElementById('submitOne');
 const submitExamBtn = document.getElementById('submitExam');
 const examSubmitRow = document.querySelector('.exam-submit-row');
+const printQuizBtn = document.getElementById('printQuiz');
 const examProgress = document.getElementById('examProgress');
 const modeLearn = document.getElementById('modeLearn');
 const modeExam = document.getElementById('modeExam');
@@ -604,6 +643,85 @@ function renderExplanation(q, st) {
   const shouldShow = st.revealForced || st.submitted || examSubmitted;
   exBlock.classList.toggle('vis', shouldShow);
 }
+
+function buildPrintReviewMarkup() {
+  const answered = qStates.filter(st => st.selected !== null).length;
+  const correct = qStates.filter((st, idx) => st.selected !== null && st.selected === getCorrectIndex(RAW_QUESTIONS[idx])).length;
+  const incorrect = answered - correct;
+
+  const cards = order.map((qIdx, pos) => {
+    const q = RAW_QUESTIONS[qIdx];
+    const st = qStates[qIdx];
+    const correctIdx = getCorrectIndex(q);
+    const options = q.opts.map((opt, optIdx) => {
+      const text = opt.text || '';
+      const cls = [
+        'print-choice',
+        optIdx === correctIdx ? 'correct' : '',
+        st.selected === optIdx && optIdx !== correctIdx ? 'incorrect' : ''
+      ].filter(Boolean).join(' ');
+      const badge = optIdx === correctIdx ? 'Correct' : (st.selected === optIdx ? 'Your choice' : '');
+      return `
+        <div class="${cls}">
+          <div class="print-choice-letter">${LETTERS[optIdx]}</div>
+          <div class="print-choice-copy">
+            <div>${escapeHtml(text)}</div>
+            ${badge ? `<div class="print-choice-badge">${badge}</div>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+
+    const wrongs = q.opts.map((opt, optIdx) => {
+      if (optIdx === correctIdx) return '';
+      return `<div class="print-wrong"><strong>${LETTERS[optIdx]}</strong> - ${escapeHtml(opt.why || 'Incorrect based on the mechanism tested in this question.')}</div>`;
+    }).join('');
+
+    return `
+      <section class="print-card">
+        <div class="print-qtag">${escapeHtml(QUIZ_TAG)}</div>
+        <h2>Question ${pos + 1}</h2>
+        <div class="print-stem">${escapeHtml(q.q || '')}</div>
+        <div class="print-choices">${options}</div>
+        <div class="print-explainer correct-box">
+          <div class="print-label">Correct Answer</div>
+          <div><strong>${LETTERS[correctIdx]}</strong> - ${escapeHtml(q.opts[correctIdx].text || '')}</div>
+        </div>
+        <div class="print-explainer teach-box">
+          <div class="print-label">Teaching Point</div>
+          <div>${escapeHtml(buildTeachingPoint(q, correctIdx))}</div>
+        </div>
+        <div class="print-explainer wrong-box">
+          <div class="print-label">Why the Others Are Wrong</div>
+          <div>${wrongs}</div>
+        </div>
+      </section>`;
+  }).join('');
+
+  return `
+    <div class="print-shell">
+      <header class="print-header">
+        <h1>${escapeHtml(QUIZ_TITLE)} Answer Review</h1>
+        <div class="print-summary">
+          <span class="print-pill">${RAW_QUESTIONS.length} questions</span>
+          <span class="print-pill">${answered} answered</span>
+          <span class="print-pill">${correct} correct</span>
+          <span class="print-pill">${incorrect} incorrect</span>
+        </div>
+      </header>
+      ${cards}
+    </div>`;
+}
+
+function printQuizReview() {
+  const printRoot = document.getElementById('printReviewRoot');
+  printRoot.innerHTML = buildPrintReviewMarkup();
+  document.body.classList.add('print-review-active');
+  window.setTimeout(() => window.print(), 50);
+}
+
+window.addEventListener('afterprint', () => {
+  document.body.classList.remove('print-review-active');
+});
 
 function renderDots() {
   qDots.innerHTML = '';
@@ -925,6 +1043,7 @@ cdGo.addEventListener('click', () => {
 
 renderTimer();
 renderCountdown();
+printQuizBtn.addEventListener('click', printQuizReview);
 resetQuizState(false);
 </script>
 </body>
