@@ -445,6 +445,46 @@ h1, h2, h3, h4, .toc h2, .lo-box h2, .plo-box h2 {
   color: white;
   border-color: var(--accent);
 }
+.study-mark.study-highlight {
+  background: #fff2a8;
+  border-radius: 0.25em;
+  padding: 0 0.08em;
+}
+.study-mark.study-strike {
+  background: #ffe7e7;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #b42318;
+  border-radius: 0.25em;
+  padding: 0 0.08em;
+}
+.study-mark.study-annotate {
+  position: relative;
+  background: #e8f1ff;
+  border-bottom: 2px dotted #2563eb;
+  border-radius: 0.25em;
+  padding: 0 0.08em;
+  cursor: help;
+}
+.study-mark.study-annotate:hover::after {
+  content: attr(data-note);
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  width: min(280px, 70vw);
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #111827;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.2);
+  white-space: normal;
+}
+.study-status {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
 
 .quick-nav {
   display: flex;
@@ -791,6 +831,28 @@ table img {
     position: static;
   }
 }
+@media print {
+  .toolbar,
+  .side-toc,
+  .img-modal,
+  .table-quiz-controls {
+    display: none !important;
+  }
+  .page-shell {
+    display: block !important;
+  }
+  .study-mark.study-annotate::after {
+    content: " [Note: " attr(data-note) "]";
+    position: static;
+    display: inline;
+    width: auto;
+    padding: 0;
+    margin-left: 0.25em;
+    background: transparent;
+    color: #000;
+    box-shadow: none;
+  }
+}
 
 
 /* ===== Live chart replacements ===== */
@@ -1077,10 +1139,17 @@ body:not(.dark):not(.amber) tr:hover {
 <button aria-label="Decrease text size" id="fontDown" type="button">A−</button>
 <button aria-label="Reset text size" id="fontReset" type="button">A</button>
 <button aria-label="Increase text size" id="fontUp" type="button">A+</button>
+<span class="label-chip">Study</span>
+<button id="studyHighlight" type="button">Highlight</button>
+<button id="studyStrike" type="button">Strikeout</button>
+<button id="studyAnnotate" type="button">Annotate</button>
+<button id="studyClear" type="button">Clear Mark</button>
+<button id="studyPrint" type="button">Print</button>
 </div>
 </div>
 <div class="toolbar-row">
 <div aria-label="Quick jump" class="quick-nav" id="quickNav"></div>
+<div class="study-status" id="studyStatus">Select text, then choose a tool.</div>
 </div>
 </div>
 <h1>Nutrition for Prevention &amp; Treatment of Diabetes</h1>
@@ -1112,7 +1181,7 @@ body:not(.dark):not(.amber) tr:hover {
 </ol>
 </div>
 </aside>
-<main class="main-content">
+<main class="main-content study-content">
 <!-- ============================== -->
 <!-- PLO ANSWERS -->
 <!-- ============================== -->
@@ -2197,6 +2266,111 @@ body:not(.dark):not(.amber) tr:hover {
       cell.classList.remove('quiz-hidden');
       cell.classList.add('revealed');
     });
+  });
+})();
+</script>
+<script>
+(function () {
+  const status = document.getElementById('studyStatus');
+  const blockSelector = 'div,p,section,article,table,thead,tbody,tr,td,th,ul,ol,li,h1,h2,h3,h4,h5,h6';
+
+  function setStatus(message) {
+    if (status) status.textContent = message;
+  }
+
+  function getSelectionRange() {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
+      setStatus('Select note text first.');
+      return null;
+    }
+    const range = selection.getRangeAt(0);
+    const anchor = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
+      ? range.commonAncestorContainer
+      : range.commonAncestorContainer.parentElement;
+    if (!anchor || anchor.closest('.toolbar')) {
+      setStatus('Select note text, not the toolbar.');
+      return null;
+    }
+    const preview = document.createElement('div');
+    preview.appendChild(range.cloneContents());
+    if (preview.querySelector(blockSelector)) {
+      setStatus('Select a shorter text span within one paragraph or cell.');
+      return null;
+    }
+    return range;
+  }
+
+  function wrapSelection(className, noteText) {
+    const range = getSelectionRange();
+    if (!range) return;
+    const selection = window.getSelection();
+    const wrapper = document.createElement('span');
+    wrapper.className = `study-mark ${className}`;
+    if (noteText) wrapper.dataset.note = noteText;
+    try {
+      range.surroundContents(wrapper);
+    } catch (error) {
+      const fragment = range.extractContents();
+      wrapper.appendChild(fragment);
+      range.insertNode(wrapper);
+    }
+    selection.removeAllRanges();
+    setStatus(noteText ? 'Annotation added.' : `${className.replace('study-', '')} applied.`);
+  }
+
+  function clearMark() {
+    const selection = window.getSelection();
+    let node = selection && selection.rangeCount ? selection.getRangeAt(0).commonAncestorContainer : null;
+    if (node && node.nodeType !== Node.ELEMENT_NODE) node = node.parentElement;
+    const mark = node && node.closest ? node.closest('.study-mark') : null;
+    if (!mark || mark.closest('.toolbar')) {
+      setStatus('Place the cursor inside a marked note to clear it.');
+      return;
+    }
+    const parent = mark.parentNode;
+    while (mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+    parent.removeChild(mark);
+    parent.normalize();
+    selection.removeAllRanges();
+    setStatus('Mark cleared.');
+  }
+
+  document.getElementById('studyHighlight').addEventListener('click', function () {
+    wrapSelection('study-highlight');
+  });
+  document.getElementById('studyStrike').addEventListener('click', function () {
+    wrapSelection('study-strike');
+  });
+  document.getElementById('studyAnnotate').addEventListener('click', function () {
+    const note = window.prompt('Add an annotation for this selection:');
+    if (note === null) return;
+    if (!note.trim()) {
+      setStatus('Annotation cancelled.');
+      return;
+    }
+    wrapSelection('study-annotate', note.trim());
+  });
+  document.getElementById('studyClear').addEventListener('click', clearMark);
+  document.getElementById('studyPrint').addEventListener('click', function () {
+    window.print();
+  });
+
+  document.addEventListener('dblclick', function (event) {
+    const mark = event.target.closest('.study-annotate');
+    if (!mark) return;
+    const updated = window.prompt('Edit annotation:', mark.dataset.note || '');
+    if (updated === null) return;
+    if (!updated.trim()) {
+      const parent = mark.parentNode;
+      while (mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+      parent.removeChild(mark);
+      parent.normalize();
+      setStatus('Annotation removed.');
+      return;
+    }
+    mark.dataset.note = updated.trim();
+    setStatus('Annotation updated.');
   });
 })();
 </script>
