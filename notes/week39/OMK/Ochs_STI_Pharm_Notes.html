@@ -3,815 +3,1241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>STI Pharmacology Notes — Dr. Ochs | UNE COM</title>
+<title>Pharmacological Management of STIs — Dr. Ochs</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
   :root {
-    --bg: #131a2a;
-    --surface: #182338;
-    --surface2: #111a2d;
-    --surface3: #22304d;
-    --border: #30405f;
-    --text: #e6ecf5;
-    --dim: #a2aec4;
-    --heading: #ffffff;
-    --table-head-bg: #203255;
-    --table-head-text: #ffffff;
-    --shadow: 0 18px 42px rgba(5, 12, 25, 0.34);
-    --yellow: #f4c84d;
-    --red: #ff6b6b;
-    --green: #5dc37b;
-    --orange: #ffb24d;
-    --cyan: #63d8e8;
-    --pink: #f4a7c5;
-    --blue: #7fb4ff;
-    --toolbar-ring: rgba(99, 216, 232, 0.22);
+    --navy: #1a2a4a;
+    --teal: #0d7a8a;
+    --teal-light: #e6f4f6;
+    --gold: #c8922a;
+    --gold-light: #fdf6e8;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --green: #1e7a4f;
+    --green-light: #eaf6ef;
+    --purple: #6b3fa0;
+    --purple-light: #f0eaf8;
+    --gray: #f4f5f7;
+    --border: #dde2ea;
+    --text: #1e2533;
+    --muted: #6b7a99;
   }
-  body[data-theme="paper"] {
-    --bg: #eef2f7;
-    --surface: #ffffff;
-    --surface2: #f7f9fc;
-    --surface3: #edf2fb;
-    --border: #d5deea;
-    --text: #1f2937;
-    --dim: #5f6f86;
-    --heading: #0f172a;
-    --table-head-bg: #ecf2fb;
-    --table-head-text: #162238;
-    --shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
-    --toolbar-ring: rgba(59, 130, 246, 0.16);
-  }
-  body[data-theme="sage"] {
-    --bg: #eef3ee;
-    --surface: #fbfdf9;
-    --surface2: #f2f6ef;
-    --surface3: #e8efe5;
-    --border: #cfdacb;
-    --text: #223126;
-    --dim: #5f7463;
-    --heading: #18301e;
-    --table-head-bg: #e5eee1;
-    --table-head-text: #213125;
-    --shadow: 0 16px 34px rgba(34, 49, 38, 0.08);
-    --toolbar-ring: rgba(93, 195, 123, 0.14);
-  }
-  body[data-theme="blush"] {
-    --bg: #f7eef3;
-    --surface: #fffafd;
-    --surface2: #fdf3f7;
-    --surface3: #fae8f1;
-    --border: #e8cfda;
-    --text: #382332;
-    --dim: #7b5d72;
-    --heading: #301825;
-    --table-head-bg: #fae8f1;
-    --table-head-text: #3b2431;
-    --shadow: 0 16px 34px rgba(59, 36, 49, 0.08);
-    --toolbar-ring: rgba(244, 167, 197, 0.18);
-  }
-  body[data-theme="amber"] {
-    --bg: #fbf4e8;
-    --surface: #fffaf1;
-    --surface2: #f8efd9;
-    --surface3: #f1e2bf;
-    --border: #e6cf99;
-    --text: #3a2912;
-    --dim: #8a6b37;
-    --heading: #2a1e0c;
-    --table-head-bg: #f2dfb2;
-    --table-head-text: #38270d;
-    --shadow: 0 16px 34px rgba(90, 63, 22, 0.09);
-    --toolbar-ring: rgba(201, 145, 42, 0.18);
-    --yellow: #c9912a;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; color: var(--text); font-size: 15px; line-height: 1.65; }
 
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { font-size: 100%; scroll-behavior: smooth; }
-  body {
-    font-family:'Inter',sans-serif;
-    background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 92%, #ffffff 8%) 100%);
-    color:var(--text);
-    line-height:1.7;
-    font-size:15px;
-    transition: background .25s ease, color .25s ease;
-  }
-  .container { max-width:980px; margin:0 auto; padding:24px 24px 80px; overflow: visible; }
-  h1 { text-align:center; font-size:1.55rem; color:var(--heading); margin-bottom:6px; letter-spacing:-0.02em; }
-  .sub { text-align:center; color:var(--dim); font-size:0.92rem; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid var(--border); }
-  h2 { color:var(--yellow); font-size:1.13rem; margin:34px 0 14px; padding:10px 14px; background:color-mix(in srgb, var(--yellow) 10%, transparent); border-left:4px solid var(--yellow); border-radius:0 10px 10px 0; }
-  h3 { color:var(--cyan); font-size:1.02rem; margin:24px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--border); }
-  h4 { color:var(--blue); font-size:0.96rem; margin:18px 0 8px; }
-  p { margin:6px 0; }
-  .r { color:var(--red); font-weight:700; }
-  .g { color:var(--green); font-weight:700; }
-  .o { color:var(--orange); font-weight:700; }
-  .y { color:var(--yellow); font-weight:700; }
-  .c { color:var(--cyan); font-weight:700; }
-  .pk { color:var(--pink); font-weight:700; }
-  .b { color:var(--blue); font-weight:700; }
-  .w { color:var(--heading); font-weight:800; }
-  .board { display:inline-block; background:var(--red); color:#fff; font-size:0.68rem; font-weight:800; padding:2px 7px; border-radius:999px; vertical-align:middle; margin-left:4px; letter-spacing:0.5px; }
-  .toc { margin:0 0 24px; padding:16px 18px; background:var(--surface); border-radius:16px; border:1px solid var(--border); box-shadow: var(--shadow); }
-  .toc a { color:var(--cyan); text-decoration:none; font-size:0.9rem; display:block; padding:4px 0; }
-  .toc a:hover { text-decoration:underline; }
-  .toc-t { color:var(--heading); font-weight:700; font-size:0.94rem; margin-bottom:6px; }
-  ul { margin:6px 0 6px 20px; }
-  li { margin:3px 0; }
-  .nb, .wb, .hb { padding:12px 14px; margin:12px 0; border-radius:0 10px 10px 0; font-size:0.93rem; background:var(--surface); box-shadow: var(--shadow); border:1px solid var(--border); }
-  .nb { border-left:4px solid var(--cyan); }
-  .wb { border-left:4px solid var(--red); }
-  .hb { border-left:4px solid var(--orange); }
+  /* ── Layout ── */
+  .page-header { background: var(--navy); color: #fff; padding: 32px 40px; }
+  .page-header h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 6px; }
+  .page-header p { color: #a8b8d8; font-size: 0.95rem; }
 
-  .study-toolbar {
-    position: sticky;
-    top: 12px;
-    z-index: 50;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 18px;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 0 20px;
-    padding: 14px 16px;
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-  }
-  .toolbar-group { display:flex; align-items:center; flex-wrap:wrap; gap:10px; }
-  .toolbar-label { font-size:0.76rem; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; color:var(--dim); }
-  .theme-swatches { display:flex; gap:8px; align-items:center; }
-  .theme-swatch {
-    width: 26px; height: 26px; border-radius: 999px; border: 2px solid transparent; cursor: pointer;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
-    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-  }
-  .theme-swatch:hover { transform: translateY(-1px); }
-  .theme-swatch.active { border-color: var(--heading); box-shadow: 0 0 0 4px var(--toolbar-ring); }
-  .theme-swatch[data-theme="midnight"] { background: linear-gradient(135deg, #131a2a, #22304d); }
-  .theme-swatch[data-theme="paper"] { background: linear-gradient(135deg, #ffffff, #e8eef8); }
-  .theme-swatch[data-theme="sage"] { background: linear-gradient(135deg, #f7fbf5, #dce8d8); }
-  .theme-swatch[data-theme="blush"] { background: linear-gradient(135deg, #fff8fb, #f4dce8); }
-  .theme-swatch[data-theme="amber"] { background: linear-gradient(135deg, #fffaf1, #e8c46a); }
-  .text-btn {
-    min-width: 42px; height: 38px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface2);
-    color: var(--heading); font-weight: 800; font-size: 1rem; cursor:pointer; transition: transform .18s ease, border-color .18s ease, background .18s ease;
-  }
-  .text-btn:hover { transform: translateY(-1px); border-color: var(--cyan); }
-  .font-readout { min-width: 44px; text-align:center; font-weight:700; color:var(--dim); }
+  .toc-bar { background: #fff; border-bottom: 2px solid var(--border); padding: 14px 40px; display: flex; flex-wrap: wrap; gap: 8px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .toc-bar a { text-decoration: none; color: var(--teal); font-size: 0.82rem; font-weight: 600; background: var(--teal-light); padding: 4px 10px; border-radius: 20px; transition: background 0.2s; }
+  .toc-bar a:hover { background: var(--teal); color: #fff; }
 
-  .table-shell {
-    margin: 12px 0 18px;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--surface);
-    box-shadow: var(--shadow);
-  }
-  .table-tools {
-    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-    padding: 10px 12px; background: var(--surface2); border-bottom: 1px solid var(--border);
-  }
-  .table-tools-left, .table-tools-right { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
-  .table-btn {
-    border: 1px solid var(--border); background: var(--surface); color: var(--text);
-    padding: 8px 12px; border-radius: 999px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
-    transition: transform .18s ease, border-color .18s ease, background .18s ease;
-  }
-  .table-btn:hover:not(:disabled) { transform: translateY(-1px); border-color: var(--cyan); }
-  .table-btn:disabled { opacity: .45; cursor: not-allowed; }
-  .quiz-note { font-size: 0.76rem; color: var(--dim); }
-  .table-scroll { overflow:auto; }
-  .table-shell.expanded {
-    width: min(1440px, calc(100vw - 24px));
-    max-width: none;
-    margin-left: 50%;
-    transform: translateX(-50%);
-  }
-  .table-shell.expanded .table-scroll { max-height: 80vh; }
-  table { width:100%; border-collapse:separate; border-spacing:0; margin:0; font-size:0.9rem; }
-  th { background:var(--table-head-bg); color:var(--table-head-text); font-weight:700; padding:10px 11px; text-align:left; border-right:1px solid var(--border); border-bottom:1px solid var(--border); font-size:0.79rem; text-transform:uppercase; letter-spacing:0.05em; }
-  th:last-child { border-right:none; }
-  td { padding:9px 11px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); vertical-align:top; background:var(--surface); }
-  tr td:last-child { border-right:none; }
-  tr:last-child td { border-bottom:none; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px 60px; }
 
-  .quiz-switch { display:flex; align-items:center; gap:8px; font-size:0.82rem; font-weight:700; color:var(--text); }
-  .switch { position:relative; display:inline-block; width:48px; height:28px; }
-  .switch input { opacity:0; width:0; height:0; }
-  .slider {
-    position:absolute; inset:0; border-radius:999px; background: var(--surface3); border:1px solid var(--border);
-    transition: background .18s ease, border-color .18s ease;
-  }
-  .slider:before {
-    content:''; position:absolute; width:20px; height:20px; left:3px; top:3px; border-radius:50%; background:#fff;
-    box-shadow:0 3px 8px rgba(0,0,0,.18); transition: transform .18s ease;
-  }
-  .switch input:checked + .slider { background: color-mix(in srgb, var(--cyan) 28%, var(--surface3)); border-color: var(--cyan); }
-  .switch input:checked + .slider:before { transform: translateX(20px); }
+  /* ── Sections ── */
+  .plo-badge { display: inline-block; background: var(--navy); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; margin-bottom: 6px; letter-spacing: 0.05em; }
+  .lo-badge { display: inline-block; background: var(--teal); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; margin-bottom: 6px; letter-spacing: 0.05em; }
 
-  .quiz-target { position: relative; transition: background .18s ease, color .18s ease; }
-  .quiz-hidden {
-    color: transparent !important;
-    cursor: pointer;
-    user-select: none;
-    background: linear-gradient(135deg, color-mix(in srgb, var(--surface2) 88%, var(--surface) 12%), color-mix(in srgb, var(--surface3) 72%, var(--surface) 28%)) !important;
-  }
-  .quiz-hidden * { visibility: hidden !important; }
-  .quiz-hidden::after {
-    content: 'Tap to reveal';
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    color: var(--dim); font-size:0.8rem; font-weight:700; letter-spacing:0.02em;
-    visibility: visible !important;
-  }
-  .quiz-revealed { background: color-mix(in srgb, var(--green) 12%, var(--surface)) !important; }
+  section { background: #fff; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 28px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .section-header { padding: 18px 24px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 14px; }
+  .section-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+  .section-header h2 { font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+  .section-header p { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+  .section-body { padding: 20px 24px; }
 
-  .fc { display:none; }
+  /* ── Tables ── */
+  .table-wrap { overflow-x: auto; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  thead tr { background: var(--navy); color: #fff; }
+  thead th { padding: 10px 12px; text-align: left; font-weight: 600; white-space: nowrap; }
+  tbody tr:nth-child(even) { background: var(--gray); }
+  tbody td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
 
-  @media (max-width: 720px) {
-    .container { padding: 18px 14px 64px; }
-    .study-toolbar { top: 8px; padding: 12px; border-radius: 14px; }
-    .toolbar-group { gap: 8px; }
-    .table-shell.expanded { width: calc(100vw - 12px); }
-    table { font-size: 0.85rem; }
-  }
+  /* ── Cards ── */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin: 12px 0; }
+  .card { border-radius: 8px; padding: 14px 16px; border: 1px solid var(--border); }
+  .card.teal { background: var(--teal-light); border-color: #b0dce3; }
+  .card.gold { background: var(--gold-light); border-color: #e8d0a0; }
+  .card.red { background: var(--red-light); border-color: #f0bbb6; }
+  .card.green { background: var(--green-light); border-color: #a8d8bc; }
+  .card.purple { background: var(--purple-light); border-color: #c8b0e0; }
+  .card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: var(--navy); }
+  .card ul { padding-left: 16px; font-size: 0.84rem; }
+  .card ul li { margin-bottom: 3px; }
+  .card .pathogen { font-style: italic; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
+
+  /* ── Callouts ── */
+  .callout { border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.875rem; }
+  .callout.warning { background: #fff8e1; border-left: 4px solid #f59e0b; }
+  .callout.danger { background: var(--red-light); border-left: 4px solid var(--red); }
+  .callout.info { background: var(--teal-light); border-left: 4px solid var(--teal); }
+  .callout.success { background: var(--green-light); border-left: 4px solid var(--green); }
+  .callout.purple { background: var(--purple-light); border-left: 4px solid var(--purple); }
+  .callout strong { font-weight: 700; }
+
+  /* ── Drug blocks ── */
+  .drug-block { border: 1px solid var(--border); border-radius: 8px; margin: 10px 0; overflow: hidden; }
+  .drug-block .db-header { background: var(--navy); color: #fff; padding: 8px 14px; font-weight: 700; font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; }
+  .drug-block .db-header span { font-size: 0.78rem; font-weight: 400; color: #a8b8d8; }
+  .drug-block .db-body { padding: 12px 14px; font-size: 0.875rem; }
+  .db-row { display: flex; gap: 8px; margin-bottom: 6px; align-items: flex-start; }
+  .db-label { font-weight: 700; color: var(--teal); min-width: 80px; flex-shrink: 0; font-size: 0.8rem; padding-top: 1px; }
+  .db-content { flex: 1; }
+
+  /* ── Misc ── */
+  h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 16px 0 8px; }
+  h4 { font-size: 0.9rem; font-weight: 700; margin: 12px 0 6px; }
+  p { margin-bottom: 8px; }
+  ul, ol { padding-left: 20px; margin-bottom: 8px; }
+  ul li, ol li { margin-bottom: 4px; font-size: 0.875rem; }
+  .tag { display: inline-block; background: var(--gray); border: 1px solid var(--border); color: var(--muted); font-size: 0.76rem; padding: 2px 7px; border-radius: 4px; margin: 2px; }
+  .tag.preg { background: #fce4ec; border-color: #f48fb1; color: #880e4f; }
+  .tag.doc { background: #e8f5e9; border-color: #81c784; color: #1b5e20; font-weight: 700; }
+  .tag.alt { background: #fff3e0; border-color: #ffb74d; color: #e65100; }
+  .tag.avoid { background: var(--red-light); border-color: #ef9a9a; color: var(--red); }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 8px 0; }
+  @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } .cards { grid-template-columns: 1fr; } }
+  .pill { display: inline-block; border-radius: 20px; padding: 2px 9px; font-size: 0.75rem; font-weight: 700; margin: 2px; }
+  .pill.gm-neg { background: #e3f2fd; color: #0d47a1; }
+  .pill.gm-pos { background: #fce4ec; color: #880e4f; }
+  .pill.both { background: #e8f5e9; color: #1b5e20; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+  .emoji-list { list-style: none; padding-left: 0; }
+  .emoji-list li::before { content: attr(data-icon) " "; }
 </style>
 </head>
 <body>
+
+<div class="page-header">
+  <h1>🧫 Pharmacological Management of STIs</h1>
+  <p>Dr. Scott D. Ochs · Comprehensive PLO & LO Study Notes · Based on lecture slides + transcript</p>
+</div>
+
+<nav class="toc-bar">
+  <a href="#plo1">PLO 1 – Pathogens</a>
+  <a href="#plo2">PLO 2 – Drug Choices</a>
+  <a href="#lo1">LO 1 – Pubic Lice</a>
+  <a href="#lo2">LO 2 – Granuloma &amp; Warts Tx</a>
+  <a href="#lo3">LO 3 – Clinical Presentation</a>
+  <a href="#lo4">LO 4 – Lab Tests</a>
+  <a href="#lo5">LO 5 – Mechanisms</a>
+  <a href="#lo6">LO 6 – Pregnancy Tx</a>
+  <a href="#lo7">LO 7 – Adverse Effects</a>
+  <a href="#lo8">LO 8 – Drug Interactions</a>
+</nav>
+
 <div class="container">
 
-<h1>Pharmacological Management of STIs</h1>
-<div class="sub">Dr. Ochs · UNE COM · Block 5</div>
-
-<div class="study-toolbar">
-  <div class="toolbar-group">
-    <span class="toolbar-label">Background</span>
-    <div class="theme-swatches" role="group" aria-label="Background theme selector">
-      <button class="theme-swatch" type="button" data-theme="midnight" aria-label="Midnight theme"></button>
-      <button class="theme-swatch" type="button" data-theme="paper" aria-label="Paper theme"></button>
-      <button class="theme-swatch" type="button" data-theme="sage" aria-label="Sage theme"></button>
-      <button class="theme-swatch" type="button" data-theme="blush" aria-label="Blush theme"></button>
-      <button class="theme-swatch" type="button" data-theme="amber" aria-label="Amber theme"></button>
+<!-- ══════════════════════════════════════════════════
+     PLO 1 — PATHOGENS
+══════════════════════════════════════════════════ -->
+<section id="plo1">
+  <div class="section-header">
+    <div class="section-icon">🦠</div>
+    <div>
+      <div class="plo-badge">PLO 1</div>
+      <h2>Identify the Pathogens of Each STI</h2>
+      <p>Matching each infection to its causative organism — a common exam vignette hook</p>
     </div>
   </div>
-  <div class="toolbar-group">
-    <span class="toolbar-label">Text</span>
-    <button class="text-btn" type="button" id="fontDown" aria-label="Decrease text size">A−</button>
-    <span class="font-readout" id="fontReadout">100%</span>
-    <button class="text-btn" type="button" id="fontUp" aria-label="Increase text size">A+</button>
+  <div class="section-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>STI</th>
+            <th>Pathogen</th>
+            <th>Type</th>
+            <th>Key Micro Fact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Gonorrhea</strong></td>
+            <td><em>Neisseria gonorrhoeae</em></td>
+            <td><span class="pill gm-neg">Gram (−)</span></td>
+            <td>Gram-negative <strong>diplococcus</strong>; intracellular</td>
+          </tr>
+          <tr>
+            <td><strong>Chlamydia</strong></td>
+            <td><em>Chlamydia trachomatis</em></td>
+            <td><span class="pill">Obligate intracellular</span></td>
+            <td>Most common bacterial STI; serovars D–K (genital), L1–L3 (LGV)</td>
+          </tr>
+          <tr>
+            <td><strong>Syphilis</strong></td>
+            <td><em>Treponema pallidum</em></td>
+            <td><span class="pill">Spirochete</span></td>
+            <td>Cannot be cultured on standard media; Jarisch-Herxheimer reaction on Tx</td>
+          </tr>
+          <tr>
+            <td><strong>Chancroid</strong></td>
+            <td><em>Haemophilus ducreyi</em></td>
+            <td><span class="pill gm-neg">Gram (−)</span></td>
+            <td>Gram-negative coccobacilli; requires special media to culture</td>
+          </tr>
+          <tr>
+            <td><strong>Granuloma Inguinale</strong> (Donovanosis)</td>
+            <td><em>Klebsiella granulomatis</em></td>
+            <td><span class="pill gm-neg">Gram (−)</span></td>
+            <td>Formerly <em>Calymmatobacterium granulomatis</em>; Donovan bodies on biopsy</td>
+          </tr>
+          <tr>
+            <td><strong>Bacterial Vaginosis</strong></td>
+            <td>Polymicrobial: <em>Gardnerella vaginalis</em>, <em>Bacteroides fragilis</em>, <em>Prevotella</em> sp., <em>Mobiluncus</em> sp., <em>Mycoplasma hominis</em></td>
+            <td><span class="pill">Mixed/anaerobic</span></td>
+            <td>Not a true STI; associated with sexual behavior; clue cells on microscopy</td>
+          </tr>
+          <tr>
+            <td><strong>Herpes Genitalis</strong></td>
+            <td><em>Herpes simplex virus</em> (HSV-2 most common; HSV-1 also possible)</td>
+            <td><span class="pill">Virus (dsDNA)</span></td>
+            <td>HHV-2; latent in sacral dorsal root ganglia</td>
+          </tr>
+          <tr>
+            <td><strong>Condylomata Acuminata</strong> (Genital Warts)</td>
+            <td><em>Human Papillomavirus</em> (HPV) — types <strong>6 and 11</strong></td>
+            <td><span class="pill">Virus (dsDNA)</span></td>
+            <td>Types 16 &amp; 18 → cervical cancer; >100 HPV types exist</td>
+          </tr>
+          <tr>
+            <td><strong>Trichomoniasis</strong></td>
+            <td><em>Trichomonas vaginalis</em></td>
+            <td><span class="pill">Protozoan parasite</span></td>
+            <td>Flagellated protozoan; NOT a bacterium</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout info">
+      <strong>📝 Exam tip (Dr. Ochs):</strong> Most of these are straightforward name matches. Watch for BV — it is polymicrobial and caused by bacteria + sometimes mycoplasma. Trichomoniasis = parasite (not bacteria). Syphilis and Lyme disease are both spirochetes.
+    </div>
   </div>
-</div>
-
-
-<div class="toc">
-  <div class="toc-t">Learning Objectives</div>
-  <a href="#lo8">LO 8 — Identify pharmacologic classes & drugs in each class</a>
-  <a href="#lo15">LO 15 — MOA, AEs, DIs, allergies, CI, pregnancy considerations</a>
-  <a href="#lo16">LO 16 — Select most/least likely drug regimen for STIs (clinical cases)</a>
-</div>
-
-<!-- ══════════════════════════════════════════════════ -->
-<h2 id="lo8">LO 8 — Pharmacologic Classes & Drugs</h2>
-<!-- ══════════════════════════════════════════════════ -->
-
-<h3>Antibiotics</h3>
-
-<h4>Beta-Lactams</h4>
-<table>
-<tr><th>Subclass</th><th>Drugs</th><th>STI Use</th></tr>
-<tr>
-  <td><span class="g">Penicillins</span></td>
-  <td><span class="g">Benzathine penicillin G</span> (Bicillin LA) — long acting IM<br>
-  <span class="g">Aqueous crystalline penicillin G</span> — short acting IV<br>
-  <span class="g">Procaine penicillin</span> — intermediate acting IM</td>
-  <td><span class="r">Syphilis</span> (all stages). Time-dependent killing, no PAE.</td>
-</tr>
-<tr>
-  <td><span class="g">Cephalosporins</span></td>
-  <td><span class="g">Ceftriaxone</span> (3rd gen) — IM/IV<br>
-  <span class="g">Cefixime</span> (3rd gen) — PO<br>
-  Also 2nd gen: cefoxitin, cefotetan; 3rd gen: cefotaxime</td>
-  <td><span class="r">Gonorrhea</span>. All "cef-" drugs = cephalosporins. Later gens → more Gm− coverage. More resistant to beta-lactamases than PCN.</td>
-</tr>
-</table>
-
-<div class="nb"><span class="w">Beta-lactam shared MOA:</span> Bind <span class="o">penicillin-binding proteins (PBPs) aka transpeptidase</span> → inhibit transpeptidase reaction that cross-links peptidoglycan in the cell wall.</div>
-
-<h4>Tetracyclines</h4>
-<table>
-<tr><th>Drug</th><th>STI Use</th></tr>
-<tr><td><span class="g">Doxycycline</span> <span class="r">(DOC)</span></td><td>DOC for <span class="r">chlamydia</span> in non-pregnant adults. Also alternative for syphilis (PCN allergy).</td></tr>
-<tr><td><span class="g">Minocycline</span></td><td>Same class, not primary STI drug. Unique AE: <span class="o">skin pigmentation changes</span>, dizziness, vertigo.</td></tr>
-<tr><td><span class="g">Tetracycline</span></td><td>Alternative for syphilis in PCN-allergic patients.</td></tr>
-</table>
-
-<h4>Macrolides</h4>
-<table>
-<tr><th>Drug</th><th>STI Use</th></tr>
-<tr><td><span class="g">Azithromycin</span></td><td>Alternative for chlamydia. Used in <span class="r">pregnancy</span> when doxycycline CI. Z-Pak®. Does <span class="r">NOT</span> inhibit CYP3A4.</td></tr>
-<tr><td><span class="g">Erythromycin</span></td><td><span class="r">DOC for neonatal chlamydial conjunctivitis & pneumonia.</span> IS a CYP3A4 inhibitor.</td></tr>
-<tr><td><span class="g">Clarithromycin</span></td><td>IS a CYP3A4 inhibitor. Not primary STI drug.</td></tr>
-</table>
-
-<h4>Aminoglycosides</h4>
-<table>
-<tr><th>Drug</th><th>STI Use</th></tr>
-<tr><td><span class="g">Gentamicin</span></td><td>Gonorrhea in <span class="r">cephalosporin allergy</span>: gentamicin 240 mg IM + azithromycin 2 g PO single dose.</td></tr>
-</table>
-
-<h4>Fluoroquinolones</h4>
-<table>
-<tr><th>Drug</th><th>STI Use</th></tr>
-<tr><td><span class="g">Ciprofloxacin</span></td><td>Chancroid (500 mg PO BID x 3 days).</td></tr>
-<tr><td><span class="g">Levofloxacin</span></td><td>Alternative for chlamydia (500 mg PO daily x 7 days).</td></tr>
-</table>
-
-<h4>Nitroimidazoles</h4>
-<table>
-<tr><th>Drug</th><th>STI Use</th></tr>
-<tr><td><span class="g">Metronidazole</span> (Flagyl)</td><td><span class="r">First-line for BV and trichomoniasis</span> (including pregnant women for trich).</td></tr>
-<tr><td><span class="g">Tinidazole</span> (Tindamax)</td><td>Alternative for trichomoniasis (single dose 2 g PO). <span class="r">NO in pregnancy.</span></td></tr>
-</table>
-
-<h4>Lincosamides</h4>
-<table>
-<tr><th>Drug</th><th>STI Use</th></tr>
-<tr><td><span class="g">Clindamycin</span></td><td>Alternative for BV (PO or intravaginal). Binds 50S like macrolides but different class.</td></tr>
-</table>
-
-<h3>Antivirals — Nucleoside Analogues (HSV / VZV)</h3>
-<table>
-<tr><th>Drug</th><th>Key Notes</th></tr>
-<tr><td><span class="g">Acyclovir</span> (Zovirax) <span class="r">(1st-line)</span></td><td><span class="o">Guanosine analogue.</span> Only one causing <span class="r">chain termination</span> (lacks 3'-OH). DOC in pregnancy for genital herpes. IV for severe/CNS.</td></tr>
-<tr><td><span class="g">Valacyclovir</span> (Valtrex)</td><td>Prodrug → <span class="o">acyclovir</span>. Better oral bioavailability.</td></tr>
-<tr><td><span class="g">Famciclovir</span> (Famvir)</td><td>Prodrug → <span class="o">penciclovir</span>. Does NOT cause chain termination.</td></tr>
-</table>
-
-<h3>HPV Wart Treatments</h3>
-<table>
-<tr><th>Drug</th><th>Class / MOA</th><th>Pregnancy</th></tr>
-<tr><td><span class="g">Podofilox / Podophyllin</span></td><td><span class="o">Antimitotic</span></td><td><span class="r">NO</span></td></tr>
-<tr><td><span class="g">Imiquimod</span></td><td><span class="o">Immune response modifier</span> — stimulates interferon & cytokines</td><td><span class="r">NO</span></td></tr>
-<tr><td><span class="g">Sinecatechins</span></td><td><span class="o">Green tea extract</span> — may weaken condoms/diaphragms</td><td><span class="r">NO</span></td></tr>
-<tr><td><span class="g">TCA / BCA</span></td><td><span class="o">Protein coagulation</span> of wart tissue. Talc/NaHCO₃ for excess.</td><td><span class="g">OK</span></td></tr>
-<tr><td>Cryotherapy</td><td>Liquid nitrogen → pain → necrosis → blistering</td><td><span class="g">OK</span></td></tr>
-<tr><td><span class="g">Gardasil</span></td><td>Recombinant vaccine — 70% cervical CA, 90% genital warts. Girls 11–12 (9–26). Males 9–26.</td><td>—</td></tr>
-</table>
-
-<h3>Pediculicides</h3>
-<div class="nb"><span class="w">All pediculicides:</span> Act on the <span class="o">nervous system of the insect</span> → muscle spasm → paralysis → death. Shared AEs: irritation, itching, paresthesia.</div>
-
-<table>
-<tr><th>Drug</th><th>Class</th><th>Specific MOA</th><th>Route</th><th>Pregnancy</th></tr>
-<tr><td><span class="g">Permethrin</span> (Nix) <span class="r">(1st-line)</span></td><td>Pyrethroid</td><td>Disrupts insect <span class="o">sodium transport protein</span></td><td>OTC topical</td><td><span class="g">Yes</span></td></tr>
-<tr><td><span class="g">Pyrethrins + PBO</span> (Rid)</td><td>Pyrethroid + Synergist</td><td>Pyrethrins = same as permethrin. <span class="o">PBO has NO insecticidal activity</span> — inhibits enzyme arthropods use to metabolize pyrethrins.</td><td>OTC topical</td><td><span class="g">Yes</span></td></tr>
-<tr><td><span class="g">Malathion</span> (Ovide)</td><td>Organophosphate</td><td><span class="o">Irreversible AChE inhibitor</span></td><td>Rx lotion</td><td><span class="r">Not rec.</span></td></tr>
-<tr><td><span class="g">Lindane</span> (Kwell)</td><td>Organochloride</td><td><span class="o">CNS stimulant</span> — inhibits invertebrate glycine receptors → convulsions</td><td>Rx shampoo</td><td><span class="r">2nd-line (neurotoxic)</span></td></tr>
-<tr><td><span class="g">Ivermectin</span></td><td>Avermectin</td><td>Binds <span class="o">glutamate-gated Cl⁻ channels</span></td><td><span class="r">Only ORAL</span></td><td><span class="o">Low risk</span></td></tr>
-</table>
-
-<!-- ══════════════════════════════════════════════════ -->
-<h2 id="lo15">LO 15 — MOA, AEs, DIs, Allergies, CI, Pregnancy</h2>
-<!-- ══════════════════════════════════════════════════ -->
-
-<h3>Beta-Lactams</h3>
-<table>
-<tr><th width="16%">Property</th><th width="42%">Penicillins</th><th width="42%">Cephalosporins</th></tr>
-<tr><td class="w">MOA</td><td colspan="2">Bind <span class="o">PBPs (transpeptidase)</span> → inhibit cell wall synthesis (peptidoglycan cross-linking)</td></tr>
-<tr><td class="w">AEs</td><td><span class="r">Allergic reactions</span> — degraded to penicilloic acid → body protein antigens → antibody response. <span class="r">IgE-mediated: urticaria or anaphylaxis.</span> Serum sickness, interstitial nephritis, rash, diarrhea.</td><td>Allergic reactions, GI upset, potential <em>C. difficile</em> colitis.</td></tr>
-<tr><td class="w">Cross-rxn</td><td colspan="2">~5% cross-sensitivity PCN↔cephalosporins. <span class="r">Highest with 1st-gen. Rare (&lt;1%) with 3rd-gen (ceftriaxone).</span></td></tr>
-<tr><td class="w">CI</td><td>Drug-induced hypersensitivity</td><td>Hypersensitivity</td></tr>
-<tr><td class="w">Pregnancy</td><td><span class="g">DOC</span> for syphilis — NO alternative, must desensitize if allergic</td><td><span class="o">Use if clearly needed</span></td></tr>
-</table>
-
-<div class="wb"><span class="r">PCN allergy desensitization:</span> ~6 hrs. Antihistamines/glucocorticoids usually <span class="r">NOT</span> recommended (mask early signs of breakthrough). <span class="r">Neither prevents anaphylaxis.</span> Do under allergy specialist.</div>
-
-<h3>Tetracyclines (Doxycycline, Minocycline, Tetracycline)</h3>
-<table>
-<tr><th width="16%">Property</th><th>Details</th></tr>
-<tr><td class="w">MOA</td><td>Bind <span class="o">30S ribosomal subunit reversibly</span> → inhibit protein synthesis → <span class="o">bacteriostatic</span> (inhibiting growth)</td></tr>
-<tr><td class="w">Spectrum</td><td>Aerobic Gm+ and Gm−, Rickettsia, Mycoplasma, Chlamydia, CA-MRSA (broad spectrum)</td></tr>
-<tr><td class="w">AEs</td><td><span class="r">Tooth discoloration</span> (avoid in children &lt; 8 and pregnancy), <span class="o">photosensitivity</span> (doxycycline, tetracycline), esophageal ulcers. Minocycline: skin pigmentation, dizziness, vertigo.</td></tr>
-<tr><td class="w">Counseling</td><td>Swallow with full glass of water</td></tr>
-<tr><td class="w">DIs</td><td><span class="r">Dairy products and cationic antacids</span> → decreased absorption</td></tr>
-<tr><td class="w">CI</td><td>Children &lt; 8 years old</td></tr>
-<tr><td class="w">Pregnancy</td><td><span class="r">NO</span></td></tr>
-</table>
-
-<h3>Macrolides (Azithromycin, Erythromycin, Clarithromycin)</h3>
-<table>
-<tr><th width="16%">Property</th><th>Details</th></tr>
-<tr><td class="w">MOA</td><td>Bind <span class="o">50S ribosomal subunit</span> → inhibit protein synthesis → primarily <span class="o">bacteriostatic</span></td></tr>
-<tr><td class="w">AEs</td><td>GI (diarrhea), cholestatic hepatitis (rare), <span class="r">QT interval prolongation</span>. Erythromycin: <span class="o">hepatotoxicity</span>. Clarithromycin: <span class="o">altered taste</span>.</td></tr>
-<tr><td class="w">DIs</td><td><span class="r">CYP3A4 inhibitors</span> — erythromycin and clarithromycin. <span class="g">Azithromycin does NOT inhibit CYP3A4.</span></td></tr>
-<tr><td class="w">CI</td><td>Hypersensitivity</td></tr>
-<tr><td class="w">Pregnancy</td><td>Azithromycin & Erythromycin: <span class="o">use if clearly needed</span>. Clarithromycin: <span class="o">risk–benefit</span>.</td></tr>
-</table>
-
-<h3>Aminoglycosides (Gentamicin)</h3>
-<table>
-<tr><th width="16%">Property</th><th>Details</th></tr>
-<tr><td class="w">MOA</td><td>Bind <span class="o">30S ribosomal subunit irreversibly</span> → inhibit protein synthesis → <span class="r">bactericidal</span> (killing bacteria)</td></tr>
-<tr><td class="w">AEs</td><td><span class="r">Nephrotoxicity</span>, <span class="r">ototoxicity</span>, neuromuscular blockade risk</td></tr>
-<tr><td class="w">CI</td><td>Hypersensitivity</td></tr>
-<tr><td class="w">Pregnancy</td><td><span class="r">Only if absolutely necessary</span></td></tr>
-</table>
-
-<h3>Fluoroquinolones (Ciprofloxacin, Levofloxacin)</h3>
-<table>
-<tr><th width="16%">Property</th><th>Details</th></tr>
-<tr><td class="w">MOA</td><td>Inhibit 2 bacterial DNA topoisomerases: <span class="o">DNA gyrase (type II)</span> → target for Gm−; <span class="o">Topoisomerase IV</span> → target for Gm+. <span class="o">Concentration-dependent killing</span>, long post-antibiotic effect (PAE).</td></tr>
-<tr><td class="w">AEs</td><td><span class="r">Tendon rupture</span>, <span class="r">QT prolongation</span>, glucose excursions (hypo/hyperglycemia), <span class="o">phototoxicity</span>, peripheral neuropathy, CNS effects (dizziness)</td></tr>
-<tr><td class="w">DIs</td><td><span class="r">Caffeine (CYP1A2 inhibition)</span> and <span class="r">cations (dairy, antacids)</span></td></tr>
-<tr><td class="w">CI</td><td><span class="r">Pregnancy & pediatrics</span> — cartilage damage</td></tr>
-<tr><td class="w">Pregnancy</td><td><span class="r">Risk–benefit should be evaluated</span></td></tr>
-</table>
-
-<h3>Nitroimidazoles (Metronidazole, Tinidazole)</h3>
-<table>
-<tr><th width="16%">Property</th><th>Details</th></tr>
-<tr><td class="w">MOA</td><td><span class="o">Prodrug</span> → nitro group <span class="o">reduced under anaerobic conditions</span> → forms reactive radical → <span class="o">disrupts DNA/nucleic acid synthesis</span>. Only works in anaerobic bacteria and protozoa.</td></tr>
-<tr><td class="w">PK</td><td>Well absorbed, widely distributed, extensively metabolized, renally excreted</td></tr>
-<tr><td class="w">Spectrum</td><td><em>B. fragilis, C. difficile, H. pylori, E. histolytica, Giardia, <span class="r">Trichomonas vaginalis</span></em>, parasitic infections</td></tr>
-<tr><td class="w">AEs</td><td>Anorexia, nausea, vomiting, <span class="o">metallic taste</span>; take with food. <span class="r">Disulfiram-like reaction with ethanol</span> (nausea, vomiting, sweating, flushing, palpitations, dyspnea) <span class="board">BOARDS</span></td></tr>
-<tr><td class="w">CI</td><td>Hypersensitivity, alcohol use</td></tr>
-<tr><td class="w">Pregnancy</td><td>Metronidazole: <span class="o">risk–benefit</span>. Tinidazole: <span class="r">NO</span>.</td></tr>
-</table>
-
-<div class="hb"><span class="o">Disulfiram-like reaction update:</span> Studies have <em>failed</em> to demonstrate that nitroimidazoles increase acetaldehyde in blood or that signs of a disulfiram reaction actually occur. CDC no longer recommends refraining from ethanol while taking metronidazole. <span class="r">BUT it remains a favorite BOARD question and still comes up as a significant drug interaction.</span></div>
-
-<h3>Lincosamides (Clindamycin)</h3>
-<table>
-<tr><th width="16%">Property</th><th>Details</th></tr>
-<tr><td class="w">MOA</td><td>Binds <span class="o">50S ribosomal subunit</span></td></tr>
-<tr><td class="w">AEs</td><td>GI upset, diarrhea, <span class="r">risk of C. difficile colitis</span></td></tr>
-<tr><td class="w">CI</td><td>Hypersensitivity</td></tr>
-<tr><td class="w">Pregnancy</td><td><span class="o">Use if clearly needed</span></td></tr>
-</table>
-
-<h3>Nucleoside Analogues (Acyclovir, Valacyclovir, Famciclovir)</h3>
-<table>
-<tr><th width="16%">Property</th><th>Details</th></tr>
-<tr><td class="w">MOA</td><td>Converted to active nucleoside triphosphates by <span class="o">viral and host cell kinases</span>. Active forms compete with endogenous nucleoside triphosphates and <span class="o">competitively inhibit viral DNA polymerase</span>. <span class="r">Only acyclovir</span> is incorporated into viral DNA and causes <span class="r">chain termination</span> (lacks 3'-OH). Ganciclovir and penciclovir do NOT cause chain termination.</td></tr>
-<tr><td class="w">Prodrugs</td><td>Valacyclovir → <span class="o">acyclovir</span>. Famciclovir → <span class="o">penciclovir</span>.</td></tr>
-<tr><td class="w">Action</td><td><span class="r">Palliative, NOT curative.</span> Shorten symptoms, decrease frequency of recurrences and viral shedding with long-term suppression.</td></tr>
-<tr><td class="w">AEs</td><td>GI upset, headache, <span class="r">crystalluria and nephrotoxicity</span> (IV acyclovir), phlebitis (IV, 15%)</td></tr>
-<tr><td class="w">CI</td><td>Hypersensitivity</td></tr>
-<tr><td class="w">Pregnancy</td><td><span class="o">Use if clearly needed</span> — all three likely safe. Suppression of recurrent genital herpes near term may <span class="r">reduce need for C-section</span> to avoid neonatal herpes.</td></tr>
-</table>
-
-<!-- ══════════════════════════════════════════════════ -->
-<h2 id="lo16">LO 16 — Select Drug Regimens for STIs (Clinical Cases)</h2>
-<!-- ══════════════════════════════════════════════════ -->
-
-<div class="hb"><span class="o">Key approach:</span> Be able to tell <span class="w">what STI they have</span>, <span class="w">what drug to give</span>, and <span class="w">reasons to use/not use a drug</span> (AE, pregnancy, allergy, etc.)</div>
-
-<h3>Gonorrhea (<em>Neisseria gonorrhoeae</em> — Gram− diplococcus)</h3>
-<p>Transmission during delivery → <span class="r">ophthalmia neonatorum</span></p>
-
-<table>
-<tr><th>Scenario</th><th>Regimen</th><th>Notes</th></tr>
-<tr>
-  <td>Uncomplicated (cervicitis, urethritis, rectal)</td>
-  <td><span class="g">Ceftriaxone 500 mg IM</span> single dose (&lt;150 kg; 1 g if ≥150 kg)</td>
-  <td>If <span class="r">chlamydia not excluded</span> → add <span class="g">doxycycline</span> 100 mg PO BID x 7 days</td>
-</tr>
-<tr>
-  <td>Disseminated (arthritis-dermatitis)</td>
-  <td><span class="g">Ceftriaxone 1 g IM or IV</span> q24h</td>
-  <td>Same chlamydia coverage rule</td>
-</tr>
-<tr>
-  <td>Meningitis / Endocarditis</td>
-  <td><span class="g">Ceftriaxone 1–2 g IV</span> q24h</td>
-  <td>Same chlamydia coverage rule</td>
-</tr>
-<tr>
-  <td>Conjunctivitis (adults)</td>
-  <td><span class="g">Ceftriaxone 1 g IM</span> single dose + saline lavage</td>
-  <td></td>
-</tr>
-<tr>
-  <td>Ophthalmia neonatorum prevention</td>
-  <td><span class="g">Erythromycin 0.5% ophthalmic ointment</span> each eye at birth</td>
-  <td></td>
-</tr>
-<tr>
-  <td>Ophthalmia neonatorum treatment</td>
-  <td><span class="g">Ceftriaxone</span> 25–50 mg/kg IV or IM (max 250 mg)</td>
-  <td></td>
-</tr>
-</table>
-
-<h4>Alternate Regimens</h4>
-<table>
-<tr><th>Situation</th><th>Regimen</th></tr>
-<tr><td>Ceftriaxone not available</td><td><span class="g">Cefixime 800 mg PO</span> single dose</td></tr>
-<tr><td><span class="r">Cephalosporin allergy</span></td><td><span class="g">Gentamicin 240 mg IM + Azithromycin 2 g PO</span> single dose</td></tr>
-<tr><td><span class="r">Pregnancy</span></td><td>Same as non-pregnant EXCEPT use <span class="g">azithromycin instead of doxycycline</span> for chlamydia coverage</td></tr>
-</table>
-
-<div class="nb"><span class="w">Gonorrhea pearls:</span> Ceftriaxone in ALL cases (dose varies). ~5% cross-sensitivity with PCN (highest 1st-gen, rare &lt;1% with 3rd-gen). Instruct patients to refer sex partners for evaluation.</div>
-
-<h3>Chlamydia (<em>Chlamydia trachomatis</em>)</h3>
-<p>Neonatal conjunctivitis in up to <span class="r">50%</span>. Pneumonia in up to <span class="r">16%</span>.</p>
-
-<table>
-<tr><th>Scenario</th><th>Regimen</th></tr>
-<tr><td>Adults/Adolescents (non-pregnant)</td><td><span class="g">Doxycycline 100 mg PO BID x 7 days</span> <span class="r">(DOC)</span></td></tr>
-<tr><td>Alternative (questionable compliance)</td><td><span class="g">Azithromycin 1 g PO</span> single dose</td></tr>
-<tr><td>Alternative</td><td><span class="g">Levofloxacin 500 mg PO</span> daily x 7 days</td></tr>
-<tr><td><span class="r">Pregnancy</span></td><td><span class="g">Azithromycin 1 g PO</span> single dose (alt: <span class="g">Amoxicillin</span> 500 mg TID x 7 days)</td></tr>
-<tr><td>Neonatal conjunctivitis/pneumonia</td><td><span class="g">Erythromycin</span> <span class="r">(DOC)</span>. Azithromycin = alternative in infants.</td></tr>
-</table>
-
-<div class="nb"><span class="w">Chlamydia pearls:</span> Abstain from sex until 7 days after Tx complete. Refer sex partners if intercourse within 60 days.</div>
-
-<h3>Syphilis (<em>Treponema pallidum</em>)</h3>
-
-<table>
-<tr><th>Stage</th><th>Primary Therapy</th><th>PCN-Allergic Alternative</th></tr>
-<tr>
-  <td>Primary / Secondary / Early latent (&lt;1 yr)</td>
-  <td><span class="g">Benzathine penicillin G IM</span> single dose</td>
-  <td><span class="g">Tetracycline or Doxycycline PO x 14 days</span> OR <span class="g">Ceftriaxone IM/IV</span> daily x 8–10 days</td>
-</tr>
-<tr>
-  <td>Late latent / Unknown / Tertiary</td>
-  <td><span class="g">Benzathine penicillin G IM</span> weekly x 3</td>
-  <td><span class="g">Tetracycline or Doxycycline PO x 4 weeks</span></td>
-</tr>
-<tr>
-  <td>Neurosyphilis</td>
-  <td><span class="g">Aqueous crystalline penicillin G IV</span> q4h or continuous x 10–14 days</td>
-  <td><span class="g">Procaine penicillin IM</span> daily + <span class="g">probenecid</span> x 10–14 days (if compliance assured)</td>
-</tr>
-<tr>
-  <td><span class="r">Pregnancy</span></td>
-  <td colspan="2"><span class="r">Penicillin is the ONLY option — NO alternative.</span> Skin test and desensitize if allergic.</td>
-</tr>
-<tr>
-  <td>Congenital</td>
-  <td colspan="2">T. pallidum crosses placenta at any time. <span class="g">Penicillin at dose appropriate for stage.</span> No proven alternatives for children.</td>
-</tr>
-</table>
-
-<div class="nb"><span class="w">Probenecid</span> in neurosyphilis: <span class="o">inhibits renal tubular penicillin secretion</span> → keeps penicillin levels higher for longer.</div>
-
-<div class="wb"><span class="r">Jarisch-Herxheimer reaction:</span> Tell patients about <span class="r">fever, headache, & myalgia within 24 hours</span> of treatment. Test all syphilis patients for HIV.</div>
-
-<h3>Bacterial Vaginosis (BV)</h3>
-<p>Organisms: <em>B. fragilis, Prevotella sp, Mobiluncus sp, G. vaginalis, M. hominis</em>. Malodorous vaginal discharge with <span class="r">fishy smell</span>. Treat all symptomatic women. BV <span class="r">increases risk of adverse pregnancy outcomes</span> (premature labor, delivery complications). Follow-up not needed if symptoms resolve.</p>
-
-<table>
-<tr><th>Recommended</th><th>Alternatives</th></tr>
-<tr>
-  <td>
-    <span class="g">Metronidazole</span> 500 mg PO BID x 7 days<br>
-    <em>or</em> <span class="g">Metronidazole gel 0.75%</span> intravag daily x 5 days<br>
-    <em>or</em> <span class="g">Clindamycin cream 2%</span> intravag at bedtime x 7 days
-  </td>
-  <td>
-    <span class="g">Clindamycin</span> 300 mg PO BID x 7 days<br>
-    <em>or</em> <span class="g">Clindamycin ovules</span> intravag x 3 days<br>
-    <em>or</em> <span class="g">Secnidazole</span> 2 g granules single dose<br>
-    <em>or</em> <span class="g">Tinidazole</span> 2 g PO daily x 2 days or 1 g daily x 5 days
-  </td>
-</tr>
-</table>
-<div class="nb"><span class="w">Pregnancy:</span> Same regimen as non-pregnant.</div>
-
-<h3>Trichomoniasis (<em>Trichomonas vaginalis</em> — protozoan)</h3>
-<p>Males: often asymptomatic. Females: <span class="r">malodorous yellow-green discharge</span>, vaginal irritation, cervical petechiae.</p>
-
-<table>
-<tr><th>Treatment</th></tr>
-<tr><td><span class="g">Metronidazole 500 mg PO BID x 7 days</span> (<span class="r">including pregnant women</span>)</td></tr>
-<tr><td>Alternative: <span class="g">Tinidazole 2 g PO single dose</span></td></tr>
-</table>
-<p>If treatment failure → increase dose or duration. <span class="r">Treat sexual partners simultaneously.</span></p>
-
-<h3>Genital Herpes (HSV-1 / HSV-2)</h3>
-<table>
-<tr><th>Indication</th><th>Regimen</th><th>Notes</th></tr>
-<tr><td>First episode</td><td><span class="g">Acyclovir</span> OR <span class="g">Famciclovir</span> OR <span class="g">Valacyclovir</span> PO x 7–10 days</td><td>Treat first clinical episode in pregnancy with oral acyclovir</td></tr>
-<tr><td>Severe infection</td><td><span class="g">Acyclovir IV</span> 2–7 days → PO to complete ≥10 days</td><td><span class="r">IV acyclovir recommended for pregnant women with severe herpes</span></td></tr>
-<tr><td>Episodic (recurrent)</td><td><span class="g">Acyclovir</span> PO x 2–5 d, or <span class="g">Famciclovir</span> PO x 1–5 d, or <span class="g">Valacyclovir</span> PO x 3–5 d</td><td><span class="r">Must initiate during prodrome or within 1 day of lesion onset</span></td></tr>
-<tr><td>Daily suppressive</td><td><span class="g">Acyclovir</span> BID or <span class="g">Famciclovir</span> BID or <span class="g">Valacyclovir</span> daily</td><td>Decreases recurrence frequency 70–80%. Near-term suppression → may reduce need for C-section.</td></tr>
-</table>
-
-<div class="nb"><span class="w">Antiviral therapy is palliative, NOT curative.</span> All three drugs likely safe in pregnancy.</div>
-
-<h3>HPV (Human Papillomavirus)</h3>
-<p>Most common viral STI in U.S. Types 6 & 11 → genital warts. Types 16 & 18 → cervical cancer.</p>
-
-<table>
-<tr><th>Location</th><th>Options</th></tr>
-<tr>
-  <td>Vaginal / Cervical / Anal warts</td>
-  <td>Cryotherapy OR TCA/BCA 80–90% (repeat weekly) OR Surgical removal</td>
-</tr>
-<tr>
-  <td>External anogenital warts</td>
-  <td><span class="w">Patient-applied:</span> Podofilox†, Imiquimod†, Sinecatechins†<br>
-  <span class="w">Provider-administered:</span> Cryotherapy, Podophyllin†, TCA/BCA, Surgical removal<br>
-  <span class="r">† Not in pregnancy</span></td>
-</tr>
-</table>
-
-<h3>Pediculosis Pubis (<em>Pthirus pubis</em>)</h3>
-<table>
-<tr><th>Recommended</th><th>Alternative</th></tr>
-<tr>
-  <td><span class="g">Permethrin 1% cream rinse</span> to affected areas, wash off after 10 min<br>
-  <em>or</em> <span class="g">Pyrethrins + PBO</span> applied, wash off after 10 min</td>
-  <td><span class="g">Malathion 0.5% lotion</span> applied, washed off 8–12 hrs<br>
-  <em>or</em> <span class="g">Ivermectin 250 μg/kg PO</span>, repeat in 7–14 days</td>
-</tr>
-</table>
-<p><span class="r">Pregnancy:</span> Permethrin or pyrethrins + PBO recommended. Ivermectin = "human data suggest low risk." Malathion NOT recommended.</p>
-<p>Machine wash/dry or dry clean clothing & bedding, or remove from body contact ≥72 hrs. Treat sexual partners within previous month.</p>
-
-<h3>Granuloma Inguinale (<em>Klebsiella granulomatis</em>) — Donovanosis</h3>
-<p>Gram− bacterium. Painless ulcerative lesions with beefy red appearance. Dx: Donovan bodies on biopsy.</p>
-<table>
-<tr><th>Recommended</th><th>Alternatives</th></tr>
-<tr><td><span class="g">Azithromycin</span> 1 g PO weekly or 500 mg daily for &gt;3 weeks until healed</td>
-<td>Doxycycline 100 mg BID x ≥3 weeks, or Erythromycin* 500 mg QID x ≥3 weeks, or TMP-SMX DS BID x ≥3 weeks</td></tr>
-</table>
-<p><span class="r">*Pregnancy:</span> treated with a macrolide regimen. Examine sex partners within 60 days.</p>
-
-<h3>Chancroid (<em>Haemophilus ducreyi</em> — Gram− coccobacilli)</h3>
-<p><span class="r">Risk factor for HIV transmission/acquisition.</span> Painful genital ulcers + regional lymphadenopathy. Negative for T. pallidum.</p>
-<table>
-<tr><th>Options (any one)</th></tr>
-<tr><td><span class="g">Azithromycin</span> 1 g PO single dose</td></tr>
-<tr><td><span class="g">Ceftriaxone</span> 250 mg IM single dose</td></tr>
-<tr><td><span class="g">Ciprofloxacin</span> 500 mg PO BID x 3 days</td></tr>
-<tr><td><span class="g">Erythromycin base</span> 500 mg PO TID x 7 days</td></tr>
-</table>
-<p>Test for HIV. Uncircumcised patients and those with HIV → more likely treatment failure. Reexamine 3–7 days. Treat sex partners within 10 days.</p>
-
-</div>
-
-
-<script>
-(function(){
-  const THEME_KEY = 'ochs_sti_theme';
-  const FONT_KEY = 'ochs_sti_font_scale';
-  const body = document.body;
-  const fontReadout = document.getElementById('fontReadout');
-  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-
-  function applyTheme(theme){
-    body.dataset.theme = theme === 'midnight' ? '' : theme;
-    localStorage.setItem(THEME_KEY, theme);
-    document.querySelectorAll('.theme-swatch').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.theme === theme);
-    });
-  }
-
-  function applyFont(scale){
-    const next = clamp(scale, 90, 125);
-    document.documentElement.style.fontSize = next + '%';
-    if (fontReadout) fontReadout.textContent = next + '%';
-    localStorage.setItem(FONT_KEY, String(next));
-  }
-
-  document.querySelectorAll('.theme-swatch').forEach(btn => {
-    btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
-  });
-  document.getElementById('fontDown')?.addEventListener('click', () => {
-    const current = parseInt(localStorage.getItem(FONT_KEY) || '100', 10);
-    applyFont(current - 5);
-  });
-  document.getElementById('fontUp')?.addEventListener('click', () => {
-    const current = parseInt(localStorage.getItem(FONT_KEY) || '100', 10);
-    applyFont(current + 5);
-  });
-
-  applyTheme(localStorage.getItem(THEME_KEY) || 'midnight');
-  applyFont(parseInt(localStorage.getItem(FONT_KEY) || '100', 10));
-
-  function enhanceTable(table, index){
-    if (table.closest('.toc') || table.closest('.table-shell')) return;
-
-    const shell = document.createElement('div');
-    shell.className = 'table-shell';
-    shell.dataset.tableIndex = index;
-
-    const tools = document.createElement('div');
-    tools.className = 'table-tools';
-
-    const left = document.createElement('div');
-    left.className = 'table-tools-left';
-
-    const expandBtn = document.createElement('button');
-    expandBtn.type = 'button';
-    expandBtn.className = 'table-btn';
-    expandBtn.textContent = 'Expand table';
-
-    const quizWrap = document.createElement('label');
-    quizWrap.className = 'quiz-switch';
-    quizWrap.innerHTML = '<span>Table Quiz</span><span class="switch"><input type="checkbox" aria-label="Toggle table quiz mode"><span class="slider"></span></span>';
-    const quizToggle = quizWrap.querySelector('input');
-
-    const right = document.createElement('div');
-    right.className = 'table-tools-right';
-
-    const revealBtn = document.createElement('button');
-    revealBtn.type = 'button';
-    revealBtn.className = 'table-btn';
-    revealBtn.textContent = 'Reveal all';
-
-    const resetBtn = document.createElement('button');
-    resetBtn.type = 'button';
-    resetBtn.className = 'table-btn';
-    resetBtn.textContent = 'Reset';
-
-    const quizNote = document.createElement('span');
-    quizNote.className = 'quiz-note';
-    quizNote.textContent = 'First column stays visible.';
-
-    left.append(expandBtn, quizWrap);
-    right.append(revealBtn, resetBtn, quizNote);
-    tools.append(left, right);
-
-    const scroll = document.createElement('div');
-    scroll.className = 'table-scroll';
-
-    const parent = table.parentNode;
-    parent.insertBefore(shell, table);
-    shell.append(tools, scroll);
-    scroll.appendChild(table);
-
-    const rows = Array.from(table.rows);
-    const quizCells = [];
-    rows.forEach(row => {
-      const cells = Array.from(row.cells);
-      const isHeader = cells.length && cells.every(cell => cell.tagName === 'TH');
-      if (isHeader) return;
-      cells.forEach((cell, idx) => {
-        if (idx === 0) return;
-        cell.classList.add('quiz-target');
-        cell.dataset.revealed = 'false';
-        cell.addEventListener('click', () => {
-          if (!shell.classList.contains('quiz-mode') || !cell.classList.contains('quiz-hidden')) return;
-          cell.dataset.revealed = 'true';
-          cell.classList.remove('quiz-hidden');
-          cell.classList.add('quiz-revealed');
-        });
-        quizCells.push(cell);
-      });
-    });
-
-    if (!quizCells.length) {
-      quizToggle.disabled = true;
-      revealBtn.disabled = true;
-      resetBtn.disabled = true;
-      quizNote.textContent = 'Single-column table.';
-    }
-
-    function syncQuiz(){
-      const active = quizToggle.checked;
-      shell.classList.toggle('quiz-mode', active);
-      quizCells.forEach(cell => {
-        cell.classList.remove('quiz-hidden', 'quiz-revealed');
-        if (!active) return;
-        if (cell.dataset.revealed === 'true') {
-          cell.classList.add('quiz-revealed');
-        } else {
-          cell.classList.add('quiz-hidden');
-        }
-      });
-    }
-
-    expandBtn.addEventListener('click', () => {
-      shell.classList.toggle('expanded');
-      expandBtn.textContent = shell.classList.contains('expanded') ? 'Minimize table' : 'Expand table';
-    });
-
-    quizToggle.addEventListener('change', syncQuiz);
-
-    revealBtn.addEventListener('click', () => {
-      quizCells.forEach(cell => cell.dataset.revealed = 'true');
-      if (!quizToggle.checked) quizToggle.checked = true;
-      syncQuiz();
-    });
-
-    resetBtn.addEventListener('click', () => {
-      quizCells.forEach(cell => cell.dataset.revealed = 'false');
-      if (!quizToggle.checked) quizToggle.checked = true;
-      syncQuiz();
-    });
-
-    syncQuiz();
-  }
-
-  Array.from(document.querySelectorAll('table')).forEach(enhanceTable);
-})();
-</script>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     PLO 2 — RECOMMENDED DRUGS
+══════════════════════════════════════════════════ -->
+<section id="plo2">
+  <div class="section-header">
+    <div class="section-icon">💊</div>
+    <div>
+      <div class="plo-badge">PLO 2</div>
+      <h2>Recommended Drug(s) for Each STI</h2>
+      <p>First-line agents highlighted — know these cold for vignette-style questions</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>STI</th>
+            <th>Drug of Choice (DOC)</th>
+            <th>Alternative / Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Gonorrhea</strong></td>
+            <td><span class="tag doc">Ceftriaxone IM (single dose)</span></td>
+            <td>If cephalosporin unavailable: cefixime 800 mg PO. True ceph allergy: gentamicin 240 mg IM + azithromycin 2 g PO. If chlamydia not excluded → add doxycycline 100 mg BID × 7 days</td>
+          </tr>
+          <tr>
+            <td><strong>Chlamydia</strong></td>
+            <td><span class="tag doc">Doxycycline 100 mg BID × 7 days</span></td>
+            <td>Azithromycin (if compliance questionable); Erythromycin for neonatal conjunctivitis/pneumonia</td>
+          </tr>
+          <tr>
+            <td><strong>Syphilis</strong> (primary/secondary/early latent)</td>
+            <td><span class="tag doc">Benzathine penicillin G IM (single dose)</span></td>
+            <td>Penicillin-allergic adult (non-pregnant): doxycycline/tetracycline × 14 d or ceftriaxone × 8–10 d</td>
+          </tr>
+          <tr>
+            <td><strong>Syphilis</strong> (late latent/tertiary)</td>
+            <td><span class="tag doc">Benzathine penicillin G IM weekly × 3</span></td>
+            <td>PCN-allergic adult (non-pregnant): tetracycline or doxycycline × 4 weeks</td>
+          </tr>
+          <tr>
+            <td><strong>Neurosyphilis</strong></td>
+            <td><span class="tag doc">Aqueous crystalline penicillin G IV q4h × 10–14 days</span></td>
+            <td>Procaine penicillin IM + probenecid × 10–14 days (if compliance assured)</td>
+          </tr>
+          <tr>
+            <td><strong>Bacterial Vaginosis</strong></td>
+            <td><span class="tag doc">Metronidazole 500 mg PO BID × 7 days</span></td>
+            <td>Metronidazole gel intravaginal, clindamycin (oral, cream, or ovules), secnidazole (single dose)</td>
+          </tr>
+          <tr>
+            <td><strong>Trichomoniasis</strong></td>
+            <td><span class="tag doc">Metronidazole 500 mg PO BID × 7 days</span></td>
+            <td>Tinidazole 2 g PO single dose (alternative)</td>
+          </tr>
+          <tr>
+            <td><strong>Herpes Genitalis</strong> (1st episode)</td>
+            <td><span class="tag doc">Acyclovir PO × 7–10 days</span></td>
+            <td>Famciclovir or valacyclovir PO equally acceptable; IV acyclovir for severe/disseminated disease</td>
+          </tr>
+          <tr>
+            <td><strong>Herpes Genitalis</strong> (recurrent)</td>
+            <td><span class="tag doc">Acyclovir / Famciclovir / Valacyclovir</span></td>
+            <td>Episodic: initiate within 1 day of onset/prodrome. Suppressive (≥6 episodes/yr): daily acyclovir or valacyclovir</td>
+          </tr>
+          <tr>
+            <td><strong>Genital Warts (HPV)</strong></td>
+            <td>No single DOC — depends on location &amp; preference</td>
+            <td>Patient-applied: podofilox, imiquimod, sinecatechins. Provider: cryotherapy, podophyllin, TCA/BCA, surgical removal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warning">
+      <strong>⚠️ Pregnancy note (preview):</strong> Ceftriaxone is safe in pregnancy for gonorrhea. Use azithromycin (not doxycycline) if chlamydia co-infection is possible. Benzathine penicillin G remains DOC for syphilis in pregnancy — NO alternative; desensitize if allergic. Acyclovir is preferred for herpes in pregnancy. Full details in LO 6 below.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     LO 1 — PEDICULOSIS PUBIS (PUBIC LICE)
+══════════════════════════════════════════════════ -->
+<section id="lo1">
+  <div class="section-header">
+    <div class="section-icon">🦟</div>
+    <div>
+      <div class="lo-badge">LO 1</div>
+      <h2>Pediculosis Pubis (Pubic Lice)</h2>
+      <p>Cause, clinical presentation, and recommended treatment</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="two-col">
+      <div class="card teal">
+        <h4>🦠 Causative Organism</h4>
+        <p><em>Pthirus pubis</em> (the pubic/crab louse) — an ectoparasite spread by person-to-person sexual contact</p>
+      </div>
+      <div class="card gold">
+        <h4>🩺 Clinical Presentation</h4>
+        <ul>
+          <li><strong>Pruritus</strong> (itching) is the most common symptom</li>
+          <li>Visible lice or nits (eggs) in pubic/body hair</li>
+          <li>Skin irritation or excoriation from scratching</li>
+          <li>Can also involve axillary hair, eyebrows, eyelashes</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Treatment</h3>
+    <div class="drug-block">
+      <div class="db-header">First-Line (OTC) — <span>Preferred agents</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">Drug</span>
+          <span class="db-content"><strong>Permethrin 1% cream rinse (Nix)</strong> OR <strong>Pyrethrins + piperonyl butoxide (Rid)</strong></span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">MOA</span>
+          <span class="db-content">Permethrin/pyrethrins: interfere with insect sodium transport protein → neurotoxicity and death. Piperonyl butoxide: potentiates pyrethrins by inhibiting the arthropod enzyme that metabolizes them (no independent insecticidal activity)</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Route</span>
+          <span class="db-content">Topical; OTC — patient applies themselves</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Re-Eval</span>
+          <span class="db-content">Evaluate and retreat at 9–10 days if lice or eggs persist</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="drug-block">
+      <div class="db-header">Alternative Regimens (Rx) — <span>If first-line fails or not tolerated</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">Malathion</span>
+          <span class="db-content">Organophosphate; irreversible AChE inhibitor; Rx only; less preferred due to odor and long application time. Not recommended in pregnancy.</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Ivermectin</span>
+          <span class="db-content">Binds glutamate-gated Cl⁻ channels (invertebrate-specific); given <strong>orally</strong> for pubic lice; alternative when topicals fail</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Lindane</span>
+          <span class="db-content"><strong>⚠️ Second-line only / no longer available in US</strong> — CNS toxicity (neurotoxic); FDA designated second-line. Contraindicated in pregnancy, infants, elderly, seizure disorders, &lt;110 lb.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout success">
+      <strong>Additional management:</strong> Machine wash &amp; dry (hot cycle) or dry-clean clothing &amp; bedding, OR remove from body contact ≥72 hours. Treat sexual partners from the <strong>previous month</strong> simultaneously.
+    </div>
+    <div class="callout info">
+      <strong>🤰 Pregnancy:</strong> Permethrin or pyrethrins + piperonyl butoxide are recommended. Ivermectin classified as "human data suggest low risk." Malathion is <em>not</em> recommended.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     LO 2 — GRANULOMA INGUINALE & GENITAL WARTS Tx
+══════════════════════════════════════════════════ -->
+<section id="lo2">
+  <div class="section-header">
+    <div class="section-icon">💉</div>
+    <div>
+      <div class="lo-badge">LO 2</div>
+      <h2>Treatment: Granuloma Inguinale &amp; Genital Warts</h2>
+      <p>Recommended drug regimens for both conditions</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <h3>Granuloma Inguinale (Donovanosis)</h3>
+    <div class="drug-block">
+      <div class="db-header">Treatment — <span>Klebsiella granulomatis</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">DOC</span>
+          <span class="db-content"><strong>Azithromycin</strong> (macrolide)</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Alternatives</span>
+          <span class="db-content">Doxycycline, ciprofloxacin, erythromycin, TMP-SMX</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Pregnancy</span>
+          <span class="db-content">Azithromycin (macrolide regimen) — safe in pregnancy</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Partners</span>
+          <span class="db-content">Sexual partners should be examined and offered treatment if sexual contact within 60 days</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Genital Warts (HPV — Types 6 &amp; 11)</h3>
+    <div class="callout info">
+      <strong>Goal:</strong> Remove visible warts (does not eradicate the virus). No single "drug of choice" — treatment choice depends on location, patient preference, available resources, and pregnancy status.
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Agent</th>
+            <th>Who Applies</th>
+            <th>Mechanism</th>
+            <th>Pregnancy?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>External anogenital</td>
+            <td>Podofilox (podophyllotoxin)</td>
+            <td>Patient</td>
+            <td>Antimitotic</td>
+            <td><span class="tag avoid">Avoid ✗</span></td>
+          </tr>
+          <tr>
+            <td>External anogenital</td>
+            <td>Imiquimod</td>
+            <td>Patient</td>
+            <td>Stimulates interferon &amp; cytokines (immune modulator)</td>
+            <td><span class="tag avoid">Avoid ✗</span></td>
+          </tr>
+          <tr>
+            <td>External anogenital</td>
+            <td>Sinecatechins (green tea extract)</td>
+            <td>Patient</td>
+            <td>Unclear; immune modulation</td>
+            <td><span class="tag avoid">Avoid ✗</span></td>
+          </tr>
+          <tr>
+            <td>External + vaginal/cervical/anal</td>
+            <td>Cryotherapy (liquid nitrogen)</td>
+            <td>Provider</td>
+            <td>Physical destruction → necrosis</td>
+            <td><span class="tag preg">✓ OK</span></td>
+          </tr>
+          <tr>
+            <td>External anogenital</td>
+            <td>Podophyllin resin</td>
+            <td>Provider</td>
+            <td>Antimitotic</td>
+            <td><span class="tag avoid">Avoid ✗</span></td>
+          </tr>
+          <tr>
+            <td>External + vaginal/cervical/anal</td>
+            <td>TCA / BCA 80–90%</td>
+            <td>Provider</td>
+            <td>Protein coagulation of wart tissue</td>
+            <td><span class="tag preg">✓ OK</span></td>
+          </tr>
+          <tr>
+            <td>All</td>
+            <td>Surgical removal</td>
+            <td>Provider</td>
+            <td>Physical excision</td>
+            <td><span class="tag preg">✓ OK</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warning">
+      <strong>Prevention:</strong> Gardasil (recombinant HPV vaccine) — covers types causing 70% of cervical cancer and 90% of genital warts. Vaccinate girls/boys 11–12 years (or 9–26 years). Ideally before sexual activity.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     LO 3 — CLINICAL PRESENTATIONS
+══════════════════════════════════════════════════ -->
+<section id="lo3">
+  <div class="section-header">
+    <div class="section-icon">🩺</div>
+    <div>
+      <div class="lo-badge">LO 3</div>
+      <h2>Clinical Presentations of Each STI</h2>
+      <p>Key signs &amp; symptoms for vignette diagnosis — memorize distinguishing features</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="cards">
+
+      <div class="card teal">
+        <h4>Gonorrhea (<em>N. gonorrhoeae</em>)</h4>
+        <ul>
+          <li>Men: urethral discharge (purulent), dysuria</li>
+          <li>Women: often asymptomatic; cervicitis, vaginal discharge, pelvic pain</li>
+          <li>Rectal: discharge, pain</li>
+          <li>Pharyngeal: sore throat</li>
+          <li>Neonates: <strong>ophthalmia neonatorum</strong> (via delivery)</li>
+          <li>Disseminated: septic arthritis, skin lesions</li>
+        </ul>
+      </div>
+
+      <div class="card gold">
+        <h4>Chlamydia (<em>C. trachomatis</em>)</h4>
+        <ul>
+          <li>Often <strong>asymptomatic</strong> (especially men)</li>
+          <li>Similar to gonorrhea: urethritis, cervicitis</li>
+          <li>Women: mucopurulent cervical discharge, pelvic pain</li>
+          <li>Neonates: <strong>conjunctivitis</strong> (up to 50%) and <strong>pneumonia</strong> (up to 16%) via birth</li>
+          <li>Also causes <strong>LGV</strong> (L-types): genital ulcer, lymphadenopathy, proctocolitis</li>
+        </ul>
+      </div>
+
+      <div class="card purple">
+        <h4>Syphilis (<em>T. pallidum</em>)</h4>
+        <ul>
+          <li><strong>Primary:</strong> painless chancre at inoculation site; heals spontaneously</li>
+          <li><strong>Secondary:</strong> diffuse maculopapular rash (palms/soles), condylomata lata, flu-like sx</li>
+          <li><strong>Latent:</strong> no symptoms; early (&lt;1 yr) vs. late</li>
+          <li><strong>Tertiary:</strong> gummas, cardiovascular (aortitis), neurosyphilis (dementia, tabes dorsalis)</li>
+          <li>Congenital: can cause fetal death, prematurity, birth defects</li>
+        </ul>
+      </div>
+
+      <div class="card red">
+        <h4>Chancroid (<em>H. ducreyi</em>)</h4>
+        <ul>
+          <li><strong>Painful</strong> genital ulcer(s) — distinguishes from syphilis (painless)</li>
+          <li>Regional <strong>lymphadenopathy</strong> (inguinal buboes)</li>
+          <li>Ulcer has ragged, undermined edges</li>
+          <li>Negative for <em>T. pallidum</em> on testing</li>
+          <li>Risk factor for HIV acquisition/transmission</li>
+        </ul>
+      </div>
+
+      <div class="card green">
+        <h4>Granuloma Inguinale (Donovanosis)</h4>
+        <ul>
+          <li><strong>Painless</strong> ulcerative lesions on genitals/perineum</li>
+          <li><strong>Beefy red</strong> appearance; can bleed</li>
+          <li>No regional lymphadenopathy (unlike chancroid)</li>
+          <li>Subcutaneous granulomas may occur</li>
+          <li>Rare in US; sporadic in India, South Africa, South America</li>
+        </ul>
+      </div>
+
+      <div class="card teal">
+        <h4>Bacterial Vaginosis</h4>
+        <ul>
+          <li><strong>Malodorous vaginal discharge</strong> — "fishy" smell (esp. after sex)</li>
+          <li>Thin, grayish-white discharge</li>
+          <li>Positive <strong>whiff test</strong> (amine/KOH)</li>
+          <li><strong>Clue cells</strong> on wet prep (epithelial cells coated with bacteria)</li>
+          <li>Vaginal pH &gt;4.5</li>
+          <li>Often mildly symptomatic or asymptomatic</li>
+        </ul>
+      </div>
+
+      <div class="card gold">
+        <h4>Trichomoniasis (<em>T. vaginalis</em>)</h4>
+        <ul>
+          <li>Women: <strong>malodorous yellow-green discharge</strong>, vaginal irritation/pruritus</li>
+          <li><strong>Cervical petechiae</strong> ("strawberry cervix") on exam</li>
+          <li>Men: often <strong>asymptomatic</strong></li>
+          <li>Dysuria possible in both sexes</li>
+          <li>~3–5 million US cases annually</li>
+        </ul>
+      </div>
+
+      <div class="card red">
+        <h4>Herpes Genitalis (HSV-2 &gt; HSV-1)</h4>
+        <ul>
+          <li><strong>Primary:</strong> painful vesicles/ulcers on genitals; fever, malaise, lymphadenopathy; most severe episode</li>
+          <li><strong>Recurrent:</strong> shorter, milder; often preceded by <strong>prodrome</strong> (tingling, burning, shooting pain in legs/buttocks)</li>
+          <li>Latent in sacral dorsal root ganglia</li>
+          <li>Neonatal herpes from delivery during active infection</li>
+        </ul>
+      </div>
+
+      <div class="card purple">
+        <h4>Genital Warts (HPV 6 &amp; 11)</h4>
+        <ul>
+          <li>Flesh-colored, soft, <strong>cauliflower-like warts</strong> on external genitalia, perineum, or perianus</li>
+          <li>Usually painless; may cause itching/bleeding</li>
+          <li>Can appear on vaginal wall, cervix, anal canal</li>
+          <li>Most common viral STI in US</li>
+        </ul>
+      </div>
+
+      <div class="card green">
+        <h4>Pubic Lice (<em>Pthirus pubis</em>)</h4>
+        <ul>
+          <li><strong>Intense pruritus</strong> in the pubic area — most common symptom</li>
+          <li>Visible lice or nits attached to hair shafts</li>
+          <li>Small bluish macules (maculae ceruleae) at bite sites</li>
+          <li>Spread by sexual contact and close physical contact</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="callout info">
+      <strong>🧠 Vignette tip (Dr. Ochs):</strong> Painful ulcer + lymphadenopathy + T. pallidum negative → think <strong>chancroid</strong>. Painless ulcer (chancre) → think <strong>syphilis</strong>. Painless beefy-red ulcer → think <strong>granuloma inguinale</strong>. Vesicles with prodrome → think <strong>herpes</strong>. Cauliflower warts → <strong>HPV</strong>. Fishy discharge, clue cells → <strong>BV</strong>. Yellow-green discharge, strawberry cervix → <strong>Trichomoniasis</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     LO 4 — LABORATORY DIAGNOSIS
+══════════════════════════════════════════════════ -->
+<section id="lo4">
+  <div class="section-header">
+    <div class="section-icon">🔬</div>
+    <div>
+      <div class="lo-badge">LO 4</div>
+      <h2>Laboratory Tests Used for Diagnosis</h2>
+      <p>Primary diagnostic test for each STI</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>STI</th>
+            <th>Diagnostic Test(s)</th>
+            <th>Key Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Gonorrhea</strong></td>
+            <td>Nucleic Acid Amplification Test (NAAT); Gram stain (Gram-neg diplococci in PMNs); culture</td>
+            <td>NAAT is preferred. Gram stain of urethral discharge in men is sensitive; less so in women</td>
+          </tr>
+          <tr>
+            <td><strong>Chlamydia</strong></td>
+            <td><strong>NAAT</strong> (highly sensitive/specific — gold standard)</td>
+            <td>Cannot be cultured on standard media. Obligate intracellular — NAAT is the standard of care</td>
+          </tr>
+          <tr>
+            <td><strong>Syphilis</strong></td>
+            <td>Serologic: <strong>RPR or VDRL</strong> (non-treponemal, screening) + <strong>FTA-ABS or TPPA</strong> (treponemal, confirmatory). Direct visualization: dark-field microscopy</td>
+            <td>Non-treponemal titers track treatment response. Test ALL syphilis patients for HIV.</td>
+          </tr>
+          <tr>
+            <td><strong>Chancroid</strong></td>
+            <td>Culture on special media (selective agar); NAAT (no FDA-approved test — some labs have developed their own)</td>
+            <td>No FDA-approved NAAT exists. Diagnosis often clinical (painful ulcer + negative syphilis/HSV test)</td>
+          </tr>
+          <tr>
+            <td><strong>Granuloma Inguinale</strong></td>
+            <td>Visualization of <strong>Donovan bodies</strong> on tissue preparation or biopsy</td>
+            <td>Donovan bodies = intracytoplasmic clusters of bacteria in macrophages; no reliable culture</td>
+          </tr>
+          <tr>
+            <td><strong>Bacterial Vaginosis</strong></td>
+            <td><strong>Amsel criteria:</strong> (1) thin homogeneous discharge, (2) vaginal pH &gt;4.5, (3) positive whiff test, (4) clue cells on wet prep. ≥3 of 4 = diagnosis</td>
+            <td>Clue cells (epithelial cells stippled with bacteria) are hallmark. Also: Nugent score on Gram stain</td>
+          </tr>
+          <tr>
+            <td><strong>Trichomoniasis</strong></td>
+            <td>Wet prep (motile trichomonads); NAAT (most sensitive); culture</td>
+            <td>Wet prep: visualize motile flagellated protozoa. NAAT increasingly standard</td>
+          </tr>
+          <tr>
+            <td><strong>Herpes Genitalis</strong></td>
+            <td>PCR (most sensitive); viral culture; Tzanck smear (less sensitive); type-specific serology (HSV-1 vs HSV-2 IgG)</td>
+            <td>PCR of lesion swab is gold standard. Tzanck shows multinucleated giant cells (not type-specific)</td>
+          </tr>
+          <tr>
+            <td><strong>Genital Warts (HPV)</strong></td>
+            <td>Primarily <strong>clinical diagnosis</strong> (visual); biopsy if uncertain; HPV DNA testing (for cervical screening)</td>
+            <td>Routine HPV genotyping not needed for diagnosis of warts; Pap smear/colposcopy for cervical HPV</td>
+          </tr>
+          <tr>
+            <td><strong>Pubic Lice</strong></td>
+            <td><strong>Clinical diagnosis</strong> — visual identification of lice and/or nits on pubic/body hair; magnification may help</td>
+            <td>No lab test required; can use dermatoscopy to confirm if uncertain</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     LO 5 — MECHANISMS OF ACTION
+══════════════════════════════════════════════════ -->
+<section id="lo5">
+  <div class="section-header">
+    <div class="section-icon">⚙️</div>
+    <div>
+      <div class="lo-badge">LO 5</div>
+      <h2>Mechanisms of Action of Recommended Drugs</h2>
+      <p>MOA organized by drug class — high-yield for exam questions</p>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <h3>🧱 Beta-Lactams (Penicillins &amp; Cephalosporins)</h3>
+    <div class="drug-block">
+      <div class="db-header">Penicillins (Benzathine PCN G) · Cephalosporins (Ceftriaxone)</div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">MOA</span>
+          <span class="db-content">Bind to <strong>penicillin-binding proteins (PBPs)</strong> (= transpeptidases) → inhibit the transpeptidase reaction that <strong>cross-links the peptidoglycan</strong> component of the bacterial cell wall → cell wall lysis and death. <em>Time-dependent killing.</em></span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Used for</span>
+          <span class="db-content">Penicillins → syphilis (all stages). Ceftriaxone → gonorrhea (DOC), syphilis (alternative)</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>🔬 Tetracyclines (Doxycycline)</h3>
+    <div class="drug-block">
+      <div class="db-header">Doxycycline — <span>Chlamydia DOC; syphilis alternative</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">MOA</span>
+          <span class="db-content">Bind to the <strong>30S ribosomal subunit</strong> → inhibit protein synthesis (bacteriostatic). Memory trick: "<strong>T</strong>etracyclines → <strong>T</strong>hirty S"</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Spectrum</span>
+          <span class="db-content">Broad spectrum; includes aerobic Gram+/Gram−, Rickettsia, Mycoplasma, Chlamydia, CA-MRSA</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>🔬 Macrolides (Azithromycin, Erythromycin)</h3>
+    <div class="drug-block">
+      <div class="db-header">Azithromycin / Erythromycin — <span>Chlamydia (pregnancy/infant); Granuloma inguinale DOC; Chancroid</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">MOA</span>
+          <span class="db-content">Bind to the <strong>50S ribosomal subunit</strong> → inhibit protein synthesis (primarily bacteriostatic; azithromycin can be bactericidal at higher concentrations)</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>🔬 Fluoroquinolones (Ciprofloxacin)</h3>
+    <div class="drug-block">
+      <div class="db-header">Ciprofloxacin — <span>Chancroid treatment option; gonorrhea alternative (resistance concerns)</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">MOA</span>
+          <span class="db-content">Inhibit two bacterial DNA topoisomerases: <strong>Type II (DNA gyrase)</strong> — primary target for Gram-negative organisms; <strong>Type IV topoisomerase</strong> — primary target for Gram-positive organisms. → Inhibit DNA replication and transcription. <em>Concentration-dependent killing; bactericidal; long post-antibiotic effect (PAE).</em></span>
+        </div>
+      </div>
+    </div>
+
+    <h3>🧫 Nitroimidazoles (Metronidazole, Tinidazole)</h3>
+    <div class="drug-block">
+      <div class="db-header">Metronidazole / Tinidazole — <span>BV and Trichomoniasis DOC</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">MOA</span>
+          <span class="db-content"><strong>Prodrug:</strong> chemically reduced under <strong>anaerobic conditions</strong> → forms a reactive nitro radical anion → disrupts DNA/nucleic acid synthesis → cell death. Concentration-dependent killing.</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>🦠 Nucleoside Antivirals (Acyclovir, Famciclovir, Valacyclovir)</h3>
+    <div class="drug-block">
+      <div class="db-header">Acyclovir / Valacyclovir / Famciclovir — <span>Herpes genitalis</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">MOA</span>
+          <span class="db-content">
+            <ol style="padding-left:16px;font-size:0.875rem;">
+              <li><strong>Viral thymidine kinase</strong> (HSV/VZV) converts the prodrug to its monophosphate form (selective activation — only in infected cells)</li>
+              <li>Host cell kinases continue phosphorylation → active <strong>nucleoside triphosphate</strong></li>
+              <li>Competitively inhibit <strong>viral DNA polymerase</strong></li>
+              <li><strong>Acyclovir only:</strong> also causes <strong>chain termination</strong> — lacks the 3'-hydroxyl group needed to attach the next nucleoside</li>
+            </ol>
+          </span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Prodrugs</span>
+          <span class="db-content">Valacyclovir → metabolized to <strong>acyclovir</strong>. Famciclovir → metabolized to <strong>penciclovir</strong> (does NOT cause chain termination — has 3'-OH group)</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Palliative</span>
+          <span class="db-content"><strong>NOT curative</strong> — virus remains latent in sacral dorsal root ganglia</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>🌿 HPV Wart Treatments</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Drug</th><th>Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Podofilox / Podophyllin</strong></td><td><strong>Antimitotic</strong> — inhibits microtubule formation → prevents cell division</td></tr>
+          <tr><td><strong>Imiquimod</strong></td><td>Immune response modifier — stimulates production of <strong>interferon-α and other cytokines</strong> (activates innate &amp; cell-mediated immunity)</td></tr>
+          <tr><td><strong>Sinecatechins</strong> (green tea)</td><td>Unclear exact mechanism; likely immune modulation and direct antiviral/anti-proliferative effects</td></tr>
+          <tr><td><strong>TCA / BCA</strong></td><td><strong>Protein coagulation</strong> of wart tissue (chemical destruction)</td></tr>
+          <tr><td><strong>Cryotherapy</strong></td><td>Physical destruction — liquid nitrogen causes <strong>necrosis and blistering</strong> of wart tissue</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🦟 Pediculicides</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Drug</th><th>Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Permethrin</strong></td><td>Interferes with insect <strong>sodium transport protein</strong> → neurotoxicity → paralysis and death</td></tr>
+          <tr><td><strong>Pyrethrins</strong></td><td>Same as permethrin (sodium channel disruptor). Piperonyl butoxide potentiates by inhibiting arthropod drug-metabolizing enzyme</td></tr>
+          <tr><td><strong>Malathion</strong></td><td>Organophosphate — <strong>irreversible inhibitor of acetylcholinesterase</strong> (AChE) in insects</td></tr>
+          <tr><td><strong>Lindane</strong></td><td>Organochloride — acts as CNS stimulant in invertebrates; inhibits <strong>invertebrate glycine receptors</strong> → convulsions and death</td></tr>
+          <tr><td><strong>Ivermectin</strong></td><td>Binds to <strong>glutamate-gated chloride channels</strong> in invertebrates (not present in mammals) → paralysis and death</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     LO 6 — PREGNANCY TREATMENT
+══════════════════════════════════════════════════ -->
+<section id="lo6">
+  <div class="section-header">
+    <div class="section-icon">🤰</div>
+    <div>
+      <div class="lo-badge">LO 6</div>
+      <h2>Treatment Recommendations in Pregnancy</h2>
+      <p>Critical distinctions — these are tested extensively</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="callout danger">
+      <strong>🔑 Master rule for pregnancy:</strong> Avoid tetracyclines/doxycycline (teeth discoloration), fluoroquinolones (cartilage damage), podofilox/podophyllin/imiquimod/sinecatechins (HPV warts — avoid in pregnancy). Beta-lactams and macrolides are generally safe.
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>STI</th>
+            <th>Pregnancy Treatment</th>
+            <th>Key Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Gonorrhea</strong></td>
+            <td><span class="tag preg">Ceftriaxone IM (same dose)</span></td>
+            <td>Treatment is the same as non-pregnant. If chlamydia not excluded → add <strong>azithromycin</strong> (NOT doxycycline). Cephalosporins are safe in pregnancy.</td>
+          </tr>
+          <tr>
+            <td><strong>Syphilis</strong></td>
+            <td><span class="tag preg">Benzathine Penicillin G — NO alternative</span></td>
+            <td>PCN is DOC at all stages in pregnancy. If PCN allergic: <strong>no substitution</strong> — perform allergy skin test and <strong>desensitize</strong>, then give PCN. T. pallidum crosses the placenta → fetal death, prematurity, congenital syphilis.</td>
+          </tr>
+          <tr>
+            <td><strong>Bacterial Vaginosis</strong></td>
+            <td><span class="tag preg">Metronidazole (same regimen)</span></td>
+            <td>Same regimen as non-pregnant. BV in pregnancy increases risk of premature labor &amp; delivery complications → treat even if asymptomatic if detected.</td>
+          </tr>
+          <tr>
+            <td><strong>Trichomoniasis</strong></td>
+            <td><span class="tag preg">Metronidazole 500 mg BID × 7 days</span></td>
+            <td>Same regimen including pregnant women. If lactating: wait 12–24 hrs after dose or pump &amp; dump.</td>
+          </tr>
+          <tr>
+            <td><strong>Herpes Genitalis</strong></td>
+            <td><span class="tag preg">Oral acyclovir (1st episode or severe recurrent)</span></td>
+            <td>Acyclovir is preferred — best safety track record. Famciclovir/valacyclovir safety not fully established (use only if needed). IV acyclovir for severe/disseminated infections. <strong>Suppressive therapy near term</strong> → reduces risk of active lesions at delivery → may prevent need for C-section.</td>
+          </tr>
+          <tr>
+            <td><strong>Genital Warts</strong></td>
+            <td><span class="tag preg">Cryotherapy or TCA/BCA or surgical removal</span></td>
+            <td>Avoid: podofilox, podophyllin, imiquimod, sinecatechins. Safe options: cryotherapy, TCA/BCA, surgical excision.</td>
+          </tr>
+          <tr>
+            <td><strong>Pubic Lice</strong></td>
+            <td><span class="tag preg">Permethrin or Pyrethrins + piperonyl butoxide</span></td>
+            <td>Both OTC options are recommended. Ivermectin — classified as "human data suggest low risk." Malathion: not recommended. Lindane: contraindicated.</td>
+          </tr>
+          <tr>
+            <td><strong>Granuloma Inguinale</strong></td>
+            <td><span class="tag preg">Macrolide regimen (Azithromycin)</span></td>
+            <td>Azithromycin is safe in pregnancy and remains the recommended treatment.</td>
+          </tr>
+          <tr>
+            <td><strong>Chancroid</strong></td>
+            <td><span class="tag preg">Consider azithromycin or ceftriaxone</span></td>
+            <td>Ciprofloxacin should be used with <strong>caution</strong> in pregnancy (fluoroquinolone — potential cartilage risk). Prefer azithromycin single dose or ceftriaxone single dose.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout success">
+      <strong>💡 Neonatal prophylaxis:</strong> Erythromycin ophthalmic ointment in both eyes at birth — prophylaxis for gonorrheal and chlamydial ophthalmia neonatorum (neonatal conjunctivitis). MOA: inhibits 50S ribosome.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     LO 7 — ADVERSE EFFECTS
+══════════════════════════════════════════════════ -->
+<section id="lo7">
+  <div class="section-header">
+    <div class="section-icon">⚠️</div>
+    <div>
+      <div class="lo-badge">LO 7</div>
+      <h2>Common &amp; Serious Adverse Effects</h2>
+      <p>Organized by drug class — high-frequency exam material</p>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="two-col">
+      <div class="drug-block">
+        <div class="db-header">Penicillins</div>
+        <div class="db-body">
+          <ul>
+            <li><strong>Drug-induced hypersensitivity reactions</strong> (most important)
+              <ul>
+                <li>Penicillin degraded → pennicilloic acid → combines with body proteins → antigen formation → antibody response</li>
+                <li><strong>Type I (IgE-mediated):</strong> urticaria or anaphylactic shock</li>
+                <li><strong>Serum sickness</strong> (Type III)</li>
+              </ul>
+            </li>
+            <li>Interstitial nephritis</li>
+            <li>Rash (maculopapular)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="drug-block">
+        <div class="db-header">Cephalosporins</div>
+        <div class="db-body">
+          <ul>
+            <li>Generally <strong>well-tolerated</strong></li>
+            <li>~5% "cross-sensitivity" with penicillins (highest with 1st gen; &lt;1% with 3rd gen ceftriaxone)</li>
+            <li>GI upset, diarrhea</li>
+            <li>Hypersensitivity reactions (rare with ceftriaxone)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="drug-block">
+        <div class="db-header">Tetracyclines (Doxycycline)</div>
+        <div class="db-body">
+          <ul>
+            <li><strong>Discoloration of teeth</strong> — avoid in pregnancy and children &lt;8 years</li>
+            <li><strong>Photosensitization</strong> — easy sunburn</li>
+            <li><strong>Esophageal ulcers</strong> — take with full glass of water, remain upright</li>
+            <li>GI upset</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="drug-block">
+        <div class="db-header">Macrolides (Azithromycin, Erythromycin)</div>
+        <div class="db-body">
+          <ul>
+            <li>GI: <strong>diarrhea, nausea, abdominal cramps</strong> (especially erythromycin)</li>
+            <li><strong>QT interval prolongation</strong> (cardiac risk)</li>
+            <li>Cholestatic hepatitis (rare, especially erythromycin estolate)</li>
+            <li>Clarithromycin: potential increased CV risk/death in heart disease patients (FDA warning)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="drug-block">
+        <div class="db-header">Fluoroquinolones (Ciprofloxacin)</div>
+        <div class="db-body">
+          <ul>
+            <li><strong>Tendonitis &amp; tendon rupture</strong> (Achilles; classic board question)</li>
+            <li><strong>Glucose excursions</strong> — hypoglycemia OR hyperglycemia</li>
+            <li><strong>Phototoxicity</strong></li>
+            <li><strong>Peripheral neuropathy</strong></li>
+            <li><strong>QT prolongation</strong></li>
+            <li>CI: pregnancy &amp; pediatrics (cartilage damage — though no longer absolute)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="drug-block">
+        <div class="db-header">Nitroimidazoles (Metronidazole, Tinidazole)</div>
+        <div class="db-body">
+          <ul>
+            <li>Anorexia, <strong>nausea, vomiting</strong></li>
+            <li><strong>Metallic taste</strong> (highly testable)</li>
+            <li>Take with food to reduce GI upset</li>
+            <li><em>Disulfiram-like reaction with ethanol</em> — <strong>largely disproved</strong> by controlled trials; CDC no longer recommends avoiding alcohol; still appears on practice boards questions (Dr. Ochs will not test this)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="drug-block">
+        <div class="db-header">Nucleoside Antivirals (Acyclovir)</div>
+        <div class="db-body">
+          <ul>
+            <li>GI upset, headache (oral)</li>
+            <li><strong>Phlebitis</strong> with IV administration (~15%)</li>
+            <li><strong>Crystalline nephropathy</strong> (IV) — risk ↑ with rapid infusion, dehydration, high dose</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="drug-block">
+        <div class="db-header">HPV Treatments</div>
+        <div class="db-body">
+          <ul>
+            <li><strong>Podofilox/Podophyllin:</strong> mild–moderate pain, local irritation</li>
+            <li><strong>Imiquimod:</strong> local inflammatory reactions — redness, irritation, induration, ulceration/erosions, vesicles</li>
+            <li><strong>Sinecatechins:</strong> erythema, pruritus/burning, pain, ulceration, edema, vesicular rash; <strong>may weaken condoms/diaphragms</strong></li>
+            <li><strong>TCA/BCA:</strong> local irritation; use sodium bicarbonate to remove excess acid</li>
+            <li><strong>Cryotherapy:</strong> pain during/after application, necrosis, possible blistering; hypo/hyperpigmentation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="drug-block">
+        <div class="db-header">Lindane</div>
+        <div class="db-body">
+          <ul>
+            <li><strong>Neurotoxicity</strong> — can be toxic to brain and nervous system</li>
+            <li>FDA designated as <strong>second-line only</strong> due to toxicity</li>
+            <li>No longer available in US</li>
+            <li>Contraindicated: premature infants, seizure disorders, pregnancy/breastfeeding, irritated skin, infants, children, elderly, &lt;110 lb</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <strong>⚠️ Jarisch-Herxheimer Reaction:</strong> Occurs within 24 hours of starting syphilis treatment (treating spirochetes causes this — also with Lyme disease). Symptoms: fever, headache, myalgia. Resolves within 24 hours. Counsel patients before leaving your office!
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     LO 8 — DRUG INTERACTIONS
+══════════════════════════════════════════════════ -->
+<section id="lo8">
+  <div class="section-header">
+    <div class="section-icon">🔗</div>
+    <div>
+      <div class="lo-badge">LO 8</div>
+      <h2>Major Drug Interactions</h2>
+      <p>Tetracyclines, Macrolides, and Fluoroquinolones</p>
+    </div>
+  </div>
+  <div class="section-body">
+
+    <div class="drug-block">
+      <div class="db-header">Tetracyclines (Doxycycline) — <span>30S inhibitor; bacteriostatic</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">Major DI</span>
+          <span class="db-content"><strong>Divalent and trivalent cations</strong> (Ca²⁺, Mg²⁺, Al³⁺, Fe²⁺) → <strong>chelation</strong> → significantly decreased absorption of tetracycline</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Sources</span>
+          <span class="db-content">Dairy products (Ca²⁺), antacids containing magnesium/aluminum, calcium supplements, iron supplements</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Counseling</span>
+          <span class="db-content">Take on empty stomach or at least 2 hours apart from cation-containing products. Swallow with a full glass of water (also prevents esophageal ulcers)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="drug-block">
+      <div class="db-header">Macrolides (Erythromycin &gt; Clarithromycin; NOT Azithromycin) — <span>50S inhibitor</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">Major DI</span>
+          <span class="db-content"><strong>CYP3A4 inhibitors</strong> — Erythromycin and clarithromycin strongly inhibit CYP3A4 (most common cytochrome P450 enzyme for drug metabolism)</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Result</span>
+          <span class="db-content">↑ plasma concentrations of CYP3A4 substrates (e.g., statins, warfarin, immunosuppressants, benzodiazepines, many others) → toxicity risk</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Key note</span>
+          <span class="db-content"><strong>Azithromycin does NOT inhibit CYP3A4</strong> — this interaction is primarily a concern with <strong>erythromycin</strong> (and clarithromycin, which is rarely used now)</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Also</span>
+          <span class="db-content">QT prolongation — avoid with other QT-prolonging agents (e.g., fluoroquinolones, antiarrhythmics)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="drug-block">
+      <div class="db-header">Fluoroquinolones (Ciprofloxacin) — <span>Topoisomerase II &amp; IV inhibitor; bactericidal</span></div>
+      <div class="db-body">
+        <div class="db-row">
+          <span class="db-label">DI #1</span>
+          <span class="db-content"><strong>Divalent/trivalent cations</strong> (same as tetracyclines) — dairy products and cation-containing antacids reduce absorption of fluoroquinolones via chelation</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">DI #2</span>
+          <span class="db-content"><strong>Caffeine:</strong> Ciprofloxacin is a <strong>CYP1A2 inhibitor</strong> → inhibits caffeine metabolism → ↑ caffeine levels/toxicity (e.g., nervousness, insomnia, tachycardia)</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">DI #3</span>
+          <span class="db-content">QT prolongation — additive risk with macrolides, antiarrhythmics, and other QT-prolonging drugs</span>
+        </div>
+        <div class="db-row">
+          <span class="db-label">Novel dacins</span>
+          <span class="db-content">Zoliflodacin: significant interaction with <strong>CYP3A4 inducers</strong> (e.g., rifampin, carbamazepine) → reduced drug levels</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout purple">
+      <strong>📊 Quick DI Summary Table:</strong>
+      <div class="table-wrap" style="margin-top:8px;">
+        <table>
+          <thead><tr><th>Drug Class</th><th>Key Interaction</th><th>Mechanism</th></tr></thead>
+          <tbody>
+            <tr><td>Tetracyclines</td><td>Dairy, cation antacids, iron, Ca supplements</td><td>Chelation → ↓ absorption</td></tr>
+            <tr><td>Macrolides (erythromycin)</td><td>CYP3A4 substrates (statins, warfarin, etc.)</td><td>CYP3A4 inhibition → ↑ substrate levels</td></tr>
+            <tr><td>Fluoroquinolones (cipro)</td><td>Dairy, cation antacids; caffeine</td><td>Chelation (absorption); CYP1A2 inhibition (caffeine)</td></tr>
+            <tr><td>All three classes</td><td>Other QT-prolonging agents</td><td>Additive QT prolongation → arrhythmia risk</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     QUICK REFERENCE SUMMARY
+══════════════════════════════════════════════════ -->
+<section id="summary">
+  <div class="section-header">
+    <div class="section-icon">📋</div>
+    <div>
+      <h2>Master Quick Reference: Bugs → Drugs → MOA</h2>
+      <p>One-page cheat sheet for exam review</p>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>STI</th><th>Pathogen</th><th>DOC (non-pregnant)</th><th>DOC (pregnant)</th><th>MOA of DOC</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Gonorrhea</td>
+            <td><em>N. gonorrhoeae</em> (Gm− diplococcus)</td>
+            <td>Ceftriaxone IM</td>
+            <td>Ceftriaxone IM</td>
+            <td>Binds PBPs → inhibits peptidoglycan cross-linking</td>
+          </tr>
+          <tr>
+            <td>Chlamydia</td>
+            <td><em>C. trachomatis</em> (intracellular)</td>
+            <td>Doxycycline × 7 d</td>
+            <td>Azithromycin</td>
+            <td>Doxy: 30S inhibitor; Azithro: 50S inhibitor</td>
+          </tr>
+          <tr>
+            <td>Syphilis</td>
+            <td><em>T. pallidum</em> (spirochete)</td>
+            <td>Benzathine PCN G IM</td>
+            <td>Benzathine PCN G (NO alt; desensitize)</td>
+            <td>Binds PBPs → inhibits peptidoglycan cross-linking</td>
+          </tr>
+          <tr>
+            <td>Bacterial Vaginosis</td>
+            <td>Polymicrobial (anaerobes + G. vaginalis)</td>
+            <td>Metronidazole 500 mg BID × 7 d</td>
+            <td>Metronidazole (same)</td>
+            <td>Prodrug → nitro radical → disrupts DNA synthesis</td>
+          </tr>
+          <tr>
+            <td>Trichomoniasis</td>
+            <td><em>T. vaginalis</em> (protozoan)</td>
+            <td>Metronidazole 500 mg BID × 7 d</td>
+            <td>Metronidazole (same)</td>
+            <td>Prodrug → nitro radical → disrupts DNA synthesis</td>
+          </tr>
+          <tr>
+            <td>Herpes Genitalis</td>
+            <td>HSV-2 (HSV-1 also)</td>
+            <td>Acyclovir / Famciclovir / Valacyclovir PO</td>
+            <td>Acyclovir PO (preferred)</td>
+            <td>Viral TK activation → inhibit viral DNA polymerase; chain termination (acyclovir)</td>
+          </tr>
+          <tr>
+            <td>Genital Warts</td>
+            <td>HPV 6 &amp; 11</td>
+            <td>Cryotherapy, TCA/BCA, podofilox, imiquimod</td>
+            <td>Cryotherapy / TCA/BCA / Surgery only</td>
+            <td>Destruction of wart tissue (not antiviral)</td>
+          </tr>
+          <tr>
+            <td>Granuloma Inguinale</td>
+            <td><em>K. granulomatis</em> (Gm−)</td>
+            <td>Azithromycin</td>
+            <td>Azithromycin (macrolide regimen)</td>
+            <td>50S ribosomal subunit inhibition</td>
+          </tr>
+          <tr>
+            <td>Chancroid</td>
+            <td><em>H. ducreyi</em> (Gm− coccobacilli)</td>
+            <td>Azithromycin 1 g single dose OR Ceftriaxone 250 mg IM</td>
+            <td>Azithromycin or ceftriaxone (avoid cipro)</td>
+            <td>50S inhibitor (azithro); PBP inhibitor (ceftriaxone)</td>
+          </tr>
+          <tr>
+            <td>Pubic Lice</td>
+            <td><em>Pthirus pubis</em></td>
+            <td>Permethrin OR Pyrethrins + piperonyl butoxide (OTC)</td>
+            <td>Same OTC options</td>
+            <td>Disrupt insect Na⁺ transport → neurotoxicity</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
 </body>
 </html>
