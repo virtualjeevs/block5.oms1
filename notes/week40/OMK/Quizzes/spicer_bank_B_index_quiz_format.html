@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. Spicer — FA/TAG Synthesis Quiz B</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+ radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+ radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+ linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%)}
+.launch-card{max-width:760px;width:min(100%,760px);background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:32px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:42px;line-height:1.02;color:var(--navy);margin-bottom:8px}
+.launch-card p{color:var(--slate);max-width:62ch}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 24px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.launch-btn{padding:14px 20px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--teal-glow) 18%, transparent), transparent 24%),
+  radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--plum) 16%, transparent), transparent 22%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+.qo.open .qt-bar,.qo.open .qin{will-change:transform,opacity}
+.qo.closing .qt-bar{animation:qBarOut .26s cubic-bezier(.4,0,.2,1) forwards}
+.qo.closing .qin{animation:qSheetOut .32s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes qBarOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-12px)}}
+@keyframes qSheetOut{from{opacity:1;transform:none;filter:blur(0)}to{opacity:0;transform:translateY(22px) scale(.985);filter:blur(2px)}}
+.qt-bar{position:sticky;top:0;z-index:12;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,color-mix(in srgb, var(--navy2) 94%, transparent),color-mix(in srgb, var(--navy) 92%, transparent));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:28px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap}
+.qt-btn{padding:10px 16px;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-1px)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900;box-shadow:0 8px 20px rgba(212,168,67,.24)}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(212,168,67,.28)}
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px 24px;align-items:start}
+.q-left{display:grid;gap:18px;align-content:start;align-self:start}
+.q-right{min-width:0;display:grid;gap:16px;align-content:start;align-self:start}
+#qA{min-width:0;align-self:start;position:relative}
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.score-box{position:relative;overflow:hidden;background:color-mix(in srgb, var(--white) 88%, var(--warm) 12%);backdrop-filter:blur(10px);border-radius:22px;padding:18px 14px 14px;text-align:center;box-shadow:0 14px 34px rgba(18,32,60,.08);border:1px solid rgba(18,32,60,.08);transition:var(--tr)}
+.score-box::before{content:'';position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 999px 999px;background:linear-gradient(90deg, rgba(26,122,109,.16), rgba(62,196,178,.5));opacity:.75}
+.score-box.correct{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(232,245,238,.98))}
+.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(253,240,240,.98))}
+.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:8px}
+.score-box.correct .sv{color:var(--green)}
+.score-box.incorrect .sv{color:var(--red)}
+.mode-toggle,.timer-panel,.tool-panel,.exam-submit-row{position:relative;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08)}
+.mode-toggle{display:flex;gap:8px;padding:8px;border-radius:24px;animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{flex:1;padding:14px 18px;border-radius:18px;text-align:center;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 12px 24px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:20px;margin-bottom:4px}
+.timer-panel{display:grid;grid-template-columns:1fr;gap:14px;padding:0;border-radius:24px;box-shadow:none;border:none;background:transparent;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.timer-card,.cd-card{position:relative;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:46px 18px 18px;background:rgba(255,255,255,.84);border-radius:24px;border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);transition:var(--tr)}
+.timer-lbl{position:absolute;top:14px;left:16px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(18,32,60,.04)}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:40px;font-weight:600;color:var(--navy);min-width:120px;text-align:center;letter-spacing:2px}
+.tbtn,.cd-pm{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(27,42,74,.24);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:var(--tr);color:var(--navy);flex-shrink:0;box-shadow:0 6px 18px rgba(18,32,60,.08)}
+.cd-pm{width:34px;height:34px;font-size:20px;font-weight:800;border-color:rgba(27,42,74,.16)}
+.tbtn:hover,.cd-pm:hover{background:var(--navy);color:#fff;transform:translateY(-1px) scale(1.04);border-color:var(--navy)}
+.cd-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;min-width:36px;text-align:center;color:var(--navy)}
+.cd-unit{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800}
+.cd-go{padding:11px 18px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:var(--tr);box-shadow:0 10px 22px rgba(224,122,95,.22)}
+.cd-go:hover{background:linear-gradient(135deg,#D86E53,#C95E45);transform:translateY(-1px)}
+.tool-panel{display:flex;flex-wrap:wrap;gap:10px;padding:10px;border-radius:24px;animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
+.q-tool{flex:1 1 180px;min-width:0;padding:13px 16px;border-radius:16px;font-size:13px;font-weight:800;border:1.5px solid rgba(18,32,60,.08);background:rgba(255,255,255,.86);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);box-shadow:0 8px 18px rgba(18,32,60,.06);text-align:left}
+.q-tool:hover{border-color:rgba(26,122,109,.32);color:var(--teal);transform:translateY(-1px);background:#fff}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00;box-shadow:0 0 0 3px rgba(211,175,43,.12)}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red);box-shadow:0 0 0 3px rgba(196,64,64,.08)}
+.exam-submit-row{padding:20px;border-radius:24px;text-align:center}
+.exam-submit-row .exam-progress{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--mist);margin-bottom:12px}
+.exam-submit-btn{padding:15px 52px;border-radius:18px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 22px rgba(224,122,95,.24)}
+.exam-submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(224,122,95,.32)}
+.qcd{background:color-mix(in srgb, var(--white) 94%, var(--warm) 6%);border-radius:28px;overflow:hidden;box-shadow:0 28px 70px rgba(18,32,60,.12);border:1px solid rgba(18,32,60,.08);animation:cardIn .45s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(0.99)}to{opacity:1;transform:none}}
+.qpg{height:6px;background:color-mix(in srgb, var(--teal) 10%, transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 34px 26px}
+.qnum{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.qstem{font-family:'Crimson Pro',serif;font-size:25px;line-height:1.35;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.15px}
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:15px 18px;border:1.5px solid rgba(18,32,60,.09);border-radius:18px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb, var(--warm) 78%, var(--white) 22%);position:relative;box-shadow:0 6px 18px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 12px 24px rgba(18,32,60,.08)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.cl{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 6px 14px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:16px;line-height:1.45;padding-top:4px;color:var(--ink)}
+.submit-row{margin-top:24px;text-align:center}
+.submit-btn{padding:15px 54px;border-radius:18px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.4px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+.exb{margin-top:26px;border-radius:22px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.exs{padding:22px 26px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:16px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:10px;padding:12px 16px;background:rgba(255,255,255,.58);border-radius:14px;font-size:15px;line-height:1.65}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 24px 20px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,color-mix(in srgb, var(--warm) 32%, transparent),color-mix(in srgb, var(--cream) 82%, transparent))}
+.nb{padding:12px 24px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 8px 18px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.qdots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:14px;height:14px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);box-shadow:0 4px 10px rgba(18,32,60,.04)}
+.qd:hover{transform:scale(1.18)}
+.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,0.14)}
+.qd.acor{border-color:var(--green);background:var(--green)}
+.qd.ainc{border-color:var(--red);background:var(--red)}
+.qd.asel{border-color:var(--gold);background:var(--gold)}
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:16px}
+#qo[data-fs="lg"] .ctx{font-size:19px}
+#qo[data-fs="xl"] .ctx{font-size:22px}
+.fs-ctrl{display:flex;align-items:center;gap:4px}
+.fs-btn{width:32px;height:32px;border-radius:10px;border:1.5px solid rgba(18,32,60,.14);background:#fff;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);color:var(--ink2);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(18,32,60,.06)}
+.fs-btn:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--mist);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+@media(max-width:920px){.qin{grid-template-columns:1fr;padding:22px 18px 72px;gap:16px}.score-panel{grid-template-columns:repeat(3,minmax(0,1fr))}.timer-panel{grid-template-columns:1fr 1fr}.tool-panel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.qt-bar{padding:14px 16px;align-items:flex-start;flex-direction:column}.qt-bar h2{font-size:24px}.qin{padding:18px 14px 64px}.score-panel{grid-template-columns:1fr}.timer-panel{grid-template-columns:1fr}.tool-panel{grid-template-columns:1fr}.qbd{padding:22px 18px 20px}.qstem{font-size:24px;line-height:1.42}.ctx{font-size:16px}.qnv{padding:16px 18px 20px;flex-direction:column;align-items:stretch}.qdots{order:3}.nb{width:100%}.launch-card h1{font-size:34px}}
+
+.ac.hl-applied{
+  background: linear-gradient(180deg, #FFF8B8, #FFF3A0) !important;
+  border-color: #D3AF2B !important;
+}
+.ac.hl-applied .ctx{
+  background: transparent !important;
+}
+.ac.st-applied{
+  background: linear-gradient(180deg, #fff, #FDF2F2) !important;
+  border-color: rgba(196,64,64,.45) !important;
+  opacity: .72;
+}
+.ac.st-applied .ctx{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.tool-status{
+  margin-top: 6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--mist);
+  padding: 0 4px;
+}
+.tool-status.active-highlight{ color:#8a6a00; }
+.tool-status.active-strike{ color:var(--red); }
+
+.ac.hl-applied{
+  background: #FFF4A8 !important;
+  border-color: #D4A843 !important;
+  box-shadow: 0 0 0 3px rgba(212,168,67,.18), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.hl-applied .cl{
+  background: #D4A843 !important;
+  border-color: #D4A843 !important;
+  color: #fff !important;
+}
+.ac.hl-applied .ctx{
+  color: #5c4400 !important;
+}
+.ac.st-applied{
+  background: #FFF3F3 !important;
+  border-color: rgba(196,64,64,.52) !important;
+  box-shadow: 0 0 0 3px rgba(196,64,64,.10), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.st-applied .cl{
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+  color:#fff !important;
+}
+.ac.st-applied .ctx{
+  color: #8B2C2C !important;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.qstem{
+  position: relative;
+  border-radius: 16px;
+  padding: 6px 8px;
+  margin: -6px -8px 22px -8px;
+  transition: var(--tr);
+}
+.qstem.tool-hover{
+  box-shadow: inset 0 0 0 2px rgba(26,122,109,.16);
+  background: rgba(26,122,109,.04);
+}
+.qstem.hl-applied{
+  background: linear-gradient(180deg, #FFF4A8, #FFF7C9) !important;
+  box-shadow: inset 0 0 0 2px rgba(212,168,67,.34);
+}
+.qstem.st-applied{
+  background: linear-gradient(180deg, #FFF3F3, #FFF8F8) !important;
+  box-shadow: inset 0 0 0 2px rgba(196,64,64,.22);
+}
+.qstem.st-applied .stem-text,
+.qstem .stem-st{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+  color: #8B2C2C !important;
+}
+.qstem .stem-hl{
+  background: #FFF1A6;
+  border-radius: 6px;
+  padding: 0 .12em;
+  box-shadow: 0 0 0 1px rgba(212,168,67,.18);
+}
+.qstem .stem-st{
+  background: #FFF3F3;
+  border-radius: 6px;
+  padding: 0 .12em;
+}
+
+
+.exam-submit-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:none;
+}
+.exam-submit-row.exam-live{
+  box-shadow:0 0 0 3px rgba(224,122,95,.10), 0 14px 34px rgba(18,32,60,.08);
+}
+.exam-submit-row.exam-done .exam-submit-btn{
+  background:linear-gradient(135deg,var(--green),#3aa56f);
+  box-shadow:0 10px 24px rgba(45,134,89,.24);
+}
+
+
+</style>
+</head>
+<body>
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>FA &amp; TAG Synthesis — Question Bank B</h1>
+    <p>PLO: FA &amp; TAG synthesis (substrates, products, regulation) • LO1: Insulin resistance in liver, muscle, adipose • LO2: Fructose and metabolic disease</p>
+    <div class="launch-meta">
+      <span class="chip">UNE COM · Block 5 · Week 40 · Dr. Spicer — Bank B</span>
+      <span class="chip">20 questions</span>
+      <span class="chip">Learn / Exam toggle</span>
+      <span class="chip">Highlight + strikeout</span>
+      <span class="chip">Template layout</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz</button>
+  </div>
+</div>
+
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>FA &amp; TAG Synthesis — Question Bank B</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" onclick="window.print()">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCurrent">1</div><div class="sl">Current</div></div>
+        <div class="score-box correct"><div class="sv" id="svCorrect">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="svIncorrect">0</div><div class="sl">Incorrect</div></div>
+      </div>
+
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Timer</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <button class="tbtn" id="timerStart">▶</button>
+          <button class="tbtn" id="timerPause">⏸</button>
+          <button class="tbtn" id="timerReset">↺</button>
+        </div>
+
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">05:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">5</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+            <button class="cd-go" id="cdGo">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <button class="q-tool" id="toolHighlight">Highlight tool</button>
+        <button class="q-tool" id="toolStrike">Strikeout tool</button>
+        <button class="q-tool" id="toolReveal">Reveal explanation</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+
+      <div class="exam-submit-row">
+        <div class="exam-progress" id="examProgress">Learn mode</div>
+        <button class="exam-submit-btn" id="submitExam">Submit Exam</button>
+      </div>
+    </div>
+
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qpg"><div class="qpf" id="qProgressFill" style="width:0%"></div></div>
+          <div class="qbd">
+            <div class="qnum" id="qNumLabel">Question 1 of 20</div>
+            <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+
+            <div class="ach" id="choicesWrap">
+              <div class="ac" data-choice="0"><div class="cl">A</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="1"><div class="cl">B</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="2"><div class="cl">C</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="3"><div class="cl">D</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="4"><div class="cl">E</div><div class="ctx"></div></div>
+            </div>
+
+            <div class="submit-row" id="learnSubmitRow">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+
+            <div class="exb" id="exBlock">
+              <div class="exs exc"><div class="exl">Correct Answer</div><div class="ext" id="exCorrect"></div></div>
+              <div class="exs exe"><div class="exl">Teaching Point</div><div class="ext" id="exTeaching"></div></div>
+              <div class="exs exw">
+                <div class="exl">Why the Others Are Wrong</div>
+                <div class="ext" id="exWrong"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Previous</button>
+            <div class="qdots" id="qDots"></div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ_TITLE = "FA & TAG Synthesis — Question Bank B";
+const QUIZ_TAG = "UNE COM · Block 5 · Week 40 · Dr. Spicer — Bank B";
+const QUIZ_PLO = "PLO: FA & TAG synthesis (substrates, products, regulation) • LO1: Insulin resistance in liver, muscle, adipose • LO2: Fructose and metabolic disease";
+const RAW_QUESTIONS = [{"q": "AMP-activated protein kinase (AMPK) is a cellular energy sensor that phosphorylates acetyl CoA carboxylase. Which of the following correctly describes BOTH the upstream activator of AMPK and the downstream consequence for fatty acid synthesis?", "opts": [{"text": "High AMP:ATP ratio activates AMPK (via LKB1-mediated phosphorylation at Thr172); AMPK phosphorylates ACC at Ser79 → ACC inactivated → malonyl CoA falls → CPT-I disinhibited → fatty acid synthesis inhibited and β-oxidation permitted", "correct": true}, {"text": "High ADP:ATP ratio activates AMPK via adenylate cyclase; AMPK phosphorylates FAS at Ser2150 → FAS inactivated → palmitate production falls → downstream TAG synthesis is blocked", "correct": false, "why": "AMPK is activated by a high AMP:ATP ratio (not ADP:ATP), and its activation signal goes through LKB1 phosphorylation of Thr172 on AMPK's catalytic subunit. AMPK inhibits FA synthesis primarily by phosphorylating and inactivating ACC, not FAS directly."}, {"text": "Low citrate activates AMPK allosterically; AMPK depolymerizes ACC filaments into inactive protomers → malonyl CoA production ceases → downstream VLDL assembly is disrupted", "correct": false, "why": "Low citrate reduces allosteric activation of ACC (citrate activates ACC), but AMPK is not activated by low citrate directly. AMPK is activated by the AMP:ATP ratio reflecting cellular energy status. AMPK's mechanism of ACC inhibition is phosphorylation, not depolymerization (that is palmitoyl CoA's mechanism)."}, {"text": "Glucagon directly activates AMPK via a receptor tyrosine kinase; AMPK then phosphorylates and inactivates FAS → malonyl CoA is not consumed → ACC is product-inhibited and synthesis stops", "correct": false, "why": "Glucagon signals through a GPCR/adenylate cyclase/cAMP/PKA cascade, not via a receptor tyrosine kinase. PKA can activate AMPK signaling indirectly, but glucagon does not directly activate AMPK through a tyrosine kinase. FA synthesis is controlled via ACC phosphorylation, not through FAS inhibition causing malonyl CoA accumulation."}, {"text": "Elevated NAD⁺:NADH ratio activates AMPK via SIRT1-mediated deacetylation; AMPK then activates ACC via dephosphorylation → malonyl CoA rises → CPT-I inhibited → β-oxidation decreased", "correct": false, "why": "High NAD⁺:NADH activates SIRT1, which can activate AMPK through deacetylation of LKB1. However, AMPK INACTIVATES ACC (via phosphorylation), it does not activate it via dephosphorylation. An AMPK-activated outcome of malonyl CoA rising and CPT-I inhibition describes the insulin/fed state, not the AMPK/fasting state."}]}, {"q": "A 16-carbon fully saturated fatty acid is the primary product released by the thioesterase domain of FA synthase. If this fatty acid is then destined for TAG synthesis, which of the following is the correct sequence of activation and esterification events?", "opts": [{"text": "Palmitate + CoA + ATP → palmitoyl CoA + AMP + PPᵢ (long-chain acyl CoA synthetase); palmitoyl CoA then serves as the acyl donor for GPAT, LPAAT, and DGAT to esterify glycerol-3-phosphate", "correct": true}, {"text": "Palmitate + ACP + ATP → palmitoyl-ACP + AMP + PPᵢ; palmitoyl-ACP is then directly loaded onto the glycerol backbone by TAG synthase without conversion to CoA thioester", "correct": false, "why": "Palmitoyl-ACP is an intermediate within FA synthase, not a form that participates in TAG synthesis. For glycerolipid synthesis, fatty acids must be activated as fatty acyl-CoA thioesters (not acyl-ACP). Long-chain acyl CoA synthetase converts palmitate to palmitoyl CoA."}, {"text": "Palmitate enters the mitochondria via carnitine shuttle → palmitoyl CoA is generated in the matrix → exported back to cytosol via a palmitoyl CoA transporter for glycerolipid synthesis", "correct": false, "why": "This is backwards — the carnitine shuttle imports FA into mitochondria for β-oxidation. Palmitoyl CoA for TAG synthesis is generated in the cytosol/ER by long-chain acyl CoA synthetase. Palmitoyl CoA is not transported out of mitochondria; its entry via CPT-I is the step that commits it to oxidation."}, {"text": "Palmitate + GTP → palmitoyl CoA + GDP; this GDP-linked activation is required specifically for the GPAT step of TAG synthesis on the ER membrane", "correct": false, "why": "Fatty acid activation uses ATP (producing AMP + PPᵢ), not GTP. The enzyme is long-chain acyl CoA synthetase (also called fatty acyl-CoA ligase). GTP is not used in this activation step."}, {"text": "Palmitate + biotin → palmitoyl-biotin → palmitoyl CoA is regenerated by acyl transferase; palmitoyl CoA then esterifies glycerol-3-phosphate via the glycerol-3-phosphate pathway", "correct": false, "why": "Biotin is the cofactor for carboxylases (ACC, pyruvate carboxylase) — it does not participate in fatty acid activation or esterification. Palmitate is activated directly to palmitoyl CoA by long-chain acyl CoA synthetase using ATP and CoA; no biotin intermediate is involved."}]}, {"q": "In a person with hereditary fructose intolerance (HFI), aldolase B is deficient. After ingestion of fructose, which metabolite accumulates in the liver, and why does this cause hypoglycemia?", "opts": [{"text": "Fructose-1-phosphate accumulates; it inhibits both glycogen phosphorylase (blocking glycogenolysis) and fructose-1,6-bisphosphatase (blocking gluconeogenesis), simultaneously eliminating both sources of hepatic glucose output", "correct": true}, {"text": "Fructose-6-phosphate accumulates; it inhibits phosphoglucose isomerase, trapping glucose as fructose-6-phosphate inside hepatocytes and preventing glucose-6-phosphate from being exported via G6Pase", "correct": false, "why": "Without aldolase B, fructose-1-phosphate (not fructose-6-phosphate) is the accumulating species. Fructokinase phosphorylates fructose at C-1, not C-6. Fructose-6-phosphate would require a different enzymatic step and is not the problem in HFI."}, {"text": "Fructose-1,6-bisphosphate accumulates; it activates pyruvate kinase, diverting all hepatic glucose toward glycolysis and depleting glucose-6-phosphate available for export", "correct": false, "why": "Fructose-1,6-bisphosphate does allosterically activate pyruvate kinase, but it is not the accumulating metabolite in HFI. In HFI, the block is at aldolase B (which normally cleaves fructose-1-phosphate). Fructose-1-phosphate, not FBP, is what accumulates."}, {"text": "DHAP accumulates; excess DHAP drives oxaloacetate synthesis, which sequesters acetyl CoA and depletes the mitochondrial matrix of substrates needed for ATP production via the TCA cycle", "correct": false, "why": "DHAP is the product of aldolase B cleavage, not the substrate. In HFI, aldolase B is deficient, so fructose-1-phosphate cannot be cleaved into DHAP and glyceraldehyde. DHAP would actually be depleted (not accumulated) because the reaction cannot proceed."}, {"text": "Fructose accumulates extracellularly; high serum fructose competes with glucose for GLUT2 transporters in the liver and brain, directly causing neuroglycopenia independent of insulin or glycogenolysis", "correct": false, "why": "In HFI, the issue is intrahepatic fructose-1-phosphate accumulation and its inhibitory effects on glucose-producing enzymes. Extracellular fructose competition with glucose at GLUT2 is not the mechanism of hypoglycemia in HFI. The crisis is a hepatic glucose output failure."}]}, {"q": "In the synthesis vs. degradation comparison, the key carbon carrier between the mitochondria and cytosol differs. Which of the following correctly identifies the carrier and direction for each pathway?", "opts": [{"text": "FA synthesis: citrate exports acetyl groups from mitochondria to cytosol; β-oxidation: carnitine imports long-chain acyl groups from cytosol into mitochondria", "correct": true}, {"text": "FA synthesis: carnitine exports palmitoyl groups from mitochondria to cytosol; β-oxidation: citrate imports acetyl groups from cytosol into mitochondria for TCA entry", "correct": false, "why": "Carnitine moves acyl groups from cytosol into mitochondria (not the reverse). Citrate moves acetyl groups from mitochondria to cytosol (not the reverse). The directionality in this choice is inverted for both pathways."}, {"text": "FA synthesis: malonyl CoA transports 3-carbon units into the cytosol; β-oxidation: acetylcarnitine transports 2-carbon units into mitochondria", "correct": false, "why": "Malonyl CoA is synthesized in the cytosol by ACC — it is not a mitochondria-to-cytosol transporter. Acetylcarnitine does exist as a shuttle for acetyl groups but is a minor pathway compared to the carnitine shuttle for long-chain FAs in β-oxidation."}, {"text": "FA synthesis: malate transports 4-carbon units from mitochondria to cytosol; β-oxidation: acylcarnitine transports long-chain FA from cytosol to mitochondria via the same CPT system used in synthesis", "correct": false, "why": "Malate does exit mitochondria as part of the malate-aspartate shuttle for NADH equivalents, but the acetyl group carrier for FA synthesis is citrate, not malate. Also, the CPT system is used exclusively for FA import for degradation — it is not used in synthesis. Malonyl CoA inhibits CPT-I, ensuring these pathways don't run simultaneously."}, {"text": "FA synthesis: OAA carries acetyl groups from mitochondria as acetyl-OAA adduct; β-oxidation: CoA carries acyl groups from cytosol into mitochondria via the CoASH transporter", "correct": false, "why": "There is no acetyl-OAA adduct that serves as an acetyl group carrier. OAA condenses with acetyl CoA to form citrate, and it is citrate (not OAA) that exits the mitochondria. There is also no cytosol-to-mitochondria CoASH transporter for acyl groups — carnitine is the carrier."}]}, {"q": "Glucagon and epinephrine both inhibit fatty acid synthesis through a shared downstream effector. Identify this effector and the molecular mechanism by which it inactivates the rate-limiting enzyme of FA synthesis.", "opts": [{"text": "cAMP-activated PKA; PKA activates AMPK which phosphorylates ACC at Ser79 → inactive (alternatively, PKA may directly phosphorylate ACC at multiple serine residues → inactive)", "correct": true}, {"text": "Diacylglycerol-activated PKC; PKC directly phosphorylates and inactivates FA synthase at the malonyl-ACP loading domain, reducing elongation rate", "correct": false, "why": "PKC is activated by DAG via the PLC/IP₃ pathway (Gαq-coupled receptors), not by glucagon or epinephrine (which signal via Gαs/cAMP/PKA). PKC also does not primarily regulate FA synthase. Glucagon and epinephrine work through PKA, which targets ACC."}, {"text": "Calmodulin-dependent kinase II (CaMKII); CaMKII is activated by the rise in intracellular calcium triggered by both glucagon and epinephrine, phosphorylating and inactivating ACC", "correct": false, "why": "Glucagon acts via Gαs → cAMP → PKA, not through calcium/CaMKII. Epinephrine can act via both β (Gαs/cAMP) and α₁ (Gαq/calcium) receptors depending on the tissue. In liver, glucagon's cAMP/PKA cascade is the primary pathway. CaMKII is not the shared effector."}, {"text": "Phospholipase A₂ (PLA₂); activated by glucagon and epinephrine, PLA₂ liberates arachidonic acid from membrane phospholipids, which directly binds and allosterically inactivates ACC", "correct": false, "why": "PLA₂ is activated by calcium/inflammatory signals, not primarily by glucagon or epinephrine through the cAMP pathway. Arachidonic acid does not allosterically regulate ACC. The mechanism linking glucagon and epinephrine to ACC inhibition is cAMP → PKA → (AMPK) → phospho-ACC."}, {"text": "GSK-3 (glycogen synthase kinase-3); activated by glucagon and epinephrine, GSK-3 phosphorylates ACC at a priming site that allows subsequent inactivating phosphorylation by casein kinase 1", "correct": false, "why": "GSK-3 is primarily regulated by insulin (insulin activates Akt → Akt phosphorylates and inactivates GSK-3, disinhibiting glycogen synthase). GSK-3 is not the effector for glucagon/epinephrine inhibition of ACC. The ACC inhibition cascade runs through cAMP/PKA/AMPK, not GSK-3."}]}, {"q": "The thioesterase (TE) domain of FA synthase is a critical specificity determinant. It determines the chain length at which the growing acyl chain is released. Which of the following correctly describes why palmitate (C16) rather than a shorter or longer chain is the default cytosolic FAS product?", "opts": [{"text": "The TE domain has a hydrophobic binding cleft sized to accommodate a 16-carbon acyl chain with high affinity; chains shorter than C14 bind poorly, and chains longer than C16 are released before further elongation by steric exclusion from the binding site", "correct": true}, {"text": "Palmitate is the default product because malonyl CoA allosterically inactivates the KS domain after exactly 7 condensation cycles, imposing a cycle count limit on elongation", "correct": false, "why": "Malonyl CoA does not allosterically inactivate the KS domain after a set number of cycles. There is no cycle-counter mechanism. Chain length specificity is a structural feature of the thioesterase domain's active site geometry, not a counting mechanism imposed by a substrate."}, {"text": "After 7 cycles, the C16 acyl chain is long enough to spontaneously transacylate from ACP to the growing pool of palmitoyl CoA in the cytosol, independent of the thioesterase domain", "correct": false, "why": "Release of palmitate is an enzyme-catalyzed hydrolysis by the thioesterase domain — it is not spontaneous transacylation. The product is free palmitate (not palmitoyl CoA directly). The TE domain actively hydrolyzes the thioester bond."}, {"text": "Cytosolic palmitoyl CoA binding to the TE domain acts as product inhibition, triggering thioesterase activity specifically when 7 elongation cycles are complete", "correct": false, "why": "Palmitoyl CoA is an inhibitor of ACC (not the thioesterase). The TE domain's chain length preference is intrinsic to its binding site geometry. Product inhibition by palmitoyl CoA occurs upstream at ACC, not at the TE release step of FAS itself."}, {"text": "The enoyl-ACP reductase domain becomes catalytically inactive after the seventh reduction cycle due to allosteric inhibition by NADP⁺ that accumulates from repeated NADPH consumption", "correct": false, "why": "NADP⁺ accumulation does not allosterically inactivate the enoyl-ACP reductase. Chain length is determined by the thioesterase domain's binding specificity, not by NADP⁺ feedback on the reductase. NADPH availability is a general rate-limiting factor but not a chain-length determinant."}]}, {"q": "In the fed state, insulin induces multiple enzymes that collectively increase flux into fatty acid synthesis. Which of the following identifies the transcription factor that mediates the transcriptional induction of ACC, FAS, ATP citrate lyase, and G6PDH?", "opts": [{"text": "SREBP-1c (sterol regulatory element binding protein 1c), which is induced by insulin via mTORC1-mediated phosphorylation of INSIG, releasing SREBP-1c from the ER to enter the nucleus", "correct": true}, {"text": "PPARγ (peroxisome proliferator-activated receptor gamma), activated in the liver by fed-state free fatty acids to coordinate lipogenic gene expression via a ligand-activation mechanism", "correct": false, "why": "PPARγ is the master regulator of adipogenesis and lipid storage in adipose tissue. In the liver, it plays a limited lipogenic role. The primary transcription factor mediating insulin-induced lipogenic gene expression (ACC, FAS, ACL, G6PDH) is SREBP-1c, not PPARγ."}, {"text": "ChREBP (carbohydrate response element binding protein), which is activated by insulin-stimulated glucose flux through the pentose phosphate pathway generating xylulose-5-phosphate", "correct": false, "why": "ChREBP is activated by glucose metabolites (especially xylulose-5-phosphate from the PPP) and contributes to lipogenic gene induction — this part is correct. However, ChREBP is a glucose-sensing transcription factor, not primarily an insulin-responsive one. The insulin-specific transcription factor for the lipogenic program is SREBP-1c. Both ChREBP and SREBP-1c contribute, but SREBP-1c is the correct answer for insulin-mediated induction."}, {"text": "FOXO1 (forkhead box protein O1), which is activated by insulin-mediated Akt phosphorylation to enter the nucleus and induce lipogenic gene expression in the fed state", "correct": false, "why": "Insulin-mediated Akt phosphorylation causes FOXO1 to LEAVE the nucleus (cytoplasmic sequestration), not enter it. Nuclear FOXO1 drives gluconeogenesis. Cytoplasmic FOXO1 reflects the insulin-activated state, and the lipogenic transcription factor activated in this state is SREBP-1c, not FOXO1."}, {"text": "HNF-4α (hepatocyte nuclear factor 4α), which is dephosphorylated by the insulin-activated phosphatase PP2A to translocate to lipogenic gene promoters in the fed state", "correct": false, "why": "HNF-4α is important for hepatocyte identity and regulation of many metabolic genes, but it is not the primary insulin-responsive transcription factor for the ACC/FAS/ACL/G6PDH lipogenic program. PP2A dephosphorylation is the mechanism by which insulin activates ACC acutely — HNF-4α is not regulated in this way."}]}, {"q": "Insulin resistance in adipose tissue leads to a paradoxical situation in which fat cells simultaneously fail to store fat and release excessive free fatty acids. Which combination of defects best explains this paradox?", "opts": [{"text": "Reduced GLUT4 surface expression (impaired glucose uptake → ↓DHAP → ↓glycerol-3-P for re-esterification) combined with inadequate HSL suppression (unrestrained lipolysis → excess FFA release)", "correct": true}, {"text": "Reduced LPL activity on capillary endothelium (↓VLDL-TG hydrolysis → ↓FA uptake from blood) combined with excess CPT-I activity in adipocyte mitochondria (↑FA oxidation → ↓TAG storage)", "correct": false, "why": "Insulin actually promotes LPL activity in adipose (facilitating FA uptake for storage), so reduced LPL would be a feature of insulin deficiency rather than resistance per se. Also, adipocytes perform relatively little FA oxidation compared to muscle — their primary role is storage, not oxidation."}, {"text": "Excess perilipin phosphorylation (activating ATGL and HSL constitutively) combined with reduced VLDL receptor expression (impaired chylomicron remnant uptake for TAG storage)", "correct": false, "why": "In normal fasting, PKA phosphorylates perilipin → ATGL/HSL activation → lipolysis. In insulin resistance, the problem is failure of insulin to suppress PKA (via phosphodiesterase activation) → constitutive perilipin phosphorylation is partly correct. However, the VLDL receptor story is not the primary mechanism, and reduced glucose uptake/glycerol-3-P generation for re-esterification is not captured here."}, {"text": "Constitutive activation of AMPK in adipocytes (inhibiting ACC → no malonyl CoA → CPT-I unrestrained → FA oxidized instead of stored) combined with reduced insulin receptor tyrosine kinase activity", "correct": false, "why": "While insulin receptor impairment is part of insulin resistance, AMPK activation in adipocytes leading to FA oxidation is not the primary mechanism of the paradox described. The paradox centers on the failure to capture and re-esterify FA (from reduced glucose uptake → less glycerol-3-P) and failure to suppress lipolysis (from reduced insulin's antilipolytic effect on HSL)."}, {"text": "Reduced apoB-48 expression in adipocytes (impaired chylomicron assembly → FA not packaged for export) combined with excess hormone-sensitive lipase (HSL) activity from reduced cAMP phosphodiesterase function", "correct": false, "why": "Adipocytes do not assemble chylomicrons — that is a function of intestinal enterocytes. ApoB-48 is not expressed in adipocytes. The correct paradox is between impaired FA capture/re-esterification (from reduced GLUT4/glucose/glycerol-3-P) and excess lipolysis (from inadequately suppressed HSL)."}]}, {"q": "In the fasted state, insulin levels fall and glucagon rises. List the sequential consequences for fatty acid synthesis, starting at the hormonal signal and ending at the transport of FA into the mitochondria.", "opts": [{"text": "Glucagon → ↑cAMP → PKA → AMPK → phospho-ACC (inactive) → ↓malonyl CoA → CPT-I disinhibited → long-chain FA-acylcarnitine enters mitochondria for β-oxidation", "correct": true}, {"text": "Glucagon → binds liver insulin receptor → displaces insulin → Akt dephosphorylated → phosphatase inactivated → ACC phosphorylated (inactive) → ↓malonyl CoA → FA enter mitochondria via GLUT4", "correct": false, "why": "Glucagon binds its own specific GPCR, not the insulin receptor. Akt is dephosphorylated in fasting because insulin is absent — not because glucagon displaces it. GLUT4 is a glucose transporter, not a fatty acid transporter. FA enter the mitochondria via the carnitine shuttle (CPT-I/CPTII), not GLUT4."}, {"text": "Low insulin → ↓phosphatase activity → ACC phosphorylated (inactive) → ↓malonyl CoA → carnitine outcompetes malonyl CoA for the CPT-I binding site → FA enter mitochondria", "correct": false, "why": "This has some truth (low insulin → less phosphatase → ACC stays phosphorylated), but the mechanism of CPT-I activation is not competitive displacement of malonyl CoA by carnitine. Malonyl CoA inhibits CPT-I allosterically at a site distinct from the carnitine/acyl-CoA active site. When malonyl CoA falls, CPT-I is simply disinhibited."}, {"text": "Epinephrine → ↑cAMP → PKA → direct phosphorylation of CPT-I → CPT-I activated → long-chain FA enter mitochondria → β-oxidation proceeds → acetyl CoA inhibits ACC via allosteric feedback", "correct": false, "why": "PKA does not directly phosphorylate and activate CPT-I. CPT-I activity is regulated allosterically by malonyl CoA (inhibition). When malonyl CoA falls (due to ACC inactivation), CPT-I is disinhibited — this is not a direct PKA phosphorylation event. Acetyl CoA does not inhibit ACC (palmitoyl CoA does)."}, {"text": "Glucagon → IP₃ release → ER calcium release → CaMKII activation → ACC phosphorylated (inactive) → malonyl CoA absent → carnitine shuttle carries FA into mitochondria without inhibition", "correct": false, "why": "Glucagon signals through Gαs/cAMP/PKA, not through IP₃/calcium/CaMKII (that is the Gαq pathway). The correct signaling cascade from glucagon runs through cAMP and PKA (with AMPK involvement). The rest of the sequence (↓malonyl CoA, CPT-I activation) is correct in concept but the upstream signaling is wrong."}]}, {"q": "A patient with uncontrolled type 2 diabetes is found to have significant hepatic steatosis (fatty liver). Which of the following best explains the accumulation of fat in the liver, given that the patient is hyperglycemic and hyperinsulinemic?", "opts": [{"text": "Selective hepatic insulin resistance: the Akt→FOXO1 arm fails (unrestrained gluconeogenesis), while the mTORC1→SREBP-1c arm remains active (ongoing lipogenesis); combined with excess glucose driving ChREBP-mediated lipogenesis, excess TAG overwhelms VLDL export capacity", "correct": true}, {"text": "Total hepatic insulin resistance: absent Akt signaling prevents both FOXO1 exclusion and SREBP-1c activation, so the liver defaults to ketogenesis from circulating FFAs, producing excess acetyl CoA that is re-esterified into TAG", "correct": false, "why": "If Akt signaling were completely absent, SREBP-1c would not be activated and de novo lipogenesis would not be the mechanism. Total insulin resistance would actually reduce lipogenesis. The paradox of NAFLD in T2DM requires the selective resistance concept where lipogenesis continues while gluconeogenesis is unrestrained."}, {"text": "Hepatic insulin resistance reduces glycogen synthase activity, causing glucose to be exclusively diverted into the PPP, which produces excess ribose-5-phosphate that is converted to fatty acids via a ribose → acetyl CoA pathway", "correct": false, "why": "There is no ribose → acetyl CoA pathway. The PPP produces NADPH and ribose-5-phosphate (for nucleotide synthesis), not acetyl CoA. The hepatic lipogenesis in NAFLD comes from excess acetyl CoA produced by glycolysis and citrate lyase, not from ribose."}, {"text": "Hyperglycemia directly activates PKC-ε in hepatocytes, which phosphorylates and activates DGAT, the committed enzyme of TAG synthesis, causing TAG to accumulate faster than VLDL can export it", "correct": false, "why": "PKC-ε is activated by DAG (a lipotoxic intermediate) and impairs insulin signaling — it does not activate DGAT. DGAT activation is not the rate-limiting bottleneck for hepatic steatosis in this context. The primary driver is excess lipogenic precursor (acetyl CoA) from ongoing SREBP-1c-driven DNL combined with excess substrate."}, {"text": "Hyperinsulinemia suppresses apoB-100 synthesis in the liver, reducing VLDL assembly capacity; TAG that cannot be packaged into VLDL accumulates as lipid droplets despite normal rates of de novo lipogenesis", "correct": false, "why": "Insulin actually promotes VLDL secretion in the context of increased lipogenesis and excess TAG. While insulin can suppress apoB degradation (increasing apoB availability), the primary mechanism of hepatic steatosis in insulin-resistant T2DM is excess lipogenesis driven by selective SREBP-1c preservation, not a VLDL assembly block."}]}, {"q": "Fructose is increasingly implicated in the development of non-alcoholic fatty liver disease (NAFLD). Which of the following best describes the pathway connecting dietary fructose to intrahepatic lipid accumulation?", "opts": [{"text": "Fructose → fructokinase (unregulated) → F1P → aldolase B → DHAP + glyceraldehyde-3-P → excess triose phosphates → ↑pyruvate → ↑acetyl CoA → ↑malonyl CoA via ACC → ↑FA synthesis via FAS → excess TAG deposited as hepatic lipid droplets", "correct": true}, {"text": "Fructose → glucokinase → fructose-6-phosphate → PFK-1 → glycolysis → pyruvate → acetyl CoA → lipogenesis, identical to glucose but at higher flux due to greater fructose affinity for glucokinase", "correct": false, "why": "Glucokinase phosphorylates glucose (and fructose very poorly at physiological concentrations). Fructose is phosphorylated primarily by fructokinase to fructose-1-phosphate, not by glucokinase to fructose-6-phosphate. The key difference is the entry point: fructose bypasses PFK-1 regulation entirely, which does not happen in glucose metabolism."}, {"text": "Fructose → intestinal GLUT2 → portal circulation → hepatic fatty acid synthase directly converts fructose to palmitate via a fructose-specific elongation cycle requiring FADH₂ instead of NADPH", "correct": false, "why": "FA synthase uses acetyl CoA and malonyl CoA as substrates — it cannot directly convert fructose to palmitate. There is no FADH₂-dependent elongation cycle. Fructose must first be converted to triose phosphates → pyruvate → acetyl CoA before entering the lipogenic pathway."}, {"text": "Fructose → fructokinase → F1P → ↑allosteric activation of ACC by F1P → immediate malonyl CoA overproduction → FAS overwhelmed → excess malonyl CoA is converted directly to palmitate without ACP involvement", "correct": false, "why": "Fructose-1-phosphate does not allosterically activate ACC. ACC is activated by citrate and dephosphorylation by insulin's phosphatase. The lipogenic flux from fructose occurs because excess triose phosphates flood into acetyl CoA, which increases the substrate for ACC — not because F1P directly activates ACC."}, {"text": "Fructose activates nuclear ChREBP via xylulose-5-phosphate, which directly inhibits FOXO1 and simultaneously upregulates ACC and FAS; this combined gluconeogenic suppression and lipogenic activation converts all fructose to hepatic TAG within one metabolic cycle", "correct": false, "why": "ChREBP is activated by xylulose-5-phosphate from PPP and does upregulate lipogenic genes. However, ChREBP activation does not directly inhibit FOXO1, and the claim that all fructose is converted to TAG within one cycle is incorrect. The FOXO1 suppression is specifically impaired in insulin resistance (a separate, parallel issue)."}]}, {"q": "The phosphopantetheine arm of the ACP domain of FAS is structurally related to the pantetheine arm of coenzyme A. Which of the following correctly describes a key functional difference between ACP-bound and CoA-bound intermediates in lipid metabolism?", "opts": [{"text": "ACP-bound intermediates are tethered within the FAS multienzyme complex and swung between active sites on the same polypeptide; CoA-bound intermediates are free in solution and must diffuse between separate enzymes in β-oxidation", "correct": true}, {"text": "ACP-bound intermediates can be directly exported from the hepatocyte as acyl-ACP in HDL particles; CoA-bound intermediates require activation by acyl CoA synthetase before packaging into any lipoprotein", "correct": false, "why": "Acyl-ACP intermediates are entirely intracellular and remain within the FAS complex — they are never exported or packaged into lipoproteins. Lipoprotein assembly uses fatty acyl-CoA thioesters (after FAS releases free palmitate and acyl CoA synthetase re-activates it)."}, {"text": "ACP-bound intermediates undergo NADH-linked reductions; CoA-bound intermediates undergo NADPH-linked reductions, reflecting their mitochondrial versus cytosolic compartmentalization respectively", "correct": false, "why": "This reverses the coenzyme assignment. ACP-bound intermediates in cytosolic FA synthesis are reduced by NADPH. CoA-bound intermediates in mitochondrial β-oxidation are oxidized (generating NADH and FADH₂), not reduced by NADPH. The NADPH/ACP pair belongs to synthesis; the NAD⁺-FAD/CoA pair belongs to degradation."}, {"text": "ACP-bound intermediates are 2 carbons longer than their CoA-bound counterparts because ACP adds an acetyl group during each transferase reaction", "correct": false, "why": "ACP is a carrier protein — it does not add carbon atoms. The phosphopantetheine arm of ACP is the same length as in CoA. Carbon is added by the condensation reaction (using malonyl-ACP and the growing acyl chain), not by ACP itself."}, {"text": "CoA-bound intermediates require vitamin B₁₂ for methyl group transfer before they can enter FA synthesis; ACP-bound intermediates are B₁₂-independent because the phosphopantetheine arm provides the methyl donor", "correct": false, "why": "Vitamin B₁₂ is involved in methylmalonyl CoA → succinyl CoA conversion (odd-chain FA oxidation) and methionine synthesis — it is not involved in FA synthesis. Neither ACP nor CoA requires B₁₂ for normal FA synthesis. Phosphopantetheine is a thiol carrier arm, not a methyl donor."}]}, {"q": "A patient has a genetic deficiency of long-chain acyl CoA synthetase in adipose tissue. Assuming all other enzymes function normally, which of the following best describes the expected metabolic consequence?", "opts": [{"text": "Adipose cannot re-esterify free fatty acids into TAG because acyl CoA synthetase is required to activate fatty acids to acyl-CoA before they can be accepted by GPAT; fatty acids accumulate free in the cell or are released into the circulation", "correct": true}, {"text": "Adipose cannot synthesize FA de novo because acyl CoA synthetase is needed to load acetyl CoA onto FA synthase as the primer unit for the first condensation cycle", "correct": false, "why": "De novo FA synthesis uses cytosolic acetyl CoA (from the citrate shuttle), not free fatty acids activated by acyl CoA synthetase. Acetyl CoA is loaded onto FAS directly from the citrate lyase reaction. Long-chain acyl CoA synthetase activates pre-formed fatty acids (not acetyl CoA)."}, {"text": "Adipose cannot perform β-oxidation because acyl CoA synthetase is required to activate short-chain fatty acids for mitochondrial entry via the carnitine shuttle", "correct": false, "why": "Short-chain fatty acids enter mitochondria directly without the carnitine shuttle. Long-chain acyl CoA synthetase (ACSL) activates long-chain fatty acids for TAG synthesis and for the carnitine shuttle, but a deficiency of ACSL would impair TAG re-esterification more directly than short-chain FA oxidation."}, {"text": "Adipose TAG stores become depleted because acyl CoA synthetase normally inhibits HSL; loss of this inhibition leads to constitutive unregulated lipolysis independent of hormonal signals", "correct": false, "why": "Acyl CoA synthetase does not inhibit hormone-sensitive lipase. HSL is regulated by phosphorylation (PKA-mediated in response to catecholamines) and dephosphorylation (insulin-mediated). ACSL activates fatty acids for anabolic (esterification) use — its absence would impair TAG synthesis, not cause uncontrolled lipolysis."}, {"text": "Adipose glycolysis is blocked because acyl CoA synthetase normally phosphorylates fructose-1,6-bisphosphate to drive PFK-1 forward; its absence causes fructose-1,6-BP accumulation and product inhibition of glycolysis", "correct": false, "why": "Acyl CoA synthetase has nothing to do with glycolysis or PFK-1 regulation. It is a lipid-activating enzyme (converts fatty acid + CoA + ATP → fatty acyl-CoA + AMP + PPᵢ). PFK-1 is regulated by its own allosteric effectors (ATP, AMP, citrate, fructose-2,6-BP), not by acyl CoA synthetase."}]}, {"q": "Which of the following correctly describes the concept of 'selective insulin resistance' in the liver and explains why it is metabolically more dangerous than uniform insulin resistance in all tissues?", "opts": [{"text": "Selective hepatic insulin resistance impairs the Akt→FOXO1→gluconeogenesis arm while preserving the Akt→SREBP-1c→lipogenesis arm, creating simultaneous hyperglycemia and hypertriglyceridemia; uniform resistance would only cause hyperglycemia without excess lipid synthesis", "correct": true}, {"text": "Selective hepatic insulin resistance impairs glycogen synthesis only, sparing both gluconeogenesis and lipogenesis; this is less dangerous than uniform resistance, which would impair all three hepatic glucose-handling pathways equally", "correct": false, "why": "Selective hepatic insulin resistance does much more than impair glycogen synthesis. It specifically preserves lipogenesis (SREBP-1c branch) while impairing gluconeogenesis suppression (FOXO1 branch), creating the dangerous dual phenotype of high glucose AND high triglycerides simultaneously."}, {"text": "Selective hepatic insulin resistance preserves insulin's ability to suppress gluconeogenesis (via FOXO1) but impairs lipogenesis (SREBP-1c), causing hyperglycemia from other tissues while protecting the liver from steatosis", "correct": false, "why": "This inverts the selective resistance. In the established model: the FOXO1 arm becomes RESISTANT (gluconeogenesis unrestrained → hyperglycemia), while the SREBP-1c lipogenic arm remains SENSITIVE (lipogenesis continues → steatosis, hypertriglyceridemia). Not the other way around."}, {"text": "Selective hepatic insulin resistance means only the insulin receptor is mutated in the liver while peripheral tissues remain fully insulin sensitive; liver hyperglycemia causes secondary lipogenesis via ChREBP activation in other organs", "correct": false, "why": "Selective hepatic insulin resistance is not a mutation of the insulin receptor — it is a functional divergence in downstream signaling arms, likely from lipotoxic intermediates causing IRS-1 serine phosphorylation. The divergence occurs within the same hepatocyte's signaling network between the FOXO1 and SREBP-1c branches."}, {"text": "Selective hepatic insulin resistance refers to insulin's ability to suppress gluconeogenesis selectively in zone 3 hepatocytes while promoting lipogenesis in zone 1 hepatocytes, creating a zonal metabolic imbalance within the liver lobule", "correct": false, "why": "While metabolic zonation within the liver lobule is a real concept (zone 3 is more lipogenic, zone 1 is more gluconeogenic), selective insulin resistance is not a zonal phenomenon. It refers to the divergence between specific signaling branches (FOXO1 vs SREBP-1c) within the same hepatocytes due to differential sensitivity to the insulin signal."}]}, {"q": "Insulin resistance in skeletal muscle results in reduced postprandial glucose disposal. Which of the following compensatory mechanisms does the pancreas initially deploy to maintain euglycemia, and what is the long-term consequence if this compensation fails?", "opts": [{"text": "Pancreatic beta cells increase insulin secretion (compensatory hyperinsulinemia) to overcome resistance; if beta cells eventually fail (from glucotoxicity, lipotoxicity, and ER stress), insulin deficiency develops and overt type 2 diabetes manifests", "correct": true}, {"text": "Pancreatic alpha cells suppress glucagon secretion to prevent hepatic glucose output; if alpha cells become desensitized to glucose over time, glucagon hypersecretion develops, worsening hyperglycemia", "correct": false, "why": "Alpha cell glucagon suppression does contribute to glucose homeostasis, but it is not the primary initial compensatory mechanism for muscle insulin resistance. The first-line compensation is beta cell hypersecretion of insulin. Alpha cell dysfunction is a feature of established T2DM, not the primary compensatory response."}, {"text": "Skeletal muscle upregulates GLUT1 expression to compensate for reduced GLUT4 translocation, maintaining glucose uptake independent of insulin; if GLUT1 downregulates chronically, sarcopenic insulin resistance develops", "correct": false, "why": "GLUT1 upregulation in skeletal muscle is not an established compensatory mechanism for insulin resistance. GLUT1 is a low-affinity basal transporter and is not meaningfully upregulated in response to muscle insulin resistance. The primary compensation is beta cell hyperinsulinemia."}, {"text": "The liver increases glycogen synthesis to buffer excess circulating glucose; if hepatic glycogen storage capacity is saturated, glucose is routed to de novo lipogenesis via ChREBP and deposited as hepatic TAG", "correct": false, "why": "Hepatic glycogen synthesis can buffer some glucose, and hepatic lipogenesis via ChREBP is stimulated by hyperglycemia. However, these are hepatic adaptive responses to hyperglycemia — they are not the primary pancreatic compensation for muscle insulin resistance. The question asks what the pancreas does."}, {"text": "Adipose tissue increases glucose uptake via ChREBP-mediated GLUT4 gene expression to substitute for muscle glucose disposal; if adipose GLUT4 is eventually downregulated, lipoatrophic diabetes develops", "correct": false, "why": "Adipose glucose uptake can partially substitute for muscle in buffering postprandial glucose, but the primary compensatory mechanism is pancreatic beta cell hyperinsulinemia. Lipoatrophic diabetes (from severe loss of adipose tissue) is a distinct condition caused by inability to store fat, not from adipose GLUT4 downregulation."}]}, {"q": "In TAG synthesis, the enzyme diacylglycerol acyltransferase (DGAT) catalyzes the committed step. Which of the following correctly describes this reaction and the physiological significance of its tissue distribution?", "opts": [{"text": "DGAT transfers a fatty acyl group from acyl-CoA to the sn-3 hydroxyl of diacylglycerol → triacylglycerol; high DGAT activity in liver + adipose reflects their primary roles in TAG synthesis for VLDL export and storage, respectively", "correct": true}, {"text": "DGAT transfers a phosphate group from phosphatidic acid to diacylglycerol, forming triacylglycerol-phosphate; high DGAT activity in intestine reflects its role in chylomicron phospholipid synthesis", "correct": false, "why": "DGAT is an acyltransferase, not a phosphotransferase. It adds a fatty acyl chain (from acyl-CoA) to the free sn-3 hydroxyl of DAG to form TAG. The phosphate is removed by phosphatidate phosphatase/lipin earlier in the pathway, not by DGAT."}, {"text": "DGAT hydrolyzes the phosphoester bond of phosphatidic acid to form diacylglycerol → this diacylglycerol spontaneously incorporates a third fatty acid from the membrane lipid pool to form TAG", "correct": false, "why": "Hydrolysis of phosphatidic acid's phosphoester bond to form DAG is the function of phosphatidate phosphatase (lipin), not DGAT. The third fatty acid addition is not spontaneous — it requires DGAT to catalyze the energy-favorable acyl transfer from acyl-CoA to DAG."}, {"text": "DGAT activates free fatty acids using ATP and CoA before esterifying them to the glycerol backbone, combining the functions of acyl CoA synthetase and acyltransferase in a single bifunctional enzyme", "correct": false, "why": "DGAT accepts pre-formed fatty acyl-CoA as its substrate — it does not activate free fatty acids using ATP. The activation step (fatty acid + ATP + CoA → acyl-CoA + AMP + PPᵢ) is performed by long-chain acyl CoA synthetase as a separate prior step."}, {"text": "DGAT uses phosphatidylcholine as the acyl donor to transfer the sn-2 fatty acid to diacylglycerol, forming TAG via a phospholipid exchange mechanism that does not consume CoA", "correct": false, "why": "DGAT uses fatty acyl-CoA (not phosphatidylcholine) as the acyl donor. The CoA thioester provides the activated fatty acid for transfer to DAG. A phospholipid-exchange mechanism is used for different reactions (e.g., LPCAT in phospholipid remodeling)."}]}, {"q": "A researcher measures malonyl CoA levels in hepatocytes under three conditions: fasting, immediately after a glucose + insulin infusion, and after adding a specific CPT-I inhibitor. Which of the following correctly ranks malonyl CoA levels (lowest → highest) and predicts the effect of the CPT-I inhibitor on β-oxidation?", "opts": [{"text": "Fasting < CPT-I inhibitor condition ≈ Fed state; adding a CPT-I inhibitor does not change malonyl CoA but raises the same β-oxidation block that high malonyl CoA normally creates in the fed state", "correct": true}, {"text": "Fed state < Fasting < CPT-I inhibitor condition; the CPT-I inhibitor raises malonyl CoA by feedback inhibition of AMPK, further suppressing ACC phosphorylation", "correct": false, "why": "Malonyl CoA is higher in the fed state than fasting — it is the product of insulin-activated ACC. The CPT-I inhibitor does not change malonyl CoA levels; it blocks FA entry into the mitochondria pharmacologically. AMPK feedback from CPT-I inhibition is not an established mechanism."}, {"text": "CPT-I inhibitor condition < Fasting < Fed state; the CPT-I inhibitor lowers malonyl CoA by diverting FA into the cytosol, which allosterically inhibits ACC via palmitoyl CoA accumulation", "correct": false, "why": "A CPT-I inhibitor would cause cytosolic acyl-CoA accumulation (since FA cannot enter mitochondria), and palmitoyl CoA does inhibit ACC. However, this would reduce malonyl CoA, not create the same malonyl CoA levels as the fed state. The ranking here inverts the expected fed vs fasting relationship."}, {"text": "Fasting ≈ Fed state < CPT-I inhibitor condition; exogenous CPT-I inhibition bypasses the malonyl CoA regulation and independently raises malonyl CoA by triggering an ACC-activating feedback signal from blocked β-oxidation", "correct": false, "why": "CPT-I inhibition does not independently raise malonyl CoA. There is no established mechanism where blocked β-oxidation triggers a feedback signal to activate ACC. The relationship is: malonyl CoA inhibits CPT-I — not the reverse. CPT-I inhibition would block β-oxidation but would not raise malonyl CoA."}, {"text": "Fed state < Fasting < CPT-I inhibitor; blocking CPT-I causes massive mitochondrial FA overflow back to the cytosol, saturating ACC with its product (palmitoyl CoA) and generating excess malonyl CoA from the product inhibition reversal", "correct": false, "why": "Product inhibition by palmitoyl CoA would decrease malonyl CoA (by inactivating ACC), not increase it. This option's logic is internally inconsistent. The correct ranking of malonyl CoA is: fasting lowest (AMPK-mediated ACC inhibition) → fed state highest (insulin-activated ACC)."}]}, {"q": "A 19-year-old presents with recurrent hypoglycemia and liver failure after introduction of fruits into her diet. Genetic testing reveals a mutation in the gene encoding aldolase B. Which of the following correctly predicts the metabolic findings and the mechanism of hypoglycemia in this patient?", "opts": [{"text": "Fructose-1-phosphate accumulates in hepatocytes; this inhibits glycogen phosphorylase (blocking glycogenolysis) and fructose-1,6-bisphosphatase (blocking gluconeogenesis), eliminating both glucose-releasing pathways and causing severe hypoglycemia", "correct": true}, {"text": "Fructose-6-phosphate accumulates because fructokinase is upregulated to compensate; fructose-6-P inhibits PFK-1 via product feedback, trapping hepatic carbon in the fructose pathway and preventing glycolytic ATP generation for gluconeogenesis", "correct": false, "why": "Without aldolase B, fructose-1-phosphate (not fructose-6-phosphate) accumulates. Fructokinase phosphorylates fructose at C-1. PFK-1 inhibition by fructose-6-P is not the mechanism here — PFK-1 acts on F6P to produce F-1,6-BP; F6P is not its product. The hypoglycemia is from F1P inhibiting glycogenolysis and gluconeogenesis."}, {"text": "DHAP accumulates because it cannot proceed to glyceraldehyde-3-phosphate without aldolase B; this DHAP overload inhibits glycerol-3-phosphate dehydrogenase and depletes NAD⁺, causing lactic acidosis and blocking gluconeogenesis from lactate", "correct": false, "why": "In aldolase B deficiency, fructose-1-phosphate accumulates because aldolase B cannot cleave it to DHAP + glyceraldehyde. DHAP does not accumulate — it is depleted. The hypoglycemia is from F1P directly inhibiting glycogen phosphorylase and FBPase, not from DHAP-mediated GAPDH inhibition."}, {"text": "Fructose-1,6-bisphosphate accumulates because fructokinase phosphorylates at both C-1 and C-6; this FBP inhibits phosphoglucose isomerase, preventing glucose-6-phosphate from being dephosphorylated by G6Pase for export", "correct": false, "why": "Fructokinase is a monokinase that only phosphorylates fructose at C-1 (not at both carbons). Fructose-1,6-bisphosphate is made by PFK-1 from F6P in glycolysis — it does not come from fructokinase. The accumulating species in HFI is specifically fructose-1-phosphate."}, {"text": "Free fructose accumulates intracellularly because aldolase B is needed to phosphorylate fructose; the high osmotic load from fructose causes hepatocyte swelling and impairs the glucostat function of glucokinase", "correct": false, "why": "Fructose is phosphorylated by fructokinase (to fructose-1-phosphate), not aldolase B. Aldolase B cleaves the already-phosphorylated fructose-1-phosphate. Free fructose does not accumulate — fructokinase is intact and phosphorylates it rapidly (causing F1P to accumulate, not free fructose)."}]}, {"q": "A clinical trial tests a drug that specifically activates AMPK in hepatocytes. Which of the following outcomes in hepatic lipid metabolism would be expected, and through what mechanism?", "opts": [{"text": "Reduced de novo lipogenesis (AMPK phosphorylates ACC → inactive → ↓malonyl CoA → ↓palmitate synthesis) and reduced FA oxidation inhibition (CPT-I disinhibited by low malonyl CoA → ↑mitochondrial FA entry → ↑β-oxidation)", "correct": true}, {"text": "Increased de novo lipogenesis (AMPK activates SREBP-1c transcriptionally → ↑ACC and FAS expression → more palmitate synthesis) and reduced TAG secretion (AMPK phosphorylates MTP → ↓apoB lipidation → ↓VLDL assembly)", "correct": false, "why": "AMPK does not activate SREBP-1c — it actually inhibits mTORC1, which is required for SREBP-1c processing and activation. AMPK activation suppresses lipogenesis, not increases it. AMPK phosphorylating microsomal transfer protein (MTP) to reduce VLDL is not the established primary mechanism."}, {"text": "Increased de novo lipogenesis (AMPK activates ACC by dephosphorylation → ↑malonyl CoA → ↑FA synthesis) and decreased FA oxidation (malonyl CoA inhibits CPT-I → FA cannot enter mitochondria)", "correct": false, "why": "AMPK phosphorylates and INACTIVATES ACC — it does not activate it. This is the fundamental point. The scenario described (ACC activation → malonyl CoA rise → CPT-I inhibition) describes the insulin/fed-state effect, not AMPK activation."}, {"text": "No change in de novo lipogenesis (ACC is regulated only by hormonal signals, not by AMPK) but increased β-oxidation (AMPK directly activates CPT-I via phosphorylation at Thr600 → increased FA import into mitochondria)", "correct": false, "why": "AMPK does regulate ACC (via phosphorylation and inactivation) — this is one of the most well-established AMPK substrates. The increased β-oxidation from AMPK activation is indirect: AMPK → ACC inhibition → ↓malonyl CoA → CPT-I disinhibited, not through direct CPT-I phosphorylation."}, {"text": "Reduced de novo lipogenesis (AMPK inhibits ACC allosterically via a direct protein-protein interaction) and increased ketogenesis (AMPK activates HMG-CoA lyase in the cytosol → excess acetyl CoA diverted to ketone bodies)", "correct": false, "why": "AMPK inhibits ACC via phosphorylation (covalent modification), not allosteric protein-protein interaction. HMG-CoA lyase is a mitochondrial enzyme central to ketogenesis — it is not cytosolic and is not directly activated by AMPK. Ketogenesis requires acetyl CoA routed through mitochondrial HMG-CoA synthase and lyase."}]}, {"q": "A patient is prescribed metformin, which activates AMPK in hepatocytes. In addition to reducing gluconeogenesis, which of the following effects on lipid metabolism would be expected from hepatic AMPK activation?", "opts": [{"text": "ACC is phosphorylated and inactivated by AMPK → malonyl CoA falls → CPT-I disinhibited → increased β-oxidation of fatty acids and reduced de novo lipogenesis, improving hepatic steatosis", "correct": true}, {"text": "AMPK directly phosphorylates SREBP-1c, translocating it to the nucleus and increasing transcription of ACC and FAS, which paradoxically raises malonyl CoA and promotes lipogenesis", "correct": false, "why": "AMPK inhibits SREBP-1c processing indirectly (by inhibiting mTORC1), not by activating it. AMPK activation suppresses lipogenesis, not stimulates it. Increased ACC and FAS transcription from AMPK would be the opposite of what metformin achieves clinically."}, {"text": "AMPK phosphorylates and activates CPT-I directly via a serine residue in the transmembrane domain, increasing FA import into mitochondria independently of malonyl CoA regulation", "correct": false, "why": "CPT-I is not a known direct phosphorylation target of AMPK. The mechanism of AMPK-mediated increase in FA oxidation is indirect: AMPK inactivates ACC → less malonyl CoA produced → CPT-I loses its allosteric inhibitor and becomes active. There is no established direct phosphorylation of CPT-I by AMPK."}, {"text": "AMPK dephosphorylates and activates ACC, increasing malonyl CoA production to provide substrate for VLDL assembly and prevent hyperlipidemia during hepatic glucose restriction", "correct": false, "why": "AMPK phosphorylates and INACTIVATES ACC — the opposite of what this choice states. Dephosphorylation of ACC produces the active form and is the mechanism used by insulin. If AMPK activated ACC, malonyl CoA would rise and CPT-I would be inhibited, worsening rather than improving steatosis."}, {"text": "AMPK activates hormone-sensitive lipase (HSL) in hepatocytes via a cAMP-independent mechanism, releasing stored TAG from hepatic lipid droplets into the portal circulation as free fatty acids", "correct": false, "why": "HSL is regulated primarily by PKA-mediated phosphorylation in adipose tissue. In hepatocytes, AMPK does not activate HSL to release hepatic TAG. The benefit of metformin on hepatic steatosis comes from reducing de novo lipogenesis (via ACC inactivation) and improving mitochondrial FA oxidation, not from hepatic lipolysis."}]}];
+
+const LETTERS = ['A','B','C','D','E','F','G'];
+const qo = document.getElementById('qo');
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const submitOne = document.getElementById('submitOne');
+const submitExamBtn = document.getElementById('submitExam');
+const examSubmitRow = document.querySelector('.exam-submit-row');
+const examProgress = document.getElementById('examProgress');
+const modeLearn = document.getElementById('modeLearn');
+const modeExam = document.getElementById('modeExam');
+const toolHighlight = document.getElementById('toolHighlight');
+const toolStrike = document.getElementById('toolStrike');
+const toolReveal = document.getElementById('toolReveal');
+const toolStatus = document.getElementById('toolStatus');
+const qStem = document.getElementById('qStem');
+const choiceEls = Array.from(document.querySelectorAll('.ac'));
+const qNumLabel = document.getElementById('qNumLabel');
+const qProgressFill = document.getElementById('qProgressFill');
+const qDots = document.getElementById('qDots');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const learnSubmitRow = document.getElementById('learnSubmitRow');
+const exBlock = document.getElementById('exBlock');
+const exCorrect = document.getElementById('exCorrect');
+const exTeaching = document.getElementById('exTeaching');
+const exWrong = document.getElementById('exWrong');
+
+let quizMode = 'learn';
+let toolMode = null;
+let examSubmitted = false;
+let currentPos = 0;
+let order = RAW_QUESTIONS.map((_, i) => i);
+let qStates = [];
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function shuffleArray(arr) {
+  const copy = arr.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function getCorrectIndex(q) {
+  return q.opts.findIndex(opt => !!opt.correct);
+}
+
+function makeInitialState() {
+  return RAW_QUESTIONS.map(q => ({
+    selected: null,
+    submitted: false,
+    isCorrect: null,
+    revealForced: false,
+    choiceHigh: q.opts.map(() => false),
+    choiceStrike: q.opts.map(() => false),
+    stemHtml: `<span class="stem-text">${escapeHtml(q.q)}</span>`,
+    stemHL: false,
+    stemST: false
+  }));
+}
+
+function getQuestionByPos(pos) {
+  return RAW_QUESTIONS[order[pos]];
+}
+
+function getStateByPos(pos) {
+  return qStates[order[pos]];
+}
+
+function getCurrentQuestion() {
+  return getQuestionByPos(currentPos);
+}
+
+function getCurrentState() {
+  return getStateByPos(currentPos);
+}
+
+function saveStemState() {
+  const st = getCurrentState();
+  st.stemHtml = qStem.innerHTML;
+  st.stemHL = qStem.classList.contains('hl-applied');
+  st.stemST = qStem.classList.contains('st-applied');
+}
+
+function updateToolUI() {
+  toolHighlight.classList.toggle('active', toolMode === 'highlight');
+  toolHighlight.classList.toggle('hl-tool', toolMode === 'highlight');
+  toolStrike.classList.toggle('active', toolMode === 'strike');
+  toolStrike.classList.toggle('st-tool', toolMode === 'strike');
+
+  if (toolMode === 'highlight') {
+    toolStatus.textContent = 'Tool mode: highlight';
+    toolStatus.className = 'tool-status active-highlight';
+    qStem.classList.add('tool-hover');
+  } else if (toolMode === 'strike') {
+    toolStatus.textContent = 'Tool mode: strikeout';
+    toolStatus.className = 'tool-status active-strike';
+    qStem.classList.add('tool-hover');
+  } else {
+    toolStatus.textContent = 'Tool mode: none';
+    toolStatus.className = 'tool-status';
+    qStem.classList.remove('tool-hover');
+  }
+}
+
+function setToolMode(mode) {
+  toolMode = toolMode === mode ? null : mode;
+  updateToolUI();
+}
+
+function updateScoreboard() {
+  let correct = 0;
+  let incorrect = 0;
+
+  if (examSubmitted) {
+    qStates.forEach(st => {
+      if (st.isCorrect === true) correct += 1;
+      else if (st.isCorrect === false) incorrect += 1;
+    });
+  } else {
+    qStates.forEach(st => {
+      if (st.submitted && st.isCorrect === true) correct += 1;
+      else if (st.submitted && st.isCorrect === false) incorrect += 1;
+    });
+  }
+
+  document.getElementById('svCurrent').textContent = String(currentPos + 1);
+  document.getElementById('svCorrect').textContent = String(correct);
+  document.getElementById('svIncorrect').textContent = String(incorrect);
+}
+
+function updateExamProgress() {
+  const answered = qStates.filter(st => st.selected !== null).length;
+  if (quizMode === 'learn') {
+    const completed = qStates.filter(st => st.submitted).length;
+    examProgress.textContent = `Learn mode • ${completed} of ${RAW_QUESTIONS.length} submitted`;
+  } else if (examSubmitted) {
+    const graded = qStates.filter(st => st.isCorrect !== null).length;
+    examProgress.textContent = `Exam submitted • ${graded} graded • ${answered} answered`;
+  } else {
+    examProgress.textContent = `${answered} of ${RAW_QUESTIONS.length} answered`;
+  }
+}
+
+function updateExamButton() {
+  const answered = qStates.filter(st => st.selected !== null).length;
+  const inExam = quizMode === 'exam';
+  submitExamBtn.disabled = !inExam || examSubmitted || answered === 0;
+  examSubmitRow.classList.toggle('exam-live', inExam && !examSubmitted);
+  examSubmitRow.classList.toggle('exam-done', examSubmitted);
+  submitExamBtn.textContent = examSubmitted ? 'Exam Submitted' : 'Submit Exam';
+}
+
+function updateMode() {
+  modeLearn.classList.toggle('active', quizMode === 'learn');
+  modeExam.classList.toggle('active', quizMode === 'exam');
+  learnSubmitRow.style.display = quizMode === 'learn' ? '' : 'none';
+  updateExamProgress();
+  updateExamButton();
+  renderQuestion();
+}
+
+function buildTeachingPoint(q, correctIdx) {
+  const answerText = q.opts[correctIdx]?.text || '';
+  return `Key takeaway: ${answerText}`;
+}
+
+function renderExplanation(q, st) {
+  const correctIdx = getCorrectIndex(q);
+  exCorrect.innerHTML = `<strong>${LETTERS[correctIdx]}</strong> — ${escapeHtml(q.opts[correctIdx].text)}`;
+  exTeaching.textContent = buildTeachingPoint(q, correctIdx);
+
+  const wrongBits = [];
+  q.opts.forEach((opt, idx) => {
+    if (idx === correctIdx) return;
+    const why = opt.why || 'Incorrect based on the mechanism tested in this question.';
+    wrongBits.push(`<div class="wce"><strong>${LETTERS[idx]}</strong> — ${escapeHtml(why)}</div>`);
+  });
+  exWrong.innerHTML = wrongBits.join('');
+
+  const shouldShow = st.revealForced || st.submitted || examSubmitted;
+  exBlock.classList.toggle('vis', shouldShow);
+}
+
+function renderDots() {
+  qDots.innerHTML = '';
+  order.forEach((qIdx, pos) => {
+    const st = qStates[qIdx];
+    const btn = document.createElement('button');
+    btn.className = 'qd';
+    if (pos === currentPos) btn.classList.add('cur');
+
+    if (examSubmitted) {
+      if (st.isCorrect === true) btn.classList.add('acor');
+      else if (st.isCorrect === false) btn.classList.add('ainc');
+      else if (st.selected !== null) btn.classList.add('asel');
+    } else {
+      if (st.submitted && st.isCorrect === true) btn.classList.add('acor');
+      else if (st.submitted && st.isCorrect === false) btn.classList.add('ainc');
+      else if (st.selected !== null) btn.classList.add('asel');
+    }
+
+    btn.title = `Question ${pos + 1}`;
+    btn.addEventListener('click', () => {
+      saveStemState();
+      currentPos = pos;
+      renderQuestion();
+    });
+    qDots.appendChild(btn);
+  });
+}
+
+function renderChoices(q, st) {
+  const correctIdx = getCorrectIndex(q);
+  const showGrade = st.submitted || examSubmitted;
+
+  choiceEls.forEach((el, idx) => {
+    const opt = q.opts[idx];
+    if (!opt) {
+      el.style.display = 'none';
+      return;
+    }
+
+    el.style.display = '';
+    el.dataset.choice = String(idx);
+    el.className = 'ac';
+    if (st.choiceHigh[idx]) el.classList.add('hl-applied');
+    if (st.choiceStrike[idx]) el.classList.add('st-applied');
+    if (st.selected === idx) el.classList.add('sel');
+
+    if (showGrade) {
+      el.classList.add('dis');
+      if (idx === correctIdx) {
+        el.classList.add(st.selected === idx ? 'cor' : 'shc');
+      }
+      if (st.selected === idx && idx !== correctIdx) {
+        el.classList.add('inc');
+      }
+    }
+
+    el.querySelector('.ctx').textContent = opt.text;
+  });
+}
+
+function renderQuestion() {
+  const q = getCurrentQuestion();
+  const st = getCurrentState();
+
+  qNumLabel.textContent = `Question ${currentPos + 1} of ${RAW_QUESTIONS.length}`;
+  qProgressFill.style.width = `${((currentPos + 1) / RAW_QUESTIONS.length) * 100}%`;
+
+  qStem.className = 'qstem';
+  qStem.innerHTML = st.stemHtml;
+  if (st.stemHL) qStem.classList.add('hl-applied');
+  if (st.stemST) qStem.classList.add('st-applied');
+
+  renderChoices(q, st);
+  renderExplanation(q, st);
+  renderDots();
+
+  prevBtn.disabled = currentPos === 0;
+  nextBtn.disabled = currentPos === RAW_QUESTIONS.length - 1;
+  prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+  nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+
+  submitOne.disabled = quizMode !== 'learn' || st.selected === null || st.submitted || examSubmitted;
+
+  updateToolUI();
+  updateScoreboard();
+  updateExamProgress();
+  updateExamButton();
+}
+
+function gradeLearnCurrent() {
+  const q = getCurrentQuestion();
+  const st = getCurrentState();
+  if (st.selected === null || st.submitted) return;
+
+  const correctIdx = getCorrectIndex(q);
+  st.submitted = true;
+  st.isCorrect = st.selected === correctIdx;
+  renderQuestion();
+}
+
+function submitExam() {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  qStates.forEach((st, idx) => {
+    if (st.selected === null) {
+      st.isCorrect = null;
+      return;
+    }
+    const q = RAW_QUESTIONS[idx];
+    const correctIdx = getCorrectIndex(q);
+    st.isCorrect = st.selected === correctIdx;
+  });
+  examSubmitted = true;
+  renderQuestion();
+}
+
+function resetQuizState(doShuffle = true) {
+  qStates = makeInitialState();
+  order = RAW_QUESTIONS.map((_, i) => i);
+  if (doShuffle) order = shuffleArray(order);
+  currentPos = 0;
+  toolMode = null;
+  examSubmitted = false;
+  quizMode = 'learn';
+  updateMode();
+}
+
+function applyStemMarkup(type) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+  const range = sel.getRangeAt(0);
+  if (!qStem.contains(range.commonAncestorContainer)) return false;
+
+  const wrapper = document.createElement('span');
+  wrapper.className = type === 'highlight' ? 'stem-hl' : 'stem-st';
+
+  try {
+    range.surroundContents(wrapper);
+  } catch (e) {
+    const frag = range.extractContents();
+    wrapper.appendChild(frag);
+    range.insertNode(wrapper);
+  }
+
+  sel.removeAllRanges();
+  saveStemState();
+  return true;
+}
+
+function toggleWholeStem(type) {
+  const st = getCurrentState();
+  if (type === 'highlight') {
+    st.stemHL = !st.stemHL;
+    if (st.stemHL) st.stemST = false;
+  } else if (type === 'strike') {
+    st.stemST = !st.stemST;
+    if (st.stemST) st.stemHL = false;
+  }
+  renderQuestion();
+}
+
+openDemo.addEventListener('click', () => {
+  qo.classList.add('open');
+  renderQuestion();
+});
+
+closeQuiz.addEventListener('click', () => {
+  saveStemState();
+  qo.classList.add('closing');
+  setTimeout(() => {
+    qo.classList.remove('open','closing');
+  }, 320);
+});
+
+resetQuiz.addEventListener('click', () => resetQuizState(true));
+modeLearn.addEventListener('click', () => {
+  quizMode = 'learn';
+  updateMode();
+});
+modeExam.addEventListener('click', () => {
+  quizMode = 'exam';
+  updateMode();
+});
+toolHighlight.addEventListener('click', () => setToolMode('highlight'));
+toolStrike.addEventListener('click', () => setToolMode('strike'));
+toolReveal.addEventListener('click', () => {
+  const st = getCurrentState();
+  st.revealForced = !st.revealForced;
+  renderQuestion();
+});
+
+qStem.addEventListener('click', (e) => {
+  if (!toolMode) return;
+  const didApply = applyStemMarkup(toolMode);
+  if (!didApply) toggleWholeStem(toolMode);
+  e.preventDefault();
+});
+
+qStem.addEventListener('mouseup', () => {
+  if (toolMode) qStem.classList.add('tool-hover');
+});
+
+choiceEls.forEach((choice) => {
+  choice.addEventListener('click', (e) => {
+    e.preventDefault();
+    const idx = Number(choice.dataset.choice);
+    const st = getCurrentState();
+
+    if (toolMode === 'highlight') {
+      st.choiceHigh[idx] = !st.choiceHigh[idx];
+      if (st.choiceHigh[idx]) st.choiceStrike[idx] = false;
+      renderQuestion();
+      return;
+    }
+
+    if (toolMode === 'strike') {
+      st.choiceStrike[idx] = !st.choiceStrike[idx];
+      if (st.choiceStrike[idx]) st.choiceHigh[idx] = false;
+      renderQuestion();
+      return;
+    }
+
+    if (st.submitted || examSubmitted) return;
+
+    st.selected = idx;
+    renderQuestion();
+  });
+});
+
+submitOne.addEventListener('click', gradeLearnCurrent);
+submitExamBtn.addEventListener('click', submitExam);
+
+prevBtn.addEventListener('click', () => {
+  if (currentPos === 0) return;
+  saveStemState();
+  currentPos -= 1;
+  renderQuestion();
+});
+
+nextBtn.addEventListener('click', () => {
+  if (currentPos >= RAW_QUESTIONS.length - 1) return;
+  saveStemState();
+  currentPos += 1;
+  renderQuestion();
+});
+
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qo.dataset.fs = btn.dataset.fsBtn;
+  });
+});
+
+let timerInt = null;
+let timerSec = 0;
+const timerTime = document.getElementById('timerTime');
+function renderTimer() {
+  const m = String(Math.floor(timerSec / 60)).padStart(2, '0');
+  const s = String(timerSec % 60).padStart(2, '0');
+  timerTime.textContent = `${m}:${s}`;
+}
+document.getElementById('timerStart').addEventListener('click', () => {
+  if (timerInt) return;
+  timerInt = setInterval(() => { timerSec += 1; renderTimer(); }, 1000);
+});
+document.getElementById('timerPause').addEventListener('click', () => {
+  clearInterval(timerInt);
+  timerInt = null;
+});
+document.getElementById('timerReset').addEventListener('click', () => {
+  clearInterval(timerInt);
+  timerInt = null;
+  timerSec = 0;
+  renderTimer();
+});
+
+let cdMinutes = 5;
+let cdInt = null;
+let cdSec = cdMinutes * 60;
+const cdVal = document.getElementById('cdVal');
+const cdTime = document.getElementById('cdTime');
+const cdGo = document.getElementById('cdGo');
+function renderCountdown() {
+  const m = String(Math.floor(cdSec / 60)).padStart(2, '0');
+  const s = String(cdSec % 60).padStart(2, '0');
+  cdTime.textContent = `${m}:${s}`;
+  cdVal.textContent = String(Math.max(1, Math.ceil(cdSec / 60) || 0));
+}
+document.getElementById('cdMinus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.max(1, cdMinutes - 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+document.getElementById('cdPlus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.min(99, cdMinutes + 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+cdGo.addEventListener('click', () => {
+  if (cdInt) {
+    clearInterval(cdInt);
+    cdInt = null;
+    cdGo.textContent = 'Start';
+    return;
+  }
+  cdGo.textContent = 'Pause';
+  cdInt = setInterval(() => {
+    if (cdSec <= 0) {
+      clearInterval(cdInt);
+      cdInt = null;
+      cdGo.textContent = 'Start';
+      return;
+    }
+    cdSec -= 1;
+    renderCountdown();
+  }, 1000);
+});
+
+renderTimer();
+renderCountdown();
+resetQuizState(false);
+</script>
+</body>
+</html>

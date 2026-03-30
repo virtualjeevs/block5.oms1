@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. Spicer — FA &amp; TAG Synthesis Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+ radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+ radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+ linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%)}
+.launch-card{max-width:760px;width:min(100%,760px);background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:32px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:42px;line-height:1.02;color:var(--navy);margin-bottom:8px}
+.launch-card p{color:var(--slate);max-width:62ch}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 24px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.launch-btn{padding:14px 20px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--teal-glow) 18%, transparent), transparent 24%),
+  radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--plum) 16%, transparent), transparent 22%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+.qo.open .qt-bar,.qo.open .qin{will-change:transform,opacity}
+.qo.closing .qt-bar{animation:qBarOut .26s cubic-bezier(.4,0,.2,1) forwards}
+.qo.closing .qin{animation:qSheetOut .32s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes qBarOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-12px)}}
+@keyframes qSheetOut{from{opacity:1;transform:none;filter:blur(0)}to{opacity:0;transform:translateY(22px) scale(.985);filter:blur(2px)}}
+.qt-bar{position:sticky;top:0;z-index:12;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,color-mix(in srgb, var(--navy2) 94%, transparent),color-mix(in srgb, var(--navy) 92%, transparent));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:28px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap}
+.qt-btn{padding:10px 16px;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-1px)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900;box-shadow:0 8px 20px rgba(212,168,67,.24)}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(212,168,67,.28)}
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px 24px;align-items:start}
+.q-left{display:grid;gap:18px;align-content:start;align-self:start}
+.q-right{min-width:0;display:grid;gap:16px;align-content:start;align-self:start}
+#qA{min-width:0;align-self:start;position:relative}
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.score-box{position:relative;overflow:hidden;background:color-mix(in srgb, var(--white) 88%, var(--warm) 12%);backdrop-filter:blur(10px);border-radius:22px;padding:18px 14px 14px;text-align:center;box-shadow:0 14px 34px rgba(18,32,60,.08);border:1px solid rgba(18,32,60,.08);transition:var(--tr)}
+.score-box::before{content:'';position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 999px 999px;background:linear-gradient(90deg, rgba(26,122,109,.16), rgba(62,196,178,.5));opacity:.75}
+.score-box.correct{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(232,245,238,.98))}
+.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(253,240,240,.98))}
+.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:8px}
+.score-box.correct .sv{color:var(--green)}
+.score-box.incorrect .sv{color:var(--red)}
+.mode-toggle,.timer-panel,.tool-panel,.exam-submit-row{position:relative;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08)}
+.mode-toggle{display:flex;gap:8px;padding:8px;border-radius:24px;animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{flex:1;padding:14px 18px;border-radius:18px;text-align:center;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 12px 24px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:20px;margin-bottom:4px}
+.timer-panel{display:grid;grid-template-columns:1fr;gap:14px;padding:0;border-radius:24px;box-shadow:none;border:none;background:transparent;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.timer-card,.cd-card{position:relative;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:46px 18px 18px;background:rgba(255,255,255,.84);border-radius:24px;border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);transition:var(--tr)}
+.timer-lbl{position:absolute;top:14px;left:16px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(18,32,60,.04)}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:40px;font-weight:600;color:var(--navy);min-width:120px;text-align:center;letter-spacing:2px}
+.tbtn,.cd-pm{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(27,42,74,.24);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:var(--tr);color:var(--navy);flex-shrink:0;box-shadow:0 6px 18px rgba(18,32,60,.08)}
+.cd-pm{width:34px;height:34px;font-size:20px;font-weight:800;border-color:rgba(27,42,74,.16)}
+.tbtn:hover,.cd-pm:hover{background:var(--navy);color:#fff;transform:translateY(-1px) scale(1.04);border-color:var(--navy)}
+.cd-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;min-width:36px;text-align:center;color:var(--navy)}
+.cd-unit{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800}
+.cd-go{padding:11px 18px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:var(--tr);box-shadow:0 10px 22px rgba(224,122,95,.22)}
+.cd-go:hover{background:linear-gradient(135deg,#D86E53,#C95E45);transform:translateY(-1px)}
+.tool-panel{display:flex;flex-wrap:wrap;gap:10px;padding:10px;border-radius:24px;animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
+.q-tool{flex:1 1 180px;min-width:0;padding:13px 16px;border-radius:16px;font-size:13px;font-weight:800;border:1.5px solid rgba(18,32,60,.08);background:rgba(255,255,255,.86);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);box-shadow:0 8px 18px rgba(18,32,60,.06);text-align:left}
+.q-tool:hover{border-color:rgba(26,122,109,.32);color:var(--teal);transform:translateY(-1px);background:#fff}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00;box-shadow:0 0 0 3px rgba(211,175,43,.12)}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red);box-shadow:0 0 0 3px rgba(196,64,64,.08)}
+.exam-submit-row{padding:20px;border-radius:24px;text-align:center}
+.exam-submit-row .exam-progress{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--mist);margin-bottom:12px}
+.exam-submit-btn{padding:15px 52px;border-radius:18px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 22px rgba(224,122,95,.24)}
+.exam-submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(224,122,95,.32)}
+.qcd{background:color-mix(in srgb, var(--white) 94%, var(--warm) 6%);border-radius:28px;overflow:hidden;box-shadow:0 28px 70px rgba(18,32,60,.12);border:1px solid rgba(18,32,60,.08);animation:cardIn .45s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(0.99)}to{opacity:1;transform:none}}
+.qpg{height:6px;background:color-mix(in srgb, var(--teal) 10%, transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 34px 26px}
+.qnum{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.qstem{font-family:'Crimson Pro',serif;font-size:25px;line-height:1.35;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.15px}
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:15px 18px;border:1.5px solid rgba(18,32,60,.09);border-radius:18px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb, var(--warm) 78%, var(--white) 22%);position:relative;box-shadow:0 6px 18px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 12px 24px rgba(18,32,60,.08)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.cl{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 6px 14px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:16px;line-height:1.45;padding-top:4px;color:var(--ink)}
+.submit-row{margin-top:24px;text-align:center}
+.submit-btn{padding:15px 54px;border-radius:18px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.4px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+.exb{margin-top:26px;border-radius:22px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.exs{padding:22px 26px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:16px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:10px;padding:12px 16px;background:rgba(255,255,255,.58);border-radius:14px;font-size:15px;line-height:1.65}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 24px 20px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,color-mix(in srgb, var(--warm) 32%, transparent),color-mix(in srgb, var(--cream) 82%, transparent))}
+.nb{padding:12px 24px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 8px 18px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.qdots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:14px;height:14px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);box-shadow:0 4px 10px rgba(18,32,60,.04)}
+.qd:hover{transform:scale(1.18)}
+.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,0.14)}
+.qd.acor{border-color:var(--green);background:var(--green)}
+.qd.ainc{border-color:var(--red);background:var(--red)}
+.qd.asel{border-color:var(--gold);background:var(--gold)}
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:16px}
+#qo[data-fs="lg"] .ctx{font-size:19px}
+#qo[data-fs="xl"] .ctx{font-size:22px}
+.fs-ctrl{display:flex;align-items:center;gap:4px}
+.fs-btn{width:32px;height:32px;border-radius:10px;border:1.5px solid rgba(18,32,60,.14);background:#fff;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);color:var(--ink2);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(18,32,60,.06)}
+.fs-btn:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--mist);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+@media(max-width:920px){.qin{grid-template-columns:1fr;padding:22px 18px 72px;gap:16px}.score-panel{grid-template-columns:repeat(3,minmax(0,1fr))}.timer-panel{grid-template-columns:1fr 1fr}.tool-panel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.qt-bar{padding:14px 16px;align-items:flex-start;flex-direction:column}.qt-bar h2{font-size:24px}.qin{padding:18px 14px 64px}.score-panel{grid-template-columns:1fr}.timer-panel{grid-template-columns:1fr}.tool-panel{grid-template-columns:1fr}.qbd{padding:22px 18px 20px}.qstem{font-size:24px;line-height:1.42}.ctx{font-size:16px}.qnv{padding:16px 18px 20px;flex-direction:column;align-items:stretch}.qdots{order:3}.nb{width:100%}.launch-card h1{font-size:34px}}
+
+.ac.hl-applied{
+  background: linear-gradient(180deg, #FFF8B8, #FFF3A0) !important;
+  border-color: #D3AF2B !important;
+}
+.ac.hl-applied .ctx{
+  background: transparent !important;
+}
+.ac.st-applied{
+  background: linear-gradient(180deg, #fff, #FDF2F2) !important;
+  border-color: rgba(196,64,64,.45) !important;
+  opacity: .72;
+}
+.ac.st-applied .ctx{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.tool-status{
+  margin-top: 6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--mist);
+  padding: 0 4px;
+}
+.tool-status.active-highlight{ color:#8a6a00; }
+.tool-status.active-strike{ color:var(--red); }
+
+.ac.hl-applied{
+  background: #FFF4A8 !important;
+  border-color: #D4A843 !important;
+  box-shadow: 0 0 0 3px rgba(212,168,67,.18), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.hl-applied .cl{
+  background: #D4A843 !important;
+  border-color: #D4A843 !important;
+  color: #fff !important;
+}
+.ac.hl-applied .ctx{
+  color: #5c4400 !important;
+}
+.ac.st-applied{
+  background: #FFF3F3 !important;
+  border-color: rgba(196,64,64,.52) !important;
+  box-shadow: 0 0 0 3px rgba(196,64,64,.10), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.st-applied .cl{
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+  color:#fff !important;
+}
+.ac.st-applied .ctx{
+  color: #8B2C2C !important;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.qstem{
+  position: relative;
+  border-radius: 16px;
+  padding: 6px 8px;
+  margin: -6px -8px 22px -8px;
+  transition: var(--tr);
+}
+.qstem.tool-hover{
+  box-shadow: inset 0 0 0 2px rgba(26,122,109,.16);
+  background: rgba(26,122,109,.04);
+}
+.qstem.hl-applied{
+  background: linear-gradient(180deg, #FFF4A8, #FFF7C9) !important;
+  box-shadow: inset 0 0 0 2px rgba(212,168,67,.34);
+}
+.qstem.st-applied{
+  background: linear-gradient(180deg, #FFF3F3, #FFF8F8) !important;
+  box-shadow: inset 0 0 0 2px rgba(196,64,64,.22);
+}
+.qstem.st-applied .stem-text,
+.qstem .stem-st{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+  color: #8B2C2C !important;
+}
+.qstem .stem-hl{
+  background: #FFF1A6;
+  border-radius: 6px;
+  padding: 0 .12em;
+  box-shadow: 0 0 0 1px rgba(212,168,67,.18);
+}
+.qstem .stem-st{
+  background: #FFF3F3;
+  border-radius: 6px;
+  padding: 0 .12em;
+}
+
+
+.exam-submit-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:none;
+}
+.exam-submit-row.exam-live{
+  box-shadow:0 0 0 3px rgba(224,122,95,.10), 0 14px 34px rgba(18,32,60,.08);
+}
+.exam-submit-row.exam-done .exam-submit-btn{
+  background:linear-gradient(135deg,var(--green),#3aa56f);
+  box-shadow:0 10px 24px rgba(45,134,89,.24);
+}
+
+
+</style>
+</head>
+<body>
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Fatty Acid &amp; Triacylglycerol Synthesis</h1>
+    <p>PLO: Describe the synthesis of fatty acids and triacylglycerols including the substrates, products, and regulation</p>
+    <div class="launch-meta">
+      <span class="chip">UNE COM · Block 5 · Week 40 · Dr. Spicer</span>
+      <span class="chip">20 questions</span>
+      <span class="chip">Learn / Exam toggle</span>
+      <span class="chip">Highlight + strikeout</span>
+      <span class="chip">Template layout</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz</button>
+  </div>
+</div>
+
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>Fatty Acid &amp; Triacylglycerol Synthesis</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" onclick="window.print()">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCurrent">1</div><div class="sl">Current</div></div>
+        <div class="score-box correct"><div class="sv" id="svCorrect">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="svIncorrect">0</div><div class="sl">Incorrect</div></div>
+      </div>
+
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Timer</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <button class="tbtn" id="timerStart">▶</button>
+          <button class="tbtn" id="timerPause">⏸</button>
+          <button class="tbtn" id="timerReset">↺</button>
+        </div>
+
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">05:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">5</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+            <button class="cd-go" id="cdGo">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <button class="q-tool" id="toolHighlight">Highlight tool</button>
+        <button class="q-tool" id="toolStrike">Strikeout tool</button>
+        <button class="q-tool" id="toolReveal">Reveal explanation</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+
+      <div class="exam-submit-row">
+        <div class="exam-progress" id="examProgress">Learn mode</div>
+        <button class="exam-submit-btn" id="submitExam">Submit Exam</button>
+      </div>
+    </div>
+
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qpg"><div class="qpf" id="qProgressFill" style="width:0%"></div></div>
+          <div class="qbd">
+            <div class="qnum" id="qNumLabel">Question 1 of 20</div>
+            <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+
+            <div class="ach" id="choicesWrap">
+              <div class="ac" data-choice="0"><div class="cl">A</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="1"><div class="cl">B</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="2"><div class="cl">C</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="3"><div class="cl">D</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="4"><div class="cl">E</div><div class="ctx"></div></div>
+            </div>
+
+            <div class="submit-row" id="learnSubmitRow">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+
+            <div class="exb" id="exBlock">
+              <div class="exs exc"><div class="exl">Correct Answer</div><div class="ext" id="exCorrect"></div></div>
+              <div class="exs exe"><div class="exl">Teaching Point</div><div class="ext" id="exTeaching"></div></div>
+              <div class="exs exw">
+                <div class="exl">Why the Others Are Wrong</div>
+                <div class="ext" id="exWrong"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Previous</button>
+            <div class="qdots" id="qDots"></div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ_TITLE = "Fatty Acid & Triacylglycerol Synthesis";
+const QUIZ_TAG = "UNE COM · Block 5 · Week 40 · Dr. Spicer";
+const QUIZ_PLO = "PLO: Describe the synthesis of fatty acids and triacylglycerols including the substrates, products, and regulation";
+const RAW_QUESTIONS = [{"q": "Acetyl CoA Carboxylase (ACC) catalyzes the committed, rate-limiting step of fatty acid synthesis. Which of the following correctly identifies the substrate(s), product, and cofactor requirement of this reaction?", "opts": [{"text": "Acetyl CoA + HCO₃⁻ + ATP → Malonyl CoA + ADP + Pᵢ; requires biotin as CO₂ carrier", "correct": true}, {"text": "Malonyl CoA + NADPH → Acetyl CoA + CO₂; requires biotin to regenerate the carrier", "correct": false, "why": "This reverses the reaction entirely. ACC is a carboxylase — it adds a carbon (from HCO₃⁻) to acetyl CoA to make malonyl CoA, not the other way around. NADPH is used by FA synthase (the elongation steps), not ACC."}, {"text": "Acetyl CoA + CO₂ + NADPH → Malonyl CoA + NADP⁺; cofactor is FAD", "correct": false, "why": "NADPH is not consumed in the ACC reaction. The carboxylation of acetyl CoA uses ATP (not NADPH) to drive CO₂ attachment via biotin. FAD is used in β-oxidation (FADH₂ generation), not here."}, {"text": "Citrate + CoA + ATP → Malonyl CoA + OAA + ADP; biotin not required", "correct": false, "why": "Citrate + CoA + ATP → Acetyl CoA + OAA + ADP is the ATP citrate lyase reaction — a completely different enzyme that extracts acetyl CoA from citrate in the cytosol. That acetyl CoA then becomes the substrate for ACC."}, {"text": "Acetyl CoA + ATP → Acetoacetyl CoA + ADP; requires pyridoxal phosphate", "correct": false, "why": "Acetoacetyl CoA formation is the first step of ketone body synthesis (acetyl CoA acetyltransferase/thiolase) — an entirely different pathway. Pyridoxal phosphate is used in amino acid transamination reactions, not lipid synthesis."}]}, {"q": "In the fed state, acetyl CoA generated in the mitochondrial matrix must reach the cytosol for fatty acid synthesis. Which of the following best describes the mechanism by which this transfer occurs?", "opts": [{"text": "Acetyl CoA is directly transported across the inner mitochondrial membrane via a specific acetyl-CoA translocase", "correct": false, "why": "No such translocase exists. Acetyl CoA is membrane-impermeant because of its charged CoA group. The cell must use an indirect shuttle involving a carrier molecule (citrate) to move acetyl groups from the matrix to the cytosol."}, {"text": "Acetyl CoA is converted to acetylcarnitine by carnitine acetyltransferase, crosses the membrane, and regenerates acetyl CoA in the cytosol", "correct": false, "why": "While a carnitine shuttle for short-chain acyl groups exists, the quantitatively dominant mechanism for exporting acetyl groups to support FA synthesis is the citrate shuttle. The carnitine shuttle for acetyl CoA is minor and not the high-yield mechanism."}, {"text": "Pyruvate is exported from the mitochondria and decarboxylated by a cytosolic pyruvate dehydrogenase", "correct": false, "why": "Pyruvate dehydrogenase is exclusively mitochondrial — there is no cytosolic PDH complex. Pyruvate exported from the mitochondria would need to re-enter before it can be converted to acetyl CoA."}, {"text": "Acetyl CoA condenses with OAA to form citrate (citrate synthase); citrate exits via the tricarboxylate transporter; ATP citrate lyase in the cytosol regenerates acetyl CoA and OAA", "correct": true}, {"text": "OAA is exported from the mitochondria and undergoes transamination to aspartate, which carries the acetyl group to the cytosol", "correct": false, "why": "OAA can be exported as malate or aspartate (this is the malate-aspartate shuttle for NADH transfer), but this shuttle moves reducing equivalents, not acetyl groups. It does not contribute to cytosolic acetyl CoA for FA synthesis."}]}, {"q": "A cell is rapidly depleting its ATP reserves, causing AMP to accumulate. Which of the following best describes the effect of elevated AMP on fatty acid synthesis and the mechanism involved?", "opts": [{"text": "AMP allosterically activates ACC by promoting polymerization of ACC protomers into the active filamentous form", "correct": false, "why": "Citrate — not AMP — promotes polymerization of ACC protomers into the active polymer. AMP has the opposite effect: it activates AMPK, which then phosphorylates (and thereby inactivates) ACC."}, {"text": "AMP directly inhibits FA synthase by competing with NADPH at the reductase active sites", "correct": false, "why": "AMP does not inhibit FA synthase directly. The regulation of FA synthesis by energy status occurs upstream, at the ACC step, through AMPK-mediated phosphorylation of ACC, not at the FAS enzyme itself."}, {"text": "Elevated AMP activates AMPK, which phosphorylates and inactivates ACC, thereby reducing malonyl CoA production and fatty acid synthesis", "correct": true}, {"text": "AMP activates adenylate cyclase, increasing cAMP, which directly phosphorylates ACC via PKA", "correct": false, "why": "AMP does not activate adenylate cyclase — that is the role of glucagon and epinephrine (via G-protein coupled receptors). AMPK is directly activated by a high AMP:ATP ratio (allosterically and by LKB1-mediated phosphorylation), not through the cAMP/PKA cascade."}, {"text": "AMP inhibits citrate synthase in the mitochondria, reducing cytosolic citrate and therefore reducing allosteric activation of ACC", "correct": false, "why": "While AMP can inhibit citrate synthase, this is a TCA cycle regulation story, not the primary mechanism linking cellular energy status to FA synthesis. The direct and high-yield mechanism is AMP → AMPK → phospho-ACC → inactivation."}]}, {"q": "Fatty acid synthase (FAS) elongates a growing acyl chain through a repeating four-step cycle. Starting from a four-carbon β-ketoacyl-ACP intermediate, which sequence of reactions correctly describes one full elongation cycle?", "opts": [{"text": "Dehydrogenation → Hydration → Dehydrogenation → Thiolysis", "correct": false, "why": "This is the sequence for β-oxidation (FA degradation), not synthesis. Synthesis runs in the opposite 'chemical direction' and uses different coenzymes: reduction (NADPH) not oxidation (FAD/NAD⁺), and dehydration not hydration as the third step."}, {"text": "Condensation → Reduction (NADPH) → Dehydration → Reduction (NADPH)", "correct": true}, {"text": "Carboxylation → Reduction (NADPH) → Dehydration → Thiolysis", "correct": false, "why": "Carboxylation is the ACC reaction (making malonyl CoA), not a step within the FAS cycle. Thiolysis is a β-oxidation step. Within the FAS elongation cycle, the four steps are condensation, reduction, dehydration, reduction."}, {"text": "Condensation → Oxidation (FAD) → Hydration → Oxidation (NAD⁺)", "correct": false, "why": "FAD and NAD⁺ are oxidizing coenzymes used in β-oxidation. In fatty acid synthesis, the coenzyme used in both reduction steps is NADPH, which donates hydride to reduce the carbonyl and double-bond intermediates."}, {"text": "Reduction (NADPH) → Condensation → Dehydration → Reduction (NADPH)", "correct": false, "why": "The condensation reaction must come first in each cycle — it joins malonyl-ACP to the growing chain (releasing CO₂) to form the β-ketoacyl-ACP intermediate. Reduction cannot precede condensation because there is no ketone substrate to reduce yet."}]}, {"q": "After 7 elongation cycles, fatty acid synthase releases a 16-carbon saturated product. Which of the following is the correct identity of this product and the mechanism of its release?", "opts": [{"text": "Stearate (C18:0); released by dehydration of the acyl-ACP bond", "correct": false, "why": "The standard FAS product is palmitate (C16:0) after 7 cycles starting from a 2-carbon primer. Stearate (C18:0) can be made by further elongation in the ER by elongases, not by the cytosolic FAS. Dehydration is a step within each cycle, not the release mechanism."}, {"text": "Palmitate (C16:0); released by thioesterase domain of FAS via hydrolysis of the thioester bond", "correct": true}, {"text": "Palmitoleate (C16:1); released by a desaturase enzyme before the final cycle", "correct": false, "why": "Palmitoleate is a monounsaturated FA (C16:1, Δ9). FAS produces only saturated fatty acids. Desaturases act on the completed saturated acyl chain after release, and they are ER membrane enzymes — not part of FAS."}, {"text": "Palmitate (C16:0); released directly as palmitoyl CoA when CoA displaces the ACP thioester", "correct": false, "why": "The release product is free palmitate (the carboxylate), not palmitoyl CoA. The thioesterase domain hydrolyzes the thioester bond with water, releasing palmitate + free ACP. Palmitoyl CoA is formed subsequently by long-chain acyl CoA synthetase (uses ATP + CoA)."}, {"text": "Malonyl CoA (C3); the chain is released after the 7th condensation by citrate lyase", "correct": false, "why": "Malonyl CoA is the two-carbon donor substrate for each condensation step, not the product of FAS. Citrate lyase cleaves citrate to generate acetyl CoA in the cytosol — a completely different reaction upstream of FAS."}]}, {"q": "In the fed state, insulin promotes fatty acid synthesis through both acute and long-term regulatory mechanisms. Which of the following insulin-induced effects represents the ACUTE (rapid, post-translational) activation of the committed step?", "opts": [{"text": "Insulin induces transcription of the ACC gene, increasing total enzyme protein abundance over hours", "correct": false, "why": "Insulin does induce ACC gene expression (via SREBP-1c) — this is a real regulatory effect. However, the question asks for the ACUTE, rapid mechanism. Gene transcription takes hours; it is the long-term regulatory mechanism."}, {"text": "Insulin activates a phosphatase that dephosphorylates ACC, converting it from the phosphorylated (inactive) form to the active dephosphorylated form", "correct": true}, {"text": "Insulin activates citrate synthase in the mitochondria, increasing cytosolic citrate levels to allosterically activate ACC", "correct": false, "why": "While insulin does promote the fed-state milieu that increases citrate export, insulin does not directly activate citrate synthase as its primary mechanism of ACC activation. The acute covalent regulation (dephosphorylation of ACC) is the direct, mechanism-level answer."}, {"text": "Insulin phosphorylates and activates ACC via a receptor tyrosine kinase cascade", "correct": false, "why": "Phosphorylation of ACC by AMPK or PKA actually INACTIVATES ACC. Insulin's effect is the opposite: it activates a phosphatase, removing the inhibitory phosphate group. The insulin receptor tyrosine kinase acts on IRS-1, not directly on ACC."}, {"text": "Insulin raises cytosolic NADPH levels, which allosterically activates ACC at the biotin-binding domain", "correct": false, "why": "NADPH is not an allosteric regulator of ACC. It is the reducing coenzyme consumed in FAS elongation steps, but it has no regulatory role at ACC. ACC allosteric regulation is by citrate (activates) and palmitoyl CoA (inhibits)."}]}, {"q": "Malonyl CoA serves a dual role in lipid metabolism: it is the two-carbon donor for FA synthesis, and it serves as a regulatory molecule that coordinates synthesis with degradation. What is the molecular target of malonyl CoA's inhibitory activity in this coordination?", "opts": [{"text": "β-ketoacyl-ACP synthase (condensing enzyme) on FA synthase", "correct": false, "why": "β-ketoacyl-ACP synthase is the condensing enzyme within FAS — it is not inhibited by malonyl CoA. In fact, malonyl CoA is the substrate that loads onto the ACP domain and is condensed by this enzyme."}, {"text": "Carnitine palmitoyltransferase I (CPT-I) on the outer mitochondrial membrane", "correct": true}, {"text": "Carnitine palmitoyltransferase II (CPT-II) on the inner mitochondrial membrane", "correct": false, "why": "CPT-II is on the matrix side of the inner mitochondrial membrane and reconstitutes acyl-CoA from acylcarnitine inside the mitochondria. The regulatory target of malonyl CoA is CPT-I (outer membrane), which initiates the carnitine shuttle."}, {"text": "Acyl CoA dehydrogenase in the mitochondrial matrix", "correct": false, "why": "Acyl CoA dehydrogenase catalyzes the first step of β-oxidation in the matrix — the FAD-linked dehydrogenation of acyl CoA. It is not regulated by malonyl CoA. Malonyl CoA acts upstream by preventing acyl CoA from even entering the mitochondria."}, {"text": "Acetyl CoA carboxylase (ACC), via product inhibition", "correct": false, "why": "Palmitoyl CoA (the final product of FA synthesis) inhibits ACC via product inhibition. Malonyl CoA is the immediate ACC product and is the substrate for FAS — it does not feedback-inhibit ACC. Its role is inhibiting CPT-I (degradation), not ACC."}]}, {"q": "Palmitoyl CoA accumulates when fatty acid synthesis exceeds downstream esterification capacity. This provides negative feedback on the pathway. At which enzymatic step does palmitoyl CoA exert this product inhibition?", "opts": [{"text": "FA synthase (FAS), by occupying the acyl-ACP binding site and blocking condensation", "correct": false, "why": "Palmitoyl CoA can release from FAS once the chain reaches C16, but the primary product inhibition feedback loop is at ACC, not FAS itself. Palmitoyl CoA acts upstream to reduce the rate of malonyl CoA production."}, {"text": "ATP citrate lyase, by inhibiting the generation of cytosolic acetyl CoA", "correct": false, "why": "Palmitoyl CoA does not directly inhibit ATP citrate lyase. Its regulatory role in FA synthesis is specifically at ACC, where it reverses the citrate-induced polymerization, converting active ACC polymers back to inactive protomers."}, {"text": "Acetyl CoA carboxylase (ACC), promoting depolymerization of the active ACC filament back to inactive protomers", "correct": true}, {"text": "CPT-I, competing with malonyl CoA for the same allosteric inhibitory site", "correct": false, "why": "Palmitoyl CoA is actually a substrate for CPT-I (it binds to the active site to be transferred to carnitine for mitochondrial entry). The inhibitor of CPT-I is malonyl CoA. Palmitoyl CoA's inhibitory feedback in synthesis is at ACC."}, {"text": "Malic enzyme, reducing NADPH production and thereby limiting FA elongation", "correct": false, "why": "Palmitoyl CoA does not directly inhibit malic enzyme. While limiting NADPH would eventually slow synthesis, the direct and established product-inhibition feedback of palmitoyl CoA is at the ACC committed step."}]}, {"q": "A researcher uses isotopically labeled HCO₃⁻ to trace carbon incorporation during fatty acid synthesis. She finds that despite HCO₃⁻ being incorporated by ACC, none of the labeled carbon appears in the final palmitate product. Which of the following best explains this finding?", "opts": [{"text": "ACC is not the enzyme responsible for carbon incorporation into palmitate — the condensing enzyme of FAS performs the carboxylation", "correct": false, "why": "ACC absolutely uses HCO₃⁻ as the CO₂ source to carboxylate acetyl CoA to malonyl CoA. The question asks why this label disappears. The condensing enzyme (β-ketoacyl-ACP synthase) is responsible for releasing the CO₂."}, {"text": "The CO₂ added by ACC is lost during the condensation step, when β-ketoacyl-ACP synthase decarboxylates malonyl-ACP as it condenses with the growing chain", "correct": true}, {"text": "HCO₃⁻ is recycled by biotin back to CO₂ before malonyl CoA is formed, and is therefore never incorporated into any product", "correct": false, "why": "Biotin does carry CO₂ (as carboxybiotin) and transfers it to acetyl CoA to form malonyl CoA. The labeled carbon IS incorporated into malonyl CoA. It is lost at the subsequent condensation step when the carboxyl group departs as CO₂."}, {"text": "Malonyl CoA is not the direct carbon donor for FA synthesis — it is first converted to acetyl CoA before loading onto FAS", "correct": false, "why": "Malonyl CoA is directly loaded onto the ACP domain of FAS as malonyl-ACP. It does not revert to acetyl CoA. The malonyl group donates 2 carbons to the growing chain, and the carboxyl (C-1 of malonyl) is released as CO₂ during condensation."}, {"text": "NADPH reduces the carboxyl group added by ACC before condensation, converting it to a methylene group that is not isotopically traceable", "correct": false, "why": "NADPH reduction in FAS acts on the ketone group at the β-carbon (C-3 position of the intermediate), not on the carboxyl group added by ACC. The carboxyl from HCO₃⁻ is specifically released as CO₂ during the condensation reaction."}]}, {"q": "The pentose phosphate pathway (PPP) and malic enzyme are both sources of cytosolic NADPH for fatty acid synthesis. In the fed state, which transcription factor is primarily responsible for inducing the key enzyme of the PPP that generates NADPH?", "opts": [{"text": "FOXO1 — activated by insulin to drive expression of PPP enzymes", "correct": false, "why": "FOXO1 is actually inactivated by insulin (Akt phosphorylates FOXO1, causing it to exit the nucleus). In insulin-resistant states, FOXO1 remains active and drives gluconeogenesis (PEPCK, G6Pase). It does not induce PPP enzymes."}, {"text": "SREBP-1c — induced by insulin, upregulates ACC, FAS, and glucose-6-phosphate dehydrogenase (G6PDH)", "correct": true}, {"text": "ChREBP — activated directly by palmitoyl CoA to coordinate NADPH supply with FA chain elongation", "correct": false, "why": "ChREBP (carbohydrate response element binding protein) is activated by glucose metabolites (specifically xylulose-5-phosphate from the PPP), not palmitoyl CoA. ChREBP does contribute to lipogenic gene induction, but SREBP-1c is the primary insulin-responsive transcription factor for PPP and FA synthesis enzymes."}, {"text": "PPARγ — activated by free fatty acids, upregulates G6PDH in a feedforward loop", "correct": false, "why": "PPARγ is the master transcription factor for adipocyte differentiation and fat storage in adipose tissue. It is activated by FA ligands, but it does not primarily regulate G6PDH expression in the context of FA synthesis."}, {"text": "HIF-1α — induced by high glucose in hepatocytes to upregulate both glycolysis and NADPH generation", "correct": false, "why": "HIF-1α is a hypoxia-inducible factor activated by low O₂. While it upregulates glycolytic enzymes in hypoxia, it is not the primary fed-state regulator of G6PDH or FA synthesis. The insulin-SREBP-1c axis governs fed-state NADPH supply."}]}, {"q": "For triacylglycerol (TAG) synthesis, a glycerol-3-phosphate backbone is required. Which of the following correctly distinguishes how the liver and adipose tissue differ in obtaining this backbone?", "opts": [{"text": "Liver uses glycerol exclusively; adipose uses DHAP from glycolysis exclusively — neither tissue can interconvert between these sources", "correct": false, "why": "This overstates the exclusivity. The liver can use BOTH glycerol (via glycerol kinase) AND DHAP (via glycerol-3-phosphate dehydrogenase). Adipose tissue lacks glycerol kinase and therefore depends on glucose → glycolysis → DHAP for its glycerol-3-phosphate."}, {"text": "Liver expresses glycerol kinase and can phosphorylate glycerol from lipolysis; adipose lacks glycerol kinase and must derive glycerol-3-phosphate from DHAP via glycolysis", "correct": true}, {"text": "Adipose tissue expresses glycerol kinase to re-esterify the glycerol released by hormone-sensitive lipase locally", "correct": false, "why": "Adipose tissue lacks glycerol kinase — this is the high-yield point. After TAG hydrolysis by HSL, glycerol is released into the bloodstream and travels to the liver for gluconeogenesis. To re-esterify FAs in adipose, glucose must be available to generate DHAP."}, {"text": "Both liver and adipose use only DHAP from glycolysis; glycerol kinase is not expressed in either tissue", "correct": false, "why": "The liver abundantly expresses glycerol kinase, which is why the liver is the primary site of gluconeogenesis from glycerol. Adipose lacking glycerol kinase is the clinically relevant exception, explaining why adipose fat storage depends on insulin-driven glucose uptake."}, {"text": "Liver uses OAA as the backbone precursor; adipose uses pyruvate, both converted to glycerol-3-phosphate by malic enzyme", "correct": false, "why": "Neither OAA nor pyruvate serves as the direct TAG backbone precursor. Glycerol-3-phosphate is the direct backbone. Malic enzyme converts malate → pyruvate + CO₂ + NADPH; this is part of the NADPH regeneration cycle for FA synthesis, not TAG backbone synthesis."}]}, {"q": "During TAG synthesis, phosphatidic acid is the key branch-point intermediate. Which of the following correctly describes the fate of phosphatidic acid and the enzyme that commits it toward TAG rather than phospholipid synthesis?", "opts": [{"text": "Phosphatidic acid is converted to diacylglycerol (DAG) by phosphatidate phosphatase (lipin), which removes the phosphate group; DAG then receives a third FA from diacylglycerol acyltransferase (DGAT) to form TAG", "correct": true}, {"text": "Phosphatidic acid is converted to TAG by direct addition of a third fatty acyl CoA without intermediate dephosphorylation", "correct": false, "why": "The phosphate must be removed before the third FA can be added. Phosphatidate phosphatase (lipin) converts phosphatidic acid → DAG (removing Pᵢ). Only then can DGAT transfer the third acyl group onto DAG's free hydroxyl."}, {"text": "Phosphatidic acid is decarboxylated to diacylglycerol by a lyase; DGAT then adds the third FA", "correct": false, "why": "There is no decarboxylation in TAG synthesis. Phosphatidic acid undergoes dephosphorylation (hydrolysis of the phosphate ester by phosphatidate phosphatase/lipin) to form DAG. Decarboxylation is not a step in glycerolipid synthesis."}, {"text": "DGAT directly acylates phosphatidic acid at the sn-3 position without prior phosphate removal, forming a phospho-TAG intermediate", "correct": false, "why": "DGAT uses the free sn-3 hydroxyl on DAG as its acyl acceptor. The phosphate group at sn-3 of phosphatidic acid would sterically and chemically prevent DGAT esterification. Dephosphorylation by lipin is required first."}, {"text": "Phosphatidic acid is first converted to CDP-diacylglycerol for TAG synthesis; the CDP moiety is then hydrolyzed to release TAG", "correct": false, "why": "CDP-diacylglycerol is formed from phosphatidic acid for PHOSPHOLIPID synthesis (not TAG). This is the branch toward phosphatidylserine, phosphatidylinositol, etc. TAG synthesis goes through the DAG branch (dephosphorylation) instead."}]}, {"q": "A medical student notes that fatty acid synthesis and β-oxidation are both active simultaneously in a hepatocyte. Her attending explains this would be highly inefficient due to a 'futile cycle.' Which pair of regulatory mechanisms ensures these pathways are NOT simultaneously active?", "opts": [{"text": "High insulin inactivates HSL in adipose, and high glucagon activates CPT-I in liver — these prevent simultaneous FA synthesis and oxidation", "correct": false, "why": "While these hormonal signals are real, they describe DIFFERENT tissues. The question asks about preventing a futile cycle within the hepatocyte itself. The intracellular mechanism is the reciprocal relationship between malonyl CoA (inhibits CPT-I) and CPT-I activity (allows β-oxidation)."}, {"text": "When ACC is active (high malonyl CoA), CPT-I is allosterically inhibited, preventing FA entry into mitochondria; when AMPK phosphorylates and inactivates ACC (low malonyl CoA), CPT-I is disinhibited and β-oxidation can proceed", "correct": true}, {"text": "Palmitoyl CoA inhibits ACC AND directly activates CPT-I — this single molecule coordinates switching between synthesis and degradation", "correct": false, "why": "Palmitoyl CoA inhibiting ACC is correct (product inhibition). However, palmitoyl CoA is not an activator of CPT-I — it is the substrate for CPT-I (the acyl group to be transferred to carnitine). The CPT-I activator/inhibitor story is about carnitine (substrate) and malonyl CoA (inhibitor)."}, {"text": "NADPH depletion during FA synthesis signals the cell to switch to β-oxidation, since both pathways require the same coenzyme", "correct": false, "why": "FA synthesis uses NADPH; β-oxidation generates NADH and FADH₂. They use different coenzymes. NADPH depletion does not signal a switch to β-oxidation — the primary reciprocal switch is at the malonyl CoA / CPT-I axis."}, {"text": "Citrate, by activating ACC for synthesis, simultaneously inhibits isocitrate dehydrogenase in the TCA cycle, routing acetyl CoA toward synthesis rather than oxidation", "correct": false, "why": "Citrate does inhibit phosphofructokinase-1 (PFK-1) in glycolysis, signaling energy abundance. And citrate does activate ACC. However, the question specifically asks about preventing simultaneous FA synthesis AND β-oxidation — the answer to that is the malonyl CoA → CPT-I inhibition axis."}]}, {"q": "In the liver, newly synthesized triacylglycerol must be exported to peripheral tissues. Which of the following correctly describes the lipoprotein packaging and the downstream tissue-specific fate of the released fatty acids?", "opts": [{"text": "TAG is packaged as chylomicrons (apoB-48) in the liver and released into the lymph; adipose LPL hydrolyzes them for storage", "correct": false, "why": "Chylomicrons are assembled in intestinal enterocytes (not the liver) and released into lymph. The liver assembles VLDL (with apoB-100) and releases it into the bloodstream."}, {"text": "TAG is packaged as VLDL (apoB-100) in hepatocytes; released into blood; LPL at adipose and muscle hydrolyzes VLDL-TG; FAs taken up by muscle for oxidation or adipose for re-esterification; glycerol returns to liver", "correct": true}, {"text": "TAG is exported as HDL (apoA-I) to the bloodstream; CETP transfers TAG to LDL, which delivers it to peripheral tissues", "correct": false, "why": "HDL is primarily involved in reverse cholesterol transport, not TAG delivery. The lipoprotein that exports hepatic TAG is VLDL. CETP (cholesteryl ester transfer protein) transfers cholesteryl esters from HDL to VLDL/LDL, not TAG to LDL."}, {"text": "TAG is packaged as IDL and released; hepatic lipase fully hydrolyzes the TAG before it reaches peripheral tissues, releasing FFA systemically", "correct": false, "why": "IDL is formed from VLDL after partial hydrolysis by LPL (it still contains some TAG and cholesterol). IDL is either taken up by the liver or further converted to LDL. VLDL (not IDL) is the primary vehicle for hepatic TAG export."}, {"text": "TAG is packaged as VLDL and released; hormone-sensitive lipase (HSL) at adipose hydrolyzes VLDL-TG in the capillary lumen", "correct": false, "why": "The enzyme that hydrolyzes TAG in VLDL at capillaries is lipoprotein lipase (LPL), anchored on the capillary endothelium via proteoglycans. Hormone-sensitive lipase (HSL) is an intracellular adipocyte lipase that hydrolyzes stored TAG droplets."}]}, {"q": "Which of the following correctly compares the subcellular location, acyl-group carrier, and key coenzyme used in fatty acid synthesis versus β-oxidation?", "opts": [{"text": "Synthesis: cytosol, ACP domain of FAS (+ CoA), NADPH; β-oxidation: mitochondrial matrix, CoA only, NAD⁺ and FAD", "correct": true}, {"text": "Synthesis: mitochondrial matrix, CoA, NADH; β-oxidation: cytosol, ACP, FAD and NADP⁺", "correct": false, "why": "This inverts both the location and the coenzymes. FA synthesis is cytosolic and uses NADPH. β-oxidation is mitochondrial and uses NAD⁺ (→NADH) and FAD (→FADH₂). ACP is part of cytosolic FAS, not mitochondrial β-oxidation."}, {"text": "Both pathways occur in the cytosol; the distinction is that synthesis uses NADPH while β-oxidation uses FAD and NADH", "correct": false, "why": "β-oxidation is a mitochondrial process, not cytosolic. Long-chain FAs are transported into the mitochondria via the carnitine shuttle specifically to undergo β-oxidation. Only FA synthesis occurs in the cytosol."}, {"text": "Synthesis: cytosol, CoA only, NADPH; β-oxidation: peroxisomes, ACP, FAD only", "correct": false, "why": "Cytosolic FA synthesis uses the ACP domain of FAS (not just free CoA). β-oxidation in mitochondria uses free CoA (not ACP) and both FAD and NAD⁺. Peroxisomal β-oxidation handles very long-chain FAs specifically and uses FAD but not NAD⁺ for the initial step."}, {"text": "Synthesis: ER membrane, ACP, NADH; β-oxidation: mitochondrial matrix, CoA, NAD⁺ and FAD", "correct": false, "why": "De novo FA synthesis (from acetyl CoA) occurs in the cytosol, not the ER. ER membrane elongases extend pre-formed acyl chains, which is distinct from de novo synthesis. The coenzyme for cytosolic FA synthesis is NADPH, not NADH."}]}, {"q": "Glucagon is released during fasting and inhibits fatty acid synthesis. Working from the receptor level down to the committed enzyme of FA synthesis, which sequence of events best describes this hormonal inhibition?", "opts": [{"text": "Glucagon → binds GPCR → ↑cAMP → PKA activated → PKA activates AMPK → AMPK phosphorylates ACC → ACC inactive", "correct": false, "why": "Glucagon's pathway via cAMP/PKA can intersect with AMPK but PKA does not directly activate AMPK. The more direct and high-yield mechanism is that cAMP-activated PKA can phosphorylate ACC directly at an inhibitory site, or glucagon activates AMPK through other means. The clean exam answer runs through AMPK activation."}, {"text": "Glucagon → Gαs-coupled receptor → ↑adenylate cyclase → ↑cAMP → PKA → phosphorylates and activates AMPK → AMPK phosphorylates ACC → ACC inactive (malonyl CoA production falls)", "correct": true}, {"text": "Glucagon → binds insulin receptor → blocks Akt activation → prevents phosphatase activation → ACC remains phosphorylated", "correct": false, "why": "Glucagon binds its own GPCR (glucagon receptor), not the insulin receptor. These are entirely different receptors, signaling cascades, and target tissues (glucagon primarily acts on liver and adipose)."}, {"text": "Glucagon → ↑cAMP → PKA → phosphorylates and activates ACC → active ACC produces malonyl CoA → pathway stimulated", "correct": false, "why": "This is backwards. PKA phosphorylation of ACC leads to INACTIVATION, not activation. Insulin-activated phosphatase produces the active form. PKA phosphorylation is the fasting/glucagon state signal that turns OFF FA synthesis."}, {"text": "Glucagon → activates phospholipase C → ↑IP₃ + DAG → PKC → phosphorylates and inactivates ACC", "correct": false, "why": "Glucagon signals through Gαs → adenylate cyclase → cAMP, not through phospholipase C / IP₃ / DAG (that is the Gαq pathway, used by, e.g., vasopressin, angiotensin II). PKC activation by DAG is not the glucagon mechanism."}]}, {"q": "Which of the following statements correctly describes the role of the acyl carrier protein (ACP) domain in the context of fatty acid synthase?", "opts": [{"text": "ACP is a separate cytosolic protein that delivers malonyl groups to FAS and picks up the final palmitate product", "correct": false, "why": "In mammals, ACP is a domain embedded within the multifunctional FAS polypeptide — it is not a separate protein (unlike in bacteria, where ACP is separate). The phosphopantetheine arm extends from ACP and serves as the flexible tether to carry intermediates between active sites."}, {"text": "ACP contains a phosphopantetheine prosthetic group with a free thiol (-SH); it carries acyl intermediates between the catalytic domains of FAS during elongation", "correct": true}, {"text": "ACP is the same as coenzyme A; in cytosolic FAS, CoA functions identically to the ACP domain of bacterial FAS", "correct": false, "why": "While ACP's phosphopantetheine arm is structurally related to the pantetheine portion of CoA, they are not the same. In FAS, intermediates are tethered to ACP (as acyl-ACP). In β-oxidation, intermediates exist as free acyl-CoA thioesters. This is a key distinction between synthesis (ACP-bound) and degradation (CoA-bound)."}, {"text": "ACP acts as an allosteric activator of the condensing enzyme (KS domain); without ACP, malonyl CoA cannot bind to FAS", "correct": false, "why": "ACP is not an allosteric activator of the KS domain. It is the flexible molecular arm that physically tethers substrates and swings them between active sites. Malonyl CoA is transferred to ACP by malonyl/acetyl transferase before condensation."}, {"text": "ACP is required only for the first condensation cycle; subsequent elongation cycles use CoA directly as the acyl carrier", "correct": false, "why": "ACP carries acyl intermediates through every elongation cycle. Each round of condensation, reduction, dehydration, and reduction occurs with the intermediate tethered to ACP. CoA is used outside FAS (e.g., to deliver acetyl CoA and malonyl CoA as starting substrates), but within FAS, ACP is the carrier for all cycles."}]}, {"q": "The first step of TAG synthesis — addition of the first fatty acid to the glycerol-3-phosphate backbone — is catalyzed by glycerol-3-phosphate acyltransferase (GPAT). This step occurs at which subcellular location, and what is the name of the product?", "opts": [{"text": "Cytosol; the product is diacylglycerol (DAG)", "correct": false, "why": "The immediate product of GPAT acting on glycerol-3-phosphate is lysophosphatidic acid (LPA), not diacylglycerol. DAG is formed later, after a second FA is added (forming phosphatidic acid) and the phosphate is removed by phosphatidate phosphatase."}, {"text": "Outer mitochondrial membrane or ER; the product is lysophosphatidic acid (LPA)", "correct": true}, {"text": "Inner mitochondrial membrane; the product is phosphatidic acid", "correct": false, "why": "Phosphatidic acid requires two acylation events (first GPAT adds one FA, then 1-acylglycerol-3-phosphate acyltransferase adds the second). GPAT produces lysophosphatidic acid (LPA), not phosphatidic acid. The inner mitochondrial membrane is the site of ETC complexes, not TAG synthesis."}, {"text": "Cytosol; the product is acyl-ACP loaded onto FA synthase for export to the ER", "correct": false, "why": "Acyl-ACP is a fatty acid synthase intermediate — it has nothing to do with TAG synthesis from glycerol-3-phosphate. TAG synthesis uses acyl-CoA (not acyl-ACP) as the fatty acid donor."}, {"text": "Peroxisome; the product is ether-linked lysophospholipid", "correct": false, "why": "Ether-linked (plasmalogen) phospholipid synthesis does begin in peroxisomes, but TAG synthesis via GPAT occurs primarily at the mitochondrial outer membrane and ER, producing the ester-linked LPA intermediate."}]}, {"q": "A medical student studying lipid biochemistry is asked to explain why fatty acid synthesis uses NADPH while β-oxidation generates NADH and FADH₂. Which of the following provides the most mechanistically complete explanation?", "opts": [{"text": "NADPH and NADH are interconverted in the cytosol by transhydrogenase, so the choice of coenzyme is arbitrary; NADPH is simply more abundant in the fed state", "correct": false, "why": "While mitochondrial transhydrogenase can interconvert NADPH and NADH, the choice of coenzyme in each pathway is not arbitrary — it reflects distinct thermodynamic and metabolic logic. NADPH/NADP⁺ has a more negative reduction potential in the cytosol compared to NADH/NAD⁺ in mitochondria, enabling reductive biosynthesis."}, {"text": "FA synthesis requires reduction of carbonyl groups (β-ketone → β-hydroxy → fully reduced methylene), which needs the strong reducing power of NADPH (more negative reduction potential); β-oxidation performs the reverse oxidations and feeds electrons into the respiratory chain via NADH and FADH₂", "correct": true}, {"text": "NADPH is used in synthesis because the cytosol lacks NAD⁺; β-oxidation uses FAD because it occurs in a membrane environment where FAD is physically embedded", "correct": false, "why": "The cytosol does contain NAD⁺ (used in glycolysis). The choice of NADPH vs. NAD⁺ reflects thermodynamic suitability for reductive biosynthesis vs. oxidative catabolism, not compartment-specific availability of cofactors."}, {"text": "FAS uses NADPH because malonyl CoA provides a high-energy phosphoanhydride bond that reduces NADP⁺ to NADPH during condensation", "correct": false, "why": "Malonyl CoA does not contain a phosphoanhydride bond or reduce NADP⁺. The energy driving condensation comes from decarboxylation of the malonyl carboxyl group. NADPH is consumed (not produced) in two of the four FAS steps."}, {"text": "β-oxidation generates FAD-linked intermediates because all four steps are thermodynamically reversible; NADPH is used in synthesis to make the pathway irreversible", "correct": false, "why": "The directionality of these pathways is determined by the overall thermodynamics of the full pathway and hormonal regulation, not simply by which coenzyme is used. The ACC reaction (ATP-dependent carboxylation) and thioesterase hydrolysis provide irreversibility in synthesis."}]}, {"q": "A hepatocyte in the fed state has high insulin signaling and abundant glucose. Which of the following sets of enzymes are ALL correctly identified as being upregulated (either transcriptionally or post-translationally) by insulin to support fatty acid synthesis?", "opts": [{"text": "CPT-I, β-ketoacyl-ACP synthase, carnitine acetyltransferase", "correct": false, "why": "CPT-I is the rate-limiting enzyme for FA entry into mitochondria for β-oxidation — insulin and malonyl CoA both suppress it in the fed state. This set of enzymes would promote degradation and mitochondrial FA import, not synthesis."}, {"text": "ACC, FA synthase, ATP citrate lyase, glucose-6-phosphate dehydrogenase, malic enzyme", "correct": true}, {"text": "Pyruvate carboxylase, PEPCK, G6Pase, glycogen synthase", "correct": false, "why": "Pyruvate carboxylase (mitochondrial anaplerosis), PEPCK, and G6Pase are gluconeogenic enzymes suppressed by insulin. Glycogen synthase is activated by insulin, but none of these constitute the FA synthesis enzyme set."}, {"text": "Glucokinase, PFK-1, citrate synthase, isocitrate dehydrogenase", "correct": false, "why": "While insulin does upregulate glucokinase and promote glycolysis, PFK-1 regulation is primarily allosteric (by F-2,6-BP), and citrate synthase/isocitrate dehydrogenase are TCA cycle enzymes not primarily regulated by insulin at the transcriptional level for this purpose."}, {"text": "ACC, HSL, FA synthase, DGAT", "correct": false, "why": "HSL (hormone-sensitive lipase) is SUPPRESSED by insulin (insulin promotes fat storage, not lipolysis). In the fed state, insulin activates phosphodiesterase → ↓cAMP → ↓PKA → ↓HSL phosphorylation → ↓lipolysis. HSL does not belong in an insulin-activated synthesis enzyme set."}]}];
+
+const LETTERS = ['A','B','C','D','E','F','G'];
+const qo = document.getElementById('qo');
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const submitOne = document.getElementById('submitOne');
+const submitExamBtn = document.getElementById('submitExam');
+const examSubmitRow = document.querySelector('.exam-submit-row');
+const examProgress = document.getElementById('examProgress');
+const modeLearn = document.getElementById('modeLearn');
+const modeExam = document.getElementById('modeExam');
+const toolHighlight = document.getElementById('toolHighlight');
+const toolStrike = document.getElementById('toolStrike');
+const toolReveal = document.getElementById('toolReveal');
+const toolStatus = document.getElementById('toolStatus');
+const qStem = document.getElementById('qStem');
+const choiceEls = Array.from(document.querySelectorAll('.ac'));
+const qNumLabel = document.getElementById('qNumLabel');
+const qProgressFill = document.getElementById('qProgressFill');
+const qDots = document.getElementById('qDots');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const learnSubmitRow = document.getElementById('learnSubmitRow');
+const exBlock = document.getElementById('exBlock');
+const exCorrect = document.getElementById('exCorrect');
+const exTeaching = document.getElementById('exTeaching');
+const exWrong = document.getElementById('exWrong');
+
+let quizMode = 'learn';
+let toolMode = null;
+let examSubmitted = false;
+let currentPos = 0;
+let order = RAW_QUESTIONS.map((_, i) => i);
+let qStates = [];
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function shuffleArray(arr) {
+  const copy = arr.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function getCorrectIndex(q) {
+  return q.opts.findIndex(opt => !!opt.correct);
+}
+
+function makeInitialState() {
+  return RAW_QUESTIONS.map(q => ({
+    selected: null,
+    submitted: false,
+    isCorrect: null,
+    revealForced: false,
+    choiceHigh: q.opts.map(() => false),
+    choiceStrike: q.opts.map(() => false),
+    stemHtml: `<span class="stem-text">${escapeHtml(q.q)}</span>`,
+    stemHL: false,
+    stemST: false
+  }));
+}
+
+function getQuestionByPos(pos) {
+  return RAW_QUESTIONS[order[pos]];
+}
+
+function getStateByPos(pos) {
+  return qStates[order[pos]];
+}
+
+function getCurrentQuestion() {
+  return getQuestionByPos(currentPos);
+}
+
+function getCurrentState() {
+  return getStateByPos(currentPos);
+}
+
+function saveStemState() {
+  const st = getCurrentState();
+  st.stemHtml = qStem.innerHTML;
+  st.stemHL = qStem.classList.contains('hl-applied');
+  st.stemST = qStem.classList.contains('st-applied');
+}
+
+function updateToolUI() {
+  toolHighlight.classList.toggle('active', toolMode === 'highlight');
+  toolHighlight.classList.toggle('hl-tool', toolMode === 'highlight');
+  toolStrike.classList.toggle('active', toolMode === 'strike');
+  toolStrike.classList.toggle('st-tool', toolMode === 'strike');
+
+  if (toolMode === 'highlight') {
+    toolStatus.textContent = 'Tool mode: highlight';
+    toolStatus.className = 'tool-status active-highlight';
+    qStem.classList.add('tool-hover');
+  } else if (toolMode === 'strike') {
+    toolStatus.textContent = 'Tool mode: strikeout';
+    toolStatus.className = 'tool-status active-strike';
+    qStem.classList.add('tool-hover');
+  } else {
+    toolStatus.textContent = 'Tool mode: none';
+    toolStatus.className = 'tool-status';
+    qStem.classList.remove('tool-hover');
+  }
+}
+
+function setToolMode(mode) {
+  toolMode = toolMode === mode ? null : mode;
+  updateToolUI();
+}
+
+function updateScoreboard() {
+  let correct = 0;
+  let incorrect = 0;
+
+  if (examSubmitted) {
+    qStates.forEach(st => {
+      if (st.isCorrect === true) correct += 1;
+      else if (st.isCorrect === false) incorrect += 1;
+    });
+  } else {
+    qStates.forEach(st => {
+      if (st.submitted && st.isCorrect === true) correct += 1;
+      else if (st.submitted && st.isCorrect === false) incorrect += 1;
+    });
+  }
+
+  document.getElementById('svCurrent').textContent = String(currentPos + 1);
+  document.getElementById('svCorrect').textContent = String(correct);
+  document.getElementById('svIncorrect').textContent = String(incorrect);
+}
+
+function updateExamProgress() {
+  const answered = qStates.filter(st => st.selected !== null).length;
+  if (quizMode === 'learn') {
+    const completed = qStates.filter(st => st.submitted).length;
+    examProgress.textContent = `Learn mode • ${completed} of ${RAW_QUESTIONS.length} submitted`;
+  } else if (examSubmitted) {
+    const graded = qStates.filter(st => st.isCorrect !== null).length;
+    examProgress.textContent = `Exam submitted • ${graded} graded • ${answered} answered`;
+  } else {
+    examProgress.textContent = `${answered} of ${RAW_QUESTIONS.length} answered`;
+  }
+}
+
+function updateExamButton() {
+  const answered = qStates.filter(st => st.selected !== null).length;
+  const inExam = quizMode === 'exam';
+  submitExamBtn.disabled = !inExam || examSubmitted || answered === 0;
+  examSubmitRow.classList.toggle('exam-live', inExam && !examSubmitted);
+  examSubmitRow.classList.toggle('exam-done', examSubmitted);
+  submitExamBtn.textContent = examSubmitted ? 'Exam Submitted' : 'Submit Exam';
+}
+
+function updateMode() {
+  modeLearn.classList.toggle('active', quizMode === 'learn');
+  modeExam.classList.toggle('active', quizMode === 'exam');
+  learnSubmitRow.style.display = quizMode === 'learn' ? '' : 'none';
+  updateExamProgress();
+  updateExamButton();
+  renderQuestion();
+}
+
+function buildTeachingPoint(q, correctIdx) {
+  const answerText = q.opts[correctIdx]?.text || '';
+  return `Key takeaway: ${answerText}`;
+}
+
+function renderExplanation(q, st) {
+  const correctIdx = getCorrectIndex(q);
+  exCorrect.innerHTML = `<strong>${LETTERS[correctIdx]}</strong> — ${escapeHtml(q.opts[correctIdx].text)}`;
+  exTeaching.textContent = buildTeachingPoint(q, correctIdx);
+
+  const wrongBits = [];
+  q.opts.forEach((opt, idx) => {
+    if (idx === correctIdx) return;
+    const why = opt.why || 'Incorrect based on the mechanism tested in this question.';
+    wrongBits.push(`<div class="wce"><strong>${LETTERS[idx]}</strong> — ${escapeHtml(why)}</div>`);
+  });
+  exWrong.innerHTML = wrongBits.join('');
+
+  const shouldShow = st.revealForced || st.submitted || examSubmitted;
+  exBlock.classList.toggle('vis', shouldShow);
+}
+
+function renderDots() {
+  qDots.innerHTML = '';
+  order.forEach((qIdx, pos) => {
+    const st = qStates[qIdx];
+    const btn = document.createElement('button');
+    btn.className = 'qd';
+    if (pos === currentPos) btn.classList.add('cur');
+
+    if (examSubmitted) {
+      if (st.isCorrect === true) btn.classList.add('acor');
+      else if (st.isCorrect === false) btn.classList.add('ainc');
+      else if (st.selected !== null) btn.classList.add('asel');
+    } else {
+      if (st.submitted && st.isCorrect === true) btn.classList.add('acor');
+      else if (st.submitted && st.isCorrect === false) btn.classList.add('ainc');
+      else if (st.selected !== null) btn.classList.add('asel');
+    }
+
+    btn.title = `Question ${pos + 1}`;
+    btn.addEventListener('click', () => {
+      saveStemState();
+      currentPos = pos;
+      renderQuestion();
+    });
+    qDots.appendChild(btn);
+  });
+}
+
+function renderChoices(q, st) {
+  const correctIdx = getCorrectIndex(q);
+  const showGrade = st.submitted || examSubmitted;
+
+  choiceEls.forEach((el, idx) => {
+    const opt = q.opts[idx];
+    if (!opt) {
+      el.style.display = 'none';
+      return;
+    }
+
+    el.style.display = '';
+    el.dataset.choice = String(idx);
+    el.className = 'ac';
+    if (st.choiceHigh[idx]) el.classList.add('hl-applied');
+    if (st.choiceStrike[idx]) el.classList.add('st-applied');
+    if (st.selected === idx) el.classList.add('sel');
+
+    if (showGrade) {
+      el.classList.add('dis');
+      if (idx === correctIdx) {
+        el.classList.add(st.selected === idx ? 'cor' : 'shc');
+      }
+      if (st.selected === idx && idx !== correctIdx) {
+        el.classList.add('inc');
+      }
+    }
+
+    el.querySelector('.ctx').textContent = opt.text;
+  });
+}
+
+function renderQuestion() {
+  const q = getCurrentQuestion();
+  const st = getCurrentState();
+
+  qNumLabel.textContent = `Question ${currentPos + 1} of ${RAW_QUESTIONS.length}`;
+  qProgressFill.style.width = `${((currentPos + 1) / RAW_QUESTIONS.length) * 100}%`;
+
+  qStem.className = 'qstem';
+  qStem.innerHTML = st.stemHtml;
+  if (st.stemHL) qStem.classList.add('hl-applied');
+  if (st.stemST) qStem.classList.add('st-applied');
+
+  renderChoices(q, st);
+  renderExplanation(q, st);
+  renderDots();
+
+  prevBtn.disabled = currentPos === 0;
+  nextBtn.disabled = currentPos === RAW_QUESTIONS.length - 1;
+  prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+  nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+
+  submitOne.disabled = quizMode !== 'learn' || st.selected === null || st.submitted || examSubmitted;
+
+  updateToolUI();
+  updateScoreboard();
+  updateExamProgress();
+  updateExamButton();
+}
+
+function gradeLearnCurrent() {
+  const q = getCurrentQuestion();
+  const st = getCurrentState();
+  if (st.selected === null || st.submitted) return;
+
+  const correctIdx = getCorrectIndex(q);
+  st.submitted = true;
+  st.isCorrect = st.selected === correctIdx;
+  renderQuestion();
+}
+
+function submitExam() {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  qStates.forEach((st, idx) => {
+    if (st.selected === null) {
+      st.isCorrect = null;
+      return;
+    }
+    const q = RAW_QUESTIONS[idx];
+    const correctIdx = getCorrectIndex(q);
+    st.isCorrect = st.selected === correctIdx;
+  });
+  examSubmitted = true;
+  renderQuestion();
+}
+
+function resetQuizState(doShuffle = true) {
+  qStates = makeInitialState();
+  order = RAW_QUESTIONS.map((_, i) => i);
+  if (doShuffle) order = shuffleArray(order);
+  currentPos = 0;
+  toolMode = null;
+  examSubmitted = false;
+  quizMode = 'learn';
+  updateMode();
+}
+
+function applyStemMarkup(type) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+  const range = sel.getRangeAt(0);
+  if (!qStem.contains(range.commonAncestorContainer)) return false;
+
+  const wrapper = document.createElement('span');
+  wrapper.className = type === 'highlight' ? 'stem-hl' : 'stem-st';
+
+  try {
+    range.surroundContents(wrapper);
+  } catch (e) {
+    const frag = range.extractContents();
+    wrapper.appendChild(frag);
+    range.insertNode(wrapper);
+  }
+
+  sel.removeAllRanges();
+  saveStemState();
+  return true;
+}
+
+function toggleWholeStem(type) {
+  const st = getCurrentState();
+  if (type === 'highlight') {
+    st.stemHL = !st.stemHL;
+    if (st.stemHL) st.stemST = false;
+  } else if (type === 'strike') {
+    st.stemST = !st.stemST;
+    if (st.stemST) st.stemHL = false;
+  }
+  renderQuestion();
+}
+
+openDemo.addEventListener('click', () => {
+  qo.classList.add('open');
+  renderQuestion();
+});
+
+closeQuiz.addEventListener('click', () => {
+  saveStemState();
+  qo.classList.add('closing');
+  setTimeout(() => {
+    qo.classList.remove('open','closing');
+  }, 320);
+});
+
+resetQuiz.addEventListener('click', () => resetQuizState(true));
+modeLearn.addEventListener('click', () => {
+  quizMode = 'learn';
+  updateMode();
+});
+modeExam.addEventListener('click', () => {
+  quizMode = 'exam';
+  updateMode();
+});
+toolHighlight.addEventListener('click', () => setToolMode('highlight'));
+toolStrike.addEventListener('click', () => setToolMode('strike'));
+toolReveal.addEventListener('click', () => {
+  const st = getCurrentState();
+  st.revealForced = !st.revealForced;
+  renderQuestion();
+});
+
+qStem.addEventListener('click', (e) => {
+  if (!toolMode) return;
+  const didApply = applyStemMarkup(toolMode);
+  if (!didApply) toggleWholeStem(toolMode);
+  e.preventDefault();
+});
+
+qStem.addEventListener('mouseup', () => {
+  if (toolMode) qStem.classList.add('tool-hover');
+});
+
+choiceEls.forEach((choice) => {
+  choice.addEventListener('click', (e) => {
+    e.preventDefault();
+    const idx = Number(choice.dataset.choice);
+    const st = getCurrentState();
+
+    if (toolMode === 'highlight') {
+      st.choiceHigh[idx] = !st.choiceHigh[idx];
+      if (st.choiceHigh[idx]) st.choiceStrike[idx] = false;
+      renderQuestion();
+      return;
+    }
+
+    if (toolMode === 'strike') {
+      st.choiceStrike[idx] = !st.choiceStrike[idx];
+      if (st.choiceStrike[idx]) st.choiceHigh[idx] = false;
+      renderQuestion();
+      return;
+    }
+
+    if (st.submitted || examSubmitted) return;
+
+    st.selected = idx;
+    renderQuestion();
+  });
+});
+
+submitOne.addEventListener('click', gradeLearnCurrent);
+submitExamBtn.addEventListener('click', submitExam);
+
+prevBtn.addEventListener('click', () => {
+  if (currentPos === 0) return;
+  saveStemState();
+  currentPos -= 1;
+  renderQuestion();
+});
+
+nextBtn.addEventListener('click', () => {
+  if (currentPos >= RAW_QUESTIONS.length - 1) return;
+  saveStemState();
+  currentPos += 1;
+  renderQuestion();
+});
+
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qo.dataset.fs = btn.dataset.fsBtn;
+  });
+});
+
+let timerInt = null;
+let timerSec = 0;
+const timerTime = document.getElementById('timerTime');
+function renderTimer() {
+  const m = String(Math.floor(timerSec / 60)).padStart(2, '0');
+  const s = String(timerSec % 60).padStart(2, '0');
+  timerTime.textContent = `${m}:${s}`;
+}
+document.getElementById('timerStart').addEventListener('click', () => {
+  if (timerInt) return;
+  timerInt = setInterval(() => { timerSec += 1; renderTimer(); }, 1000);
+});
+document.getElementById('timerPause').addEventListener('click', () => {
+  clearInterval(timerInt);
+  timerInt = null;
+});
+document.getElementById('timerReset').addEventListener('click', () => {
+  clearInterval(timerInt);
+  timerInt = null;
+  timerSec = 0;
+  renderTimer();
+});
+
+let cdMinutes = 5;
+let cdInt = null;
+let cdSec = cdMinutes * 60;
+const cdVal = document.getElementById('cdVal');
+const cdTime = document.getElementById('cdTime');
+const cdGo = document.getElementById('cdGo');
+function renderCountdown() {
+  const m = String(Math.floor(cdSec / 60)).padStart(2, '0');
+  const s = String(cdSec % 60).padStart(2, '0');
+  cdTime.textContent = `${m}:${s}`;
+  cdVal.textContent = String(Math.max(1, Math.ceil(cdSec / 60) || 0));
+}
+document.getElementById('cdMinus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.max(1, cdMinutes - 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+document.getElementById('cdPlus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.min(99, cdMinutes + 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+cdGo.addEventListener('click', () => {
+  if (cdInt) {
+    clearInterval(cdInt);
+    cdInt = null;
+    cdGo.textContent = 'Start';
+    return;
+  }
+  cdGo.textContent = 'Pause';
+  cdInt = setInterval(() => {
+    if (cdSec <= 0) {
+      clearInterval(cdInt);
+      cdInt = null;
+      cdGo.textContent = 'Start';
+      return;
+    }
+    cdSec -= 1;
+    renderCountdown();
+  }, 1000);
+});
+
+renderTimer();
+renderCountdown();
+resetQuizState(false);
+</script>
+</body>
+</html>

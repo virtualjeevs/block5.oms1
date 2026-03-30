@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. Spicer — FA/TAG Synthesis Quiz A</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+ radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+ radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+ linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%)}
+.launch-card{max-width:760px;width:min(100%,760px);background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:32px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:42px;line-height:1.02;color:var(--navy);margin-bottom:8px}
+.launch-card p{color:var(--slate);max-width:62ch}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 24px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.launch-btn{padding:14px 20px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--teal-glow) 18%, transparent), transparent 24%),
+  radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--plum) 16%, transparent), transparent 22%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+.qo.open .qt-bar,.qo.open .qin{will-change:transform,opacity}
+.qo.closing .qt-bar{animation:qBarOut .26s cubic-bezier(.4,0,.2,1) forwards}
+.qo.closing .qin{animation:qSheetOut .32s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes qBarOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-12px)}}
+@keyframes qSheetOut{from{opacity:1;transform:none;filter:blur(0)}to{opacity:0;transform:translateY(22px) scale(.985);filter:blur(2px)}}
+.qt-bar{position:sticky;top:0;z-index:12;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,color-mix(in srgb, var(--navy2) 94%, transparent),color-mix(in srgb, var(--navy) 92%, transparent));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:28px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap}
+.qt-btn{padding:10px 16px;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-1px)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900;box-shadow:0 8px 20px rgba(212,168,67,.24)}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(212,168,67,.28)}
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px 24px;align-items:start}
+.q-left{display:grid;gap:18px;align-content:start;align-self:start}
+.q-right{min-width:0;display:grid;gap:16px;align-content:start;align-self:start}
+#qA{min-width:0;align-self:start;position:relative}
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.score-box{position:relative;overflow:hidden;background:color-mix(in srgb, var(--white) 88%, var(--warm) 12%);backdrop-filter:blur(10px);border-radius:22px;padding:18px 14px 14px;text-align:center;box-shadow:0 14px 34px rgba(18,32,60,.08);border:1px solid rgba(18,32,60,.08);transition:var(--tr)}
+.score-box::before{content:'';position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 999px 999px;background:linear-gradient(90deg, rgba(26,122,109,.16), rgba(62,196,178,.5));opacity:.75}
+.score-box.correct{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(232,245,238,.98))}
+.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(253,240,240,.98))}
+.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:8px}
+.score-box.correct .sv{color:var(--green)}
+.score-box.incorrect .sv{color:var(--red)}
+.mode-toggle,.timer-panel,.tool-panel,.exam-submit-row{position:relative;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08)}
+.mode-toggle{display:flex;gap:8px;padding:8px;border-radius:24px;animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{flex:1;padding:14px 18px;border-radius:18px;text-align:center;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 12px 24px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:20px;margin-bottom:4px}
+.timer-panel{display:grid;grid-template-columns:1fr;gap:14px;padding:0;border-radius:24px;box-shadow:none;border:none;background:transparent;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.timer-card,.cd-card{position:relative;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:46px 18px 18px;background:rgba(255,255,255,.84);border-radius:24px;border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);transition:var(--tr)}
+.timer-lbl{position:absolute;top:14px;left:16px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(18,32,60,.04)}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:40px;font-weight:600;color:var(--navy);min-width:120px;text-align:center;letter-spacing:2px}
+.tbtn,.cd-pm{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(27,42,74,.24);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:var(--tr);color:var(--navy);flex-shrink:0;box-shadow:0 6px 18px rgba(18,32,60,.08)}
+.cd-pm{width:34px;height:34px;font-size:20px;font-weight:800;border-color:rgba(27,42,74,.16)}
+.tbtn:hover,.cd-pm:hover{background:var(--navy);color:#fff;transform:translateY(-1px) scale(1.04);border-color:var(--navy)}
+.cd-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;min-width:36px;text-align:center;color:var(--navy)}
+.cd-unit{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800}
+.cd-go{padding:11px 18px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:var(--tr);box-shadow:0 10px 22px rgba(224,122,95,.22)}
+.cd-go:hover{background:linear-gradient(135deg,#D86E53,#C95E45);transform:translateY(-1px)}
+.tool-panel{display:flex;flex-wrap:wrap;gap:10px;padding:10px;border-radius:24px;animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
+.q-tool{flex:1 1 180px;min-width:0;padding:13px 16px;border-radius:16px;font-size:13px;font-weight:800;border:1.5px solid rgba(18,32,60,.08);background:rgba(255,255,255,.86);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);box-shadow:0 8px 18px rgba(18,32,60,.06);text-align:left}
+.q-tool:hover{border-color:rgba(26,122,109,.32);color:var(--teal);transform:translateY(-1px);background:#fff}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00;box-shadow:0 0 0 3px rgba(211,175,43,.12)}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red);box-shadow:0 0 0 3px rgba(196,64,64,.08)}
+.exam-submit-row{padding:20px;border-radius:24px;text-align:center}
+.exam-submit-row .exam-progress{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--mist);margin-bottom:12px}
+.exam-submit-btn{padding:15px 52px;border-radius:18px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 22px rgba(224,122,95,.24)}
+.exam-submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(224,122,95,.32)}
+.qcd{background:color-mix(in srgb, var(--white) 94%, var(--warm) 6%);border-radius:28px;overflow:hidden;box-shadow:0 28px 70px rgba(18,32,60,.12);border:1px solid rgba(18,32,60,.08);animation:cardIn .45s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(0.99)}to{opacity:1;transform:none}}
+.qpg{height:6px;background:color-mix(in srgb, var(--teal) 10%, transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 34px 26px}
+.qnum{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.qstem{font-family:'Crimson Pro',serif;font-size:25px;line-height:1.35;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.15px}
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:15px 18px;border:1.5px solid rgba(18,32,60,.09);border-radius:18px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb, var(--warm) 78%, var(--white) 22%);position:relative;box-shadow:0 6px 18px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 12px 24px rgba(18,32,60,.08)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.cl{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 6px 14px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:16px;line-height:1.45;padding-top:4px;color:var(--ink)}
+.submit-row{margin-top:24px;text-align:center}
+.submit-btn{padding:15px 54px;border-radius:18px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.4px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+.exb{margin-top:26px;border-radius:22px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.exs{padding:22px 26px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:16px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:10px;padding:12px 16px;background:rgba(255,255,255,.58);border-radius:14px;font-size:15px;line-height:1.65}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 24px 20px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,color-mix(in srgb, var(--warm) 32%, transparent),color-mix(in srgb, var(--cream) 82%, transparent))}
+.nb{padding:12px 24px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 8px 18px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.qdots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:14px;height:14px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);box-shadow:0 4px 10px rgba(18,32,60,.04)}
+.qd:hover{transform:scale(1.18)}
+.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,0.14)}
+.qd.acor{border-color:var(--green);background:var(--green)}
+.qd.ainc{border-color:var(--red);background:var(--red)}
+.qd.asel{border-color:var(--gold);background:var(--gold)}
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:16px}
+#qo[data-fs="lg"] .ctx{font-size:19px}
+#qo[data-fs="xl"] .ctx{font-size:22px}
+.fs-ctrl{display:flex;align-items:center;gap:4px}
+.fs-btn{width:32px;height:32px;border-radius:10px;border:1.5px solid rgba(18,32,60,.14);background:#fff;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);color:var(--ink2);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(18,32,60,.06)}
+.fs-btn:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--mist);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+@media(max-width:920px){.qin{grid-template-columns:1fr;padding:22px 18px 72px;gap:16px}.score-panel{grid-template-columns:repeat(3,minmax(0,1fr))}.timer-panel{grid-template-columns:1fr 1fr}.tool-panel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.qt-bar{padding:14px 16px;align-items:flex-start;flex-direction:column}.qt-bar h2{font-size:24px}.qin{padding:18px 14px 64px}.score-panel{grid-template-columns:1fr}.timer-panel{grid-template-columns:1fr}.tool-panel{grid-template-columns:1fr}.qbd{padding:22px 18px 20px}.qstem{font-size:24px;line-height:1.42}.ctx{font-size:16px}.qnv{padding:16px 18px 20px;flex-direction:column;align-items:stretch}.qdots{order:3}.nb{width:100%}.launch-card h1{font-size:34px}}
+
+.ac.hl-applied{
+  background: linear-gradient(180deg, #FFF8B8, #FFF3A0) !important;
+  border-color: #D3AF2B !important;
+}
+.ac.hl-applied .ctx{
+  background: transparent !important;
+}
+.ac.st-applied{
+  background: linear-gradient(180deg, #fff, #FDF2F2) !important;
+  border-color: rgba(196,64,64,.45) !important;
+  opacity: .72;
+}
+.ac.st-applied .ctx{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.tool-status{
+  margin-top: 6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--mist);
+  padding: 0 4px;
+}
+.tool-status.active-highlight{ color:#8a6a00; }
+.tool-status.active-strike{ color:var(--red); }
+
+.ac.hl-applied{
+  background: #FFF4A8 !important;
+  border-color: #D4A843 !important;
+  box-shadow: 0 0 0 3px rgba(212,168,67,.18), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.hl-applied .cl{
+  background: #D4A843 !important;
+  border-color: #D4A843 !important;
+  color: #fff !important;
+}
+.ac.hl-applied .ctx{
+  color: #5c4400 !important;
+}
+.ac.st-applied{
+  background: #FFF3F3 !important;
+  border-color: rgba(196,64,64,.52) !important;
+  box-shadow: 0 0 0 3px rgba(196,64,64,.10), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.st-applied .cl{
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+  color:#fff !important;
+}
+.ac.st-applied .ctx{
+  color: #8B2C2C !important;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.qstem{
+  position: relative;
+  border-radius: 16px;
+  padding: 6px 8px;
+  margin: -6px -8px 22px -8px;
+  transition: var(--tr);
+}
+.qstem.tool-hover{
+  box-shadow: inset 0 0 0 2px rgba(26,122,109,.16);
+  background: rgba(26,122,109,.04);
+}
+.qstem.hl-applied{
+  background: linear-gradient(180deg, #FFF4A8, #FFF7C9) !important;
+  box-shadow: inset 0 0 0 2px rgba(212,168,67,.34);
+}
+.qstem.st-applied{
+  background: linear-gradient(180deg, #FFF3F3, #FFF8F8) !important;
+  box-shadow: inset 0 0 0 2px rgba(196,64,64,.22);
+}
+.qstem.st-applied .stem-text,
+.qstem .stem-st{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+  color: #8B2C2C !important;
+}
+.qstem .stem-hl{
+  background: #FFF1A6;
+  border-radius: 6px;
+  padding: 0 .12em;
+  box-shadow: 0 0 0 1px rgba(212,168,67,.18);
+}
+.qstem .stem-st{
+  background: #FFF3F3;
+  border-radius: 6px;
+  padding: 0 .12em;
+}
+
+
+.exam-submit-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:none;
+}
+.exam-submit-row.exam-live{
+  box-shadow:0 0 0 3px rgba(224,122,95,.10), 0 14px 34px rgba(18,32,60,.08);
+}
+.exam-submit-row.exam-done .exam-submit-btn{
+  background:linear-gradient(135deg,var(--green),#3aa56f);
+  box-shadow:0 10px 24px rgba(45,134,89,.24);
+}
+
+
+</style>
+</head>
+<body>
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>FA &amp; TAG Synthesis — Question Bank A</h1>
+    <p>PLO: FA &amp; TAG synthesis (substrates, products, regulation) • LO1: Insulin resistance in liver, muscle, adipose • LO2: Fructose and metabolic disease</p>
+    <div class="launch-meta">
+      <span class="chip">UNE COM · Block 5 · Week 40 · Dr. Spicer — Bank A</span>
+      <span class="chip">20 questions</span>
+      <span class="chip">Learn / Exam toggle</span>
+      <span class="chip">Highlight + strikeout</span>
+      <span class="chip">Template layout</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz</button>
+  </div>
+</div>
+
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>FA &amp; TAG Synthesis — Question Bank A</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" onclick="window.print()">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCurrent">1</div><div class="sl">Current</div></div>
+        <div class="score-box correct"><div class="sv" id="svCorrect">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="svIncorrect">0</div><div class="sl">Incorrect</div></div>
+      </div>
+
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Timer</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <button class="tbtn" id="timerStart">▶</button>
+          <button class="tbtn" id="timerPause">⏸</button>
+          <button class="tbtn" id="timerReset">↺</button>
+        </div>
+
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">05:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">5</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+            <button class="cd-go" id="cdGo">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <button class="q-tool" id="toolHighlight">Highlight tool</button>
+        <button class="q-tool" id="toolStrike">Strikeout tool</button>
+        <button class="q-tool" id="toolReveal">Reveal explanation</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+
+      <div class="exam-submit-row">
+        <div class="exam-progress" id="examProgress">Learn mode</div>
+        <button class="exam-submit-btn" id="submitExam">Submit Exam</button>
+      </div>
+    </div>
+
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qpg"><div class="qpf" id="qProgressFill" style="width:0%"></div></div>
+          <div class="qbd">
+            <div class="qnum" id="qNumLabel">Question 1 of 20</div>
+            <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+
+            <div class="ach" id="choicesWrap">
+              <div class="ac" data-choice="0"><div class="cl">A</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="1"><div class="cl">B</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="2"><div class="cl">C</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="3"><div class="cl">D</div><div class="ctx"></div></div>
+              <div class="ac" data-choice="4"><div class="cl">E</div><div class="ctx"></div></div>
+            </div>
+
+            <div class="submit-row" id="learnSubmitRow">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+
+            <div class="exb" id="exBlock">
+              <div class="exs exc"><div class="exl">Correct Answer</div><div class="ext" id="exCorrect"></div></div>
+              <div class="exs exe"><div class="exl">Teaching Point</div><div class="ext" id="exTeaching"></div></div>
+              <div class="exs exw">
+                <div class="exl">Why the Others Are Wrong</div>
+                <div class="ext" id="exWrong"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Previous</button>
+            <div class="qdots" id="qDots"></div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ_TITLE = "FA & TAG Synthesis — Question Bank A";
+const QUIZ_TAG = "UNE COM · Block 5 · Week 40 · Dr. Spicer — Bank A";
+const QUIZ_PLO = "PLO: FA & TAG synthesis (substrates, products, regulation) • LO1: Insulin resistance in liver, muscle, adipose • LO2: Fructose and metabolic disease";
+const RAW_QUESTIONS = [{"q": "Acetyl CoA Carboxylase (ACC) is the committed, rate-limiting step of fatty acid synthesis. Which of the following correctly states the substrates, product, cofactor, and location of this reaction?", "opts": [{"text": "Acetyl CoA + HCO₃⁻ + ATP → Malonyl CoA + ADP + Pᵢ; biotin cofactor; cytosol", "correct": true}, {"text": "Acetyl CoA + NADPH + CO₂ → Malonyl CoA + NADP⁺ + H₂O; FAD cofactor; cytosol", "correct": false, "why": "ACC does not consume NADPH and does not use FAD. The carboxylation of acetyl CoA is driven by ATP hydrolysis, with biotin as the CO₂ carrier. NADPH and FAD are used within the FA synthase elongation cycle, not at ACC."}, {"text": "Malonyl CoA + ATP + HCO₃⁻ → Acetyl CoA + ADP + Pᵢ + CO₂; biotin cofactor; cytosol", "correct": false, "why": "This reverses the direction of the reaction. ACC carboxylates acetyl CoA to produce malonyl CoA — it is not the reverse. The substrates and product are inverted here."}, {"text": "Citrate + CoA + ATP → Malonyl CoA + OAA + ADP + Pᵢ; lipoic acid cofactor; cytosol", "correct": false, "why": "Citrate + CoA + ATP → Acetyl CoA + OAA is the ATP citrate lyase reaction, not ACC. Lipoic acid is a cofactor for pyruvate dehydrogenase and α-ketoglutarate dehydrogenase, not ACC. Malonyl CoA is not the product of citrate lyase."}, {"text": "Acetyl CoA + HCO₃⁻ + ATP → Malonyl CoA + ADP + Pᵢ; biotin cofactor; mitochondrial matrix", "correct": false, "why": "The reaction formula and cofactor are correct, but ACC is a cytosolic enzyme. FA synthesis is entirely cytosolic. Mitochondrial acetyl CoA must first be exported as citrate before being used for synthesis."}]}, {"q": "During the fed state, insulin promotes export of acetyl CoA from the mitochondria to the cytosol for fatty acid synthesis. Which enzyme cleaves the citrate shuttle intermediate in the cytosol, and what does it produce?", "opts": [{"text": "ATP citrate lyase; produces acetyl CoA + OAA, requiring ATP hydrolysis", "correct": true}, {"text": "Citrate synthase; produces acetyl CoA + OAA, requiring GTP hydrolysis", "correct": false, "why": "Citrate synthase runs in the opposite direction — it condenses acetyl CoA + OAA to form citrate in the mitochondrial matrix. It is the first step that packages acetyl CoA into citrate, not the step that releases it in the cytosol. GTP is not consumed here."}, {"text": "Isocitrate dehydrogenase; produces succinyl CoA + NADH, requiring NAD⁺ as cofactor", "correct": false, "why": "Isocitrate dehydrogenase is a TCA cycle enzyme that oxidizes isocitrate to α-ketoglutarate, producing NADH and CO₂. It has no role in the citrate shuttle or cytosolic acetyl CoA liberation for FA synthesis."}, {"text": "Malic enzyme; produces acetyl CoA + CO₂ + NADPH, requiring NADP⁺ as cofactor", "correct": false, "why": "Malic enzyme converts malate → pyruvate + CO₂ + NADPH. It is part of the OAA recycling arm of the citrate shuttle — it regenerates NADPH and pyruvate — but it does not produce acetyl CoA. Acetyl CoA is released by ATP citrate lyase."}, {"text": "Acetyl CoA carboxylase; produces malonyl CoA + ADP + Pᵢ, requiring biotin cofactor", "correct": false, "why": "ACC acts on acetyl CoA after it has already been liberated in the cytosol. ACC converts acetyl CoA to malonyl CoA — the next step in the pathway. It does not cleave citrate; that is ATP citrate lyase."}]}, {"q": "Which of the following correctly identifies ALL four steps of the FA synthase elongation cycle in the correct order, starting from the β-ketoacyl-ACP intermediate?", "opts": [{"text": "Condensation → β-ketoreduction (NADPH) → dehydration → enoyl reduction (NADPH)", "correct": false, "why": "The order is correct but this misidentifies where in the cycle we start. The question specifies starting FROM the β-ketoacyl-ACP intermediate, meaning condensation has already occurred. The four steps starting from that intermediate are: β-ketoreduction → dehydration → enoyl reduction → (then next condensation). However, if listing the full cycle from scratch: condensation IS first. This choice mislabels step 1 as condensation when starting from β-ketoacyl-ACP."}, {"text": "β-ketoreduction (NADPH) → dehydration → enoyl reduction (NADPH) → condensation with next malonyl-ACP", "correct": true}, {"text": "Dehydrogenation (FAD) → hydration → dehydrogenation (NAD⁺) → thiolysis", "correct": false, "why": "This is the β-oxidation sequence, not FA synthesis. β-oxidation proceeds: dehydrogenation (FAD) → hydration → dehydrogenation (NAD⁺) → thiolysis. The coenzymes (FAD, NAD⁺) and the final thiolysis step are hallmarks of degradation, not synthesis."}, {"text": "β-ketoreduction (NADPH) → condensation → dehydration → enoyl reduction (NADPH)", "correct": false, "why": "The condensation step cannot come after β-ketoreduction. Condensation generates the β-ketoacyl intermediate, which is the starting point specified. The correct order from that intermediate is: reduction of the ketone, dehydration, then reduction of the double bond, followed by the next cycle's condensation."}, {"text": "Enoyl reduction (NADPH) → dehydration → β-ketoreduction (NADPH) → condensation with next malonyl-ACP", "correct": false, "why": "The order of the reductive steps is inverted. After the β-ketone is formed by condensation, it is first reduced to a β-hydroxy group (β-ketoreduction), then dehydrated to a trans-enoyl intermediate, and finally the double bond is reduced (enoyl reduction). Enoyl reduction cannot precede dehydration."}]}, {"q": "The net equation for synthesis of one molecule of palmitate from acetyl CoA is often written as: 8 Acetyl CoA + 7 ATP + 14 NADPH → Palmitate + 8 CoA + 7 ADP + 7 Pᵢ + 14 NADP⁺ + 6 H₂O. Which of the following best explains why 8 acetyl CoA are required but only 7 malonyl CoA are used in elongation?", "opts": [{"text": "One acetyl CoA loads directly onto the KS domain of FAS as the initial primer; the remaining 7 acetyl CoA are each carboxylated to malonyl CoA by ACC and serve as the carbon donors for each of 7 elongation cycles", "correct": true}, {"text": "One acetyl CoA is used to generate NADPH via the pentose phosphate pathway; the remaining 7 are all converted to malonyl CoA for seven condensation cycles", "correct": false, "why": "Acetyl CoA is not a substrate for the pentose phosphate pathway. The PPP begins with glucose-6-phosphate. The first acetyl CoA serves as the starter unit loaded onto the KS domain, not as a NADPH source."}, {"text": "Two acetyl CoA molecules are consumed to prime the ACP and KS domains simultaneously; the remaining 6 are carboxylated to malonyl CoA for six condensation cycles, producing a C16 product", "correct": false, "why": "Only one acetyl CoA serves as the primer (loaded onto KS). The remaining 7 each become malonyl CoA, and 7 condensation cycles add 7 × 2 carbons = 14 carbons to the 2-carbon primer, giving the 16-carbon palmitate."}, {"text": "One acetyl CoA is destroyed during the thioesterase release step; the remaining 7 are carboxylated to malonyl CoA and each donate one carbon per cycle to the growing chain", "correct": false, "why": "Acetyl CoA is not destroyed during thioesterase-mediated release. The thioesterase hydrolyzes the bond between the 16-carbon chain and ACP, releasing free palmitate and regenerating free ACP. Each malonyl CoA donates 2 carbons (not 1) per cycle after losing CO₂."}, {"text": "One acetyl CoA is used by ACC to carboxylate HCO₃⁻ as the initial biotin-loading step; the remaining 7 are condensed directly as acetyl-ACP units without going through malonyl CoA", "correct": false, "why": "Biotin is carboxylated by CO₂ (from HCO₃⁻) and then transfers it to acetyl CoA. The 7 carbons added in each cycle come from malonyl CoA, not free acetyl-ACP. Condensation always uses malonyl-ACP as the extender unit, not acetyl-ACP (after the first primer loading)."}]}, {"q": "Fatty acid synthesis requires large amounts of NADPH. Which two cytosolic enzymes are the primary sources of NADPH in hepatocytes during the fed state?", "opts": [{"text": "Glucose-6-phosphate dehydrogenase (pentose phosphate pathway) and malic enzyme", "correct": true}, {"text": "Isocitrate dehydrogenase and glutamate dehydrogenase", "correct": false, "why": "Isocitrate dehydrogenase exists in both mitochondrial (NAD⁺-linked) and cytosolic (NADP⁺-linked) forms, and the cytosolic form can generate NADPH. However, it is not a primary source for FA synthesis in the fed state. Glutamate dehydrogenase is mitochondrial and produces NADH/NADPH there, not in the cytosol for lipogenesis."}, {"text": "Pyruvate dehydrogenase and ATP citrate lyase", "correct": false, "why": "Pyruvate dehydrogenase produces NADH (not NADPH) in the mitochondrial matrix, not cytosolic NADPH. ATP citrate lyase regenerates acetyl CoA and OAA from citrate but does not produce NADPH — it consumes ATP."}, {"text": "6-phosphogluconate dehydrogenase and malate dehydrogenase", "correct": false, "why": "6-phosphogluconate dehydrogenase is the second NADPH-generating step of the pentose phosphate pathway, so it does contribute some NADPH. However, standard cytosolic malate dehydrogenase produces NADH, not NADPH. The paired cytosolic NADPH sources for FA synthesis are G6PDH (PPP) and malic enzyme."}, {"text": "Thioredoxin reductase and NADPH oxidase", "correct": false, "why": "Thioredoxin reductase uses NADPH to reduce thioredoxin (antioxidant defense). NADPH oxidase consumes NADPH to produce superoxide (immune function in phagocytes). Both consume NADPH rather than generate it for FA synthesis."}]}, {"q": "Citrate allosterically activates ACC while palmitoyl CoA allosterically inhibits it. Which of the following correctly describes the MECHANISM of these two allosteric effects?", "opts": [{"text": "Citrate promotes polymerization of inactive ACC protomers into active filamentous polymers; palmitoyl CoA reverses this polymerization, converting active polymers back to inactive protomers", "correct": true}, {"text": "Citrate binds the biotin carboxyl carrier domain, increasing CO₂ transfer efficiency; palmitoyl CoA blocks acetyl CoA from binding the carboxyl transferase active site", "correct": false, "why": "Citrate does not act at the biotin domain. Its allosteric effect is structural — promoting the inactive monomer-to-active polymer transition. Palmitoyl CoA also acts structurally (depolymerization), not by blocking a specific substrate binding site."}, {"text": "Citrate phosphorylates ACC at Ser79, activating the enzyme; palmitoyl CoA dephosphorylates ACC, converting it to the inactive form", "correct": false, "why": "Phosphorylation (by AMPK at Ser79/Ser1200) inactivates ACC, not activates it. Citrate is an allosteric activator acting through polymer formation — it does not phosphorylate ACC. Insulin-activated phosphatase (dephosphorylation) produces the active form."}, {"text": "Citrate acts as a substrate analog that occupies the malonyl CoA binding pocket and increases catalytic rate; palmitoyl CoA competes with HCO₃⁻ for the biotin carboxylase domain", "correct": false, "why": "Citrate is not a substrate analog and does not occupy the malonyl CoA binding pocket — malonyl CoA is the product of ACC, not a substrate. Citrate's allosteric mechanism is polymerization-based. Palmitoyl CoA does not compete with HCO₃⁻."}, {"text": "Citrate activates ACC by donating its thioester bond energy to drive biotin carboxylation; palmitoyl CoA sequesters ACC in the mitochondrial membrane, preventing cytosolic activity", "correct": false, "why": "Citrate is a carboxylate, not a thioester — it has no thioester bond energy to donate. ACC is an exclusively cytosolic enzyme; palmitoyl CoA does not sequester it to any membrane. The mechanism is conformational/polymerization-based."}]}, {"q": "In the context of glycerol-3-phosphate generation for TAG synthesis, adipose tissue cannot use free glycerol as a substrate. What is the physiological consequence of this limitation?", "opts": [{"text": "Adipose must have glucose available (for glycolysis → DHAP → glycerol-3-phosphate) to re-esterify fatty acids, meaning insulin-driven glucose uptake is required for fat storage in adipose", "correct": true}, {"text": "Adipose cannot synthesize TAG de novo and instead relies entirely on uptake of preformed TAG from circulating chylomicrons and VLDL via LPL hydrolysis and re-esterification", "correct": false, "why": "Adipose can synthesize TAG de novo using glycerol-3-phosphate derived from DHAP (glycolysis). It cannot use free glycerol because it lacks glycerol kinase. The distinction is the source of the glycerol-3-phosphate backbone, not a complete inability to synthesize TAG."}, {"text": "Adipose releases glycerol into the circulation after lipolysis, but immediately recaptures it via a glycerol transporter to regenerate glycerol-3-phosphate for re-esterification", "correct": false, "why": "Adipose does release glycerol after lipolysis, but it cannot recapture and phosphorylate it because it lacks glycerol kinase. The glycerol travels to the liver for gluconeogenesis. Re-esterification in adipose requires new glycerol-3-phosphate from glucose metabolism."}, {"text": "Adipose compensates by using phosphatidic acid as the backbone directly, bypassing the need for glycerol-3-phosphate entirely in TAG synthesis", "correct": false, "why": "Phosphatidic acid is an intermediate in TAG synthesis, not a backbone that bypasses glycerol-3-phosphate. Glycerol-3-phosphate must first be formed and then acylated to produce phosphatidic acid — there is no alternative backbone."}, {"text": "Adipose uses acetyl CoA directly as the glycerol backbone via the glyceroneogenesis pathway, which is unique to adipose and does not require glucose", "correct": false, "why": "Glyceroneogenesis does occur in adipose (conversion of pyruvate → OAA → PEP → ... → DHAP → glycerol-3-phosphate) and is important in fasting, but acetyl CoA is not the backbone precursor. The glucose dependence described in the correct answer specifically concerns the fed state, where glucose availability is the key constraint."}]}, {"q": "Insulin resistance produces a paradox in the liver where glucose metabolism is impaired yet lipid synthesis continues. Which of the following best identifies the two divergent insulin signaling arms responsible for this paradox?", "opts": [{"text": "The Akt → FOXO1 arm becomes insulin-resistant (FOXO1 remains nuclear, driving gluconeogenesis), while the Akt → SREBP-1c lipogenic arm remains insulin-sensitive (continued de novo lipogenesis)", "correct": true}, {"text": "The mTORC1 → S6K arm becomes insulin-resistant (reduced protein synthesis), while the PI3K → PLC arm remains insulin-sensitive (continued phospholipid turnover)", "correct": false, "why": "mTORC1/S6K and PI3K/PLC involvement is not the mechanism explaining selective hepatic insulin resistance in carbohydrate vs lipid metabolism. The key arms are the FOXO1 (anti-gluconeogenic) branch and the SREBP-1c (pro-lipogenic) branch of Akt signaling."}, {"text": "The IRS-1 → Akt arm becomes insulin-resistant (reduced GLUT4 translocation), while the MAPK → ERK arm remains insulin-sensitive (continued lipogenic gene induction)", "correct": false, "why": "GLUT4 translocation is the story for skeletal muscle, not liver (hepatocytes primarily use GLUT2). In the liver, the selective resistance involves the FOXO1-gluconeogenesis arm vs the SREBP-1c-lipogenesis arm. MAPK/ERK is not the lipogenic signaling branch."}, {"text": "The PI3K → PDK1 arm becomes insulin-resistant (reduced glycogen synthesis), while the JAK-STAT → SREBP-2 arm remains insulin-sensitive (continued cholesterol synthesis)", "correct": false, "why": "JAK-STAT is the signaling cascade for cytokines and growth hormone, not the primary insulin signaling cascade for lipogenesis. SREBP-2 primarily regulates cholesterol synthesis, not TAG/FA synthesis. The triglyceride/FA lipogenesis story centers on SREBP-1c via the Akt cascade."}, {"text": "The IRS-2 → FOXO1 arm becomes insulin-resistant (excessive glycogenolysis), while the IRS-1 → ChREBP arm remains insulin-sensitive (continued carbohydrate-induced lipogenesis)", "correct": false, "why": "The primary unregulated process in hepatic insulin resistance is gluconeogenesis (PEPCK, G6Pase via FOXO1), not glycogenolysis. ChREBP is activated by glucose metabolites and does contribute to lipogenesis, but the paradox of selective insulin resistance specifically centers on the FOXO1 vs SREBP-1c branches of Akt signaling."}]}, {"q": "A patient with visceral obesity and type 2 diabetes has markedly elevated fasting free fatty acids (FFAs). How do elevated FFAs mechanistically impair insulin signaling in skeletal muscle?", "opts": [{"text": "Excess FFAs are incompletely oxidized in muscle, generating diacylglycerol (DAG) and ceramide; DAG activates PKC-θ, which serine-phosphorylates IRS-1, blocking tyrosine phosphorylation and downstream insulin signaling", "correct": true}, {"text": "Excess FFAs directly bind and inhibit the insulin receptor tyrosine kinase domain, preventing receptor autophosphorylation and IRS-1 recruitment", "correct": false, "why": "FFAs do not bind directly to the insulin receptor tyrosine kinase domain. The mechanism of FFA-induced insulin resistance is indirect: intracellular metabolites (DAG, ceramide) generated from excess FA flux activate kinases (PKC-θ, PP2A) that interfere with IRS-1 signaling."}, {"text": "Elevated FFAs compete with glucose for GLUT4 binding sites on the plasma membrane, reducing glucose uptake without affecting the insulin signaling cascade", "correct": false, "why": "GLUT4 is a glucose transporter — it does not bind FFAs. FFAs enter muscle cells via fatty acid transport proteins (FATPs), not GLUT4. The insulin resistance caused by FFAs is intracellular (at the level of IRS-1/Akt), not at the transporter level."}, {"text": "Excess FFAs are converted to acylcarnitines that exit the mitochondria, enter the nucleus, and repress the insulin receptor gene transcription via PPARδ", "correct": false, "why": "While acylcarnitines do accumulate in metabolic syndrome, they do not enter the nucleus to repress the insulin receptor gene. This is not the established mechanism of FFA-induced insulin resistance. The primary mechanism involves DAG/ceramide → PKC/PP2A → IRS-1 serine phosphorylation."}, {"text": "Elevated FFAs activate AMPK in skeletal muscle, which phosphorylates and inactivates IRS-1, thereby decoupling insulin receptor activation from downstream Akt signaling", "correct": false, "why": "AMPK activation actually tends to improve insulin sensitivity in some contexts (metformin works partly through AMPK). The FFA-induced insulin resistance mechanism goes through PKC-θ (activated by DAG) and PP2A (activated by ceramide), both leading to serine phosphorylation of IRS-1, not through AMPK."}]}, {"q": "Adipose tissue in an insulin-resistant patient releases excessive free fatty acids due to failure of insulin's antilipolytic effect. Which enzyme is directly disinhibited in this process, and what normal signaling cascade does insulin use to suppress it?", "opts": [{"text": "Hormone-sensitive lipase (HSL); insulin activates phosphodiesterase → ↓cAMP → ↓PKA → HSL remains unphosphorylated (inactive)", "correct": true}, {"text": "Lipoprotein lipase (LPL); insulin activates a serine phosphatase → dephosphorylates LPL → converts it to the inactive form on adipocyte surfaces", "correct": false, "why": "Insulin actually increases LPL activity in adipose tissue (to capture FAs from VLDL for storage) — it does not inhibit LPL. The enzyme whose activity is suppressed by insulin in adipose is hormone-sensitive lipase (HSL), the intracellular triglyceride lipase."}, {"text": "Adipose triglyceride lipase (ATGL); insulin blocks perilipin phosphorylation, preventing CGI-58 co-activator from activating ATGL", "correct": false, "why": "This is partially physiologically relevant — perilipin does regulate ATGL access via CGI-58, and PKA phosphorylates perilipin. However, the primary and most high-yield exam answer for insulin's antilipolytic target is HSL, not ATGL, and the mechanism runs through the phosphodiesterase/cAMP/PKA cascade."}, {"text": "Diacylglycerol lipase (DAGL); insulin activates PI3K → Akt → DAGL phosphorylation → enzyme inactivation", "correct": false, "why": "DAGL (diacylglycerol lipase) produces endocannabinoids (2-arachidonoylglycerol) and is not the primary lipase suppressed by insulin to prevent FFA release in adipose. The antilipolytic hormone story is about HSL."}, {"text": "Monoacylglycerol lipase (MGL); insulin increases GLUT4 surface expression → glucose influx → malonyl CoA production → MGL inhibition", "correct": false, "why": "Monoacylglycerol lipase cleaves the final fatty acid from monoacylglycerol — it is the last step of lipolysis. Its inhibition would only partially reduce FFA release. Malonyl CoA is an FA synthesis regulator (inhibits CPT-I), not a monoacylglycerol lipase inhibitor."}]}, {"q": "Fructose metabolism bypasses the primary regulatory checkpoints of glycolysis. Which enzyme phosphorylates fructose in the liver, and what is the critical regulatory difference between this enzyme and hexokinase/glucokinase?", "opts": [{"text": "Fructokinase (ketohexokinase); unlike glucokinase, fructokinase has no sigmoidal kinetics, no glucose-6-phosphate inhibition, and no allosteric feedback inhibition by its product, allowing unregulated phosphorylation", "correct": true}, {"text": "Phosphofructokinase-1; fructokinase is absent in the liver, so PFK-1 phosphorylates fructose at C-1 using the same regulatory mechanisms as for fructose-6-phosphate", "correct": false, "why": "PFK-1 phosphorylates fructose-6-phosphate (at C-1 relative to F6P structure) to make fructose-1,6-bisphosphate — it does not act on free fructose. The liver does express fructokinase (ketohexokinase), which is specifically responsible for hepatic fructose phosphorylation."}, {"text": "Hexokinase IV (glucokinase); like glucokinase, fructokinase is inducible by insulin and displays sigmoidal kinetics that provide saturable feedback regulation", "correct": false, "why": "Fructokinase is a different enzyme from glucokinase. The critical point is that fructokinase lacks the feedback inhibition that glucokinase and other hexokinases have. Glucokinase is induced by insulin and shows sigmoidal kinetics; fructokinase does not share these regulatory properties."}, {"text": "Aldolase B; this bifunctional enzyme phosphorylates fructose AND cleaves fructose-1-phosphate, coupling phosphorylation to glycolytic entry and providing tight product feedback control", "correct": false, "why": "Aldolase B cleaves fructose-1-phosphate into DHAP and glyceraldehyde — it is not a kinase and does not phosphorylate fructose. Fructokinase is the kinase. Aldolase B acts downstream of fructokinase, and the combination produces rapid unregulated entry into the glycolytic triose phosphate pool."}, {"text": "Fructokinase (ketohexokinase); like glucokinase, fructokinase is subject to product inhibition by fructose-1-phosphate and is allosterically inhibited by ATP at high concentrations", "correct": false, "why": "The absence of product inhibition in fructokinase is the defining feature that makes fructose dangerous at high doses. Fructokinase does NOT have product inhibition by fructose-1-phosphate, unlike hexokinase (which is inhibited by glucose-6-phosphate). This unregulated nature is the core mechanism."}]}, {"q": "Chronic high fructose consumption produces hyperuricemia. Starting from fructose entering the hepatocyte, which sequence of events leads to uric acid accumulation?", "opts": [{"text": "Unregulated fructokinase rapidly depletes ATP → AMP accumulates → AMP → IMP → hypoxanthine → xanthine → uric acid via xanthine oxidase", "correct": true}, {"text": "Fructose inhibits xanthine dehydrogenase → increased conversion of hypoxanthine to xanthine → excess xanthine undergoes non-enzymatic oxidation to uric acid", "correct": false, "why": "Fructose does not inhibit xanthine dehydrogenase. The mechanism is upstream: unregulated fructokinase depletes ATP, causing AMP accumulation, which is then catabolized through the purine degradation pathway to uric acid. The pathway flows from AMP → IMP → hypoxanthine → xanthine → uric acid."}, {"text": "Excess fructose-1-phosphate inhibits aldolase B → triose phosphate accumulates → triose phosphates are converted to purines via the pentose phosphate pathway → purine catabolism yields uric acid", "correct": false, "why": "Fructose-1-phosphate accumulation (e.g., in hereditary fructose intolerance) does inhibit aldolase B and causes hypoglycemia, but the uric acid pathway is from ATP depletion → AMP catabolism, not from triose phosphate overload or pentose phosphate flux."}, {"text": "High fructose induces de novo purine synthesis by providing PRPP precursors → excess purines overwhelm salvage pathways → uric acid is the terminal degradation product", "correct": false, "why": "While PRPP (5-phosphoribosyl-1-pyrophosphate) can be formed from ribose-5-phosphate, the primary mechanism linking fructose to uric acid is the rapid ATP depletion by unregulated fructokinase, leading to AMP accumulation and catabolism — not increased de novo purine synthesis."}, {"text": "Fructose metabolism produces excess NADH that inhibits the purine nucleoside cycle, diverting AMP to the xanthine oxidase pathway and producing uric acid as a byproduct", "correct": false, "why": "Excess NADH production from fructose metabolism is real (fructose → triose phosphates → pyruvate produces NADH). However, this NADH does not drive uric acid production via xanthine oxidase. The hyperuricemia mechanism is ATP depletion → AMP catabolism through the purine degradation pathway."}]}, {"q": "Insulin resistance in hepatocytes results in unrestrained gluconeogenesis despite hyperinsulinemia. Which transcription factor remains active (nuclear) in the insulin-resistant liver, and which genes does it drive?", "opts": [{"text": "FOXO1 remains nuclear; drives expression of PEPCK (phosphoenolpyruvate carboxykinase) and G6Pase (glucose-6-phosphatase), the rate-limiting enzymes of gluconeogenesis", "correct": true}, {"text": "SREBP-1c remains nuclear; drives expression of PEPCK and G6Pase when insulin fails to activate the mTOR pathway that normally excludes SREBP-1c from the nucleus", "correct": false, "why": "SREBP-1c is the lipogenic transcription factor, not the gluconeogenic one. It drives ACC, FAS, and other lipid synthesis enzymes — not PEPCK and G6Pase. In insulin-resistant liver, SREBP-1c remains inappropriately active (driving lipogenesis), while FOXO1 also remains inappropriately active (driving gluconeogenesis)."}, {"text": "ChREBP remains nuclear; drives transcription of PEPCK and pyruvate carboxylase in response to elevated intrahepatic glucose-6-phosphate", "correct": false, "why": "ChREBP is activated by glucose metabolites and drives lipogenic genes (ACC, FAS, L-PK) — not gluconeogenic genes. PEPCK is a gluconeogenic target of FOXO1. ChREBP activity would actually promote lipogenesis, contributing to the steatosis side of the insulin resistance phenotype."}, {"text": "PPARα remains nuclear due to elevated FFA availability; drives PEPCK and G6Pase as part of the fasting gluconeogenic program alongside ketogenic genes", "correct": false, "why": "PPARα is activated by fatty acids during fasting and drives β-oxidation and ketogenesis genes, not gluconeogenesis. While PPARα and FOXO1 both contribute to fasting physiology, the specific transcription factor that drives PEPCK and G6Pase and fails to be excluded from the nucleus in insulin resistance is FOXO1."}, {"text": "HNF-4α remains nuclear; drives gluconeogenesis through transcriptional induction of all TCA cycle enzymes to provide OAA and succinyl CoA as gluconeogenic substrates", "correct": false, "why": "HNF-4α is a liver-enriched nuclear receptor important for hepatocyte differentiation and many metabolic functions, but it is not specifically the insulin-regulated transcription factor whose nuclear exclusion controls gluconeogenesis. That role belongs to FOXO1, whose phosphorylation by Akt causes cytoplasmic translocation."}]}, {"q": "Skeletal muscle accounts for approximately 80% of postprandial glucose disposal. In insulin-resistant skeletal muscle, what is the primary defect in glucose uptake, and which signaling step is impaired?", "opts": [{"text": "Impaired GLUT4 translocation to the plasma membrane due to reduced Akt-mediated phosphorylation of AS160 (TBC1D4), preventing RAB-GTPase activation needed to mobilize GLUT4 vesicles", "correct": true}, {"text": "Reduced GLUT1 expression in the skeletal muscle plasma membrane due to impaired insulin receptor tyrosine kinase autophosphorylation at basal glucose concentrations", "correct": false, "why": "GLUT1 is the basal, constitutively expressed glucose transporter. Insulin-dependent glucose disposal in muscle occurs via GLUT4 translocation, not changes in GLUT1 expression. The major defect in insulin-resistant muscle is impaired GLUT4 vesicle trafficking."}, {"text": "Complete absence of insulin receptor expression on the skeletal muscle cell surface due to receptor downregulation from chronic hyperinsulinemia", "correct": false, "why": "While chronic hyperinsulinemia can cause modest insulin receptor downregulation, the insulin receptor does not disappear entirely. The primary functional defect in T2DM muscle insulin resistance is downstream of the receptor, at the level of IRS-1 serine phosphorylation and impaired Akt activation."}, {"text": "Impaired GLUT2 recycling from intracellular stores due to excess diacylglycerol competing with GLUT2-containing vesicles for the same exocytic machinery", "correct": false, "why": "GLUT2 is the high-Km, high-capacity transporter expressed in hepatocytes and pancreatic beta cells — not the insulin-responsive transporter in skeletal muscle. GLUT4 is the insulin-regulated transporter in muscle and adipose tissue."}, {"text": "Excess ceramide activates protein phosphatase 2B (calcineurin), which dephosphorylates GLUT4 and prevents it from being recognized by the vesicle trafficking machinery", "correct": false, "why": "Ceramide impairs insulin signaling by activating PP2A (protein phosphatase 2A), which dephosphorylates Akt, blocking downstream signaling. Calcineurin (PP2B) is a calcium-dependent phosphatase involved in NFAT signaling — it does not directly regulate GLUT4. GLUT4 is not regulated by phosphorylation status of the transporter itself."}]}, {"q": "De novo lipogenesis (DNL) from fructose in the liver generates excess triacylglycerol. What is the direct downstream consequence of this hepatic TAG accumulation, and through what mechanism does it impair insulin signaling?", "opts": [{"text": "Hepatic TAG → DAG accumulates → PKCε activation → serine phosphorylation of the insulin receptor substrate → impaired Akt activation → hepatic insulin resistance", "correct": true}, {"text": "Hepatic TAG accumulation inhibits mitochondrial Complex I, reducing ATP production → AMP accumulates → AMPK activation → transcriptional suppression of all insulin signaling components", "correct": false, "why": "TAG accumulation in lipid droplets does not directly inhibit mitochondrial complex I. The lipotoxicity mechanism works through specific lipid intermediates (DAG, ceramide) activating specific kinases/phosphatases that interfere with IRS signaling, not through global mitochondrial dysfunction."}, {"text": "Excess TAG is secreted as VLDL, which directly binds and activates TLR4 on hepatocytes, triggering an inflammatory cascade that serine-phosphorylates IRS-1 via JNK", "correct": false, "why": "VLDL does not activate TLR4. Saturated fatty acids and bacterial LPS are TLR4 ligands. While JNK can serine-phosphorylate IRS-1 (an inflammatory mechanism), the initiating lipotoxic signal from intrahepatic TAG accumulation is the DAG/PKC pathway, not VLDL/TLR4."}, {"text": "Excess hepatic TAG activates liver X receptor (LXR), which transcriptionally upregulates SOCS3, and SOCS3 blocks insulin receptor substrate phosphorylation", "correct": false, "why": "LXR is activated by oxysterols (cholesterol derivatives) and promotes lipogenesis via SREBP-1c and other targets. SOCS3 (suppressor of cytokine signaling 3) does impair insulin signaling in some contexts, but the primary lipotoxicity mechanism linking TAG → insulin resistance is the DAG → PKCε → IRS-1 serine phosphorylation cascade."}, {"text": "Excess hepatic TAG reduces endoplasmic reticulum membrane fluidity, triggering unfolded protein response (UPR), which activates IRE1α to degrade insulin receptor mRNA", "correct": false, "why": "ER stress/UPR does contribute to insulin resistance in NAFLD, particularly in advanced stages. However, IRE1α splices XBP1 mRNA and degrades certain mRNAs via RIDD — it does not specifically target insulin receptor mRNA. The primary and direct lipotoxicity mechanism is DAG → PKC → IRS serine phosphorylation."}]}, {"q": "Fructose consumption does not suppress appetite as effectively as isocaloric glucose consumption. Which of the following correctly identifies two hormones that are differentially affected by fructose versus glucose?", "opts": [{"text": "Fructose does not stimulate insulin secretion (no KATP channel-mediated beta-cell response) and does not suppress ghrelin, resulting in absent satiety signaling compared to glucose", "correct": true}, {"text": "Fructose stimulates glucagon secretion from alpha cells while suppressing GLP-1 from L cells, creating a pro-hyperglycemic hormonal environment that also reduces satiety", "correct": false, "why": "Fructose does not substantially stimulate glucagon secretion (glucagon responds to hypoglycemia and amino acids). The key endocrine differences with fructose are the lack of insulin response and failure to suppress ghrelin, not stimulation of glucagon or suppression of GLP-1."}, {"text": "Fructose stimulates leptin release from adipocytes more than glucose does, paradoxically increasing appetite by downregulating leptin receptors in the hypothalamus", "correct": false, "why": "Fructose actually stimulates leptin release less than glucose, not more. The absence of insulin stimulation by fructose means less glucose-induced leptin production, contributing to impaired satiety. Leptin receptor downregulation from chronic hyperleptinemia is a separate phenomenon in obesity."}, {"text": "Fructose suppresses both insulin and GLP-1 secretion while stimulating peptide YY release, which increases gastric motility and accelerates intestinal fructose absorption", "correct": false, "why": "Fructose does suppress insulin secretion (correct for that part), but PYY typically signals satiety and slows gastric emptying — it does not increase gastric motility or accelerate absorption. The satiety deficit from fructose is primarily due to absent insulin and inadequate ghrelin suppression."}, {"text": "Fructose suppresses leptin while stimulating neuropeptide Y in the hypothalamus, creating a CNS drive for increased caloric intake independent of peripheral insulin signaling", "correct": false, "why": "While chronic high fructose consumption is associated with leptin resistance, fructose does not directly stimulate neuropeptide Y (NPY) in the hypothalamus. The impaired satiety from fructose is primarily peripheral — lack of insulin secretion (which crosses the blood-brain barrier to signal satiety) and failure to suppress ghrelin."}]}, {"q": "In comparing fatty acid synthesis and β-oxidation, a student states: 'They are simply the reverse of each other.' Which of the following most completely refutes this statement?", "opts": [{"text": "The pathways use different coenzymes (NADPH vs FAD/NAD⁺), different cellular compartments (cytosol vs mitochondria), different acyl carriers (ACP vs CoA), different transport mechanisms (citrate vs carnitine), and different regulatory enzymes, making them non-reversible mirror reactions", "correct": true}, {"text": "They differ only in their subcellular location — synthesis is cytosolic and degradation is mitochondrial — but the four chemical steps and coenzymes are otherwise equivalent and reversible", "correct": false, "why": "The subcellular location is one difference, but the chemical steps and coenzymes are not equivalent. Synthesis uses NADPH and ACP; degradation uses FAD and NAD⁺ with CoA. The four steps are mechanistically distinct (e.g., dehydration in synthesis vs hydration in oxidation), not simple reverse reactions."}, {"text": "The pathways differ only in the direction of electron flow — synthesis accepts electrons from NADPH, and degradation donates electrons to NAD⁺ — but the carbon chemistry and intermediates are identical", "correct": false, "why": "The carbon intermediates are not identical across the two pathways. FA synthesis uses ACP-bound intermediates in the cytosol; β-oxidation uses CoA-linked intermediates in the mitochondria. The intermediates are structurally analogous but not the same molecules, and the four enzymatic steps are distinct, not simple reversals."}, {"text": "They differ only in their hormonal regulation — synthesis is induced by insulin and degradation is induced by glucagon — but the enzymes and metabolic steps are otherwise chemically reversible", "correct": false, "why": "Hormonal regulation is one difference, but the enzymes are not chemically reversible. The FA synthase cycle uses different enzymes from the β-oxidation enzymes, different coenzymes, different compartments, and different carrier proteins. Irreversibility is built into both pathways."}, {"text": "The pathways differ only in the reducing equivalent used — synthesis consumes NADPH and degradation generates NADH — which shifts the thermodynamic equilibrium but does not change the fundamental chemical reactions", "correct": false, "why": "The coenzyme difference is real, but the statement that the 'fundamental chemical reactions' are the same is incorrect. Synthesis includes a dehydration step (removing water); β-oxidation includes a hydration step (adding water). These are chemically distinct, not thermodynamically equivalent directions of the same step."}]}, {"q": "A 42-year-old man with metabolic syndrome has a serum triglyceride of 520 mg/dL, fasting glucose of 132 mg/dL, blood pressure 148/92, and a serum uric acid of 9.2 mg/dL. Which dietary substrate most likely serves as the unifying upstream driver of all four abnormalities in this patient?", "opts": [{"text": "Excess dietary fructose: drives hepatic DNL (→↑TG), hepatic insulin resistance (→↑glucose via FOXO1-driven gluconeogenesis), uric acid overproduction (→ hyperuricemia via ATP depletion/AMP catabolism), and hypertension (uric acid inhibits eNOS → ↓NO → endothelial dysfunction → ↑BP)", "correct": true}, {"text": "Excess dietary saturated fat: drives hepatic steatosis (↑TG), systemic DAG-induced insulin resistance (↑glucose), promotes oxidative stress (↑uric acid via mitochondrial ROS), and activates RAAS (↑BP)", "correct": false, "why": "Saturated fat can contribute to each of these findings individually, but the unifying molecular pathway linking all four — particularly the direct uric acid production via ATP depletion and the specific gluconeogenic paradox via FOXO1 — is most precisely attributed to fructose metabolism. Saturated fat does not directly deplete ATP via an unregulated kinase."}, {"text": "Excess dietary glucose: overwhelms pancreatic beta cells (→ insulin resistance → ↑glucose), drives hepatic lipogenesis (→↑TG), generates uric acid via the PPP (→ hyperuricemia), and causes endothelial glycation (→↑BP)", "correct": false, "why": "Glucose does not generate uric acid via the pentose phosphate pathway — that pathway produces ribose-5-phosphate and NADPH, not purines destined for uric acid. The ATP depletion mechanism that produces uric acid is specific to fructokinase's unregulated activity on fructose. Glucose metabolism is regulated at PFK-1."}, {"text": "Excess dietary branched-chain amino acids: increase hepatic gluconeogenesis (↑glucose), provide excess acetyl CoA for lipogenesis (↑TG), generate ammonia that inhibits xanthine oxidase substrates (↑uric acid), and activate mTORC1 promoting vasoconstriction (↑BP)", "correct": false, "why": "Branched-chain amino acids are associated with insulin resistance in some studies, but they do not drive uric acid production through xanthine oxidase or hypertension through mTORC1 vasoconstriction via the proposed mechanisms. The clean unifying driver of all four metabolic syndrome features described is dietary fructose."}, {"text": "Excess dietary cholesterol: inhibits HMG-CoA reductase feedback (→ excess cholesterol converted to TG → ↑TG), triggers ER stress in beta cells (→↑glucose), activates NLRP3 inflammasome (→ uric acid secretion), and increases arterial stiffness (↑BP)", "correct": false, "why": "Dietary cholesterol does not inhibit HMG-CoA reductase — it actually suppresses SREBP-2 to reduce endogenous cholesterol synthesis. Excess cholesterol is not converted to TG. The NLRP3 inflammasome is activated by uric acid crystals (gout), not the reverse. This constellation does not match dietary cholesterol."}]}, {"q": "During fatty acid synthesis in hepatocytes, the enzyme malic enzyme performs which of the following functions?", "opts": [{"text": "Converts malate to pyruvate in the cytosol, generating NADPH; this simultaneously recycles the OAA produced by ATP citrate lyase and provides reducing equivalents for the FA synthase elongation steps", "correct": true}, {"text": "Converts pyruvate to malate in the cytosol using NADH, regenerating NAD⁺ for glycolysis while shuttling carbons into the mitochondria for oxidative phosphorylation", "correct": false, "why": "This describes the reverse reaction in the wrong direction. Cytosolic malic enzyme catalyzes malate → pyruvate + CO₂ + NADPH. It oxidatively decarboxylates malate — it does not reduce pyruvate to malate. The lactate dehydrogenase reaction in the cytosol regenerates NAD⁺ for glycolysis."}, {"text": "Interconverts malate and OAA in the mitochondria using NAD⁺, coupling TCA cycle intermediates to gluconeogenic flux during the fed state", "correct": false, "why": "This describes mitochondrial malate dehydrogenase (part of the TCA cycle), which converts malate ↔ OAA using NAD⁺/NADH. Malic enzyme is a different enzyme that oxidatively decarboxylates malate to pyruvate using NADP⁺ in the cytosol, serving as a NADPH source for FA synthesis."}, {"text": "Generates malonyl CoA from malate via an oxidative decarboxylation, coupling the TCA cycle directly to the FA synthesis committed step", "correct": false, "why": "Malic enzyme produces pyruvate (not malonyl CoA) from malate. Malonyl CoA is produced by ACC from acetyl CoA and HCO₃⁻. Malic enzyme contributes to FA synthesis by generating NADPH (the reducing equivalent for FAS) and recycling the OAA carbon skeleton, but it does not directly produce malonyl CoA."}, {"text": "Transfers the malate carbon skeleton directly to FA synthase as a four-carbon primer unit, serving as the initial substrate for the first condensation cycle with malonyl-ACP", "correct": false, "why": "FA synthase uses a 2-carbon acetyl group as the primer, not malate. Malic enzyme converts malate to pyruvate — the malate carbon skeleton is not transferred to FAS. Pyruvate then enters the mitochondria and is converted to acetyl CoA by pyruvate dehydrogenase to eventually replenish OAA."}]}, {"q": "A researcher studies TAG synthesis in the small intestine after a high-fat meal. Which of the following correctly describes how enterocytes re-synthesize TAG and the lipoprotein used for export?", "opts": [{"text": "Dietary TAG is hydrolyzed to 2-monoacylglycerol + 2 FAs by pancreatic lipase; enterocytes re-esterify these using the monoacylglycerol pathway (MGAT → DGAT); TAG is packaged into chylomicrons with apoB-48 for lymphatic export", "correct": true}, {"text": "Dietary TAG is fully hydrolyzed to glycerol + 3 FAs; enterocytes must synthesize glycerol-3-phosphate from glucose via glycolysis before re-esterification; TAG is secreted as VLDL with apoB-100 into the portal circulation", "correct": false, "why": "Pancreatic lipase produces 2-monoacylglycerol (not free glycerol), and enterocytes use the monoacylglycerol pathway for re-esterification — bypassing the glycerol-3-phosphate step entirely. The lipoprotein used for intestinal TAG export is the chylomicron (apoB-48), which enters the lymph, not VLDL (which enters blood from liver)."}, {"text": "Dietary TAG is fully hydrolyzed to glycerol + 3 FAs; all three FAs are first activated to acyl-CoA and loaded onto FA synthase for re-elongation before being esterified to glycerol-3-phosphate via the glycerol-3-phosphate pathway", "correct": false, "why": "Dietary FAs are not re-elongated by FA synthase — they are directly esterified after activation to acyl-CoA. FA synthase synthesizes FAs de novo from acetyl CoA. Dietary FA re-esterification bypasses FA synthesis entirely. Also, the monoacylglycerol pathway (not glycerol-3-phosphate pathway) is dominant in enterocytes."}, {"text": "Dietary TAG is hydrolyzed to free fatty acids and glycerol by gastric lipase; these enter portal blood directly and are taken up by the liver, which packages them into VLDL for redistribution to peripheral tissues", "correct": false, "why": "Gastric lipase has limited efficiency on dietary TAG. The primary digestion occurs in the small intestine by pancreatic lipase. Products enter the lymph via chylomicrons, not directly into portal blood as free components. Free FAs in portal blood do occur, but the primary export vehicle from enterocytes is the chylomicron."}, {"text": "Dietary TAG is hydrolyzed to 2-monoacylglycerol + 2 FAs; enterocytes phosphorylate the 2-monoacylglycerol to 2-lysophosphatidic acid; TAG is then synthesized via the phosphatidic acid pathway and secreted as VLDL with apoB-100", "correct": false, "why": "2-monoacylglycerol is directly acylated (not phosphorylated) in the monoacylglycerol pathway. The export vehicle from enterocytes is chylomicrons with apoB-48, not VLDL with apoB-100. The liver uses apoB-100 and secretes VLDL; enterocytes use apoB-48 (from the same gene, differently edited mRNA) and secrete chylomicrons."}]}];
+
+const LETTERS = ['A','B','C','D','E','F','G'];
+const qo = document.getElementById('qo');
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const submitOne = document.getElementById('submitOne');
+const submitExamBtn = document.getElementById('submitExam');
+const examSubmitRow = document.querySelector('.exam-submit-row');
+const examProgress = document.getElementById('examProgress');
+const modeLearn = document.getElementById('modeLearn');
+const modeExam = document.getElementById('modeExam');
+const toolHighlight = document.getElementById('toolHighlight');
+const toolStrike = document.getElementById('toolStrike');
+const toolReveal = document.getElementById('toolReveal');
+const toolStatus = document.getElementById('toolStatus');
+const qStem = document.getElementById('qStem');
+const choiceEls = Array.from(document.querySelectorAll('.ac'));
+const qNumLabel = document.getElementById('qNumLabel');
+const qProgressFill = document.getElementById('qProgressFill');
+const qDots = document.getElementById('qDots');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const learnSubmitRow = document.getElementById('learnSubmitRow');
+const exBlock = document.getElementById('exBlock');
+const exCorrect = document.getElementById('exCorrect');
+const exTeaching = document.getElementById('exTeaching');
+const exWrong = document.getElementById('exWrong');
+
+let quizMode = 'learn';
+let toolMode = null;
+let examSubmitted = false;
+let currentPos = 0;
+let order = RAW_QUESTIONS.map((_, i) => i);
+let qStates = [];
+
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function shuffleArray(arr) {
+  const copy = arr.slice();
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function getCorrectIndex(q) {
+  return q.opts.findIndex(opt => !!opt.correct);
+}
+
+function makeInitialState() {
+  return RAW_QUESTIONS.map(q => ({
+    selected: null,
+    submitted: false,
+    isCorrect: null,
+    revealForced: false,
+    choiceHigh: q.opts.map(() => false),
+    choiceStrike: q.opts.map(() => false),
+    stemHtml: `<span class="stem-text">${escapeHtml(q.q)}</span>`,
+    stemHL: false,
+    stemST: false
+  }));
+}
+
+function getQuestionByPos(pos) {
+  return RAW_QUESTIONS[order[pos]];
+}
+
+function getStateByPos(pos) {
+  return qStates[order[pos]];
+}
+
+function getCurrentQuestion() {
+  return getQuestionByPos(currentPos);
+}
+
+function getCurrentState() {
+  return getStateByPos(currentPos);
+}
+
+function saveStemState() {
+  const st = getCurrentState();
+  st.stemHtml = qStem.innerHTML;
+  st.stemHL = qStem.classList.contains('hl-applied');
+  st.stemST = qStem.classList.contains('st-applied');
+}
+
+function updateToolUI() {
+  toolHighlight.classList.toggle('active', toolMode === 'highlight');
+  toolHighlight.classList.toggle('hl-tool', toolMode === 'highlight');
+  toolStrike.classList.toggle('active', toolMode === 'strike');
+  toolStrike.classList.toggle('st-tool', toolMode === 'strike');
+
+  if (toolMode === 'highlight') {
+    toolStatus.textContent = 'Tool mode: highlight';
+    toolStatus.className = 'tool-status active-highlight';
+    qStem.classList.add('tool-hover');
+  } else if (toolMode === 'strike') {
+    toolStatus.textContent = 'Tool mode: strikeout';
+    toolStatus.className = 'tool-status active-strike';
+    qStem.classList.add('tool-hover');
+  } else {
+    toolStatus.textContent = 'Tool mode: none';
+    toolStatus.className = 'tool-status';
+    qStem.classList.remove('tool-hover');
+  }
+}
+
+function setToolMode(mode) {
+  toolMode = toolMode === mode ? null : mode;
+  updateToolUI();
+}
+
+function updateScoreboard() {
+  let correct = 0;
+  let incorrect = 0;
+
+  if (examSubmitted) {
+    qStates.forEach(st => {
+      if (st.isCorrect === true) correct += 1;
+      else if (st.isCorrect === false) incorrect += 1;
+    });
+  } else {
+    qStates.forEach(st => {
+      if (st.submitted && st.isCorrect === true) correct += 1;
+      else if (st.submitted && st.isCorrect === false) incorrect += 1;
+    });
+  }
+
+  document.getElementById('svCurrent').textContent = String(currentPos + 1);
+  document.getElementById('svCorrect').textContent = String(correct);
+  document.getElementById('svIncorrect').textContent = String(incorrect);
+}
+
+function updateExamProgress() {
+  const answered = qStates.filter(st => st.selected !== null).length;
+  if (quizMode === 'learn') {
+    const completed = qStates.filter(st => st.submitted).length;
+    examProgress.textContent = `Learn mode • ${completed} of ${RAW_QUESTIONS.length} submitted`;
+  } else if (examSubmitted) {
+    const graded = qStates.filter(st => st.isCorrect !== null).length;
+    examProgress.textContent = `Exam submitted • ${graded} graded • ${answered} answered`;
+  } else {
+    examProgress.textContent = `${answered} of ${RAW_QUESTIONS.length} answered`;
+  }
+}
+
+function updateExamButton() {
+  const answered = qStates.filter(st => st.selected !== null).length;
+  const inExam = quizMode === 'exam';
+  submitExamBtn.disabled = !inExam || examSubmitted || answered === 0;
+  examSubmitRow.classList.toggle('exam-live', inExam && !examSubmitted);
+  examSubmitRow.classList.toggle('exam-done', examSubmitted);
+  submitExamBtn.textContent = examSubmitted ? 'Exam Submitted' : 'Submit Exam';
+}
+
+function updateMode() {
+  modeLearn.classList.toggle('active', quizMode === 'learn');
+  modeExam.classList.toggle('active', quizMode === 'exam');
+  learnSubmitRow.style.display = quizMode === 'learn' ? '' : 'none';
+  updateExamProgress();
+  updateExamButton();
+  renderQuestion();
+}
+
+function buildTeachingPoint(q, correctIdx) {
+  const answerText = q.opts[correctIdx]?.text || '';
+  return `Key takeaway: ${answerText}`;
+}
+
+function renderExplanation(q, st) {
+  const correctIdx = getCorrectIndex(q);
+  exCorrect.innerHTML = `<strong>${LETTERS[correctIdx]}</strong> — ${escapeHtml(q.opts[correctIdx].text)}`;
+  exTeaching.textContent = buildTeachingPoint(q, correctIdx);
+
+  const wrongBits = [];
+  q.opts.forEach((opt, idx) => {
+    if (idx === correctIdx) return;
+    const why = opt.why || 'Incorrect based on the mechanism tested in this question.';
+    wrongBits.push(`<div class="wce"><strong>${LETTERS[idx]}</strong> — ${escapeHtml(why)}</div>`);
+  });
+  exWrong.innerHTML = wrongBits.join('');
+
+  const shouldShow = st.revealForced || st.submitted || examSubmitted;
+  exBlock.classList.toggle('vis', shouldShow);
+}
+
+function renderDots() {
+  qDots.innerHTML = '';
+  order.forEach((qIdx, pos) => {
+    const st = qStates[qIdx];
+    const btn = document.createElement('button');
+    btn.className = 'qd';
+    if (pos === currentPos) btn.classList.add('cur');
+
+    if (examSubmitted) {
+      if (st.isCorrect === true) btn.classList.add('acor');
+      else if (st.isCorrect === false) btn.classList.add('ainc');
+      else if (st.selected !== null) btn.classList.add('asel');
+    } else {
+      if (st.submitted && st.isCorrect === true) btn.classList.add('acor');
+      else if (st.submitted && st.isCorrect === false) btn.classList.add('ainc');
+      else if (st.selected !== null) btn.classList.add('asel');
+    }
+
+    btn.title = `Question ${pos + 1}`;
+    btn.addEventListener('click', () => {
+      saveStemState();
+      currentPos = pos;
+      renderQuestion();
+    });
+    qDots.appendChild(btn);
+  });
+}
+
+function renderChoices(q, st) {
+  const correctIdx = getCorrectIndex(q);
+  const showGrade = st.submitted || examSubmitted;
+
+  choiceEls.forEach((el, idx) => {
+    const opt = q.opts[idx];
+    if (!opt) {
+      el.style.display = 'none';
+      return;
+    }
+
+    el.style.display = '';
+    el.dataset.choice = String(idx);
+    el.className = 'ac';
+    if (st.choiceHigh[idx]) el.classList.add('hl-applied');
+    if (st.choiceStrike[idx]) el.classList.add('st-applied');
+    if (st.selected === idx) el.classList.add('sel');
+
+    if (showGrade) {
+      el.classList.add('dis');
+      if (idx === correctIdx) {
+        el.classList.add(st.selected === idx ? 'cor' : 'shc');
+      }
+      if (st.selected === idx && idx !== correctIdx) {
+        el.classList.add('inc');
+      }
+    }
+
+    el.querySelector('.ctx').textContent = opt.text;
+  });
+}
+
+function renderQuestion() {
+  const q = getCurrentQuestion();
+  const st = getCurrentState();
+
+  qNumLabel.textContent = `Question ${currentPos + 1} of ${RAW_QUESTIONS.length}`;
+  qProgressFill.style.width = `${((currentPos + 1) / RAW_QUESTIONS.length) * 100}%`;
+
+  qStem.className = 'qstem';
+  qStem.innerHTML = st.stemHtml;
+  if (st.stemHL) qStem.classList.add('hl-applied');
+  if (st.stemST) qStem.classList.add('st-applied');
+
+  renderChoices(q, st);
+  renderExplanation(q, st);
+  renderDots();
+
+  prevBtn.disabled = currentPos === 0;
+  nextBtn.disabled = currentPos === RAW_QUESTIONS.length - 1;
+  prevBtn.style.opacity = prevBtn.disabled ? '0.5' : '1';
+  nextBtn.style.opacity = nextBtn.disabled ? '0.5' : '1';
+
+  submitOne.disabled = quizMode !== 'learn' || st.selected === null || st.submitted || examSubmitted;
+
+  updateToolUI();
+  updateScoreboard();
+  updateExamProgress();
+  updateExamButton();
+}
+
+function gradeLearnCurrent() {
+  const q = getCurrentQuestion();
+  const st = getCurrentState();
+  if (st.selected === null || st.submitted) return;
+
+  const correctIdx = getCorrectIndex(q);
+  st.submitted = true;
+  st.isCorrect = st.selected === correctIdx;
+  renderQuestion();
+}
+
+function submitExam() {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  qStates.forEach((st, idx) => {
+    if (st.selected === null) {
+      st.isCorrect = null;
+      return;
+    }
+    const q = RAW_QUESTIONS[idx];
+    const correctIdx = getCorrectIndex(q);
+    st.isCorrect = st.selected === correctIdx;
+  });
+  examSubmitted = true;
+  renderQuestion();
+}
+
+function resetQuizState(doShuffle = true) {
+  qStates = makeInitialState();
+  order = RAW_QUESTIONS.map((_, i) => i);
+  if (doShuffle) order = shuffleArray(order);
+  currentPos = 0;
+  toolMode = null;
+  examSubmitted = false;
+  quizMode = 'learn';
+  updateMode();
+}
+
+function applyStemMarkup(type) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+  const range = sel.getRangeAt(0);
+  if (!qStem.contains(range.commonAncestorContainer)) return false;
+
+  const wrapper = document.createElement('span');
+  wrapper.className = type === 'highlight' ? 'stem-hl' : 'stem-st';
+
+  try {
+    range.surroundContents(wrapper);
+  } catch (e) {
+    const frag = range.extractContents();
+    wrapper.appendChild(frag);
+    range.insertNode(wrapper);
+  }
+
+  sel.removeAllRanges();
+  saveStemState();
+  return true;
+}
+
+function toggleWholeStem(type) {
+  const st = getCurrentState();
+  if (type === 'highlight') {
+    st.stemHL = !st.stemHL;
+    if (st.stemHL) st.stemST = false;
+  } else if (type === 'strike') {
+    st.stemST = !st.stemST;
+    if (st.stemST) st.stemHL = false;
+  }
+  renderQuestion();
+}
+
+openDemo.addEventListener('click', () => {
+  qo.classList.add('open');
+  renderQuestion();
+});
+
+closeQuiz.addEventListener('click', () => {
+  saveStemState();
+  qo.classList.add('closing');
+  setTimeout(() => {
+    qo.classList.remove('open','closing');
+  }, 320);
+});
+
+resetQuiz.addEventListener('click', () => resetQuizState(true));
+modeLearn.addEventListener('click', () => {
+  quizMode = 'learn';
+  updateMode();
+});
+modeExam.addEventListener('click', () => {
+  quizMode = 'exam';
+  updateMode();
+});
+toolHighlight.addEventListener('click', () => setToolMode('highlight'));
+toolStrike.addEventListener('click', () => setToolMode('strike'));
+toolReveal.addEventListener('click', () => {
+  const st = getCurrentState();
+  st.revealForced = !st.revealForced;
+  renderQuestion();
+});
+
+qStem.addEventListener('click', (e) => {
+  if (!toolMode) return;
+  const didApply = applyStemMarkup(toolMode);
+  if (!didApply) toggleWholeStem(toolMode);
+  e.preventDefault();
+});
+
+qStem.addEventListener('mouseup', () => {
+  if (toolMode) qStem.classList.add('tool-hover');
+});
+
+choiceEls.forEach((choice) => {
+  choice.addEventListener('click', (e) => {
+    e.preventDefault();
+    const idx = Number(choice.dataset.choice);
+    const st = getCurrentState();
+
+    if (toolMode === 'highlight') {
+      st.choiceHigh[idx] = !st.choiceHigh[idx];
+      if (st.choiceHigh[idx]) st.choiceStrike[idx] = false;
+      renderQuestion();
+      return;
+    }
+
+    if (toolMode === 'strike') {
+      st.choiceStrike[idx] = !st.choiceStrike[idx];
+      if (st.choiceStrike[idx]) st.choiceHigh[idx] = false;
+      renderQuestion();
+      return;
+    }
+
+    if (st.submitted || examSubmitted) return;
+
+    st.selected = idx;
+    renderQuestion();
+  });
+});
+
+submitOne.addEventListener('click', gradeLearnCurrent);
+submitExamBtn.addEventListener('click', submitExam);
+
+prevBtn.addEventListener('click', () => {
+  if (currentPos === 0) return;
+  saveStemState();
+  currentPos -= 1;
+  renderQuestion();
+});
+
+nextBtn.addEventListener('click', () => {
+  if (currentPos >= RAW_QUESTIONS.length - 1) return;
+  saveStemState();
+  currentPos += 1;
+  renderQuestion();
+});
+
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qo.dataset.fs = btn.dataset.fsBtn;
+  });
+});
+
+let timerInt = null;
+let timerSec = 0;
+const timerTime = document.getElementById('timerTime');
+function renderTimer() {
+  const m = String(Math.floor(timerSec / 60)).padStart(2, '0');
+  const s = String(timerSec % 60).padStart(2, '0');
+  timerTime.textContent = `${m}:${s}`;
+}
+document.getElementById('timerStart').addEventListener('click', () => {
+  if (timerInt) return;
+  timerInt = setInterval(() => { timerSec += 1; renderTimer(); }, 1000);
+});
+document.getElementById('timerPause').addEventListener('click', () => {
+  clearInterval(timerInt);
+  timerInt = null;
+});
+document.getElementById('timerReset').addEventListener('click', () => {
+  clearInterval(timerInt);
+  timerInt = null;
+  timerSec = 0;
+  renderTimer();
+});
+
+let cdMinutes = 5;
+let cdInt = null;
+let cdSec = cdMinutes * 60;
+const cdVal = document.getElementById('cdVal');
+const cdTime = document.getElementById('cdTime');
+const cdGo = document.getElementById('cdGo');
+function renderCountdown() {
+  const m = String(Math.floor(cdSec / 60)).padStart(2, '0');
+  const s = String(cdSec % 60).padStart(2, '0');
+  cdTime.textContent = `${m}:${s}`;
+  cdVal.textContent = String(Math.max(1, Math.ceil(cdSec / 60) || 0));
+}
+document.getElementById('cdMinus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.max(1, cdMinutes - 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+document.getElementById('cdPlus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.min(99, cdMinutes + 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+cdGo.addEventListener('click', () => {
+  if (cdInt) {
+    clearInterval(cdInt);
+    cdInt = null;
+    cdGo.textContent = 'Start';
+    return;
+  }
+  cdGo.textContent = 'Pause';
+  cdInt = setInterval(() => {
+    if (cdSec <= 0) {
+      clearInterval(cdInt);
+      cdInt = null;
+      cdGo.textContent = 'Start';
+      return;
+    }
+    cdSec -= 1;
+    renderCountdown();
+  }, 1000);
+});
+
+renderTimer();
+renderCountdown();
+resetQuizState(false);
+</script>
+</body>
+</html>

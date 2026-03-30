@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hunger &amp; Satiety — PLO Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+ radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+ radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+ linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%)}
+.launch-card{max-width:760px;width:min(100%,760px);background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:32px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:42px;line-height:1.02;color:var(--navy);margin-bottom:8px}
+.launch-card p{color:var(--slate);max-width:62ch}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 24px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.launch-btn{padding:14px 20px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--teal-glow) 18%, transparent), transparent 24%),
+  radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--plum) 16%, transparent), transparent 22%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+.qo.open .qt-bar,.qo.open .qin{will-change:transform,opacity}
+.qo.closing .qt-bar{animation:qBarOut .26s cubic-bezier(.4,0,.2,1) forwards}
+.qo.closing .qin{animation:qSheetOut .32s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes qBarOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-12px)}}
+@keyframes qSheetOut{from{opacity:1;transform:none;filter:blur(0)}to{opacity:0;transform:translateY(22px) scale(.985);filter:blur(2px)}}
+.qt-bar{position:sticky;top:0;z-index:12;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,color-mix(in srgb, var(--navy2) 94%, transparent),color-mix(in srgb, var(--navy) 92%, transparent));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:28px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap}
+.qt-btn{padding:10px 16px;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-1px)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900;box-shadow:0 8px 20px rgba(212,168,67,.24)}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(212,168,67,.28)}
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px 24px;align-items:start}
+.q-left{display:grid;gap:18px;align-content:start;align-self:start}
+.q-right{min-width:0;display:grid;gap:16px;align-content:start;align-self:start}
+#qA{min-width:0;align-self:start;position:relative}
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.score-box{position:relative;overflow:hidden;background:color-mix(in srgb, var(--white) 88%, var(--warm) 12%);backdrop-filter:blur(10px);border-radius:22px;padding:18px 14px 14px;text-align:center;box-shadow:0 14px 34px rgba(18,32,60,.08);border:1px solid rgba(18,32,60,.08);transition:var(--tr)}
+.score-box::before{content:'';position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 999px 999px;background:linear-gradient(90deg, rgba(26,122,109,.16), rgba(62,196,178,.5));opacity:.75}
+.score-box.correct{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(232,245,238,.98))}
+.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(253,240,240,.98))}
+.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:8px}
+.score-box.correct .sv{color:var(--green)}
+.score-box.incorrect .sv{color:var(--red)}
+.mode-toggle,.timer-panel,.tool-panel,.exam-submit-row{position:relative;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08)}
+.mode-toggle{display:flex;gap:8px;padding:8px;border-radius:24px;animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{flex:1;padding:14px 18px;border-radius:18px;text-align:center;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 12px 24px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:20px;margin-bottom:4px}
+.timer-panel{display:grid;grid-template-columns:1fr;gap:14px;padding:0;border-radius:24px;box-shadow:none;border:none;background:transparent;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.timer-card,.cd-card{position:relative;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:46px 18px 18px;background:rgba(255,255,255,.84);border-radius:24px;border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);transition:var(--tr)}
+.timer-lbl{position:absolute;top:14px;left:16px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(18,32,60,.04)}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:40px;font-weight:600;color:var(--navy);min-width:120px;text-align:center;letter-spacing:2px}
+.tbtn,.cd-pm{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(27,42,74,.24);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:var(--tr);color:var(--navy);flex-shrink:0;box-shadow:0 6px 18px rgba(18,32,60,.08)}
+.cd-pm{width:34px;height:34px;font-size:20px;font-weight:800;border-color:rgba(27,42,74,.16)}
+.tbtn:hover,.cd-pm:hover{background:var(--navy);color:#fff;transform:translateY(-1px) scale(1.04);border-color:var(--navy)}
+.cd-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;min-width:36px;text-align:center;color:var(--navy)}
+.cd-unit{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800}
+.cd-go{padding:11px 18px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:var(--tr);box-shadow:0 10px 22px rgba(224,122,95,.22)}
+.cd-go:hover{background:linear-gradient(135deg,#D86E53,#C95E45);transform:translateY(-1px)}
+.tool-panel{display:flex;flex-wrap:wrap;gap:10px;padding:10px;border-radius:24px;animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
+.q-tool{flex:1 1 180px;min-width:0;padding:13px 16px;border-radius:16px;font-size:13px;font-weight:800;border:1.5px solid rgba(18,32,60,.08);background:rgba(255,255,255,.86);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);box-shadow:0 8px 18px rgba(18,32,60,.06);text-align:left}
+.q-tool:hover{border-color:rgba(26,122,109,.32);color:var(--teal);transform:translateY(-1px);background:#fff}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00;box-shadow:0 0 0 3px rgba(211,175,43,.12)}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red);box-shadow:0 0 0 3px rgba(196,64,64,.08)}
+.exam-submit-row{padding:20px;border-radius:24px;text-align:center}
+.exam-submit-row .exam-progress{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--mist);margin-bottom:12px}
+.exam-submit-btn{padding:15px 52px;border-radius:18px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 22px rgba(224,122,95,.24)}
+.exam-submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(224,122,95,.32)}
+.qcd{background:color-mix(in srgb, var(--white) 94%, var(--warm) 6%);border-radius:28px;overflow:hidden;box-shadow:0 28px 70px rgba(18,32,60,.12);border:1px solid rgba(18,32,60,.08);animation:cardIn .45s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(0.99)}to{opacity:1;transform:none}}
+.qpg{height:6px;background:color-mix(in srgb, var(--teal) 10%, transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 34px 26px}
+.qnum{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.qstem{font-family:'Crimson Pro',serif;font-size:25px;line-height:1.35;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.15px}
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:15px 18px;border:1.5px solid rgba(18,32,60,.09);border-radius:18px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb, var(--warm) 78%, var(--white) 22%);position:relative;box-shadow:0 6px 18px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 12px 24px rgba(18,32,60,.08)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.cl{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 6px 14px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:16px;line-height:1.45;padding-top:4px;color:var(--ink)}
+.submit-row{margin-top:24px;text-align:center}
+.submit-btn{padding:15px 54px;border-radius:18px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.4px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+.exb{margin-top:26px;border-radius:22px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.exs{padding:22px 26px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:16px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:10px;padding:12px 16px;background:rgba(255,255,255,.58);border-radius:14px;font-size:15px;line-height:1.65}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 24px 20px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,color-mix(in srgb, var(--warm) 32%, transparent),color-mix(in srgb, var(--cream) 82%, transparent))}
+.nb{padding:12px 24px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 8px 18px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.qdots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:14px;height:14px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);box-shadow:0 4px 10px rgba(18,32,60,.04)}
+.qd:hover{transform:scale(1.18)}
+.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,0.14)}
+.qd.acor{border-color:var(--green);background:var(--green)}
+.qd.ainc{border-color:var(--red);background:var(--red)}
+.qd.asel{border-color:var(--gold);background:var(--gold)}
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:16px}
+#qo[data-fs="lg"] .ctx{font-size:19px}
+#qo[data-fs="xl"] .ctx{font-size:22px}
+.fs-ctrl{display:flex;align-items:center;gap:4px}
+.fs-btn{width:32px;height:32px;border-radius:10px;border:1.5px solid rgba(18,32,60,.14);background:#fff;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);color:var(--ink2);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(18,32,60,.06)}
+.fs-btn:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--mist);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+@media(max-width:920px){.qin{grid-template-columns:1fr;padding:22px 18px 72px;gap:16px}.score-panel{grid-template-columns:repeat(3,minmax(0,1fr))}.timer-panel{grid-template-columns:1fr 1fr}.tool-panel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.qt-bar{padding:14px 16px;align-items:flex-start;flex-direction:column}.qt-bar h2{font-size:24px}.qin{padding:18px 14px 64px}.score-panel{grid-template-columns:1fr}.timer-panel{grid-template-columns:1fr}.tool-panel{grid-template-columns:1fr}.qbd{padding:22px 18px 20px}.qstem{font-size:24px;line-height:1.42}.ctx{font-size:16px}.qnv{padding:16px 18px 20px;flex-direction:column;align-items:stretch}.qdots{order:3}.nb{width:100%}.launch-card h1{font-size:34px}}
+
+.ac.hl-applied{
+  background: linear-gradient(180deg, #FFF8B8, #FFF3A0) !important;
+  border-color: #D3AF2B !important;
+}
+.ac.hl-applied .ctx{
+  background: transparent !important;
+}
+.ac.st-applied{
+  background: linear-gradient(180deg, #fff, #FDF2F2) !important;
+  border-color: rgba(196,64,64,.45) !important;
+  opacity: .72;
+}
+.ac.st-applied .ctx{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.tool-status{
+  margin-top: 6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--mist);
+  padding: 0 4px;
+}
+.tool-status.active-highlight{ color:#8a6a00; }
+.tool-status.active-strike{ color:var(--red); }
+
+.ac.hl-applied{
+  background: #FFF4A8 !important;
+  border-color: #D4A843 !important;
+  box-shadow: 0 0 0 3px rgba(212,168,67,.18), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.hl-applied .cl{
+  background: #D4A843 !important;
+  border-color: #D4A843 !important;
+  color: #fff !important;
+}
+.ac.hl-applied .ctx{
+  color: #5c4400 !important;
+}
+.ac.st-applied{
+  background: #FFF3F3 !important;
+  border-color: rgba(196,64,64,.52) !important;
+  box-shadow: 0 0 0 3px rgba(196,64,64,.10), 0 10px 22px rgba(18,32,60,.06) !important;
+}
+.ac.st-applied .cl{
+  background: var(--red) !important;
+  border-color: var(--red) !important;
+  color:#fff !important;
+}
+.ac.st-applied .ctx{
+  color: #8B2C2C !important;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+}
+
+
+.qstem{
+  position: relative;
+  border-radius: 16px;
+  padding: 6px 8px;
+  margin: -6px -8px 22px -8px;
+  transition: var(--tr);
+}
+.qstem.tool-hover{
+  box-shadow: inset 0 0 0 2px rgba(26,122,109,.16);
+  background: rgba(26,122,109,.04);
+}
+.qstem.hl-applied{
+  background: linear-gradient(180deg, #FFF4A8, #FFF7C9) !important;
+  box-shadow: inset 0 0 0 2px rgba(212,168,67,.34);
+}
+.qstem.st-applied{
+  background: linear-gradient(180deg, #FFF3F3, #FFF8F8) !important;
+  box-shadow: inset 0 0 0 2px rgba(196,64,64,.22);
+}
+.qstem.st-applied .stem-text,
+.qstem .stem-st{
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--red);
+  color: #8B2C2C !important;
+}
+.qstem .stem-hl{
+  background: #FFF1A6;
+  border-radius: 6px;
+  padding: 0 .12em;
+  box-shadow: 0 0 0 1px rgba(212,168,67,.18);
+}
+.qstem .stem-st{
+  background: #FFF3F3;
+  border-radius: 6px;
+  padding: 0 .12em;
+}
+
+
+.exam-submit-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:none;
+}
+.exam-submit-row.exam-live{
+  box-shadow:0 0 0 3px rgba(224,122,95,.10), 0 14px 34px rgba(18,32,60,.08);
+}
+.exam-submit-row.exam-done .exam-submit-btn{
+  background:linear-gradient(135deg,var(--green),#3aa56f);
+  box-shadow:0 10px 24px rgba(45,134,89,.24);
+}
+
+</style>
+</head>
+<body>
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Hunger &amp; Satiety PLO Quiz</h1>
+    <p>This version uses your <code>index</code> quiz shell but swaps in the full <code>hunger_satiety_PLO_quiz</code> question bank, explanations, and answer keys.</p>
+    <div class="launch-meta">
+      <span class="chip">20 questions</span>
+      <span class="chip">Learn / Exam toggle</span>
+      <span class="chip">Timers</span>
+      <span class="chip">Highlight / strikeout</span>
+      <span class="chip">PLO explanations</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz</button>
+  </div>
+</div>
+
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>Hunger &amp; Satiety — PLO Quiz</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" onclick="window.print()">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCurrent">1</div><div class="sl">Current</div></div>
+        <div class="score-box correct"><div class="sv" id="svCorrect">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="svIncorrect">0</div><div class="sl">Incorrect</div></div>
+      </div>
+
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Timer</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <button class="tbtn" id="timerStart">▶</button>
+          <button class="tbtn" id="timerPause">⏸</button>
+          <button class="tbtn" id="timerReset">↺</button>
+        </div>
+
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">05:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">5</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+            <button class="cd-go" id="cdGo">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <button class="q-tool" id="toolHighlight">Highlight tool</button>
+        <button class="q-tool" id="toolStrike">Strikeout tool</button>
+        <button class="q-tool" id="toolReveal">Reveal explanation</button>
+        <div class="tool-status" id="toolStatus">Tool mode: none</div>
+      </div>
+
+      <div class="exam-submit-row">
+        <div class="exam-progress" id="examProgress">0 of 20 answered</div>
+        <button class="exam-submit-btn" id="submitExam">Submit Exam</button>
+      </div>
+    </div>
+
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qpg"><div class="qpf" style="width:20%"></div></div>
+          <div class="qbd">
+            <div class="qnum">Question 1 of 20</div>
+            <div class="qstem" id="qStem"><span class="stem-text">This is a placeholder question stem so you can reuse the exact visual shell without worrying about the actual question content.</span></div>
+
+            <div class="ach">
+              <div class="ac" data-choice="0"><div class="cl">A</div><div class="ctx">Placeholder answer choice one.</div></div>
+              <div class="ac" data-choice="1"><div class="cl">B</div><div class="ctx">Placeholder answer choice two.</div></div>
+              <div class="ac" data-choice="2"><div class="cl">C</div><div class="ctx">Placeholder answer choice three.</div></div>
+              <div class="ac" data-choice="3"><div class="cl">D</div><div class="ctx">Placeholder answer choice four.</div></div>
+              <div class="ac" data-choice="4"><div class="cl">E</div><div class="ctx">Placeholder answer choice five.</div></div>
+            </div>
+
+            <div class="submit-row">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+
+            <div class="exb" id="exBlock">
+              <div class="exs exc"><div class="exl">Correct Answer</div><div class="ext">This area is the explanation shell. Swap in your own rationale later.</div></div>
+              <div class="exs exe"><div class="exl">Teaching Point</div><div class="ext">Use this section for your main teaching pearl, key distinction, or “why this matters.”</div></div>
+              <div class="exs exw">
+                <div class="exl">Why the Others Are Wrong</div>
+                <div class="ext">
+                  <div class="wce"><strong>A</strong> — Placeholder wrong-answer explanation.</div>
+                  <div class="wce"><strong>B</strong> — Placeholder wrong-answer explanation.</div>
+                  <div class="wce"><strong>C</strong> — Placeholder wrong-answer explanation.</div>
+                  <div class="wce"><strong>D</strong> — Placeholder wrong-answer explanation.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Previous</button>
+            <div class="qdots">
+              <button class="qd cur"></button>
+              <button class="qd asel"></button>
+              <button class="qd"></button>
+              <button class="qd acor"></button>
+              <button class="qd ainc"></button>
+            </div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUIZ_TITLE = "Hunger & Satiety — PLO Quiz";
+const BANK = [
+
+  // ─── PLO 1: Sites of Synthesis ───────────────────────────────────────────
+
+  {
+    plo: "PLO 1",
+    stem: "Ghrelin, the primary hunger-stimulating hormone, is synthesized predominantly at which anatomical site?",
+    correct: 0,
+    opts: [
+      "Fundus of the stomach",
+      "Duodenal I-cells and jejunal mucosa",
+      "L-cells of the ileum and colon",
+      "White adipose tissue",
+      "α-cells of the pancreatic islets"
+    ],
+    expCorrect: "Ghrelin is produced primarily by oxyntic (fundal) cells of the gastric fundus. Think of the fundus as the 'hunger factory' — it detects when the stomach is empty and fires off ghrelin to get you looking for food.",
+    expDistractors: [
+      "Duodenal I-cells and jejunal mucosa are where CCK is made — the satiation hormone triggered by fats and proteins in the duodenum. Not ghrelin.",
+      "L-cells of the ileum and colon are where PYY (and GLP-1) come from. These are satiation hormones that fire after food arrives in the distal gut — the opposite of ghrelin.",
+      "White adipose tissue is the source of leptin, a long-term satiety signal reflecting total fat stores. Leptin isn't a gut hormone at all.",
+      "Pancreatic α-cells produce glucagon (and proglucagon, which is also the precursor to GLP-1), not ghrelin."
+    ]
+  },
+
+  {
+    plo: "PLO 1",
+    stem: "Which tissue is the principal site of leptin synthesis and secretion, and what is the physiological relationship between that tissue's mass and leptin output?",
+    correct: 0,
+    opts: [
+      "White adipose tissue; leptin secretion increases proportionally as fat mass increases",
+      "Gastric fundal cells; leptin output rises 1–2 hours before meals and falls after eating",
+      "L-cells of the distal gut; leptin is released in proportion to calories ingested",
+      "Duodenal I-cells; leptin is secreted in response to luminal fatty acids",
+      "Pancreatic α-cells; leptin rises when blood glucose falls below fasting levels"
+    ],
+    expCorrect: "Leptin is made by white adipocytes (fat cells), and more fat mass = more leptin. It's your body's long-range 'we have plenty of stored energy' signal — acting like a slow thermostat rather than a rapid meal-timing switch.",
+    expDistractors: [
+      "Gastric fundal cells make ghrelin, not leptin, and ghrelin is the one that peaks before meals and falls after eating.",
+      "L-cells of the distal gut make PYY and GLP-1, not leptin. The 'proportional to calories' clue applies to GLP-1, not leptin.",
+      "Duodenal I-cells are the home of CCK, which responds to luminal fats and proteins. That's a completely different hormone.",
+      "Pancreatic α-cells make glucagon and proglucagon. Falling blood glucose triggers glucagon release — not leptin."
+    ]
+  },
+
+  {
+    plo: "PLO 1",
+    stem: "CCK (cholecystokinin) is secreted by which cells and from which GI region?",
+    correct: 0,
+    opts: [
+      "Duodenal I-cells and jejunal mucosa",
+      "L-cells of the ileum and colon",
+      "Gastric fundal cells",
+      "White adipocytes of the greater omentum",
+      "Pancreatic β-cells in response to glucose"
+    ],
+    expCorrect: "CCK is produced by I-cells in the duodenum and jejunal mucosa. Sitting right at the entrance of the small intestine, these cells are perfectly positioned to detect incoming fats and proteins from gastric emptying and fire off CCK to slow things down and signal satiation.",
+    expDistractors: [
+      "L-cells of the ileum and colon are the source of PYY and GLP-1. These are further downstream and fire later in the post-meal timeline.",
+      "Gastric fundal cells produce ghrelin. The fundus is upstream of the duodenum and signals hunger when empty.",
+      "White adipocytes produce leptin (and adiponectin). These are fat-storage cells, not gut endocrine cells.",
+      "Pancreatic β-cells produce insulin in response to glucose. Completely different tissue, completely different hormone."
+    ]
+  },
+
+  {
+    plo: "PLO 1",
+    stem: "GLP-1 is a cleaved peptide product derived from which prohormone, and in which tissues can that prohormone be found?",
+    correct: 0,
+    opts: [
+      "Proglucagon; found in pancreatic α-cells, intestinal L-cells, and CNS neurons",
+      "POMC (pro-opiomelanocortin); found exclusively in neurons of the arcuate nucleus",
+      "Pre-pro-CCK; found in duodenal I-cells and jejunal mucosa",
+      "Pre-pro-ghrelin; found in the gastric fundus and proximal small intestine",
+      "Proinsulin; found in pancreatic β-cells"
+    ],
+    expCorrect: "GLP-1 is cleaved from proglucagon — the same molecule that, in the pancreas, is cut differently to make glucagon. In gut L-cells and CNS neurons, proglucagon is processed into GLP-1. This dual origin (gut AND brain) is clinically important and high-yield.",
+    expDistractors: [
+      "POMC is the precursor to α-MSH (and other peptides like ACTH), not GLP-1. POMC neurons are in the arcuate nucleus and are part of the satiety pathway, but they don't make GLP-1.",
+      "Pre-pro-CCK is the CCK precursor made by duodenal I-cells. CCK and GLP-1 are completely separate hormones from separate cell types.",
+      "Pre-pro-ghrelin is the hunger hormone precursor from the gastric fundus. GLP-1 is anorexigenic — the opposite function.",
+      "Proinsulin is the insulin precursor from pancreatic β-cells. Insulin and GLP-1 both respond to nutrient intake but are structurally unrelated."
+    ]
+  },
+
+  {
+    plo: "PLO 1",
+    stem: "PYY is produced by L-cells throughout the gut, but the highest concentrations of L-cells — and therefore the greatest PYY secretion — are found in which region?",
+    correct: 4,
+    opts: [
+      "Gastric fundus and gastric body",
+      "Duodenum and proximal jejunum",
+      "Esophagus and lower esophageal sphincter",
+      "Pancreatic head and uncinate process",
+      "Large bowel and rectum"
+    ],
+    expCorrect: "L-cell density increases progressively down the gut, reaching its peak in the large bowel and rectum. This anatomical distribution means the most powerful PYY signal is triggered when nutrients finally arrive in the distal colon — which is why the Phase II release occurs ~2 hours after a meal.",
+    expDistractors: [
+      "The gastric fundus is where ghrelin is made. There are essentially no L-cells in the stomach.",
+      "The duodenum and proximal jejunum are where CCK-secreting I-cells live. L-cell density here is low; PYY secretion from this region is minimal.",
+      "The esophagus has no significant endocrine function related to appetite hormones. It's just a conduit.",
+      "The pancreas makes glucagon, insulin, and proglucagon — not PYY. PYY is strictly a gut L-cell product."
+    ]
+  },
+
+  // ─── PLO 1: Secretion Patterns ───────────────────────────────────────────
+
+  {
+    plo: "PLO 1",
+    stem: "A researcher measures plasma ghrelin levels every 30 minutes in a subject eating three standard meals at 8 AM, 1 PM, and 7 PM. Which best describes the expected pattern?",
+    correct: 2,
+    opts: [
+      "Ghrelin is at a constant low baseline all day, only rising sharply overnight during fasting sleep",
+      "Ghrelin peaks about 90 minutes after each meal and falls slowly over the following 3–4 hours",
+      "Ghrelin rises 1–2 hours before each meal, peaks just before eating, then falls within 1 hour of consumption",
+      "Ghrelin levels are highest in the morning and decline monotonically throughout the day regardless of meal timing",
+      "Ghrelin remains suppressed throughout the day with no meaningful pre-prandial peaks in normal healthy adults"
+    ],
+    expCorrect: "Ghrelin is the pre-meal hunger hormone. It rises in anticipation of eating (1–2 hours before), peaks just as you're about to eat (those 'hunger pangs'), then drops within an hour after the meal. You'd see three peaks in the data — one before each meal.",
+    expDistractors: [
+      "Ghrelin does rise overnight during fasting sleep, but it also shows clear pre-prandial peaks during the day. It's not 'low all day with only a nocturnal rise.'",
+      "Ghrelin peaks BEFORE meals, not 90 minutes after. Post-meal, ghrelin is suppressed. An after-meal peak would mean eating makes you hungrier — the opposite of reality.",
+      "Ghrelin doesn't simply decline all day. It oscillates with meals, rising before eating and falling after. Meal timing matters more than time of day.",
+      "Normal healthy adults absolutely show pre-prandial ghrelin peaks. These peaks are abolished in gastric bypass patients (fundus excluded), which is part of why surgery works."
+    ]
+  },
+
+  {
+    plo: "PLO 1",
+    stem: "PYY release after a meal follows a biphasic pattern. Which description correctly identifies both phases?",
+    correct: 1,
+    opts: [
+      "Phase I: blood glucose spike triggers PYY from pancreatic islets; Phase II: direct nutrient contact with duodenal I-cells",
+      "Phase I: rapid neural release within ~15 minutes of food intake; Phase II: ~2 hours post-prandially, driven by nutrients arriving at the large bowel and rectum",
+      "Phase I: triggered when nutrients arrive in the colon; Phase II: rapid early neural release — so the 'phases' are reversed from what is intuitive",
+      "Both phases are triggered identically by direct luminal nutrient contact with L-cells, but Phase II is simply a second wave from newly-secreted hormones",
+      "Phase I: stimulated by insulin from the pancreas; Phase II: stimulated by glucagon counter-regulation"
+    ],
+    expCorrect: "PYY has two waves. Phase I is a fast neural signal — your enteric nervous system tells the L-cells 'food is coming' even before nutrients get to the large bowel. Phase II is the big nutrient-driven wave ~2 hours later when food actually arrives at the colon/rectum where L-cells are densest. Fat and protein are the strongest Phase II triggers.",
+    expDistractors: [
+      "PYY comes from gut L-cells, not pancreatic islets. Blood glucose is more relevant to insulin and glucagon release.",
+      "The phases are NOT reversed. Phase I is early/neural, Phase II is late/nutrient-driven. This option has them backwards — a classic trap.",
+      "The phases are triggered by different mechanisms (neural vs. nutrient), not the same mechanism with a second wave. The distinction matters for understanding why eating speed affects satiation.",
+      "Insulin and glucagon from the pancreas don't directly trigger PYY release. Those are different hormonal systems."
+    ]
+  },
+
+  {
+    plo: "PLO 1",
+    stem: "Which statement most accurately characterizes the secretion pattern of GLP-1 from intestinal L-cells?",
+    correct: 3,
+    opts: [
+      "GLP-1 is released at a constant basal rate independent of meal timing or nutrient composition",
+      "GLP-1 is secreted exclusively in response to carbohydrate ingestion; dietary fat and protein have no meaningful effect",
+      "GLP-1 is a fasting hormone, secreted during caloric restriction as a counter-regulatory response to low blood glucose",
+      "GLP-1 release is proportional to total calories ingested, with an early neural phase (Phase I) and a second phase triggered by free fatty acids in the intestinal lumen",
+      "GLP-1 is released only once per meal, in a single sharp peak coinciding with gastric emptying"
+    ],
+    expCorrect: "GLP-1 is calorie-responsive: more calories = more GLP-1. Like PYY, it has a fast Phase I (neural, before nutrients even reach the distal gut) and a slower Phase II (when free fatty acids contact L-cells in the intestinal lumen). This is why GLP-1 receptor agonist drugs work so well — they mimic this satiation signal continuously.",
+    expDistractors: [
+      "GLP-1 is clearly meal-responsive, not constant. Its release correlates strongly with caloric intake — this is the basis for using it therapeutically.",
+      "Fat (free fatty acids) is actually a key Phase II trigger for GLP-1. Saying only carbs trigger it would exclude one of the most potent stimuli.",
+      "GLP-1 is a POST-meal satiation hormone, not a fasting counter-regulatory hormone. Fasting → low GLP-1, not high GLP-1.",
+      "GLP-1 release is biphasic (two phases), not a single sharp peak. The neural Phase I happens quickly; the nutrient-driven Phase II follows later."
+    ]
+  },
+
+  // ─── PLO 2: Orexigenic / Anorexigenic ────────────────────────────────────
+
+  {
+    plo: "PLO 2",
+    stem: "Of the five key appetite-regulating hormones covered in this course — leptin, CCK, GLP-1, PYY, and ghrelin — only one is classified as orexigenic. Which is it?",
+    correct: 4,
+    opts: [
+      "Leptin",
+      "CCK",
+      "PYY",
+      "GLP-1",
+      "Ghrelin"
+    ],
+    expCorrect: "Ghrelin is the lone orexigenic hormone on this list — the one that tells you to eat more. It's made by the hungry, empty stomach and is the only gut hormone that actively drives appetite. All the others (leptin, CCK, GLP-1, PYY) work to suppress feeding.",
+    expDistractors: [
+      "Leptin is anorexigenic — it suppresses appetite and signals energy sufficiency. High leptin = enough fat stored = reduce feeding.",
+      "CCK is anorexigenic — it activates vagal afferents to signal meal termination. It's released when fats and proteins enter the duodenum.",
+      "PYY is anorexigenic — it inhibits AgRP/NPY neurons via Y2R to suppress hunger. Released from gut L-cells after meals.",
+      "GLP-1 is anorexigenic — it stimulates POMC/CART neurons and activates the vagus nerve to produce satiation. The basis for GLP-1 receptor agonist drugs."
+    ]
+  },
+
+  {
+    plo: "PLO 2",
+    stem: "Which of the following correctly classifies all five key appetite hormones as either orexigenic (O) or anorexigenic (AN)?",
+    correct: 2,
+    opts: [
+      "Ghrelin: AN · Leptin: O · CCK: AN · PYY: AN · GLP-1: AN",
+      "Ghrelin: O · Leptin: AN · CCK: AN · PYY: AN · GLP-1: O",
+      "Ghrelin: O · Leptin: AN · CCK: AN · PYY: AN · GLP-1: AN",
+      "Ghrelin: O · Leptin: AN · CCK: O · PYY: AN · GLP-1: AN",
+      "Ghrelin: O · Leptin: O · CCK: AN · PYY: AN · GLP-1: AN"
+    ],
+    expCorrect: "Ghrelin is the only orexigenic one. Leptin, CCK, GLP-1, and PYY are all anorexigenic. The conceptual shortcut: ghrelin rises when you need to eat (empty stomach signal), all others rise to slow or stop eating.",
+    expDistractors: [
+      "This flips ghrelin and leptin. Ghrelin is orexigenic (not AN) and leptin is anorexigenic (not O). Classic swap trap.",
+      "GLP-1 is anorexigenic, not orexigenic. It's one of the most potent meal-termination signals — the target of semaglutide and liraglutide.",
+      "CCK is anorexigenic, not orexigenic. It triggers satiation via CCK1R on vagal afferents and is released by fat/protein in the duodenum.",
+      "Leptin is anorexigenic, not orexigenic. In leptin deficiency, patients starve physiologically despite massive fat stores. High leptin = suppress appetite."
+    ]
+  },
+
+  {
+    plo: "PLO 2",
+    stem: "A clinical researcher is studying the primary stimulus for CCK secretion. Which best describes the most potent luminal triggers for CCK release from duodenal I-cells?",
+    correct: 0,
+    opts: [
+      "Luminal fatty acids, small peptides, and amino acids entering the duodenum from gastric emptying",
+      "Luminal bile salts and bicarbonate secreted by the common bile duct into the duodenum",
+      "Elevated blood glucose levels detected by enteroendocrine cell glucose sensors",
+      "Gastric acid (low pH) entering the duodenum — the same stimulus that triggers secretin",
+      "Distension of the gastric fundus detected by stretch receptors relaying to duodenal I-cells"
+    ],
+    expCorrect: "CCK is the fat-and-protein detector. Luminal fatty acids, peptides, and amino acids from the meal are the primary triggers. This is why eating a high-fat or high-protein meal produces stronger satiation — more CCK is secreted, more vagal signaling, earlier meal termination.",
+    expDistractors: [
+      "Bile salts and bicarbonate are secreted into the duodenum partly in response to CCK (CCK triggers gallbladder contraction and pancreatic secretion), but they don't trigger CCK release themselves.",
+      "Blood glucose triggers insulin from pancreatic β-cells. CCK I-cells respond to luminal nutrients in the gut lumen, not circulating glucose levels.",
+      "Low duodenal pH triggers secretin release from S-cells, not CCK. Secretin then neutralizes acid by stimulating pancreatic bicarbonate.",
+      "Gastric fundus distension triggers the vagus nerve and may influence motility, but it's not the trigger for CCK secretion from duodenal I-cells."
+    ]
+  },
+
+  // ─── PLO 3: Arcuate Nucleus & NPY/α-MSH ─────────────────────────────────
+
+  {
+    plo: "PLO 3",
+    stem: "POMC neurons in the arcuate nucleus are classified as anorexigenic. What is the primary mechanism by which activation of these neurons suppresses appetite?",
+    correct: 3,
+    opts: [
+      "POMC neurons release NPY, which acts on Y1 receptors (Gi GPCR) on second-order neurons to reduce food intake",
+      "POMC neurons release ghrelin into the arcuate nucleus microenvironment, which paradoxically suppresses hunger at high concentrations",
+      "POMC neurons release AgRP, which acts as an inverse agonist at MC4R to prevent hunger signaling",
+      "POMC is cleaved to yield α-MSH, which activates MC4R (a Gs-coupled GPCR) on second-order neurons, increasing cAMP and suppressing food intake",
+      "POMC neurons signal via PYY to activate Y2 receptors on AgRP/NPY neurons, indirectly suppressing hunger"
+    ],
+    expCorrect: "POMC itself is the precursor. Inside POMC neurons, it's cleaved to produce α-MSH. α-MSH is then released and binds MC4R — a Gs GPCR — on second-order neurons. Gs → adenylyl cyclase → ↑ cAMP → 'stop eating.' This is the central satiety signaling axis.",
+    expDistractors: [
+      "NPY is released by AgRP/NPY neurons, NOT POMC neurons, and Y1R activation INCREASES hunger (Gi → ↓ cAMP → orexigenic). This option has the neurons and the effect backwards.",
+      "Ghrelin is a stomach hormone that activates AgRP/NPY neurons. It doesn't originate from arcuate POMC neurons and doesn't suppress hunger.",
+      "AgRP is released by AgRP/NPY neurons, NOT POMC neurons. And AgRP being an inverse agonist at MC4R actually PROMOTES hunger — it blocks the satiety effect of α-MSH.",
+      "PYY from gut L-cells acts on Y2R on AgRP/NPY neurons (not POMC neurons) to inhibit NPY release. POMC neurons don't release PYY."
+    ]
+  },
+
+  {
+    plo: "PLO 3",
+    stem: "Which statement correctly describes the complete orexigenic mechanism of AgRP/NPY neurons in the arcuate nucleus, including both key neurotransmitters they release?",
+    correct: 1,
+    opts: [
+      "NPY acts on MC4R (Gs) to drive hunger, while AgRP stimulates POMC neurons to amplify α-MSH release",
+      "NPY acts on Y1R (Gi GPCR) to drive hunger, while AgRP simultaneously acts as an inverse agonist at MC4R to block the satiety effect of α-MSH",
+      "Both AgRP and NPY are agonists at MC4R; together they amplify the Gs-cAMP signaling cascade to increase appetite",
+      "AgRP binds GLP-1R (Gs) on POMC neurons to suppress α-MSH release, while NPY acts on Y2R to inhibit its own neurons",
+      "AgRP is an agonist at GHSR (Gq), and NPY acts on Y2R (Gi) to suppress POMC neuron activity"
+    ],
+    expCorrect: "AgRP/NPY neurons fire two separate hunger weapons simultaneously: NPY binds Y1R (Gi → ↓ cAMP) on downstream neurons to drive eating, while AgRP binds MC4R as an inverse agonist — actively blocking α-MSH's satiety signal. It's a double-pronged attack on the satiety axis.",
+    expDistractors: [
+      "NPY acts on Y1R (Gi), not MC4R. And AgRP doesn't stimulate POMC neurons — it inhibits them. This answer flips the roles of both molecules.",
+      "Neither AgRP nor NPY is an agonist at MC4R in the appetite-promoting sense. AgRP is an INVERSE agonist (produces opposite of α-MSH), and NPY doesn't act at MC4R at all.",
+      "AgRP doesn't bind GLP-1R. And Y2R is the receptor PYY uses to INHIBIT AgRP/NPY neurons — it's not an autoreceptor for NPY in this context.",
+      "AgRP doesn't act at GHSR. GHSR is ghrelin's receptor. These neurons express GHSR to receive ghrelin signals, but AgRP itself doesn't bind GHSR."
+    ]
+  },
+
+  {
+    plo: "PLO 3",
+    stem: "NPY, released by AgRP/NPY neurons in the arcuate nucleus, is described as 'the most potent stimulator of food intake known.' Through which receptor does it primarily exert this effect, and what is the signal transduction?",
+    correct: 0,
+    opts: [
+      "Y1R — a Gi-coupled GPCR; Gi inhibits adenylyl cyclase → ↓ cAMP → increased appetite drive",
+      "MC4R — a Gs-coupled GPCR; Gs activates adenylyl cyclase → ↑ cAMP → appetite suppression",
+      "GLP-1R — a Gs-coupled GPCR expressed on POMC neurons; activates satiety signaling",
+      "Y2R — a Gi-coupled GPCR acting as an autoreceptor; Y2R is PYY's receptor and inhibits AgRP/NPY neurons",
+      "GHSR — a Gq-coupled GPCR normally activated by ghrelin; NPY cross-activates it to amplify hunger"
+    ],
+    expCorrect: "NPY's primary hunger receptor is Y1R — a Gi GPCR. Gi inhibits adenylyl cyclase → ↓ cAMP in downstream neurons → orexigenic signaling. The Gi coupling is the key: the opposite of Gs at MC4R (which increases cAMP to suppress appetite).",
+    expDistractors: [
+      "MC4R is α-MSH's receptor. Gs → ↑ cAMP → appetite suppression. If NPY acted on MC4R, it would produce satiation — the complete opposite of what NPY does. Also wrong on the mechanism.",
+      "GLP-1R is the receptor for GLP-1, not NPY. GLP-1R on POMC neurons produces satiation. This answer attributes GLP-1 signaling to NPY.",
+      "Y2R is indeed Gi-coupled and is the receptor PYY uses to INHIBIT AgRP/NPY neurons (producing satiation). NPY's primary hunger receptor is Y1R, not Y2R — these are different receptor subtypes.",
+      "GHSR (the ghrelin receptor) is Gq-coupled and is how ghrelin activates AgRP/NPY neurons. NPY doesn't cross-activate GHSR; it has its own Y-family receptors."
+    ]
+  },
+
+  {
+    plo: "PLO 3",
+    stem: "AgRP is described as an 'inverse agonist' at MC4R, while α-MSH is the 'agonist.' Which statement best captures the pharmacological distinction between these two terms?",
+    correct: 4,
+    opts: [
+      "An inverse agonist has higher receptor affinity than the agonist but produces an identical downstream signal with greater intensity",
+      "An inverse agonist cannot bind the receptor directly; it works by modifying receptor conformation from an allosteric site distant from the agonist binding pocket",
+      "Inverse agonists and competitive antagonists are functionally synonymous — both simply block agonist access without generating any independent signaling",
+      "An inverse agonist binds only when the receptor is already occupied by the agonist, displacing it and restoring receptor to its baseline inactive state",
+      "An inverse agonist binds the same receptor site as the agonist but produces the pharmacologically opposite effect — α-MSH activates MC4R to suppress appetite, while AgRP binds MC4R and actively promotes hunger"
+    ],
+    expCorrect: "An inverse agonist is NOT just a blocker — it produces the OPPOSITE effect. α-MSH → MC4R → Gs → ↑ cAMP → stop eating. AgRP → MC4R → opposite signal → eat more. A simple competitive antagonist would just block α-MSH without creating a hunger signal. AgRP does both: blocks α-MSH AND actively drives hunger through the same receptor.",
+    expDistractors: [
+      "Higher affinity doesn't define inverse agonism — affinity and efficacy (direction of effect) are separate properties. An inverse agonist has negative efficacy, not just higher affinity.",
+      "An inverse agonist DOES bind the active site (or overlap with it) — it's not an allosteric modulator. It competes with the agonist at the same receptor.",
+      "This is the key distinction: a competitive antagonist blocks the agonist with no signal of its own. An inverse agonist produces a signal OPPOSITE to the agonist. AgRP is not just blocking α-MSH — it's actively promoting hunger through the MC4R.",
+      "This describes displacement of a pre-bound agonist, which is closer to competitive antagonism or insurmountable binding. An inverse agonist doesn't require prior agonist occupancy — it can bind the unoccupied receptor and produce the opposite basal effect."
+    ]
+  },
+
+  {
+    plo: "PLO 3",
+    stem: "α-MSH is the key anorexigenic neurotransmitter of the POMC/CART pathway. From which precursor is α-MSH directly derived, and what is the role of that precursor within the arcuate nucleus?",
+    correct: 2,
+    opts: [
+      "α-MSH is derived from proglucagon, which also yields GLP-1 in gut L-cells; both are satiety signals from the same precursor",
+      "α-MSH is derived from pre-pro-ghrelin, allowing the gastric fundus to have dual control over both hunger and satiation",
+      "α-MSH is derived from POMC (pro-opiomelanocortin), which is synthesized in POMC/CART neurons of the arcuate nucleus; proteolytic cleavage yields α-MSH as the active peptide",
+      "α-MSH is derived from pre-pro-CCK, the same precursor as cholecystokinin, allowing coordinated peripheral and central satiation",
+      "α-MSH is synthesized de novo in the posterior pituitary and transported via hypophyseal portal circulation to hypothalamic neurons"
+    ],
+    expCorrect: "POMC → α-MSH. POMC (pro-opiomelanocortin) is the master precursor made inside POMC neurons in the arcuate nucleus. Proteolytic enzymes cleave POMC into multiple peptides — α-MSH being the key appetite-suppressing product. Same POMC molecule also gives ACTH in the pituitary, but in the hypothalamus the cleavage pattern favors α-MSH.",
+    expDistractors: [
+      "Proglucagon gives rise to GLP-1 (in gut and CNS) and glucagon (in pancreas). α-MSH comes from POMC, a completely separate precursor in a different neural population.",
+      "Pre-pro-ghrelin is the precursor for ghrelin only. Ghrelin is orexigenic. α-MSH is anorexigenic. Mixing their precursors would invert their functions — classic distractor logic.",
+      "Pre-pro-CCK is the precursor for cholecystokinin from duodenal I-cells. CCK is a GI hormone; α-MSH is a central neuropeptide. They share no precursor relationship.",
+      "α-MSH in the appetite context is made locally in arcuate nucleus POMC neurons, not transported from the posterior pituitary. The posterior pituitary releases oxytocin and ADH."
+    ]
+  },
+
+  {
+    plo: "PLO 3",
+    stem: "CART (cocaine and amphetamine-regulated transcript) peptides are co-released with α-MSH from POMC/CART neurons. The naming of this pathway reflects which important pharmacological observation?",
+    correct: 0,
+    opts: [
+      "Cocaine and amphetamines activate the POMC/CART pathway as part of their central mechanism, explaining the well-known appetite suppression and weight loss observed with these substances",
+      "CART was discovered exclusively in chronic cocaine users; the pathway has no physiological role in appetite regulation in non-users",
+      "CART stands for 'CCK-Associated Receptor Terminal,' reflecting its proximity to CCK signaling in the duodenum",
+      "Cocaine and amphetamines directly stimulate duodenal I-cells to release CCK, which then activates CART neurons in the arcuate nucleus via the vagus nerve",
+      "CART is expressed only during pharmacological stimulation and has no endogenous function in the regulation of normal hunger and satiety"
+    ],
+    expCorrect: "The 'CART' name tells the story: when researchers studied cocaine and amphetamine's central effects, they found these drugs strongly activate this transcript in hypothalamic neurons — which makes sense, given that stimulants suppress appetite. CART peptides are endogenously expressed and contribute to normal satiety, but the cocaine/amphetamine connection explains how stimulants cause weight loss.",
+    expDistractors: [
+      "CART is endogenously expressed in normal individuals and contributes to normal appetite regulation. It was discovered in the context of stimulant drugs, but it's not exclusive to drug users.",
+      "CART does not stand for 'CCK-Associated Receptor Terminal.' It stands for cocaine and amphetamine-regulated transcript, named for the experimental conditions under which it was discovered.",
+      "Cocaine and amphetamines act centrally (in the CNS) to activate CART neurons — they don't work by stimulating duodenal I-cells. The appetite suppression pathway is direct CNS action, not a gut-vagus relay.",
+      "CART has well-established endogenous roles in appetite regulation, energy homeostasis, and stress response — it's not dormant until drugs activate it."
+    ]
+  },
+
+  {
+    plo: "PLO 3",
+    stem: "CCK is anorexigenic, but its CNS pathway is distinct from PYY and GLP-1. Which statement most accurately describes how CCK mediates satiation in the brain?",
+    correct: 3,
+    opts: [
+      "CCK crosses the blood-brain barrier freely and acts directly on POMC neurons in the arcuate nucleus via CCK1R, increasing α-MSH output",
+      "CCK binds Y2R on AgRP/NPY neurons in the arcuate nucleus, suppressing NPY release to reduce appetite",
+      "CCK acts on GLP-1R on hypothalamic POMC neurons, mimicking GLP-1 signaling through a shared receptor family",
+      "CCK binds CCK1 receptors (Gs GPCRs) on vagal afferents; the vagus transmits the satiation signal to the nucleus of the solitary tract (NTS) in the medulla — CCK does not act directly on the arcuate nucleus",
+      "CCK activates MC4R as a partial agonist, producing mild satiation that does not depend on the vagus nerve or α-MSH"
+    ],
+    expCorrect: "CCK's route to the brain is vagus → NTS, not blood → arcuate. CCK1R sits on vagal afferent nerve endings in the gut wall. When CCK binds, the vagus nerve fires and sends the satiation signal to the nucleus of the solitary tract (NTS) in the medulla. The arcuate nucleus is not CCK's primary target — that's what makes CCK distinct from PYY and GLP-1.",
+    expDistractors: [
+      "CCK does not freely cross the blood-brain barrier in physiologically meaningful amounts. Its satiation effect is mediated through the vagus nerve, not direct CNS access.",
+      "Y2R is PYY's receptor on AgRP/NPY neurons. CCK has its own receptor (CCK1R) on vagal afferents. CCK doesn't use the Y2R pathway.",
+      "CCK1R and GLP-1R are distinct receptor families. CCK doesn't mimic GLP-1 signaling — they use completely different receptors on different targets (vagus vs. arcuate neurons).",
+      "MC4R is activated by α-MSH (from POMC neurons). CCK has no known agonist activity at MC4R. MC4R activation is a central event; CCK's route is peripheral (vagus nerve)."
+    ]
+  },
+
+  {
+    plo: "PLO 3",
+    stem: "Which correctly identifies which neural population in the arcuate nucleus is stimulated by ghrelin, and via which receptor and signaling mechanism?",
+    correct: 1,
+    opts: [
+      "Ghrelin stimulates POMC/CART neurons via GLP-1R (Gs GPCR), increasing cAMP and α-MSH production to suppress appetite",
+      "Ghrelin stimulates AgRP/NPY neurons via GHSR (Gq GPCR), activating the Gq-phospholipase C pathway to increase NPY and AgRP release",
+      "Ghrelin inhibits AgRP/NPY neurons via Y2R (Gi GPCR), reducing NPY release and creating a paradoxical hunger suppression",
+      "Ghrelin stimulates POMC/CART neurons via LEPR (Jak-STAT pathway), mimicking leptin's anorexigenic effect",
+      "Ghrelin acts on MC4R (Gs GPCR) on second-order neurons, directly activating the satiety pathway to signal fullness"
+    ],
+    expCorrect: "Ghrelin hits AgRP/NPY neurons via GHSR — the growth hormone secretagogue receptor, which is Gq-coupled. Gq → phospholipase C → IP3/DAG → ↑ intracellular Ca²⁺ → activates the neuron → ↑ NPY and ↑ AgRP released → hunger + MC4R blockade. This is why ghrelin makes you so hungry.",
+    expDistractors: [
+      "GLP-1R is not expressed on neurons targeted by ghrelin, and stimulating POMC neurons would suppress appetite — the opposite of ghrelin's effect.",
+      "Ghrelin activates AgRP/NPY neurons, it does not inhibit them. And Y2R is PYY's receptor, not ghrelin's. Ghrelin's receptor is GHSR (Gq).",
+      "LEPR is the leptin receptor (Jak-STAT). Ghrelin has its own receptor (GHSR) and acts on completely different neurons (AgRP/NPY, not POMC).",
+      "MC4R is the downstream second-order receptor for α-MSH — it's part of the satiety pathway. Ghrelin doesn't bind MC4R; it works upstream by activating AgRP neurons that then release AgRP (which blocks MC4R)."
+    ]
+  },
+
+  {
+    plo: "PLO 1+2+3",
+    stem: "During and after a typical meal, multiple hormonal signals converge to terminate feeding. Which option most accurately summarizes the coordinated response?",
+    correct: 2,
+    opts: [
+      "Ghrelin rises sharply after the first few bites, driving meal termination through NPY-mediated inhibition of further eating",
+      "Leptin is the primary meal-termination signal; it rises acutely within minutes of eating, directly inhibiting AgRP/NPY neurons via Jak-STAT",
+      "GLP-1 and PYY are released from gut L-cells and act on the arcuate nucleus — GLP-1 stimulates POMC/CART (via Gs) and PYY inhibits AgRP/NPY (via Y2R-Gi) — while CCK activates vagal afferents to signal the NTS; simultaneously, ghrelin falls as the stomach fills",
+      "CCK acts directly on the arcuate nucleus as the dominant satiation signal, while GLP-1 and PYY function exclusively through the vagus nerve to the NTS",
+      "α-MSH is released from the gastric fundus after eating and reaches the hypothalamus via portal circulation to activate MC4R and terminate feeding"
+    ],
+    expCorrect: "Meal termination is a team effort. GLP-1 hits POMC neurons (Gs) and the vagus. PYY hits AgRP/NPY neurons (Y2R, Gi) to silence the hunger drive. CCK hits the vagus to signal the NTS. And ghrelin — which was high before the meal — drops as nutrients fill the stomach. Together, the arcuate shifts from hunger mode to satiation mode.",
+    expDistractors: [
+      "Ghrelin FALLS after eating — it's the pre-meal hunger signal, not a post-meal termination signal. Post-meal ghrelin suppression is part of satiation, but the idea that ghrelin 'rises' post-meal to stop eating is backwards.",
+      "Leptin doesn't rise acutely with meals — it changes slowly over days as fat mass changes. Leptin is a long-term satiety signal, not a meal-by-meal termination hormone.",
+      "This reverses the routes for CCK and GLP-1. CCK acts via the vagus to the NTS (NOT the arcuate nucleus), while GLP-1 acts BOTH on the arcuate AND the vagus. The routes are specifically testable.",
+      "α-MSH is made by POMC neurons inside the hypothalamus. It's a central neuropeptide, not a stomach hormone, and it does not travel via portal circulation. Portal circulation brings gut hormones to the liver, not α-MSH to the brain."
+    ]
+  }
+
+]; // end BANK
+
+const letters = 'ABCDE';
+
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildQuestions() {
+  return shuffle(BANK).map((q) => {
+    const options = q.opts.map((text, oi) => ({
+      text,
+      isCorrect: oi === q.correct,
+      wrongExp: oi === q.correct ? null : q.expDistractors[oi < q.correct ? oi : oi - 1]
+    }));
+    const shuffled = shuffle(options);
+    return {
+      plo: q.plo,
+      stem: q.stem,
+      expCorrect: q.expCorrect,
+      opts: shuffled.map(o => o.text),
+      wrongExps: shuffled.map(o => o.wrongExp),
+      correct: shuffled.findIndex(o => o.isCorrect)
+    };
+  });
+}
+
+const qo = document.getElementById('qo');
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const submitOne = document.getElementById('submitOne');
+const exBlock = document.getElementById('exBlock');
+const examProgress = document.getElementById('examProgress');
+const modeLearn = document.getElementById('modeLearn');
+const modeExam = document.getElementById('modeExam');
+const toolHighlight = document.getElementById('toolHighlight');
+const toolStrike = document.getElementById('toolStrike');
+const toolReveal = document.getElementById('toolReveal');
+const toolStatus = document.getElementById('toolStatus');
+const qStem = document.getElementById('qStem');
+const qNum = document.querySelector('.qnum');
+const qProgFill = document.querySelector('.qpf');
+const choicesWrap = document.querySelector('.ach');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const dotsWrap = document.querySelector('.qdots');
+const submitExam = document.getElementById('submitExam');
+const exCorrectText = document.querySelector('.exs.exc .ext');
+const exTeachingLabel = document.querySelector('.exs.exe .exl');
+const exTeachingText = document.querySelector('.exs.exe .ext');
+const exWrongWrap = document.querySelector('.exs.exw .ext');
+
+let questions = [];
+let answers = {};
+let submitted = {};
+let currentIndex = 0;
+let quizMode = 'learn';
+let toolMode = null;
+let examSubmitted = false;
+
+let stemState = [];
+let choiceMarkState = [];
+
+function initQuestionStates() {
+  stemState = questions.map(q => ({
+    html: `<span class="stem-text">${escapeHTML(q.stem)}</span>`,
+    wholeHl: false,
+    wholeSt: false
+  }));
+  choiceMarkState = questions.map(q => q.opts.map(() => null));
+}
+
+function currentQuestion() {
+  return questions[currentIndex];
+}
+
+function getCorrectCount() {
+  const scope = examSubmitted ? questions.map((_, i) => String(i)) : Object.keys(submitted);
+  return scope.filter(qi => answers[qi] === questions[Number(qi)].correct).length;
+}
+
+function getIncorrectCount() {
+  const scope = examSubmitted ? questions.map((_, i) => String(i)) : Object.keys(submitted);
+  return scope.length - getCorrectCount();
+}
+
+function persistStemState() {
+  stemState[currentIndex].html = qStem.innerHTML;
+  stemState[currentIndex].wholeHl = qStem.classList.contains('hl-applied');
+  stemState[currentIndex].wholeSt = qStem.classList.contains('st-applied');
+}
+
+function updateToolUI() {
+  toolHighlight.classList.toggle('active', toolMode === 'highlight');
+  toolHighlight.classList.toggle('hl-tool', toolMode === 'highlight');
+  toolStrike.classList.toggle('active', toolMode === 'strike');
+  toolStrike.classList.toggle('st-tool', toolMode === 'strike');
+
+  if (toolMode === 'highlight') {
+    toolStatus.textContent = 'Tool mode: highlight';
+    toolStatus.className = 'tool-status active-highlight';
+    qStem.classList.add('tool-hover');
+  } else if (toolMode === 'strike') {
+    toolStatus.textContent = 'Tool mode: strikeout';
+    toolStatus.className = 'tool-status active-strike';
+    qStem.classList.add('tool-hover');
+  } else {
+    toolStatus.textContent = 'Tool mode: none';
+    toolStatus.className = 'tool-status';
+    qStem.classList.remove('tool-hover');
+  }
+}
+
+function setToolMode(mode) {
+  toolMode = toolMode === mode ? null : mode;
+  updateToolUI();
+}
+
+function setMode(mode) {
+  quizMode = mode;
+  modeLearn.classList.toggle('active', mode === 'learn');
+  modeExam.classList.toggle('active', mode === 'exam');
+  renderCurrent();
+}
+
+function toggleWholeStem(type) {
+  if (type === 'highlight') {
+    qStem.classList.toggle('hl-applied');
+    qStem.classList.remove('st-applied');
+  } else if (type === 'strike') {
+    qStem.classList.toggle('st-applied');
+    qStem.classList.remove('hl-applied');
+  }
+  persistStemState();
+}
+
+function applyStemMarkup(type) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+  const range = sel.getRangeAt(0);
+  if (!qStem.contains(range.commonAncestorContainer)) return false;
+
+  const wrapper = document.createElement('span');
+  wrapper.className = type === 'highlight' ? 'stem-hl' : 'stem-st';
+
+  try {
+    range.surroundContents(wrapper);
+  } catch (e) {
+    const frag = range.extractContents();
+    wrapper.appendChild(frag);
+    range.insertNode(wrapper);
+  }
+
+  sel.removeAllRanges();
+  persistStemState();
+  return true;
+}
+
+function updateScoreCards() {
+  document.getElementById('svCurrent').textContent = String(currentIndex + 1);
+  document.getElementById('svCorrect').textContent = String(getCorrectCount());
+  document.getElementById('svIncorrect').textContent = String(getIncorrectCount());
+}
+
+function updateExamPanel() {
+  const answeredCount = Object.keys(answers).length;
+  const checkedCount = Object.keys(submitted).length;
+
+  if (quizMode === 'learn') {
+    submitExam.style.display = 'none';
+    if (checkedCount === questions.length && questions.length > 0) {
+      examProgress.textContent = `Complete · ${getCorrectCount()}/${questions.length} correct`;
+    } else {
+      examProgress.textContent = `${checkedCount} of ${questions.length} checked`;
+    }
+    return;
+  }
+
+  submitExam.style.display = '';
+  if (examSubmitted) {
+    examProgress.textContent = `Exam submitted · ${getCorrectCount()}/${questions.length} correct`;
+    submitExam.textContent = 'Exam Submitted';
+    submitExam.disabled = true;
+  } else {
+    examProgress.textContent = `${answeredCount} of ${questions.length} answered`;
+    submitExam.textContent = 'Submit Exam';
+    submitExam.disabled = answeredCount !== questions.length;
+  }
+}
+
+function buildWrongExplanationHTML(q) {
+  return q.opts.map((text, oi) => {
+    if (oi === q.correct) return '';
+    const exp = q.wrongExps[oi] || '';
+    return `<div class="wce"><strong>${letters[oi]}</strong> — ${exp}</div>`;
+  }).join('');
+}
+
+function fillExplanation(q) {
+  exCorrectText.textContent = `Correct answer: ${letters[q.correct]}. ${q.opts[q.correct]}`;
+  exTeachingLabel.textContent = 'Teaching Point';
+  exTeachingText.textContent = q.expCorrect;
+  exWrongWrap.innerHTML = buildWrongExplanationHTML(q);
+}
+
+function updateDots() {
+  dotsWrap.innerHTML = '';
+  questions.forEach((q, qi) => {
+    const btn = document.createElement('button');
+    btn.className = 'qd';
+    if (qi === currentIndex) {
+      btn.classList.add('cur');
+    } else if ((examSubmitted || submitted[qi]) && answers[qi] !== undefined) {
+      btn.classList.add(answers[qi] === q.correct ? 'acor' : 'ainc');
+    } else if (answers[qi] !== undefined) {
+      btn.classList.add('asel');
+    }
+    btn.addEventListener('click', () => {
+      currentIndex = qi;
+      renderCurrent();
+    });
+    dotsWrap.appendChild(btn);
+  });
+}
+
+function updateNavButtons() {
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === questions.length - 1;
+  prevBtn.style.opacity = currentIndex === 0 ? '.45' : '1';
+  nextBtn.style.opacity = currentIndex === questions.length - 1 ? '.45' : '1';
+}
+
+function applyStoredChoiceMarks(choiceEl, oi) {
+  const mark = choiceMarkState[currentIndex][oi];
+  if (mark === 'hl') choiceEl.classList.add('hl-applied');
+  if (mark === 'st') choiceEl.classList.add('st-applied');
+}
+
+function attachChoiceHandlers() {
+  const choiceEls = Array.from(document.querySelectorAll('.ac'));
+  choiceEls.forEach((choice) => {
+    choice.addEventListener('click', (e) => {
+      e.preventDefault();
+      const oi = Number(choice.dataset.choice);
+
+      if (toolMode === 'highlight') {
+        choiceMarkState[currentIndex][oi] = choiceMarkState[currentIndex][oi] === 'hl' ? null : 'hl';
+        renderCurrent();
+        return;
+      }
+
+      if (toolMode === 'strike') {
+        choiceMarkState[currentIndex][oi] = choiceMarkState[currentIndex][oi] === 'st' ? null : 'st';
+        renderCurrent();
+        return;
+      }
+
+      if ((quizMode === 'learn' && submitted[currentIndex]) || examSubmitted) return;
+
+      answers[currentIndex] = oi;
+      renderCurrent();
+    });
+  });
+}
+
+function renderCurrent() {
+  const q = currentQuestion();
+  qProgFill.style.width = `${((currentIndex + 1) / questions.length) * 100}%`;
+  qNum.textContent = `${q.plo} · Question ${currentIndex + 1} of ${questions.length}`;
+
+  qStem.innerHTML = stemState[currentIndex].html;
+  qStem.classList.toggle('hl-applied', !!stemState[currentIndex].wholeHl);
+  qStem.classList.toggle('st-applied', !!stemState[currentIndex].wholeSt);
+
+  choicesWrap.innerHTML = q.opts.map((text, oi) => `
+    <div class="ac" data-choice="${oi}">
+      <div class="cl">${letters[oi]}</div>
+      <div class="ctx">${escapeHTML(text)}</div>
+    </div>
+  `).join('');
+
+  const choiceEls = Array.from(document.querySelectorAll('.ac'));
+  choiceEls.forEach((choiceEl, oi) => {
+    applyStoredChoiceMarks(choiceEl, oi);
+
+    if (answers[currentIndex] === oi && !(quizMode === 'learn' && submitted[currentIndex]) && !examSubmitted) {
+      choiceEl.classList.add('sel');
+    }
+
+    if ((quizMode === 'learn' && submitted[currentIndex]) || examSubmitted) {
+      choiceEl.classList.add('dis');
+      if (oi === q.correct) {
+        choiceEl.classList.add(answers[currentIndex] === q.correct ? 'cor' : 'shc');
+      } else if (answers[currentIndex] === oi) {
+        choiceEl.classList.add('inc');
+      }
+    }
+  });
+
+  attachChoiceHandlers();
+  fillExplanation(q);
+
+  const showExplanation = (quizMode === 'learn' && submitted[currentIndex]) || examSubmitted;
+  exBlock.classList.toggle('vis', showExplanation);
+
+  if (quizMode === 'learn') {
+    submitOne.style.display = '';
+    submitOne.textContent = submitted[currentIndex] ? 'Answer Checked' : 'Submit Answer';
+    submitOne.disabled = submitted[currentIndex] || answers[currentIndex] === undefined;
+  } else {
+    submitOne.style.display = 'none';
+  }
+
+  updateNavButtons();
+  updateDots();
+  updateScoreCards();
+  updateExamPanel();
+  updateToolUI();
+}
+
+function checkCurrentAnswer() {
+  if (quizMode !== 'learn') return;
+  if (answers[currentIndex] === undefined || submitted[currentIndex]) return;
+  submitted[currentIndex] = true;
+  renderCurrent();
+}
+
+function submitExamMode() {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  if (Object.keys(answers).length !== questions.length) return;
+  examSubmitted = true;
+  questions.forEach((_, qi) => { submitted[qi] = true; });
+  renderCurrent();
+}
+
+function resetTemplate() {
+  answers = {};
+  submitted = {};
+  currentIndex = 0;
+  quizMode = 'learn';
+  toolMode = null;
+  examSubmitted = false;
+  questions = buildQuestions();
+  initQuestionStates();
+  setMode('learn');
+  renderCurrent();
+}
+
+openDemo.addEventListener('click', () => {
+  document.querySelector('.qt-bar h2').textContent = QUIZ_TITLE;
+  qo.classList.add('open');
+  renderCurrent();
+});
+
+closeQuiz.addEventListener('click', () => {
+  qo.classList.add('closing');
+  setTimeout(() => {
+    qo.classList.remove('open','closing');
+  }, 320);
+});
+
+resetQuiz.addEventListener('click', resetTemplate);
+modeLearn.addEventListener('click', () => setMode('learn'));
+modeExam.addEventListener('click', () => setMode('exam'));
+toolHighlight.addEventListener('click', () => setToolMode('highlight'));
+toolStrike.addEventListener('click', () => setToolMode('strike'));
+toolReveal.addEventListener('click', () => {
+  if ((quizMode === 'learn' && submitted[currentIndex]) || examSubmitted) {
+    exBlock.classList.toggle('vis');
+  }
+});
+
+qStem.addEventListener('click', (e) => {
+  if (!toolMode) return;
+  const didApply = applyStemMarkup(toolMode);
+  if (!didApply) toggleWholeStem(toolMode);
+  e.preventDefault();
+});
+
+qStem.addEventListener('mouseup', () => {
+  if (toolMode) qStem.classList.add('tool-hover');
+});
+
+submitOne.addEventListener('click', checkCurrentAnswer);
+submitExam.addEventListener('click', submitExamMode);
+
+prevBtn.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    currentIndex -= 1;
+    renderCurrent();
+  }
+});
+nextBtn.addEventListener('click', () => {
+  if (currentIndex < questions.length - 1) {
+    currentIndex += 1;
+    renderCurrent();
+  }
+});
+
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qo.dataset.fs = btn.dataset.fsBtn;
+  });
+});
+
+let timerInt = null;
+let timerSec = 0;
+const timerTime = document.getElementById('timerTime');
+function renderTimer(){
+  const m = String(Math.floor(timerSec/60)).padStart(2,'0');
+  const s = String(timerSec%60).padStart(2,'0');
+  timerTime.textContent = `${m}:${s}`;
+}
+document.getElementById('timerStart').addEventListener('click', () => {
+  if (timerInt) return;
+  timerInt = setInterval(() => { timerSec += 1; renderTimer(); }, 1000);
+});
+document.getElementById('timerPause').addEventListener('click', () => {
+  clearInterval(timerInt); timerInt = null;
+});
+document.getElementById('timerReset').addEventListener('click', () => {
+  clearInterval(timerInt); timerInt = null; timerSec = 0; renderTimer();
+});
+
+let cdMinutes = 5;
+let cdInt = null;
+let cdSec = cdMinutes * 60;
+const cdVal = document.getElementById('cdVal');
+const cdTime = document.getElementById('cdTime');
+const cdGo = document.getElementById('cdGo');
+function renderCountdown(){
+  const m = String(Math.floor(cdSec/60)).padStart(2,'0');
+  const s = String(cdSec%60).padStart(2,'0');
+  cdTime.textContent = `${m}:${s}`;
+  cdVal.textContent = String(Math.max(1, Math.floor(cdSec/60) || 0));
+}
+document.getElementById('cdMinus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.max(1, cdMinutes - 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+document.getElementById('cdPlus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.min(99, cdMinutes + 1);
+  cdSec = cdMinutes * 60;
+  renderCountdown();
+});
+cdGo.addEventListener('click', () => {
+  if (cdInt){
+    clearInterval(cdInt);
+    cdInt = null;
+    cdGo.textContent = 'Start';
+    return;
+  }
+  cdGo.textContent = 'Pause';
+  cdInt = setInterval(() => {
+    if (cdSec <= 0){
+      clearInterval(cdInt);
+      cdInt = null;
+      cdGo.textContent = 'Start';
+      return;
+    }
+    cdSec -= 1;
+    renderCountdown();
+  }, 1000);
+});
+
+questions = buildQuestions();
+initQuestionStates();
+renderTimer();
+renderCountdown();
+setMode('learn');
+renderCurrent();
+</script>
+</body>
+</html>
