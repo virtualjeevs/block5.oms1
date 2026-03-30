@@ -25,6 +25,8 @@ body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);colo
 .qt-bar h2{font-family:'Crimson Pro',serif;font-size:24px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
 .qt-btns{display:flex;gap:8px;flex-wrap:wrap}
 .qt-btn{padding:10px 16px;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900;box-shadow:0 8px 20px rgba(212,168,67,.24)}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(212,168,67,.28)}
 .qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
 .qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff}
 .qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px 24px;align-items:start}
@@ -109,6 +111,7 @@ body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);colo
   <div class="qt-bar">
     <h2 id="barTitle">Dr. Ochs — LO Quiz Bank B</h2>
     <div class="qt-btns">
+      <button class="qt-btn print" id="printQuiz">Print</button>
       <button class="qt-btn reset" id="resetQuiz">Reset</button>
       <button class="qt-btn close" id="closeQuiz">Close</button>
     </div>
@@ -158,6 +161,135 @@ qs.forEach(q=>{
 let cur=0, mode='learn', answers=new Array(qs.length).fill(null), graded=new Array(qs.length).fill(false);
 const labels='ABCDE';
 const qArea=document.getElementById('qArea');
+const printQuizBtn=document.getElementById('printQuiz');
+
+function esc(str){
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+function buildPrintReviewHtml(){
+  let corCount=0,incCount=0,answeredCount=0;
+  answers.forEach((answer,idx)=>{
+    if(answer!==null){
+      answeredCount++;
+      if(answer===qs[idx].shuffledCorrect) corCount++;
+      else incCount++;
+    }
+  });
+
+  const cards=qs.map((q,idx)=>{
+    const selected=answers[idx];
+    const options=q.shuffledChoices.map((choice,choiceIdx)=>{
+      const cls=[
+        'print-choice',
+        choiceIdx===q.shuffledCorrect?'correct':'',
+        selected===choiceIdx&&choiceIdx!==q.shuffledCorrect?'incorrect':'',
+        selected===choiceIdx?'selected':''
+      ].filter(Boolean).join(' ');
+      const badge=choiceIdx===q.shuffledCorrect?'Correct':(selected===choiceIdx?'Your choice':'');
+      return `
+        <div class="${cls}">
+          <div class="print-choice-letter">${labels[choiceIdx]}</div>
+          <div class="print-choice-copy">
+            <div>${esc(choice || '')}</div>
+            ${badge ? `<div class="print-choice-badge">${badge}</div>` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    const wrongs=q.shuffledChoices.map((choice,choiceIdx)=>{
+      if(choiceIdx===q.shuffledCorrect) return '';
+      const origIdx=q.choices.indexOf(choice);
+      const wrongExp=origIdx>=0&&origIdx<q.wrongs.length?q.wrongs[origIdx>q.correct?origIdx-1:origIdx]:'';
+      return `<div class="print-wrong"><strong>${labels[choiceIdx]}</strong> - ${esc(wrongExp || choice || '')}</div>`;
+    }).join('');
+
+    return `
+      <section class="print-card">
+        <div class="print-qtag">Question ${idx + 1}</div>
+        <div class="print-stem">${esc(q.stem || '')}</div>
+        <div class="print-choices">${options}</div>
+        <div class="print-explainer correct-box">
+          <div class="print-label">Correct Answer</div>
+          <div>${esc(q.explain || '')}</div>
+        </div>
+        <div class="print-explainer wrong-box">
+          <div class="print-label">Why the Others Are Wrong</div>
+          <div>${wrongs}</div>
+        </div>
+      </section>
+    `;
+  }).join('');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Ochs - LO Quiz Bank B Print Review</title>
+<style>
+  :root{color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;padding:32px;font-family:Arial,sans-serif;color:#142033;background:#fff;line-height:1.45}
+  .print-shell{max-width:980px;margin:0 auto}
+  .print-header{margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #d9e1ea}
+  .print-header h1{margin:0 0 8px;font-size:28px}
+  .print-summary{display:flex;gap:12px;flex-wrap:wrap;font-size:14px}
+  .print-pill{padding:6px 10px;border:1px solid #c7d3e0;border-radius:999px;background:#f6f9fc}
+  .print-card{break-inside:avoid;page-break-inside:avoid;margin:0 0 20px;padding:20px;border:1px solid #d7dee8;border-radius:16px}
+  .print-qtag{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5a6c80;margin-bottom:8px}
+  .print-stem{font-size:17px;font-weight:600;margin-bottom:14px}
+  .print-choices{display:grid;gap:10px;margin-bottom:16px}
+  .print-choice{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid #d7dee8;border-radius:12px}
+  .print-choice-letter{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:700;border:1px solid #bcc9d6;flex:0 0 32px}
+  .print-choice.correct{border-color:#2d8659;background:#eef8f1}
+  .print-choice.correct .print-choice-letter{background:#2d8659;color:#fff;border-color:#2d8659}
+  .print-choice.incorrect{border-color:#c44040;background:#fdf1f1}
+  .print-choice.incorrect .print-choice-letter{background:#c44040;color:#fff;border-color:#c44040}
+  .print-choice-badge{margin-top:6px;font-size:12px;font-weight:700;color:#41556b}
+  .print-explainer{margin-top:12px;padding:14px;border-radius:12px}
+  .correct-box{background:#eef8f1;border-left:5px solid #2d8659}
+  .wrong-box{background:#fdf1f1;border-left:5px solid #c44040}
+  .print-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .print-wrong{margin-top:8px}
+  @media print{body{padding:0.35in}.print-card{box-shadow:none}}
+</style>
+</head>
+<body>
+  <div class="print-shell">
+    <header class="print-header">
+      <h1>Dr. Ochs - LO Quiz Bank B Answer Review</h1>
+      <div class="print-summary">
+        <span class="print-pill">${qs.length} questions</span>
+        <span class="print-pill">${answeredCount} answered</span>
+        <span class="print-pill">${corCount} correct</span>
+        <span class="print-pill">${incCount} incorrect</span>
+      </div>
+    </header>
+    ${cards}
+  </div>
+</body>
+</html>`;
+}
+
+function printQuizReview(){
+  const printWindow=window.open('','_blank','noopener,noreferrer');
+  if(!printWindow) return;
+  printWindow.document.open();
+  printWindow.document.write(buildPrintReviewHtml());
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.onload=()=>{
+    printWindow.print();
+    printWindow.onafterprint=()=>printWindow.close();
+  };
+}
 
 function render(){
   const q=qs[cur];
@@ -241,6 +373,7 @@ document.getElementById('resetQuiz').addEventListener('click',()=>{
 });
 document.getElementById('modeLearn').addEventListener('click',()=>{mode='learn';document.getElementById('modeLearn').classList.add('active');document.getElementById('modeExam').classList.remove('active');render()});
 document.getElementById('modeExam').addEventListener('click',()=>{mode='exam';document.getElementById('modeExam').classList.add('active');document.getElementById('modeLearn').classList.remove('active');render()});
+printQuizBtn.addEventListener('click',printQuizReview);
 
 // Timer
 let tInt=null,tSec=0;
