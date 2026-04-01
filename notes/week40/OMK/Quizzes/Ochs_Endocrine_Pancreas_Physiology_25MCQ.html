@@ -145,29 +145,48 @@ const QUESTIONS=[
 ];
 
 const letters=["A","B","C","D"];
+
+function fy(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+const QUIZ_ITEMS=QUESTIONS.map(q=>{
+  const order=fy(q.choices.map((_,i)=>i));
+  return {
+    ...q,
+    shuffledChoices: order.map(i=>q.choices[i]),
+    shuffledCorrect: order.indexOf(q.correct)
+  };
+});
+
 let mode="learn";
 let current=0;
-let answers=new Array(QUESTIONS.length).fill(null);
+let answers=new Array(QUIZ_ITEMS.length).fill(null);
 const hero=document.getElementById("hero"),quiz=document.getElementById("quiz"),results=document.getElementById("results");
 const qnum=document.getElementById("qnum"),stem=document.getElementById("stem"),choicesEl=document.getElementById("choices");
 const explain=document.getElementById("explain"),explainText=document.getElementById("explainText"),fill=document.getElementById("fill");
 const scorePill=document.getElementById("scorePill"),modePill=document.getElementById("modePill"),finishBtn=document.getElementById("finishBtn");
 
-function score(){return answers.reduce((n,a,i)=>n+(a===QUESTIONS[i].correct?1:0),0)}
+function score(){return answers.reduce((n,a,i)=>n+(a===QUIZ_ITEMS[i].shuffledCorrect?1:0),0)}
 function setMode(next){mode=next;modePill.textContent=`Mode: ${mode==="learn"?"Learn":"Exam"}`;render()}
 function start(){hero.style.display="none";results.classList.remove("active");quiz.classList.add("active");render()}
-function resetQuiz(){current=0;answers=new Array(QUESTIONS.length).fill(null);results.classList.remove("active");quiz.classList.add("active");render()}
+function resetQuiz(){current=0;answers=new Array(QUIZ_ITEMS.length).fill(null);results.classList.remove("active");quiz.classList.add("active");render()}
 function render(){
-  const q=QUESTIONS[current];
-  qnum.textContent=`Question ${current+1} of ${QUESTIONS.length}`;
+  const q=QUIZ_ITEMS[current];
+  qnum.textContent=`Question ${current+1} of ${QUIZ_ITEMS.length}`;
   stem.textContent=q.stem;
-  fill.style.width=`${((current+1)/QUESTIONS.length)*100}%`;
-  scorePill.textContent=`Score: ${score()}/${QUESTIONS.length}`;
-  finishBtn.style.display=current===QUESTIONS.length-1?"inline-flex":"none";
+  fill.style.width=`${((current+1)/QUIZ_ITEMS.length)*100}%`;
+  scorePill.textContent=`Score: ${score()}/${QUIZ_ITEMS.length}`;
+  finishBtn.style.display=current===QUIZ_ITEMS.length-1?"inline-flex":"none";
   explain.classList.remove("show");
   explainText.textContent="";
   choicesEl.innerHTML="";
-  q.choices.forEach((choice,i)=>{
+  q.shuffledChoices.forEach((choice,i)=>{
     const btn=document.createElement("button");
     btn.className="choice";
     if(answers[current]===i)btn.classList.add("selected");
@@ -181,29 +200,29 @@ function pick(i){
   render();
   if(mode==="learn"){
     [...choicesEl.querySelectorAll(".choice")].forEach((el,idx)=>{
-      if(idx===QUESTIONS[current].correct)el.classList.add("correct");
-      if(idx===i&&i!==QUESTIONS[current].correct)el.classList.add("incorrect");
+      if(idx===QUIZ_ITEMS[current].shuffledCorrect)el.classList.add("correct");
+      if(idx===i&&i!==QUIZ_ITEMS[current].shuffledCorrect)el.classList.add("incorrect");
     });
-    explainText.textContent=QUESTIONS[current].explanation;
+    explainText.textContent=QUIZ_ITEMS[current].explanation;
     explain.classList.add("show");
-    scorePill.textContent=`Score: ${score()}/${QUESTIONS.length}`;
+    scorePill.textContent=`Score: ${score()}/${QUIZ_ITEMS.length}`;
   }
 }
 function finish(){
   quiz.classList.remove("active");
   results.classList.add("active");
   const sc=score();
-  document.getElementById("finalScore").textContent=`${sc}/${QUESTIONS.length}`;
-  document.getElementById("finalPercent").textContent=`${Math.round((sc/QUESTIONS.length)*100)}%`;
+  document.getElementById("finalScore").textContent=`${sc}/${QUIZ_ITEMS.length}`;
+  document.getElementById("finalPercent").textContent=`${Math.round((sc/QUIZ_ITEMS.length)*100)}%`;
   document.getElementById("finalMode").textContent=mode==="learn"?"Learn":"Exam";
   const review=document.getElementById("review");
   review.innerHTML="";
-  QUESTIONS.forEach((q,i)=>{
+  QUIZ_ITEMS.forEach((q,i)=>{
     const picked=answers[i];
-    const good=picked===q.correct;
+    const good=picked===q.shuffledCorrect;
     const card=document.createElement("div");
     card.className=`card ${good?"good":"bad"}`;
-    card.innerHTML=`<div class="tag">Question ${i+1}</div><div class="st">${q.stem}</div><div class="ln"><strong>Your answer:</strong> ${picked===null?"No answer selected":q.choices[picked]}</div><div class="ln"><strong>Correct answer:</strong> ${q.choices[q.correct]}</div><div class="ln"><strong>Why:</strong> ${q.explanation}</div>`;
+    card.innerHTML=`<div class="tag">Question ${i+1}</div><div class="st">${q.stem}</div><div class="ln"><strong>Your answer:</strong> ${picked===null?"No answer selected":q.shuffledChoices[picked]}</div><div class="ln"><strong>Correct answer:</strong> ${q.shuffledChoices[q.shuffledCorrect]}</div><div class="ln"><strong>Why:</strong> ${q.explanation}</div>`;
     review.appendChild(card);
   });
   window.scrollTo({top:0,behavior:"smooth"});
@@ -213,7 +232,7 @@ document.getElementById("startBtn").onclick=start;
 document.getElementById("modeLearnBtn").onclick=()=>setMode("learn");
 document.getElementById("modeExamBtn").onclick=()=>setMode("exam");
 document.getElementById("prevBtn").onclick=()=>{if(current>0)current--;render()};
-document.getElementById("nextBtn").onclick=()=>{if(current<QUESTIONS.length-1)current++;render()};
+document.getElementById("nextBtn").onclick=()=>{if(current<QUIZ_ITEMS.length-1)current++;render()};
 document.getElementById("resetBtn").onclick=resetQuiz;
 document.getElementById("finishBtn").onclick=finish;
 document.getElementById("restartBtn").onclick=resetQuiz;
