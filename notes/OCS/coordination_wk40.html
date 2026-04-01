@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 40 OCS · Coordination</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f3ef;
+  --card: #ffffff;
+  --navy: #1a2744;
+  --teal: #0f766e;
+  --teal-light: #ccfbf1;
+  --coral: #c2410c;
+  --coral-light: #fff7ed;
+  --violet: #6d28d9;
+  --violet-light: #ede9fe;
+  --amber: #b45309;
+  --amber-light: #fffbeb;
+  --blue: #1d4ed8;
+  --blue-light: #eff6ff;
+  --rose: #be123c;
+  --rose-light: #fff1f2;
+  --slate: #475569;
+  --border: #e2ddd6;
+  --shadow: 0 2px 12px rgba(26,39,68,0.08);
+  --shadow-lg: 0 8px 32px rgba(26,39,68,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); font-family: 'Nunito', sans-serif; color: var(--navy); font-size: 15px; line-height: 1.7; }
+
+.site-header { background: var(--navy); color: white; padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.site-header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; border-radius: 50%; background: rgba(15,118,110,0.15); }
+.site-header::after { content: ''; position: absolute; bottom: -40px; left: 40px; width: 200px; height: 200px; border-radius: 50%; background: rgba(109,40,217,0.1); }
+.header-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+.header-tag { display: inline-block; background: rgba(15,118,110,0.3); color: #5eead4; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 0.8rem; }
+.site-header h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem; }
+.site-header p { color: rgba(255,255,255,0.65); font-size: 0.9rem; }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+.toc a { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); text-decoration: none; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); transition: all 0.2s; }
+.toc a:hover { background: rgba(255,255,255,0.2); color: white; }
+
+.main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+.section { margin-bottom: 2.5rem; }
+.section-title { font-size: 1.25rem; font-weight: 800; color: var(--navy); display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--border); }
+.section-title .dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+.card { background: var(--card); border-radius: 12px; padding: 1.25rem 1.5rem; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 1rem; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+.card.teal { border-left: 4px solid var(--teal); }
+.card.coral { border-left: 4px solid var(--coral); }
+.card.violet { border-left: 4px solid var(--violet); }
+.card.amber { border-left: 4px solid var(--amber); }
+.card.blue { border-left: 4px solid var(--blue); }
+.card.rose { border-left: 4px solid var(--rose); }
+.card h3 { font-weight: 800; font-size: 1rem; margin-bottom: 0.6rem; }
+.card h4 { font-weight: 700; font-size: 0.9rem; color: var(--slate); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; margin-top: 0.8rem; }
+
+.tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; margin: 2px; }
+.tag-teal { background: var(--teal-light); color: var(--teal); }
+.tag-coral { background: var(--coral-light); color: var(--coral); }
+.tag-violet { background: var(--violet-light); color: var(--violet); }
+.tag-amber { background: var(--amber-light); color: var(--amber); }
+.tag-blue { background: var(--blue-light); color: var(--blue); }
+.tag-rose { background: var(--rose-light); color: var(--rose); }
+
+.term-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 0.5rem; }
+.term-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; box-shadow: var(--shadow); }
+.term-box .term { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.8rem; color: var(--teal); display: block; margin-bottom: 3px; }
+.term-box .def { font-size: 0.82rem; color: var(--slate); line-height: 1.5; }
+
+.illness-card { background: var(--card); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 1rem; }
+.illness-header { padding: 0.8rem 1.25rem; font-weight: 800; font-size: 1rem; color: white; display: flex; align-items: center; gap: 10px; }
+.illness-body { padding: 1rem 1.25rem; }
+.illness-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.illness-col h4 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.4rem; color: var(--slate); }
+.illness-col ul { list-style: none; padding: 0; }
+.illness-col ul li { font-size: 0.85rem; padding: 2px 0; display: flex; align-items: baseline; gap: 6px; }
+.illness-col ul li::before { content: '→'; font-size: 0.75rem; flex-shrink: 0; color: var(--slate); }
+.red-flag { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 6px 10px; margin-top: 0.5rem; font-size: 0.8rem; color: var(--rose); font-weight: 700; }
+
+.cn-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.cn-table th { background: var(--navy); color: white; padding: 8px 12px; text-align: left; font-weight: 700; }
+.cn-table td { padding: 7px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.cn-table tr:nth-child(even) td { background: #fafaf9; }
+.cn-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--teal); white-space: nowrap; }
+
+.callout { border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; display: flex; gap: 12px; align-items: flex-start; }
+.callout-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+.callout-body { font-size: 0.88rem; }
+.callout-body strong { display: block; margin-bottom: 3px; font-weight: 800; }
+.callout.tip { background: var(--teal-light); border: 1px solid #99f6e4; }
+.callout.warn { background: var(--amber-light); border: 1px solid #fde68a; }
+.callout.pearl { background: var(--violet-light); border: 1px solid #c4b5fd; }
+.callout.danger { background: var(--rose-light); border: 1px solid #fda4af; }
+
+.hx-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 0.5rem; }
+.hx-table th { background: #f1f5f9; padding: 8px 12px; text-align: left; font-weight: 700; border-bottom: 2px solid var(--border); }
+.hx-table td { padding: 7px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.hx-table td:first-child { font-weight: 700; color: var(--teal); white-space: nowrap; width: 150px; }
+
+.tremor-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 0.5rem; }
+.tremor-card { border-radius: 10px; padding: 1rem; border: 2px solid; }
+.tremor-card .t-name { font-weight: 800; font-size: 0.95rem; margin-bottom: 6px; }
+.tremor-card .t-timing { font-size: 0.82rem; font-weight: 700; margin-bottom: 4px; }
+.tremor-card .t-body { font-size: 0.82rem; color: var(--slate); line-height: 1.5; }
+
+.network-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+.network-box { border-radius: 10px; padding: 1rem 1.25rem; }
+
+.exam-step { background: var(--card); border-radius: 10px; padding: 0.9rem 1.25rem; border: 1px solid var(--border); box-shadow: var(--shadow); margin-bottom: 0.8rem; display: grid; grid-template-columns: 200px 1fr 1fr; gap: 1rem; font-size: 0.85rem; }
+.exam-step .es-label { font-weight: 800; color: var(--navy); }
+.exam-step .es-how { color: var(--slate); }
+.exam-step .es-interpret { color: var(--teal); font-weight: 600; }
+
+.soap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.soap-box { border-radius: 10px; padding: 1rem 1.25rem; border: 1px solid var(--border); }
+.soap-label { font-size: 1.3rem; font-weight: 900; margin-bottom: 0.3rem; }
+.plan-steps { counter-reset: plan; list-style: none; padding: 0; }
+.plan-steps li { counter-increment: plan; display: flex; gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+.plan-steps li::before { content: counter(plan); background: var(--navy); color: white; width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+ul.list { padding-left: 1.2rem; }
+ul.list li { margin-bottom: 4px; font-size: 0.88rem; }
+
+/* DTR table */
+.dtr-row { display: grid; grid-template-columns: 60px 1fr; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+.dtr-grade { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1rem; text-align: center; }
+
+/* Quiz */
+#quiz-section { background: var(--navy); border-radius: 16px; padding: 2rem; margin-top: 2rem; color: white; }
+#quiz-section h2 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 0.25rem; }
+#quiz-section .quiz-sub { color: rgba(255,255,255,0.55); font-size: 0.85rem; margin-bottom: 1.5rem; }
+.quiz-progress-bar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-bottom: 1.5rem; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: #0d9488; border-radius: 2px; transition: width 0.4s ease; }
+.quiz-counter { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 0.8rem; font-weight: 600; }
+.quiz-question { font-size: 1rem; font-weight: 700; line-height: 1.55; margin-bottom: 1.2rem; color: white; }
+.quiz-choices { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.quiz-choice { background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 12px 16px; font-size: 0.88rem; cursor: pointer; transition: all 0.2s; display: flex; gap: 12px; align-items: flex-start; color: rgba(255,255,255,0.9); line-height: 1.5; }
+.quiz-choice:hover:not(.answered) { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.3); }
+.choice-letter { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.78rem; background: rgba(255,255,255,0.12); border-radius: 5px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.quiz-choice.correct { background: rgba(16,185,129,0.2); border-color: #10b981; }
+.quiz-choice.incorrect { background: rgba(239,68,68,0.15); border-color: #ef4444; }
+.quiz-choice.correct .choice-letter { background: #10b981; color: white; }
+.quiz-choice.incorrect .choice-letter { background: #ef4444; color: white; }
+.explanation { margin-top: 8px; font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.5; padding-left: 34px; font-style: italic; }
+.quiz-actions { display: flex; justify-content: flex-end; margin-top: 1.5rem; gap: 10px; }
+.btn { padding: 10px 24px; border-radius: 8px; border: none; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+.btn-primary { background: #0f766e; color: white; }
+.btn-primary:hover { background: #0d9488; }
+.quiz-score { text-align: center; padding: 2rem 0; }
+.score-circle { width: 100px; height: 100px; border-radius: 50%; background: rgba(15,118,110,0.2); border: 3px solid #0d9488; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 900; margin: 0 auto 1rem; color: #5eead4; }
+.score-msg { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.score-sub { color: rgba(255,255,255,0.55); font-size: 0.85rem; }
+
+@media(max-width:600px){ .two-col,.illness-row,.soap-grid,.tremor-grid,.network-grid,.term-grid,.card-grid{ grid-template-columns:1fr; } .exam-step{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-tag">OCS 1 · Week 40 · Spring 2026</span>
+    <h1>Coordination</h1>
+    <p>Drs. Filippakis, Howard, Sharkey &amp; St. Pierre · UNE COM</p>
+    <nav class="toc">
+      <a href="#terminology">Terminology</a>
+      <a href="#network">Coord. Network</a>
+      <a href="#tremors">Tremors</a>
+      <a href="#exam">Coordination Exam</a>
+      <a href="#gait">Gait &amp; Romberg</a>
+      <a href="#dmr">Dermatomes &amp; Reflexes</a>
+      <a href="#illness">Illness Scripts</a>
+      <a href="#history">History</a>
+      <a href="#ros">ROS</a>
+      <a href="#pe">Physical Exam</a>
+      <a href="#normal">Normal Exam</a>
+      <a href="#ddx">DDx</a>
+      <a href="#soap">SOAP &amp; Plan</a>
+      <a href="#omm">OMM</a>
+      <a href="#quiz">MCQ Quiz</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- ═══ TERMINOLOGY ═══ -->
+<section class="section" id="terminology">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--teal)"></span>
+    Neurologic Terminology — Week 40
+  </h2>
+  <div class="callout tip">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body"><strong>Exam priority</strong> Know the bold terms precisely — they distinguish cerebellar disease from basal ganglia disease from peripheral neuropathy on OSCE and boards.</div>
+  </div>
+  <div class="term-grid">
+    <div class="term-box">
+      <span class="term">Nystagmus</span>
+      <span class="def">Involuntary rhythmic eye movements. Jerk type = fast + slow phases (named for fast direction). Can be caused by vestibular or cerebellar dysfunction.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Dysarthria</span>
+      <span class="def">Disturbance of speech (slow, ataxic, slurred, jerky) from incoordination of the muscles of phonation. Can result from cerebellar, CN, or upper motor neuron pathology.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Hypotonia</span>
+      <span class="def">Muscle flaccidity — reduced tension or loss of muscle tone, decreased resistance to passive movement. Classic sign of cerebellar dysfunction (cerebellum maintains tone).</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Ataxia</span>
+      <span class="def">"Without order" — loss of control of coordinated voluntary movement. Medium-large amplitude involuntary oscillatory movements superimposed on intended movement trajectory.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Dysdiadochokinesis</span>
+      <span class="def">Inability to perform rapid alternating movements (RAM). Agonist/antagonist switching is slow, irregular, and clumsy. Classic sign of cerebellar disease.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Dysmetria</span>
+      <span class="def">Errors in judging distance, speed, power, and direction of movement → under- or overshooting of target. Tested by FTN and HTS. Typically cerebellar.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Dyssynergia</span>
+      <span class="def">Decomposition of movement — jerky, erratic, awkward, disorganized execution. The essential disturbance in cerebellar disease; movements lose their smooth synergy.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Tremor</span>
+      <span class="def">Involuntary, relatively rhythmic, purposeless, oscillatory muscle movements. Classified by when they occur: resting, postural, or intention (see tremor section).</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Tic (Habit Spasm)</span>
+      <span class="def">Quick, irregular but repetitive movements (motor tic) or utterances (vocal tic); seemingly purposeful acts. More common in children. Often worsened by stress.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Fasciculation</span>
+      <span class="def">Brief, spontaneous flickering of a muscle fasciculus (bundle). Visible under skin with oblique lighting. Suggests LMN denervation (e.g., ALS, radiculopathy).</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Paralysis / Plegia</span>
+      <span class="def">Complete loss of voluntary muscle function. Paresis = partial/incomplete loss (weakness). "-plegia" = complete; "-paresis" = partial. (Review from Wk 39).</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Bradykinesia</span>
+      <span class="def">Slowness of movement; a cardinal feature of Parkinson disease from basal ganglia dopaminergic loss. Distinguished from weakness — force is intact, speed is not.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Hypomimia</span>
+      <span class="def">"Masked face" — facial immobility and reduction of normal facial expressiveness. Classic Parkinson disease finding; basal ganglia lesion reduces automatic facial movement.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Micrographia</span>
+      <span class="def">Abnormal reduction in handwriting size; letters may be consistently small or progressively diminish during the writing task. A hallmark of Parkinson disease.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Festination</span>
+      <span class="def">Tendency to walk with increasingly rapid but progressively smaller steps; center of gravity falls forward over the stepping feet. Parkinson disease gait pattern.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Cogwheel Rigidity</span>
+      <span class="def">Jerky quality to increased muscle tone; passive movement meets rhythmic "catches" as if attached to a heavy cogwheel. Pathognomonic of Parkinson disease.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COORDINATION NETWORK ═══ -->
+<section class="section" id="network">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--violet)"></span>
+    The Coordination Network
+  </h2>
+  <div class="callout pearl">
+    <span class="callout-icon">🧠</span>
+    <div class="callout-body">
+      <strong>Key concept</strong>
+      Coordination = "awkwardness of movement" — NOT weakness. Coordination requires four integrated systems. A lesion in any one causes a distinct pattern of incoordination.
+    </div>
+  </div>
+  <div class="network-grid">
+    <div class="network-box" style="background:#f0fdf4;border:1px solid #86efac;">
+      <div style="font-weight:800;font-size:0.9rem;color:#15803d;margin-bottom:6px;">⚡ Motor System (Output)</div>
+      <div style="font-size:0.85rem;color:var(--slate);">Carries out voluntary movement; provides the "efferent action." Damage to the corticospinal tract (pyramidal) → <strong>weakness</strong>. Damage to basal ganglia → <strong>rigidity, bradykinesia, involuntary movements</strong>.</div>
+    </div>
+    <div class="network-box" style="background:#eff6ff;border:1px solid #93c5fd;">
+      <div style="font-weight:800;font-size:0.9rem;color:var(--blue);margin-bottom:6px;">🌊 Vestibular System (Input)</div>
+      <div style="font-size:0.85rem;color:var(--slate);">Balance, and coordination of eye, head, and body movements. Dysfunction → vertigo, disequilibrium, vestibular nystagmus. Integrated with CN VIII input and cerebellar output.</div>
+    </div>
+    <div class="network-box" style="background:#fdf4ff;border:1px solid #d8b4fe;">
+      <div style="font-weight:800;font-size:0.9rem;color:var(--violet);margin-bottom:6px;">👁️ Sensory System (Input)</div>
+      <div style="font-size:0.85rem;color:var(--slate);">Proprioception (joint position sense) and vibration travel via dorsal columns. Loss → <strong>sensory ataxia</strong>: worsens dramatically with eyes closed (Romberg positive). "Searching" oscillatory movement.</div>
+    </div>
+    <div class="network-box" style="background:#fff7ed;border:1px solid #fcd34d;">
+      <div style="font-weight:800;font-size:0.9rem;color:var(--amber);margin-bottom:6px;">🔄 Cerebellar System (Integration)</div>
+      <div style="font-size:0.85rem;color:var(--slate);">Integrates motor + sensory + vestibular input; modulates response to produce smooth, rhythmic movement and steady posture. Damage → <strong>cerebellar ataxia</strong>: clumsy regardless of eyes open/closed, + nystagmus, dysarthria, hypotonia.</div>
+    </div>
+  </div>
+
+  <div class="card violet" style="margin-top:1rem;">
+    <h3 style="color:var(--violet)">Two Primary Coordination Pathways: Lesion Localization</h3>
+    <div class="two-col">
+      <div>
+        <h4>Intended/Voluntary Movement → Cerebellum</h4>
+        <ul class="list">
+          <li>Awkwardness during <em>active</em> movement (reaching, walking)</li>
+          <li>Examples: <strong>intention tremor, ataxia, dysmetria, dyssynergia</strong></li>
+          <li>Wide-based gait, dysdiadochokinesis</li>
+          <li>Abnormalities persist whether eyes open or closed</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Involuntary Movement (At Rest) → Basal Ganglia</h4>
+        <ul class="list">
+          <li>Abnormal movements occurring <em>without</em> voluntary intent</li>
+          <li>Examples: <strong>resting tremor, chorea, athetosis, hemiballismus</strong></li>
+          <li>Parkinson disease: pill-rolling tremor, bradykinesia, cogwheel rigidity</li>
+          <li>Huntington disease: chorea (dance-like writhing movements)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout warn" style="margin-top:0.8rem;margin-bottom:0;">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body"><strong>Critical distinction</strong>: Cerebellar lesions are <em>ipsilateral</em> (cerebellum does not cross); corticospinal and sensory tracts are <em>contralateral</em> to the lesion above their decussation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TREMORS ═══ -->
+<section class="section" id="tremors">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--amber)"></span>
+    Differentiating Tremors
+  </h2>
+  <div class="tremor-grid">
+    <div class="tremor-card" style="border-color:#6d28d9;background:#fdf4ff;">
+      <div class="t-name" style="color:var(--violet)">Resting (Static) Tremor</div>
+      <div class="t-timing" style="color:var(--violet)">When: At rest; decreases with movement</div>
+      <div class="t-body">
+        Most prominent when the affected part is fully supported and relaxed.<br><br>
+        <strong>Classic example:</strong> "Pill-rolling" tremor of Parkinson disease (~5 Hz). Thumb rolls across fingertips.<br><br>
+        <strong>Lesion:</strong> Basal ganglia (dopaminergic neurons in substantia nigra).<br><br>
+        <strong>Associated:</strong> Bradykinesia, cogwheel rigidity, hypomimia, micrographia, festination.
+      </div>
+    </div>
+    <div class="tremor-card" style="border-color:var(--amber);background:var(--amber-light);">
+      <div class="t-name" style="color:var(--amber)">Postural Tremor</div>
+      <div class="t-timing" style="color:var(--amber)">When: Maintaining a posture against gravity</div>
+      <div class="t-body">
+        Appears when the affected part is held actively against gravity (e.g., hands outstretched).<br><br>
+        <strong>Classic examples:</strong>
+        <ul class="list">
+          <li>Essential (benign familial) tremor — most common movement disorder; bilateral; may improve with alcohol; no Parkinson features</li>
+          <li>Hyperthyroidism tremor</li>
+          <li>Anxiety/fatigue-related tremor</li>
+          <li>Medication-induced (e.g., lithium, valproate)</li>
+        </ul>
+        <strong>Lesion:</strong> Various (often no discrete single lesion; enhanced physiological tremor or essential tremor networks).
+      </div>
+    </div>
+    <div class="tremor-card" style="border-color:var(--teal);background:var(--teal-light);">
+      <div class="t-name" style="color:var(--teal)">Intention Tremor</div>
+      <div class="t-timing" style="color:var(--teal)">When: During movement; worsens near target</div>
+      <div class="t-body">
+        Absent at rest; appears with voluntary movement and characteristically <strong>worsens as the limb approaches its target.</strong><br><br>
+        <strong>Classic examples:</strong>
+        <ul class="list">
+          <li>Cerebellar disease (most common cause)</li>
+          <li>Multiple sclerosis (demyelination of cerebellar tracts)</li>
+          <li>Posterior fossa stroke</li>
+        </ul>
+        <strong>Lesion:</strong> Cerebellum or its related tracts (dentate nucleus, superior cerebellar peduncle).<br><br>
+        <strong>Associated:</strong> Dysmetria, dysdiadochokinesis, wide-based gait, nystagmus.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COORDINATION EXAM ═══ -->
+<section class="section" id="exam">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--blue)"></span>
+    Coordination Physical Exam
+  </h2>
+
+  <div class="callout tip">
+    <span class="callout-icon">📋</span>
+    <div class="callout-body"><strong>Remember "The Big Five"</strong> Coordination falls under category 4 (sensory system and coordination) and category 5 (gait and station) of the neurologic exam. Always explain each test in lay terms and obtain consent before performing.</div>
+  </div>
+
+  <div class="card blue">
+    <h3 style="color:var(--blue)">Coordination Exam Components (Cerebellar System)</h3>
+    <div style="overflow-x:auto;">
+      <table class="cn-table">
+        <thead><tr><th>Test</th><th>How to Perform</th><th>Positive Finding</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Finger-to-Nose (FTN)</strong></td>
+            <td>Patient touches your moving index finger then their own nose alternately, arm fully extended; repeat with eyes closed</td>
+            <td>Overshooting/undershooting (dysmetria); tremor worsening near target; loss of smoothness</td>
+            <td>Worsens with eyes CLOSED → sensory ataxia (proprioception loss). Same with eyes open OR closed → cerebellar ataxia</td>
+          </tr>
+          <tr>
+            <td><strong>Heel-to-Shin (HTS)</strong></td>
+            <td>Supine: patient places heel on opposite knee, runs heel smoothly down shin to big toe; eyes closed tests proprioception</td>
+            <td>Heel overshoots knee (dysmetria); heel slides off shin; irregular path</td>
+            <td>Same interpretation pattern as FTN: eyes-closed worsening = sensory ataxia; persistent = cerebellar ataxia</td>
+          </tr>
+          <tr>
+            <td><strong>Rapid Alternating Movements — UE (RAM)</strong></td>
+            <td>Patient alternately pronates and supinates hand, patting thigh with palm then dorsum as fast as possible; repeat with other hand</td>
+            <td>Slow, irregular, clumsy alternating movements (dysdiadochokinesis)</td>
+            <td>Cerebellar disease; usually bilateral. RAM abnormalities from agonist/antagonist switching failure</td>
+          </tr>
+          <tr>
+            <td><strong>Rapid Alternating Movements — LE (RAM)</strong></td>
+            <td>Patient taps foot steadily against examiner's palm (seated), or repetitively touches heel from knee to ankle (supine)</td>
+            <td>Irregular, slow foot tapping; loss of rhythm</td>
+            <td>Cerebellar or basal ganglia dysfunction affecting lower extremity coordination</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card teal">
+    <h3 style="color:var(--teal)">Interpreting Ataxia Type — Movement Pattern</h3>
+    <div class="two-col">
+      <div>
+        <h4>Sensory Ataxia</h4>
+        <ul class="list">
+          <li>"Searching" movement — limb approaches target with meandering oscillation</li>
+          <li>Dramatically WORSE with eyes closed (Romberg positive)</li>
+          <li>Positive: loss of proprioception / vibration</li>
+          <li>Steppage gait (foot stomping); decreased reflexes</li>
+          <li>Causes: dorsal column disease, peripheral neuropathy (B12 deficiency, DM, tabes dorsalis)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Cerebellar Ataxia</h4>
+        <ul class="list">
+          <li>Oscillatory movement perpendicular to plane of movement (side to side)</li>
+          <li>Worsens as limb approaches target; <strong>NOT significantly changed by eye closure</strong></li>
+          <li>Associated: nystagmus, dysarthria, hypotonia, dysdiadochokinesis, dysmetria</li>
+          <li>Appendicular: extremity ataxia. Truncal: gait instability</li>
+          <li>Causes: cerebellar stroke, MS, spinocerebellar ataxia, chronic EtOH</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card amber">
+    <h3 style="color:var(--amber)">Lay Terminology for Patient Explanation (Consent Examples)</h3>
+    <ul class="list">
+      <li>"I'd like to check your coordination by having you touch my moving finger and then touch your nose alternately several times — almost like a game of 'follow the target.'"</li>
+      <li>"I'm going to ask you to flip your hand back and forth on your leg as fast as you comfortably can. This helps me check how well your brain and muscles are coordinating."</li>
+      <li>"Please place your heel on your opposite knee and slide it down your shin to your big toe. I'll be watching for how smoothly and accurately you can do this."</li>
+      <li>"I'm going to ask you to stand up from the chair without using your hands — cross your arms across your chest for me. I just want to watch how you get up from sitting."</li>
+      <li>"I'll ask you to walk normally, then walk heel to toe in a straight line — like walking a tightrope. Then I'd like to see you walk on your toes, then on your heels."</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══ GAIT & ROMBERG ═══ -->
+<section class="section" id="gait">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--violet)"></span>
+    Gait, Stance &amp; Romberg Sign
+  </h2>
+
+  <div class="card violet">
+    <h3 style="color:var(--violet)">Gait Assessment — Step by Step</h3>
+    <ol class="plan-steps">
+      <li><strong>Rise from chair without hands</strong> — difficulty suggests proximal hip extensor weakness (extensors of hip) or quadriceps weakness (extensor of knee)</li>
+      <li><strong>Baseline walk</strong> — walk across room and back; observe posture, base width, arm swing, stride length, turning. Normally: symmetric arm swing, smooth turns</li>
+      <li><strong>Tandem (heel-to-toe) walk</strong> — may reveal ataxia not obvious in baseline; sensitive for subtle cerebellar dysfunction</li>
+      <li><strong>Toe walking</strong> — tests plantarflexion strength (S1 myotome, gastrocnemius) and balance</li>
+      <li><strong>Heel walking</strong> — tests dorsiflexion strength (L4/L5 myotome); inability = sensitive test for corticospinal tract damage</li>
+    </ol>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="cn-table" style="margin-bottom:1rem;">
+      <thead><tr><th>Gait Pattern</th><th>Description</th><th>Localization / Etiology</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Ataxic / Wide-based</strong></td><td>Reeling, uncoordinated, wide stance; staggers; instability on tandem walk</td><td>Cerebellar disease, loss of position sense, intoxication</td></tr>
+        <tr><td><strong>Parkinsonian / Festinating</strong></td><td>Stooped posture, shuffling short steps, minimal arm swing, multiple steps to turn (en bloc turning), accelerating steps (festination)</td><td>Parkinson disease (basal ganglia); narrow-based</td></tr>
+        <tr><td><strong>Steppage / High-stepping</strong></td><td>Foot lifts abnormally high to avoid foot drop; foot slaps ground</td><td>Foot drop from common peroneal nerve, L4/L5 radiculopathy, peripheral neuropathy (sensory ataxia)</td></tr>
+        <tr><td><strong>Hemiplegic / Circumduction</strong></td><td>Affected arm flexed, leg extended and swings outward in semicircle</td><td>Contralateral corticospinal tract lesion (stroke, tumor)</td></tr>
+        <tr><td><strong>Waddling / Trendelenburg</strong></td><td>Swinging of trunk from side to side; pelvis drops on unsupported side</td><td>Proximal hip girdle weakness (myopathy, muscular dystrophy)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card rose">
+    <h3 style="color:var(--rose)">Romberg Sign</h3>
+    <div class="two-col">
+      <div>
+        <h4>How to Perform</h4>
+        <ul class="list">
+          <li>Patient stands with feet together, arms at sides (or crossed)</li>
+          <li>Observe for 30–60 seconds with eyes <em>open</em> (should be stable)</li>
+          <li>Ask patient to close eyes; observe for imbalance</li>
+          <li>Stand close to catch patient if they fall</li>
+        </ul>
+        <h4>Interpretation</h4>
+        <ul class="list">
+          <li><strong>Positive Romberg</strong> = marked worsening of balance with eyes closed → suggests loss of proprioception or vestibular dysfunction (sensory ataxia)</li>
+          <li><strong>Key principle</strong>: patient uses vision to compensate for proprioception loss; removing visual cue (closing eyes) exposes the deficit</li>
+          <li>Patient with severe <em>cerebellar</em> dysfunction <strong>cannot stand even with eyes open</strong> (this is NOT a positive Romberg — Romberg specifically tests proprioception)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="callout warn" style="margin:0 0 0.8rem 0;">
+          <span class="callout-icon">⚠️</span>
+          <div class="callout-body"><strong>Romberg ≠ cerebellar test!</strong> Romberg tests proprioception. Cerebellar patients may be unable to maintain stance even with eyes open — this is a different finding. Don't confuse them.</div>
+        </div>
+        <div class="callout tip" style="margin:0;">
+          <span class="callout-icon">💡</span>
+          <div class="callout-body"><strong>Documentation example</strong>: "Negative Romberg" (normal) vs. "Positive Romberg with notable sway and near-fall upon eye closure, consistent with sensory ataxia."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DERMATOMES, MYOTOMES, REFLEXES ═══ -->
+<section class="section" id="dmr">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--coral)"></span>
+    Dermatomes, Myotomes &amp; Deep Tendon Reflexes
+  </h2>
+
+  <div class="callout pearl">
+    <span class="callout-icon">🔍</span>
+    <div class="callout-body"><strong>Purpose in the coordination exam</strong> Dermatomal sensory loss + loss of a specific DTR + myotomal weakness all localizes a lesion to a specific spinal cord level or nerve root. This is essential for separating cerebellar ataxia from sensory ataxia and for identifying peripheral neuropathy.</div>
+  </div>
+
+  <div class="two-col" style="margin-bottom:1rem;">
+    <div class="card teal">
+      <h3 style="color:var(--teal)">Key Dermatomes (Upper Extremity)</h3>
+      <table class="cn-table">
+        <thead><tr><th>Level</th><th>Area</th></tr></thead>
+        <tbody>
+          <tr><td class="cn-num">C4</td><td>Cape of shoulders, clavicular region</td></tr>
+          <tr><td class="cn-num">C5</td><td>Lateral shoulder, upper lateral arm</td></tr>
+          <tr><td class="cn-num">C6</td><td>Lateral forearm, thumb, index finger</td></tr>
+          <tr><td class="cn-num">C7</td><td>Middle finger (central strip)</td></tr>
+          <tr><td class="cn-num">C8</td><td>Ring and little finger, medial forearm</td></tr>
+          <tr><td class="cn-num">T1</td><td>Medial arm and axilla</td></tr>
+          <tr><td class="cn-num">T4</td><td>Nipple line</td></tr>
+          <tr><td class="cn-num">T10</td><td>Umbilicus</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card amber">
+      <h3 style="color:var(--amber)">Key Dermatomes (Lower Extremity)</h3>
+      <table class="cn-table">
+        <thead><tr><th>Level</th><th>Area</th></tr></thead>
+        <tbody>
+          <tr><td class="cn-num">L1</td><td>Inguinal region, upper anterior thigh</td></tr>
+          <tr><td class="cn-num">L2/L3</td><td>Anterior and medial thigh</td></tr>
+          <tr><td class="cn-num">L4</td><td>Medial calf, medial malleolus, great toe</td></tr>
+          <tr><td class="cn-num">L5</td><td>Lateral calf, dorsum of foot, first web space</td></tr>
+          <tr><td class="cn-num">S1</td><td>Lateral foot, heel, plantar surface</td></tr>
+          <tr><td class="cn-num">S2/S3</td><td>Posterior thigh, perineum</td></tr>
+          <tr><td class="cn-num">S3-S5</td><td>Perianal region; bowel/bladder control</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3 style="color:var(--blue)">Key Myotomes — Motor Level Testing</h3>
+    <div style="overflow-x:auto;">
+      <table class="cn-table">
+        <thead><tr><th>Root</th><th>Movement</th><th>Key Muscle(s)</th></tr></thead>
+        <tbody>
+          <tr><td class="cn-num">C5</td><td>Shoulder abduction</td><td>Deltoid</td></tr>
+          <tr><td class="cn-num">C5-C6</td><td>Elbow flexion</td><td>Biceps brachii</td></tr>
+          <tr><td class="cn-num">C6-C7</td><td>Wrist extension</td><td>Extensor carpi radialis</td></tr>
+          <tr><td class="cn-num">C7</td><td>Elbow extension</td><td>Triceps brachii</td></tr>
+          <tr><td class="cn-num">C8-T1</td><td>Finger abduction / grip</td><td>Intrinsic hand muscles</td></tr>
+          <tr><td class="cn-num">L1-L2</td><td>Hip flexion</td><td>Iliopsoas</td></tr>
+          <tr><td class="cn-num">L3-L4</td><td>Knee extension</td><td>Quadriceps</td></tr>
+          <tr><td class="cn-num">L4-L5</td><td>Ankle dorsiflexion</td><td>Tibialis anterior</td></tr>
+          <tr><td class="cn-num">L5</td><td>Great toe extension</td><td>Extensor hallucis longus</td></tr>
+          <tr><td class="cn-num">S1</td><td>Ankle plantarflexion</td><td>Gastrocnemius / soleus</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card violet">
+    <h3 style="color:var(--violet)">Deep Tendon Reflexes (DTRs) — Grading &amp; Key Reflexes</h3>
+    <div class="two-col">
+      <div>
+        <h4>DTR Grading Scale</h4>
+        <div class="dtr-row"><span class="dtr-grade" style="color:var(--rose)">0</span><span>Absent — no response even with reinforcement</span></div>
+        <div class="dtr-row"><span class="dtr-grade" style="color:var(--amber)">1+</span><span>Diminished — present but reduced; hypoactive</span></div>
+        <div class="dtr-row"><span class="dtr-grade" style="color:#16a34a">2+</span><span>Normal — brisk, expected response</span></div>
+        <div class="dtr-row"><span class="dtr-grade" style="color:var(--blue)">3+</span><span>Increased — brisker than average; may be normal or UMN</span></div>
+        <div class="dtr-row"><span class="dtr-grade" style="color:var(--violet)">4+</span><span>Hyperactive — clonus (sustained oscillatory contractions) present; suggests UMN lesion</span></div>
+        <div style="margin-top:0.6rem;font-size:0.82rem;color:var(--slate);">Document as: "DTRs 2+/4 bilaterally and symmetrically" or specify each individually</div>
+      </div>
+      <div>
+        <h4>Key Reflexes &amp; Levels</h4>
+        <table class="cn-table">
+          <thead><tr><th>Reflex</th><th>Level</th><th>Technique</th></tr></thead>
+          <tbody>
+            <tr><td>Biceps</td><td>C5–C6</td><td>Strike thumb over biceps tendon in antecubital fossa</td></tr>
+            <tr><td>Brachioradialis</td><td>C6</td><td>Strike radius 2–3 inches above wrist</td></tr>
+            <tr><td>Triceps</td><td>C7</td><td>Strike triceps tendon above olecranon</td></tr>
+            <tr><td>Patellar (knee)</td><td>L3–L4</td><td>Strike patellar tendon below patella</td></tr>
+            <tr><td>Achilles (ankle)</td><td>S1</td><td>Strike Achilles tendon; dorsiflex foot slightly</td></tr>
+            <tr><td>Babinski (plantar)</td><td>CST integrity</td><td>Stroke lateral plantar surface from heel forward; toe fanning + great toe extension = abnormal (UMN lesion)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="callout tip" style="margin-top:0.8rem;margin-bottom:0;">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body"><strong>LMN vs UMN DTR pattern</strong>: LMN lesion → decreased/absent DTRs + muscle atrophy + fasciculations. UMN lesion → increased DTRs + clonus + spasticity + Babinski sign + no atrophy early.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ILLNESS SCRIPTS ═══ -->
+<section class="section" id="illness">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--rose)"></span>
+    Illness Scripts: Week 40
+  </h2>
+
+  <!-- Sinusitis -->
+  <div class="illness-card">
+    <div class="illness-header" style="background:#0f766e">
+      🤧 Sinusitis (Acute Rhinosinusitis)
+    </div>
+    <div class="illness-body">
+      <div class="illness-row">
+        <div class="illness-col">
+          <h4>Epidemiology &amp; Risk</h4>
+          <ul>
+            <li>Extremely common; most cases viral (rhinovirus)</li>
+            <li>Acute &lt;4 weeks; subacute 4–12 weeks; chronic &gt;12 weeks</li>
+            <li>Risk: allergic rhinitis, nasal polyps, immune suppression, anatomic variants (deviated septum), recent URI</li>
+            <li>Bacterial superinfection: S. pneumoniae, H. influenzae, M. catarrhalis</li>
+          </ul>
+          <h4>Symptoms</h4>
+          <ul>
+            <li>Facial pain, pressure, or fullness over affected sinus</li>
+            <li>Maxillary: cheek and upper teeth pain</li>
+            <li>Frontal: forehead pain, worse leaning forward</li>
+            <li>Nasal congestion; purulent (yellow-green) nasal discharge</li>
+            <li>Post-nasal drip; hyposmia/anosmia (CN I)</li>
+            <li>Fever, malaise, fatigue; headache</li>
+          </ul>
+        </div>
+        <div class="illness-col">
+          <h4>Signs on Exam</h4>
+          <ul>
+            <li>Tenderness on direct palpation over sinuses (maxillary/frontal)</li>
+            <li>Nasal turbinate erythema and edema</li>
+            <li>Purulent drainage visible in nasal cavity or posterior pharynx</li>
+            <li>Transillumination of sinuses reduced (clinical adjunct)</li>
+          </ul>
+          <h4>Key Differentiators</h4>
+          <ul>
+            <li>Facial pain + purulent discharge + worsening after initial URI improvement = bacterial sinusitis (PODS: Persistent &gt;10d, Onset of severe symptoms, Double sickening)</li>
+            <li>No vesicular rash (vs. HZO), no electric shock quality (vs. TN), no facial motor weakness (vs. Bell's)</li>
+          </ul>
+          <div class="red-flag">🚨 Red flags: periorbital edema/erythema (orbital complication), meningismus, severe headache → CT urgently</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trigeminal Neuralgia -->
+  <div class="illness-card">
+    <div class="illness-header" style="background:var(--violet)">
+      ⚡ Trigeminal Neuralgia (Tic Douloureux)
+    </div>
+    <div class="illness-body">
+      <div class="illness-row">
+        <div class="illness-col">
+          <h4>Epidemiology &amp; Risk</h4>
+          <ul>
+            <li>Age &gt;50 (peak 60–70); F &gt; M; often unilateral</li>
+            <li>Most common: vascular compression of CN V root (superior cerebellar artery)</li>
+            <li>Secondary causes: MS (demyelination), tumor, structural compression</li>
+          </ul>
+          <h4>Symptoms</h4>
+          <ul>
+            <li>Paroxysmal, electric shock-like or stabbing facial pain</li>
+            <li>Extremely severe; lasts seconds (up to 2 min)</li>
+            <li>V2 (cheek) and V3 (jaw) most commonly affected; V1 rare</li>
+            <li>Triggered by light touch: eating, chewing, talking, toothbrushing, wind on face, even a light breeze</li>
+            <li>Pain-free intervals between attacks</li>
+            <li>No sensory deficit or motor weakness (distinguishes from other CN V lesions)</li>
+          </ul>
+        </div>
+        <div class="illness-col">
+          <h4>Signs on Exam</h4>
+          <ul>
+            <li>Neurologic exam typically NORMAL between episodes</li>
+            <li>No facial numbness (sensory intact)</li>
+            <li>No jaw weakness (motor intact)</li>
+            <li>May trigger during exam with light touch to trigger zone</li>
+          </ul>
+          <h4>Key Differentiators</h4>
+          <ul>
+            <li>PAROXYSMAL (seconds) — not constant like sinusitis</li>
+            <li>TRIGGERED by light touch — not by head movement</li>
+            <li>Normal neuro exam — no facial weakness, no rash</li>
+            <li>No vesicles (vs. HZO); no facial paralysis (vs. Bell's)</li>
+          </ul>
+          <div style="background:var(--violet-light);border-radius:8px;padding:6px 10px;margin-top:0.5rem;font-size:0.8rem;color:var(--violet);font-weight:700;">
+            Treatment: Carbamazepine (first-line); microvascular decompression surgery for refractory cases
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bell's Palsy -->
+  <div class="illness-card">
+    <div class="illness-header" style="background:var(--amber)">
+      😐 Bell's Palsy (Idiopathic Peripheral CN VII Palsy)
+    </div>
+    <div class="illness-body">
+      <div class="illness-row">
+        <div class="illness-col">
+          <h4>Epidemiology &amp; Risk</h4>
+          <ul>
+            <li>Most common cause of peripheral facial paralysis; any age</li>
+            <li>Presumed HSV-1 reactivation in the geniculate ganglion of CN VII</li>
+            <li>Risk: pregnancy, immunosuppression, diabetes, recent viral illness</li>
+            <li>Acute onset; often maximal within 48–72 hours</li>
+          </ul>
+          <h4>Symptoms</h4>
+          <ul>
+            <li>Unilateral facial weakness involving ALL muscles — forehead AND lower face (key: LMN = all face)</li>
+            <li>Cannot close the eye completely (lagophthalmos) → corneal drying/abrasion</li>
+            <li>Pain behind or around the ear (otalgia) — often precedes palsy</li>
+            <li>Altered taste (anterior 2/3 tongue — chorda tympani via CN VII)</li>
+            <li>Hyperacusis (CN VII innervates stapedius muscle — dampens loud sounds)</li>
+            <li>Decreased lacrimation; drooling</li>
+          </ul>
+        </div>
+        <div class="illness-col">
+          <h4>Signs on Exam</h4>
+          <ul>
+            <li>ALL ipsilateral facial muscles weak — forehead INCLUDED (vs. central/UMN which spares forehead)</li>
+            <li>Cannot raise eyebrow; cannot close eye (Bell's phenomenon: eye rolls up on attempted closure)</li>
+            <li>No vesicles in ear (vs. Ramsay Hunt which = Bell's + VZV + vesicles)</li>
+            <li>Normal strength and sensation otherwise</li>
+          </ul>
+          <h4>Key Differentiators</h4>
+          <ul>
+            <li>LMN: all face involved including forehead ← HIGH YIELD</li>
+            <li>UMN (stroke): forehead SPARED (bilateral cortical representation of frontalis)</li>
+            <li>No vesicles in EAC → Bell's; vesicles present → Ramsay Hunt</li>
+          </ul>
+          <div class="red-flag">🚨 Eye care essential: lubricating drops, protective glasses, taping eyelid closed at night to prevent corneal damage</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HZO -->
+  <div class="illness-card">
+    <div class="illness-header" style="background:var(--coral)">
+      👁️ Herpes Zoster Ophthalmicus (HZO)
+    </div>
+    <div class="illness-body">
+      <div class="illness-row">
+        <div class="illness-col">
+          <h4>Epidemiology &amp; Risk</h4>
+          <ul>
+            <li>VZV reactivation in the <strong>CN V1 (ophthalmic) branch</strong> of the trigeminal ganglion</li>
+            <li>Age &gt;50; immunosuppressed patients at higher risk</li>
+            <li>10–20% of all herpes zoster cases affect V1</li>
+          </ul>
+          <h4>Symptoms</h4>
+          <ul>
+            <li>Prodrome: burning, tingling, or pain in forehead/periorbital region 1–5 days before rash</li>
+            <li>Unilateral vesicular rash in the V1 distribution: forehead, scalp, periorbital region, upper eyelid</li>
+            <li>Eye involvement: red, painful eye; decreased vision; photophobia</li>
+            <li>Pain often severe, out of proportion to rash appearance</li>
+            <li>Constitutional symptoms: fever, malaise</li>
+          </ul>
+        </div>
+        <div class="illness-col">
+          <h4>Signs on Exam</h4>
+          <ul>
+            <li>Vesicular/crusted rash strictly following V1 distribution — does NOT cross midline</li>
+            <li><strong>Hutchinson's sign</strong>: vesicles on tip, side, or root of nose → nasociliary branch of V1 → high risk for ocular involvement (corneal/iris)</li>
+            <li>Conjunctival injection, corneal staining with fluorescein (keratitis)</li>
+            <li>Decreased corneal sensation (V1 afferent of corneal reflex)</li>
+            <li>CN II/III involvement possible in severe cases</li>
+          </ul>
+          <h4>Key Differentiators</h4>
+          <ul>
+            <li>Vesicular rash in V1 distribution + ocular pain = HZO until proven otherwise</li>
+            <li>Hutchinson's sign = immediate ophthalmology referral</li>
+            <li>No facial motor weakness (CN VII intact — vs. Ramsay Hunt which also has facial palsy + CN VIII involvement)</li>
+          </ul>
+          <div class="red-flag">🚨 Ophthalmology emergency: can cause keratitis, uveitis, retinal necrosis, vision loss. Start antivirals immediately (acyclovir/valacyclovir).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HISTORY ═══ -->
+<section class="section" id="history">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--amber)"></span>
+    Subjective History for Coordination Complaint
+  </h2>
+
+  <div class="callout tip">
+    <span class="callout-icon">🗣️</span>
+    <div class="callout-body"><strong>Patient-Centered Approach</strong> Open-ended first: "Tell me more about the shaking/coordination difficulty." Avoid leading. Use the patient's language. Acknowledge functional impact: "How has this affected your daily activities?"</div>
+  </div>
+
+  <div class="card teal">
+    <h3 style="color:var(--teal)">HPI — OPQRST for Coordination Complaint</h3>
+    <table class="hx-table">
+      <tbody>
+        <tr><td>Onset</td><td>When did it start? Sudden (vascular), subacute (demyelination), or gradual/progressive (neurodegenerative, tumor)? Any precipitating event (trauma, illness, toxin exposure)?</td></tr>
+        <tr><td>Provocation</td><td>Does movement or rest make it worse? Activity vs. rest? Which hand/limb? Triggers (position, fatigue, stress)?</td></tr>
+        <tr><td>Quality</td><td>Shaking, trembling, unsteady, stiff, slow, jerky? Does it happen at rest or with movement? Constant or episodic?</td></tr>
+        <tr><td>Radiation</td><td>Is it one limb, one side, or the whole body? Proximal vs. distal? Truncal involvement?</td></tr>
+        <tr><td>Severity</td><td>Impact on function: writing, eating, walking, dressing, driving? Fear of falling? Social embarrassment?</td></tr>
+        <tr><td>Timing</td><td>Constant vs. paroxysmal? Duration of episodes? Progressive? Better at any time of day?</td></tr>
+        <tr><td>Associated Sx</td><td>Falls, dysphagia, dysarthria, vision changes, vertigo, numbness, weakness, bowel/bladder dysfunction, mood/cognitive changes, sleep disturbance?</td></tr>
+        <tr><td>Context</td><td>Alcohol (EtOH-related cerebellar degeneration), medications, toxin exposures, family history of movement disorders, recent illness</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid">
+    <div class="card coral">
+      <h3 style="color:var(--coral)">PMHx</h3>
+      <ul class="list">
+        <li>Prior neurologic diagnoses (Parkinson, MS, stroke, cerebellar disease)</li>
+        <li>DM (peripheral neuropathy → sensory ataxia)</li>
+        <li>Thyroid disease (hyperthyroid tremor)</li>
+        <li>Autoimmune disease (MS, vasculitis)</li>
+        <li>Cancer history (paraneoplastic cerebellar degeneration)</li>
+        <li>Chronic liver disease (hepatic encephalopathy, Wilson disease)</li>
+      </ul>
+    </div>
+    <div class="card violet">
+      <h3 style="color:var(--violet)">PSHx / FHx / SHx</h3>
+      <ul class="list">
+        <li><strong>PSHx:</strong> CNS surgery, prior trauma; deep brain stimulation</li>
+        <li><strong>FHx:</strong> Essential tremor (autosomal dominant), Parkinson disease, Huntington disease, spinocerebellar ataxia (many genetic), Wilson disease</li>
+        <li><strong>SHx:</strong> Alcohol (cerebellar degeneration with chronic use); heavy metals (mercury — Minamata disease, manganese — welders); occupational exposures; recreational drugs</li>
+      </ul>
+    </div>
+    <div class="card amber">
+      <h3 style="color:var(--amber)">Medications &amp; Allergies</h3>
+      <ul class="list">
+        <li>Anticonvulsants (phenytoin, carbamazepine — cerebellar toxicity at high levels)</li>
+        <li>Antipsychotics / metoclopramide (drug-induced parkinsonism, tardive dyskinesia)</li>
+        <li>Lithium, valproate — tremor</li>
+        <li>Aminoglycosides — vestibular/cerebellar toxicity</li>
+        <li>Amiodarone — tremor, peripheral neuropathy</li>
+        <li>Always ask about herbals, supplements, OTCs</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ROS ═══ -->
+<section class="section" id="ros">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--rose)"></span>
+    ROS for Coordination Complaint
+  </h2>
+
+  <div class="callout pearl">
+    <span class="callout-icon">🔍</span>
+    <div class="callout-body"><strong>Highlighted coordination ROS terms</strong> Abnormal movements (tremors, tics, fasciculations), change in coordination/balance/gait, change in muscle tone, change in muscle bulk (atrophy/hypertrophy), and truncal vs. extremity involvement — directly localize the lesion to cerebellum vs. basal ganglia vs. peripheral system.</div>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="cn-table">
+      <thead><tr><th>System</th><th>Key Questions for Coordination Complaint</th><th>Rationale</th></tr></thead>
+      <tbody>
+        <tr><td><strong>General</strong></td><td>Weight loss, fatigue, fever, night sweats, malaise, change in activity level</td><td>Paraneoplastic syndrome (occult cancer causing cerebellar degeneration); systemic illness affecting neurologic function</td></tr>
+        <tr><td><strong>Neurologic</strong></td><td>Tremor (at rest vs. with movement), coordination difficulty, balance/gait changes, falls, weakness, numbness/tingling (paresthesia), fasciculations, muscle atrophy, dysarthria, dysphagia, diplopia/nystagmus, memory/cognition changes, headache, seizures, vertigo, bladder/bowel control</td><td>Full neurologic ROS to localize lesion; tremor character distinguishes basal ganglia from cerebellar; sensory sx distinguish peripheral neuropathy; cognitive changes suggest widespread CNS disease</td></tr>
+        <tr><td><strong>Dermatologic</strong></td><td>Rash, skin pigmentation changes, copper deposits (Kayser-Fleischer rings — not skin but eye exam), xanthomas</td><td>Wilson disease (liver + neuro + KF rings); Neurofibromatosis (café au lait spots + neurofibromas); dermatomyositis (heliotrope rash)</td></tr>
+        <tr><td><strong>Musculoskeletal</strong></td><td>Muscle weakness (proximal vs. distal), stiffness, rigidity, cramps, joint pain, falls, difficulty rising from chair</td><td>Distinguish myopathy (proximal weakness, waddling gait) from cerebellar (ataxia without weakness) from basal ganglia (rigidity, bradykinesia)</td></tr>
+        <tr><td><strong>Vascular</strong></td><td>Sudden onset symptoms (stroke), TIA-like episodes, palpitations, atrial fibrillation, hypertension, peripheral vascular disease</td><td>Posterior circulation stroke causes sudden-onset cerebellar ataxia, vertigo; cardioembolic disease is common etiology</td></tr>
+        <tr><td><strong>Respiratory</strong></td><td>Shortness of breath, cough, voice changes (hoarseness)</td><td>Lung cancer (paraneoplastic cerebellar degeneration — anti-Yo antibodies); CN X involvement causing hoarseness</td></tr>
+        <tr><td><strong>Cardiovascular</strong></td><td>Chest pain, syncope, presyncope, palpitations, arrhythmias</td><td>Cardiac emboli → cerebellar stroke; autonomic dysfunction in Parkinson disease causes orthostatic hypotension → falls</td></tr>
+        <tr><td><strong>Gastrointestinal</strong></td><td>Dysphagia, nausea/vomiting, constipation, bowel incontinence, abdominal pain</td><td>Parkinson disease: autonomic dysfunction causes constipation, dysphagia; CN X involvement; cerebellar stroke (N/V with vertigo); hepatic disease (Wilson, hepatic encephalopathy)</td></tr>
+        <tr><td><strong>Genitourinary</strong></td><td>Urinary urgency, frequency, incontinence, retention; sexual dysfunction</td><td>Autonomic neuropathy (Parkinson, DM, MS); spinal cord lesion causing bladder/bowel dysfunction; MSA (multiple system atrophy) — important Parkinson mimic</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ PE ═══ -->
+<section class="section" id="pe">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--blue)"></span>
+    Physical Exam — Relevant Systems &amp; Rationale
+  </h2>
+
+  <div class="card blue">
+    <h3 style="color:var(--blue)">System Selection Rationale for Coordination Complaint</h3>
+    <table class="hx-table">
+      <thead><tr><th>System / Region</th><th>Why Included</th></tr></thead>
+      <tbody>
+        <tr><td>Mental Status</td><td>Cognitive impairment co-occurs in dementia with Lewy bodies, Parkinson, Wilson, Huntington; delirium or toxic-metabolic state can mimic coordination deficits</td></tr>
+        <tr><td>Cranial Nerves</td><td>Nystagmus (cerebellar/vestibular), dysarthria (CN IX/X/XII or cerebellar), facial changes (hypomimia in Parkinson, facial palsy in Bell's), eye movement abnormalities</td></tr>
+        <tr><td>Motor (bulk, tone, strength)</td><td>Distinguish ataxia (no weakness) from weakness; assess tone (hypotonia in cerebellar, cogwheel rigidity in Parkinson, spasticity in UMN); fasciculations → LMN; atrophy → chronic denervation</td></tr>
+        <tr><td>Deep Tendon Reflexes</td><td>Hyperreflexia + Babinski = UMN (corticospinal); hyporeflexia = LMN or sensory ataxia (peripheral neuropathy); absent DTRs in sensory ataxia (Friedreich ataxia)</td></tr>
+        <tr><td>Sensory (all modalities)</td><td>Proprioception/vibration (dorsal columns) → sensory ataxia; dermatomal loss → radiculopathy; stocking-glove pattern → peripheral neuropathy</td></tr>
+        <tr><td>Coordination (FTN, HTS, RAM)</td><td>Primary exam for cerebellar function; dysmetria, dysdiadochokinesis = ipsilateral cerebellar lesion</td></tr>
+        <tr><td>Gait and Station</td><td>Ataxic wide-based → cerebellar; shuffling narrow-based → Parkinson; steppage → foot drop/sensory ataxia; Romberg → proprioception</td></tr>
+        <tr><td>Cardiovascular</td><td>Orthostatic hypotension (autonomic failure in Parkinson), cardiac arrhythmias for embolic workup</td></tr>
+        <tr><td>OSE (Structural)</td><td>Cervical/thoracic somatic dysfunction may affect proprioceptive feedback; cranial base/OA may affect posterior fossa circulation; thoracic inlet affects vagal tone and upper extremity function</td></tr>
+        <tr><td>Skin / Eyes</td><td>Kayser-Fleischer rings (Wilson disease — slit lamp); café au lait spots (NF); herpes zoster rash (HZO, Ramsay Hunt)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ NORMAL EXAM ═══ -->
+<section class="section" id="normal">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--violet)"></span>
+    Normal Coordination Exam Documentation
+  </h2>
+
+  <div class="card violet">
+    <h3 style="color:var(--violet)">Dr. Filippakis' Normal Neurological Exam Template (Coordination-Relevant)</h3>
+    <div style="background:#f9f7ff;border-radius:8px;padding:1rem;font-size:0.83rem;font-family:'JetBrains Mono',monospace;line-height:1.8;color:var(--slate);">
+      <strong>Mental Status:</strong> Awake, alert, attentive, oriented to self, location, and date. Speech is fluent and spontaneous without aphasia, dysarthria, or paraphasic errors. Memory intact to recent events. Follows complex commands.<br><br>
+      <strong>Cranial Nerves:</strong> Pupils equal and reactive. Visual fields full. VA *** OD and *** OS. Extraocular movements intact without nystagmus. Sensation intact to light touch V1/V2/V3. Face symmetric with activation. Hearing intact to finger rub. Palate elevates symmetrically. Tongue protrudes midline. Trapezius and SCM 5/5 bilaterally.<br><br>
+      <strong>Motor:</strong> Normal bulk and tone. No adventitious movements. Strength is 5/5 throughout, proximally and distally. DTRs are 2+/4 throughout. No sustained ankle clonus. Plantar response is flexor bilaterally.<br><br>
+      <strong>Sensory:</strong> Intact to temperature and vibration throughout. No sensory level. Negative Romberg.<br><br>
+      <strong>Coordination:</strong> FTN/HTS intact without ataxia or dysmetria. RAM performed without dysdiadochokinesis bilaterally.<br><br>
+      <strong>Gait:</strong> Steady and narrow-based. Arms swing symmetrically. Turns smoothly. Tandem gait performed without difficulty. Toe and heel walking intact.
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">📝</span>
+    <div class="callout-body"><strong>Documenting the Case Patient (Parkinson Disease)</strong> — Right hand with resting "pill-rolling" tremor; increased tone right arm; cogwheeling at right elbow and wrist on PROM; hypomimia; festination; en bloc turning; positive Romberg; stooped posture with narrow base. Coordination (FTN/HTS) intact — key distinction from cerebellar disease.</div>
+  </div>
+</section>
+
+<!-- ═══ DDx ═══ -->
+<section class="section" id="ddx">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--coral)"></span>
+    Differential Diagnosis — Coordination Complaints
+  </h2>
+  <div class="card-grid">
+    <div class="card violet">
+      <h3 style="color:var(--violet)">Cerebellar Disorders</h3>
+      <ul class="list">
+        <li><strong>Acute:</strong> cerebellar stroke (PICA/AICA), Wernicke encephalopathy (thiamine deficiency), medication toxicity (phenytoin, alcohol)</li>
+        <li><strong>Subacute:</strong> MS (demyelinating plaques), paraneoplastic cerebellar degeneration (anti-Yo, anti-Hu), alcohol-related degeneration</li>
+        <li><strong>Chronic/progressive:</strong> Spinocerebellar ataxias (SCA 1, 2, 3 — autosomal dominant), Friedreich ataxia (autosomal recessive, onset &lt;25y, loss of proprioception + cerebellar)</li>
+      </ul>
+    </div>
+    <div class="card amber">
+      <h3 style="color:var(--amber)">Basal Ganglia / Movement Disorders</h3>
+      <ul class="list">
+        <li><strong>Parkinson disease:</strong> resting tremor + bradykinesia + rigidity + postural instability (TRAP)</li>
+        <li><strong>Drug-induced parkinsonism:</strong> antipsychotics, metoclopramide — reversible</li>
+        <li><strong>Essential tremor:</strong> postural; bilateral; familial; improved by EtOH; no TRAP features</li>
+        <li><strong>Huntington disease:</strong> autosomal dominant; chorea + cognitive decline + psychiatric</li>
+        <li><strong>Wilson disease:</strong> autosomal recessive; liver + neuropsychiatric + KF rings; treatable</li>
+      </ul>
+    </div>
+    <div class="card teal">
+      <h3 style="color:var(--teal)">Sensory Ataxia</h3>
+      <ul class="list">
+        <li>Dorsal column disease: B12 deficiency (subacute combined degeneration), tabes dorsalis (syphilis)</li>
+        <li>Peripheral neuropathy: DM, chronic EtOH, B12 deficiency, chemotherapy-induced</li>
+        <li>Friedreich ataxia (mixed cerebellar + sensory)</li>
+        <li>Key finding: Romberg positive; DTRs reduced/absent; loss of vibration and proprioception</li>
+      </ul>
+    </div>
+    <div class="card rose">
+      <h3 style="color:var(--rose)">Other Coordination DDx</h3>
+      <ul class="list">
+        <li><strong>Vestibular dysfunction:</strong> BPPV, vestibular neuritis (unsteadiness, vertigo-predominant)</li>
+        <li><strong>Corticospinal tract:</strong> weakness mimicking coordination issue — test for spasticity and hyperreflexia</li>
+        <li><strong>Functional/psychogenic:</strong> variable, inconsistent pattern; relieved by distraction; usually younger patients</li>
+        <li><strong>Toxin/medication:</strong> EtOH intoxication, heavy metal poisoning, drug toxicity</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOAP ═══ -->
+<section class="section" id="soap">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--blue)"></span>
+    SOAP Note &amp; 5-Part Plan — Coordination
+  </h2>
+  <div class="soap-grid">
+    <div class="soap-box" style="background:#f0f9ff;border-color:#93c5fd;">
+      <div class="soap-label" style="color:var(--blue)">S</div>
+      <strong style="font-size:0.82rem;color:var(--slate)">SUBJECTIVE</strong>
+      <ul class="list" style="margin-top:0.5rem;">
+        <li>CC: patient's own words ("my hand shakes")</li>
+        <li>HPI: OPQRST — onset, quality (rest vs. movement), which limb, progression</li>
+        <li>PMHx, PSHx, FHx (essential tremor? Parkinson? SCA?)</li>
+        <li>SHx: alcohol, toxin exposures, occupational</li>
+        <li>Medications (drug-induced tremor/parkinsonism)</li>
+        <li>ROS: all systems — especially neuro (TRAP features, sensory sx, falls)</li>
+      </ul>
+    </div>
+    <div class="soap-box" style="background:#f0fdf4;border-color:#86efac;">
+      <div class="soap-label" style="color:#16a34a">O</div>
+      <strong style="font-size:0.82rem;color:var(--slate)">OBJECTIVE</strong>
+      <ul class="list" style="margin-top:0.5rem;">
+        <li>Vital signs + BMI; orthostatic blood pressures if autonomic dysfunction suspected</li>
+        <li>General: appearance, affect, gait observed entering room</li>
+        <li>Neurologic: full exam including CN, motor (bulk/tone/strength), DTRs, sensory, coordination (FTN/HTS/RAM), gait, Romberg</li>
+        <li>Specific coordination documentation: which limbs, severity, whether eyes-open vs. eyes-closed changes finding</li>
+        <li>OSE with TART findings</li>
+      </ul>
+    </div>
+    <div class="soap-box" style="background:#fff7ed;border-color:#fcd34d;">
+      <div class="soap-label" style="color:var(--amber)">A</div>
+      <strong style="font-size:0.82rem;color:var(--slate)">ASSESSMENT</strong>
+      <ul class="list" style="margin-top:0.5rem;">
+        <li>Primary diagnosis with justification from S+O</li>
+        <li>DDx ranked by likelihood with distinguishing features</li>
+        <li>Example: "Right-sided resting tremor with bradykinesia, cogwheel rigidity, hypomimia, and festinating gait — most consistent with Parkinson disease. DDx includes essential tremor (absence of bradykinesia/rigidity argues against), drug-induced parkinsonism (no offending agent identified)."</li>
+        <li>Somatic dysfunction diagnosis (e.g., C4 ERSl; thoracic inlet SlRr)</li>
+      </ul>
+    </div>
+    <div class="soap-box" style="background:#fdf4ff;border-color:#d8b4fe;">
+      <div class="soap-label" style="color:var(--violet)">P</div>
+      <strong style="font-size:0.82rem;color:var(--slate)">PLAN (5 Parts)</strong>
+      <ol class="plan-steps" style="margin-top:0.5rem;">
+        <li><strong>Diagnostics</strong> — Brain MRI (rule out structural, demyelination), lab work (B12, TFTs, copper/ceruloplasmin for Wilson, metabolic panel, ESR/CRP if inflammatory), DAT scan (dopamine transporter SPECT for Parkinson confirmation)</li>
+        <li><strong>Therapeutics / Referrals</strong> — Neurology referral; pharmacotherapy per diagnosis (levodopa/carbidopa for Parkinson; propranolol/primidone for essential tremor; carbamazepine for TN); physical/occupational therapy</li>
+        <li><strong>OMT</strong> — Cervical and thoracic somatic dysfunction treatment; OA decompression; myofascial release of suboccipital and upper cervical muscles; address somatic dysfunction found on OSE</li>
+        <li><strong>Patient Education</strong> — Explain diagnosis and prognosis; fall prevention strategies; medication expectations; support resources (Parkinson Foundation if applicable); driving safety discussion; occupational modifications</li>
+        <li><strong>Follow-up</strong> — Specify timeframe; monitor medication response; assess for disease progression; return precautions (sudden worsening, new falls, dysphagia, acute cognitive change)</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OMM ═══ -->
+<section class="section" id="omm">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--teal)"></span>
+    Osteopathic Considerations
+  </h2>
+  <div class="card-grid">
+    <div class="card teal">
+      <h3 style="color:var(--teal)">Biomechanical Model</h3>
+      <ul class="list">
+        <li>Upper cervical (OA, AA, C2-C3): proprioceptive afferents → affects vestibular and cerebellar integration</li>
+        <li>Thoracic inlet dysfunction → affects upper extremity nerve root conduction and vascular flow</li>
+        <li>Kyphotic posture (common in Parkinson) → secondary C4/thoracic somatic dysfunction</li>
+        <li>Sacral somatic dysfunction may affect lower extremity proprioception pathways</li>
+        <li>From the case: C4 ERSl, Thoracic inlet SlRr, mildly increased thoracic kyphosis, L3-5 NSlRr, Sacrum right-on-right torsion</li>
+      </ul>
+    </div>
+    <div class="card violet">
+      <h3 style="color:var(--violet)">Neurologic &amp; Circulatory Models</h3>
+      <ul class="list">
+        <li>Sympathetics T1–T4: facilitation may contribute to upper extremity tone and tremor</li>
+        <li>OA/AA dysfunction: affects posterior fossa circulation (vertebral artery) → cerebellar perfusion</li>
+        <li>Thoracic inlet: impacts jugular venous drainage → can elevate intracranial venous pressure</li>
+        <li>Vagal tone affected by OA/AA somatic dysfunction</li>
+      </ul>
+    </div>
+    <div class="card amber">
+      <h3 style="color:var(--amber)">OMT Applications for Coordination Disorders</h3>
+      <ul class="list">
+        <li>OA decompression, suboccipital inhibition: improve posterior fossa circulation and proprioceptive input to cerebellum</li>
+        <li>Cervical myofascial release: address rigidity and neck tension (Parkinson)</li>
+        <li>Thoracic kyphosis treatment: muscle energy / HVLA (if appropriate) or indirect techniques</li>
+        <li>Thoracic inlet technique: improve upper extremity lymphatic/venous drainage</li>
+        <li>Craniosacral therapy: address rhythmic palpatory findings</li>
+        <li><strong>Note:</strong> No HVLA in patients with severe osteoporosis, vertebral artery disease, advanced Parkinson instability</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUIZ ═══ -->
+<section id="quiz">
+  <div id="quiz-section">
+    <h2>MCQ Practice Quiz</h2>
+    <p class="quiz-sub">12 board-style questions · Coordination · Week 40 OCS</p>
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progressFill"></div></div>
+    <div id="quizContainer"></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+const questions = [
+  {
+    q: "A 62-year-old man presents with unilateral right hand shaking that is most prominent when his hand rests in his lap and largely disappears when he reaches for a cup of coffee. He also has slowed movements and increased stiffness in his right arm. Which type of tremor and pathologic location best explain these findings?",
+    choices: [
+      { text: "Intention tremor from cerebellar lesion — worsens as the hand approaches a target during purposeful movement and is absent when the extremity is fully at rest or not moving", correct: false, explanation: "Intention tremors worsen as the limb approaches its target and are absent at rest — the opposite pattern from what is described. They localize to the cerebellum, not the basal ganglia, and would be accompanied by ataxia, dysmetria, and nystagmus rather than bradykinesia and rigidity." },
+      { text: "Postural tremor from enhanced physiological or essential tremor networks — most prominent when the affected part is actively held against gravity, as in hands outstretched", correct: false, explanation: "Postural tremors appear when actively maintaining a position against gravity (hands held out) and are typically bilateral in essential tremor. They decrease at rest, which is the opposite of the pill-rolling resting tremor described, and essential tremor lacks bradykinesia and rigidity." },
+      { text: "Resting tremor from basal ganglia dysfunction — most prominent when the limb is fully supported at rest, decreases with voluntary movement, and is associated with bradykinesia and cogwheel rigidity in Parkinson disease", correct: true, explanation: "Correct! The classic resting 'pill-rolling' tremor of Parkinson disease is most prominent at rest (~5 Hz) and diminishes or disappears with voluntary movement. It is caused by dopaminergic loss in the substantia nigra (basal ganglia). The triad of resting tremor + bradykinesia + cogwheel rigidity = Parkinson disease until proven otherwise." },
+      { text: "Psychogenic tremor from functional neurologic disorder — characterized by an abrupt onset with variable frequency, amplitude, and distribution that changes with distraction or during other voluntary movements", correct: false, explanation: "Psychogenic tremors are variable (change with distraction), inconsistent, and typically affect younger patients without associated bradykinesia or rigidity. The classical unilateral pill-rolling pattern that diminishes with movement, combined with rigidity and slowness, strongly indicates organic basal ganglia pathology." },
+      { text: "Resting tremor from cerebellar dysfunction affecting the dentate nucleus — produces tremor at rest alongside hypotonia, wide-based gait, and dysdiadochokinesis, which are the hallmarks of cerebellar disease", correct: false, explanation: "Cerebellar lesions cause intention tremors and movement-related tremors, not resting tremors. Cerebellar disease produces ataxia, dysmetria, hypotonia, and dysdiadochokinesis — not the combination of pill-rolling tremor, bradykinesia, and cogwheel rigidity, which point to basal ganglia (substantia nigra) pathology." }
+    ]
+  },
+  {
+    q: "On the finger-to-nose test, a patient's movement is clumsy and oscillatory when eyes are open, and does not significantly worsen when the eyes are closed. The heel-to-shin test reveals similar incoordination. DTRs are symmetric, and sensation (including vibration and proprioception) is intact. What does this pattern indicate?",
+    choices: [
+      { text: "Sensory ataxia from dorsal column dysfunction — proprioceptive signals are absent, so removing vision (closing eyes) dramatically worsens the ataxia, as the patient can no longer compensate visually", correct: false, explanation: "Sensory ataxia is defined by significant worsening with eye closure (Romberg positive) because vision compensates for lost proprioception. In this patient, there is no change with eye closure, intact sensation, and intact proprioception — all of which argue against a dorsal column or peripheral sensory deficit." },
+      { text: "Cerebellar ataxia — movements are clumsy and dysmetric regardless of whether the eyes are open or closed, because the cerebellum integrates motor, vestibular, and sensory input independently of visual input", correct: true, explanation: "Correct! The cerebellar system integrates movements using internal feedback loops that do not depend on visual input. Cerebellar ataxia is therefore present with eyes open AND closed — unlike sensory ataxia, which dramatically worsens with eye closure. Intact sensation and proprioception further confirm the lesion is in the cerebellum, not the dorsal columns." },
+      { text: "Functional (psychogenic) ataxia — inconsistent performance that varies with distraction or suggestion; normal performance on formal standardized testing; typically improves with placebos or therapeutic suggestion", correct: false, explanation: "Functional ataxia is characterized by inconsistency, improvement with distraction, and absence of true neurologic deficits on detailed examination. The consistent, reproducible bilateral ataxia with intact sensation described here is more characteristic of true organic cerebellar pathology rather than a functional disorder." },
+      { text: "Corticospinal tract (UMN) lesion — damage to the pyramidal system causes weakness, spasticity, and hyperreflexia; patients may have poor movement quality that mimics coordination problems", correct: false, explanation: "Corticospinal tract lesions cause weakness, spasticity, hyperreflexia, and a Babinski sign — not primarily ataxia. Strength is implicitly normal in this case (the question specifies coordination difficulty), and DTRs are symmetric without spasticity, making a UMN lesion unlikely." },
+      { text: "Vestibular ataxia from CN VIII or inner ear dysfunction — patients have severe imbalance and vertigo that worsens dramatically with head position changes and during attempts to stand or walk", correct: false, explanation: "Vestibular ataxia predominantly affects gait and station, causing severe imbalance and vertigo, with nystagmus as a key sign. Point-to-point limb tests like FTN and HTS are relatively spared in isolated vestibular dysfunction, as the vestibular system primarily controls balance, not limb coordination." }
+    ]
+  },
+  {
+    q: "A patient stands with feet together comfortably while eyes are open, but sways markedly and nearly falls when asked to close the eyes. There is no change in stance with eyes open regardless of foot position. DTRs are diminished in the lower extremities, and vibration sense is absent below the ankles. What is the most likely cause of this finding?",
+    choices: [
+      { text: "Cerebellar ataxia — the cerebellum integrates motor and vestibular input, so damage causes postural instability that is present with eyes open AND closed because vision cannot compensate for a central integrative failure", correct: false, explanation: "In cerebellar disease, the patient typically CANNOT stand with feet together even with eyes open because the cerebellar integration failure is independent of visual input. If closing the eyes were the primary exacerbating factor, the lesion is in a sensory system (dorsal columns), not the cerebellum." },
+      { text: "Sensory (proprioceptive) ataxia from dorsal column or peripheral nerve dysfunction — patients can use vision to compensate when eyes are open, but removing visual input unmasks the deficit in joint position sense", correct: true, explanation: "Correct! This is the textbook Romberg sign — the patient can maintain balance with eyes open because they use vision to compensate for lost proprioception. When visual input is removed (eyes closed), the remaining defective proprioceptive system cannot maintain posture alone. Absent ankle vibration + diminished DTRs confirms a peripheral sensory or dorsal column lesion causing sensory ataxia." },
+      { text: "Functional (psychogenic) imbalance — the inconsistency of performance, especially the dramatic fall with eye closure in the absence of objective neurologic signs, suggests a functional etiology", correct: false, explanation: "Functional imbalance is characterized by inconsistency and improvement with distraction. However, this patient has objective neurologic signs — absent vibration sense and reduced DTRs — that confirm organic pathology. The Romberg sign pattern with objective findings is consistent with sensory ataxia, not a functional disorder." },
+      { text: "Basal ganglia dysfunction from Parkinson disease — postural instability is a late feature (the fourth cardinal feature) that contributes to falls, but the mechanism involves loss of automatic postural adjustment rather than proprioceptive failure", correct: false, explanation: "Parkinson's postural instability is a loss of automatic righting reflexes, not a sensory/proprioceptive deficit. It does not show the specific pattern of eyes-open compensation / eyes-closed deterioration (Romberg positive). DTRs in Parkinson disease are typically normal, and vibration sense is intact." },
+      { text: "Posterior circulation stroke affecting the lateral medullary region — causing contralateral loss of pain and temperature, ipsilateral facial sensory loss, and severe ipsilateral limb ataxia from inferior cerebellar peduncle damage", correct: false, explanation: "The lateral medullary (Wallenberg) syndrome causes a specific crossed sensory syndrome and ipsilateral ataxia, but does not specifically produce the Romberg pattern (eyes-open vs. eyes-closed). The diffuse loss of vibration in both feet with diminished DTRs bilaterally suggests a peripheral polyneuropathy causing sensory ataxia." }
+    ]
+  },
+  {
+    q: "A patient is asked to alternately pronate and supinate their hand on their thigh as rapidly as possible. The movements are slow, irregular, and clumsy on the right side, with loss of the normal rhythmic pattern. What is this finding called, and what does it suggest?",
+    choices: [
+      { text: "Dysmetria — errors in judging distance and gauging the speed, force, and direction of movement, causing under- or overshooting of a target, typically assessed by the finger-to-nose test", correct: false, explanation: "Dysmetria refers to overshooting or undershooting a target (tested in FTN and HTS). It is distinct from dysdiadochokinesis. Both can occur together in cerebellar disease, but the question specifically describes failure of rapid alternating movement rhythm, not target accuracy." },
+      { text: "Dysdiadochokinesis — inability to perform rapid alternating movements due to failure of rapid agonist/antagonist muscle group switching; a specific sign of cerebellar dysfunction causing slow, irregular, clumsy alternating movements", correct: true, explanation: "Correct! Dysdiadochokinesis is tested by RAM (rapid alternating movements) — pronation/supination on thigh or open/close fist. In cerebellar disease, the agonist and antagonist cannot switch rapidly, so the rhythm breaks down and movements become slow, irregular, and clumsy. RAM abnormalities are usually bilateral in cerebellar disease." },
+      { text: "Bradykinesia — an overall slowness of voluntary movement that is the hallmark of Parkinson disease from dopaminergic loss in the substantia nigra, causing difficulty initiating and sustaining movement", correct: false, explanation: "Bradykinesia in Parkinson disease causes global slowness of movement, particularly with fine motor tasks and repetitive movements (they may get smaller — decrement). However, the irregular, arhythmic, clumsy quality described here (with loss of coordination between agonist and antagonist) is more specific to cerebellar disease — dysdiadochokinesis." },
+      { text: "Dyssynergia — decomposition of movement with jerky, erratic, disorganized execution; the essential disturbance in cerebellar disease affecting multi-joint smooth movement coordination", correct: false, explanation: "Dyssynergia is indeed a sign of cerebellar disease, but it specifically refers to decomposition of multi-joint movements into individual jerky segments, rather than the specific inability to perform rapid alternating movements. The RAM test abnormality described here is most precisely called dysdiadochokinesis." },
+      { text: "Asterixis — a brief, arrhythmic lapse of sustained posture caused by brief interruptions in muscular contraction, most commonly seen in metabolic encephalopathy such as hepatic or renal failure", correct: false, explanation: "Asterixis (the 'liver flap') is assessed by asking the patient to hold both hands outstretched — they show brief jerky drops due to sudden loss of muscle tone. It is not a feature of cerebellar disease and is not assessed by the pronation/supination RAM test." }
+    ]
+  },
+  {
+    q: "A 58-year-old woman presents with sudden onset of severe, electric shock-like pain lasting 2–3 seconds in her right cheek and jaw, triggered by chewing and brushing her teeth. She has had multiple episodes over the past month. The neurologic exam is completely normal between attacks. What is the most likely diagnosis?",
+    choices: [
+      { text: "Sinusitis — inflammation of the paranasal sinuses causing facial pressure, pain, and purulent nasal discharge; often worsened by leaning forward; may cause periorbital and maxillary facial pain", correct: false, explanation: "Sinusitis causes dull, pressure-like facial pain over the affected sinus, not brief electric shock-like episodes. It is typically associated with nasal congestion, purulent discharge, and fever. The trigger-related paroxysmal nature and completely normal exam between attacks are incompatible with sinusitis." },
+      { text: "Trigeminal neuralgia — paroxysmal, electric shock-like or lancinating unilateral facial pain in the CN V distribution (most often V2/V3), triggered by light tactile stimuli, lasting seconds, with a normal neurologic exam between attacks", correct: true, explanation: "Correct! Trigeminal neuralgia (tic douloureux) = paroxysmal, severe, electric shock-like pain in the CN V distribution triggered by light touch (chewing, talking, tooth brushing, wind). Attacks last seconds. Between attacks the exam is completely normal — no sensory deficit, no motor deficit. Most commonly V2/V3. Often caused by vascular compression of CN V root." },
+      { text: "Bell's palsy — idiopathic peripheral CN VII palsy causing acute unilateral facial weakness of all facial muscles including the forehead, often preceded by otalgia and followed by difficulty closing the ipsilateral eye", correct: false, explanation: "Bell's palsy causes facial motor weakness — particularly inability to close the eye or raise the eyebrow — not pain. While otalgia may precede Bell's palsy, the dominant presentation is paralysis rather than paroxysmal electric shock pain. Bell's palsy does not present with pain triggered by light touch to the cheek or jaw." },
+      { text: "Herpes zoster ophthalmicus — VZV reactivation in the CN V1 (ophthalmic) distribution producing a vesicular rash on the forehead and periorbital region with significant burning pain and potential corneal involvement", correct: false, explanation: "HZO affects the V1 (ophthalmic) division and is characterized by a unilateral vesicular rash in the forehead/periorbital distribution, not episodic shock-like pain in the cheek and jaw (V2/V3). The pain of HZO is constant or burning rather than paroxysmal and trigger-related." },
+      { text: "TMJ dysfunction — pain from the temporomandibular joint and muscles of mastication triggered by jaw movement, with clicking or crepitus on exam and limited or deviated mouth opening on examination", correct: false, explanation: "TMJ dysfunction causes dull or aching jaw pain with chewing, associated with clicking and mechanical signs on examination. The paroxysmal, electric shock quality lasting only seconds with a completely normal neurologic and musculoskeletal exam between attacks strongly favors trigeminal neuralgia rather than TMJ dysfunction." }
+    ]
+  },
+  {
+    q: "A patient presents with acute-onset unilateral facial weakness. On exam, she cannot raise her right eyebrow, cannot fully close her right eye, and cannot show her right teeth. The left side of the face is completely normal. Where is the lesion, and what is the diagnosis category?",
+    choices: [
+      { text: "Left upper motor neuron (UMN) lesion above the right CN VII nucleus — contralateral UMN lesions cause lower facial weakness with forehead sparing due to bilateral cortical representation of the upper facial muscles", correct: false, explanation: "A left UMN lesion would cause right lower facial weakness with forehead SPARING — but in this patient, the forehead IS weak (cannot raise eyebrow). When the forehead is involved, the lesion must be peripheral (lower motor neuron), not central. Forehead involvement = LMN." },
+      { text: "Right peripheral CN VII (lower motor neuron) lesion — all ipsilateral facial muscles are affected including the forehead because the peripheral nerve supplies all facial muscles on that side without UMN compensation", correct: true, explanation: "Correct! A right peripheral (LMN) CN VII lesion affects ALL right facial muscles including the frontalis (forehead/eyebrow elevation), orbicularis oculi (eye closure), and orbicularis oris (mouth movements). The forehead is included because there is no bilateral cortical representation at the peripheral nerve level. This pattern = Bell's palsy, Ramsay Hunt, Lyme disease, parotid tumor, etc." },
+      { text: "Right central (UMN) CN VII lesion — the upper face is spared because the frontalis receives bilateral cortical input from both hemispheres, but the lower face receives predominantly contralateral UMN input only", correct: false, explanation: "A right UMN lesion causes LEFT-sided lower facial weakness with forehead SPARING (contralateral forehead still has bilateral cortical representation). The patient here has RIGHT-sided facial weakness affecting ALL of the right face including the forehead — this is a right-sided peripheral LMN lesion, not a central UMN lesion." },
+      { text: "Bilateral UMN lesion above the facial nuclei — causing symmetric bilateral upper and lower facial weakness from loss of bilateral corticobulbar projections to both CN VII nuclei simultaneously", correct: false, explanation: "A bilateral UMN lesion would cause bilateral facial weakness, not unilateral. Furthermore, bilateral UMN facial weakness typically spares the forehead even more than unilateral UMN lesions. The unilateral presentation with complete ipsilateral facial involvement (including forehead) points to a right peripheral (LMN) CN VII lesion." },
+      { text: "Right CN VII lesion at the level of the internal capsule — a lacunar infarct at this location selectively disrupts the corticobulbar fibers projecting to the right CN VII nucleus, causing contralateral lower facial weakness", correct: false, explanation: "An internal capsule lacunar infarct causing corticobulbar disruption would produce contralateral lower facial weakness with forehead sparing (UMN pattern). In this patient, all right facial muscles are weak including the forehead — the hallmark of a right peripheral LMN lesion, not a central lesion at any level." }
+    ]
+  },
+  {
+    q: "A 68-year-old immunocompromised man develops a painful unilateral rash on his forehead, upper eyelid, and the tip of his nose. He reports eye pain and blurred vision. Which sign is present, and what does it indicate?",
+    choices: [
+      { text: "Bell's phenomenon — an upward and outward rolling of the eyeball that occurs when a patient with CN VII palsy attempts to close the affected eye; it is a protective reflex that becomes visible due to incomplete eye closure", correct: false, explanation: "Bell's phenomenon is a sign in facial nerve palsy (CN VII), where the eye rolls upward when the patient tries to close it. It does not indicate ocular involvement from zoster and is not triggered by nasal tip involvement. The nasal tip rash indicates CN V1's nasociliary branch, not CN VII." },
+      { text: "Hutchinson's sign — vesicles on the tip, side, or root of the nose indicating involvement of the nasociliary branch of CN V1, which also innervates the cornea, iris, and ciliary body, signaling high risk for ocular complications", correct: true, explanation: "Correct! Hutchinson's sign in herpes zoster ophthalmicus (HZO) = vesicles on the tip or side of the nose, caused by nasociliary branch involvement. The nasociliary branch is the branch of CN V1 that also supplies the eye (cornea, uvea). Its presence predicts a high risk of ocular involvement — keratitis, uveitis, acute retinal necrosis — and mandates urgent ophthalmology referral." },
+      { text: "Argyll Robertson pupil — a small, irregular pupil that reacts to accommodation but not to light, classically seen in neurosyphilis, indicating damage to the pretectal nucleus in the dorsal midbrain", correct: false, explanation: "An Argyll Robertson pupil is a syphilitic finding in the midbrain affecting the pupillary light reflex pathway. It has nothing to do with herpes zoster reactivation, nasal tip vesicles, or ophthalmic distribution rash. This would be tested by the swinging flashlight test, not by observing the rash distribution." },
+      { text: "Ramsay Hunt sign — the combination of ipsilateral facial palsy with vesicles in the external auditory canal and otalgia, representing VZV reactivation in the geniculate ganglion of CN VII", correct: false, explanation: "Ramsay Hunt syndrome involves VZV reactivation in the geniculate ganglion of CN VII (not V1), producing the triad of facial palsy + otalgia + vesicles in the external auditory canal (EAC). The sign described here involves nasal tip vesicles from nasociliary branch involvement — this is Hutchinson's sign in HZO, not Ramsay Hunt." },
+      { text: "Marcus Gunn pupil — a relative afferent pupillary defect (APD) detected by the swinging flashlight test, indicating asymmetric optic nerve (CN II) function from prior demyelination, ischemia, or compressive injury", correct: false, explanation: "A Marcus Gunn pupil (APD) indicates relative optic nerve dysfunction detected by swinging a light between eyes — the affected eye dilates paradoxically when light is swung to it. While HZO can eventually cause optic neuritis, the specific sign described here — nasal tip rash predicting ocular involvement — is Hutchinson's sign." }
+    ]
+  },
+  {
+    q: "A 45-year-old woman presents with acute onset of purulent nasal discharge, severe facial pressure over the cheeks and forehead that worsens when leaning forward, fever, and marked fatigue for 12 days, initially improving after a viral URI before getting worse again. Which of the following best characterizes a key diagnostic criterion for acute bacterial rhinosinusitis?",
+    choices: [
+      { text: "Vesicular rash in the V1 dermatome distribution — unilateral periorbital blistering that does not cross the midline, caused by VZV reactivation in the trigeminal ganglion rather than viral or bacterial sinus infection", correct: false, explanation: "A vesicular rash in V1 distribution describes HZO, not sinusitis. Sinusitis does not cause a vesicular rash. Facial pressure, purulent discharge, and fever characterize sinusitis; the presence of blisters should prompt consideration of herpes zoster as the etiology instead." },
+      { text: "Paroxysmal electric shock-like pain triggered by chewing or speaking — lasting seconds with a pain-free interval between attacks in the distribution of CN V, the hallmark of trigeminal neuralgia", correct: false, explanation: "Paroxysmal trigger-related electric shock pain is trigeminal neuralgia, not sinusitis. Sinusitis pain is a dull, constant pressure that worsens with leaning forward and may increase with Valsalva, not a paroxysmal second-long shock triggered by light touch." },
+      { text: "The 'double sickening' pattern — initial improvement of viral URI symptoms followed by worsening; combined with symptoms persisting beyond 10 days and severe symptoms at onset, these are the PODS criteria for bacterial sinusitis", correct: true, explanation: "Correct! The PODS criteria for diagnosing acute bacterial rhinosinusitis: Persistent symptoms beyond 10 days without improvement, Onset with severe symptoms (fever >39°C, severe facial pain), and Double Sickening (initial improvement followed by worsening). This patient has 12 days of symptoms with double sickening, meeting criteria. Amoxicillin-clavulanate is first-line antibacterial treatment." },
+      { text: "Hutchinson's sign — vesicles on the tip of the nose indicating involvement of the nasociliary branch and predicting high risk for corneal and intraocular involvement requiring urgent ophthalmology referral", correct: false, explanation: "Hutchinson's sign is specific to herpes zoster ophthalmicus (HZO), not sinusitis. It indicates VZV reactivation in the nasociliary branch of V1 with ocular risk. Sinusitis presents with nasal congestion and sinus tenderness — not vesicles on the nasal tip." },
+      { text: "Unilateral lacrimation, rhinorrhea, and ptosis with cluster-like periorbital pain attacks — autonomic features that distinguish trigeminal autonomic cephalalgias from primary sinus disease", correct: false, explanation: "These autonomic features (tearing, nasal congestion, ptosis) are characteristic of cluster headaches or other trigeminal autonomic cephalalgias. While they can mimic sinusitis, they do not represent the diagnostic criteria for bacterial sinusitis. The PODS pattern (persistence, onset severity, double sickening) is the appropriate criterion here." }
+    ]
+  },
+  {
+    q: "A 70-year-old man walks into the exam room with a stooped posture, very short shuffling steps, minimal arm swing bilaterally, and takes multiple small steps to turn around. His face appears flat and expressionless. What is the correct term for his facial finding and his gait pattern?",
+    choices: [
+      { text: "Hypomimia (masked face) and ataxic gait — cerebellar degeneration causes both the loss of automatic facial expression and a wide-based, reeling, uncoordinated gait", correct: false, explanation: "Ataxic gait is wide-based, uncoordinated, and reeling — the opposite of the described narrow-based shuffling gait. While hypomimia is correct, it is a basal ganglia (Parkinson disease) finding, not a cerebellar one. Cerebellar disease does not cause hypomimia or shuffling narrow-based festination." },
+      { text: "Hypomimia (masked face) and parkinsonian/festinating gait — both are basal ganglia manifestations of Parkinson disease; hypomimia reflects reduced automatic facial movement and festination involves progressively shorter rapid steps", correct: true, explanation: "Correct! Hypomimia = 'masked face' — reduced facial expressiveness from basal ganglia dysfunction affecting automatic facial movements. Festinating gait = stooped posture, short shuffling steps, minimal arm swing, en bloc turning (multiple small steps) — the classic parkinsonian gait from the same pathology (substantia nigra dopaminergic loss)." },
+      { text: "Hemiplegic facies and circumduction gait — ipsilateral facial droop from UMN CN VII lesion combined with contralateral spastic gait requiring the leg to swing outward in a semicircle during the swing phase of walking", correct: false, explanation: "Hemiplegic facies from UMN lesion spares the forehead and involves true lower facial weakness on one side, not bilateral reduced expressiveness. Circumduction gait involves the leg swinging outward with an extended knee — not the bilateral short shuffling steps described. These findings suggest a stroke, not Parkinson disease." },
+      { text: "Hypomimia (masked face) and steppage gait — foot drop from common peroneal nerve palsy causes high knee stepping to clear the foot during walking; this is combined with reduced facial movement from autonomic neuropathy", correct: false, explanation: "Steppage (high-stepping) gait results from foot drop — patients must lift the knee high to prevent the foot from dragging. This is a lower motor neuron / peripheral nerve finding. The described shuffling, slow, short-stepped gait with minimal arm swing and en bloc turning is parkinsonian festination, not steppage gait." },
+      { text: "Hypomimia (masked face) and waddling gait — proximal hip girdle weakness causes the trunk to sway side to side during each step; seen in muscular dystrophies and inflammatory myopathies", correct: false, explanation: "Waddling gait results from bilateral proximal hip girdle weakness (Trendelenburg gait), causing trunk swaying from side to side. While hypomimia is correctly identified, the described gait (stooped, shuffling, short steps, minimal arm swing, festination) is characteristic of Parkinson disease, not myopathy-related waddling." }
+    ]
+  },
+  {
+    q: "A 32-year-old woman has diminished sensation on the lateral aspect of her right foot and heel. Her right Achilles tendon reflex is absent. She also has weakness of right ankle plantarflexion. Which nerve root level is most likely affected?",
+    choices: [
+      { text: "L4 nerve root — supplies the medial calf and medial malleolus sensation and the patellar tendon reflex (L3–L4); damage causes quadriceps weakness, diminished knee jerk, and medial calf sensory loss", correct: false, explanation: "L4 primarily innervates the medial calf/malleolus (not lateral foot), contributes to the patellar reflex, and causes quadriceps weakness with ankle dorsiflexion weakness. The lateral foot/heel sensory pattern and absent Achilles reflex point specifically to S1, not L4." },
+      { text: "L5 nerve root — supplies the lateral calf, dorsum of foot, and first web space; damage causes weakness of ankle dorsiflexion and great toe extension, with the extensor hallucis longus as the key L5 myotome", correct: false, explanation: "L5 innervates the lateral calf, dorsum of the foot, and the first web space between first and second toes. It also controls ankle dorsiflexion (tibialis anterior) and great toe extension. L5 does NOT cause loss of the Achilles reflex — that is specifically an S1 finding." },
+      { text: "S1 nerve root — supplies the lateral foot, heel, and plantar surface; the key myotome is ankle plantarflexion (gastrocnemius/soleus), and the corresponding reflex is the Achilles (ankle jerk) tendon reflex", correct: true, explanation: "Correct! S1 = lateral foot + heel + plantar surface (sensory); ankle plantarflexion via gastrocnemius and soleus (myotome); and the Achilles (ankle jerk) reflex. All three components of this patient's presentation (lateral foot/heel numbness + absent ankle jerk + weak plantarflexion) perfectly map to S1 — classic S1 radiculopathy from L5-S1 disc herniation." },
+      { text: "S2 nerve root — supplies the posterior thigh and perianal region; damage may cause bowel or bladder dysfunction and perineal numbness, typically from cauda equina or sacral plexus pathology", correct: false, explanation: "S2 primarily supplies the posterior thigh and perineal region. Isolated S2 pathology is less common and presents differently — it does not produce the lateral foot/heel numbness, absent Achilles reflex, or plantarflexion weakness described. S2–S5 involvement with bowel/bladder symptoms suggests cauda equina syndrome." },
+      { text: "L3 nerve root — supplies the anterior and medial thigh sensation; damage causes weakness of hip flexion and knee extension, with the patellar tendon reflex reduced from combined L3–L4 involvement", correct: false, explanation: "L3 innervates the anterior/medial thigh and contributes to knee extension and the patellar reflex (with L4). It has no role in ankle plantarflexion or the Achilles reflex, and it does not supply the lateral foot or heel. The presented triad specifically maps to S1, not any upper lumbar root." }
+    ]
+  },
+  {
+    q: "A 55-year-old man has a resting tremor, bradykinesia, and cogwheel rigidity. During the coordination exam, his finger-to-nose test and heel-to-shin test are intact without dysmetria. Rapid alternating movements show slight decrement in amplitude with repetition. How does this differ from what would be expected in a cerebellar lesion?",
+    choices: [
+      { text: "Both Parkinson disease and cerebellar lesions produce identical coordination findings — the same intention tremor, ataxia, dysdiadochokinesis, and dysmetria, making the coordination exam insufficient to distinguish between them", correct: false, explanation: "Parkinson disease and cerebellar lesions produce distinctly different coordination exam findings. Parkinson shows resting tremor, bradykinesia, and cogwheel rigidity with relatively intact coordination tests. Cerebellar disease shows intention tremor, ataxia, dysdiadochokinesis, and dysmetria — without resting tremor or cogwheel rigidity." },
+      { text: "In Parkinson disease, coordination tests (FTN, HTS) are relatively preserved while bradykinesia causes amplitude decrement in RAM; in cerebellar disease, FTN and HTS show dysmetria and intention tremor, and RAM shows true dysdiadochokinesis with irregular rhythm", correct: true, explanation: "Correct! This is a critical distinction. Parkinson shows RAM decrement (movements get smaller with repetition — 'kinesia paradoxica') but preserves FTN/HTS accuracy. Cerebellar disease produces TRUE dysdiadochokinesis (irregular, arhythmic, clumsy RAM) + dysmetria on FTN/HTS + intention tremor. The FTN/HTS being INTACT here helps confirm basal ganglia, not cerebellar, pathology." },
+      { text: "Parkinson disease produces wide-based ataxic gait and positive Romberg sign, while cerebellar lesions produce narrow-based festinating gait with hypomimia and cogwheel rigidity as the distinguishing clinical features", correct: false, explanation: "This is reversed. Parkinson disease produces a narrow-based festinating gait with hypomimia and cogwheel rigidity — NOT wide-based ataxic gait. Cerebellar lesions produce wide-based ataxic gait with dysmetria — NOT festination or cogwheel rigidity. The Romberg sign relates to proprioception, not Parkinson or cerebellar disease specifically." },
+      { text: "Cerebellar lesions exclusively affect the lower extremities and spare upper extremity coordination, while Parkinson disease affects the upper extremities first with lower extremity involvement only in advanced stages", correct: false, explanation: "Cerebellar lesions can affect both upper and lower extremity coordination (FTN tests UE, HTS tests LE), and appendicular vs. truncal ataxia depends on which part of the cerebellum is affected. Parkinson typically starts unilaterally (often UE) but affects all four limbs progressively — neither pattern is restricted to one extremity pair." },
+      { text: "Parkinson disease uniquely impairs sensory processing in the dorsal columns, explaining why the Romberg test is positive, while cerebellar lesions preserve proprioception so the Romberg test remains negative", correct: false, explanation: "Parkinson disease is primarily a basal ganglia movement disorder and does NOT specifically impair dorsal column sensory function. The Romberg sign tests proprioception and is typically negative in Parkinson disease. A positive Romberg suggests dorsal column or peripheral sensory pathology causing sensory ataxia — not Parkinson." }
+    ]
+  },
+  {
+    q: "On a coordination exam, a patient is asked to perform the heel-to-shin test. With eyes open, the heel slides off the shin repeatedly and the movement is clumsy and irregular. When the eyes are closed, there is no significant change in accuracy. Sensation to vibration and proprioception are intact bilaterally. What is the most likely localization?",
+    choices: [
+      { text: "Posterior column (dorsal column) lesion causing sensory ataxia — the loss of vibration sense and proprioception forces the patient to rely on vision, so eye closure dramatically worsens the heel-to-shin performance", correct: false, explanation: "Sensory ataxia specifically worsens with eye closure because visual compensation is lost. In this patient, closing the eyes does NOT change performance, and vibration/proprioception are INTACT — both features rule out dorsal column sensory ataxia. The key diagnostic feature of sensory ataxia is eyes-closed worsening." },
+      { text: "Ipsilateral cerebellar hemisphere or peduncle lesion — cerebellar ataxia is present regardless of eye position because the cerebellum integrates internal motor feedback independently of visual input", correct: true, explanation: "Correct! The hallmark of cerebellar ataxia is that it is present with eyes open AND closed — visual closure does not significantly change the clumsiness. Intact proprioception and vibration confirm the sensory pathway is fine. The incoordination (clumsy, irregular HTS) with normal sensation and no eyes-closed worsening = cerebellar lesion ipsilateral to the affected limb." },
+      { text: "Contralateral corticospinal tract (UMN) lesion — spasticity and weakness from a corticospinal tract lesion impairs limb placement accuracy and causes the heel to slide off the shin due to increased muscle tone", correct: false, explanation: "A UMN lesion causes spasticity, hyperreflexia, and weakness — not specifically ataxia. While a spastic leg may be clumsy, this would be accompanied by hyperreflexia, a Babinski sign, and true limb weakness. The patient here has coordination impairment without evidence of spasticity or weakness, pointing to a cerebellar rather than corticospinal problem." },
+      { text: "Peripheral polyneuropathy causing sensory ataxia — stocking-glove pattern of sensory loss with loss of ankle reflexes and positive Romberg sign, indicating peripheral nerve dysfunction affecting proprioceptive fibers", correct: false, explanation: "Peripheral polyneuropathy causing sensory ataxia would show absent or decreased vibration sense and proprioception (intact here), diminished ankle jerks, and a positive Romberg sign with significant eyes-closed worsening. All of these features are absent. Intact sensation with eyes-closed-independent ataxia = cerebellar, not peripheral sensory." },
+      { text: "Frontal lobe lesion causing gait apraxia — disconnection of frontal motor planning from the motor cortex results in the appearance of ataxia despite normal strength, sensation, and cerebellar function on direct testing", correct: false, explanation: "Frontal lobe lesions cause gait apraxia — difficulty with gait initiation and a distinctive magnetic gait pattern — but don't specifically produce abnormal HTS or FTN on supine/seated testing. Gait apraxia presents more with difficulty walking than with specific limb incoordination testing. The HTS abnormality described localizes to the cerebellar system." }
+    ]
+  }
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let current = 0, score = 0, answered = false;
+const shuffledQ = shuffle(questions);
+const letters = ['A','B','C','D','E'];
+
+function updateProgress() {
+  document.getElementById('progressFill').style.width = (current / shuffledQ.length * 100) + '%';
+}
+
+function renderQuestion() {
+  const container = document.getElementById('quizContainer');
+  if (current >= shuffledQ.length) { renderScore(); return; }
+  answered = false;
+  const q = shuffledQ[current];
+  const sc = shuffle(q.choices);
+  updateProgress();
+  container.innerHTML = `
+    <div class="quiz-counter">Question ${current + 1} of ${shuffledQ.length}</div>
+    <div class="quiz-question">${q.q}</div>
+    <ul class="quiz-choices" id="choiceList">
+      ${sc.map((c, i) => `
+        <li class="quiz-choice" data-correct="${c.correct}" data-exp="${encodeURIComponent(c.explanation)}" onclick="handleChoice(this)">
+          <span class="choice-letter">${letters[i]}</span>
+          <span>${c.text}</span>
+        </li>`).join('')}
+    </ul>
+    <div class="quiz-actions">
+      <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" style="display:none;">
+        ${current < shuffledQ.length - 1 ? 'Next Question →' : 'View Results'}
+      </button>
+    </div>`;
+}
+
+function handleChoice(el) {
+  if (answered) return;
+  answered = true;
+  if (el.dataset.correct === 'true') { score++; el.classList.add('correct'); }
+  else { el.classList.add('incorrect'); }
+  document.querySelectorAll('.quiz-choice').forEach(c => {
+    c.classList.add('answered');
+    if (c.dataset.correct === 'true') c.classList.add('correct');
+    const e = document.createElement('div');
+    e.className = 'explanation';
+    e.textContent = decodeURIComponent(c.dataset.exp);
+    c.appendChild(e);
+  });
+  document.getElementById('nextBtn').style.display = 'inline-flex';
+}
+
+function nextQ() { current++; renderQuestion(); }
+
+function renderScore() {
+  document.getElementById('progressFill').style.width = '100%';
+  const pct = Math.round(score / shuffledQ.length * 100);
+  const msg = pct >= 90 ? 'Outstanding! 🎉' : pct >= 75 ? 'Great work! 💪' : pct >= 60 ? 'Good effort — review missed concepts 📖' : 'Keep studying — you\'ve got this! 🔁';
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="quiz-score">
+      <div class="score-circle">${score}/${shuffledQ.length}</div>
+      <div class="score-msg">${msg}</div>
+      <div class="score-sub">${pct}% correct · Coordination Week 40</div>
+      <div style="margin-top:1.5rem;"><button class="btn btn-primary" onclick="restart()">Restart Quiz</button></div>
+    </div>`;
+}
+
+function restart() {
+  current = 0; score = 0;
+  const r = shuffle(shuffledQ);
+  r.forEach((q,i) => shuffledQ[i] = q);
+  renderQuestion();
+}
+
+renderQuestion();
+</script>
+</body>
+</html>

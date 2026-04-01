@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 39 OCS · Cranial Nerves</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f3ef;
+  --card: #ffffff;
+  --navy: #1a2744;
+  --teal: #0f766e;
+  --teal-light: #ccfbf1;
+  --coral: #c2410c;
+  --coral-light: #fff7ed;
+  --violet: #6d28d9;
+  --violet-light: #ede9fe;
+  --amber: #b45309;
+  --amber-light: #fffbeb;
+  --blue: #1d4ed8;
+  --blue-light: #eff6ff;
+  --rose: #be123c;
+  --rose-light: #fff1f2;
+  --slate: #475569;
+  --border: #e2ddd6;
+  --shadow: 0 2px 12px rgba(26,39,68,0.08);
+  --shadow-lg: 0 8px 32px rgba(26,39,68,0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  font-family: 'Nunito', sans-serif;
+  color: var(--navy);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--navy);
+  color: white;
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: rgba(15,118,110,0.15);
+}
+.site-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(109,40,217,0.1);
+}
+.header-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+.header-tag {
+  display: inline-block;
+  background: rgba(15,118,110,0.3);
+  color: #5eead4;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 0.8rem;
+}
+.site-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.site-header p {
+  color: rgba(255,255,255,0.65);
+  font-size: 0.9rem;
+}
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 1.5rem;
+}
+.toc a {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  transition: all 0.2s;
+}
+.toc a:hover { background: rgba(255,255,255,0.2); color: white; }
+
+/* ── LAYOUT ── */
+.main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+/* ── SECTIONS ── */
+.section { margin-bottom: 2.5rem; }
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--border);
+}
+.section-title .dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.card.teal { border-left: 4px solid var(--teal); }
+.card.coral { border-left: 4px solid var(--coral); }
+.card.violet { border-left: 4px solid var(--violet); }
+.card.amber { border-left: 4px solid var(--amber); }
+.card.blue { border-left: 4px solid var(--blue); }
+.card.rose { border-left: 4px solid var(--rose); }
+
+.card h3 {
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 0.6rem;
+}
+.card h4 {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--slate);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+  margin-top: 0.8rem;
+}
+
+/* ── TAGS ── */
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 20px;
+  margin: 2px;
+}
+.tag-teal { background: var(--teal-light); color: var(--teal); }
+.tag-coral { background: var(--coral-light); color: var(--coral); }
+.tag-violet { background: var(--violet-light); color: var(--violet); }
+.tag-amber { background: var(--amber-light); color: var(--amber); }
+.tag-blue { background: var(--blue-light); color: var(--blue); }
+.tag-rose { background: var(--rose-light); color: var(--rose); }
+
+/* ── TERM BOXES ── */
+.term-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-top: 0.5rem;
+}
+.term-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  box-shadow: var(--shadow);
+}
+.term-box .term {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--teal);
+  display: block;
+  margin-bottom: 3px;
+}
+.term-box .def {
+  font-size: 0.82rem;
+  color: var(--slate);
+  line-height: 1.5;
+}
+
+/* ── ILLNESS SCRIPT ── */
+.illness-card {
+  background: var(--card);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.illness-header {
+  padding: 0.8rem 1.25rem;
+  font-weight: 800;
+  font-size: 1rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.illness-body { padding: 1rem 1.25rem; }
+.illness-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.illness-col h4 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.4rem;
+  color: var(--slate);
+}
+.illness-col ul { list-style: none; padding: 0; }
+.illness-col ul li {
+  font-size: 0.85rem;
+  padding: 2px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.illness-col ul li::before {
+  content: '→';
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  color: var(--slate);
+}
+.red-flag {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--rose);
+  font-weight: 700;
+}
+
+/* ── CN TABLE ── */
+.cn-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.cn-table th {
+  background: var(--navy);
+  color: white;
+  padding: 8px 12px;
+  text-align: left;
+  font-weight: 700;
+}
+.cn-table td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.cn-table tr:nth-child(even) td { background: #fafaf9; }
+.cn-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--teal);
+  white-space: nowrap;
+}
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+.badge-s { background: #dbeafe; color: #1e40af; }
+.badge-m { background: #fce7f3; color: #9d174d; }
+.badge-b { background: #d1fae5; color: #065f46; }
+
+/* ── REFLEX BOX ── */
+.reflex-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+.reflex-card {
+  background: var(--navy);
+  color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+}
+.reflex-card .reflex-name { font-weight: 800; font-size: 0.95rem; margin-bottom: 4px; }
+.reflex-card .reflex-arc { font-size: 0.82rem; color: #94a3b8; }
+.reflex-card .reflex-arrow { font-size: 1.2rem; margin: 6px 0; }
+
+/* ── HISTORY TABLE ── */
+.hx-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 0.5rem; }
+.hx-table th { background: #f1f5f9; padding: 8px 12px; text-align: left; font-weight: 700; border-bottom: 2px solid var(--border); }
+.hx-table td { padding: 7px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.hx-table td:first-child { font-weight: 700; color: var(--teal); white-space: nowrap; width: 130px; }
+
+/* ── CALLOUT ── */
+.callout {
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.callout-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+.callout-body { font-size: 0.88rem; }
+.callout-body strong { display: block; margin-bottom: 3px; font-weight: 800; }
+.callout.tip { background: var(--teal-light); border: 1px solid #99f6e4; }
+.callout.warn { background: var(--amber-light); border: 1px solid #fde68a; }
+.callout.pearl { background: var(--violet-light); border: 1px solid #c4b5fd; }
+.callout.danger { background: var(--rose-light); border: 1px solid #fda4af; }
+
+/* ── SOAP ── */
+.soap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.soap-box {
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+}
+.soap-label {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 0.3rem;
+}
+.plan-steps {
+  counter-reset: plan;
+  list-style: none;
+  padding: 0;
+}
+.plan-steps li {
+  counter-increment: plan;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.plan-steps li::before {
+  content: counter(plan);
+  background: var(--navy);
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── QUIZ ── */
+#quiz-section {
+  background: var(--navy);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-top: 2rem;
+  color: white;
+}
+#quiz-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+}
+#quiz-section .quiz-sub {
+  color: rgba(255,255,255,0.55);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+.quiz-progress-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: #0d9488;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.quiz-counter {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+.quiz-question {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.55;
+  margin-bottom: 1.2rem;
+  color: white;
+}
+.quiz-choices { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.quiz-choice {
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.5;
+}
+.quiz-choice:hover:not(.answered) { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.3); }
+.choice-letter {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 0.78rem;
+  background: rgba(255,255,255,0.12);
+  border-radius: 5px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.quiz-choice.correct {
+  background: rgba(16,185,129,0.2);
+  border-color: #10b981;
+}
+.quiz-choice.incorrect {
+  background: rgba(239,68,68,0.15);
+  border-color: #ef4444;
+}
+.quiz-choice.correct .choice-letter { background: #10b981; color: white; }
+.quiz-choice.incorrect .choice-letter { background: #ef4444; color: white; }
+.explanation {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+  padding-left: 34px;
+  font-style: italic;
+}
+.quiz-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  gap: 10px;
+}
+.btn {
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary { background: #0f766e; color: white; }
+.btn-primary:hover { background: #0d9488; }
+.btn-ghost { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+.btn-ghost:hover { background: rgba(255,255,255,0.18); }
+.quiz-score {
+  text-align: center;
+  padding: 2rem 0;
+}
+.score-circle {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: rgba(15,118,110,0.2);
+  border: 3px solid #0d9488;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0 auto 1rem;
+  color: #5eead4;
+}
+.score-msg { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.score-sub { color: rgba(255,255,255,0.55); font-size: 0.85rem; }
+
+/* ── MISC ── */
+.mono { font-family: 'JetBrains Mono', monospace; }
+.text-sm { font-size: 0.85rem; }
+ul.list { padding-left: 1.2rem; }
+ul.list li { margin-bottom: 4px; font-size: 0.88rem; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media(max-width:600px){
+  .two-col,.illness-row,.soap-grid,.reflex-grid,.term-grid { grid-template-columns:1fr; }
+  .card-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <span class="header-tag">OCS 1 · Week 39 · Spring 2026</span>
+    <h1>Cranial Nerves</h1>
+    <p>Drs. Filippakis, Howard, Sharkey &amp; St. Pierre · UNE COM</p>
+    <nav class="toc">
+      <a href="#terminology">Terminology</a>
+      <a href="#cn-overview">CN Overview</a>
+      <a href="#cn-exam">CN Exam</a>
+      <a href="#illness-scripts">Illness Scripts</a>
+      <a href="#history">History Taking</a>
+      <a href="#ros">ROS</a>
+      <a href="#pe">Physical Exam</a>
+      <a href="#normal-exam">Normal Exam</a>
+      <a href="#ddx">DDx</a>
+      <a href="#soap">SOAP &amp; Plan</a>
+      <a href="#omm">OMM</a>
+      <a href="#quiz">MCQ Quiz</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════════════════ TERMINOLOGY -->
+<section class="section" id="terminology">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--teal)"></span>
+    Neurologic Terminology
+  </h2>
+
+  <div class="callout tip">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body">
+      <strong>Why these matter</strong>
+      All of these terms may appear in exam questions, SOAP notes, or patient encounters. Know the precise definition — especially the paired terms (paresis vs. paralysis, dizziness vs. vertigo, anesthesia vs. paresthesia).
+    </div>
+  </div>
+
+  <div class="term-grid">
+    <div class="term-box">
+      <span class="term">Acuity</span>
+      <span class="def">Keenness or sharpness of sensation — most commonly refers to visual acuity (e.g., 20/20).</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Ptosis</span>
+      <span class="def">Drooping of the upper eyelid due to weakness of the levator palpebrae superioris (innervated by CN III).</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Nystagmus</span>
+      <span class="def">Involuntary rhythmic eye movements. Jerk nystagmus = fast + slow phases (named for fast phase). Pendular = equal amplitude both directions.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Paralysis / Plegia</span>
+      <span class="def">Complete loss of voluntary muscle function in a region.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Paresis</span>
+      <span class="def">Partial/incomplete loss of motor function; weakness without complete loss.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Tremor</span>
+      <span class="def">Involuntary, relatively rhythmic, purposeless oscillatory muscle movements.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Tic (Habit Spasm)</span>
+      <span class="def">Quick, irregular but repetitive movements or vocalizations; more common in children; can be motor or vocal.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Fasciculation</span>
+      <span class="def">Brief spontaneous flickering of a muscle fasciculus (bundle); visible under the skin; does not typically move joints.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Dizziness</span>
+      <span class="def">Nonspecific symptom describing spinning, faintness, unsteadiness, or weakness — must be further characterized by the patient.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Vertigo</span>
+      <span class="def">False sensation of self or environmental motion (spinning, whirling, tilting, falling) — vestibular system dysfunction.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Pre-syncope</span>
+      <span class="def">Sensation of impending loss of consciousness; lightheadedness, often with diaphoresis and graying of vision; global cerebral hypoperfusion.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Syncope</span>
+      <span class="def">Transient complete loss of consciousness and postural tone from global cerebral hypoperfusion with spontaneous recovery.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Seizure</span>
+      <span class="def">Transient sudden episode of uncontrollable motor activity (focal or generalized), usually with loss of consciousness; from uncontrolled neuronal firing.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Paresthesia</span>
+      <span class="def">Abnormal tingling, burning, or pins-and-needles sensation — sensation without appropriate stimulus.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Anesthesia</span>
+      <span class="def">Loss of sensation (numbness); absence of normal sensory perception in a region.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Atrophy</span>
+      <span class="def">Decrease in muscle bulk due to disuse or denervation.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Hypertrophy</span>
+      <span class="def">Increase in muscle bulk (enlargement of existing fibers, not new cells).</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Cephalgia</span>
+      <span class="def">Headache — pain in any part of the head.</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Strabismus</span>
+      <span class="def">Misalignment of the eyes; includes esotropia (inward deviation) and exotropia (outward deviation).</span>
+    </div>
+    <div class="term-box">
+      <span class="term">Diplopia</span>
+      <span class="def">Double vision — seeing two images of a single object; from EOM palsy (CN III, IV, or VI).</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ CN OVERVIEW -->
+<section class="section" id="cn-overview">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--violet)"></span>
+    Cranial Nerve Overview
+  </h2>
+
+  <div class="callout pearl">
+    <span class="callout-icon">🧠</span>
+    <div class="callout-body">
+      <strong>Mnemonic: Sensory / Motor / Both</strong>
+      "Some Say Marry Money, But My Brother Says Bad Boys Marry Money" — I(S), II(S), III(M), IV(M), V(B), VI(M), VII(B), VIII(S), IX(B), X(B), XI(M), XII(M)
+    </div>
+  </div>
+
+  <div class="card" style="overflow-x:auto;">
+    <table class="cn-table">
+      <thead>
+        <tr>
+          <th>CN</th><th>Name</th><th>Type</th><th>Key Function(s)</th><th>Exam Finding if Damaged</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="cn-num">I</td><td>Olfactory</td><td><span class="badge badge-s">S</span></td><td>Smell</td><td>Anosmia</td></tr>
+        <tr><td class="cn-num">II</td><td>Optic</td><td><span class="badge badge-s">S</span></td><td>Visual acuity, visual fields, ocular fundi</td><td>Monocular vision loss, visual field defects, APD</td></tr>
+        <tr><td class="cn-num">III</td><td>Oculomotor</td><td><span class="badge badge-m">M</span></td><td>Levator palpebrae, superior/inferior/medial rectus, inferior oblique; pupillary constriction (PS)</td><td>"Down and out" deviation, ptosis, dilated unreactive pupil</td></tr>
+        <tr><td class="cn-num">IV</td><td>Trochlear</td><td><span class="badge badge-m">M</span></td><td>Superior oblique (depression/intorsion in adduction)</td><td>Vertical diplopia worse going downstairs; head tilt away from lesion</td></tr>
+        <tr><td class="cn-num">V</td><td>Trigeminal</td><td><span class="badge badge-b">B</span></td><td>V1 (ophthalmic), V2 (maxillary), V3 (mandibular) sensation; V3 jaw motor</td><td>Facial numbness; jaw deviation toward lesion (masseter weak); absent corneal reflex (afferent)</td></tr>
+        <tr><td class="cn-num">VI</td><td>Abducens</td><td><span class="badge badge-m">M</span></td><td>Lateral rectus (abduction)</td><td>Esotropia at rest; cannot abduct ipsilateral eye; most common EOM palsy</td></tr>
+        <tr><td class="cn-num">VII</td><td>Facial</td><td><span class="badge badge-b">B</span></td><td>Facial expression; taste anterior 2/3 tongue; lacrimal/sublingual/submandibular glands (PS)</td><td>Ipsilateral facial weakness (peripheral: all face; UMN: forehead spared); Bell's palsy</td></tr>
+        <tr><td class="cn-num">VIII</td><td>Vestibulocochlear</td><td><span class="badge badge-s">S</span></td><td>Hearing (cochlear); balance/orientation (vestibular)</td><td>Sensorineural hearing loss; vertigo; nystagmus</td></tr>
+        <tr><td class="cn-num">IX</td><td>Glossopharyngeal</td><td><span class="badge badge-b">B</span></td><td>Sensation posterior 1/3 tongue/pharynx; taste posterior 1/3; parotid gland; stylopharyngeus</td><td>Loss of gag reflex afferent; loss of taste/sensation posterior tongue</td></tr>
+        <tr><td class="cn-num">X</td><td>Vagus</td><td><span class="badge badge-b">B</span></td><td>Palate/pharynx/larynx motor; visceral sensory/parasympathetic to GI and heart</td><td>Hoarseness, dysphagia; uvula deviates away from lesion; absent gag efferent</td></tr>
+        <tr><td class="cn-num">XI</td><td>Spinal Accessory</td><td><span class="badge badge-m">M</span></td><td>SCM (head rotation); Trapezius (shoulder elevation)</td><td>Weak shoulder shrug; difficulty turning head against resistance</td></tr>
+        <tr><td class="cn-num">XII</td><td>Hypoglossal</td><td><span class="badge badge-m">M</span></td><td>All intrinsic + extrinsic tongue muscles (except palatoglossus)</td><td>Tongue deviates toward lesion; atrophy/fasciculations</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Extraocular muscles -->
+  <div class="card violet" style="margin-top:1rem;">
+    <h3 style="color:var(--violet)">Extraocular Muscles: LR₆(SO₄)AR₃</h3>
+    <div class="two-col">
+      <div>
+        <h4>Mnemonic breakdown</h4>
+        <ul class="list">
+          <li><strong>LR₆</strong> — Lateral Rectus → CN VI (Abducens)</li>
+          <li><strong>SO₄</strong> — Superior Oblique → CN IV (Trochlear)</li>
+          <li><strong>AR₃</strong> — All the Rest → CN III (Oculomotor)</li>
+        </ul>
+        <div style="margin-top:0.8rem;font-size:0.85rem;color:var(--slate)">
+          <em>All the Rest (CN III):</em> Superior rectus, inferior rectus, medial rectus, inferior oblique, levator palpebrae
+        </div>
+      </div>
+      <div>
+        <h4>Cardinal directions & muscles (right eye)</h4>
+        <ul class="list">
+          <li>Up + lateral → Superior rectus (III)</li>
+          <li>Lateral → Lateral rectus (VI)</li>
+          <li>Down + lateral → Inferior rectus (III)</li>
+          <li>Up + medial → Inferior oblique (III)</li>
+          <li>Medial → Medial rectus (III)</li>
+          <li>Down + medial → Superior oblique (IV)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reflexes -->
+  <h3 style="font-size:1rem;font-weight:800;margin:1rem 0 0.5rem;">Cranial Nerve Reflex Arcs</h3>
+  <p style="font-size:0.85rem;color:var(--slate);margin-bottom:0.8rem;">For CN pairings (II/III, V/VII, IX/X): sensory <em>in</em> via the lower-numbered CN; motor <em>out</em> via the higher-numbered CN.</p>
+  <div class="reflex-grid">
+    <div class="reflex-card">
+      <div class="reflex-name">Pupillary Light Reflex</div>
+      <div class="reflex-arrow">👁️</div>
+      <div class="reflex-arc"><strong>IN:</strong> CN II (Optic)</div>
+      <div class="reflex-arc"><strong>OUT:</strong> CN III (Oculomotor)</div>
+      <div class="reflex-arc" style="margin-top:4px;font-size:0.78rem;">Light → bilateral miosis</div>
+    </div>
+    <div class="reflex-card">
+      <div class="reflex-name">Corneal (Blink) Reflex</div>
+      <div class="reflex-arrow">👁️‍🗨️</div>
+      <div class="reflex-arc"><strong>IN:</strong> CN V1 (Ophthalmic)</div>
+      <div class="reflex-arc"><strong>OUT:</strong> CN VII (Facial)</div>
+      <div class="reflex-arc" style="margin-top:4px;font-size:0.78rem;">Corneal touch → blink</div>
+    </div>
+    <div class="reflex-card">
+      <div class="reflex-name">Pharyngeal (Gag) Reflex</div>
+      <div class="reflex-arrow">🦷</div>
+      <div class="reflex-arc"><strong>IN:</strong> CN IX (Glossopharyngeal)</div>
+      <div class="reflex-arc"><strong>OUT:</strong> CN X (Vagus)</div>
+      <div class="reflex-arc" style="margin-top:4px;font-size:0.78rem;">Posterior pharynx touch → palate elevation</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ CN EXAM -->
+<section class="section" id="cn-exam">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--blue)"></span>
+    Cranial Nerve Physical Exam
+  </h2>
+
+  <div class="callout tip">
+    <span class="callout-icon">📋</span>
+    <div class="callout-body">
+      <strong>The "Big Five" Neurologic Exam Framework</strong>
+      1) Mental status, speech, language · 2) Cranial Nerves · 3) Motor system &amp; DTRs · 4) Sensory system &amp; coordination · 5) Gait &amp; station
+    </div>
+  </div>
+
+  <div class="card blue">
+    <h3 style="color:var(--blue);">Step-by-Step Cranial Nerve Exam</h3>
+    <div style="font-size:0.85rem;color:var(--slate);margin-bottom:0.8rem;font-style:italic;">
+      Obtain informed consent and explain each test in lay terms before beginning. Drape appropriately.
+    </div>
+    <table class="hx-table">
+      <thead><tr><th>CN(s)</th><th>Test / How to Perform</th><th>What You Are Looking For</th></tr></thead>
+      <tbody>
+        <tr><td>I</td><td>Present a familiar odor (e.g., coffee) to each nostril individually with the other occluded</td><td>Absence = anosmia; often not formally tested at bedside</td></tr>
+        <tr><td>II</td><td>Visual acuity (Snellen chart); visual fields by confrontation (wiggle fingers in 4 quadrants); fundoscopy</td><td>Acuity loss; field defects (see visual field chart); papilledema, pallor, AV nicking</td></tr>
+        <tr><td>II, III</td><td>Inspect pupil size &amp; symmetry; shine light in each eye; test accommodation (near point)</td><td>Anisocoria; sluggish/absent reaction; APD (swinging flashlight); "down and out" + dilated = CN III palsy</td></tr>
+        <tr><td>III, IV, VI</td><td>Ask patient to follow your finger in an "H" or "Z" pattern; test each of the 6 cardinal positions</td><td>Nystagmus; failure to move in a direction; misalignment; diplopia in specific gaze</td></tr>
+        <tr><td>V</td><td>Touch face lightly in V1, V2, V3 distributions bilaterally (forehead, cheek, jaw); ask patient to clench jaw — palpate masseters &amp; temporalis</td><td>Sensory loss in a division; jaw deviates toward weak side</td></tr>
+        <tr><td>V, VII</td><td>Corneal reflex: gently touch cornea with cotton wisp (not the sclera)</td><td>Absent blink = V1 afferent or VII efferent lesion</td></tr>
+        <tr><td>VII</td><td>Ask patient to: raise eyebrows, frown, tightly close eyes (resist your fingers), puff cheeks, show teeth, smile</td><td>Asymmetry; if forehead spared → UMN lesion; if all face involved → LMN/peripheral lesion</td></tr>
+        <tr><td>VIII</td><td>Finger rub test or whispered voice bilaterally; Weber/Rinne if indicated</td><td>Asymmetric hearing; lateralization; sensorineural vs. conductive</td></tr>
+        <tr><td>IX, X</td><td>Ask patient to say "ah" and observe palate; test gag if indicated</td><td>Uvula deviates away from lesion (toward the healthy side); asymmetric palate elevation; hoarseness</td></tr>
+        <tr><td>V,VII,IX,X,XII</td><td>Listen to voice quality and articulation during conversation</td><td>Dysarthria; dysphonia; nasal speech</td></tr>
+        <tr><td>XI</td><td>Ask patient to shrug shoulders against resistance; turn head against resistance</td><td>Weakness/asymmetry of trapezius (shrug) or SCM (head turn)</td></tr>
+        <tr><td>XII</td><td>Ask patient to protrude tongue; check for deviation, atrophy, fasciculations; push tongue against cheek against resistance</td><td>Deviation toward lesion; atrophy/fasciculations suggest LMN</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card amber">
+    <h3 style="color:var(--amber);">Lay Terminology for Patient Explanation (Consent)</h3>
+    <ul class="list">
+      <li>"I'm going to check how well you can smell by holding a small item near your nose with your eyes closed."</li>
+      <li>"I'll be checking your eye movements by asking you to follow my finger without moving your head."</li>
+      <li>"I'm going to lightly touch the surface of your eye with a small piece of cotton — this checks a reflex. You may blink automatically."</li>
+      <li>"I'd like you to make several faces for me — raise your eyebrows, close your eyes tight, and smile big. I'll be checking muscle strength."</li>
+      <li>"I'm going to gently touch different parts of your face to see if sensation feels the same on both sides."</li>
+    </ul>
+  </div>
+
+  <!-- HINTS exam -->
+  <div class="card rose">
+    <h3 style="color:var(--rose);">HINTS Exam — Central vs. Peripheral Vertigo</h3>
+    <p style="font-size:0.82rem;color:var(--slate);margin-bottom:0.8rem;"><em>* OCS 2 / Neuroanatomy content — know for future use. Not tested in OCS 1.</em></p>
+    <div style="overflow-x:auto;">
+      <table class="cn-table">
+        <thead><tr><th>Component</th><th>Peripheral (Safe)</th><th>Central (Dangerous ⚠️)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>H</strong>ead Impulse</td><td>Abnormal (corrective saccade present)</td><td>Normal (no corrective saccade)</td></tr>
+          <tr><td><strong>N</strong>ystagmus</td><td>Unidirectional, horizontal</td><td>Bidirectional or vertical</td></tr>
+          <tr><td><strong>T</strong>est of Skew</td><td>No vertical skew</td><td>Vertical skew present</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn" style="margin-top:0.8rem;margin-bottom:0;">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body"><strong>INFARCT mnemonic</strong> — central vertigo: Impulse Normal, Fast-phase Alternating, Refixation on Cover Test → suspect stroke!</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ ILLNESS SCRIPTS -->
+<section class="section" id="illness-scripts">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--coral)"></span>
+    Illness Scripts: Headache Syndromes
+  </h2>
+
+  <!-- Migraine -->
+  <div class="illness-card">
+    <div class="illness-header" style="background:var(--violet)">
+      🧠 Migraine (with or without Aura)
+    </div>
+    <div class="illness-body">
+      <div class="illness-row">
+        <div class="illness-col">
+          <h4>Epidemiology &amp; Risk</h4>
+          <ul>
+            <li>Peak 25–55 years; F &gt; M (3:1); strong family history</li>
+            <li>Triggers: hormones, stress, sleep deprivation, certain foods, EtOH, weather</li>
+            <li>Strong genetic component; often positive FHx</li>
+          </ul>
+          <h4>Symptoms</h4>
+          <ul>
+            <li>Unilateral, pulsating/throbbing headache</li>
+            <li>Moderate to severe intensity</li>
+            <li>Duration 4–72 hours if untreated</li>
+            <li>Nausea/vomiting common</li>
+            <li>Photophobia AND phonophobia</li>
+            <li>Aura (in ~30%): transient focal neuro sx, often visual (scintillating scotoma, zigzag lines) lasting ~20 min before headache</li>
+          </ul>
+        </div>
+        <div class="illness-col">
+          <h4>Signs on Exam</h4>
+          <ul>
+            <li>Neuro exam typically NORMAL between episodes</li>
+            <li>Patient may appear pale, uncomfortable, prefer dark quiet room</li>
+            <li>CN exam normal (vs. CN III palsy — think cluster/PComm aneurysm)</li>
+          </ul>
+          <h4>Key Differentiators</h4>
+          <ul>
+            <li>UNILATERAL pulsating (vs. bilateral pressure of tension)</li>
+            <li>N/V + photo/phonophobia (vs. GCA with jaw claudication)</li>
+            <li>Aura (vs. no aura in tension)</li>
+            <li>Does NOT have autonomic features (vs. cluster HA)</li>
+          </ul>
+          <div class="red-flag">🚨 Red flags: "Thunderclap" onset, fever + meningismus, neuro deficits, vision loss → urgent workup</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tension HA -->
+  <div class="illness-card">
+    <div class="illness-header" style="background:#0f766e">
+      💢 Tension-Type Headache (TTH)
+    </div>
+    <div class="illness-body">
+      <div class="illness-row">
+        <div class="illness-col">
+          <h4>Epidemiology &amp; Risk</h4>
+          <ul>
+            <li>Most common primary headache disorder</li>
+            <li>Stress, poor sleep, eye strain, dehydration, musculoskeletal tension</li>
+            <li>Associated with pericranial muscle tenderness</li>
+          </ul>
+          <h4>Symptoms</h4>
+          <ul>
+            <li>BILATERAL, pressure/tightening ("band around head")</li>
+            <li>Mild to moderate intensity</li>
+            <li>Duration 30 min – 7 days</li>
+            <li>No significant nausea or vomiting</li>
+            <li>Mild photo OR phonophobia (NOT both)</li>
+            <li>NOT aggravated by routine physical activity</li>
+          </ul>
+        </div>
+        <div class="illness-col">
+          <h4>Signs on Exam</h4>
+          <ul>
+            <li>Pericranial muscle tenderness on palpation</li>
+            <li>Normal neurologic exam</li>
+            <li>Normal visual fields, EOMs, CN exam</li>
+          </ul>
+          <h4>Key Differentiators</h4>
+          <ul>
+            <li>BILATERAL (vs. unilateral migraine/cluster)</li>
+            <li>No N/V, no autonomic features</li>
+            <li>NO aura</li>
+            <li>Not disabling (can continue activity)</li>
+          </ul>
+          <div style="background:var(--teal-light);border-radius:8px;padding:6px 10px;margin-top:0.5rem;font-size:0.8rem;color:var(--teal);font-weight:700;">
+            OMT pearl: suboccipital release, OA decompression often therapeutic
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GCA -->
+  <div class="illness-card">
+    <div class="illness-header" style="background:var(--coral)">
+      ⚠️ Giant Cell Arteritis (Temporal Arteritis)
+    </div>
+    <div class="illness-body">
+      <div class="illness-row">
+        <div class="illness-col">
+          <h4>Epidemiology &amp; Risk</h4>
+          <ul>
+            <li>Age &gt;50 (typically &gt;70); F &gt; M</li>
+            <li>Granulomatous vasculitis of medium/large vessels</li>
+            <li>Associated with polymyalgia rheumatica</li>
+            <li>Elevated ESR (&gt;50mm/hr), CRP</li>
+          </ul>
+          <h4>Symptoms</h4>
+          <ul>
+            <li>New unilateral temporal headache, severe</li>
+            <li>Jaw claudication — pain/fatigue with chewing that stops at rest ← HIGH SPECIFICITY</li>
+            <li>Scalp tenderness (tender temporal artery)</li>
+            <li>Systemic: fever, malaise, weight loss, fatigue</li>
+            <li>Visual symptoms: amaurosis fugax → sudden painless permanent monocular blindness if untreated</li>
+          </ul>
+        </div>
+        <div class="illness-col">
+          <h4>Signs on Exam</h4>
+          <ul>
+            <li>Tender, nodular, thickened, non-pulsatile temporal artery</li>
+            <li>Elevated ESR/CRP; confirm with temporal artery biopsy</li>
+            <li>CN II affected: ischemic optic neuropathy</li>
+          </ul>
+          <h4>Key Differentiators</h4>
+          <ul>
+            <li>Age &gt;50 + jaw claudication = GCA until proven otherwise</li>
+            <li>Elevated inflammatory markers</li>
+            <li>Vision loss risk — ophthalmic emergency</li>
+          </ul>
+          <div class="red-flag">🚨 TREAT IMMEDIATELY with high-dose steroids before biopsy results to prevent bilateral blindness!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TMJ -->
+  <div class="illness-card">
+    <div class="illness-header" style="background:var(--amber)">
+      🦷 TMJ Dysfunction (Temporomandibular Joint Disorder)
+    </div>
+    <div class="illness-body">
+      <div class="illness-row">
+        <div class="illness-col">
+          <h4>Epidemiology &amp; Risk</h4>
+          <ul>
+            <li>Typically 20–40 years; F slightly &gt; M</li>
+            <li>Risk: bruxism, malocclusion, stress, trauma, arthritis</li>
+            <li>Can involve muscles of mastication (CN V3) or joint itself</li>
+          </ul>
+          <h4>Symptoms</h4>
+          <ul>
+            <li>Jaw pain, especially with chewing or wide mouth opening</li>
+            <li>Clicking, popping, or crepitus with jaw movement</li>
+            <li>Limited mouth opening or deviation of jaw on opening</li>
+            <li>Referred pain to temple, ear, neck (may mimic headache)</li>
+            <li>Ear fullness or tinnitus</li>
+          </ul>
+        </div>
+        <div class="illness-col">
+          <h4>Signs on Exam</h4>
+          <ul>
+            <li>Tenderness on palpation of TMJ and muscles of mastication (masseter, temporalis)</li>
+            <li>Palpable click or pop on jaw opening</li>
+            <li>Restricted or deviated mandibular opening</li>
+            <li>Normal CN exam (no facial weakness, normal corneal reflex)</li>
+          </ul>
+          <h4>Key Differentiators</h4>
+          <ul>
+            <li>Jaw pain with chewing (vs. GCA jaw claudication — both jaw pain but different character, age, systemic sx)</li>
+            <li>Clicking/mechanical symptoms</li>
+            <li>Young patient, no systemic signs</li>
+            <li>No elevated ESR, no vision loss risk</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ HISTORY -->
+<section class="section" id="history">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--amber)"></span>
+    Subjective History for CN Complaint
+  </h2>
+
+  <div class="callout tip">
+    <span class="callout-icon">🗣️</span>
+    <div class="callout-body">
+      <strong>Patient-Centered Language</strong>
+      Use open-ended questions first ("Tell me more about what you're experiencing"). Avoid leading questions. Acknowledge patient emotions. Use lay terms to explain ("double vision" rather than "diplopia" when speaking to the patient).
+    </div>
+  </div>
+
+  <div class="card teal">
+    <h3 style="color:var(--teal)">HPI — OPQRST + Modifying Factors for CN Complaints</h3>
+    <table class="hx-table">
+      <tbody>
+        <tr><td>Onset</td><td>When did it start? Sudden vs. gradual? Any precipitating event (trauma, illness)?</td></tr>
+        <tr><td>Provocation/Palliation</td><td>What makes it better or worse? Activity, rest, position, medications, food?</td></tr>
+        <tr><td>Quality</td><td>Describe it in your own words. Burning, pressure, throbbing, sharp, electric?</td></tr>
+        <tr><td>Radiation</td><td>Does it spread anywhere? Jaw, neck, behind the eye, down the arm?</td></tr>
+        <tr><td>Severity</td><td>On a scale of 0–10, how would you rate it? How does it affect daily activities?</td></tr>
+        <tr><td>Timing</td><td>Constant vs. episodic? Duration of episodes? Frequency? Time of day? Progressive?</td></tr>
+        <tr><td>Associated Sx</td><td>N/V, photophobia, phonophobia, aura, vision changes, hearing changes, facial drooping, dizziness?</td></tr>
+        <tr><td>Context</td><td>Sick contacts, travel, recent illness, stress, sleep, hydration, medications?</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid">
+    <div class="card coral">
+      <h3 style="color:var(--coral)">PMHx</h3>
+      <ul class="list">
+        <li>Prior headache diagnoses or neurologic conditions</li>
+        <li>HTN, DM, afib (stroke risk)</li>
+        <li>Cancer history (metastasis/increased ICP)</li>
+        <li>Autoimmune disease (vasculitis, MS)</li>
+        <li>Prior head trauma or surgeries</li>
+        <li>HIV/immunosuppression (opportunistic CNS)</li>
+      </ul>
+    </div>
+    <div class="card violet">
+      <h3 style="color:var(--violet)">PSHx / FHx / SHx</h3>
+      <ul class="list">
+        <li><strong>PSHx:</strong> Head/neck/orbital surgeries; prior CNS procedures</li>
+        <li><strong>FHx:</strong> Migraine (strong genetic link); aneurysm; GCA; neuro conditions</li>
+        <li><strong>SHx:</strong> Tobacco (vascular risk); alcohol; recreational drugs; occupational exposures; stress; travel; sexual Hx if relevant</li>
+      </ul>
+    </div>
+    <div class="card amber">
+      <h3 style="color:var(--amber)">Medications &amp; Allergies</h3>
+      <ul class="list">
+        <li>List ALL medications including OTC, supplements, herbals</li>
+        <li>Hormones/OCPs (migraine trigger, stroke risk)</li>
+        <li>Steroids (consider for GCA)</li>
+        <li>Anticoagulants (bleeding risk)</li>
+        <li>Medication overuse? (rebound HA)</li>
+        <li>Document ALL allergies + reaction type (NKDA = No Known Drug Allergies)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ ROS -->
+<section class="section" id="ros">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--rose)"></span>
+    Review of Systems (ROS) for CN Complaints
+  </h2>
+
+  <div class="callout pearl">
+    <span class="callout-icon">🔍</span>
+    <div class="callout-body">
+      <strong>ROS Rationale</strong>
+      The goal is neuroanatomical localization — use the anatomy of the CN to determine which systems to screen. A chief complaint of diplopia drives you to ask about vascular, neuro, MSK. A complaint of jaw pain should prompt screening for constitutional sx (GCA) and dental/GI.
+    </div>
+  </div>
+
+  <div class="card" style="overflow-x:auto;">
+    <table class="cn-table">
+      <thead>
+        <tr><th>System</th><th>Key Questions for CN Complaint</th><th>CN Rationale</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>General</strong></td>
+          <td>Fever, chills, unintentional weight loss, fatigue, malaise, night sweats</td>
+          <td>Systemic illness (infection, malignancy, vasculitis/GCA) can cause CN pathology</td>
+        </tr>
+        <tr>
+          <td><strong>Neurologic</strong></td>
+          <td>Anosmia; vision loss/change; diplopia; facial pain/weakness/asymmetry; change in hearing; vertigo; dizziness; dysphagia; dysarthria; paresthesia; weakness; seizures; headache; coordination/balance change; loss of taste; change in memory/cognition</td>
+          <td>Directly maps to CN I–XII function; allows localization of lesion</td>
+        </tr>
+        <tr>
+          <td><strong>Dermatologic</strong></td>
+          <td>Rash, vesicles/blisters around ear/face, skin changes, photosensitivity</td>
+          <td>Herpes zoster (Ramsay Hunt syndrome — CN VII + vesicles in EAC); varicella reactivation; discoid lupus (CN involvement)</td>
+        </tr>
+        <tr>
+          <td><strong>Musculoskeletal</strong></td>
+          <td>Jaw pain/clicking with chewing; neck pain/stiffness; shoulder weakness; gait changes; joint pain; swelling</td>
+          <td>TMJ dysfunction (CN V3); GCA jaw claudication; CN XI (trapezius/SCM weakness); polymyalgia rheumatica (assoc. GCA)</td>
+        </tr>
+        <tr>
+          <td><strong>Vascular</strong></td>
+          <td>Sudden vision loss; jaw pain with activity (claudication); scalp tenderness; palpitations; syncope; presyncope; TIA-like events</td>
+          <td>GCA (ophthalmic artery ischemia → CN II); vascular CN III palsy (posterior communicating aneurysm, DM); carotid disease</td>
+        </tr>
+        <tr>
+          <td><strong>Respiratory</strong></td>
+          <td>Cough, shortness of breath, voice changes (hoarseness)</td>
+          <td>CN X (vagus) loops around thorax — lung/mediastinal pathology can cause CN X palsy and hoarseness</td>
+        </tr>
+        <tr>
+          <td><strong>Cardiovascular</strong></td>
+          <td>Chest pain, palpitations, arrhythmia, syncope, leg swelling (DVT/PE)</td>
+          <td>Cardioembolic stroke → CN palsies; atrial fibrillation major stroke risk factor; CN X provides cardiac parasympathetic innervation</td>
+        </tr>
+        <tr>
+          <td><strong>Gastrointestinal</strong></td>
+          <td>Dysphagia (solids vs. liquids), regurgitation, difficulty chewing, nausea/vomiting</td>
+          <td>CN IX/X: swallowing and palate; CN XII: tongue movement essential for bolus; bulbar palsy; CN X provides GI parasympathetics</td>
+        </tr>
+        <tr>
+          <td><strong>Genitourinary</strong></td>
+          <td>Bladder/bowel control (incontinence), sexual dysfunction</td>
+          <td>Cauda equina/sacral lesions; autonomic neuropathy; rarely CN pathology — but rules out widespread autonomic or spinal lesion</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <span class="callout-icon">📝</span>
+    <div class="callout-body">
+      <strong>Total Neurologic ROS = 23 elements</strong>
+      Highlighted CN-related items: anosmia, loss/change of vision, diplopia, facial pain, facial weakness/asymmetry, change in hearing, change in taste, dysphagia, dysarthria. These directly map to CN pathology and must be asked when the chief complaint involves any cranial nerve system.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ PE -->
+<section class="section" id="pe">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--teal)"></span>
+    Physical Exam — Relevant Systems &amp; Rationale
+  </h2>
+
+  <div class="card teal">
+    <h3 style="color:var(--teal)">Rationale for System Selection</h3>
+    <p style="font-size:0.86rem;color:var(--slate);margin-bottom:0.8rem;">For a chief complaint involving CN (e.g., diplopia, facial droop, headache), the physical exam must address systems that could produce or explain the CN deficit. The anatomy drives the rationale.</p>
+    <table class="hx-table">
+      <thead><tr><th>System / Region</th><th>Why It's Relevant</th></tr></thead>
+      <tbody>
+        <tr><td>Cranial Nerves (full exam)</td><td>Primary: localize the lesion, identify additional deficits that suggest a syndrome or tract-level lesion</td></tr>
+        <tr><td>HEENT / Orbital inspection</td><td>Periorbital ecchymosis, proptosis, ptosis, strabismus, pupils — direct visualization of CN III/IV/VI and CN II</td></tr>
+        <tr><td>Mental status &amp; speech</td><td>Aphasia or dysarthria localizes to cortex vs. brainstem; rule out encephalopathy</td></tr>
+        <tr><td>Motor / DTRs</td><td>Upper vs. lower motor neuron signs help localize CNS vs. peripheral lesion; ipsilateral CN + contralateral body = brainstem</td></tr>
+        <tr><td>Sensory system</td><td>Sensory level or dermatomal pattern helps localize spinal vs. peripheral vs. central CN involvement</td></tr>
+        <tr><td>Gait &amp; coordination</td><td>Cerebellar signs (CN VIII/cerebellum); ataxia with CN VIII dysfunction; Romberg for proprioception</td></tr>
+        <tr><td>Cardiovascular (auscultation, peripheral pulses)</td><td>Carotid bruits (stroke risk); carotid occlusion can cause CN III/VI palsy; afib → embolic CN palsy</td></tr>
+        <tr><td>Neck (palpation, range of motion)</td><td>C1-C3 somatic dysfunction affects CN via foraminal changes; GCA — palpate temporal artery; lymphadenopathy; meningismus</td></tr>
+        <tr><td>Skin (around ears/face)</td><td>Vesicles in EAC = Ramsay Hunt (CN VII); facial rash = Lyme, lupus, HSV</td></tr>
+        <tr><td>OSE (osteopathic structural exam)</td><td>OA/AA somatic dysfunction (CN IX,X,XI via jugular foramen); SBS; temporal bone (CN VII/VIII); sphenobasilar region</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card amber">
+    <h3 style="color:var(--amber)">Visual Field Defects — Localization</h3>
+    <div class="two-col">
+      <div>
+        <ul class="list">
+          <li><strong>Monocular blindness</strong> → ipsilateral optic nerve (CN II) lesion anterior to chiasm</li>
+          <li><strong>Bitemporal hemianopsia</strong> → optic chiasm (crossing nasal fibers) — think pituitary adenoma!</li>
+          <li><strong>Homonymous hemianopsia (right or left)</strong> → optic tract (contralateral side)</li>
+          <li><strong>Quadrantanopsia (upper or lower)</strong> → optic radiation (parietal vs. temporal lobe)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="callout pearl" style="margin:0">
+          <span class="callout-icon">💡</span>
+          <div class="callout-body"><strong>Memory tip</strong> Pituitary tumors compress the chiasm from below, damaging the crossing nasal fibers → bitemporal hemianopsia (you lose the outer/temporal vision in both eyes)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ NORMAL EXAM -->
+<section class="section" id="normal-exam">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--violet)"></span>
+    Normal Exam Documentation
+  </h2>
+
+  <div class="card violet">
+    <h3 style="color:var(--violet)">Dr. Filippakis' Normal Neurological Exam Template</h3>
+    <div style="background:#f9f7ff;border-radius:8px;padding:1rem;font-size:0.83rem;font-family:'JetBrains Mono',monospace;line-height:1.8;color:var(--slate);">
+      <strong>Mental Status:</strong> Awake, alert, attentive, oriented to self, location, and date. Speech is fluent and spontaneous without aphasia, dysarthria, or paraphasic errors. Memory intact to recent events. Follows complex commands.<br><br>
+      <strong>Cranial Nerves:</strong> Pupils equal and reactive. Optic discs sharp without pallor or papilledema. No APD or red desaturation. Visual fields are full to confrontation. VA is *** OD and *** OS. Extraocular movements are intact. Sensation intact to light touch in V1/V2/V3. Face symmetric with activation. Hearing intact to finger rub. Palate elevates symmetrically. Tongue protrudes midline and has 5/5 strength. Trapezius and SCM 5/5 strength bilaterally.<br><br>
+      <strong>Motor:</strong> Normal bulk and tone. No adventitious movements. Strength is 5/5 throughout, proximally and distally. DTRs are 2+/4 throughout. No sustained ankle clonus. Plantar response is flexor bilaterally.<br><br>
+      <strong>Sensory:</strong> Intact to temperature and vibration throughout. No sensory level. Negative Romberg.<br><br>
+      <strong>Coordination:</strong> FTN/HTS intact without ataxia or dysmetria.<br><br>
+      <strong>Gait:</strong> Steady and narrow-based, tandem gait performed without difficulty.
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <span class="callout-icon">📝</span>
+    <div class="callout-body">
+      <strong>Documenting Abnormal Findings</strong>
+      Be specific: state which CN, which eye/side, what deficit was found, and what was intact. Example: "CN VI (abducens) — right eye esotropia at rest with inability to track laterally to the right. CN II, VII, VIII, IX, X, XII intact to observation and testing."
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ DDx -->
+<section class="section" id="ddx">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--coral)"></span>
+    Differential Diagnosis Framework
+  </h2>
+
+  <div class="card-grid">
+    <div class="card coral">
+      <h3 style="color:var(--coral)">Diplopia / EOM Palsy</h3>
+      <h4>CN III Palsy</h4>
+      <ul class="list">
+        <li>Posterior communicating artery aneurysm (pupil-involving!)</li>
+        <li>Diabetic CN III infarct (pupil-sparing)</li>
+        <li>Uncal herniation (compression)</li>
+      </ul>
+      <h4>CN IV Palsy</h4>
+      <ul class="list">
+        <li>Head trauma (most common cause of isolated CN IV)</li>
+        <li>Microvascular disease (DM, HTN)</li>
+        <li>Congenital</li>
+      </ul>
+      <h4>CN VI Palsy</h4>
+      <ul class="list">
+        <li>Most common isolated EOM palsy</li>
+        <li>Increased ICP (false localizing sign)</li>
+        <li>Microvascular (DM, HTN); petrous ridge tumor</li>
+        <li>Trauma (in children)</li>
+      </ul>
+    </div>
+    <div class="card amber">
+      <h3 style="color:var(--amber)">Facial Nerve (CN VII) Palsy</h3>
+      <h4>Lower Motor Neuron (ALL face involved)</h4>
+      <ul class="list">
+        <li>Bell's palsy (idiopathic, HSV reactivation)</li>
+        <li>Ramsay Hunt syndrome (VZV reactivation — + vesicles + ear pain)</li>
+        <li>Lyme disease (bilateral possible)</li>
+        <li>Trauma, tumor (parotid), sarcoidosis</li>
+      </ul>
+      <h4>Upper Motor Neuron (forehead SPARED)</h4>
+      <ul class="list">
+        <li>Stroke (contralateral cortex or subcortex)</li>
+        <li>Tumor, MS, hemorrhage</li>
+      </ul>
+    </div>
+    <div class="card blue">
+      <h3 style="color:var(--blue)">Vertigo</h3>
+      <h4>Peripheral (CN VIII / inner ear)</h4>
+      <ul class="list">
+        <li>BPPV — positional, brief, Dix-Hallpike positive</li>
+        <li>Vestibular neuritis — sudden severe, viral</li>
+        <li>Menière's disease — triad: vertigo + SNHL + tinnitus</li>
+        <li>Ramsay Hunt (CN VIII involvement)</li>
+      </ul>
+      <h4>Central (brainstem / cerebellum)</h4>
+      <ul class="list">
+        <li>Posterior circulation stroke (AICA, PICA)</li>
+        <li>Cerebellar tumor</li>
+        <li>Multiple sclerosis</li>
+      </ul>
+    </div>
+    <div class="card teal">
+      <h3 style="color:var(--teal)">Dysphagia / Hoarseness</h3>
+      <ul class="list">
+        <li>CN X palsy — lung/mediastinal tumor, aortic aneurysm</li>
+        <li>Bulbar palsy (ALS, MS, GBS)</li>
+        <li>Posterior fossa stroke (Wallenberg = PICA)</li>
+        <li>Myasthenia gravis — fatigable CN IX/X weakness</li>
+        <li>Jugular foramen syndrome (CN IX, X, XI)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ SOAP -->
+<section class="section" id="soap">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--blue)"></span>
+    SOAP Note &amp; 5-Part Medical Plan
+  </h2>
+
+  <div class="soap-grid">
+    <div class="soap-box" style="background:#f0f9ff;border-color:#93c5fd;">
+      <div class="soap-label" style="color:var(--blue)">S</div>
+      <strong style="font-size:0.82rem;color:var(--slate)">SUBJECTIVE</strong>
+      <ul class="list" style="margin-top:0.5rem;">
+        <li>Chief complaint (CC) in patient's own words</li>
+        <li>HPI: OPQRST + associated symptoms</li>
+        <li>PMHx, PSHx, FHx, SHx</li>
+        <li>Medications &amp; Allergies</li>
+        <li>ROS: General + relevant systems (see table above)</li>
+      </ul>
+    </div>
+    <div class="soap-box" style="background:#f0fdf4;border-color:#86efac;">
+      <div class="soap-label" style="color:#16a34a">O</div>
+      <strong style="font-size:0.82rem;color:var(--slate)">OBJECTIVE</strong>
+      <ul class="list" style="margin-top:0.5rem;">
+        <li>Vital signs (T, HR, RR, BP, O₂ sat, Ht/Wt)</li>
+        <li>General appearance (NAD, distress level)</li>
+        <li>Relevant PE systems (HEENT, Neuro, Neck, CV, Resp, MSK)</li>
+        <li>Full CN exam with findings documented</li>
+        <li>OSE findings (TART: Tissue texture, Asymmetry, Restriction, Tenderness)</li>
+      </ul>
+    </div>
+    <div class="soap-box" style="background:#fff7ed;border-color:#fcd34d;">
+      <div class="soap-label" style="color:var(--amber)">A</div>
+      <strong style="font-size:0.82rem;color:var(--slate)">ASSESSMENT</strong>
+      <ul class="list" style="margin-top:0.5rem;">
+        <li>Primary diagnosis with ICD code</li>
+        <li>Differential diagnosis (rank by likelihood)</li>
+        <li>Somatic dysfunction diagnosis (if present)</li>
+        <li>Synthesize S + O to justify diagnosis</li>
+      </ul>
+    </div>
+    <div class="soap-box" style="background:#fdf4ff;border-color:#d8b4fe;">
+      <div class="soap-label" style="color:var(--violet)">P</div>
+      <strong style="font-size:0.82rem;color:var(--slate)">PLAN (5 Parts)</strong>
+      <ol class="plan-steps" style="margin-top:0.5rem;">
+        <li><strong>Diagnostics</strong> — labs (ESR/CRP for GCA, MRI/CT for acute neuro, MRA for aneurysm, LP if needed), imaging, referrals for testing</li>
+        <li><strong>Therapeutics / Referrals</strong> — medications (triptans for migraine, steroids for GCA), referral to neurology/ophthalmology/ENT/vascular surgery as indicated</li>
+        <li><strong>OMT</strong> — osteopathic manipulative treatment techniques; document technique, region, and goal (e.g., OA decompression, suboccipital release, cervical myofascial release)</li>
+        <li><strong>Patient Education</strong> — explain diagnosis, red flags to return for, medication side effects, lifestyle modifications (triggers, sleep hygiene, hydration)</li>
+        <li><strong>Follow-up</strong> — specific timeframe, what to monitor, criteria for urgent return (sudden vision loss, worst headache of life, new neuro deficits)</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card teal" style="margin-top:1rem;">
+    <h3 style="color:var(--teal)">OSE Documentation — Somatic Dysfunction</h3>
+    <p style="font-size:0.85rem;color:var(--slate);margin-bottom:0.6rem;">Use TART criteria. Document the region, then the diagnosis using standard osteopathic nomenclature.</p>
+    <div style="background:#f0fdfa;border-radius:8px;padding:0.8rem;font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--slate);line-height:1.8;">
+      Example: "OA: ESrRl (occipitoatlantal joint, extended, sidebent right, rotated left). Thoracic inlet: sidebent right, rotated right. Temporal bone: right external rotation."<br><br>
+      TART: T = Tissue texture change (boggy/ropy), A = Asymmetry, R = Restriction of motion, T = Tenderness
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ OMM -->
+<section class="section" id="omm">
+  <h2 class="section-title">
+    <span class="dot" style="background:var(--teal)"></span>
+    Osteopathic Considerations for CN Disorders
+  </h2>
+
+  <div class="card-grid">
+    <div class="card teal">
+      <h3 style="color:var(--teal)">Biomechanical Model</h3>
+      <h4>Bone structures to assess:</h4>
+      <ul class="list">
+        <li>Sphenobasilar synchondrosis (SBS)</li>
+        <li>Cranial base; OA joint; upper cervical (C1–C3)</li>
+      </ul>
+      <h4>Muscles to assess:</h4>
+      <ul class="list">
+        <li>Muscles of mastication (CN V3)</li>
+        <li>Facial muscles (CN VII)</li>
+        <li>Suboccipital, SCM, trapezius, scalenes</li>
+        <li>Suprahyoid/infrahyoid muscles</li>
+      </ul>
+    </div>
+    <div class="card violet">
+      <h3 style="color:var(--violet)">Neurologic Model</h3>
+      <h4>Facilitation / viscerosomatic reflexes:</h4>
+      <ul class="list">
+        <li>Sympathetic: T1–T4 (screen for TART)</li>
+        <li>Parasympathetics: OA, AA (vagal tone, CN IX/X)</li>
+      </ul>
+      <h4>Cranial field considerations:</h4>
+      <ul class="list">
+        <li>OA/C-spine dysfunction → alters foraminal spaces → affects CN traversal</li>
+        <li>Temporal bone dysfunction → CN VII, CN VIII</li>
+        <li>Jugular foramen restriction → CN IX, X, XI</li>
+        <li>Fascial strain patterns may restrict CN pathways</li>
+      </ul>
+    </div>
+    <div class="card amber">
+      <h3 style="color:var(--amber)">Common OMT Applications</h3>
+      <ul class="list">
+        <li>Headache: suboccipital release, OA decompression, cervical myofascial release, craniosacral therapy</li>
+        <li>Vertigo/tinnitus: temporal bone techniques, OA balanced ligamentous tension</li>
+        <li>Facial pain: V5 technique, maxillary technique, TMJ soft tissue</li>
+        <li>Dysphagia/dysphonia: hyoid bone release, thoracic inlet technique</li>
+        <li>Respiratory/circulatory: thoracic inlet, CT junction assessment</li>
+      </ul>
+      <div class="callout danger" style="margin-top:0.8rem;margin-bottom:0;">
+        <span class="callout-icon">🚫</span>
+        <div class="callout-body"><strong>No cervical HVLA</strong> for patients with history of stroke or carotid stenosis</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ QUIZ -->
+<section id="quiz">
+  <div id="quiz-section">
+    <h2>MCQ Practice Quiz</h2>
+    <p class="quiz-sub">12 board-style questions · Cranial Nerves · Week 39 OCS</p>
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progressFill"></div></div>
+    <div id="quizContainer"></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ── QUIZ DATA ──────────────────────────────────────────────────────────────
+const questions = [
+  {
+    q: "A 5-year-old girl sustains blunt facial trauma and develops an eye that turns inward at rest, with inability to track it laterally. Which cranial nerve is most likely injured?",
+    choices: [
+      { text: "CN III (Oculomotor) — innervates the medial rectus, superior rectus, inferior rectus, inferior oblique, and levator palpebrae; damage causes a 'down and out' deviation with ptosis and pupillary dilation", correct: false, explanation: "CN III palsy produces exotropia (outward deviation), not esotropia. The lateral rectus and superior oblique are still functioning, pulling the eye down and out. Ptosis and a dilated pupil are also expected." },
+      { text: "CN IV (Trochlear) — innervates only the superior oblique muscle; damage causes vertical diplopia, intorsion deficit, and a compensatory head tilt toward the contralateral shoulder", correct: false, explanation: "CN IV palsy causes vertical diplopia — particularly trouble looking down and in — with a characteristic head tilt away from the lesion, not horizontal esotropia or inability to abduct." },
+      { text: "CN VI (Abducens) — innervates the lateral rectus muscle; damage causes esotropia at rest and loss of ipsilateral abduction, the most common isolated extraocular muscle palsy", correct: true, explanation: "Correct! The lateral rectus abducts the eye. With CN VI palsy, the medial rectus (CN III) is unopposed, pulling the eye medially → esotropia. The child cannot track toward the side of the lesion." },
+      { text: "CN VII (Facial) — innervates all muscles of facial expression including the orbicularis oculi; damage causes facial droop and incomplete eye closure but does not control eyeball movement", correct: false, explanation: "CN VII does not control extraocular muscle movement at all. It innervates facial muscles like orbicularis oculi (which closes the eyelid), not muscles that move the eyeball in any direction." },
+      { text: "CN V1 (Ophthalmic division of trigeminal) — provides sensory innervation to the cornea, forehead, and upper eyelid; it carries the afferent limb of the corneal reflex but no motor eye function", correct: false, explanation: "CN V1 is purely sensory in function. It cannot cause any motor deficit in eye movement. Its damage would reduce corneal sensation and abolish the afferent corneal reflex." }
+    ]
+  },
+  {
+    q: "A patient says 'ah' and the uvula deviates to the right with failure of the left palate to elevate. She also reports progressive hoarseness and difficulty swallowing liquids. Which cranial nerve is damaged?",
+    choices: [
+      { text: "CN VII (Facial) — innervates muscles of facial expression and provides taste to the anterior tongue; it does not innervate the soft palate, pharynx, or larynx in any way", correct: false, explanation: "CN VII controls the face, not the palate or pharynx. Its damage causes facial droop, not uvular deviation or hoarseness. Voice and swallowing involve CN IX, X, and XII." },
+      { text: "CN IX (Glossopharyngeal) — innervates the posterior tongue and pharynx sensorially; isolated damage impairs the afferent gag reflex and posterior tongue taste, not palatal elevation", correct: false, explanation: "CN IX carries sensory input for the gag reflex and posterior tongue taste, but the motor output for the gag reflex is via CN X. Isolated CN IX lesions don't cause the full picture of hoarseness and palatal deviation." },
+      { text: "CN X (Vagus) — provides motor innervation to the soft palate, pharynx, and larynx; a unilateral lesion causes the uvula to deviate away from the affected side toward the healthy side", correct: true, explanation: "Correct! CN X innervates the levator veli palatini and pharyngeal constrictors. On unilateral palsy, the healthy side pulls the uvula toward it. Hoarseness from laryngeal involvement and dysphagia also reflect CN X damage." },
+      { text: "CN XI (Spinal Accessory) — innervates the sternocleidomastoid and trapezius muscles; damage causes weakness of head rotation and shoulder elevation but not palatal or laryngeal dysfunction", correct: false, explanation: "CN XI's only motor targets are the SCM and trapezius. It has no role in swallowing, voice production, or palate movement. Its lesion presents with a dropped shoulder and weak head turn." },
+      { text: "CN XII (Hypoglossal) — innervates all intrinsic and extrinsic tongue muscles except palatoglossus; damage causes the tongue to deviate toward the side of the lesion on protrusion", correct: false, explanation: "CN XII controls tongue movement. Its lesion causes tongue deviation toward the weak side on protrusion, along with possible dysarthria. It does not cause uvular deviation or hoarseness." }
+    ]
+  },
+  {
+    q: "A 74-year-old woman presents with new severe right temporal headache, right jaw pain and fatigue after chewing that stops with rest, and sudden painless vision loss in her right eye over 30 minutes. ESR is 95 mm/hr. What is the most likely diagnosis?",
+    choices: [
+      { text: "Migraine with aura — a primary headache disorder with unilateral pulsating pain lasting 4–72 hours, often preceded by reversible visual phenomena, nausea, and photo/phonophobia", correct: false, explanation: "Migraine typically occurs in patients aged 25–55 and does not cause jaw claudication, permanent vision loss, or markedly elevated ESR. Aura is transient and fully reversible, unlike the sustained vision loss described here." },
+      { text: "Tension-type headache — the most common primary headache with bilateral pressure-like pain, mild to moderate intensity, no nausea, and no autonomic features or inflammatory markers", correct: false, explanation: "Tension headache is bilateral and non-pulsating, lacks systemic features entirely, and is not associated with jaw pain, vision loss, or elevated ESR. This presentation is far too dramatic and systemic for TTH." },
+      { text: "Cluster headache — a trigeminal autonomic cephalgia presenting with severe unilateral periorbital pain with ipsilateral lacrimation, rhinorrhea, and Horner's syndrome, occurring in bouts", correct: false, explanation: "Cluster headache occurs in younger men, lasts 15–180 minutes, features prominent autonomic symptoms, and does not cause jaw claudication or vision loss from arteritic ischemia. ESR is not elevated." },
+      { text: "Giant cell arteritis — a granulomatous large-vessel vasculitis in patients over 50, characterized by jaw claudication, scalp tenderness, elevated ESR/CRP, and risk of ischemic optic neuropathy", correct: true, explanation: "Correct! Age > 50 + new temporal headache + jaw claudication + sudden monocular vision loss + ESR > 50 mm/hr = GCA until proven otherwise. The ophthalmic artery involvement causes ischemic optic neuropathy. Treat with high-dose steroids immediately to prevent blindness." },
+      { text: "TMJ dysfunction — a disorder of the temporomandibular joint causing jaw pain and clicking with mastication, limited mouth opening, and referred temporal headache in younger patients", correct: false, explanation: "TMJ dysfunction causes mechanical jaw pain with clicking, occurs in younger adults, has no systemic inflammation, and does not cause vision loss. The age, ESR elevation, and vision loss strongly favor GCA." }
+    ]
+  },
+  {
+    q: "The corneal reflex is tested by touching the cornea with a cotton wisp. A patient blinks bilaterally. What are the correct afferent and efferent limbs of this reflex arc?",
+    choices: [
+      { text: "Afferent: CN II (Optic nerve); Efferent: CN III (Oculomotor nerve) — these two cranial nerves together mediate the pupillary light reflex, not the corneal blink response", correct: false, explanation: "The II/III pairing mediates the pupillary light reflex (light in → pupil constricts). The corneal reflex involves the trigeminal nerve (V1) sensing touch, not the optic nerve sensing light." },
+      { text: "Afferent: CN V1 (Ophthalmic branch of trigeminal); Efferent: CN VII (Facial nerve) — V1 senses corneal touch and carries it centrally; CN VII contracts the orbicularis oculi to produce the blink", correct: true, explanation: "Correct! Corneal touch is detected by the ophthalmic division (V1) of the trigeminal nerve (afferent). This activates CN VII bilaterally via the facial nucleus to close the eyelid (orbicularis oculi). Absent blink = V1 or VII lesion." },
+      { text: "Afferent: CN V3 (Mandibular branch of trigeminal); Efferent: CN VII (Facial nerve) — V3 carries sensory information from the jaw, lower face, and anterior tongue to the brainstem", correct: false, explanation: "V3 (mandibular) innervates the jaw, lower lip, and anterior tongue — not the cornea. The cornea is innervated by V1 (ophthalmic). Using V3 here is anatomically incorrect." },
+      { text: "Afferent: CN IX (Glossopharyngeal); Efferent: CN X (Vagus) — this paired reflex arc mediates the pharyngeal gag reflex when the posterior pharynx or tongue base is stimulated", correct: false, explanation: "The IX/X pairing mediates the gag reflex, not the corneal reflex. CN IX senses posterior pharyngeal stimulation; CN X produces the motor response (palate elevation, pharyngeal constriction). This is anatomically nowhere near the cornea." },
+      { text: "Afferent: CN VIII (Vestibulocochlear); Efferent: CN VI (Abducens) — this pairing underlies the vestibulo-ocular reflex, which maintains gaze during head movement via eye counterrotation", correct: false, explanation: "The vestibulo-ocular reflex (VOR) uses CN VIII as the afferent and CN VI/III as the efferent to stabilize gaze during head movement. It has nothing to do with corneal touch or a blink response." }
+    ]
+  },
+  {
+    q: "A 35-year-old woman reports recurrent episodes of severe, unilateral, pulsating headache lasting 18 hours, with nausea, vomiting, and extreme sensitivity to both light and sound. She sees a zigzag flickering arc in her vision for ~20 minutes before each episode. What best characterizes her condition?",
+    choices: [
+      { text: "Tension-type headache — the most common primary headache, characterized by bilateral pressure or tightening without nausea, vomiting, or significant photophobia and phonophobia", correct: false, explanation: "TTH is bilateral, non-pulsating, mild-moderate, and notably lacks N/V or significant photo/phonophobia. This patient's unilateral pulsating pain with aura and autonomic features is inconsistent with tension HA." },
+      { text: "Cluster headache — a trigeminal autonomic cephalgia presenting with brief (15–180 min) severe unilateral periorbital pain accompanied by ipsilateral tearing, rhinorrhea, and Horner's syndrome", correct: false, explanation: "Cluster headache episodes last only 15–180 minutes (not 18 hours), occur in men more often, and feature prominent ipsilateral autonomic symptoms. Visual aura before headache onset is not a feature of cluster HA." },
+      { text: "Migraine with aura — a primary headache disorder with unilateral pulsating pain lasting 4–72 hours accompanied by a fully reversible neurological aura (often visual) that precedes or accompanies the headache", correct: true, explanation: "Correct! This is the classic presentation of migraine with visual aura. The scintillating scotoma (zigzag arc) lasting ~20 min is the hallmark aura. Pain is unilateral, pulsating, severe, with N/V, photophobia, and phonophobia — meeting IHS diagnostic criteria." },
+      { text: "Giant cell arteritis — a granulomatous vasculitis of medium/large vessels in patients over 50, presenting with new temporal headache, jaw claudication, scalp tenderness, and elevated inflammatory markers", correct: false, explanation: "GCA occurs in patients over 50, is not preceded by visual aura (it causes monocular vision loss from ischemia), and features jaw claudication and systemic inflammation. This 35-year-old's reversible visual aura points to migraine." },
+      { text: "TMJ dysfunction — a disorder of the temporomandibular joint causing jaw pain, clicking, and limited mouth opening, often with referred temporal headache without aura or systemic features", correct: false, explanation: "TMJ dysfunction causes mechanical jaw pain and clicking, not unilateral pulsating headache with aura, nausea, and photo/phonophobia. There is no visual aura, no pulsating quality, and no N/V in classic TMJ disorder." }
+    ]
+  },
+  {
+    q: "A patient presents with unilateral left facial paralysis involving both the forehead and lower face, severe left ear pain, and vesicular lesions visualized in the left external auditory canal. There is no forehead sparing. What is the diagnosis?",
+    choices: [
+      { text: "Bell's palsy — an idiopathic peripheral facial nerve palsy affecting all ipsilateral facial muscles including the forehead, presumed due to HSV-1 reactivation, but without vesicular eruption", correct: false, explanation: "Bell's palsy is a clinical diagnosis of exclusion. While it does involve all facial muscles (including forehead), the vesicular rash in the ear canal distinguishes this presentation as Ramsay Hunt syndrome — a different etiology requiring different treatment." },
+      { text: "Central (UMN) facial palsy — caused by a contralateral cortical or subcortical lesion that spares the forehead because upper facial muscles receive bilateral cortical innervation from both hemispheres", correct: false, explanation: "A UMN lesion SPARES the forehead because the frontalis receives bilateral cortical representation. In this patient, the forehead IS involved (no sparing), and the vesicular rash confirms a peripheral LMN process — not a central stroke." },
+      { text: "Ramsay Hunt syndrome — reactivation of varicella-zoster virus in the geniculate ganglion of CN VII, producing the classic triad of ipsilateral facial palsy, ear pain (otalgia), and herpes zoster oticus (vesicles in the EAC)", correct: true, explanation: "Correct! Ramsay Hunt = VZV reactivation in the geniculate ganglion → triad of (1) LMN facial palsy (all face including forehead), (2) severe otalgia, (3) vesicles in the external auditory canal (herpes zoster oticus). Treat with antivirals + steroids." },
+      { text: "Trigeminal neuralgia — an episodic, severe electric shock-like pain in the CN V distribution, typically triggered by light touch to the face, without facial muscle weakness or vesicular skin lesions", correct: false, explanation: "Trigeminal neuralgia affects CN V (sensory — not motor), causes lancinating facial pain without muscle weakness, and produces no vesicular eruption. The combination of motor palsy + vesicles in the EAC rules this out." },
+      { text: "Acoustic neuroma (vestibular schwannoma) — a benign CN VIII tumor causing progressive ipsilateral sensorineural hearing loss, tinnitus, and imbalance; facial weakness occurs only late in large tumors", correct: false, explanation: "Acoustic neuromas grow slowly on CN VIII and cause hearing loss and tinnitus as the primary presentation. Acute facial palsy with ear pain and vesicles is not consistent — that pattern points to Ramsay Hunt syndrome." }
+    ]
+  },
+  {
+    q: "A 60-year-old man presents with sudden right ptosis, a dilated right pupil unresponsive to light, and the right eye deviated downward and outward. He denies headache. Which cranial nerve is affected and why?",
+    choices: [
+      { text: "CN IV (Trochlear) palsy — damages the superior oblique muscle causing vertical diplopia with hypertropia and a compensatory head tilt, but does not produce ptosis or pupillary dilation", correct: false, explanation: "CN IV palsy causes subtle vertical diplopia and head tilt — specifically looking down and inward is affected. It does not cause ptosis (which requires levator palpebrae, innervated by CN III) or pupillary dilation." },
+      { text: "CN VI (Abducens) palsy — causes inability to abduct the ipsilateral eye producing esotropia and horizontal diplopia; it never causes ptosis, pupillary changes, or downward deviation", correct: false, explanation: "CN VI only innervates the lateral rectus. Its palsy produces medial deviation (esotropia) and limited abduction. There is no mechanism by which CN VI damage causes ptosis or pupil dilation — those require CN III." },
+      { text: "CN III (Oculomotor) palsy — innervates the levator palpebrae (ptosis), all recti except lateral, the inferior oblique, and carries parasympathetic fibers for pupillary constriction; damage causes 'down and out' deviation with ptosis and a fixed dilated pupil", correct: true, explanation: "Correct! CN III innervates: levator palpebrae → ptosis; superior/inferior/medial recti + inferior oblique → 'down and out' from unopposed LR (VI) and SO (IV); preganglionic parasympathetics → pupillary constriction. Loss = dilated, unreactive pupil. A pupil-involving CN III palsy is a posterior communicating artery aneurysm until proven otherwise." },
+      { text: "CN VII (Facial) palsy — paralysis of facial expression muscles causing inability to close the eyelid (lagophthalmos) and facial droop, but with no effect on pupil size or eyeball position", correct: false, explanation: "CN VII controls orbicularis oculi (eyelid closure) and facial muscles — not the levator palpebrae or extraocular muscles. Its damage cannot cause ptosis (which is drooping from levator failure), pupil dilation, or eye deviation." },
+      { text: "CN II (Optic nerve) lesion — impairs afferent visual input causing monocular vision loss and an afferent pupillary defect (APD); but does not directly control eye position or eyelid elevation", correct: false, explanation: "CN II is purely sensory. Its lesion causes vision loss and an APD (swinging flashlight test abnormal) but cannot cause ptosis, pupillary dilation, or deviation of the globe — those require CN III dysfunction." }
+    ]
+  },
+  {
+    q: "A pituitary macroadenoma grows superiorly and compresses the optic chiasm at its midpoint, damaging the crossing nasal (medial) retinal fibers bilaterally. What visual field defect is expected?",
+    choices: [
+      { text: "Right monocular blindness — results from complete transection of the right optic nerve anterior to the chiasm, affecting only the right eye's entire visual field while leaving the left eye unaffected", correct: false, explanation: "Monocular blindness occurs with a lesion in the optic nerve itself (pre-chiasmal). A chiasmal lesion affects BOTH eyes because it damages fibers from both eyes — specifically those that crossed from the nasal retina." },
+      { text: "Right homonymous hemianopsia — caused by a left optic tract lesion (post-chiasmal), eliminating the right visual field in both eyes because fibers from the right half of both retinas travel together in the left optic tract", correct: false, explanation: "Homonymous hemianopsia results from a post-chiasmal lesion (optic tract, radiation, or cortex). The chiasm itself — especially midline compression — damages crossing fibers from both eyes, not fibers on one side of both retinas." },
+      { text: "Bitemporal hemianopsia — compression of the optic chiasm destroys the crossing nasal retinal fibers from both eyes, eliminating the temporal visual fields bilaterally, the hallmark pattern of chiasmal pathology", correct: true, explanation: "Correct! Nasal retinal fibers represent the temporal visual field and they cross at the chiasm. Midline chiasmal compression (pituitary tumor, craniopharyngioma) destroys these crossing fibers bilaterally → patient loses both temporal (outer) visual fields — the classic 'tunnel vision' of bitemporal hemianopsia." },
+      { text: "Left inferior quadrantanopsia — caused by a lesion in the right superior optic radiation in the parietal lobe ('pie in the sky' pattern), representing the lower contralateral visual field", correct: false, explanation: "Quadrantanopsias result from partial involvement of the optic radiations in the parietal or temporal lobes, not from chiasmal compression. Chiasmal lesions produce bitemporal defects because they damage crossing fibers from both eyes at once." },
+      { text: "Central scotoma with intact peripheral vision — a pattern associated with optic neuritis or papillomacular bundle involvement affecting central high-acuity vision while sparing peripheral fields", correct: false, explanation: "Central scotoma results from damage to the papillomacular bundle (e.g., optic neuritis in MS). This is a pre-chiasmal, nerve-level finding. Pituitary compression of the chiasm specifically damages the crossing nasal fibers, not the central macular fibers." }
+    ]
+  },
+  {
+    q: "During the HINTS exam for a patient with acute vertigo, you find: a NORMAL head impulse test (no corrective saccade), bidirectional nystagmus, and a positive test of skew. What does this pattern suggest?",
+    choices: [
+      { text: "Benign paroxysmal positional vertigo (BPPV) — the most common cause of peripheral vertigo, caused by misplaced otoliths, diagnosed with a positive Dix-Hallpike test showing transient positional nystagmus", correct: false, explanation: "BPPV is a peripheral cause. In HINTS, peripheral causes show an ABNORMAL head impulse (corrective saccade present) and unidirectional nystagmus. BPPV would not give a normal head impulse or bidirectional nystagmus in this context." },
+      { text: "Peripheral vestibular neuritis — acute onset severe vertigo from unilateral vestibular nerve inflammation, showing an abnormal head impulse test with corrective saccade toward the affected side", correct: false, explanation: "Peripheral vestibular neuritis gives an ABNORMAL head impulse (saccade toward the affected side), unidirectional horizontal nystagmus, and NO skew deviation. This is the opposite of the pattern described, which is the INFARCT pattern." },
+      { text: "Menière's disease — characterized by episodic vertigo lasting 20 min to 24 hours with associated fluctuating sensorineural hearing loss, tinnitus, and aural fullness from endolymphatic hydrops", correct: false, explanation: "Menière's is a peripheral cause with episodic attacks rather than acute persistent vertigo. In the acute phase it may show peripheral HINTS findings. Bidirectional nystagmus and positive skew are not typical of Menière's — they signal central pathology." },
+      { text: "Central vestibular lesion such as cerebellar or brainstem stroke — indicated by the INFARCT mnemonic: normal head Impulse, Fast-phase Alternating nystagmus (bidirectional), and Refixation on Cover Test (positive skew)", correct: true, explanation: "Correct! The INFARCT pattern (normal head impulse + bidirectional/vertical nystagmus + positive test of skew) indicates CENTRAL pathology — typically posterior circulation stroke (cerebellar/brainstem). This warrants urgent neuroimaging. The vestibulo-ocular reflex is via CN VIII in, CN VI/III out." },
+      { text: "Labyrinthitis — inner ear inflammation causing acute vertigo with associated sensorineural hearing loss, typically showing an abnormal head impulse test and unidirectional horizontal nystagmus on HINTS exam", correct: false, explanation: "Labyrinthitis is a peripheral cause that presents with an abnormal head impulse, unidirectional nystagmus, and no vertical skew — the peripheral HINTS pattern. The central INFARCT pattern described here points to a brainstem or cerebellar lesion." }
+    ]
+  },
+  {
+    q: "A 55-year-old man has a new right-sided facial droop. On exam, he can raise both eyebrows normally and wrinkle both sides of his forehead equally, but cannot fully smile or show teeth on the right. Where is the lesion?",
+    choices: [
+      { text: "Right peripheral (LMN) CN VII lesion — affects all ipsilateral facial muscles including the forehead because the peripheral facial nerve supplies all facial muscles on that side without hemispheric compensation", correct: false, explanation: "A right peripheral CN VII lesion would cause right-sided weakness of ALL facial muscles — including the right forehead and eyebrow. Because the forehead is SPARED here, this cannot be a peripheral LMN lesion." },
+      { text: "Left peripheral (LMN) CN VII lesion — causes left-sided facial weakness involving both forehead and lower face on the left, not the right; peripheral lesions are always ipsilateral to the deficit", correct: false, explanation: "A left peripheral CN VII lesion would cause LEFT-sided weakness of all facial muscles. The deficit here is RIGHT-sided, and with forehead sparing — this cannot be a peripheral lesion on either side." },
+      { text: "Right central (UMN) lesion above the CN VII nucleus — contralateral UMN lesions cause ipsilateral lower facial weakness, so a right UMN lesion would cause left lower facial weakness, not right-sided deficit", correct: false, explanation: "The crossed nature of corticobulbar tracts means a RIGHT UMN lesion causes LEFT lower facial weakness. The patient has RIGHT lower facial weakness, so the lesion must be on the LEFT side of the upper motor neuron pathway." },
+      { text: "Left central (UMN) lesion — damages corticobulbar fibers on the left; the forehead is spared because upper facial motor neurons receive bilateral cortical input; the right lower face is weak from contralateral UMN involvement", correct: true, explanation: "Correct! UMN (central) facial lesions spare the forehead because the frontalis receives bilateral cortical representation. A left UMN lesion causes contralateral (right) lower facial weakness with forehead sparing — the classic 'central facial palsy' pattern. Think stroke on the left." },
+      { text: "Bilateral peripheral CN VII lesion — causes symmetric weakness of all facial muscles on both sides including the forehead bilaterally; causes include Lyme disease, sarcoidosis, or Guillain-Barré syndrome", correct: false, explanation: "Bilateral CN VII palsy is symmetric and involves both forehands bilaterally. The patient here has unilateral lower facial weakness with forehead sparing — a pattern that is asymmetric and localizes to a contralateral UMN lesion, not bilateral peripheral disease." }
+    ]
+  },
+  {
+    q: "A 45-year-old patient describes the sensation that the room is spinning around her, even while sitting perfectly still. There is no loss of consciousness, no lightheadedness, and no imbalance at rest. Which term most precisely describes this symptom?",
+    choices: [
+      { text: "Presyncope — a sensation of impending fainting with lightheadedness, graying of vision, and diaphoresis, caused by global cerebral hypoperfusion prior to loss of consciousness", correct: false, explanation: "Presyncope involves lightheadedness and an impending faint feeling — not a spinning sensation. It is caused by reduced cerebral perfusion (cardiovascular etiology) rather than vestibular system dysfunction, and the patient typically feels 'about to pass out,' not that the room is rotating." },
+      { text: "Disequilibrium — impaired balance or an unsteady gait without a spinning sensation, typically from bilateral vestibular dysfunction, cerebellar lesion, or proprioceptive disorder affecting the ability to walk", correct: false, explanation: "Disequilibrium refers to impaired balance or postural stability — the patient feels unsteady, particularly on their feet or while walking. There is no hallucination of motion. The patient here has a rotational spinning illusion while sitting still, which is vertigo." },
+      { text: "Vertigo — a false sensation of self or environmental motion such as spinning, whirling, or tilting, resulting from mismatch or dysfunction within the peripheral or central vestibular system", correct: true, explanation: "Correct! Vertigo = false illusion of motion. The patient perceives the room as spinning even though she is stationary — the hallmark description. This results from asymmetric vestibular input (peripheral: inner ear/CN VIII; central: brainstem/cerebellum). Always ask patients to describe exactly what they mean by 'dizzy.'" },
+      { text: "Fasciculation — brief, spontaneous, fine flickering contractions of a muscle fasciculus caused by denervation or irritation of lower motor neurons, visible under the skin surface with oblique lighting", correct: false, explanation: "Fasciculations are a sign (visible muscle twitching), not a symptom of the room spinning. They occur in conditions like ALS, benign fasciculation syndrome, or electrolyte imbalance. They are completely unrelated to the vestibular system." },
+      { text: "Paresthesia — an abnormal sensory experience including tingling, burning, or pins-and-needles in a body region, typically from peripheral nerve, dorsal column, or thalamic dysfunction", correct: false, explanation: "Paresthesia refers to abnormal skin sensation (tingling/burning), not a perceptual illusion of spatial orientation or motion. It results from peripheral nerve or sensory pathway dysfunction, not vestibular pathology." }
+    ]
+  },
+  {
+    q: "On the cranial nerve exam, you ask a patient to say 'ah' and note the gag reflex and palatal elevation are symmetric. The tongue protrudes to the right upon protrusion. Hearing and facial strength are normal. Which cranial nerve is most likely affected?",
+    choices: [
+      { text: "CN IX (Glossopharyngeal) — provides sensory innervation to the posterior tongue and pharynx and carries the afferent limb of the gag reflex; a lesion impairs sensation rather than tongue protrusion", correct: false, explanation: "CN IX carries sensory information from the posterior tongue and pharynx. An isolated CN IX lesion would impair the afferent gag reflex and posterior tongue taste, not tongue motor function. The symmetric gag reflex here suggests CN IX is intact." },
+      { text: "CN X (Vagus) — provides motor innervation to the soft palate, pharynx, and larynx; a unilateral lesion causes uvular deviation and hoarseness but does not directly control tongue protrusion direction", correct: false, explanation: "CN X controls the palate, pharynx, and larynx. A CN X lesion would cause uvular deviation away from the lesion and hoarseness. Symmetric palate elevation and gag reflex in this patient suggest CN X is intact." },
+      { text: "CN XI (Spinal Accessory) — innervates the sternocleidomastoid and trapezius muscles for head rotation and shoulder elevation; it has no role in tongue movement or palate function", correct: false, explanation: "CN XI damage causes weakness in turning the head contralaterally and elevating the shoulder. It has absolutely no role in tongue movement. Testing it involves head rotation against resistance and shoulder shrug, not tongue protrusion." },
+      { text: "CN XII (Hypoglossal) — innervates all intrinsic and extrinsic tongue muscles except palatoglossus; a unilateral LMN lesion causes the tongue to deviate toward the weak (affected) side on protrusion", correct: true, explanation: "Correct! CN XII controls tongue movement. With a right-sided CN XII lesion, the left genioglossus pushes unopposed, deviating the tongue toward the weak right side. Look also for atrophy and fasciculations on the affected side. Gag reflex and palate are unaffected (CN IX/X), confirming CN XII is the isolated lesion." },
+      { text: "CN VII (Facial) — controls all muscles of facial expression and taste to the anterior tongue; its damage causes facial weakness and altered taste but does not affect tongue protrusion direction or strength", correct: false, explanation: "CN VII controls facial muscles, not tongue muscles. A CN VII lesion causes facial droop (forehead involved in LMN lesion, spared in UMN lesion) and possibly altered taste in the anterior tongue, but tongue protrusion is entirely controlled by CN XII." }
+    ]
+  }
+];
+
+// ── FISHER-YATES SHUFFLE ────────────────────────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ── QUIZ ENGINE ─────────────────────────────────────────────────────────────
+let current = 0;
+let score = 0;
+let answered = false;
+const shuffledQuestions = shuffle(questions);
+const letters = ['A','B','C','D','E'];
+
+function updateProgress() {
+  const pct = (current / shuffledQuestions.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+function renderQuestion() {
+  const container = document.getElementById('quizContainer');
+  if (current >= shuffledQuestions.length) {
+    renderScore();
+    return;
+  }
+  answered = false;
+  const q = shuffledQuestions[current];
+  const shuffledChoices = shuffle(q.choices);
+  updateProgress();
+  container.innerHTML = `
+    <div class="quiz-counter">Question ${current + 1} of ${shuffledQuestions.length}</div>
+    <div class="quiz-question">${q.q}</div>
+    <ul class="quiz-choices" id="choiceList">
+      ${shuffledChoices.map((c, i) => `
+        <li class="quiz-choice" data-correct="${c.correct}" data-explanation="${encodeURIComponent(c.explanation)}" onclick="handleChoice(this)">
+          <span class="choice-letter">${letters[i]}</span>
+          <span>${c.text}</span>
+        </li>
+      `).join('')}
+    </ul>
+    <div class="quiz-actions">
+      <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" style="display:none;">
+        ${current < shuffledQuestions.length - 1 ? 'Next Question →' : 'View Results'}
+      </button>
+    </div>
+  `;
+}
+
+function handleChoice(el) {
+  if (answered) return;
+  answered = true;
+  const isCorrect = el.dataset.correct === 'true';
+  const explanation = decodeURIComponent(el.dataset.explanation);
+  if (isCorrect) {
+    score++;
+    el.classList.add('correct');
+  } else {
+    el.classList.add('incorrect');
+  }
+  // Show all explanations and mark correct answer
+  const allChoices = document.querySelectorAll('.quiz-choice');
+  allChoices.forEach(c => {
+    c.classList.add('answered');
+    if (c.dataset.correct === 'true' && !c.classList.contains('correct')) {
+      c.classList.add('correct');
+    }
+    const exp = decodeURIComponent(c.dataset.explanation);
+    const expEl = document.createElement('div');
+    expEl.className = 'explanation';
+    expEl.textContent = exp;
+    c.appendChild(expEl);
+  });
+  document.getElementById('nextBtn').style.display = 'inline-flex';
+}
+
+function nextQuestion() {
+  current++;
+  renderQuestion();
+}
+
+function renderScore() {
+  updateProgress();
+  document.getElementById('progressFill').style.width = '100%';
+  const pct = Math.round((score / shuffledQuestions.length) * 100);
+  let msg = pct >= 90 ? 'Outstanding! 🎉' : pct >= 75 ? 'Great work! 💪' : pct >= 60 ? 'Good effort — review missed concepts 📖' : 'Keep studying — you\'ve got this! 🔁';
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="quiz-score">
+      <div class="score-circle">${score}/${shuffledQuestions.length}</div>
+      <div class="score-msg">${msg}</div>
+      <div class="score-sub">${pct}% correct · Cranial Nerves Week 39</div>
+      <div style="margin-top:1.5rem;">
+        <button class="btn btn-primary" onclick="restartQuiz()">Restart Quiz</button>
+      </div>
+    </div>
+  `;
+}
+
+function restartQuiz() {
+  current = 0;
+  score = 0;
+  // Reshuffle
+  const newOrder = shuffle(shuffledQuestions);
+  newOrder.forEach((q, i) => shuffledQuestions[i] = q);
+  renderQuestion();
+}
+
+// Init
+renderQuestion();
+</script>
+</body>
+</html>
