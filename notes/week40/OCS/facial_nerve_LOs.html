@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Facial Nerve (CN VII) | Spicer-Style Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,600;0,8..60,700;1,8..60,400&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf7f2;
+    --cream-dark: #f0ebe1;
+    --ink: #1a1512;
+    --ink-light: #4a3f35;
+    --ink-muted: #7a6e65;
+    --accent: #8b2635;
+    --accent-bg: #fdf0f2;
+    --teal: #1d5f5f;
+    --teal-bg: #eef6f6;
+    --amber: #7a4e0d;
+    --amber-bg: #fdf5e6;
+    --purple: #4a2d6b;
+    --purple-bg: #f4eefb;
+    --green: #1b5c2a;
+    --green-bg: #edf7ef;
+    --blue: #1f5d91;
+    --blue-bg: #edf5fb;
+    --motor: #2b8a6d;
+    --parasym: #2d6aa3;
+    --taste: #b8573c;
+    --sensory: #6f4ba3;
+    --clinical: #9c2f61;
+    --border: #ddd5c8;
+    --shadow: 0 14px 30px rgba(58, 40, 25, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .page-header {
+    background: var(--ink);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: -40px;
+    background:
+      radial-gradient(ellipse at 26% 42%, rgba(43, 138, 109, 0.45) 0%, transparent 58%),
+      radial-gradient(ellipse at 72% 36%, rgba(45, 106, 163, 0.45) 0%, transparent 56%),
+      radial-gradient(ellipse at 52% 88%, rgba(156, 47, 97, 0.34) 0%, transparent 62%);
+    z-index: 0;
+  }
+
+  .page-header > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .course-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #d4b08a;
+    margin-bottom: 0.8rem;
+  }
+
+  .page-header h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(2.2rem, 4.8vw, 3.25rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.08;
+    margin-bottom: 0.75rem;
+  }
+
+  .subtitle {
+    font-size: 0.98rem;
+    color: #c8b6a5;
+    font-weight: 300;
+  }
+
+  .plo-banner {
+    margin: 1.5rem auto 0;
+    max-width: 850px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(212,176,138,0.3);
+    border-radius: 10px;
+    padding: 1rem 1.4rem;
+    font-size: 0.92rem;
+    color: #e0d0bf;
+    line-height: 1.55;
+    text-align: left;
+  }
+
+  .plo-banner strong { color: #e6c59f; }
+
+  .toc-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(240, 235, 225, 0.96);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    overflow-x: auto;
+    backdrop-filter: blur(10px);
+  }
+
+  .toc-nav a {
+    color: var(--ink-light);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.95rem 1.25rem;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .toc-nav a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: rgba(139, 38, 53, 0.05);
+  }
+
+  .container {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 2.6rem 2rem 4rem;
+  }
+
+  .objective-map {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .objective-map-card {
+    background: linear-gradient(160deg, #fffdfa 0%, #f7efe4 100%);
+    border: 1px solid rgba(159, 116, 57, 0.22);
+    border-radius: 18px;
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+  }
+
+  .objective-map-label {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    padding: 0.24rem 0.58rem;
+    border-radius: 999px;
+    background: #56351b;
+    color: #fff8ef;
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .objective-map-card h3 {
+    margin-bottom: 0.45rem;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+
+  .objective-map-card p {
+    margin-bottom: 0.55rem;
+    color: var(--ink-light);
+    font-size: 0.93rem;
+    line-height: 1.45;
+  }
+
+  .objective-map-card ul {
+    padding-left: 1.05rem;
+    color: var(--ink-light);
+    font-size: 0.9rem;
+  }
+
+  .objective-map-card li { margin: 0.22rem 0; }
+
+  .objective-banner {
+    margin-bottom: 1.5rem;
+    padding: 1.15rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, #fff 0%, #f8f3ec 100%);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.04);
+  }
+
+  .objective-kicker {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .objective-banner h2 {
+    margin-bottom: 0.45rem;
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.75rem;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+
+  .objective-banner p {
+    margin-bottom: 0.75rem;
+    color: var(--ink-light);
+  }
+
+  .objective-banner ul {
+    padding-left: 1.1rem;
+    color: var(--ink-light);
+  }
+
+  .objective-banner li { margin: 0.28rem 0; }
+
+  .section-divider {
+    margin: 2.5rem 0 1.1rem;
+    padding: 0.9rem 1rem;
+    border-top: 3px solid #8e5d29;
+    border-bottom: 1px solid rgba(142, 93, 41, 0.18);
+    background: linear-gradient(90deg, rgba(247, 239, 228, 0.95) 0%, rgba(255, 252, 247, 0.88) 100%);
+    border-radius: 16px;
+  }
+
+  .section-divider-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: #8e5d29;
+  }
+
+  .section-divider h2 {
+    margin: 0.28rem 0 0.22rem;
+    font-size: 1.42rem;
+    color: var(--ink);
+  }
+
+  .section-divider p {
+    margin: 0;
+    color: var(--ink-light);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0 1.35rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .section-number {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.84rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    background: var(--accent);
+  }
+
+  .section-number.teal { background: var(--teal); }
+  .section-number.blue { background: var(--blue); }
+  .section-number.purple { background: var(--purple); }
+  .section-number.green { background: var(--green); }
+
+  .section-header h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.72rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  p { margin-bottom: 1rem; color: var(--ink-light); }
+
+  .lead {
+    font-size: 1.03rem;
+    color: var(--ink);
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+  }
+
+  .callout {
+    border-radius: 10px;
+    padding: 1.2rem 1.35rem;
+    margin: 1.2rem 0;
+    border-left: 4px solid;
+    font-size: 0.95rem;
+  }
+
+  .callout .callout-label {
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .callout.key { background: var(--accent-bg); border-color: var(--accent); }
+  .callout.key .callout-label { color: var(--accent); }
+  .callout.info { background: var(--teal-bg); border-color: var(--teal); }
+  .callout.info .callout-label { color: var(--teal); }
+  .callout.note { background: var(--amber-bg); border-color: var(--amber); }
+  .callout.note .callout-label { color: var(--amber); }
+  .callout.clinical { background: var(--purple-bg); border-color: var(--purple); }
+  .callout.clinical .callout-label { color: var(--purple); }
+  .callout.green { background: var(--green-bg); border-color: var(--green); }
+  .callout.green .callout-label { color: var(--green); }
+  .callout.blue { background: var(--blue-bg); border-color: var(--blue); }
+  .callout.blue .callout-label { color: var(--blue); }
+
+  .fiber-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 1.4rem 0;
+  }
+
+  .fiber-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  .fiber-chip {
+    display: inline-block;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.7rem;
+  }
+
+  .fiber-card h3 {
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+  }
+
+  .fiber-card p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .slide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+
+  .slide-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .slide-card-header {
+    background: var(--cream-dark);
+    padding: 0.7rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .slide-card img {
+    width: 100%;
+    display: block;
+    cursor: zoom-in;
+    transition: transform 0.18s ease, filter 0.18s ease;
+  }
+
+  .slide-card img:hover {
+    transform: scale(1.01);
+    filter: saturate(1.02);
+  }
+
+  .slide-card-body {
+    padding: 0.95rem 1rem 1rem;
+  }
+
+  .slide-card-body p {
+    margin-bottom: 0.6rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .slide-source {
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+  }
+
+  .slide-source a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .step-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.3rem 0 1.6rem;
+  }
+
+  .step-card {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 1.1rem;
+    background: white;
+    border: 1px solid var(--border);
+  }
+
+  .step-card:first-child { border-radius: 10px 10px 0 0; }
+  .step-card:last-child { border-radius: 0 0 10px 10px; }
+  .step-card:not(:last-child) { border-bottom: none; }
+
+  .step-num {
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    background: var(--accent);
+  }
+
+  .step-content h4 {
+    font-size: 0.96rem;
+    color: var(--ink);
+    margin-bottom: 0.18rem;
+  }
+
+  .step-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ink-light);
+  }
+
+  .branch-group {
+    margin: 1.25rem 0;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 8px 18px rgba(58, 40, 25, 0.05);
+  }
+
+  .branch-group-header {
+    padding: 0.85rem 1rem;
+    background: linear-gradient(90deg, rgba(248, 243, 236, 0.9), rgba(255, 255, 255, 0.95));
+    border-bottom: 1px solid var(--border);
+  }
+
+  .branch-group-kicker {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.2rem;
+  }
+
+  .branch-group-header h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.2rem;
+    color: var(--ink);
+  }
+
+  .branch-list {
+    display: grid;
+    gap: 0;
+  }
+
+  .branch-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .branch-item:last-child { border-bottom: none; }
+
+  .branch-name {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .branch-desc {
+    font-size: 0.92rem;
+    color: var(--ink-light);
+  }
+
+  .branch-desc ul {
+    padding-left: 1rem;
+    margin-top: 0.45rem;
+  }
+
+  .branch-desc li { margin: 0.25rem 0; }
+
+  .pathway-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    margin: 1rem 0;
+  }
+
+  .pathway-box h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pathway-box ul {
+    padding-left: 1rem;
+    color: var(--ink-light);
+  }
+
+  .pathway-box li { margin: 0.42rem 0; }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 1.4rem 0;
+    font-size: 0.9rem;
+  }
+
+  .compare-table thead tr {
+    background: var(--ink);
+    color: white;
+  }
+
+  .compare-table th {
+    padding: 0.82rem 1rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .compare-table td {
+    padding: 0.82rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--ink-light);
+    line-height: 1.45;
+    background: white;
+  }
+
+  .compare-table tr:nth-child(even) td { background: #fcfaf7; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td:first-child { font-weight: 600; color: var(--ink); }
+
+  .muscle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .muscle-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .muscle-card h4 {
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .muscle-origin {
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--motor);
+    margin-bottom: 0.45rem;
+  }
+
+  .clinical-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .clinical-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .clinical-card-top {
+    padding: 1rem 1rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .clinical-card-kicker {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .clinical-card-top h3 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.16rem;
+    color: var(--ink);
+    margin-bottom: 0.2rem;
+  }
+
+  .clinical-card-top p {
+    margin-bottom: 0;
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+  }
+
+  .clinical-card-body {
+    padding: 0.95rem 1rem 1rem;
+  }
+
+  .clinical-card-body ul {
+    padding-left: 1rem;
+    color: var(--ink-light);
+  }
+
+  .clinical-card-body li { margin: 0.45rem 0; }
+
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .review-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .review-card h4 {
+    margin-bottom: 0.45rem;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+
+  .review-card ul {
+    padding-left: 1rem;
+    color: var(--ink-light);
+  }
+
+  .review-card li { margin: 0.32rem 0; }
+
+  .quiz-section {
+    background: #1a1512;
+    color: #faf7f2;
+    border-radius: 16px;
+    padding: 2.25rem;
+    margin: 3rem 0 1rem;
+  }
+
+  .quiz-section h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.75rem;
+    color: #faf7f2;
+    margin-bottom: 0.35rem;
+  }
+
+  .quiz-subtitle {
+    font-size: 0.9rem;
+    color: #a99887;
+    margin-bottom: 1.7rem;
+    font-style: italic;
+  }
+
+  .quiz-item {
+    background: #252018;
+    border: 1px solid #3a3020;
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-q {
+    font-weight: 500;
+    font-size: 0.96rem;
+    color: #e8ddd0;
+    margin-bottom: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .qnum {
+    color: #d4b08a;
+    font-weight: 800;
+    margin-right: 0.45rem;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .quiz-opt {
+    font-size: 0.89rem;
+    color: #b9a896;
+    padding: 0.55rem 0.7rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.16s ease;
+    user-select: none;
+  }
+
+  .quiz-opt:hover {
+    background: #2e2820;
+    border-color: #4a3a2a;
+    color: #e5cfb4;
+  }
+
+  .quiz-opt.correct {
+    background: #0d2218;
+    border-color: #2a6b3a;
+    color: #8ed7ab;
+  }
+
+  .quiz-opt.wrong {
+    background: #2a0d10;
+    border-color: #6b2a2a;
+    color: #d79595;
+  }
+
+  .quiz-opt.reveal {
+    background: #0d2218;
+    border-color: #2a6b3a;
+    color: #8ed7ab;
+  }
+
+  .quiz-exp {
+    display: none;
+    margin-top: 0.9rem;
+    padding: 0.9rem 1rem;
+    background: #1e1a14;
+    border-left: 3px solid #d4b08a;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.87rem;
+    color: #c4b3a2;
+    line-height: 1.55;
+  }
+
+  .quiz-exp.show { display: block; }
+
+  .image-lightbox {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: rgba(17, 12, 9, 0.88);
+    backdrop-filter: blur(6px);
+    z-index: 2000;
+    cursor: zoom-out;
+  }
+
+  .image-lightbox.open {
+    display: flex;
+  }
+
+  .image-lightbox-inner {
+    max-width: min(1100px, 94vw);
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .image-lightbox img {
+    max-width: 100%;
+    max-height: calc(92vh - 3rem);
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+    background: white;
+  }
+
+  .image-lightbox-caption {
+    color: #f3e9de;
+    font-size: 0.92rem;
+    text-align: center;
+    max-width: 70ch;
+  }
+
+  .image-lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 1.6rem 2rem 2.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 920px) {
+    .objective-map,
+    .fiber-grid,
+    .slide-grid,
+    .muscle-grid,
+    .clinical-grid,
+    .review-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .container { padding: 2rem 1rem 3rem; }
+    .page-header { padding: 2.4rem 1rem 2rem; }
+    .quiz-section { padding: 1.5rem 1rem; }
+    .branch-item {
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
+    }
+  }
+</style>
+</head>
+<body>
+<header class="page-header">
+  <div class="course-tag">UNE COM · Block 5 · Week 40 · OCS</div>
+  <h1>Facial Nerve (CN VII)<br><span style="font-weight:300;font-size:0.72em;color:#d4b08a;">Course, Branches, Secretomotor Pathways, Taste, Sensory Supply, Lesion Localization</span></h1>
+  <div class="subtitle">Rebuilt in the same polished, image-rich study style as the trigeminal page.</div>
+  <div class="plo-banner">
+    <strong>LO 40D:</strong> Describe the course, distribution, and functions of the facial nerve including motor, parasympathetic, taste, and sensory components.<br>
+    <strong>LO 40E:</strong> Predict the clinical picture produced by lesions at the pons, IAM, geniculate ganglion, facial canal, stylomastoid foramen, and parotid region.
+  </div>
+</header>
+
+<nav class="toc-nav">
+  <a href="#overview">Overview</a>
+  <a href="#course">Course</a>
+  <a href="#motor">Motor</a>
+  <a href="#parasym">Parasym</a>
+  <a href="#taste">Taste</a>
+  <a href="#clinical">Clinical</a>
+  <a href="#quiz">Practice Questions</a>
+</nav>
+
+<main class="container">
+  <div class="objective-map">
+    <div class="objective-map-card">
+      <div class="objective-map-label">Fiber Types</div>
+      <h3>Five Components, One Nerve</h3>
+      <p>Use this block whenever a question asks which part of CN VII is motor, secretomotor, taste, or general sensory.</p>
+      <ul>
+        <li>SVE to facial expression muscles</li>
+        <li>GVE to lacrimal and salivary glands</li>
+        <li>SVA taste from tongue and palate</li>
+      </ul>
+    </div>
+    <div class="objective-map-card">
+      <div class="objective-map-label">Branch Points</div>
+      <h3>Three Big Intratemporal Branches</h3>
+      <p>Use this block to organize the greater petrosal nerve, nerve to stapedius, and chorda tympani along the facial canal.</p>
+      <ul>
+        <li>GSPN near the geniculate ganglion</li>
+        <li>Stapedius branch in the canal</li>
+        <li>Chorda tympani near the exit</li>
+      </ul>
+    </div>
+    <div class="objective-map-card">
+      <div class="objective-map-label">Localization</div>
+      <h3>Deficit Pattern = Lesion Level</h3>
+      <p>Use this block when the stem gives dry eye, hyperacusis, taste loss, hearing loss, or selective facial weakness.</p>
+      <ul>
+        <li>Forehead spared means UMN lesion</li>
+        <li>CN VIII findings suggest IAM or CPA</li>
+        <li>Distal lesions spare taste and lacrimation</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="objective-banner">
+    <div class="objective-kicker">Rapid Orientation</div>
+    <h2>Why CN VII Is a Favorite for Anatomy Questions</h2>
+    <p>The facial nerve is a mixed nerve whose lesion pattern changes dramatically depending on where it is damaged. That makes it one of the most localizable cranial nerves in head and neck anatomy.</p>
+    <ul>
+      <li><strong>Motor:</strong> muscles of facial expression plus stapedius, stylohyoid, and posterior belly of digastric</li>
+      <li><strong>Parasympathetic:</strong> lacrimal, submandibular, sublingual, nasal, and palatine glands</li>
+      <li><strong>Taste and sensation:</strong> anterior two-thirds tongue taste, palate taste, and ear sensory fibers</li>
+    </ul>
+  </div>
+
+  <div class="section-divider">
+    <div class="section-divider-label">LO 40D Focus</div>
+    <h2>Course, Components, and Branch Distribution</h2>
+    <p>Everything through the taste section belongs to the descriptive anatomy objective.</p>
+  </div>
+
+  <section id="overview">
+    <div class="section-header">
+      <div class="section-number">I</div>
+      <h2>Overview: Five Fiber Types in One Facial Nerve</h2>
+    </div>
+    <p class="lead">CN VII exits the brainstem at the pontomedullary junction and carries five distinct fiber types. The nerve is most famous for facial expression, but that is only one part of its job.</p>
+
+    <div class="fiber-grid">
+      <article class="fiber-card">
+        <div class="fiber-chip" style="background: var(--motor);">SVE</div>
+        <h3>Motor to 2nd Arch Muscles</h3>
+        <p>Supplies muscles of facial expression, stapedius, stylohyoid, and posterior belly of digastric.</p>
+      </article>
+      <article class="fiber-card">
+        <div class="fiber-chip" style="background: var(--parasym);">GVE</div>
+        <h3>Secretomotor Parasympathetics</h3>
+        <p>Preganglionic fibers from the superior salivatory nucleus reach the lacrimal, submandibular, and sublingual glands.</p>
+      </article>
+      <article class="fiber-card">
+        <div class="fiber-chip" style="background: var(--taste);">SVA</div>
+        <h3>Taste Fibers</h3>
+        <p>Carry taste from the anterior two-thirds of the tongue and from the palate, with cell bodies in the geniculate ganglion.</p>
+      </article>
+      <article class="fiber-card">
+        <div class="fiber-chip" style="background: var(--sensory);">GSA / GVA</div>
+        <h3>General Sensory Fibers</h3>
+        <p>Carry somatic sensation from the ear canal region and visceral sensation from the oropharyngeal and palatal mucosa.</p>
+      </article>
+    </div>
+
+    <div class="callout key">
+      <div class="callout-label">Geniculate Ganglion</div>
+      <p>The geniculate ganglion is the sensory ganglion of CN VII. Taste and general sensory cell bodies sit here, while motor fibers and parasympathetic preganglionic fibers pass through without synapsing.</p>
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Fiber Type</th>
+          <th>Main Function</th>
+          <th>Peripheral Route</th>
+          <th>Central Association</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SVE</td>
+          <td>Facial movement and stapedius control</td>
+          <td>Main trunk, parotid plexus, stapedius branch</td>
+          <td>Motor nucleus of VII</td>
+        </tr>
+        <tr>
+          <td>GVE</td>
+          <td>Lacrimation and salivation</td>
+          <td>Greater petrosal nerve and chorda tympani</td>
+          <td>Superior salivatory nucleus</td>
+        </tr>
+        <tr>
+          <td>SVA</td>
+          <td>Taste from tongue and palate</td>
+          <td>Chorda tympani and greater petrosal pathways</td>
+          <td>Geniculate ganglion to nucleus solitarius</td>
+        </tr>
+        <tr>
+          <td>GSA / GVA</td>
+          <td>Ear and oropharyngeal sensation</td>
+          <td>Posterior auricular, chorda, and palatal routes</td>
+          <td>Geniculate ganglion to sensory nuclei</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="course">
+    <div class="section-header">
+      <div class="section-number teal">II</div>
+      <h2>Course of the Facial Nerve</h2>
+    </div>
+    <p class="lead">The facial nerve has an intrapontine segment, a cisternal and meatal segment, a long intratemporal segment, and then an extracranial motor distribution. Every major branch point matters clinically.</p>
+
+    <div class="step-flow">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Pontomedullary Border</h4>
+          <p>CN VII exits at the pontomedullary junction after its motor fibers loop around the abducens nucleus, creating the facial colliculus.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Internal Auditory Meatus</h4>
+          <p>CN VII enters the internal auditory meatus with CN VIII and occupies the anterosuperior compartment.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Geniculate Ganglion and Genu</h4>
+          <p>At the sharp bend in the facial canal, the geniculate ganglion appears and the greater petrosal nerve branches off first.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Facial Canal</h4>
+          <p>The nerve continues through the petrous temporal bone, giving off the nerve to stapedius and then the chorda tympani.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>Stylomastoid Foramen to Parotid</h4>
+          <p>The main trunk exits the skull, gives off pre-parotid motor branches, then enters the parotid gland and divides into terminal facial-expression branches.</p>
+        </div>
+      </div>
+    </div>
+
+    <figure class="slide-card">
+      <div class="slide-card-header">Dentalcare · Figure 24</div>
+      <img src="https://images.ctfassets.net/u2qv1tdtdbbu/1xRvsAf9xCpDr9GpqmxBPP/c24c7f256c8e3eac5b7d67dc37b6c0ec/CE598_-_Figure_24.png?fm=avif&amp;q=70&amp;w=3840" alt="Dentalcare figure of the facial nerve main trunk">
+      <figcaption class="slide-card-body">
+        <p>This figure is the cleanest overall map of the extracranial main trunk, its pre-parotid branches, and the parotid plexus distribution.</p>
+        <div class="slide-source">Image source: <a href="https://www.dentalcare.com/en-us/ce-courses/ce598/facial-nerve-main-trunk">Dentalcare – Facial Nerve Main Trunk</a></div>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section id="motor">
+    <div class="section-header">
+      <div class="section-number green">III</div>
+      <h2>Motor Component: Facial Expression and Related Muscles</h2>
+    </div>
+    <p class="lead">All muscles of facial expression are second pharyngeal arch derivatives. The main trunk exits at the stylomastoid foramen, gives off pre-parotid branches, then splits within the parotid gland into the five classic terminal branches.</p>
+
+    <div class="callout green">
+      <div class="callout-label">Parotid Plexus Mnemonic</div>
+      <p><strong>To Zanzibar By Motor Car</strong> = temporal, zygomatic, buccal, marginal mandibular, and cervical branches.</p>
+    </div>
+
+    <div class="branch-group">
+      <div class="branch-group-header">
+        <div class="branch-group-kicker">Before the Parotid</div>
+        <h3>Pre-Parotid Motor Branches</h3>
+      </div>
+      <div class="branch-list">
+        <div class="branch-item">
+          <div class="branch-name">Posterior auricular nerve</div>
+          <div class="branch-desc">Supplies occipitalis and auricular muscles; also carries general sensory fibers from the postauricular region.</div>
+        </div>
+        <div class="branch-item">
+          <div class="branch-name">Nerve to stylohyoid</div>
+          <div class="branch-desc">Supplies the stylohyoid muscle, which elevates the hyoid during swallowing.</div>
+        </div>
+        <div class="branch-item">
+          <div class="branch-name">Nerve to posterior digastric</div>
+          <div class="branch-desc">Supplies the posterior belly of digastric, which helps elevate the hyoid and stabilize mandibular motion.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="branch-group">
+      <div class="branch-group-header">
+        <div class="branch-group-kicker">Parotid Plexus</div>
+        <h3>Terminal Motor Branches</h3>
+      </div>
+      <div class="branch-list">
+        <div class="branch-item">
+          <div class="branch-name">Temporal branch</div>
+          <div class="branch-desc">Supplies frontalis and the upper orbicularis oculi region. Damage impairs forehead wrinkling and eyebrow elevation.</div>
+        </div>
+        <div class="branch-item">
+          <div class="branch-name">Zygomatic branch</div>
+          <div class="branch-desc">Supplies the lower orbicularis oculi and midfacial elevator region. Damage weakens eye closure.</div>
+        </div>
+        <div class="branch-item">
+          <div class="branch-name">Buccal branch</div>
+          <div class="branch-desc">Supplies buccinator and upper lip muscles. Damage causes food pocketing and weak cheek compression.</div>
+        </div>
+        <div class="branch-item">
+          <div class="branch-name">Marginal mandibular branch</div>
+          <div class="branch-desc">Supplies lower lip depressors and mentalis. Damage causes lower lip asymmetry and poor lower tooth display.</div>
+        </div>
+        <div class="branch-item">
+          <div class="branch-name">Cervical branch</div>
+          <div class="branch-desc">Supplies platysma and contributes to lower face and neck soft-tissue tension.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="muscle-grid">
+      <article class="muscle-card">
+        <h4>Stapedius</h4>
+        <div class="muscle-origin">Intratemporal branch</div>
+        <p>The stapedius dampens ossicular movement. Loss of its function causes hyperacusis.</p>
+      </article>
+      <article class="muscle-card">
+        <h4>Frontalis</h4>
+        <div class="muscle-origin">Temporal branch</div>
+        <p>Raises the eyebrows and wrinkles the forehead. It is preserved in many UMN lesions.</p>
+      </article>
+      <article class="muscle-card">
+        <h4>Orbicularis oculi</h4>
+        <div class="muscle-origin">Temporal and zygomatic branches</div>
+        <p>Closes the eyelids. Weakness causes lagophthalmos and corneal exposure risk.</p>
+      </article>
+      <article class="muscle-card">
+        <h4>Buccinator</h4>
+        <div class="muscle-origin">Buccal branch</div>
+        <p>Compresses the cheek against the teeth and prevents food from collecting in the vestibule.</p>
+      </article>
+    </div>
+
+    <div class="callout blue">
+      <div class="callout-label">UMN vs LMN Rule</div>
+      <p><strong>UMN lesions spare the forehead</strong> because the upper facial motor nucleus receives bilateral cortical input. <strong>LMN lesions paralyze the entire ipsilateral face</strong>, including the forehead and eye closure.</p>
+    </div>
+  </section>
+
+  <section id="parasym">
+    <div class="section-header">
+      <div class="section-number blue">IV</div>
+      <h2>Parasympathetic Component: GSPN and Chorda Tympani</h2>
+    </div>
+    <p class="lead">Preganglionic parasympathetic fibers arise in the superior salivatory nucleus and leave CN VII by two high-yield routes: the greater petrosal nerve to the lacrimal region and the chorda tympani to the submandibular region.</p>
+
+    <div class="slide-grid">
+      <figure class="slide-card">
+        <div class="slide-card-header">Dentalcare · Figure 22</div>
+        <img src="https://images.ctfassets.net/u2qv1tdtdbbu/6Yo6pyevHdyvTDJ093g7pa/dc23b763750aef6b3e15f7de2ff50db5/CE598_-_Figure_22.png?fm=avif&amp;q=70&amp;w=3840" alt="Dentalcare figure of the greater petrosal nerve pathway">
+        <figcaption class="slide-card-body">
+          <p>The greater petrosal nerve leaves near the geniculate ganglion, joins the deep petrosal nerve, and reaches the pterygopalatine ganglion through the pterygoid canal.</p>
+          <div class="slide-source">Image source: <a href="https://www.dentalcare.com/en-us/ce-courses/ce598/greater-petrosal-nerve">Dentalcare – Greater Petrosal Nerve</a></div>
+        </figcaption>
+      </figure>
+
+      <figure class="slide-card">
+        <div class="slide-card-header">Dentalcare · Figure 23</div>
+        <img src="https://images.ctfassets.net/u2qv1tdtdbbu/3bidTKqlLvenpEWmdfShZy/f822e0f3a695d521966e0e51e7c0c2a0/CE598_-_Figure_23.png?fm=avif&amp;q=70&amp;w=3840" alt="Dentalcare figure of the chorda tympani pathway">
+        <figcaption class="slide-card-body">
+          <p>The chorda tympani leaves the facial canal late, crosses the middle ear, exits through the petrotympanic fissure, and joins the lingual nerve.</p>
+          <div class="slide-source">Image source: <a href="https://www.dentalcare.com/en-us/ce-courses/ce598/chorda-tympani">Dentalcare – Chorda Tympani</a></div>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="pathway-box">
+      <h4>Greater Petrosal Nerve Pathway</h4>
+      <ul>
+        <li>Preganglionic fibers leave CN VII at the geniculate ganglion region as the greater petrosal nerve.</li>
+        <li>The greater petrosal nerve passes toward the foramen lacerum and joins the deep petrosal nerve.</li>
+        <li>The combined nerve of the pterygoid canal reaches the pterygopalatine ganglion, where parasympathetic fibers synapse.</li>
+        <li>Postganglionic fibers hitchhike on V2 and then the lacrimal nerve route to reach the lacrimal gland, and also supply nasal and palatine glands.</li>
+      </ul>
+    </div>
+
+    <div class="pathway-box">
+      <h4>Chorda Tympani Pathway</h4>
+      <ul>
+        <li>The chorda tympani branches off near the distal facial canal, crosses the middle ear cavity, and exits through the petrotympanic fissure.</li>
+        <li>In the infratemporal fossa it joins the lingual nerve, a branch of V3.</li>
+        <li>Preganglionic parasympathetic fibers synapse in the submandibular ganglion.</li>
+        <li>Postganglionic fibers supply the submandibular and sublingual glands while taste fibers continue centrally without synapsing in the ganglion.</li>
+      </ul>
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Branch</th>
+          <th>Ganglion</th>
+          <th>Target</th>
+          <th>Important Hitchhiking Route</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Greater petrosal nerve</td>
+          <td>Pterygopalatine ganglion</td>
+          <td>Lacrimal, nasal, and palatine glands</td>
+          <td>Vidian nerve, then V2 and lacrimal communications</td>
+        </tr>
+        <tr>
+          <td>Chorda tympani</td>
+          <td>Submandibular ganglion</td>
+          <td>Submandibular and sublingual glands</td>
+          <td>Joins the lingual nerve in the infratemporal fossa</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="taste">
+    <div class="section-header">
+      <div class="section-number">V</div>
+      <h2>Taste and General Sensory Components</h2>
+    </div>
+    <p class="lead">The taste fibers of CN VII are classic hitchhikers: they travel out on the chorda tympani and lingual nerve peripherally, but their cell bodies remain in the geniculate ganglion and they project centrally to the rostral nucleus solitarius.</p>
+
+    <div class="branch-group">
+      <div class="branch-group-header">
+        <div class="branch-group-kicker">Taste Route</div>
+        <h3>Anterior Two-Thirds of the Tongue</h3>
+      </div>
+      <div class="branch-list">
+        <div class="branch-item">
+          <div class="branch-name">Peripheral receptor</div>
+          <div class="branch-desc">Taste buds in fungiform and foliate papillae generate the signal.</div>
+        </div>
+        <div class="branch-item">
+          <div class="branch-name">Peripheral carrier</div>
+          <div class="branch-desc">Taste fibers travel first with the lingual nerve, then leave it to run in the chorda tympani.</div>
+        </div>
+        <div class="branch-item">
+          <div class="branch-name">Ganglion</div>
+          <div class="branch-desc">The geniculate ganglion holds the first-order cell bodies.</div>
+        </div>
+        <div class="branch-item">
+          <div class="branch-name">Central termination</div>
+          <div class="branch-desc">Central processes enter the brainstem and terminate in the rostral nucleus solitarius.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-grid">
+      <article class="review-card">
+        <h4>GSA Territory</h4>
+        <ul>
+          <li>External auditory meatus and conchal bowl</li>
+          <li>External tympanic membrane region</li>
+          <li>Small postauricular skin distribution</li>
+          <li>Explains ear pain and vesicles in Ramsay Hunt syndrome</li>
+        </ul>
+      </article>
+      <article class="review-card">
+        <h4>GVA Territory</h4>
+        <ul>
+          <li>Soft palate and oropharyngeal mucosa inputs</li>
+          <li>Palatal fibers can travel with the greater petrosal pathway</li>
+          <li>General visceral fibers project centrally to sensory nuclei</li>
+          <li>These fibers matter for lesion localization more than bedside testing</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout note">
+      <div class="callout-label">High-Yield Contrast</div>
+      <p>The <strong>lingual nerve</strong> carries general sensation from the anterior two-thirds of the tongue. The <strong>chorda tympani</strong> carries taste from that same territory and joins the lingual nerve in the infratemporal fossa.</p>
+    </div>
+  </section>
+
+  <div class="section-divider">
+    <div class="section-divider-label">LO 40E Focus</div>
+    <h2>Clinical Patterns of Facial Nerve Injury</h2>
+    <p>Use branch loss to move proximally: facial paralysis alone is distal, taste loss is higher, hyperacusis is higher still, and dry eye means the lesion is above the greater petrosal branch.</p>
+  </div>
+
+  <section id="clinical">
+    <div class="section-header">
+      <div class="section-number purple">VI</div>
+      <h2>Clinical Localization and Syndromes</h2>
+    </div>
+    <p class="lead">Facial nerve lesions are localizable because each major branch leaves at a different point in the facial canal. Additive symptoms help you determine how proximal the lesion must be.</p>
+
+    <div class="clinical-grid">
+      <article class="clinical-card">
+        <div class="clinical-card-top">
+          <div class="clinical-card-kicker" style="color: var(--clinical);">Brainstem</div>
+          <h3>Pontine Lesion</h3>
+          <p>Often involves neighboring tracts and nuclei</p>
+        </div>
+        <div class="clinical-card-body">
+          <ul>
+            <li>Complete ipsilateral LMN facial weakness</li>
+            <li>Possible CN VI palsy from nearby abducens involvement</li>
+            <li>Taste, parasympathetic, and stapedius fibers may all be affected</li>
+            <li>Contralateral long-tract deficits may coexist</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="clinical-card">
+        <div class="clinical-card-top">
+          <div class="clinical-card-kicker" style="color: var(--parasym);">IAM / CPA</div>
+          <h3>Internal Auditory Meatus Lesion</h3>
+          <p>Think vestibular schwannoma pattern</p>
+        </div>
+        <div class="clinical-card-body">
+          <ul>
+            <li>LMN facial weakness with ipsilateral SNHL</li>
+            <li>Tinnitus and vestibular symptoms are common</li>
+            <li>Dry eye and taste loss can be present</li>
+            <li>CN VIII findings are the major clue</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="clinical-card">
+        <div class="clinical-card-top">
+          <div class="clinical-card-kicker" style="color: var(--clinical);">Geniculate Ganglion</div>
+          <h3>Ramsay Hunt Syndrome</h3>
+          <p>VZV reactivation in the sensory ganglion</p>
+        </div>
+        <div class="clinical-card-body">
+          <ul>
+            <li>Painful vesicles in the ear canal or concha</li>
+            <li>Complete ipsilateral LMN facial palsy</li>
+            <li>Often includes taste loss and dry eye</li>
+            <li>May also involve vertigo or hearing loss</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="clinical-card">
+        <div class="clinical-card-top">
+          <div class="clinical-card-kicker" style="color: var(--motor);">Proximal Canal</div>
+          <h3>Above the Stapedius Branch</h3>
+          <p>Very proximal intratemporal lesion</p>
+        </div>
+        <div class="clinical-card-body">
+          <ul>
+            <li>Complete ipsilateral LMN facial weakness</li>
+            <li>Hyperacusis because stapedius is denervated</li>
+            <li>Taste loss because chorda fibers are also affected</li>
+            <li>Dry eye because the lesion is above the GSPN branch</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="clinical-card">
+        <div class="clinical-card-top">
+          <div class="clinical-card-kicker" style="color: var(--taste);">Bell's Palsy Region</div>
+          <h3>Distal Canal or Bell's Palsy</h3>
+          <p>Variable involvement depending on exact level</p>
+        </div>
+        <div class="clinical-card-body">
+          <ul>
+            <li>Sudden complete LMN facial weakness including forehead</li>
+            <li>Taste loss and hyperacusis may be present or absent</li>
+            <li>Hearing is usually normal because CN VIII is spared</li>
+            <li>Eye protection is essential to prevent keratitis</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="clinical-card">
+        <div class="clinical-card-top">
+          <div class="clinical-card-kicker" style="color: var(--green);">Stylomastoid / Parotid</div>
+          <h3>Extracranial Lesion</h3>
+          <p>Parotid tumor, surgery, or trauma</p>
+        </div>
+        <div class="clinical-card-body">
+          <ul>
+            <li>Facial weakness only, often branch-selective</li>
+            <li>Taste is preserved because chorda is proximal</li>
+            <li>Lacrimation is preserved because GSPN is proximal</li>
+            <li>Hyperacusis is absent because stapedius is already branched off</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Lesion Level</th>
+          <th>Facial Weakness</th>
+          <th>Taste</th>
+          <th>Dry Eye</th>
+          <th>Hyperacusis</th>
+          <th>CN VIII Signs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Pons</td>
+          <td>Complete LMN palsy</td>
+          <td>Lost</td>
+          <td>Present</td>
+          <td>Present</td>
+          <td>May coexist</td>
+        </tr>
+        <tr>
+          <td>IAM or CPA</td>
+          <td>Complete LMN palsy</td>
+          <td>Lost</td>
+          <td>Present</td>
+          <td>Present</td>
+          <td>Usually present</td>
+        </tr>
+        <tr>
+          <td>Geniculate ganglion</td>
+          <td>Complete LMN palsy</td>
+          <td>Lost</td>
+          <td>Present</td>
+          <td>Present</td>
+          <td>Possible</td>
+        </tr>
+        <tr>
+          <td>Stylomastoid or parotid</td>
+          <td>Partial or complete</td>
+          <td>Normal</td>
+          <td>Normal</td>
+          <td>Absent</td>
+          <td>Absent</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="review-grid">
+      <article class="review-card">
+        <h4>Bell's Palsy Essentials</h4>
+        <ul>
+          <li>Idiopathic LMN facial palsy, often linked to HSV-1 reactivation</li>
+          <li>Forehead involvement confirms a peripheral pattern</li>
+          <li>Postauricular pain can precede weakness</li>
+          <li>Artificial tears and night eye protection are mandatory</li>
+        </ul>
+      </article>
+      <article class="review-card">
+        <h4>Schirmer Test Logic</h4>
+        <ul>
+          <li>Reduced lacrimation suggests injury above the greater petrosal branch</li>
+          <li>Normal tears suggest the lesion is distal to the geniculate ganglion</li>
+          <li>Useful when distinguishing proximal from distal intratemporal lesions</li>
+          <li>Pairs well with taste and hyperacusis findings</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout clinical">
+      <div class="callout-label">Localization Shortcut</div>
+      <p><strong>Facial paralysis alone</strong> suggests a lesion at or distal to the stylomastoid foramen. Add <strong>taste loss</strong> and the lesion is above the chorda tympani. Add <strong>hyperacusis</strong> and the lesion is above the nerve to stapedius. Add <strong>dry eye</strong> and the lesion is above the greater petrosal nerve near the geniculate ganglion or more proximal.</p>
+    </div>
+  </section>
+
+  <section class="quiz-section" id="quiz">
+    <h2>Practice Questions</h2>
+    <div class="quiz-subtitle">Ten board-style questions with balanced distractors. Click an option to reveal the answer and explanation.</div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1.</span>A patient has isolated facial weakness after a parotidectomy, but taste, lacrimation, and hearing remain normal. Which lesion site best fits this pattern?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false">Lesion within the internal auditory meatus</div>
+        <div class="quiz-opt" data-correct="false">Lesion near the geniculate ganglion</div>
+        <div class="quiz-opt" data-correct="true">Lesion within the extracranial parotid plexus</div>
+        <div class="quiz-opt" data-correct="false">Lesion within the proximal facial canal</div>
+      </div>
+      <div class="quiz-exp">An extracranial or parotid plexus lesion affects the motor branches after the greater petrosal nerve, stapedius branch, and chorda tympani have already left. That preserves lacrimation, taste, and hearing while producing facial weakness.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2.</span>Loss of tearing on the affected side indicates that a facial nerve lesion lies proximal to which named branch?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="true">Greater petrosal nerve from the genu</div>
+        <div class="quiz-opt" data-correct="false">Posterior auricular nerve from the trunk</div>
+        <div class="quiz-opt" data-correct="false">Marginal mandibular branch of the plexus</div>
+        <div class="quiz-opt" data-correct="false">Cervical branch of the platysma</div>
+      </div>
+      <div class="quiz-exp">The greater petrosal nerve carries preganglionic parasympathetic fibers that ultimately reach the lacrimal gland. Dry eye means those fibers were interrupted before they branched off.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">3.</span>A lesion causing hyperacusis must be located proximal to which structure?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false">Buccal branch supplying the cheek</div>
+        <div class="quiz-opt" data-correct="true">Stapedius branch within the canal</div>
+        <div class="quiz-opt" data-correct="false">Chorda tympani near the fissure</div>
+        <div class="quiz-opt" data-correct="false">Temporal branch above the zygoma</div>
+      </div>
+      <div class="quiz-exp">Hyperacusis occurs when stapedius is denervated, so the lesion must lie above the branch to stapedius within the facial canal.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">4.</span>Taste fibers from the anterior two-thirds of the tongue reach CN VII by first traveling with which nerve?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false">Greater auricular nerve in the neck</div>
+        <div class="quiz-opt" data-correct="true">Lingual nerve in the fossa</div>
+        <div class="quiz-opt" data-correct="false">Auriculotemporal nerve near the ear</div>
+        <div class="quiz-opt" data-correct="false">Glossopharyngeal nerve in the pharynx</div>
+      </div>
+      <div class="quiz-exp">Taste fibers from the anterior tongue hitchhike first on the lingual nerve, then join the chorda tympani, and finally re-enter the facial pathway toward the geniculate ganglion.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">5.</span>Which ganglion contains the sensory neuron cell bodies for facial nerve taste fibers?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false">Pterygopalatine ganglion in the fossa</div>
+        <div class="quiz-opt" data-correct="false">Submandibular ganglion on the lingual</div>
+        <div class="quiz-opt" data-correct="true">Geniculate ganglion in the canal</div>
+        <div class="quiz-opt" data-correct="false">Otic ganglion below the foramen</div>
+      </div>
+      <div class="quiz-exp">The geniculate ganglion is the sensory ganglion of CN VII and contains the first-order cell bodies for taste and general sensory afferents.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">6.</span>A patient has complete ipsilateral facial paralysis and hearing loss from a single lesion. Which site best explains both findings?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false">Parotid plexus in the gland</div>
+        <div class="quiz-opt" data-correct="false">Stylomastoid foramen at the base</div>
+        <div class="quiz-opt" data-correct="true">Internal auditory meatus region</div>
+        <div class="quiz-opt" data-correct="false">Distal buccal branch in the face</div>
+      </div>
+      <div class="quiz-exp">CN VII and CN VIII travel together through the internal auditory meatus, so a lesion there can produce both facial weakness and sensorineural hearing loss.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">7.</span>Painful ear vesicles with LMN facial paralysis most strongly suggests which diagnosis?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false">Bell's palsy from canal edema</div>
+        <div class="quiz-opt" data-correct="true">Ramsay Hunt syndrome from VZV</div>
+        <div class="quiz-opt" data-correct="false">Trigeminal neuralgia from root compression</div>
+        <div class="quiz-opt" data-correct="false">Parotid tumor causing branch loss</div>
+      </div>
+      <div class="quiz-exp">Ramsay Hunt syndrome reflects varicella-zoster reactivation in the geniculate ganglion, producing ear pain, vesicles, and peripheral facial paralysis.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">8.</span>Preganglionic facial parasympathetic fibers to the submandibular gland synapse in which ganglion?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false">Pterygopalatine ganglion in the fossa</div>
+        <div class="quiz-opt" data-correct="true">Submandibular ganglion on the lingual</div>
+        <div class="quiz-opt" data-correct="false">Geniculate ganglion in the canal</div>
+        <div class="quiz-opt" data-correct="false">Otic ganglion near the mandibular</div>
+      </div>
+      <div class="quiz-exp">Chorda tympani carries preganglionic parasympathetic fibers to the submandibular ganglion, where they synapse before reaching the submandibular and sublingual glands.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">9.</span>A cortical stroke affecting the corticobulbar fibers to CN VII most classically causes which deficit?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false">Ipsilateral whole-face paralysis including forehead</div>
+        <div class="quiz-opt" data-correct="true">Contralateral lower-face weakness with forehead sparing</div>
+        <div class="quiz-opt" data-correct="false">Bilateral loss of taste from the tongue</div>
+        <div class="quiz-opt" data-correct="false">Dry eye with preserved facial motion</div>
+      </div>
+      <div class="quiz-exp">UMN lesions spare the forehead because the upper facial nucleus receives bilateral cortical input. The lower facial muscles receive mainly contralateral cortical input, so the lower face weakens on the opposite side.</div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">10.</span>Which combination of findings best localizes a lesion above the chorda tympani but below the internal auditory meatus?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false">Facial weakness with hearing loss and vertigo</div>
+        <div class="quiz-opt" data-correct="true">Facial weakness with taste loss alone</div>
+        <div class="quiz-opt" data-correct="false">Facial weakness with dry eye alone</div>
+        <div class="quiz-opt" data-correct="false">Facial weakness with forehead sparing</div>
+      </div>
+      <div class="quiz-exp">A lesion above the chorda tympani can remove taste, but if it is below the IAM there is no obligatory CN VIII involvement. Dry eye would require an even more proximal lesion above the greater petrosal branch.</div>
+    </div>
+  </section>
+</main>
+
+<div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+  <button class="image-lightbox-close" id="imageLightboxClose" type="button" aria-label="Close enlarged image">&times;</button>
+  <div class="image-lightbox-inner">
+    <img id="imageLightboxImg" src="" alt="">
+    <div class="image-lightbox-caption" id="imageLightboxCaption"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  Facial Nerve · LO 40D and 40E · Restyled to match the trigeminal study format
+</footer>
+
+<script>
+  const lightbox = document.getElementById('imageLightbox');
+  const lightboxImg = document.getElementById('imageLightboxImg');
+  const lightboxCaption = document.getElementById('imageLightboxCaption');
+  const lightboxClose = document.getElementById('imageLightboxClose');
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImg.src = '';
+    lightboxImg.alt = '';
+    lightboxCaption.textContent = '';
+  }
+
+  document.querySelectorAll('.slide-card img').forEach((img) => {
+    img.addEventListener('click', () => {
+      const card = img.closest('.slide-card');
+      const captionText = card ? card.querySelector('.slide-card-body p')?.textContent ?? '' : '';
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCaption.textContent = captionText;
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+    });
+  });
+
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox || event.target === lightboxClose) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && lightbox.classList.contains('open')) {
+      closeLightbox();
+    }
+  });
+
+  document.querySelectorAll('.quiz-item').forEach((item) => {
+    const options = item.querySelectorAll('.quiz-opt');
+    const explanation = item.querySelector('.quiz-exp');
+
+    options.forEach((option) => {
+      option.addEventListener('click', () => {
+        if (item.dataset.answered === 'true') return;
+
+        item.dataset.answered = 'true';
+
+        options.forEach((opt) => {
+          const isCorrect = opt.dataset.correct === 'true';
+          if (opt === option) {
+            opt.classList.add(isCorrect ? 'correct' : 'wrong');
+          } else if (isCorrect) {
+            opt.classList.add('reveal');
+          }
+        });
+
+        explanation.classList.add('show');
+      });
+    });
+  });
+</script>
+</body>
+</html>

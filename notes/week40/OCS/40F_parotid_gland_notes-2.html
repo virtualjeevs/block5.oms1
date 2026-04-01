@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>40F – Parotid Gland, CN VII & CN IX</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --parchment: #ede5d0;
+    --ink: #1a1410;
+    --rust: #8b3a2a;
+    --gold: #c4952a;
+    --sage: #4a6650;
+    --slate: #3d4a58;
+    --muted: #6b5f52;
+    --border: rgba(139,58,42,0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* Subtle parchment texture via gradient */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(196,149,42,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(139,58,42,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    border-bottom: 2px solid var(--rust);
+    padding-bottom: 24px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: var(--gold);
+    margin-top: 5px;
+  }
+  .tag {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-style: italic;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 48px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .section:nth-child(2) { animation-delay: 0.05s; }
+  .section:nth-child(3) { animation-delay: 0.1s; }
+  .section:nth-child(4) { animation-delay: 0.15s; }
+  .section:nth-child(5) { animation-delay: 0.2s; }
+  .section:nth-child(6) { animation-delay: 0.25s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--rust);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  h2 .num {
+    background: var(--rust);
+    color: #fff;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 3px 9px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--slate);
+    margin: 20px 0 8px;
+  }
+
+  p { margin-bottom: 12px; font-size: 0.97rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Callout box */
+  .callout {
+    background: var(--parchment);
+    border-left: 3px solid var(--gold);
+    padding: 16px 20px;
+    margin: 18px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .callout strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Branch list */
+  .branch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 18px 0;
+  }
+  @media (max-width: 600px) {
+    .branch-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 1.8rem; }
+    .page { padding: 36px 20px 60px; }
+  }
+
+  .branch-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .branch-card:hover {
+    border-color: var(--rust);
+    box-shadow: 0 2px 12px rgba(139,58,42,0.1);
+  }
+  .branch-card .label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--rust);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .branch-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* Pathway diagram */
+  .pathway {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 18px 0;
+  }
+  .pathway-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .pathway-step .icon-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 32px;
+    flex-shrink: 0;
+  }
+  .step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--rust);
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .step-line {
+    width: 2px;
+    flex: 1;
+    background: repeating-linear-gradient(to bottom, var(--gold) 0, var(--gold) 5px, transparent 5px, transparent 10px);
+    min-height: 24px;
+  }
+  .pathway-step:last-child .step-line { display: none; }
+  .step-body {
+    padding-bottom: 20px;
+    font-size: 0.93rem;
+  }
+  .step-body strong { color: var(--slate); font-weight: 600; }
+
+  /* Clinical box */
+  .clinical {
+    background: #f0f4f1;
+    border: 1px solid rgba(74,102,80,0.3);
+    border-left: 3px solid var(--sage);
+    border-radius: 0 4px 4px 0;
+    padding: 18px 22px;
+    margin-top: 18px;
+  }
+  .clinical .clinical-title {
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+  .clinical p { font-size: 0.91rem; }
+
+  /* Summary table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    font-size: 0.9rem;
+  }
+  th {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: rgba(237,229,208,0.4); }
+  tr:last-child td { border-bottom: none; }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="tag">Head &amp; Neck Anatomy · Objective 40F</div>
+    <h1>The Parotid Gland</h1>
+    <div class="subtitle">Anatomical relationships with CN VII &amp; secretomotor innervation via CN IX</div>
+  </header>
+
+  <!-- SECTION 1: THE PAROTID GLAND -->
+  <div class="section">
+    <h2><span class="num">1</span> The Parotid Gland – Overview</h2>
+    <p>The parotid gland is the largest of the three major salivary glands and occupies the parotid region of the face, anteroinferior to the ear. It is enclosed within a dense fascial capsule — the <em>parotid fascia</em> — and its duct (Stensen's duct) opens into the oral vestibule opposite the upper second molar.</p>
+    <div class="callout">
+      <strong>Key anatomical point:</strong> The parotid gland is unique in that the facial nerve (CN VII) courses <em>through</em> the substance of the gland, dividing it into superficial and deep lobes. This has profound surgical significance — parotid surgery risks facial nerve injury.
+    </div>
+    <p>The facial nerve enters the posterior aspect of the parotid gland after leaving the stylomastoid foramen. Once inside, it divides into ascending and descending branches from which all other facial branches are derived.</p>
+  </div>
+
+  <!-- SECTION 2: CN VII RELATIONSHIP -->
+  <div class="section">
+    <h2><span class="num">2</span> CN VII – Relationship with the Parotid</h2>
+    <p>The facial nerve exits the skull through the <strong>stylomastoid foramen</strong>, then curves forward beneath the ear to enter the face. It then enters the posterior aspect of the parotid gland and radiates anteriorly from the gland's anterior margin.</p>
+
+    <h3>Pre-parotid branches (before entering the gland)</h3>
+    <div class="branch-grid">
+      <div class="branch-card">
+        <div class="label">Posterior Auricular</div>
+        <p>Supplies occipitalis and auricular muscles</p>
+      </div>
+      <div class="branch-card">
+        <div class="label">Nerve to Stylohyoid</div>
+        <p>Motor to stylohyoid and posterior belly of digastric</p>
+      </div>
+    </div>
+
+    <h3>Parotid (terminal) branches — the five named divisions</h3>
+    <div class="branch-grid">
+      <div class="branch-card">
+        <div class="label">Temporal</div>
+        <p>Frontalis, orbicularis oculi (upper), corrugator</p>
+      </div>
+      <div class="branch-card">
+        <div class="label">Zygomatic</div>
+        <p>Orbicularis oculi (lower), zygomatic muscles</p>
+      </div>
+      <div class="branch-card">
+        <div class="label">Buccal</div>
+        <p>Buccinator, orbicularis oris, muscles of upper lip</p>
+      </div>
+      <div class="branch-card">
+        <div class="label">Marginal Mandibular</div>
+        <p>Depressor anguli oris, depressor labii inferioris, mentalis</p>
+      </div>
+      <div class="branch-card" style="grid-column: 1 / -1;">
+        <div class="label">Cervical</div>
+        <p>Platysma</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Remember:</strong> CN VII innervates muscles of facial expression — those derived from the <em>2nd pharyngeal arch</em>. Although skeletal in organisation, these muscles arise from branchial arch mesenchyme (not somites), through complex interactions between mesenchyme and neural crest cells.
+    </div>
+
+    <div class="clinical">
+      <div class="clinical-title">🩺 Clinical Note</div>
+      <p>The nerve crosses over the masseter to reach the posterior margin of the muscles of facial expression. Because of its close relationship with the parotid gland, parotid tumours, abscesses, or surgical procedures can damage CN VII, resulting in ipsilateral facial paralysis (lower motor neuron lesion — all muscles on that side are affected).</p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: CN IX INNERVATION OF PAROTID -->
+  <div class="section">
+    <h2><span class="num">3</span> CN IX – Secretomotor Innervation of the Parotid</h2>
+    <p>The glossopharyngeal nerve (CN IX) provides the <strong>parasympathetic (secretomotor) innervation</strong> to the parotid gland via a lengthy, indirect pathway through the otic ganglion. This is one of CN IX's four major functional roles.</p>
+
+    <h3>The parasympathetic pathway — step by step</h3>
+    <div class="pathway">
+      <div class="pathway-step">
+        <div class="icon-col"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Inferior salivatory nucleus (brainstem)</strong><br>Preganglionic parasympathetic fibres originate here, travelling with CN IX from the medulla. CN IX exits through the <em>jugular foramen</em>.</div>
+      </div>
+      <div class="pathway-step">
+        <div class="icon-col"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Tympanic nerve (Jacobson's nerve)</strong><br>Shortly after leaving the jugular foramen, the preganglionic fibres branch off as the tympanic nerve, entering the posterior temporal bone and reaching the tympanic cavity (middle ear).</div>
+      </div>
+      <div class="pathway-step">
+        <div class="icon-col"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Tympanic plexus (middle ear)</strong><br>The tympanic nerve forms the tympanic plexus in the middle ear. From here the fibres also supply touch and pain sensation to the tympanic cavity and Eustachian tube.</div>
+      </div>
+      <div class="pathway-step">
+        <div class="icon-col"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Lesser superficial petrosal nerve</strong><br>Preganglionic fibres consolidate into this nerve, which exits the temporal bone anteriorly to pass through or near the <em>foramen ovale</em>, joining the mandibular nerve (V3).</div>
+      </div>
+      <div class="pathway-step">
+        <div class="icon-col"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Otic ganglion</strong><br>Located on the medial aspect of V3, just inferior to foramen ovale. <em>Synapse occurs here.</em> Postganglionic fibres travel with the auriculotemporal nerve.</div>
+      </div>
+      <div class="pathway-step">
+        <div class="icon-col"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body"><strong>Auriculotemporal nerve → Parotid gland</strong><br>Postganglionic fibres "hitchhike" on the auriculotemporal nerve (a branch of V3) to reach and innervate the parotid gland, stimulating serous saliva secretion.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Mnemonic for the pathway:</strong> <em>IX → Tympanic nerve → Tympanic plexus → Lesser petrosal nerve → Otic ganglion → Auriculotemporal → Parotid</em>
+    </div>
+
+    <div class="clinical">
+      <div class="clinical-title">🩺 Frey's Syndrome (Auriculotemporal Syndrome)</div>
+      <p>After parotidectomy or other trauma, regenerating parasympathetic fibres from the otic ganglion may aberrantly reinnervate sweat glands of the overlying skin instead of the parotid. This causes gustatory sweating — flushing and sweating of the cheek during eating.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 4: CN IX BRANCHES -->
+  <div class="section">
+    <h2><span class="num">4</span> Other Branches of CN IX — Full Picture</h2>
+    <p>CN IX has five sets of branches, all of which arise as the nerve curves anteroinferiorly from the jugular foramen toward the oropharynx:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Branch</th>
+          <th>Function</th>
+          <th>Target</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tympanic (→ lesser petrosal)</strong></td>
+          <td>Parasympathetic secretomotor; also touch/pain</td>
+          <td>Parotid gland (via otic ganglion); tympanic cavity &amp; Eustachian tube</td>
+        </tr>
+        <tr>
+          <td><strong>Carotid (sinus nerve)</strong></td>
+          <td>Visceral afferent — baroreceptor &amp; chemoreceptor</td>
+          <td>Carotid sinus &amp; body (blood pressure monitoring)</td>
+        </tr>
+        <tr>
+          <td><strong>Pharyngeal</strong></td>
+          <td>Somatic afferent — touch &amp; pain</td>
+          <td>Naso- &amp; oropharyngeal mucosa (via pharyngeal plexus)</td>
+        </tr>
+        <tr>
+          <td><strong>Muscular</strong></td>
+          <td>Somatic motor (SVE)</td>
+          <td>Stylopharyngeus — the only muscle uniquely innervated by CN IX (3rd arch derivative)</td>
+        </tr>
+        <tr>
+          <td><strong>Tonsillar</strong></td>
+          <td>Somatic afferent — touch &amp; pain</td>
+          <td>Bed of the palatine tonsil</td>
+        </tr>
+        <tr>
+          <td><strong>Lingual</strong></td>
+          <td>Special afferent (taste) + somatic afferent</td>
+          <td>Posterior ⅓ of tongue — foliate &amp; circumvallate papillae</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 5: SUMMARY COMPARISON -->
+  <div class="section">
+    <h2><span class="num">5</span> CN VII vs CN IX — Parotid Relationship Summary</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>CN VII (Facial)</th>
+          <th>CN IX (Glossopharyngeal)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Arch derivation</strong></td>
+          <td>2nd pharyngeal arch</td>
+          <td>3rd pharyngeal arch</td>
+        </tr>
+        <tr>
+          <td><strong>Relation to parotid</strong></td>
+          <td>Passes <em>through</em> the gland; divides it into lobes</td>
+          <td>Does not traverse gland; innervates it from outside</td>
+        </tr>
+        <tr>
+          <td><strong>Function at parotid</strong></td>
+          <td>No secretory function — purely structural/surgical relationship</td>
+          <td>Secretomotor (parasympathetic) — stimulates serous saliva production</td>
+        </tr>
+        <tr>
+          <td><strong>Fiber type to parotid</strong></td>
+          <td>Motor (SVE) to facial muscles; not glandular</td>
+          <td>GVE (parasympathetic) preganglionic → synapse at otic ganglion → postganglionic via auriculotemporal</td>
+        </tr>
+        <tr>
+          <td><strong>Exit from skull</strong></td>
+          <td>Stylomastoid foramen</td>
+          <td>Jugular foramen (with CN X, XI)</td>
+        </tr>
+        <tr>
+          <td><strong>Clinical concern</strong></td>
+          <td>Facial paralysis with parotid pathology or surgery</td>
+          <td>Frey's syndrome post-parotidectomy; glossopharyngeal neuralgia</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="footer">
+    <span>Head &amp; Neck Anatomy · Objective 40F</span>
+    <span>Sources: UNE COM Gross Anatomy — CN VII Motor Component &amp; CN IX</span>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       MCQ SECTION
+  ════════════════════════════════════════════ -->
+  <div class="mcq-section">
+    <div class="mcq-header">
+      <div class="mcq-tag">Practice Questions</div>
+      <h2 class="mcq-title">Clinical MCQs — Objective 40F</h2>
+      <p class="mcq-sub">Ten questions mixing clinical vignettes and high-yield anatomy. Select an answer to reveal the explanation.</p>
+      <div class="mcq-progress-bar"><div class="mcq-progress-fill" id="progressFill"></div></div>
+      <div class="mcq-score-line" id="scoreLine">0 / 10 answered</div>
+    </div>
+
+    <div id="quizContainer"></div>
+
+    <div class="mcq-results" id="mcqResults" style="display:none;">
+      <div class="results-inner">
+        <div class="results-score" id="resultsScore"></div>
+        <div class="results-msg" id="resultsMsg"></div>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Quiz</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .page -->
+
+<style>
+  /* ── MCQ STYLES ── */
+  .mcq-section {
+    margin-top: 64px;
+    border-top: 2px solid var(--rust);
+    padding-top: 8px;
+  }
+  .mcq-section::before {
+    content: ''; display: block; height: 1px;
+    background: var(--gold); margin-bottom: 36px;
+  }
+  .mcq-tag {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--rust); margin-bottom: 8px;
+  }
+  .mcq-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .mcq-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 18px; }
+
+  .mcq-progress-bar {
+    height: 6px; background: var(--parchment);
+    border-radius: 3px; overflow: hidden; margin-bottom: 8px;
+  }
+  .mcq-progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--rust), var(--gold));
+    border-radius: 3px; transition: width 0.4s ease;
+  }
+  .mcq-score-line {
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 36px;
+  }
+
+  .q-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin-bottom: 22px;
+    transition: box-shadow 0.2s;
+  }
+  .q-card:hover { box-shadow: 0 3px 14px rgba(0,0,0,0.07); }
+
+  .q-number {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--rust); margin-bottom: 8px;
+  }
+  .q-badge {
+    display: inline-block;
+    font-size: 0.63rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2px 9px; border-radius: 20px;
+    margin-left: 10px; vertical-align: middle;
+    position: relative; top: -1px;
+  }
+  .badge-vignette { background: rgba(61,74,88,0.1); color: var(--slate); border: 1px solid rgba(61,74,88,0.3); }
+  .badge-hiyield  { background: rgba(139,58,42,0.1); color: var(--rust);  border: 1px solid rgba(139,58,42,0.3); }
+
+  .q-stem {
+    font-size: 0.95rem; line-height: 1.7;
+    margin-bottom: 18px; color: var(--ink);
+  }
+
+  .q-options { display: flex; flex-direction: column; gap: 9px; }
+  .q-opt {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 11px 15px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    background: var(--cream);
+    font-size: 0.88rem; line-height: 1.55;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: left; width: 100%;
+  }
+  .q-opt:hover:not(:disabled) { border-color: var(--rust); background: white; }
+  .q-opt .opt-letter {
+    flex-shrink: 0; width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--parchment); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 600; color: var(--muted);
+    transition: background 0.15s, color 0.15s; margin-top: 1px;
+  }
+  .q-opt.correct { background: #edf7ee; border-color: #4a8a52; }
+  .q-opt.correct .opt-letter { background: #4a8a52; color: white; border-color: #4a8a52; }
+  .q-opt.wrong { background: #fdf0ee; border-color: #c0473a; }
+  .q-opt.wrong .opt-letter { background: #c0473a; color: white; border-color: #c0473a; }
+  .q-opt.dimmed { opacity: 0.42; cursor: default; }
+  .q-opt:disabled { cursor: default; }
+
+  .q-explanation {
+    display: none; margin-top: 16px;
+    padding: 14px 18px;
+    background: #f7f4ee;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.87rem; line-height: 1.65;
+    animation: fadeUp 0.2s ease;
+  }
+  .q-explanation.show { display: block; }
+  .q-explanation .exp-label {
+    font-weight: 600; font-size: 0.7rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 6px;
+  }
+
+  .mcq-results {
+    background: white; border: 1px solid var(--border);
+    border-radius: 6px; padding: 36px;
+    text-align: center; margin-top: 28px;
+  }
+  .results-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 700; color: var(--rust); margin-bottom: 8px;
+  }
+  .results-msg { font-size: 1rem; color: var(--muted); margin-bottom: 22px; }
+  .reset-btn {
+    background: var(--rust); color: white;
+    border: none; padding: 11px 28px; border-radius: 3px; cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .reset-btn:hover { background: #6e2d1e; }
+
+  @media (max-width: 600px) {
+    .q-card { padding: 20px 16px; }
+  }
+</style>
+
+<script>
+  const questions = [
+    {
+      type: "vignette",
+      stem: `A 58-year-old woman undergoes a superficial parotidectomy for a benign pleomorphic adenoma. Two days postoperatively she notices she cannot raise her right eyebrow, close her right eye fully, or smile on the right side. The corner of her right mouth droops and the nasolabial fold has disappeared. Which structure, injured during the surgical dissection of the parotid gland, best accounts for this constellation of findings?`,
+      options: [
+        "The right auriculotemporal nerve, a branch of V3, which carries postganglionic parasympathetic fibres from the otic ganglion through the parotid to innervate the overlying facial muscles",
+        "The right facial nerve (CN VII), whose temporal, zygomatic, buccal, marginal mandibular, and cervical branches all travel through the substance of the parotid gland before reaching the muscles of facial expression",
+        "The right greater auricular nerve, a branch of the cervical plexus (C2–C3), whose motor fibres supply the platysma and muscles of the lower face via connections within the parotid fascia",
+        "The right glossopharyngeal nerve (CN IX), which courses through the parotid gland alongside the facial nerve and provides a dual motor supply to the muscles of facial expression in the lower face",
+        "The right chorda tympani branch of CN VII, which exits the skull separately via the petrotympanic fissure and re-enters the face through the parotid gland to reach the muscles of the cheek and lip"
+      ],
+      answer: 1,
+      explanation: "The facial nerve (CN VII) exits the stylomastoid foramen and enters the posterior aspect of the parotid gland, where it divides into ascending and descending trunks from which five terminal branches arise: temporal, zygomatic, buccal, marginal mandibular, and cervical. All of these pass through the parotid gland before reaching the muscles of facial expression. Parotidectomy therefore carries a significant risk of CN VII injury — the nerve does not merely pass near the gland but through it, dividing the gland into superficial and deep lobes. Damage to the main trunk or multiple branches produces pan-facial palsy as seen here. The auriculotemporal nerve (CN V3) carries only parasympathetic postganglionic fibres and general sensory fibres — it has no motor role in facial expression."
+    },
+    {
+      type: "hiyield",
+      stem: `A student is reviewing the branches of the facial nerve as it exits the parotid gland. She lists: temporal, zygomatic, buccal, marginal mandibular, and cervical. Which of the following pre-parotid branches of CN VII are given off BEFORE the nerve enters the parotid gland?`,
+      options: [
+        "The temporal and zygomatic branches, which arise from the main trunk of the facial nerve just distal to the stylomastoid foramen and curve superiorly around the parotid capsule before piercing the gland",
+        "The posterior auricular branch and the nerve to the stylohyoid and posterior belly of the digastric, which arise from the facial nerve before it enters the parotid gland",
+        "The chorda tympani and the nerve to the stapedius, which exit the facial canal before the stylomastoid foramen and therefore represent the pre-parotid motor contribution of CN VII",
+        "The greater petrosal nerve and the lesser petrosal nerve, which carry parasympathetic fibres to the lacrimal and parotid glands respectively and diverge from the facial trunk before parotid entry",
+        "The buccal and marginal mandibular branches, which pierce the parotid fascia from inside to outside and are therefore considered pre-parotid even though they are formed within the gland substance"
+      ],
+      answer: 1,
+      explanation: "Two branches are given off before CN VII enters the parotid gland: (1) the posterior auricular branch, supplying the occipitalis and auricular muscles; and (2) the nerve to the stylohyoid and the posterior belly of the digastric. All five terminal branches — temporal, zygomatic, buccal, marginal mandibular, and cervical — are formed within the substance of the parotid gland. The chorda tympani and nerve to stapedius arise within the facial canal (before the stylomastoid foramen) but are not motor branches to facial muscles. The greater petrosal nerve also departs within the canal at the geniculate ganglion and carries parasympathetic fibres to the lacrimal gland (not the parotid)."
+    },
+    {
+      type: "vignette",
+      stem: `A 66-year-old man who underwent a total parotidectomy six months ago now complains that whenever he eats, he sweats profusely and his right cheek flushes. He did not have this problem before the surgery. Neurophysiological testing confirms aberrant reinnervation. Which of the following best explains the mechanism underlying this patient's postoperative complication?`,
+      options: [
+        "Regenerating sympathetic fibres from the cervical sympathetic chain grow into the auriculotemporal nerve sheath and aberrantly innervate lacrimal gland acini, producing gustatory lacrimation rather than sweating",
+        "Regenerating parasympathetic postganglionic fibres from the otic ganglion, which normally travel with the auriculotemporal nerve to reach the parotid, aberrantly reinnervate the sweat glands and cutaneous vessels of the overlying cheek skin",
+        "Transection of the greater auricular nerve during parotidectomy leads to collateral sprouting from adjacent cervical plexus fibres that make ectopic synaptic contacts with facial sweat gland efferents",
+        "Scarring around the auriculotemporal nerve causes mechanical compression of the nerve's vasomotor fibres, resulting in pathological vasodilation of cheek skin vessels triggered reflexively by salivary gland activity",
+        "Denervation hypersensitivity of sweat gland muscarinic receptors following parotidectomy causes exaggerated responses to circulating acetylcholine released during the cephalic phase of digestion"
+      ],
+      answer: 1,
+      explanation: "This is Frey's syndrome (auriculotemporal syndrome). During parotidectomy, the preganglionic and postganglionic parasympathetic fibres destined for the parotid gland are severed. During healing, regenerating parasympathetic postganglionic axons from the otic ganglion grow aberrantly along the auriculotemporal nerve sheath and instead of reinnervating parotid acini (which have been removed), they make new synaptic contacts with the eccrine sweat glands and dermal blood vessels of the cheek skin. Because these aberrant connections are still parasympathetic, they respond to gustatory stimuli (eating triggers acetylcholine release), producing flushing and sweating — 'gustatory sweating.' This affects approximately 30–50% of patients after parotidectomy."
+    },
+    {
+      type: "hiyield",
+      stem: `Which of the following correctly describes the complete parasympathetic secretomotor pathway from the central nervous system to the parotid gland, in the correct sequential order?`,
+      options: [
+        "Superior salivatory nucleus → greater petrosal nerve → pterygopalatine ganglion → lacrimal nerve → parotid gland via retrograde axonal transport through the trigeminal system",
+        "Inferior salivatory nucleus → CN IX → tympanic nerve (Jacobson's nerve) → tympanic plexus → lesser superficial petrosal nerve → otic ganglion → auriculotemporal nerve → parotid gland",
+        "Dorsal nucleus of the vagus → CN X → pharyngeal plexus → otic ganglion → auriculotemporal nerve → parotid gland via the posterior auricular branch of the facial nerve",
+        "Inferior salivatory nucleus → CN IX → chorda tympani → lingual nerve → submandibular ganglion → retrograde fibres via the auriculotemporal nerve to reach the parotid gland",
+        "Superior salivatory nucleus → CN VII → chorda tympani → lingual nerve → otic ganglion → auriculotemporal nerve → parotid gland via the infratemporal fossa"
+      ],
+      answer: 1,
+      explanation: "The complete pathway: Inferior salivatory nucleus (brainstem) → CN IX exits through the jugular foramen → tympanic nerve (Jacobson's nerve) branches off, entering the middle ear → tympanic plexus on the promontory → lesser superficial petrosal nerve exits temporal bone anteriorly → passes through/near foramen ovale → synapse in the otic ganglion (located medial to V3, just below the foramen ovale) → postganglionic fibres hitch-hike on the auriculotemporal nerve (V3 branch) → parotid gland. Key distinction: the superior salivatory nucleus and greater petrosal nerve supply the lacrimal gland and nasal/palatal glands (via pterygopalatine ganglion), NOT the parotid. The submandibular ganglion (chorda tympani pathway) supplies the submandibular and sublingual glands."
+    },
+    {
+      type: "vignette",
+      stem: `A 45-year-old woman presents with a 3-week history of progressive right-sided facial drooping, inability to close her right eye, and loss of taste on the right anterior tongue. She also reports dry eyes on the right. An MRI reveals a 2.4 cm mass within the deep lobe of the right parotid gland. Which of the following functional deficits is MOST directly explained by compression of CN VII within the parotid gland substance, rather than by a separate lesion elsewhere?`,
+      options: [
+        "Loss of taste sensation from the right anterior two-thirds of the tongue, which is carried by the chorda tympani branch of CN VII running within the substance of the parotid gland at the level of the parotid duct",
+        "Decreased lacrimation from the right eye, which results from compression of the greater petrosal nerve fibres as they travel with the facial nerve through the parotid gland to reach the lacrimal gland",
+        "Paralysis of the right muscles of facial expression including the frontalis, orbicularis oculi, buccinator, and platysma, caused by compression of the terminal motor branches of CN VII within the parotid",
+        "Right-sided hyperacusis due to compression of the nerve to the stapedius muscle, which courses through the parotid gland alongside the facial trunk before entering the middle ear via Jacobson's canal",
+        "Absent right corneal reflex due to compression of the ophthalmic division of CN V as it passes adjacent to the deep lobe of the parotid gland near the base of the infratemporal fossa"
+      ],
+      answer: 2,
+      explanation: "The five terminal motor branches of CN VII — temporal, zygomatic, buccal, marginal mandibular, and cervical — are all formed within the parotid gland and supply the muscles of facial expression. A mass in the parotid gland can directly compress these branches, causing ipsilateral facial muscle paralysis. This is the most direct relationship. The chorda tympani (taste, anterior ⅔ tongue) and the nerve to stapedius (hyperacusis) travel within the facial canal BEFORE the stylomastoid foramen — they are not present within the parotid gland. Similarly, the greater petrosal nerve departs the facial nerve at the geniculate ganglion within the petrous bone — not at the parotid. Therefore, loss of taste and reduced lacrimation would indicate a lesion proximal to the stylomastoid foramen, not a parotid mass."
+    },
+    {
+      type: "hiyield",
+      stem: `The glossopharyngeal nerve (CN IX) is said to supply derivatives of the third pharyngeal arch. Which of the following structures is the ONLY skeletal muscle uniquely and directly innervated by CN IX?`,
+      options: [
+        "The styloglossus muscle, which retracts and elevates the tongue and is derived from the third pharyngeal arch mesenchyme innervated by the glossopharyngeal nerve's lingual branch",
+        "The stylopharyngeus muscle, a 3rd pharyngeal arch derivative that elevates the pharynx and larynx during swallowing, uniquely innervated by the muscular branch of CN IX",
+        "The palatoglossus muscle, which elevates the posterior tongue and narrows the oropharyngeal isthmus, and which receives its sole motor supply from the glossopharyngeal nerve via the pharyngeal plexus",
+        "The middle pharyngeal constrictor muscle, which is the primary skeletal muscle innervated by CN IX, receiving its motor supply directly from the pharyngeal branch of the glossopharyngeal nerve",
+        "The posterior belly of the digastric muscle, which is derived from the third pharyngeal arch and receives its sole motor innervation via a direct muscular branch of the glossopharyngeal nerve"
+      ],
+      answer: 1,
+      explanation: "The stylopharyngeus is the ONLY skeletal muscle uniquely innervated by CN IX (via the muscular branch). It is derived from the 3rd pharyngeal arch mesenchyme and elevates the pharynx and larynx during swallowing. While CN IX contributes to the pharyngeal plexus (which innervates the pharyngeal constrictors), the majority of that plexus is derived from the vagus nerve (CN X). The styloglossus is innervated by CN XII (hypoglossal). The palatoglossus is innervated by CN X (vagus) via the pharyngeal plexus. The posterior belly of the digastric is innervated by CN VII. This is a classic USMLE-style distinguishing fact."
+    },
+    {
+      type: "vignette",
+      stem: `A 70-year-old man presents to his dentist reporting a dry mouth and notices his right cheek appears to have reduced fullness. On examination the right parotid gland is atrophic. The dentist suspects parasympathetic denervation of the parotid. A neurologist identifies a lesion on MRI affecting the lesser superficial petrosal nerve as it exits the temporal bone. At which ganglion has the preganglionic-to-postganglionic parasympathetic synapse for the parotid gland been disrupted?`,
+      options: [
+        "The pterygopalatine (sphenopalatine) ganglion, suspended from the maxillary nerve in the pterygopalatine fossa, where fibres arriving via the greater petrosal nerve synapse before supplying the parotid via the auriculotemporal nerve",
+        "The otic ganglion, located on the medial aspect of the mandibular nerve (V3) just inferior to the foramen ovale, where preganglionic CN IX fibres conveyed by the lesser superficial petrosal nerve synapse before postganglionic fibres travel with the auriculotemporal nerve to the parotid",
+        "The submandibular ganglion, suspended from the lingual nerve in the floor of the mouth, where preganglionic chorda tympani fibres synapse before postganglionic fibres are redirected superiorly to reach the parotid gland",
+        "The geniculate ganglion, located within the facial canal in the petrous temporal bone, where preganglionic parasympathetic fibres of CN VII synapse before postganglionic secretomotor fibres travel to the parotid via Jacobson's nerve",
+        "The superior cervical ganglion, located at the bifurcation of the common carotid artery, where preganglionic sympathetic fibres from the superior salivatory nucleus relay before postganglionic fibres reach the parotid via the external carotid plexus"
+      ],
+      answer: 1,
+      explanation: "The otic ganglion is the parasympathetic ganglion for the parotid gland. It receives preganglionic fibres via the lesser superficial petrosal nerve (formed in the tympanic plexus from Jacobson's nerve, a branch of CN IX). The otic ganglion is located just inferior to the foramen ovale on the medial aspect of the mandibular nerve (V3). Postganglionic secretomotor fibres from the otic ganglion then hitch-hike on the auriculotemporal nerve to reach the parotid gland. A lesion of the lesser petrosal nerve at or before the otic ganglion prevents the synapse from occurring, denervating the parotid. The pterygopalatine ganglion (supplied by greater petrosal nerve via CN VII) serves the lacrimal, nasal, and palatal glands — not the parotid."
+    },
+    {
+      type: "hiyield",
+      stem: `A medical student is asked to list the five terminal branches of the facial nerve that emerge from the anterior margin of the parotid gland. She also needs to state one key muscle group supplied by each branch. Which of the following pairings is INCORRECT?`,
+      options: [
+        "Temporal branch → frontalis muscle (raises the eyebrow) and the upper portion of the orbicularis oculi (involved in eyelid closure)",
+        "Zygomatic branch → lower orbicularis oculi and the zygomatic muscles, contributing to cheek elevation and eyelid closure",
+        "Buccal branch → buccinator muscle (compresses the cheek during chewing) and the muscles of the upper lip including orbicularis oris",
+        "Marginal mandibular branch → masseter and medial pterygoid muscles, which are muscles of mastication derived from the first pharyngeal arch",
+        "Cervical branch → platysma muscle, which depresses the mandible and lower lip and produces neck skin wrinkling"
+      ],
+      answer: 3,
+      explanation: "The marginal mandibular branch supplies muscles of facial expression in the lower face — specifically the depressor anguli oris, depressor labii inferioris, mentalis, and risorius. It does NOT supply the masseter or medial pterygoid. Those are muscles of mastication derived from the 1st pharyngeal arch and innervated by the motor root of the trigeminal nerve (CN V3) — not CN VII. This is a critical distinction: CN VII (2nd arch) → muscles of facial expression; CN V3 (1st arch) → muscles of mastication. All other pairings in this question are correct."
+    },
+    {
+      type: "vignette",
+      stem: `During a gross anatomy lab, a student traces the course of the glossopharyngeal nerve (CN IX) from the brainstem to the oropharynx. She notes that after leaving the jugular foramen, the nerve curves anteriorly and inferiorly through the neck. Which of the following correctly describes the relationship of CN IX to the internal and external carotid arteries as it descends?`,
+      options: [
+        "CN IX passes medial to both the internal and external carotid arteries as it descends into the neck, running in the carotid sheath between the common carotid artery and the internal jugular vein before entering the oropharynx",
+        "CN IX passes lateral to the internal jugular vein and internal carotid artery, then medial to the external carotid artery, coursing along the medial aspect of the stylopharyngeus toward the posterior margin of the hyoglossus",
+        "CN IX descends vertically in the posterior triangle of the neck, lateral to both the internal and external carotid arteries, before looping anteriorly around the external carotid to enter the pharynx from the lateral aspect",
+        "CN IX runs between the internal and external carotid arteries throughout its cervical course, giving off the carotid sinus nerve to the bifurcation before piercing the middle pharyngeal constrictor directly",
+        "CN IX passes posterior to both carotid arteries alongside CN X in the carotid sheath, separated from the vagus nerve only by a thin fascial septum before both nerves enter the pharyngeal plexus simultaneously"
+      ],
+      answer: 1,
+      explanation: "The correct anatomical course of CN IX: it exits the jugular foramen, then curves anteriorly and inferiorly, passing lateral to the internal carotid artery and internal jugular vein, but medial to the external carotid artery. It then runs along the medial surface of the stylopharyngeus (the muscle it innervates), between the stylopharyngeus and styloglossus, to reach the posterior margin of the hyoglossus. It then passes medially, slipping between the superior and middle pharyngeal constrictors to enter the oropharynx. Note: at the jugular foramen, CN IX, X, and XI exit together — CN IX then passes anteriorly, CN X descends vertically, and CN XI passes posteriorly."
+    },
+    {
+      type: "hiyield",
+      stem: `Which of the following statements about the developmental origin of the muscles supplied by the facial nerve (CN VII) is correct, and explains why these muscles have a unique embryological basis compared to most skeletal muscles?`,
+      options: [
+        "The muscles of facial expression are derived from somites of the occipital myotomes that migrate anteriorly into the face under CN VII guidance, making them unique skeletal muscles that arise from axial mesoderm rather than paraxial mesoderm",
+        "The muscles of facial expression arise from 2nd pharyngeal arch branchial mesenchyme through a complex interaction between mesenchyme and neural crest cells, and are therefore not derived from somites unlike most skeletal muscles",
+        "The muscles of facial expression are derived entirely from neural crest cells of the rhombencephalon that undergo myogenic differentiation under the influence of Pax3 and MyoD transcription factors within the 2nd pharyngeal arch",
+        "The muscles of facial expression are unique because they arise from lateral plate mesoderm of the 2nd pharyngeal arch rather than from paraxial mesoderm, distinguishing them from both somite-derived and branchial arch skeletal muscles",
+        "The muscles of facial expression are derived from the same occipital somites as the tongue musculature, sharing a common developmental origin that explains why both groups are innervated by nerves that exit through the same stylomastoid foramen"
+      ],
+      answer: 1,
+      explanation: "The muscles of facial expression are unique because they arise from the 2nd pharyngeal (branchial) arch through a complex interaction between mesenchyme and neural crest cells — they are NOT derived from somites, unlike most skeletal muscles of the trunk and limbs. This is why, although they are skeletal muscles in organisation (multinucleate, striated, voluntary), their developmental origin is completely different from the somite-derived muscles of the body wall and limbs. Because they arise from the 2nd pharyngeal arch, they are innervated by the nerve of that arch — CN VII (the facial nerve). CN VII is therefore the arch nerve of the 2nd pharyngeal arch, just as CN V3 is the arch nerve of the 1st arch (muscles of mastication) and CN IX is the arch nerve of the 3rd arch (stylopharyngeus)."
+    }
+  ];
+
+  let answered = 0, correct = 0;
+  const answeredMap = {};
+
+  function buildQuiz() {
+    const container = document.getElementById('quizContainer');
+    container.innerHTML = '';
+    answered = 0; correct = 0;
+    Object.keys(answeredMap).forEach(k => delete answeredMap[k]);
+    updateProgress();
+
+    questions.forEach((q, qi) => {
+      const card = document.createElement('div');
+      card.className = 'q-card';
+      card.id = 'qcard-' + qi;
+      const letters = ['A','B','C','D','E'];
+      const badgeClass = q.type === 'vignette' ? 'badge-vignette' : 'badge-hiyield';
+      const badgeLabel = q.type === 'vignette' ? 'Clinical Vignette' : 'High-Yield';
+
+      const optsHTML = q.options.map((opt, oi) => `
+        <button class="q-opt" data-qi="${qi}" data-oi="${oi}" onclick="selectAnswer(${qi},${oi})">
+          <span class="opt-letter">${letters[oi]}</span>
+          <span>${opt}</span>
+        </button>`).join('');
+
+      card.innerHTML = `
+        <div class="q-number">
+          Question ${qi+1} of ${questions.length}
+          <span class="q-badge ${badgeClass}">${badgeLabel}</span>
+        </div>
+        <div class="q-stem">${q.stem}</div>
+        <div class="q-options" id="opts-${qi}">${optsHTML}</div>
+        <div class="q-explanation" id="exp-${qi}">
+          <div class="exp-label">✦ Explanation</div>
+          <p>${q.explanation}</p>
+        </div>`;
+      container.appendChild(card);
+    });
+  }
+
+  function selectAnswer(qi, oi) {
+    if (answeredMap[qi] !== undefined) return;
+    answeredMap[qi] = oi;
+    answered++;
+    const q = questions[qi];
+    const allOpts = document.getElementById('opts-' + qi).querySelectorAll('.q-opt');
+    allOpts.forEach((btn, idx) => {
+      btn.disabled = true;
+      if (idx === q.answer) btn.classList.add('correct');
+      else if (idx === oi && oi !== q.answer) btn.classList.add('wrong');
+      else btn.classList.add('dimmed');
+    });
+    if (oi === q.answer) correct++;
+    document.getElementById('exp-' + qi).classList.add('show');
+    updateProgress();
+    if (answered === questions.length) setTimeout(showResults, 600);
+  }
+
+  function updateProgress() {
+    document.getElementById('progressFill').style.width = (answered / questions.length * 100) + '%';
+    document.getElementById('scoreLine').textContent = answered + ' / ' + questions.length + ' answered';
+  }
+
+  function showResults() {
+    const el = document.getElementById('mcqResults');
+    el.style.display = 'block';
+    const pct = Math.round(correct / questions.length * 100);
+    document.getElementById('resultsScore').textContent = correct + ' / ' + questions.length + ' correct (' + pct + '%)';
+    const msgs = ['Keep reviewing the notes above and retry.', 'Passing — focus on the explanations you missed.', 'Good work — check any missed explanations.', 'Excellent — strong command of objective 40F.'];
+    document.getElementById('resultsMsg').textContent = msgs[pct >= 90 ? 3 : pct >= 70 ? 2 : pct >= 50 ? 1 : 0];
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function resetQuiz() {
+    document.getElementById('mcqResults').style.display = 'none';
+    buildQuiz();
+    window.scrollTo({ top: document.querySelector('.mcq-section').offsetTop - 30, behavior: 'smooth' });
+  }
+
+  buildQuiz();
+</script>
+</body>
+</html>

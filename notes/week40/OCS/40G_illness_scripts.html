@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>40G – Head & Neck Illness Scripts</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --parchment: #ede5d0;
+    --ink: #1a1410;
+    --rust: #8b3a2a;
+    --gold: #c4952a;
+    --sage: #4a6650;
+    --slate: #3d4a58;
+    --muted: #6b5f52;
+    --border: rgba(139,58,42,0.18);
+
+    /* Tab accent colors */
+    --c-bells:   #7a3b6e;
+    --c-trig:    #2a5f8b;
+    --c-sinus:   #3d6b42;
+    --c-hzo:     #8b5a2a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 0%, rgba(196,149,42,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 100%, rgba(139,58,42,0.06) 0%, transparent 55%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 36px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 2px solid var(--rust);
+    padding-bottom: 22px;
+    margin-bottom: 36px;
+  }
+  .header::after {
+    content: ''; display: block; height: 1px;
+    background: var(--gold); margin-top: 5px;
+  }
+  .tag {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--rust); margin-bottom: 8px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 700;
+    line-height: 1.2; color: var(--ink); margin-bottom: 6px;
+  }
+  .subtitle { font-style: italic; color: var(--muted); font-size: 1rem; }
+
+  /* TAB NAV */
+  .tab-nav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: -1px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    background: var(--parchment);
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.18s;
+    position: relative;
+    top: 0;
+  }
+  .tab-btn:hover { background: white; color: var(--ink); }
+
+  .tab-btn[data-tab="bells"].active    { background: white; color: var(--c-bells);  border-top: 3px solid var(--c-bells); }
+  .tab-btn[data-tab="trig"].active     { background: white; color: var(--c-trig);   border-top: 3px solid var(--c-trig); }
+  .tab-btn[data-tab="sinus"].active    { background: white; color: var(--c-sinus);  border-top: 3px solid var(--c-sinus); }
+  .tab-btn[data-tab="hzo"].active      { background: white; color: var(--c-hzo);    border-top: 3px solid var(--c-hzo); }
+
+  /* TAB PANELS */
+  .tab-wrap {
+    border: 1px solid var(--border);
+    border-radius: 0 4px 4px 4px;
+    background: white;
+    padding: 40px 44px 48px;
+    animation: fadeIn 0.25s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* PANEL HEADER */
+  .panel-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-head h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem; font-weight: 700;
+  }
+  .panel-head .nerve-tag {
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 20px;
+    border: 1px solid currentColor;
+  }
+
+  /* Color theming per panel */
+  #bells .panel-head h2, #bells .section-title { color: var(--c-bells); }
+  #bells .accent { background: rgba(122,59,110,0.07); border-left: 3px solid var(--c-bells); }
+  #bells .nerve-tag { color: var(--c-bells); }
+
+  #trig .panel-head h2, #trig .section-title { color: var(--c-trig); }
+  #trig .accent { background: rgba(42,95,139,0.07); border-left: 3px solid var(--c-trig); }
+  #trig .nerve-tag { color: var(--c-trig); }
+
+  #sinus .panel-head h2, #sinus .section-title { color: var(--c-sinus); }
+  #sinus .accent { background: rgba(61,107,66,0.07); border-left: 3px solid var(--c-sinus); }
+  #sinus .nerve-tag { color: var(--c-sinus); }
+
+  #hzo .panel-head h2, #hzo .section-title { color: var(--c-hzo); }
+  #hzo .accent { background: rgba(139,90,42,0.07); border-left: 3px solid var(--c-hzo); }
+  #hzo .nerve-tag { color: var(--c-hzo); }
+
+  /* SECTION HEADERS */
+  .section-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin: 28px 0 12px;
+  }
+  .section-title:first-of-type { margin-top: 0; }
+
+  /* THREE-COL GRID */
+  .three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 14px 0 24px;
+  }
+  @media (max-width: 680px) {
+    .three-col { grid-template-columns: 1fr; }
+    .tab-btn { padding: 8px 13px; font-size: 0.74rem; }
+    .page { padding: 30px 18px 60px; }
+    .tab-wrap { padding: 24px 18px 36px; }
+  }
+
+  .card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 16px;
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+  .card .card-label {
+    font-weight: 600; font-size: 0.76rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px;
+  }
+  .card p { font-size: 0.88rem; margin: 0; line-height: 1.6; }
+
+  /* ACCENT BOX */
+  .accent {
+    padding: 14px 18px;
+    border-radius: 0 4px 4px 0;
+    margin: 14px 0;
+    font-size: 0.91rem;
+  }
+  .accent strong { font-weight: 600; }
+
+  /* CLINICAL / ALERT */
+  .clinical {
+    background: #f0f4f1;
+    border: 1px solid rgba(74,102,80,0.28);
+    border-left: 3px solid var(--sage);
+    border-radius: 0 4px 4px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+  }
+  .clinical .cl-title {
+    font-weight: 600; font-size: 0.72rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 6px;
+  }
+  .clinical p { font-size: 0.89rem; }
+
+  /* COMPARISON TABLE */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 0.88rem; margin: 14px 0;
+  }
+  th {
+    background: var(--ink); color: var(--cream);
+    font-size: 0.74rem; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 9px 13px;
+    text-align: left; font-weight: 600;
+  }
+  td { padding: 9px 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: rgba(237,229,208,0.35); }
+  tr:last-child td { border-bottom: none; }
+
+  p { font-size: 0.93rem; margin-bottom: 10px; }
+  p:last-child { margin-bottom: 0; }
+
+  ul { margin: 8px 0 12px 20px; }
+  ul li { font-size: 0.91rem; margin-bottom: 4px; line-height: 1.6; }
+
+  .footer {
+    margin-top: 48px; padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 0.76rem; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <div class="tag">Head &amp; Neck Anatomy · Objective 40G</div>
+    <h1>Head &amp; Neck Illness Scripts</h1>
+    <div class="subtitle">Epidemiology, clinical presentation &amp; pathophysiology of four key conditions</div>
+  </header>
+
+  <!-- TAB NAV -->
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="bells">Bell's Palsy</button>
+    <button class="tab-btn" data-tab="trig">Trigeminal Neuralgia</button>
+    <button class="tab-btn" data-tab="sinus">Sinusitis</button>
+    <button class="tab-btn" data-tab="hzo">Herpes Zoster Ophthalmicus</button>
+  </div>
+
+  <div class="tab-wrap">
+
+    <!-- ═══════════════════════════════════════════
+         TAB 1 — BELL'S PALSY
+    ════════════════════════════════════════════ -->
+    <div class="tab-panel active" id="bells">
+      <div class="panel-head">
+        <h2>Bell's Palsy</h2>
+        <span class="nerve-tag">CN VII — Facial Nerve</span>
+      </div>
+
+      <div class="section-title">Epidemiology</div>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-label">Incidence</div>
+          <p>13–34 cases per 100,000 people per year</p>
+        </div>
+        <div class="card">
+          <div class="card-label">High-Risk Groups</div>
+          <p>Pregnancy (3× higher risk, especially 3rd trimester / 1st postpartum week); Diabetes (5–10% of patients)</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Etiology</div>
+          <p>Most common: <strong>HSV reactivation.</strong> Also: HZV, CMV, EBV, adenovirus, rubella, mumps, influenza B, coxsackievirus</p>
+        </div>
+      </div>
+
+      <div class="section-title">Pathophysiology</div>
+      <p>The facial nerve travels through a narrow bony channel — the <strong>facial canal</strong> in the temporal bone — positioned between the petrosal venous plexus cranially and the cervical venous plexus in the suboccipital region. Viral reactivation (most commonly HSV-1) causes inflammation and oedema of the nerve within this confined space. Because the canal cannot expand, swelling leads to axonal compression and progressive loss of nerve function.</p>
+      <div class="accent">
+        <strong>Pathology on imaging:</strong> T2-weighted MRI shows signal enhancement of CN VII, particularly near the internal auditory meatus, consistent with oedema and inflammation around the nerve sheath.
+      </div>
+
+      <div class="section-title">Clinical Presentation</div>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-label">Motor Loss</div>
+          <p>Sudden unilateral facial paralysis: eyebrow sagging, inability to close eye, loss of nasolabial fold, drooping of mouth corner</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Autonomic / Sensory</div>
+          <p>Decreased tearing (lacrimation), hyperacusis (stapedius paralysis), loss of taste from anterior ⅔ of tongue</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Key Features</div>
+          <p>Acute onset; progressive to maximal weakness within 3 weeks; recovery expected within 6 months; LMN pattern (all facial muscles affected)</p>
+        </div>
+      </div>
+
+      <div class="section-title">Diagnosis</div>
+      <table>
+        <thead><tr><th>Method</th><th>Finding / Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Clinical exam</td><td>Observe: eye closure, brow elevation, frowning, showing teeth, lip puckering — all assess CN VII branches</td></tr>
+          <tr><td>EMG</td><td>Determines prognosis for nerve recovery</td></tr>
+          <tr><td>CT / MRI</td><td>Ordered for atypical presentations to rule out tumour or central lesion</td></tr>
+          <tr><td>Serology</td><td>Lyme disease titres if exposure is possible</td></tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">Differential Diagnosis</div>
+      <ul>
+        <li>Herpes zoster (Ramsay Hunt syndrome)</li>
+        <li>Otitis media spreading to facial canal</li>
+        <li>Lyme disease</li>
+        <li>Guillain-Barré syndrome</li>
+        <li>HIV infection, sarcoidosis, Sjögren syndrome</li>
+        <li>Tumour or stroke (central — spares forehead)</li>
+      </ul>
+
+      <div class="clinical">
+        <div class="cl-title">🩺 Clinical Pearl</div>
+        <p>Bell's palsy is by definition <em>idiopathic</em>. A lower motor neuron lesion of CN VII affects ALL muscles on the ipsilateral side (including the forehead), distinguishing it from an upper motor neuron stroke, which spares the forehead due to bilateral cortical representation of the frontalis.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         TAB 2 — TRIGEMINAL NEURALGIA
+    ════════════════════════════════════════════ -->
+    <div class="tab-panel" id="trig">
+      <div class="panel-head">
+        <h2>Trigeminal Neuralgia</h2>
+        <span class="nerve-tag">CN V — Trigeminal Nerve</span>
+      </div>
+
+      <div class="section-title">Epidemiology</div>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-label">Incidence</div>
+          <p>4–13 per 100,000 per year; prevalence &lt;0.1% — a rare condition</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Demographics</div>
+          <p>Women &gt; Men; incidence increases gradually with age</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Etiology</div>
+          <p>Most commonly: neurovascular compression of CN V root near pons. Rarely: vestibular schwannoma, meningioma, epidermoid cyst, MS demyelination, or vascular malformation</p>
+        </div>
+      </div>
+
+      <div class="section-title">Pathophysiology</div>
+      <p>The trigeminal nerve arises at the midlateral surface of the pons. Its sensory root is the largest in the nervous system, with over half of fibres in the nociceptive range. Compression of the nerve root — typically by a deviant arterial or venous loop within millimetres of the pons — causes focal <strong>demyelination</strong>.</p>
+      <div class="accent">
+        <strong>Mechanism of pain:</strong> Demyelinated lesions generate <em>ephaptic cross-talk</em> — aberrant electrical coupling between light-touch fibres and pain-generating fibres. This means light tactile stimulation of the face can trigger severe pain attacks. Central sensitisation also contributes, accounting for refractory periods, delay from stimulus to onset, and summation of painful sensations.
+      </div>
+      <p>Vessel contact causes ischaemia visible as a whitish-grey patch on the nerve. Demyelination can also occur in multiple sclerosis patients.</p>
+
+      <div class="section-title">Clinical Presentation</div>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-label">Pain Character</div>
+          <p>Paroxysmal, severe, electric shock-like / stabbing / shooting. Lasting a fraction of a second to 2 minutes per attack</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Distribution</div>
+          <p>Strictly unilateral. Limited to CN V distribution (V2/V3 most common; V1 rare). Most frequent trigger zone: perinasal / perioral region</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Triggers & Features</div>
+          <p>Light touch of trigger zones (eating, talking, cold air, brushing teeth). Background dull persistent pain common. Associated: lacrimation, conjunctival injection, rhinorrhoea</p>
+        </div>
+      </div>
+
+      <div class="section-title">Diagnostic Criteria (ICHD)</div>
+      <ul>
+        <li>Recurrent paroxysms of unilateral facial pain in ≥1 CN V division, no radiation beyond</li>
+        <li>Pain: lasting fraction of a second – 2 minutes, severe intensity, electric/stabbing quality</li>
+        <li>Precipitated by innocuous stimuli in the affected trigeminal distribution</li>
+        <li>Not better explained by another diagnosis</li>
+      </ul>
+
+      <div class="section-title">Investigations</div>
+      <table>
+        <thead><tr><th>Investigation</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>MRI + MR Angiography</td><td>Preferred — identify neurovascular compression or structural brain lesion</td></tr>
+          <tr><td>CT Head</td><td>Alternative, less sensitive for soft tissue detail</td></tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">Differential Diagnosis</div>
+      <ul>
+        <li>Acute herpes zoster / postherpetic neuralgia</li>
+        <li>Trauma to trigeminal nerve</li>
+        <li>Dental pain (referred)</li>
+      </ul>
+
+      <div class="clinical">
+        <div class="cl-title">🩺 Clinical Pearl</div>
+        <p>Although classified as episodic, most patients report an underlying constant dull ache between attacks. The trigger zone most frequently involves the perioral and nasal region (V2/V3 overlap). V1 involvement is rare and should raise suspicion for HZO.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         TAB 3 — SINUSITIS
+    ════════════════════════════════════════════ -->
+    <div class="tab-panel" id="sinus">
+      <div class="panel-head">
+        <h2>Sinusitis</h2>
+        <span class="nerve-tag">Paranasal Sinuses</span>
+      </div>
+
+      <div class="section-title">Epidemiology</div>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-label">Prevalence</div>
+          <p>Affects 1 in 7 adults annually; higher rates in the South and Midwest; peak incidence fall–early spring</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Demographics</div>
+          <p>Women &gt; Men; most common in children &lt;15 and adults 25–64 years old</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Pathogens</div>
+          <p><strong>Viral (most common):</strong> Rhinovirus, coronavirus, adenovirus, influenza/parainfluenza. <strong>Bacterial:</strong> <em>S. pneumoniae, H. influenzae, M. catarrhalis, S. aureus.</em> Rarely fungal.</p>
+        </div>
+      </div>
+
+      <div class="section-title">Anatomy &amp; Pathophysiology</div>
+      <p>The paranasal sinuses (frontal, maxillary, ethmoid, sphenoid) are hollow, mucous-membrane–lined spaces within the cranial bones, communicating with the nasal cavity through narrow openings called <strong>ostia</strong>. Normal drainage depends on three intact mechanisms:</p>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-label">1. Drainage Pathway</div>
+          <p>Mucosal swelling (viral infection, allergy, anatomic defect) obstructs the ostium, trapping secretions</p>
+        </div>
+        <div class="card">
+          <div class="card-label">2. Ciliary Function</div>
+          <p>Impaired mucociliary clearance (e.g., smoking, ICU positioning) prevents secretion removal</p>
+        </div>
+        <div class="card">
+          <div class="card-label">3. Mucus Quality</div>
+          <p>Altered viscosity causes stasis; stagnant secretions become a culture medium for bacterial superinfection</p>
+        </div>
+      </div>
+      <div class="accent">
+        <strong>Key cascade:</strong> Viral URI → mucosal oedema → ostial obstruction → pressure rise → pain. Bacterial superinfection occurs when bacteria colonise the inflamed, isolated sinus. Untreated acute sinusitis can become <em>chronic</em>; cytokine-driven osteoclast activation can erode surrounding bone into the orbit or cranial cavity.
+      </div>
+
+      <div class="section-title">Clinical Presentation</div>
+      <table>
+        <thead><tr><th>Type</th><th>Key Features</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Acute Viral</strong></td>
+            <td>Fever, headache, facial pain/pressure (maxillary most common), erythema/swelling over sinus, concurrent otitis media possible; resolves &lt;10 days</td>
+          </tr>
+          <tr>
+            <td><strong>Acute Bacterial</strong></td>
+            <td>Symptoms ≥10 days without improvement, OR severe symptoms at 3+ days, OR double-worsening (improves then worsens 5–6 days later)</td>
+          </tr>
+          <tr>
+            <td><strong>Fungal – Noninvasive</strong></td>
+            <td>Allergic: asthma-like features. Mycetoma: unilateral maxillary complaints</td>
+          </tr>
+          <tr>
+            <td><strong>Fungal – Invasive</strong></td>
+            <td>Epistaxis, dark necrotic ulcers on septum/palate/turbinates; acutely ill, altered mental status — EMERGENCY</td>
+          </tr>
+          <tr>
+            <td><strong>Chronic</strong></td>
+            <td>≥2 of: mucopurulent drainage, nasal congestion, facial pain, anosmia/hyposmia; present for months or insidious onset</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">Diagnosis &amp; Imaging</div>
+      <table>
+        <thead><tr><th>Modality</th><th>Findings</th></tr></thead>
+        <tbody>
+          <tr><td>Clinical (first-line)</td><td>Usual diagnosis; imaging reserved for failure to improve at 7 days or worsening</td></tr>
+          <tr><td>CT sinuses (preferred)</td><td>Mucoperiosteal thickening, air-fluid levels, bony erosion (invasive fungal), fungus balls (aspergillosis)</td></tr>
+          <tr><td>Sinus X-ray (low sensitivity)</td><td>Opacification, air-fluid levels</td></tr>
+          <tr><td>MRI</td><td>Confirms soft tissue extension in invasive disease</td></tr>
+          <tr><td>Nasal endoscopy</td><td>Mucosal erythema, ostial obstruction; biopsy/culture for invasive fungal</td></tr>
+        </tbody>
+      </table>
+
+      <div class="clinical">
+        <div class="cl-title">🩺 Risk Factors to Know</div>
+        <p>Septal deviations or polyps; impaired mucociliary transport; immunodeficiency; prolonged supine ICU positioning; nasal cocaine abuse; nasogastric / nasotracheal tubes; prolonged oxygen use.</p>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         TAB 4 — HERPES ZOSTER OPHTHALMICUS
+    ════════════════════════════════════════════ -->
+    <div class="tab-panel" id="hzo">
+      <div class="panel-head">
+        <h2>Herpes Zoster Ophthalmicus</h2>
+        <span class="nerve-tag">CN V1 — Ophthalmic Division</span>
+      </div>
+
+      <div class="section-title">Epidemiology</div>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-label">Incidence</div>
+          <p>4–4.5 cases of herpes zoster per 1,000 individuals globally; ~1 million US cases annually; lifetime risk 30%</p>
+        </div>
+        <div class="card">
+          <div class="card-label">HZO Specifically</div>
+          <p>10–20% of all herpes zoster presents as HZO; 50% of HZO cases involve the eye (anterior segment most common); 30% progress to postherpetic neuralgia</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Risk Factors</div>
+          <p>Age &gt;50; immunocompromise; physical or emotional stress; acute illness; prior varicella infection (universal prerequisite)</p>
+        </div>
+      </div>
+
+      <div class="section-title">Pathophysiology</div>
+      <p>Varicella-zoster virus (VZV) is a double-stranded DNA herpesvirus that infects ~95% of humans in childhood as varicella (chickenpox). Initial infection is via the upper respiratory tract; viral particles disseminate and undergo <strong>retrograde axonal transport</strong> to take up lifelong latent residency in the nuclei of sensory and autonomic ganglion cells throughout the body.</p>
+      <div class="accent">
+        <strong>Reactivation mechanism:</strong> Waning T-cell–mediated immunity (age, stress, illness, immunosuppression) allows VZV to exit latency. The virus replicates in the ganglion cell body, spreads anterogradely along axons, and erupts as the characteristic painful vesicular rash in a single dermatomal distribution.
+      </div>
+      <p>When reactivation occurs in the <strong>trigeminal ganglion</strong> and involves the <strong>ophthalmic division (V1)</strong> — specifically its frontal, nasociliary, or lacrimal branches — the condition is termed Herpes Zoster Ophthalmicus. Nerve involvement distribution: thoracic 40%, cranial 30%, cervical 12%.</p>
+
+      <div class="section-title">Clinical Presentation</div>
+      <div class="three-col">
+        <div class="card">
+          <div class="card-label">Prodrome</div>
+          <p>Pain, burning, or tingling in the V1 dermatome precedes the rash by days. Constitutional symptoms: fever, malaise, fatigue, headache.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Rash</div>
+          <p>Vesicular rash on erythematous base in unilateral, single dermatomal (V1) distribution. Does not cross the midline.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Nasociliary Sign</div>
+          <p>Hutchinson's sign: vesicles on the tip/side of nose (nasociliary branch) → strongly predicts ocular involvement</p>
+        </div>
+      </div>
+
+      <div class="section-title">Ocular Involvement</div>
+      <table>
+        <thead><tr><th>Structure</th><th>Manifestation</th></tr></thead>
+        <tbody>
+          <tr><td>Eyelids</td><td>Blepharitis (inflammation)</td></tr>
+          <tr><td>Conjunctiva</td><td>Conjunctivitis, episcleritis</td></tr>
+          <tr><td>Cornea</td><td>Epithelial keratitis; stromal keratitis → corneal oedema</td></tr>
+          <tr><td>Uveal tract</td><td>Uveitis (iris, ciliary body, choroid inflammation)</td></tr>
+          <tr><td>Long-term</td><td>Prolonged inflammation → permanent visual loss</td></tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">Pathology &amp; Complications</div>
+      <ul>
+        <li>Intense local inflammation and tissue necrosis</li>
+        <li>Virus-induced perineuritis (neuritis)</li>
+        <li>Serious complications: meningoencephalitis, myelitis, vasculitis, cranial neuritis</li>
+        <li>Postherpetic neuralgia: chronic neuropathic pain persisting long after rash resolution (30% of HZO cases)</li>
+      </ul>
+
+      <div class="section-title">Diagnosis</div>
+      <p>Typically a clinical diagnosis based on the dermatomal vesicular rash in the V1 distribution. Molecular confirmation (PCR, antibody serology) available for ambiguous cases.</p>
+
+      <div class="section-title">Differential Diagnosis</div>
+      <ul>
+        <li>Herpes simplex keratitis / dermatitis</li>
+        <li>Bacterial or viral conjunctivitis</li>
+        <li>Allergic conjunctivitis</li>
+        <li>Acute angle-closure glaucoma</li>
+        <li>Corneal ulcer or abrasion</li>
+        <li>Contact dermatitis or insect bites</li>
+      </ul>
+
+      <div class="clinical">
+        <div class="cl-title">🩺 Clinical Pearl</div>
+        <p>HZO diagnosis does not automatically mean eye involvement — only ~50% of HZO cases affect the eye. However, <strong>nasociliary branch involvement (Hutchinson's sign)</strong> is the most important predictor of ocular disease and should prompt urgent ophthalmology referral. Early antiviral therapy reduces the risk of postherpetic neuralgia and ocular complications.</p>
+      </div>
+    </div>
+
+  </div><!-- end tab-wrap -->
+
+  <footer class="footer">
+    <span>Head &amp; Neck Anatomy · Objective 40G</span>
+    <span>Sources: UNE COM Clinical Backbone — Bell's Palsy, Trigeminal Neuralgia, Sinusitis, HZO</span>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       MCQ SECTION
+  ════════════════════════════════════════════ -->
+  <div class="mcq-section">
+    <div class="mcq-header">
+      <div class="tag">Practice Questions</div>
+      <h2 class="mcq-title">Clinical MCQs — Objective 40G</h2>
+      <p class="mcq-sub">Ten clinical vignette questions. Select an answer to reveal the explanation.</p>
+      <div class="mcq-progress-bar"><div class="mcq-progress-fill" id="progressFill"></div></div>
+      <div class="mcq-score-line" id="scoreLine">0 / 10 answered</div>
+    </div>
+
+    <div id="quizContainer"></div>
+
+    <div class="mcq-results" id="mcqResults" style="display:none;">
+      <div class="results-inner">
+        <div class="results-score" id="resultsScore"></div>
+        <div class="results-msg" id="resultsMsg"></div>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Quiz</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .page -->
+
+<style>
+  /* ── MCQ STYLES ── */
+  .mcq-section {
+    margin-top: 64px;
+    border-top: 2px solid var(--rust);
+    padding-top: 8px;
+  }
+  .mcq-section::before {
+    content: ''; display: block; height: 1px;
+    background: var(--gold); margin-bottom: 36px;
+  }
+  .mcq-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .mcq-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 18px; }
+
+  .mcq-progress-bar {
+    height: 6px; background: var(--parchment);
+    border-radius: 3px; overflow: hidden; margin-bottom: 8px;
+  }
+  .mcq-progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--rust), var(--gold));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+  .mcq-score-line {
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 36px;
+  }
+
+  /* Individual question card */
+  .q-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin-bottom: 22px;
+    transition: box-shadow 0.2s;
+  }
+  .q-card:hover { box-shadow: 0 3px 14px rgba(0,0,0,0.07); }
+
+  .q-number {
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--rust); margin-bottom: 8px;
+  }
+  .q-tag {
+    display: inline-block;
+    font-size: 0.65rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 2px 9px; border-radius: 20px;
+    border: 1px solid currentColor;
+    margin-left: 10px; vertical-align: middle;
+    position: relative; top: -1px;
+  }
+  .tag-bells  { color: var(--c-bells); }
+  .tag-trig   { color: var(--c-trig); }
+  .tag-sinus  { color: var(--c-sinus); }
+  .tag-hzo    { color: var(--c-hzo); }
+
+  .q-stem {
+    font-size: 0.95rem; line-height: 1.7;
+    margin-bottom: 18px; color: var(--ink);
+  }
+  .q-stem strong { font-weight: 600; }
+
+  /* Options */
+  .q-options { display: flex; flex-direction: column; gap: 9px; }
+  .q-opt {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 11px 15px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    background: var(--cream);
+    font-size: 0.88rem; line-height: 1.55;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: left; width: 100%;
+  }
+  .q-opt:hover:not(:disabled) {
+    border-color: var(--rust);
+    background: white;
+  }
+  .q-opt .opt-letter {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--parchment);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 600;
+    color: var(--muted);
+    transition: background 0.15s, color 0.15s;
+    margin-top: 1px;
+  }
+  .q-opt.correct {
+    background: #edf7ee; border-color: #4a8a52;
+  }
+  .q-opt.correct .opt-letter {
+    background: #4a8a52; color: white; border-color: #4a8a52;
+  }
+  .q-opt.wrong {
+    background: #fdf0ee; border-color: #c0473a;
+  }
+  .q-opt.wrong .opt-letter {
+    background: #c0473a; color: white; border-color: #c0473a;
+  }
+  .q-opt.dimmed { opacity: 0.45; cursor: default; }
+  .q-opt:disabled { cursor: default; }
+
+  /* Explanation */
+  .q-explanation {
+    display: none;
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: #f7f4ee;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.87rem; line-height: 1.65;
+    animation: fadeIn 0.2s ease;
+  }
+  .q-explanation.show { display: block; }
+  .q-explanation .exp-label {
+    font-weight: 600; font-size: 0.7rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 6px;
+  }
+
+  /* Results */
+  .mcq-results {
+    background: white; border: 1px solid var(--border);
+    border-radius: 6px; padding: 36px;
+    text-align: center; margin-top: 28px;
+  }
+  .results-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 700; color: var(--rust);
+    margin-bottom: 8px;
+  }
+  .results-msg { font-size: 1rem; color: var(--muted); margin-bottom: 22px; }
+  .reset-btn {
+    background: var(--rust); color: white;
+    border: none; padding: 11px 28px;
+    border-radius: 3px; cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .reset-btn:hover { background: #6e2d1e; }
+
+  @media (max-width: 600px) {
+    .q-card { padding: 20px 16px; }
+  }
+</style>
+
+<script>
+  /* ── TAB LOGIC ── */
+  const btns = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  /* ── QUIZ DATA ── */
+  const questions = [
+    {
+      topic: "bells", topicLabel: "Bell's Palsy",
+      stem: `A 34-year-old woman who is 36 weeks pregnant wakes up one morning unable to close her right eye. On examination she cannot raise her right eyebrow, wrinkle her forehead on the right, smile symmetrically, or fully close the right eyelid. She reports food tasting "off" and says sounds seem unusually loud on the right side. Which of the following best explains the complete unilateral involvement of both the upper and lower facial muscles?`,
+      options: [
+        "An upper motor neuron lesion interrupting corticobulbar fibres to the right facial nucleus, sparing bilateral forehead representation",
+        "A lower motor neuron lesion of the right facial nerve at or distal to the stylomastoid foramen, affecting all ipsilateral CN VII branches",
+        "Demyelination of the right trigeminal sensory root by a compressive vascular loop near the pons causing referred facial weakness",
+        "An ischaemic stroke in the right posterior internal capsule disrupting motor pathways to the contralateral facial nucleus",
+        "Bilateral cortical suppression of facial motor output secondary to gestational hypertension affecting the motor homunculus"
+      ],
+      answer: 1,
+      explanation: "Bell's palsy is a lower motor neuron (LMN) lesion of CN VII. LMN lesions affect ALL ipsilateral facial muscles — including the frontalis — because the facial nucleus receives only contralateral cortical input for the lower face but bilateral input for the forehead. An UMN stroke spares the forehead due to this bilateral representation. The hyperacusis reflects stapedius paralysis (CN VII branch), and the taste loss reflects involvement of the chorda tympani (anterior ⅔ tongue). Pregnancy triples Bell's palsy risk, especially in the third trimester."
+    },
+    {
+      topic: "bells", topicLabel: "Bell's Palsy",
+      stem: `A 28-year-old man presents with a 3-day history of progressive left-sided facial droop that started suddenly after a camping trip in New England. He cannot close his left eye fully and has asymmetric smiling. He denies rash, ear pain, or fever. On review of systems he reports bilateral knee pain and a circular red rash on his left thigh two weeks ago that he ignored. What is the most appropriate next diagnostic step?`,
+      options: [
+        "Perform MRI with gadolinium of the head to rule out a pontine demyelinating lesion causing facial nerve dysfunction",
+        "Order serologic testing for Borrelia burgdorferi antibodies given the history of tick exposure, migratory arthritis, and prior erythema migrans rash",
+        "Request nerve conduction studies and EMG of the facial nerve to determine the degree of axonal degeneration and prognosis for recovery",
+        "Obtain a CT scan of the temporal bones to identify bony erosion of the facial canal consistent with cholesteatoma or otitis media",
+        "Initiate high-dose oral corticosteroids empirically for presumed idiopathic Bell's palsy without further workup at this time"
+      ],
+      answer: 1,
+      explanation: "This presentation is classic for Lyme disease neuroborreliosis — New England camping exposure, prior erythema migrans, migratory arthritis, and now unilateral facial palsy. Lyme disease is a key differential for Bell's palsy and should always be excluded when there is epidemiological exposure. Serology (ELISA confirmed by Western blot) is the appropriate next step. Empiric steroids without ruling out Lyme disease could be harmful. MRI may be indicated for atypical features, but Lyme serology is the priority here."
+    },
+    {
+      topic: "trig", topicLabel: "Trigeminal Neuralgia",
+      stem: `A 67-year-old woman presents with a 4-month history of right-sided facial pain. She describes brief, electric shock-like jabs of excruciating pain that last 1–2 seconds, triggered by brushing her teeth, eating, and cool air on the cheek. Between attacks she has a constant mild aching in her right cheek. The pain is strictly limited to the right cheek, upper lip, and side of the nose. Neurological examination is entirely normal. Which of the following is the most likely diagnosis?`,
+      options: [
+        "Cluster headache with autonomic features causing periorbital pain radiating to the maxillary territory of the right trigeminal nerve",
+        "Trigeminal neuralgia involving the maxillary division (V2) of the right trigeminal nerve, triggered by light tactile stimulation",
+        "Acute maxillary sinusitis causing referred dental pain and cheek pressure aggravated by changes in facial position and temperature",
+        "Postherpetic neuralgia following a subclinical herpes zoster infection of the right trigeminal ganglion with dermatomal dysaesthesia",
+        "Temporomandibular joint disorder producing myofascial pain radiating along the distribution of the auriculotemporal and masseteric nerves"
+      ],
+      answer: 1,
+      explanation: "This is a textbook presentation of trigeminal neuralgia involving V2 (maxillary division): paroxysmal, severe, electric shock-like pain lasting seconds, triggered by innocuous tactile stimuli (brushing teeth, eating, cold air), strictly limited to one CN V division, with no neurological deficit. The background dull ache is a commonly reported accompaniment. The perioral and nasal region is the most frequent trigger zone. A normal neurological exam is expected in classical trigeminal neuralgia. MRI ± MRA should be obtained to rule out neurovascular compression."
+    },
+    {
+      topic: "trig", topicLabel: "Trigeminal Neuralgia",
+      stem: `A 52-year-old man with a known history of multiple sclerosis presents with sudden-onset, severe left-sided facial pain that he rates 10/10. He describes it as a "stabbing electric shock" lasting about 30 seconds, occurring dozens of times daily, triggered by talking and swallowing. MRI shows a small demyelinating plaque at the left trigeminal nerve root entry zone. Which of the following best explains the mechanism by which the demyelinating lesion produces his pain attacks?`,
+      options: [
+        "Loss of inhibitory interneurons in the spinal trigeminal nucleus allows unmodulated pain signals from the posterior third of the tongue to reach consciousness via the thalamus",
+        "Demyelination at the trigeminal root entry zone permits ephaptic cross-talk between large-diameter touch fibres and small-diameter nociceptive fibres, generating pain from light tactile stimuli",
+        "Inflammatory oedema within the trigeminal ganglion compresses all three divisions simultaneously causing diffuse bilateral facial pain and autonomic dysfunction",
+        "Ischaemia of the ascending trigeminal pathway in the lateral pons directly activates wide-dynamic-range neurons in the ventral posteromedial thalamic nucleus",
+        "Demyelination accelerates saltatory conduction in A-beta fibres to pathological speeds that overwhelm the gate-control mechanism at the level of the trigeminal nucleus caudalis"
+      ],
+      answer: 1,
+      explanation: "Ephaptic transmission is the key mechanism in trigeminal neuralgia. When the myelin sheath is disrupted (here by an MS plaque at the root entry zone), insulation between adjacent axons breaks down. Large-diameter A-beta fibres (light touch) become electrically coupled with small-diameter A-delta and C fibres (pain), so an innocuous touch stimulus 'cross-fires' and generates a volley of pain signals. Central sensitisation also contributes to the refractory period seen between attacks. MS is an important cause of secondary (symptomatic) trigeminal neuralgia, particularly in younger patients."
+    },
+    {
+      topic: "sinus", topicLabel: "Sinusitis",
+      stem: `A 42-year-old woman presents to her primary care physician with 12 days of nasal congestion, yellow-green nasal discharge, and right cheek pain that worsens when she bends forward. She reports a mild upper respiratory infection that appeared to improve on day 5–6 but then worsened significantly over the past 3–4 days. She is afebrile today. On examination there is tenderness to percussion over the right maxillary sinus. Which of the following best describes the pathophysiology leading to her current presentation?`,
+      options: [
+        "Primary bacterial invasion of the nasal mucosa causing direct haematogenous seeding of the maxillary sinus with resultant purulent accumulation and periosteal inflammation",
+        "A viral upper respiratory infection causing mucosal oedema and ostial obstruction, followed by bacterial superinfection of the stagnant secretions in the isolated maxillary sinus",
+        "Allergen-mediated IgE degranulation triggering mast cell release of histamine within the maxillary sinus mucosa leading to eosinophilic mucosal hypertrophy and polyp formation",
+        "Impaired mucociliary clearance secondary to primary ciliary dyskinesia allowing normal nasal flora to colonise the maxillary sinus and proliferate in the absence of drainage",
+        "Anatomic septal deviation mechanically compressing the right middle meatus causing chronic unilateral obstruction that became symptomatic during a routine viral respiratory illness"
+      ],
+      answer: 1,
+      explanation: "This is classic acute bacterial sinusitis following a viral URI — the 'double-worsening' pattern (initial improvement then deterioration at days 5–6) is a hallmark finding. The viral infection causes mucosal oedema that closes the ostium of the maxillary sinus; unable to drain, secretions stagnate and become a culture medium for secondary bacterial infection (most commonly S. pneumoniae, H. influenzae, M. catarrhalis). The three prerequisite pathophysiological factors are: (1) ostial obstruction, (2) ciliary impairment, and (3) altered mucus quality causing secretion stasis. Bacterial sinusitis is diagnosed when symptoms persist ≥10 days without improvement or follow a double-worsening course."
+    },
+    {
+      topic: "sinus", topicLabel: "Sinusitis",
+      stem: `A 58-year-old man with poorly controlled type 1 diabetes presents to the emergency department with a 5-day history of right-sided nasal congestion, fever of 39.2°C, severe headache, and altered mental status. On examination of the nasal cavity, the physician notes a dark, necrotic ulcer on the right nasal septum. CT sinuses shows opacification of the right maxillary and ethmoid sinuses with early bony erosion of the medial orbital wall. Which of the following pathogens is most likely responsible for this presentation?`,
+      options: [
+        "Streptococcus pneumoniae causing an acute bacterial sinusitis complicated by orbital cellulitis in a patient with uncontrolled hyperglycaemia altering neutrophil function",
+        "An invasive fungal organism such as Mucor or Rhizopus species causing rhinocerebral mucormycosis in the setting of diabetic ketoacidosis and immunocompromise",
+        "Aspergillus fumigatus forming a fungus ball (mycetoma) within the right maxillary sinus causing unilateral symptoms with reactive bony sclerosis at the sinus walls",
+        "Pseudomonas aeruginosa causing malignant otitis externa that has spread medially from the external auditory canal to involve the paranasal sinuses and skull base",
+        "Staphylococcus aureus causing suppurative sinusitis with subperiosteal abscess formation requiring immediate surgical drainage and prolonged antifungal therapy"
+      ],
+      answer: 1,
+      explanation: "This is rhinocerebral mucormycosis (invasive fungal sinusitis) — a life-threatening emergency. The classic triad is: diabetic or immunocompromised patient + necrotic nasal/sinus mucosa + rapid progression to orbital/intracranial invasion. Mucorales (Rhizopus, Mucor, Cunninghamella) are angio-invasive organisms that thrive in high-glucose, low-pH environments — exactly the milieu of diabetic ketoacidosis. Bony erosion and altered mental status indicate intracranial extension. Aspergillus mycetoma (option C) causes noninvasive, unilateral disease without systemic illness or bone erosion. Immediate treatment requires surgical debridement and systemic antifungals (amphotericin B)."
+    },
+    {
+      topic: "hzo", topicLabel: "Herpes Zoster Ophthalmicus",
+      stem: `A 71-year-old immunocompetent woman presents with a 3-day history of burning pain and tingling across her right forehead and around her right eye. This morning she noticed a cluster of fluid-filled blisters on her right forehead and the tip of her nose. She has no visual symptoms yet. On examination she is afebrile; the vesicular rash is in a unilateral distribution that does not cross the midline. Which of the following findings on examination is most predictive of subsequent ocular involvement?`,
+      options: [
+        "Vesicles confined to the right upper eyelid and medial canthal region innervated by the supratrochlear branch of the frontal nerve within the V1 dermatome",
+        "Vesicles present on the tip and lateral side of the nose, indicating involvement of the nasociliary branch of the ophthalmic division of the trigeminal nerve",
+        "Constitutional symptoms including low-grade fever and cervical lymphadenopathy suggesting viral viraemia and systemic dissemination of the varicella-zoster virus",
+        "Vesicles extending to the right auricle and external auditory canal indicating Ramsay Hunt syndrome with concurrent CN VII and CN VIII involvement",
+        "Prodromal right-sided headache lasting more than 72 hours before the appearance of vesicles, suggesting early meningeal inflammation and increased intracranial pressure"
+      ],
+      answer: 1,
+      explanation: "Hutchinson's sign — vesicles on the tip or lateral side of the nose — indicates involvement of the nasociliary branch of V1. The nasociliary nerve also supplies the globe (via the long ciliary nerves), so its involvement predicts ocular disease. Approximately 50% of HZO cases involve the eye, and nasociliary involvement makes this significantly more likely. This finding should prompt urgent ophthalmology referral even in the absence of visual symptoms. Vesicles limited to the forehead (supratrochlear/supraorbital branches of frontal nerve) carry lower ocular risk."
+    },
+    {
+      topic: "hzo", topicLabel: "Herpes Zoster Ophthalmicus",
+      stem: `A 63-year-old man treated with methotrexate for rheumatoid arthritis presents with left-sided forehead pain for 4 days followed by the appearance of a vesicular rash. He is now reporting blurred vision and a red left eye. Slit-lamp examination reveals dendritic epithelial lesions on the cornea and flare in the anterior chamber. Which of the following ocular complications is the examination most consistent with?`,
+      options: [
+        "Blepharitis and preseptal cellulitis of the left upper eyelid caused by direct vesicular skin infection spreading to the subcutaneous tissue of the orbital rim",
+        "Keratitis and uveitis from direct VZV invasion of the corneal epithelium and uveal tract, consistent with anterior segment involvement of herpes zoster ophthalmicus",
+        "Acute angle-closure glaucoma precipitated by inflammation-induced forward displacement of the lens-iris diaphragm compressing the trabecular meshwork in the anterior chamber",
+        "Optic neuritis caused by demyelination of the left optic nerve secondary to VZV-mediated cranial nerve inflammation and periaxonal immune complex deposition",
+        "Allergic conjunctivitis triggered by topical antiviral eye drops prescribed empirically before this visit, causing epithelial toxicity and pseudomembrane formation"
+      ],
+      answer: 1,
+      explanation: "The findings — dendritic epithelial lesions (keratitis) plus anterior chamber flare (uveitis) — are characteristic of anterior segment HZO involvement. VZV can directly infect the corneal epithelium and spread to the uveal tract (iris, ciliary body, choroid). Corneal involvement ranges from superficial punctate epithelial keratitis to deep stromal keratitis, which can cause permanent corneal oedema and visual loss. Anterior chamber flare represents breakdown of the blood-aqueous barrier due to uveitis. Prolonged untreated inflammation risks permanent visual impairment. This patient's immunosuppression (methotrexate) increases his risk of severe or disseminated zoster."
+    },
+    {
+      topic: "bells", topicLabel: "Bell's Palsy",
+      stem: `A 45-year-old man presents to the emergency department 36 hours after sudden onset of complete right-sided facial paralysis. He is unable to close his right eye and reports that the right side of his face "feels numb," though sensation is intact on pinprick testing. He reports no rash, hearing loss, or ear pain. On examination the right eye is dry, and he has a Schirmer's test showing reduced lacrimation on the right. Which anatomical feature best explains why damage within the facial canal can simultaneously cause facial muscle paralysis, reduced lacrimation, and hyperacusis?`,
+      options: [
+        "The facial nerve carries only somatic motor fibres within the facial canal; the observed autonomic and sensory findings reflect co-compression of the adjacent glossopharyngeal nerve at the jugular foramen",
+        "The facial nerve is a mixed nerve whose parasympathetic, taste, and somatic motor components all travel through the facial canal, so a single lesion there can disrupt all these functions simultaneously",
+        "Oedema within the facial canal compresses the petrosal venous plexus, causing venous hypertension that secondarily impairs lacrimal gland drainage and produces a reactive hyperaemia of the tympanic membrane",
+        "The facial nerve and the vestibulocochlear nerve share a common epineurial sheath within the internal auditory meatus, so Bell's palsy always involves subclinical cochlear dysfunction detected only by audiometry",
+        "Compression of the geniculate ganglion within the canal activates the trigeminal system via trigeminofacial anastomoses, producing referred autonomic symptoms including altered lacrimation and stapedial reflex changes"
+      ],
+      answer: 1,
+      explanation: "The facial nerve (CN VII) is a mixed cranial nerve. Within the facial canal it carries: (1) somatic motor fibres to muscles of facial expression; (2) parasympathetic (GVE) fibres via the greater petrosal nerve to the lacrimal gland (hence reduced tearing); (3) parasympathetic fibres via the chorda tympani to submandibular and sublingual glands; (4) special afferent (taste) fibres from the anterior ⅔ of the tongue via the chorda tympani; (5) somatic motor to the stapedius (hence hyperacusis when paralysed); and (6) general somatic afferent fibres from the external auditory canal and pinna. Because all these components travel together within this narrow bony canal, a single inflammatory insult can produce the full syndrome seen in Bell's palsy."
+    },
+    {
+      topic: "sinus", topicLabel: "Sinusitis",
+      stem: `A 19-year-old university student presents in February with a 3-week history of nasal congestion, yellow posterior nasal discharge, facial pressure around the eyes and cheeks, and reduced sense of smell. She initially had a cold that seemed to be improving, but symptoms never fully resolved and she has had two similar episodes in the past year. Nasal endoscopy reveals mucopurulent discharge in the middle meatus and mucosal oedema. CT of the sinuses shows mucoperiosteal thickening in the bilateral ethmoid and maxillary sinuses. Which of the following best characterises her condition?`,
+      options: [
+        "Acute bacterial rhinosinusitis caused by Streptococcus pneumoniae requiring a 5–7 day course of amoxicillin-clavulanate and nasal saline irrigation without further workup",
+        "Chronic rhinosinusitis, defined by symptoms of nasal congestion, mucopurulent drainage, facial pain, and anosmia lasting more than 12 weeks with endoscopic and radiographic evidence of persistent mucosal inflammation",
+        "Allergic fungal sinusitis with characteristic thick, inspissated mucin in the sinuses and peripheral eosinophilia in a young atopic patient with recurrent sinusitis and nasal polyposis",
+        "Recurrent acute bacterial sinusitis defined as four or more discrete episodes per year each lasting less than 4 weeks with complete resolution of symptoms and CT changes between episodes",
+        "Viral rhinosinusitis secondary to influenza with prolonged mucosal inflammation requiring systemic antivirals and nasal corticosteroid spray to prevent progression to bacterial superinfection"
+      ],
+      answer: 1,
+      explanation: "Chronic rhinosinusitis (CRS) is defined by ≥2 of the following symptoms for more than 12 weeks: mucopurulent drainage, nasal obstruction/congestion, facial pain/pressure, or anosmia/hyposmia — AND objective evidence of inflammation (endoscopy showing purulent mucus or oedema in the middle meatus, or CT mucosal changes). This patient has nasal congestion, purulent discharge, facial pressure, anosmia, bilateral mucosal thickening on CT, and endoscopic mucosal oedema, all present for 3 weeks with recurrent prior episodes — meeting CRS criteria. This distinguishes it from recurrent acute sinusitis (complete resolution between episodes) or straightforward acute bacterial sinusitis."
+    }
+  ];
+
+  /* ── QUIZ RENDER ── */
+  let answered = 0;
+  let correct = 0;
+  const answeredMap = {};
+
+  function buildQuiz() {
+    const container = document.getElementById('quizContainer');
+    container.innerHTML = '';
+    answered = 0; correct = 0;
+    updateProgress();
+
+    questions.forEach((q, qi) => {
+      const card = document.createElement('div');
+      card.className = 'q-card';
+      card.id = 'qcard-' + qi;
+
+      const letters = ['A','B','C','D','E'];
+      const optsHTML = q.options.map((opt, oi) => `
+        <button class="q-opt" data-qi="${qi}" data-oi="${oi}" onclick="selectAnswer(${qi},${oi})">
+          <span class="opt-letter">${letters[oi]}</span>
+          <span>${opt}</span>
+        </button>
+      `).join('');
+
+      card.innerHTML = `
+        <div class="q-number">
+          Question ${qi+1} of ${questions.length}
+          <span class="q-tag tag-${q.topic}">${q.topicLabel}</span>
+        </div>
+        <div class="q-stem">${q.stem}</div>
+        <div class="q-options" id="opts-${qi}">${optsHTML}</div>
+        <div class="q-explanation" id="exp-${qi}">
+          <div class="exp-label">✦ Explanation</div>
+          <p>${q.explanation}</p>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function selectAnswer(qi, oi) {
+    if (answeredMap[qi] !== undefined) return;
+    answeredMap[qi] = oi;
+    answered++;
+
+    const q = questions[qi];
+    const optsEl = document.getElementById('opts-' + qi);
+    const allOpts = optsEl.querySelectorAll('.q-opt');
+    const expEl = document.getElementById('exp-' + qi);
+
+    allOpts.forEach((btn, idx) => {
+      btn.disabled = true;
+      if (idx === q.answer) btn.classList.add('correct');
+      else if (idx === oi && oi !== q.answer) btn.classList.add('wrong');
+      else btn.classList.add('dimmed');
+    });
+
+    if (oi === q.answer) correct++;
+    expEl.classList.add('show');
+    updateProgress();
+
+    if (answered === questions.length) {
+      setTimeout(showResults, 600);
+    }
+  }
+
+  function updateProgress() {
+    const pct = (answered / questions.length) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('scoreLine').textContent = answered + ' / ' + questions.length + ' answered';
+  }
+
+  function showResults() {
+    const el = document.getElementById('mcqResults');
+    el.style.display = 'block';
+    const pct = Math.round((correct / questions.length) * 100);
+    document.getElementById('resultsScore').textContent = correct + ' / ' + questions.length + ' correct (' + pct + '%)';
+    let msg;
+    if (pct >= 90) msg = "Excellent — strong command of these illness scripts.";
+    else if (pct >= 70) msg = "Good work — review the explanations for any missed questions.";
+    else if (pct >= 50) msg = "Passing — revisit the tabs above and retry.";
+    else msg = "Keep studying — focus on the pathophysiology sections above.";
+    document.getElementById('resultsMsg').textContent = msg;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function resetQuiz() {
+    Object.keys(answeredMap).forEach(k => delete answeredMap[k]);
+    document.getElementById('mcqResults').style.display = 'none';
+    buildQuiz();
+    window.scrollTo({ top: document.querySelector('.mcq-section').offsetTop - 30, behavior: 'smooth' });
+  }
+
+  buildQuiz();
+</script>
+</body>
+</html>
