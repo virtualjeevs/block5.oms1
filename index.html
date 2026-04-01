@@ -43,6 +43,10 @@ body,.sb,.auth-card,.mn,.tt,.modal-card,.chip,.qbd,.cd,.r-box,.box,.panel,.auth-
 .sb-brand-txt h1{font-family:\'Crimson Pro\',serif;font-size:34px;font-weight:700;line-height:1.02;letter-spacing:-0.45px}
 .sb-brand-txt h1 em{font-style:normal;color:var(--teal-glow)}
 .sb-brand-txt small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:0.48;letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+.sb-user-actions{margin-top:16px;display:grid;gap:10px}
+.sb-user-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.sb-logout-btn{width:100%;padding:11px 14px;border:none;border-radius:14px;background:rgba(255,255,255,.08);color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;cursor:pointer;transition:var(--tr);text-align:left}
+.sb-logout-btn:hover{background:rgba(255,255,255,.15);transform:translateY(-1px)}
 .sb-tabs{display:flex;margin:14px 14px 0;gap:5px}
 .sb-tab{flex:1;padding:10px 0;text-align:center;font-size:12.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;border-radius:8px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.3);transition:var(--tr);font-family:'Nunito',sans-serif}
 .sb-tab:hover{color:rgba(255,255,255,0.55);background:rgba(255,255,255,0.06)}
@@ -1586,7 +1590,7 @@ OCS:{fullName:"Osteopathic Clinical Skills",
   weeks:{
   1:{label:"Week 1",weekNum:38,
     notes:[{title:"Head & Neck Anatomy Review",file:"notes/head-neck-review.html",icon:"\uD83E\uDDB4",group:"Donor"},
-{title:"Week 38 — Cervical Spine OCS Notes",file:"notes/OCS/week38_cervical_spine_ocs_notes.html",icon:"🦴",group:"Donor",allowedUsers:["jmehta@une.edu","rwolfe4@une.edu","deverly@une.edu"]},
+{title:"Week 38 — Cervical Spine OCS Notes",file:"notes/OCS/week38_cervical_spine_ocs_notes.html",icon:"🦴",group:"OCS",allowedUsers:["jmehta@une.edu","rwolfe4@une.edu","deverly@une.edu"]},
 {title:"Endocrine Histology",icon:"\uD83D\uDD2C",group:"Histology",links:[
   {label:"Interactive Quiz \u2192",href:"histology/endocrine_histo_quiz_reworked_fixed.html",style:"open"},
   {label:"UNE Manual \u2197",href:"https://brightspace.une.edu/content/enforced/66547-50227-202404-DOM-511-01/Week%2037%20Endocrine%20Manual.pdf?ou=66547&ou=107417",style:"dl"},
@@ -1723,7 +1727,7 @@ OCS:{fullName:"Osteopathic Clinical Skills",
       {label:"Open Donor Notes",href:"notes/week39/OCS/donor/LO_39F.html",style:"open"}
     ]},
     {title:"LO 39G — Scalp: Layers, Blood Supply & Innervation",file:"notes/week39/OCS/donor/LO_39G.html",icon:"🩸",group:"Head & Neck Anatomy"},    {title:"LO 39H — Clinical Pathophysiology",file:"notes/week39/OCS/donor/LO_39H.html",icon:"🩺",group:"Clinical"},
-    {title:"Week 39 — Cranial Nerves OCS Notes",file:"notes/OCS/cranial_nerves_wk39.html",icon:"⚡",group:"Neuroscience",allowedUsers:["jmehta@une.edu","rwolfe4@une.edu","deverly@une.edu"]},
+    {title:"Week 39 — Cranial Nerves OCS Notes",file:"notes/OCS/cranial_nerves_wk39.html",icon:"⚡",group:"OCS",allowedUsers:["jmehta@une.edu","rwolfe4@une.edu","deverly@une.edu"]},
     {title:"Bone Quiz (vhdissector.com)",icon:"🦴",group:"Head & Neck Anatomy",links:[
       {label:"Ethymoid",href:"notes/week40/OCS/bonequiz/Ethymoid/Ethymoid.html",style:"open"},
       {label:"Mandible",href:"notes/week40/OCS/bonequiz/Mandible/Mandible.html",style:"open"},
@@ -1752,7 +1756,7 @@ OCS:{fullName:"Osteopathic Clinical Skills",
     {title:"LO 40E — Clinical Presentation of Traumatic Damage to the Facial Nerve",file:"notes/week40/OCS/facial_nerve_LOs.html",icon:"🩺",group:"Clinical"},
     {title:"LO 40F — Parotid Gland, Relationship with CN VII & Innervation by CN IX",file:"notes/week40/OCS/40F_parotid_gland_notes-2.html",icon:"🧠",group:"Head & Neck Anatomy"},
     {title:"LO 40G — Epidemiology, Clinical Presentation & Pathophysiology",file:"notes/week40/OCS/40G_illness_scripts.html",icon:"📚",group:"Clinical"},
-    {title:"Week 40 — Coordination OCS Notes",file:"notes/OCS/coordination_wk40.html",icon:"🧠",group:"Clinical",allowedUsers:["jmehta@une.edu","rwolfe4@une.edu","deverly@une.edu"]}
+    {title:"Week 40 — Coordination OCS Notes",file:"notes/OCS/coordination_wk40.html",icon:"🧠",group:"OCS",allowedUsers:["jmehta@une.edu","rwolfe4@une.edu","deverly@une.edu"]}
   ],quizzes:[],assessments:[
     {name:"Bone Quiz (vhdissector.com)",links:[
       {label:"Ethymoid",href:"notes/week40/OCS/bonequiz/Ethymoid/Ethymoid.html",style:"open"},
@@ -1843,7 +1847,8 @@ function getVisibleLinks(links){
 }
 
 function rSB(){var w=DATA[CC].weeks,al=DATA[CC].assessLabel;var oldList=document.querySelector('#sb .sb-list');var prevScroll=oldList?oldList.scrollTop:0;
-var h='<div class="sb-hd"><div class="sb-brand"><img src="'+LOGO+'" alt="UNE"><div class="sb-brand-txt"><h1>Block <em>5</em></h1><small>UNE COM Study Hub</small></div></div></div><div class="sb-tabs"><button class="sb-tab'+(CC==='OMK'?' on':'')+'" onclick="swC(\'OMK\')">OMK</button><button class="sb-tab'+(CC==='OCS'?' on':'')+'" onclick="swC(\'OCS\')">OCS</button></div><div class="sb-list">';
+var userMeta=AUTH_STATE.user?'<div class="sb-user-actions"><div class="sb-user-label">Signed in as '+escapeHtml(AUTH_STATE.user.name||AUTH_STATE.user.email)+'</div><button class="sb-logout-btn" onclick="logoutApp()">Log out</button></div>':'';
+var h='<div class="sb-hd"><div class="sb-brand"><img src="'+LOGO+'" alt="UNE"><div class="sb-brand-txt"><h1>Block <em>5</em></h1><small>UNE COM Study Hub</small></div></div>'+userMeta+'</div><div class="sb-tabs"><button class="sb-tab'+(CC==='OMK'?' on':'')+'" onclick="swC(\'OMK\')">OMK</button><button class="sb-tab'+(CC==='OCS'?' on':'')+'" onclick="swC(\'OCS\')">OCS</button></div><div class="sb-list">';
 for(var k in w){var wk=w[k],a=+k===CW,e=EW[k],hA=wk.assessments&&wk.assessments.length>0,weekExams=WEEK_EXAMS[k]||[];
 var visibleNotes=getVisibleNotes(wk);
 h+='<div class="wk'+(a?' on':'')+(e?' ex':'')+'" data-week="'+k+'"><div class="wk-hd" onclick="swW('+k+')"><span class="wk-n">'+wk.weekNum+'</span><span class="wk-l">'+wk.label+'</span><span class="wk-dots">'+(visibleNotes.length?'<span class="wk-d dn"></span>':'')+(wk.quizzes.length?'<span class="wk-d dq"></span>':'')+(hA?'<span class="wk-d dr"></span>':'')+(weekExams.length?'<span class="wk-d da"></span>':'')+'</span><span class="wk-ch">▾</span></div><div class="wk-sub"><div class="si'+(a&&CV==='overview'?' on':'')+'" data-week="'+k+'" data-view="overview" onclick="go('+k+',\'overview\')"><span class="sii">🗂️</span>Overview</div><div class="si'+(a&&CV==='notes'?' on':'')+'" data-week="'+k+'" data-view="notes" onclick="go('+k+',\'notes\')"><span class="sii">📝</span>Notes'+(visibleNotes.length?'<span class="sic">'+visibleNotes.length+'</span>':'')+'</div><div class="si'+(a&&CV==='quizzes'?' on':'')+'" data-week="'+k+'" data-view="quizzes" onclick="go('+k+',\'quizzes\')"><span class="sii">📚</span>Quizzes'+(wk.quizzes.length?'<span class="sic">'+wk.quizzes.length+'</span>':'')+'</div><div class="si'+(a&&CV==='assess'?' on':'')+'" data-week="'+k+'" data-view="assess" onclick="go('+k+',\'assess\')"><span class="sii">🧪</span>'+al+(hA?'<span class="sic">'+(wk.assessments.length)+'</span>':'')+'</div><div class="si'+(a&&CV==='anki'?' on':'')+'" data-week="'+k+'" data-view="anki" onclick="go('+k+',\'anki\')"><span class="sii">🃏</span>Anki</div>';
@@ -2971,6 +2976,12 @@ function playWelcome(user){
   if(overlay)overlay.classList.add('welcome-state');
   writeLastLogin(user.email);
   setTimeout(unlockApp,special?4300:3200);
+}
+function logoutApp(){
+  clearRememberedAuth();
+  AUTH_STATE.user=null;
+  AUTH_STATE.admin=false;
+  location.reload();
 }
 function unlockApp(){
   var overlay=document.getElementById('authOverlay');
