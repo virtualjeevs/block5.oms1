@@ -2133,6 +2133,8 @@ var ADMIN_ACCOUNT={email:'jmehta@une.edu',password:'test123',name:'Jeevs'};
 // Custom users added through the admin modal still live in localStorage on that device only.
 var AUTH_STORAGE_KEY='une-study-hub-custom-users-v1';
 var AUTH_LAST_LOGIN_KEY='une-study-hub-last-login-v1';
+var AUTH_REMEMBER_KEY='une-study-hub-remembered-auth-v1';
+var AUTH_REMEMBER_MS=4*60*60*1000;
 var EXAM_WEEK_RANGES=[
   /* RAT ramp-up windows: weekend before + Monday exam day */
   {start:'2026-03-14',end:'2026-03-16',label:'RAT'},
@@ -2465,6 +2467,9 @@ function safeStorageRead(key){
 function safeStorageWrite(key,value){
   try{localStorage.setItem(key,value);return true}catch(err){return false}
 }
+function safeStorageRemove(key){
+  try{localStorage.removeItem(key);return true}catch(err){return false}
+}
 function loadCustomUsers(){
   var raw=safeStorageRead(AUTH_STORAGE_KEY);
   if(!raw)return {};
@@ -2491,6 +2496,44 @@ function getAuthUser(email){
   if(!AUTH_USERS[email])return null;
   return {email:email,name:AUTH_USERS[email].name||nameFromEmail(email)};
 }
+function clearRememberedAuth(){
+  safeStorageRemove(AUTH_REMEMBER_KEY);
+}
+function readRememberedAuth(){
+  var raw=safeStorageRead(AUTH_REMEMBER_KEY);
+  if(!raw)return null;
+  try{
+    var parsed=JSON.parse(raw);
+    if(!parsed||typeof parsed!=='object')return null;
+    var email=normEmail(parsed.email);
+    var expiresAt=Number(parsed.expiresAt);
+    if(!email||!expiresAt||Date.now()>=expiresAt){
+      clearRememberedAuth();
+      return null;
+    }
+    var user=getAuthUser(email);
+    if(!user){
+      clearRememberedAuth();
+      return null;
+    }
+    return user;
+  }catch(err){
+    clearRememberedAuth();
+    return null;
+  }
+}
+function writeRememberedAuth(email){
+  var user=getAuthUser(email);
+  if(!user){
+    clearRememberedAuth();
+    return null;
+  }
+  safeStorageWrite(AUTH_REMEMBER_KEY,JSON.stringify({
+    email:user.email,
+    expiresAt:Date.now()+AUTH_REMEMBER_MS
+  }));
+  return user;
+}
 function setAuthMsg(msg,type){
   var el=document.getElementById('authMsg');
   if(!el)return;
@@ -2506,6 +2549,13 @@ function setAdminMsg(msg,type){
 function setupAuth(){
   var form=document.getElementById('authForm');
   var input=document.getElementById('authEmail');
+  var rememberedUser=readRememberedAuth();
+  if(rememberedUser){
+    AUTH_STATE.user=writeRememberedAuth(rememberedUser.email)||rememberedUser;
+    writeLastLogin(rememberedUser.email);
+    unlockApp();
+    return;
+  }
   if(form&&input){
     form.addEventListener('submit',tryAuthLogin);
     renderLoginQuote(new Date());
@@ -2541,6 +2591,7 @@ function tryAuthLogin(ev){
     return;
   }
   AUTH_STATE.user=user;
+  writeRememberedAuth(user.email);
   if(btn)btn.disabled=true;
   setAuthMsg('Verified. Preparing your welcome screen…','success');
   playWelcome(user);
