@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Ochs — Endocrine Pancreas Physiology Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f3eb;--card:#fffdf9;--ink:#1d2430;--muted:#667388;--line:#e6ddd0;--teal:#1d7a70;--teal2:#2ca092;--green:#2c865b;--greenbg:#edf8f1;--red:#c34a4a;--redbg:#fdf1f1;--gold:#c28c1f;--goldbg:#fff6df}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:linear-gradient(180deg,#fbf8f3 0%,var(--bg) 100%);color:var(--ink);padding:20px}
+.wrap{max-width:980px;margin:0 auto}
+.hero,.quiz,.results{background:var(--card);border:1px solid rgba(29,36,48,.08);border-radius:24px;box-shadow:0 18px 50px rgba(19,35,64,.08)}
+.hero{padding:32px}
+.hero h1,.results h2{font-family:'Crimson Pro',serif;color:#182742}
+.hero h1{font-size:46px;line-height:1}
+.hero p,.results p{margin-top:12px;color:var(--muted);line-height:1.7}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 24px}
+.chip{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;font-weight:800}
+button{font-family:'Nunito',sans-serif;border:none;cursor:pointer;transition:.2s ease}
+.primary,.secondary{padding:14px 18px;border-radius:14px;font-weight:800;font-size:15px}
+.primary{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff}
+.secondary{background:#fff;border:1px solid var(--line);color:#182742}
+.quiz,.results{display:none;margin-top:20px}
+.quiz.active,.results.active{display:block}
+.top{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.top h2{font-family:'Crimson Pro',serif;font-size:28px;color:#182742}
+.pill{padding:10px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:12px;font-weight:800}
+.body{padding:24px}
+.progress{height:8px;background:#efe7d9;border-radius:999px;overflow:hidden;margin-bottom:18px}
+.fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal2))}
+.qnum{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.stem{font-family:'Crimson Pro',serif;font-size:30px;line-height:1.28;margin-bottom:18px}
+.choices{display:grid;gap:12px}
+.choice{display:flex;gap:14px;align-items:flex-start;padding:15px 16px;border-radius:18px;border:1.5px solid var(--line);background:#fff;text-align:left}
+.choice.selected{border-color:var(--gold);background:var(--goldbg)}
+.choice.correct{border-color:var(--green);background:var(--greenbg)}
+.choice.incorrect{border-color:var(--red);background:var(--redbg)}
+.letter{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#f4f0e6;border:1px solid var(--line);font-weight:800;flex:0 0 34px}
+.ctext{line-height:1.6;font-size:16px}
+.explain{display:none;margin-top:18px;padding:16px 18px;border-radius:18px;background:#e7f6f2;border-left:5px solid var(--teal)}
+.explain.show{display:block}
+.explain strong{display:block;margin-bottom:8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:22px}
+.results{padding:28px}
+.sum{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 22px}
+.box{min-width:170px;padding:18px;border-radius:18px;background:#fff;border:1px solid var(--line)}
+.box strong{display:block;font-size:34px;font-family:'Crimson Pro',serif;color:#182742}
+.review{display:grid;gap:12px}
+.card{padding:16px 18px;border-radius:18px;background:#fff;border:1px solid var(--line)}
+.card.good{background:#fbfffc;border-color:#bfe0cb}
+.card.bad{background:#fffafa;border-color:#efcaca}
+.card .tag{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.card .st{font-weight:800;line-height:1.55;margin-bottom:8px}
+.card .ln{line-height:1.6;font-size:15px;margin-top:4px}
+@media (max-width:700px){.hero h1{font-size:34px}.stem{font-size:24px}.body,.hero,.results{padding:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero" id="hero">
+    <h1>Dr. Ochs — Endocrine Pancreas Physiology Quiz</h1>
+    <p>25 moderate questions built from the pancreas physiology lecture. This is meant to check whether the main ideas landed, not to bury you in obscure trivia.</p>
+    <div class="meta">
+      <span class="chip">Lecture-based</span>
+      <span class="chip">25 MCQs</span>
+      <span class="chip">Moderate difficulty</span>
+      <span class="chip">Parallel distractors</span>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="primary" id="startBtn">Start Quiz</button>
+      <button class="secondary" id="modeLearnBtn">Learn Mode</button>
+      <button class="secondary" id="modeExamBtn">Exam Mode</button>
+    </div>
+  </section>
+
+  <section class="quiz" id="quiz">
+    <div class="top">
+      <h2>Endocrine Pancreas Physiology</h2>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div class="pill" id="modePill">Mode: Learn</div>
+        <div class="pill" id="scorePill">Score: 0/25</div>
+      </div>
+    </div>
+    <div class="body">
+      <div class="progress"><div class="fill" id="fill" style="width:0%"></div></div>
+      <div class="qnum" id="qnum"></div>
+      <div class="stem" id="stem"></div>
+      <div class="choices" id="choices"></div>
+      <div class="explain" id="explain"><strong>Explanation</strong><div id="explainText"></div></div>
+      <div class="nav">
+        <button class="secondary" id="prevBtn">Previous</button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="secondary" id="resetBtn">Reset</button>
+          <button class="primary" id="nextBtn">Next</button>
+          <button class="primary" id="finishBtn" style="display:none">Finish Quiz</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="results" id="results">
+    <h2>Quiz Review</h2>
+    <p>Your score and a quick review of every question are below.</p>
+    <div class="sum">
+      <div class="box"><strong id="finalScore">0/25</strong><span>Correct</span></div>
+      <div class="box"><strong id="finalPercent">0%</strong><span>Percent</span></div>
+      <div class="box"><strong id="finalMode">Learn</strong><span>Mode</span></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+      <button class="primary" id="restartBtn">Restart Quiz</button>
+      <button class="secondary" id="homeBtn">Back to Top</button>
+    </div>
+    <div class="review" id="review"></div>
+  </section>
+</div>
+
+<script>
+const QUESTIONS=[
+{"stem":"Which pairing of pancreatic islet cell type and major hormone is correct?","choices":["Beta cells secrete insulin as the major anabolic pancreatic hormone","Alpha cells secrete insulin as the major anabolic pancreatic hormone","Delta cells secrete glucagon as the major catabolic pancreatic hormone","PP cells secrete amylin as the major meal-related pancreatic hormone"],"correct":0,"explanation":"Beta cells make insulin, the main anabolic pancreatic hormone. Alpha cells make glucagon, delta cells make somatostatin, and PP cells make pancreatic polypeptide."},
+{"stem":"Which statement best describes amylin in pancreatic physiology?","choices":["It is co-secreted with insulin and slows glucose absorption while suppressing glucagon","It is co-secreted with glucagon and speeds glucose absorption while increasing appetite","It is secreted by delta cells and raises gastric acid while increasing intestinal motility","It is secreted by PP cells and drives hepatic gluconeogenesis after most meals"],"correct":0,"explanation":"Amylin, also called IAPP, is co-secreted with insulin from beta cells. It slows glucose absorption and suppresses glucagon secretion."},
+{"stem":"Which endocrine cell type is concentrated mainly in the posterior lobe of the pancreas?","choices":["PP cells are concentrated mainly in the posterior lobe of the pancreas","Delta cells are concentrated mainly in the posterior lobe of the pancreas","Alpha cells are concentrated mainly in the posterior lobe of the pancreas","Beta cells are concentrated mainly in the posterior lobe of the pancreas"],"correct":0,"explanation":"Most endocrine cell types are scattered throughout the pancreas, but PP cells were specifically noted as being concentrated in the posterior lobe."},
+{"stem":"Which statement about insulin and C-peptide is correct?","choices":["C-peptide is released with insulin and serves as a marker of endogenous secretion","C-peptide is released after insulin and serves as a marker of hepatic clearance","C-peptide is released only after meals and cannot reflect basal beta-cell output","C-peptide is cleared quickly by liver and therefore disappears before insulin"],"correct":0,"explanation":"C-peptide is secreted in equimolar amounts with endogenous insulin and is useful for tracking endogenous insulin release. It is not significantly degraded by the liver."},
+{"stem":"Which sequence best explains glucose-stimulated insulin secretion from a beta cell?","choices":["Glucose uptake raises ATP closes potassium channels depolarizes membrane and opens calcium channels","Glucose uptake lowers ATP opens potassium channels hyperpolarizes membrane and closes calcium channels","Glucose uptake raises cAMP opens sodium channels repolarizes membrane and blocks calcium entry","Glucose uptake lowers cGMP closes chloride channels depolarizes membrane and blocks insulin release"],"correct":0,"explanation":"Glucose enters the beta cell, is metabolized, and raises ATP. ATP closes potassium channels, the membrane depolarizes, voltage-gated calcium channels open, and calcium triggers insulin release."},
+{"stem":"Which nutrient is described as the most potent acute stimulus for insulin secretion?","choices":["Glucose is the strongest acute stimulus for insulin secretion among nutrients","Amino acids are the strongest acute stimulus for insulin secretion among nutrients","Free fatty acids are the strongest acute stimulus for insulin secretion among nutrients","Triglycerides are the strongest acute stimulus for insulin secretion among nutrients"],"correct":0,"explanation":"The lecture explicitly ranks nutrient stimulation as glucose much greater than amino acids, which are greater than free fatty acids."},
+{"stem":"What is the key feature of phase 2 insulin secretion in the biphasic response?","choices":["It rises to sustained levels and prolonged stimulation can desensitize beta cells","It is a brief burst that empties granules and ends before glucose levels rise","It occurs only during fasting and suppresses nutrient-triggered insulin release","It depends only on alpha cells and not on beta-cell glucose sensing"],"correct":0,"explanation":"Phase 1 is the burst. Phase 2 builds to sustained levels, and prolonged stimulation can desensitize beta cells to glucose."},
+{"stem":"Which pathway is most closely linked to the major metabolic actions of insulin signaling?","choices":["The PI3K-AKT pathway is most closely linked to insulin's major metabolic actions","The MAPK-only pathway is most closely linked to insulin's major metabolic actions","The cAMP-PKA pathway is most closely linked to insulin's major metabolic actions","The JAK-STAT pathway is most closely linked to insulin's major metabolic actions"],"correct":0,"explanation":"Insulin receptor signaling proceeds through IRS and then PI3K and MAPK pathways, with PI3K-AKT emphasized for major metabolic effects."},
+{"stem":"Where does insulin increase GLUT4 translocation to the cell surface?","choices":["Insulin increases GLUT4 translocation mainly in skeletal muscle and adipose tissue","Insulin increases GLUT4 translocation mainly in liver tissue and pancreatic alpha cells","Insulin increases GLUT4 translocation mainly in intestinal tissue and renal tubules","Insulin increases GLUT4 translocation mainly in neurons and red blood cells"],"correct":0,"explanation":"The lecture emphasizes that insulin increases GLUT4 translocation in skeletal muscle and adipose tissue. Liver mainly uses GLUT2."},
+{"stem":"Which combination best summarizes insulin's fed-state metabolic effects?","choices":["It increases glycogenesis glycolysis lipogenesis and reduces gluconeogenesis glycogenolysis","It increases gluconeogenesis glycogenolysis lipolysis and reduces glycogenesis glycolysis","It increases ketogenesis proteolysis glycogenolysis and reduces adipose glucose uptake","It increases fasting-state programs broadly and reduces fed-state programs broadly"],"correct":0,"explanation":"Insulin is the fed-state hormone. It promotes glycogenesis, glycolysis, and lipogenesis while suppressing gluconeogenesis and glycogenolysis."},
+{"stem":"How does exercise improve glucose uptake in skeletal muscle according to the lecture?","choices":["Exercise activates AMPK and increases insulin-independent GLUT4 translocation in muscle","Exercise activates AMPK and decreases GLUT4 translocation so muscle relies on liver","Exercise suppresses AMPK and increases insulin receptor signaling mainly in beta cells","Exercise suppresses GLUT4 and shifts muscle toward sodium-glucose cotransport only"],"correct":0,"explanation":"Exercise raises AMP relative to ATP, activates AMPK, and increases insulin-independent GLUT4 translocation in skeletal muscle."},
+{"stem":"Which statement about GLUT transporters is correct?","choices":["GLUT4 is insulin responsive in muscle and adipose tissue whereas GLUT2 is bidirectional in liver","GLUT4 is insulin responsive in liver and neurons whereas GLUT2 is bidirectional in adipose tissue","GLUT4 is insulin responsive in kidney and intestine whereas GLUT2 is bidirectional in muscle","GLUT4 is insulin responsive in red cells and brain whereas GLUT2 is bidirectional in heart"],"correct":0,"explanation":"GLUT4 is the insulin-responsive transporter in muscle and adipose tissue. GLUT2 is a low-affinity bidirectional transporter found in tissues such as liver."},
+{"stem":"Which statement about beta-cell glucose transport was specifically highlighted in the lecture?","choices":["GLUT2 is present in rat beta cells but not in human beta cells","GLUT2 is present in human beta cells but not in rat beta cells","GLUT4 is the dominant transporter in both rat and human beta cells","SGLT2 is the dominant transporter in both rat and human beta cells"],"correct":0,"explanation":"A lecture pearl was that GLUT2 is found in rat beta cells but not in human beta cells."},
+{"stem":"What fraction of filtered glucose is normally reabsorbed by SGLT2 in the kidney?","choices":["About ninety percent of filtered glucose is normally reabsorbed by SGLT2","About fifty percent of filtered glucose is normally reabsorbed by SGLT2","About twenty-five percent of filtered glucose is normally reabsorbed by SGLT2","About ten percent of filtered glucose is normally reabsorbed by SGLT2"],"correct":0,"explanation":"The lecture states that SGLT2 normally reabsorbs about 90% of filtered glucose, while SGLT1 handles the remainder."},
+{"stem":"Which statement best describes glucagon's main physiologic role?","choices":["Glucagon raises hepatic glucose output by promoting glycogenolysis and gluconeogenesis","Glucagon lowers hepatic glucose output by promoting glycogenesis and glycolysis","Glucagon raises skeletal muscle glucose uptake by promoting GLUT4 insertion directly","Glucagon lowers adipose lipolysis by promoting triglyceride storage directly"],"correct":0,"explanation":"Glucagon is a catabolic hormone from alpha cells that raises hepatic glucose output through glycogenolysis and gluconeogenesis."},
+{"stem":"Which amino acid effect on islet hormone secretion was emphasized in the lecture?","choices":["Alanine tends to increase glucagon more whereas leucine tends to increase insulin more","Alanine tends to increase insulin more whereas leucine tends to increase glucagon more","Alanine and leucine both suppress glucagon while strongly increasing somatostatin","Alanine and leucine both suppress insulin while mainly increasing polypeptide secretion"],"correct":0,"explanation":"The lecture notes that alanine primarily raises glucagon while leucine primarily raises insulin. Arginine can stimulate both."},
+{"stem":"How do beta cells acutely suppress glucagon secretion from alpha cells?","choices":["They hyperpolarize alpha cells through KATP effects and enhance GABA-A chloride current","They depolarize alpha cells through sodium entry and block inhibitory chloride current","They stimulate alpha cells through cAMP and enhance glucagon gene transcription directly","They activate alpha cells through MAPK and increase proglucagon translation directly"],"correct":0,"explanation":"Acute suppression of glucagon by beta cells involves hyperpolarization of alpha cells through KATP effects and enhanced GABA-A receptor chloride influx."},
+{"stem":"Which incretin effect is most characteristic of GLP-1 in the lecture?","choices":["It enhances insulin secretion while slowing gastric emptying and increasing satiety","It enhances insulin secretion while accelerating gastric emptying and increasing hunger","It lowers insulin secretion while speeding nutrient absorption and reducing satiety","It mainly raises glucagon secretion while increasing gastric acid and intestinal transit"],"correct":0,"explanation":"GLP-1 increases insulin secretion, suppresses glucagon, slows gastric emptying, and increases satiety."},
+{"stem":"Which statement about the incretin effect is correct?","choices":["Oral glucose triggers more insulin release than intravenous glucose in nondiabetic people","Intravenous glucose triggers more insulin release than oral glucose in nondiabetic people","Oral glucose and intravenous glucose trigger identical insulin release in nondiabetic people","Neither oral glucose nor intravenous glucose can trigger insulin release without glucagon"],"correct":0,"explanation":"The incretin effect means oral glucose causes a greater insulin response than an equivalent intravenous glucose load because gut hormones amplify the oral response."},
+{"stem":"Which feature best matches type 1 diabetes mellitus?","choices":["Autoimmune beta-cell destruction leads to insulin deficiency and insulin is required","Chronic insulin resistance with early hyperinsulinemia leads to obesity and oral therapy","Primary alpha-cell destruction leads to glucagon deficiency and fasting hypoglycemia","Primary somatostatin excess leads to weight gain and reduced ketone production"],"correct":0,"explanation":"Type 1 diabetes is characterized by autoimmune beta-cell destruction, insulin deficiency, and the need for exogenous insulin for survival."},
+{"stem":"Which feature best matches the usual progression of type 2 diabetes mellitus?","choices":["Early hyperinsulinemia is followed by beta-cell decline on a background of resistance","Early insulin deficiency is followed by alpha-cell decline on a background of resistance","Early ketosis is followed by complete beta-cell recovery on a background of obesity","Early low insulin is followed by excess receptor number on a background of exercise"],"correct":0,"explanation":"Type 2 diabetes begins with insulin resistance and compensatory hyperinsulinemia, then progresses toward beta-cell dysfunction and lower insulin output later."},
+{"stem":"Which statement best reflects the lecture's discussion of obesity and insulin resistance?","choices":["Obesity is the most common cause of insulin resistance and adiposity promotes diabetogenic signaling","Obesity is the least common cause of insulin resistance and adiposity protects beta-cell signaling","Obesity mainly improves insulin sensitivity because adipokines uniformly suppress inflammation","Obesity has little relationship to insulin resistance unless pancreatic polypeptide is low"],"correct":0,"explanation":"The lecture identifies obesity as the most common cause of insulin resistance and emphasizes adipokines, inflammation, and ectopic fat storage."},
+{"stem":"Which adipokine pattern best matches worsening insulin resistance in obesity?","choices":["More TNF-alpha and IL-6 with relatively less adiponectin favors greater resistance","More adiponectin and less TNF-alpha with relatively less IL-6 favors greater resistance","More adiponectin and less leptin with relatively less AMPK favors greater resistance","More polypeptide and less glucagon with relatively less amylin favors greater resistance"],"correct":0,"explanation":"Proinflammatory adipokines such as TNF-alpha and IL-6 worsen insulin signaling, while adiponectin improves insulin sensitivity."},
+{"stem":"What was emphasized about PPAR-gamma in the setting of insulin resistance?","choices":["PPAR-gamma supports adipose storage and anti-inflammatory signaling that improve sensitivity","PPAR-gamma drives hepatic glucose output and inflammatory signaling that worsen sensitivity","PPAR-gamma blocks adipose storage and forces lipid into muscle to improve sensitivity","PPAR-gamma mainly increases glucagon release from alpha cells to improve fasting glucose"],"correct":0,"explanation":"PPAR-gamma promotes healthier adipose storage, decreases ectopic fat deposition, and supports anti-inflammatory signaling that improves insulin sensitivity."},
+{"stem":"Which statement about HbA1c is correct?","choices":["HbA1c reflects average glycemia over roughly the prior eight to twelve weeks","HbA1c reflects glucose values only during the prior twenty-four hours mainly","HbA1c reflects acute postmeal spikes mainly during the prior three to five days","HbA1c reflects kidney glucose reabsorption mainly during the prior two weeks"],"correct":0,"explanation":"HbA1c reflects average glycemia over about 8 to 12 weeks because hemoglobin is exposed to plasma glucose throughout the red cell life span."}
+];
+
+const letters=["A","B","C","D"];
+let mode="learn";
+let current=0;
+let answers=new Array(QUESTIONS.length).fill(null);
+const hero=document.getElementById("hero"),quiz=document.getElementById("quiz"),results=document.getElementById("results");
+const qnum=document.getElementById("qnum"),stem=document.getElementById("stem"),choicesEl=document.getElementById("choices");
+const explain=document.getElementById("explain"),explainText=document.getElementById("explainText"),fill=document.getElementById("fill");
+const scorePill=document.getElementById("scorePill"),modePill=document.getElementById("modePill"),finishBtn=document.getElementById("finishBtn");
+
+function score(){return answers.reduce((n,a,i)=>n+(a===QUESTIONS[i].correct?1:0),0)}
+function setMode(next){mode=next;modePill.textContent=`Mode: ${mode==="learn"?"Learn":"Exam"}`;render()}
+function start(){hero.style.display="none";results.classList.remove("active");quiz.classList.add("active");render()}
+function resetQuiz(){current=0;answers=new Array(QUESTIONS.length).fill(null);results.classList.remove("active");quiz.classList.add("active");render()}
+function render(){
+  const q=QUESTIONS[current];
+  qnum.textContent=`Question ${current+1} of ${QUESTIONS.length}`;
+  stem.textContent=q.stem;
+  fill.style.width=`${((current+1)/QUESTIONS.length)*100}%`;
+  scorePill.textContent=`Score: ${score()}/${QUESTIONS.length}`;
+  finishBtn.style.display=current===QUESTIONS.length-1?"inline-flex":"none";
+  explain.classList.remove("show");
+  explainText.textContent="";
+  choicesEl.innerHTML="";
+  q.choices.forEach((choice,i)=>{
+    const btn=document.createElement("button");
+    btn.className="choice";
+    if(answers[current]===i)btn.classList.add("selected");
+    btn.innerHTML=`<div class="letter">${letters[i]}</div><div class="ctext">${choice}</div>`;
+    btn.onclick=()=>pick(i);
+    choicesEl.appendChild(btn);
+  });
+}
+function pick(i){
+  answers[current]=i;
+  render();
+  if(mode==="learn"){
+    [...choicesEl.querySelectorAll(".choice")].forEach((el,idx)=>{
+      if(idx===QUESTIONS[current].correct)el.classList.add("correct");
+      if(idx===i&&i!==QUESTIONS[current].correct)el.classList.add("incorrect");
+    });
+    explainText.textContent=QUESTIONS[current].explanation;
+    explain.classList.add("show");
+    scorePill.textContent=`Score: ${score()}/${QUESTIONS.length}`;
+  }
+}
+function finish(){
+  quiz.classList.remove("active");
+  results.classList.add("active");
+  const sc=score();
+  document.getElementById("finalScore").textContent=`${sc}/${QUESTIONS.length}`;
+  document.getElementById("finalPercent").textContent=`${Math.round((sc/QUESTIONS.length)*100)}%`;
+  document.getElementById("finalMode").textContent=mode==="learn"?"Learn":"Exam";
+  const review=document.getElementById("review");
+  review.innerHTML="";
+  QUESTIONS.forEach((q,i)=>{
+    const picked=answers[i];
+    const good=picked===q.correct;
+    const card=document.createElement("div");
+    card.className=`card ${good?"good":"bad"}`;
+    card.innerHTML=`<div class="tag">Question ${i+1}</div><div class="st">${q.stem}</div><div class="ln"><strong>Your answer:</strong> ${picked===null?"No answer selected":q.choices[picked]}</div><div class="ln"><strong>Correct answer:</strong> ${q.choices[q.correct]}</div><div class="ln"><strong>Why:</strong> ${q.explanation}</div>`;
+    review.appendChild(card);
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.getElementById("startBtn").onclick=start;
+document.getElementById("modeLearnBtn").onclick=()=>setMode("learn");
+document.getElementById("modeExamBtn").onclick=()=>setMode("exam");
+document.getElementById("prevBtn").onclick=()=>{if(current>0)current--;render()};
+document.getElementById("nextBtn").onclick=()=>{if(current<QUESTIONS.length-1)current++;render()};
+document.getElementById("resetBtn").onclick=resetQuiz;
+document.getElementById("finishBtn").onclick=finish;
+document.getElementById("restartBtn").onclick=resetQuiz;
+document.getElementById("homeBtn").onclick=()=>{results.classList.remove("active");hero.style.display="block";window.scrollTo({top:0,behavior:"smooth"})};
+setMode("learn");
+</script>
+</body>
+</html>
