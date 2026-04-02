@@ -1463,6 +1463,8 @@ document.querySelectorAll('.quiz-opt').forEach(opt => {
     const isCorrect = this.dataset.correct === 'true';
     const explanation = this.dataset.exp;
     const allOpts = item.querySelectorAll('.quiz-opt');
+    const correctOpt = item.querySelector('.quiz-opt[data-correct="true"]');
+    const correctExplanation = correctOpt ? correctOpt.dataset.exp : '';
 
     allOpts.forEach(o => {
       if (o.dataset.correct === 'true') o.classList.add('reveal');
@@ -1471,7 +1473,9 @@ document.querySelectorAll('.quiz-opt').forEach(opt => {
     if (!isCorrect) this.classList.add('wrong');
 
     const expDiv = item.querySelector('.quiz-exp');
-    expDiv.textContent = (isCorrect ? '✓ Correct — ' : '✗ Incorrect — ') + explanation;
+    expDiv.innerHTML = isCorrect
+      ? `✓ Correct — ${explanation}`
+      : `✗ Incorrect — ${explanation}<br><br>✓ Correct answer explanation — ${correctExplanation}`;
     expDiv.classList.add('show');
   });
 });
