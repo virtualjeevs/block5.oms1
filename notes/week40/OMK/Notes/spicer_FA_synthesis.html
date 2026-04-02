@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Spicer — Fatty Acid &amp; TAG Synthesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f2ea;
+    --paper: #fffdf8;
+    --ink: #221712;
+    --muted: #6e5f57;
+    --line: #dbcdbd;
+    --accent: #8e3928;
+    --accent-soft: #f6e9e3;
+    --teal: #215f5d;
+    --teal-soft: #e8f5f4;
+    --gold: #88621a;
+    --gold-soft: #fbf4df;
+    --green: #275d33;
+    --green-soft: #edf6ee;
+    --shadow: 0 16px 40px rgba(45, 28, 17, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at top left, rgba(142, 57, 40, 0.07), transparent 30%),
+      radial-gradient(circle at top right, rgba(33, 95, 93, 0.08), transparent 28%),
+      var(--bg);
+    color: var(--ink);
+    font-family: "DM Sans", sans-serif;
+    line-height: 1.7;
+  }
+
+  .study-tools {
+    position: sticky;
+    top: 0;
+    z-index: 120;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+    padding: 0.85rem 1.1rem;
+    background: rgba(34, 23, 18, 0.95);
+    color: #fff7ef;
+    backdrop-filter: blur(10px);
+  }
+
+  .study-tools-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e9d6bb;
+  }
+
+  .study-tools button {
+    appearance: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.08);
+    color: #fff7ef;
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    font: inherit;
+    font-size: 0.92rem;
+    cursor: pointer;
+  }
+
+  .study-tools button:hover {
+    background: rgba(255,255,255,0.16);
+  }
+
+  .study-tools-status {
+    margin-left: auto;
+    font-size: 0.92rem;
+    color: rgba(255,247,239,0.8);
+  }
+
+  .study-mark.study-highlight {
+    background: #fff2a8;
+    border-radius: 0.25em;
+    padding: 0 0.08em;
+    color: #24180f;
+  }
+
+  .study-mark.study-strike {
+    background: #ffe7e7;
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: #b42318;
+    border-radius: 0.25em;
+    padding: 0 0.08em;
+    color: #24180f;
+  }
+
+  .study-mark.study-annotate {
+    position: relative;
+    background: #e8f1ff;
+    border-bottom: 2px dotted #2563eb;
+    border-radius: 0.25em;
+    padding: 0 0.08em;
+    color: #24180f;
+    cursor: help;
+  }
+
+  .study-mark.study-annotate:hover::after {
+    content: attr(data-note);
+    position: absolute;
+    left: 0;
+    top: calc(100% + 8px);
+    width: min(280px, 70vw);
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #111827;
+    color: #fff;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.2);
+    white-space: normal;
+  }
+
+  .hero {
+    padding: 3.2rem 1.5rem 2.4rem;
+    background:
+      linear-gradient(135deg, rgba(34, 23, 18, 0.97), rgba(53, 30, 21, 0.92)),
+      var(--ink);
+    color: #fff7ef;
+  }
+
+  .hero-inner {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    margin-bottom: 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #d8bb95;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-family: "Fraunces", serif;
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+  }
+
+  .hero p {
+    max-width: 760px;
+    margin: 1rem 0 0;
+    color: rgba(255,247,239,0.82);
+    font-size: 1.03rem;
+  }
+
+  .hero-note {
+    margin-top: 1.35rem;
+    padding: 1rem 1.1rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(216, 187, 149, 0.25);
+    border-radius: 16px;
+    max-width: 760px;
+  }
+
+  .hero-note strong { color: #f5d2a5; }
+
+  .toc {
+    position: sticky;
+    top: 56px;
+    z-index: 90;
+    display: flex;
+    gap: 0.35rem;
+    overflow-x: auto;
+    padding: 0.65rem 1rem;
+    background: rgba(247, 242, 234, 0.96);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+  }
+
+  .toc a {
+    flex: 0 0 auto;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.55rem 0.8rem;
+    border-radius: 999px;
+  }
+
+  .toc a:hover { background: rgba(142, 57, 40, 0.08); color: var(--accent); }
+
+  .container {
+    width: min(980px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 2rem 0 4rem;
+  }
+
+  .intro-card,
+  .section,
+  .quiz-section {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+  }
+
+  .intro-card {
+    padding: 1.35rem 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .intro-kicker,
+  .section-kicker {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .intro-card h2,
+  .section h2,
+  .quiz-section h2 {
+    margin: 0.35rem 0 0.65rem;
+    font-family: "Fraunces", serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    line-height: 1.14;
+  }
+
+  .intro-card p,
+  .section p,
+  .section li,
+  .quiz-subtitle {
+    color: var(--muted);
+  }
+
+  .section {
+    padding: 1.5rem 1.45rem;
+    margin-top: 1.1rem;
+  }
+
+  .lead {
+    font-size: 1.02rem;
+    color: var(--ink) !important;
+  }
+
+  .callout-grid,
+  .mini-grid,
+  .cards {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards.cards-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .callout,
+  .card,
+  .flow,
+  .table-wrap {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #fff;
+  }
+
+  .callout {
+    padding: 1rem 1rem 0.95rem;
+    margin-top: 1rem;
+  }
+
+  .callout.key { background: var(--accent-soft); border-color: rgba(142,57,40,0.18); }
+  .callout.info { background: var(--teal-soft); border-color: rgba(33,95,93,0.18); }
+  .callout.note { background: var(--gold-soft); border-color: rgba(136,98,26,0.2); }
+  .callout.green { background: var(--green-soft); border-color: rgba(39,93,51,0.18); }
+
+  .callout-label {
+    margin-bottom: 0.3rem;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .callout.key .callout-label { color: var(--accent); }
+  .callout.info .callout-label { color: var(--teal); }
+  .callout.note .callout-label { color: var(--gold); }
+  .callout.green .callout-label { color: var(--green); }
+
+  .flow {
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+
+  .flow-item {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0.95rem;
+    padding: 1rem 1rem 0.95rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .flow-item:last-child { border-bottom: none; }
+
+  .flow-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+  }
+
+  .flow-item h3,
+  .card h3,
+  .section h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.02rem;
+    color: var(--ink);
+  }
+
+  .card {
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .card-header {
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    margin-top: 1rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 660px;
+  }
+
+  th, td {
+    padding: 0.9rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line);
+  }
+
+  th {
+    background: #2b1d17;
+    color: #fff7ef;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  tr:nth-child(even) td { background: #fcfaf6; }
+
+  .quiz-section {
+    padding: 1.5rem 1.45rem;
+    margin-top: 1.1rem;
+  }
+
+  .quiz-item {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 1rem;
+    background: #fff;
+    margin-top: 1rem;
+  }
+
+  .quiz-q {
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+  }
+
+  .qnum {
+    color: var(--accent);
+    margin-right: 0.35rem;
+  }
+
+  .quiz-options {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .quiz-opt {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 0.8rem 0.9rem;
+    background: #fffdf9;
+    cursor: pointer;
+    transition: 0.18s ease;
+  }
+
+  .quiz-opt:hover { border-color: rgba(142, 57, 40, 0.38); background: #fff7f3; }
+  .quiz-opt.reveal { border-color: rgba(39, 93, 51, 0.35); background: #eff8f0; }
+  .quiz-opt.wrong { border-color: rgba(142, 57, 40, 0.4); background: #fff0ec; }
+
+  .quiz-exp {
+    display: none;
+    margin-top: 0.8rem;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    background: #f5efe7;
+    color: var(--ink);
+  }
+
+  .quiz-exp.show { display: block; }
+
+  ul { padding-left: 1.2rem; }
+
+  .footer-note {
+    margin-top: 1.35rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 820px) {
+    .callout-grid,
+    .mini-grid,
+    .cards,
+    .cards.cards-3 { grid-template-columns: 1fr; }
+    .study-tools-status { width: 100%; margin-left: 0; }
+    .toc { top: 102px; }
+  }
+
+  @media print {
+    .study-tools,
+    .toc { display: none !important; }
+    body { background: #fff; }
+    .intro-card,
+    .section,
+    .quiz-section { box-shadow: none; }
+    .study-mark.study-annotate::after {
+      content: " [Note: " attr(data-note) "]";
+      position: static;
+      display: inline;
+      width: auto;
+      padding: 0;
+      margin-left: 0.25em;
+      background: transparent;
+      color: #000;
+      box-shadow: none;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="study-tools" aria-label="Study tools">
+  <span class="study-tools-label">Study tools</span>
+  <button id="studyHighlight" type="button">Highlight</button>
+  <button id="studyStrike" type="button">Strikeout</button>
+  <button id="studyAnnotate" type="button">Annotate</button>
+  <button id="studyClear" type="button">Clear Mark</button>
+  <button id="studyPrint" type="button">Print</button>
+  <span class="study-tools-status" id="studyStatus">Select note text, then choose a tool.</span>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">UNE COM · Block 5 · Week 40 · Dr. Spicer</div>
+    <h1>Fatty Acid &amp; TAG Synthesis + Diabetes Biochemistry</h1>
+    <p>Rebuilt from both lecture transcripts. Sections I–VI cover the fed-state FA synthesis pathway, ACC regulation, malonyl CoA, TAG formation, and the synthesis/oxidation contrast. Sections VII–XI extend into T2DM insulin resistance, fructose metabolism, AMPK/metformin, hyperglycemia complications, and brown/beige adipose.</p>
+    <div class="hero-note">
+      <strong>Lecture note:</strong> Dr. Spicer tied both lectures to the obesity/diabetes week theme. The &ldquo;selective insulin resistance&rdquo; concept (ACC stays insulin-sensitive in T2DM) and the fructose pathway are high-yield repeat topics across both recordings.
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#summary">Summary</a>
+  <a href="#shuttle">Citrate Shuttle</a>
+  <a href="#acc">ACC</a>
+  <a href="#fas">FAS</a>
+  <a href="#tag">TAG</a>
+  <a href="#compare">Compare</a>
+  <a href="#t2dm">T2DM &amp; Ins. Resistance</a>
+  <a href="#fructose">Fructose</a>
+  <a href="#ampk">AMPK</a>
+  <a href="#complications">Complications</a>
+  <a href="#adipose">Brown/Beige Fat</a>
+  <a href="#quiz">Quiz</a>
+</nav>
+
+<main class="container study-content">
+  <section class="intro-card" id="summary">
+    <div class="intro-kicker">Lecture Scope — Both Transcripts</div>
+    <h2>What Was Actually Emphasized</h2>
+    <p>The first lecture introduced FA synthesis as the last major metabolic pathway of the year, framed around the fed-state storage program. The second lecture (Biochemistry of Diabetes) revisited the same pathway in the context of obesity and T2DM, adding fructose metabolism, selective insulin resistance, AMPK, and the downstream complications of chronic hyperglycemia.</p>
+    <ul>
+      <li>Fatty acid synthesis: cytoplasm, liver-heavy, driven by high insulin/glucose.</li>
+      <li>Palmitate is the direct mammalian product; essential fatty acids must come from the diet.</li>
+      <li>In T2DM, fat storage pathways show <strong>selective</strong> insulin resistance — ACC remains responsive even when muscle/adipose GLUT4 does not.</li>
+      <li>Fructose bypasses PFK regulation and is almost entirely processed by the liver into fat.</li>
+      <li>AMPK is the central energy sensor connecting metformin, exercise, and metabolic disease.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="frame">
+    <div class="section-kicker">I · Orientation</div>
+    <h2>High-Level Logic of the Pathway</h2>
+    <p class="lead">Beta-oxidation removes two carbons per cycle. Fatty acid synthesis does the mirror image: it adds <strong>two carbons per cycle</strong> until the chain reaches <strong>C16 palmitate</strong>.</p>
+    <div class="callout key">
+      <div class="callout-label">Product to Remember</div>
+      <p>Palmitate is the direct product of the synthase pathway in mammals. It can later be elongated or desaturated, but essential omega-3 and omega-6 fatty acids still have to come from the diet.</p>
+    </div>
+    <div class="callout note">
+      <div class="callout-label">Tissue Emphasis</div>
+      <p>Dr. Spicer explicitly said that this pathway is done mostly in the <strong>liver</strong>. Adipose tissue can do some synthesis but not nearly to the same degree.</p>
+    </div>
+  </section>
+
+  <section class="section" id="shuttle">
+    <div class="section-kicker">II · Carbon Export</div>
+    <h2>Why Citrate Has to Carry the Carbon Out</h2>
+    <p class="lead">Excess glucose goes through glycolysis to pyruvate. Pyruvate enters mitochondria and becomes acetyl CoA, but acetyl CoA cannot simply cross into the cytoplasm, so the carbon leaves the mitochondria as <strong>citrate</strong>.</p>
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-num">1</div>
+        <div>
+          <h3>High ATP and high NADH slow the lower TCA steps</h3>
+          <p>In the fed state, citrate builds up because the cell already has plenty of energy.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">2</div>
+        <div>
+          <h3>Acetyl CoA combines with oxaloacetate to make citrate</h3>
+          <p>Citrate becomes the exportable form of the acetyl units that will later be used for synthesis.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">3</div>
+        <div>
+          <h3>ATP citrate lyase regenerates cytosolic acetyl CoA</h3>
+          <p>Once citrate is in the cytoplasm, it is cleaved back into acetyl CoA plus oxaloacetate.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">4</div>
+        <div>
+          <h3>Oxaloacetate recycles and helps generate NADPH</h3>
+          <p>Oxaloacetate can move through malate to pyruvate, and malic enzyme produces NADPH during that return loop.</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout-grid">
+      <div class="callout info">
+        <div class="callout-label">Anaplerotic Point</div>
+        <p>Pyruvate carboxylase replenishes oxaloacetate so the TCA cycle does not get drained while citrate keeps leaving.</p>
+      </div>
+      <div class="callout green">
+        <div class="callout-label">NADPH Sources Mentioned</div>
+        <p>Dr. Spicer specifically named <strong>malic enzyme</strong> and <strong>glucose-6-phosphate dehydrogenase</strong> as the major sources of NADPH for this pathway.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="acc">
+    <div class="section-kicker">III · Regulation</div>
+    <h2>ACC Commits the Cell to Fatty Acid Synthesis</h2>
+    <p class="lead"><strong>Acetyl CoA carboxylase (ACC)</strong> converts a 2-carbon acetyl CoA into a 3-carbon malonyl CoA. This was the main regulated step of the lecture.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">Reaction</div>
+        <h3>Acetyl CoA → Malonyl CoA</h3>
+        <p>ACC adds a carbon first, then that extra carbon is lost later during elongation. The ATP spent here helps power chain extension.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">Activation</div>
+        <h3>Citrate and Insulin</h3>
+        <p>Citrate promotes polymerization of inactive ACC protomers into the active form. Insulin activates a phosphatase that removes the inhibitory phosphate.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">Inhibition</div>
+        <h3>Palmitoyl CoA, AMP, Glucagon, Epinephrine</h3>
+        <p>Palmitoyl CoA gives product inhibition, and low-energy or fasting/stress signals push ACC toward the inactive phosphorylated state through AMPK-related signaling.</p>
+      </div>
+    </div>
+    <div class="callout key">
+      <div class="callout-label">Metabolic Switch</div>
+      <p>Once ACC makes <strong>malonyl CoA</strong>, that malonyl CoA blocks <strong>CPT-I</strong>. This keeps newly synthesized long-chain fatty acids from immediately re-entering mitochondria for beta-oxidation.</p>
+    </div>
+    <div class="callout note">
+      <div class="callout-label">Insulin-Induced Enzymes Named in the Transcript</div>
+      <p>Insulin was said to increase expression of <strong>ATP citrate lyase</strong>, <strong>malic enzyme</strong>, <strong>glucose-6-phosphate dehydrogenase</strong>, and <strong>ACC</strong>.</p>
+    </div>
+  </section>
+
+  <section class="section" id="fas">
+    <div class="section-kicker">IV · Chain Building</div>
+    <h2>Fatty Acid Synthase Repeats the Same Basic Cycle</h2>
+    <p class="lead">The transcript did not linger on every domain name. The main idea was the repeated addition of two carbons from malonyl CoA until <strong>palmitate</strong> is released.</p>
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-num">1</div>
+        <div>
+          <h3>Malonyl CoA brings in the next two carbons</h3>
+          <p>The carbon that ACC added is lost, leaving a net two-carbon extension of the growing chain.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">2</div>
+        <div>
+          <h3>Reduction steps use NADPH</h3>
+          <p>This is why fed-state NADPH generation matters so much for synthesis.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">3</div>
+        <div>
+          <h3>The cycle repeats until the chain reaches 16 carbons</h3>
+          <p>The final product that leaves the synthase complex is palmitate.</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout info">
+      <div class="callout-label">Numbers to Remember</div>
+      <p>Each two-carbon addition costs <strong>1 ATP</strong> at the ACC step and uses <strong>2 NADPH</strong> during the reduction steps.</p>
+    </div>
+  </section>
+
+  <section class="section" id="tag">
+    <div class="section-kicker">V · Storage Form</div>
+    <h2>TAG Synthesis Depends on the Glycerol Backbone</h2>
+    <p class="lead">Triacylglycerol formation was presented as adding fatty acids onto <strong>glycerol-3-phosphate</strong>. The key tissue difference was how liver and adipose get that glycerol-3-phosphate.</p>
+    <div class="cards cards-3">
+      <div class="card">
+        <div class="card-header">Liver</div>
+        <h3>Two ways to make the backbone</h3>
+        <p>Liver can generate glycerol-3-phosphate from glycolytic DHAP and also has <strong>glycerol kinase</strong>, so it can phosphorylate free glycerol directly.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">Adipose</div>
+        <h3>Needs glucose uptake</h3>
+        <p>Adipose <strong>lacks glycerol kinase</strong>, so it depends on glycolysis to make glycerol-3-phosphate from glucose-derived DHAP.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">Circulation</div>
+        <h3>VLDL and LPL finish the story</h3>
+        <p>Liver packages TAG into <strong>VLDL</strong>. <strong>Lipoprotein lipase</strong> releases fatty acids for peripheral uptake, storage, or oxidation.</p>
+      </div>
+    </div>
+    <div class="callout green">
+      <div class="callout-label">Why Adipose Needs the Fed State</div>
+      <p>Because adipose cannot use free glycerol directly, it needs glucose uptake in order to keep making the glycerol-3-phosphate backbone required for TAG storage.</p>
+    </div>
+  </section>
+
+  <section class="section" id="compare">
+    <div class="section-kicker">VI · Contrast Table</div>
+    <h2>Synthesis and Beta-Oxidation Were Deliberately Kept Separate</h2>
+    <p class="lead">The lecture ended with a compare-and-contrast summary: fed versus fasting, cytosol versus mitochondria, citrate versus carnitine, and NADPH versus oxidative cofactors.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Synthesis</th>
+            <th>Beta-Oxidation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Dominant state</td><td>Fed, high insulin</td><td>Fasting or starving</td></tr>
+          <tr><td>Main site emphasized</td><td>Primarily liver</td><td>Liver, muscle, other oxidative tissues</td></tr>
+          <tr><td>Location</td><td>Cytosol</td><td>Mitochondria</td></tr>
+          <tr><td>Transport logic</td><td>Citrate carries acetyl units out</td><td>Carnitine helps long-chain fatty acids in</td></tr>
+          <tr><td>Redox partner</td><td>NADPH</td><td>NAD and FAD</td></tr>
+          <tr><td>Key inhibitor</td><td>Palmitoyl CoA inhibits ACC</td><td>Malonyl CoA inhibits CPT-I</td></tr>
+          <tr><td>Main end product</td><td>Palmitate</td><td>Acetyl CoA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout note">
+      <div class="callout-label">Forward Link Mentioned</div>
+      <p>Dr. Spicer briefly flagged <strong>AMPK</strong> as important for later obesity and diabetes discussion because metformin activates AMPK and AMPK inhibits ACC.</p>
+    </div>
+  </section>
+
+  <section class="quiz-section" id="quiz">
+    <div class="section-kicker">Practice</div>
+    <h2>Transcript-Aligned Multiple Choice</h2>
+    <div class="quiz-subtitle">15 questions covering both lecture transcripts — FA synthesis mechanics (1–7) and diabetes/metabolism (8–15). Fisher-Yates note: questions are in transcript order; shuffle mentally or quiz yourself in reverse.</div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">1.</span> In the fed state, which acute mechanism best explains how insulin activates acetyl CoA carboxylase (ACC)?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Phosphorylation is the inactive state for ACC in this lecture. AMP, glucagon, and epinephrine all move ACC toward phosphorylation and inhibition.">A. Insulin phosphorylates ACC directly, shifting it into the active form</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Citrate is an allosteric activator, but insulin's acute effect is through the phosphorylation state of ACC.">B. Insulin raises citrate concentration and activates ACC only through citrate binding</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Insulin activates a phosphatase that removes the inhibitory phosphate from ACC, shifting ACC into the active state.">C. Insulin promotes dephosphorylation of ACC through a phosphatase</div>
+        <div class="quiz-opt" data-correct="false" data-exp="AMPK is the fasting and low-energy brake on ACC, not the insulin-activated route.">D. Insulin activates AMPK, which then phosphorylates ACC</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Palmitoyl CoA was presented as product inhibition, not activation.">E. Insulin activates ACC by increasing palmitoyl CoA binding</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">2.</span> Why does fatty acid synthesis use citrate as a carrier?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Carnitine belongs to long-chain fatty acid import for oxidation, not to export of acetyl units for synthesis.">A. Citrate is a faster alternative to carnitine for carrying fatty acids into mitochondria</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Acetyl CoA is generated in mitochondria but fatty acid synthesis occurs in the cytoplasm, so acetyl units are exported as citrate and then regenerated by ATP citrate lyase.">B. Citrate exports mitochondrial acetyl units to the cytoplasm, where ATP citrate lyase regenerates acetyl CoA</div>
+        <div class="quiz-opt" data-correct="false" data-exp="The transcript did not describe any direct inner-membrane acetyl CoA transporter.">C. Acetyl CoA crosses directly through a dedicated inner-membrane acetyl CoA transporter</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Pyruvate still has to enter mitochondria first to become acetyl CoA, so this does not solve the export problem.">D. Pyruvate is converted to acetyl CoA in the cytoplasm during the fed state</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Malate is part of the recycling loop, but citrate is the carbon carrier that was emphasized.">E. Malate is the main carrier that transports acetyl CoA out for synthesis</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">3.</span> A liver cell has abundant malonyl CoA. What is the most direct consequence emphasized in the lecture?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Malonyl CoA supports synthesis, but the transcript emphasized its regulatory role at CPT-I.">A. It directly increases ATP production from beta-oxidation</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Palmitate formation happens downstream; the direct switch point is the transport block at CPT-I.">B. It immediately forces fatty acid synthase to release palmitate</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Malonyl CoA blocks CPT-I, preventing long-chain fatty acids from entering mitochondria for beta-oxidation.">C. It inhibits CPT-I and prevents long-chain fatty acids from entering mitochondria</div>
+        <div class="quiz-opt" data-correct="false" data-exp="AMPK sits upstream and inhibits ACC; malonyl CoA was not presented as an AMPK inhibitor.">D. It directly shuts off AMPK in the fed state</div>
+        <div class="quiz-opt" data-correct="false" data-exp="The lecture described malonyl CoA as preventing entry into mitochondria, not accelerating it.">E. It accelerates carnitine-dependent fatty acid entry into mitochondria</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">4.</span> What is the main end product of the mammalian fatty acid synthase pathway described in this lecture?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Stearate is longer than the direct product emphasized in the lecture.">A. Stearate</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. The transcript repeatedly identified palmitate, a 16-carbon saturated fatty acid, as the major end product of the pathway.">B. Palmitate</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Oleate is a later desaturated fatty acid, not the primary synthase product.">C. Oleate</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Acetyl CoA is the starting building block, not the final fatty acid product.">D. Acetyl CoA</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Arachidonate is not the direct product of the synthase complex described here.">E. Arachidonate</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">5.</span> Why does adipose tissue need glucose uptake in order to keep storing triacylglycerol efficiently?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Adipose can store incoming fatty acids; the limitation discussed was how it makes glycerol-3-phosphate.">A. Adipose cannot take up fatty acids released by lipoprotein lipase</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Adipose lacks glycerol kinase, so it cannot use free glycerol directly and instead relies on glucose-derived DHAP to make glycerol-3-phosphate.">B. Adipose lacks glycerol kinase and must make glycerol-3-phosphate from glycolytic intermediates</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Carnitine transport is part of oxidation, not the reason adipose needs glucose for storage.">C. Adipose depends on carnitine to convert glucose into glycerol-3-phosphate</div>
+        <div class="quiz-opt" data-correct="false" data-exp="The liver, not adipose, was emphasized as the main site of de novo fatty acid synthesis.">D. Adipose cannot make fatty acids unless insulin induces ATP citrate lyase expression</div>
+        <div class="quiz-opt" data-correct="false" data-exp="The explanation centered on glycerol-3-phosphate production, not VLDL packaging.">E. Adipose can package TAG only after exporting it as VLDL</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">6.</span> Which condition most strongly pushes ACC toward the inactive state according to the transcript?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Citrate favors polymerization and activation, not inhibition.">A. High citrate in the fed state</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Low-energy and fasting/stress signals activate AMPK or related phosphorylation pathways, which move ACC toward the inactive phosphorylated state.">B. High AMP, glucagon, or epinephrine signaling</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Insulin was the activating signal in this lecture.">C. High insulin with abundant glucose</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Malic enzyme helps generate NADPH for synthesis; it was not the brake on ACC.">D. High malic enzyme activity</div>
+        <div class="quiz-opt" data-correct="false" data-exp="The liver was described as the main synthetic tissue, not as a condition that inactivates ACC.">E. Localization of the pathway to the liver</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">7.</span> Which pairing correctly matches fatty acid synthesis with beta-oxidation?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="This reverses the key compartment and cofactor logic from the lecture.">A. Synthesis: mitochondria and NAD; oxidation: cytosol and NADPH</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Synthesis was presented as a cytosolic, NADPH-dependent pathway that uses citrate to export carbon, whereas beta-oxidation occurs in mitochondria and depends on mitochondrial entry of long-chain fatty acids.">B. Synthesis: cytosol and NADPH; oxidation: mitochondria and long-chain fatty acid import</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Carnitine belongs with oxidation, not with the synthetic pathway.">C. Synthesis: carnitine shuttle and FAD; oxidation: citrate shuttle and NADPH</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Palmitate is the synthetic end product, not the oxidation product.">D. Synthesis: acetyl CoA end product; oxidation: palmitate end product</div>
+        <div class="quiz-opt" data-correct="false" data-exp="The transcript contrasted fed-state synthesis with fasting-state oxidation, not simultaneous activation of both.">E. Synthesis and oxidation both peak under the same high-insulin conditions</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">8.</span> A patient has had progressively worsening insulin resistance for approximately 8 years but has not yet been formally diagnosed with diabetes. Which lab finding best explains why his blood glucose has remained in the pre-diabetic range so far?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Decreased gluconeogenesis would lower fasting glucose, which is the opposite of what occurs here; gluconeogenesis is increased as insulin resistance worsens.">A. Decreased hepatic gluconeogenesis compensating for peripheral resistance</div>
+        <div class="quiz-opt" data-correct="false" data-exp="GLUT4 upregulation would improve glucose uptake, but the problem in T2DM is that GLUT4 signaling is impaired, not increased.">B. Compensatory upregulation of GLUT4 in skeletal muscle</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. During the pre-diagnostic phase, the pancreas responds to rising insulin resistance by secreting more insulin (hyperinsulinemia), which partially maintains glucose homeostasis until beta-cell burnout eventually occurs.">C. Compensatory pancreatic hyperinsulinemia keeping glucose in check</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Free fatty acids worsen insulin resistance; they do not compensate for it.">D. Elevated free fatty acids stimulating hepatic glucose uptake</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Enhanced renal glucose clearance is not the compensatory mechanism described in the lecture.">E. Enhanced renal glucose reabsorption preventing glycosuria</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">9.</span> Why does fatty acid synthesis continue at an elevated rate in a patient with established type 2 diabetes, even while muscle glucose uptake is severely impaired?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Glucagon is elevated in T2DM and would inhibit ACC and FA synthesis, not stimulate it.">A. Elevated glucagon selectively activates ACC in the liver</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Reduced hepatic glucose import would decrease the substrate available for FA synthesis, not increase it.">B. Hepatic glucose import is severely reduced, forcing the liver to make more fat</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. In T2DM, selective insulin resistance spares the FA synthesis pathway — ACC and the associated storage enzymes continue to respond to the elevated circulating insulin, even as other insulin-dependent pathways become unresponsive.">C. The fatty acid synthesis pathway retains insulin sensitivity (selective insulin resistance), so elevated insulin still drives ACC and storage</div>
+        <div class="quiz-opt" data-correct="false" data-exp="AMPK activation would inhibit FA synthesis; it is not the reason synthesis is elevated in T2DM.">D. AMPK is constitutively activated, overriding the glucagon signal and stimulating ACC</div>
+        <div class="quiz-opt" data-correct="false" data-exp="CPT-I is still inhibited by malonyl CoA during active FA synthesis; its upregulation is not the cause here.">E. CPT-I is upregulated in T2DM, channeling all acetyl CoA into the FA synthesis pathway</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">10.</span> A research subject ingests 25% of daily calories as fructose for 10 weeks. Which metabolic outcome is most specifically associated with fructose compared to an equivalent caloric load of glucose, as discussed in the lecture?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Subcutaneous fat accrual was essentially identical between fructose and glucose in the study described; the divergence was in visceral fat.">A. Greater subcutaneous fat accumulation compared to glucose</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. The lecture cited a study showing equivalent subcutaneous fat gain with fructose vs. glucose, but significantly greater visceral fat and total fat with fructose — explained by the liver processing almost all dietary fructose into fat via the unregulated fructokinase pathway.">B. Disproportionately greater visceral fat accumulation compared to glucose</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Fructose metabolism does not preferentially raise LDL; the primary lipid effect is elevated VLDL/triglycerides.">C. Preferential elevation of LDL cholesterol over triglycerides</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Fructose bypasses PFK regulation and is metabolized faster, not slower, by the liver.">D. Slower hepatic metabolism due to the need for fructose-6-phosphate formation first</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Fructose is not readily stored as muscle glycogen because it must first be processed by the liver; muscle glycogen accrual is not the specific finding highlighted.">E. Greater muscle glycogen accumulation compared to glucose</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">11.</span> A drug that inhibits fatty acid synthase (FAS) is being tested as a chemotherapy agent. The drug is found to impair cellular energy production in addition to blocking FA synthesis. What is the best biochemical explanation for this energy effect?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Acetyl CoA would increase upstream of a blocked FAS, not decrease; and the effect on ATP synthesis is more indirect.">A. FAS inhibition directly blocks the ETC by reducing the NADH supply</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Citrate builds up when energy is already high; the FAS inhibition problem is downstream of citrate production.">B. Blocking FAS causes citrate to accumulate in mitochondria, inhibiting Complex I</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Blocking FAS causes malonyl CoA to build up upstream. Elevated malonyl CoA inhibits CPT-I, preventing long-chain fatty acids from entering mitochondria. This wipes out beta-oxidation, the major energy source in most tissues, explaining the cytotoxicity.">C. Malonyl CoA accumulates upstream of the block, inhibiting CPT-I and shutting off beta-oxidation</div>
+        <div class="quiz-opt" data-correct="false" data-exp="ACC inhibition would lower malonyl CoA and free up CPT-I; FAS inhibition does the opposite.">D. FAS inhibition activates ACC, which consumes ATP without productive output</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Palmitate inhibits ACC as a product-feedback mechanism; its absence would actually increase ACC activity, not decrease energy production.">E. Without palmitate product inhibition, ACC runs unchecked and depletes the cytosolic ATP pool</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">12.</span> In a patient with type 2 diabetes, fasting triglycerides are markedly elevated. Which two concurrent mechanisms best explain this finding?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="Chylomicrons carry dietary fat and are cleared after an overnight fast; they do not explain elevated fasting triglycerides.">A. Increased chylomicron production from the intestine and decreased hepatic LDL receptor activity</div>
+        <div class="quiz-opt" data-correct="false" data-exp="HSL is activated in insulin-resistant adipose (not inhibited), driving lipolysis, but this does not directly raise VLDL — it raises free fatty acids that are re-packaged.">B. Decreased HSL activity in adipose and reduced hepatic gluconeogenesis</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. The liver's fatty acid synthesis pathway remains insulin-sensitive and is driven by hyperinsulinemia, increasing VLDL output. Simultaneously, insulin-resistant LPL in adipose and muscle cannot clear VLDL efficiently. Both effects raise fasting triglycerides.">C. Increased hepatic VLDL synthesis (selective insulin sensitivity in FA synthesis) combined with reduced peripheral LPL activity (insulin resistance)</div>
+        <div class="quiz-opt" data-correct="false" data-exp="AMPK activation would suppress FA synthesis and VLDL production; the issue in T2DM is insufficient AMPK activity, not excess.">D. Excessive AMPK activation in liver increasing VLDL secretion and reduced ketogenesis</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Increased HDL is not associated with T2DM; HDL is typically low. Decreased FA oxidation does not by itself explain elevated fasting triglycerides in this context.">E. Increased HDL cholesterol transport and decreased FA oxidation in peripheral tissues</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">13.</span> Which statement best explains why HbA1c is used to monitor long-term glycemic control rather than a single fasting glucose measurement?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="HbA1c measures glycation, not oxidation of hemoglobin; the Maillard reaction is a non-enzymatic condensation between glucose and amino groups, not an oxidative process.">A. HbA1c reflects oxidation of hemoglobin, which accumulates in proportion to lifetime glucose exposure</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Glucose does not enzymatically phosphorylate hemoglobin; glycation is a spontaneous, non-enzymatic chemical reaction.">B. HbA1c is formed when glucose enzymatically phosphorylates hemoglobin in red blood cells</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Red blood cells take up glucose freely via non-insulin-regulated GLUT1, so intracellular glucose mirrors plasma glucose. Over the ~3-month RBC lifespan, glucose spontaneously condenses with hemoglobin (non-enzymatic Maillard/glycation reaction) in proportion to average blood glucose. A single reading can be artifactually high or low.">C. Red blood cell GLUT is unregulated, so intracellular glucose equals plasma glucose; glucose slowly glycates hemoglobin over the 3-month RBC lifespan, giving a time-averaged index</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Fasting glucose is affected by recent food intake over hours to a day; HbA1c reflects average glucose over months because of the RBC lifespan.">D. HbA1c adjusts for hydration status and is therefore immune to the acute fluctuations that affect fasting glucose</div>
+        <div class="quiz-opt" data-correct="false" data-exp="HbA1c is not based on insulin secretion; it is a direct measure of glucose-protein condensation on hemoglobin.">E. HbA1c reflects total insulin secreted over three months, which correlates inversely with glucose</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">14.</span> How does exercise improve metabolic parameters in obesity through AMPK, beyond simply burning calories during the activity itself?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="AMPK inhibits gluconeogenesis; it does not enhance it. Enhanced gluconeogenesis would raise blood glucose, which is the opposite of the desired effect.">A. AMPK enhances hepatic gluconeogenesis to keep blood glucose stable during exercise</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Lipolysis in adipose is activated by catecholamines and glucagon, not by muscle AMPK signaling directly.">B. AMPK in exercising muscle directly activates adipose lipolysis via a hormonal signal</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Exercise raises AMP, activating AMPK. AMPK suppresses FA synthesis (inactivates ACC), promotes FA oxidation (less malonyl CoA → CPT-I freed), stimulates mitochondrial biogenesis, and increases glucose uptake. Converting fat to muscle also raises basal metabolic rate permanently due to the higher mitochondrial density of muscle vs. white adipose.">C. AMPK activation suppresses fatty acid synthesis, promotes oxidation and glucose uptake, and drives mitochondrial biogenesis — raising basal metabolic rate persistently via increased muscle mitochondrial density</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Exercise acutely depletes glycogen in muscle; it does not primarily increase glycogen storage during the exercise bout.">D. Muscle AMPK promotes glycogen synthesis during exercise, preventing postprandial glucose spikes</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Brown fat thermogenesis is driven by the sympathetic nervous system and UCP1, not by AMPK from exercising muscle; this is not the mechanism described in the lecture.">E. AMPK converts white fat to brown fat during each exercise bout, dramatically increasing uncoupled thermogenesis</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+
+    <div class="quiz-item">
+      <div class="quiz-q"><span class="qnum">15.</span> A newborn from a mother with poorly controlled gestational diabetes presents with a glucose of 25 mg/dL and seizure activity two hours after birth. What is the primary pathophysiologic mechanism?</div>
+      <div class="quiz-options">
+        <div class="quiz-opt" data-correct="false" data-exp="The fetal pancreas responded to high maternal glucose by producing excess insulin; it did not become resistant. Insulin resistance is the mother's problem.">A. The newborn inherited maternal insulin resistance and cannot respond to glucose</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Neonates have limited glycogenolysis capacity due to low glycogen stores, but the root cause is the persistently high insulin driving glucose into cells below the threshold needed for brain function.">B. Absent glycogen stores prevent gluconeogenesis, so glucose cannot be mobilized after the umbilical supply is cut</div>
+        <div class="quiz-opt" data-correct="true" data-exp="Correct. Fetal hyperglycemia (from the mother) drove the fetal pancreas to produce high levels of insulin. At birth, maternal glucose supply stops abruptly, but neonatal insulin levels remain elevated. With minimal glycogen stores, the high insulin drives blood glucose dangerously low.">C. Fetal hyperinsulinemia persists after birth: the newborn's pancreas was conditioned by high maternal glucose and cannot downregulate insulin quickly enough once glucose supply is cut</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Glucagon is not suppressed in neonates; the issue is that circulating insulin is inappropriately high relative to the now-normal glucose supply.">D. Glucagon secretion is suppressed in neonates of diabetic mothers, preventing the normal fasting glucagon response</div>
+        <div class="quiz-opt" data-correct="false" data-exp="Macrsosmia is from fetal insulin driving anabolism (growth), not from glucose toxicity. The hypoglycemia mechanism is hormonal, not structural.">E. Macrosomia caused by maternal hyperglycemia directly damages the neonatal blood-brain barrier, impairing cerebral glucose delivery</div>
+      </div>
+      <div class="quiz-exp"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION VII — T2DM & SELECTIVE INSULIN RESISTANCE ═══════════════ -->
+  <section class="section" id="t2dm">
+    <div class="section-kicker">VII · Type 2 Diabetes</div>
+    <h2>Insulin Resistance vs. Insulin Deficiency — and Why It Takes 10 Years</h2>
+    <p class="lead">Type 1 diabetes = decreased insulin <em>production</em> (beta-cell failure, abrupt). Type 2 diabetes = decreased insulin <em>response</em> (peripheral insensitivity, 10-year gradual process). Plenty of insulin is present early in T2DM.</p>
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-num">1</div>
+        <div>
+          <h3>Insulin resistance begins in peripheral tissues</h3>
+          <p>Driven largely by visceral adipose tissue macrophages (especially M2, pro-inflammatory) that pump out inflammatory cytokines and increase lipolysis → more free fatty acids → these interfere with the insulin signaling cascade.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">2</div>
+        <div>
+          <h3>Pancreas compensates by making more insulin</h3>
+          <p>Hyperinsulinemia develops. Because insulin secretion depends on glucose metabolism → ATP → Ca²⁺ entry, the overworked pancreatic beta cells generate excess ROS from the ETC, causing progressive oxidative damage.</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num">3</div>
+        <div>
+          <h3>Beta-cell failure tips the patient into frank diabetes</h3>
+          <p>When insulin levels finally crash, blood glucose takes off and the diagnosis is made — often 10 years after the process started.</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout key">
+      <div class="callout-label">Selective Insulin Resistance — The Key Weirdness</div>
+      <p>In T2DM the insulin-insensitive pathways (muscle/adipose GLUT4 uptake, gluconeogenesis suppression, vasodilation) stop responding, <strong>but the fatty acid synthesis pathway — including ACC — keeps responding to the elevated insulin</strong>. Why? No one knows. The result: you keep making fat even as your blood glucose is rising.</p>
+    </div>
+    <div class="callout info">
+      <div class="callout-label">Diagnostic Numbers (from Lecture)</div>
+      <p>Fasting glucose ≥ 126 mg/dL = diabetes (pre-diabetes: 100–125). HbA1c ≥ 6.5% = diabetes (pre-diabetes: 5.7–6.4%). Two fasting readings are required to confirm — one off result is not enough. HbA1c reflects the non-enzymatic glycation (Maillard reaction) that accumulates on hemoglobin over ~3 months of erythrocyte lifespan.</p>
+    </div>
+    <div class="callout note">
+      <div class="callout-label">Glucose Tolerance Test vs. Fasting Glucose</div>
+      <p>A <strong>glucose tolerance test</strong> measures insulin sensitivity of muscle and fat (the post-prandial spike and its clearance via GLUT4). A <strong>fasting glucose</strong> measures how well the liver is restraining glucose output. They test different parts of the same story.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION VIII — FRUCTOSE ═══════════════ -->
+  <section class="section" id="fructose">
+    <div class="section-kicker">VIII · Fructose Metabolism</div>
+    <h2>Why Fructose Makes More Visceral Fat Than Glucose</h2>
+    <p class="lead">High-fructose corn syrup was introduced in the 1970s–80s and added to almost everything. Fructose is metabolized almost entirely by the liver via an <strong>unregulated pathway</strong>, which differs fundamentally from how glucose is handled.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">Step 1 — Fructokinase</div>
+        <h3>The unregulated entry enzyme</h3>
+        <p>Fructokinase phosphorylates fructose to fructose-1-phosphate. Unlike hexokinase/glucokinase, it has no product feedback: the phosphate cannot be removed, so fructose-1-phosphate accumulates. Clinically this can trigger gout by generating excess uric acid as a byproduct.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">Step 2 — Bypass of PFK</div>
+        <h3>Enters glycolysis below the key control point</h3>
+        <p>Fructose-1-phosphate is cleaved (by aldolase B) and the fragments enter glycolysis below phosphofructokinase — the main regulated step. There is no speed limit. The carbon pours into the liver unimpeded.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">Fate in the Liver</div>
+        <h3>Mostly fatty acids + triglycerides</h3>
+        <p>The liver converts the bulk of dietary fructose to acetyl CoA and then to fatty acids + VLDL. Compared with glucose, fructose produces much more <strong>visceral fat</strong> (not just subcutaneous fat). Studies show identical subcutaneous fat gain between glucose and fructose but dramatically higher visceral fat with fructose.</p>
+      </div>
+    </div>
+    <div class="callout-grid">
+      <div class="callout info">
+        <div class="callout-label">Ethanol Parallel</div>
+        <p>Dr. Spicer explicitly called out the fructose–ethanol parallel: both are processed almost entirely by the liver, both overwhelm the system and drive fatty acid synthesis, both preferentially cause hepatic/visceral fat and NAFLD (now MASLD).</p>
+      </div>
+      <div class="callout green">
+        <div class="callout-label">Glycogen Bonus — Pre-Exercise</div>
+        <p>In normal/active amounts, fructose-1-phosphate mimics glucose-1-phosphate and inhibits glycogen phosphorylase, promoting glycogen storage. Pre-exercise fructose loading can be beneficial for this reason.</p>
+      </div>
+      <div class="callout note">
+        <div class="callout-label">Glucokinase Release</div>
+        <p>Fructose-1-phosphate can release glucokinase from its nuclear inhibitor protein, just like fructose-6-phosphate does. This means eating fructose actually accelerates hepatic glucose metabolism simultaneously.</p>
+      </div>
+      <div class="callout key">
+        <div class="callout-label">Hereditary Fructose Intolerance</div>
+        <p>Mutations in aldolase B (the enzyme that cleaves fructose-1-phosphate) cause fructose-1-phosphate to pile up, which is toxic. Even without the mutation, this enzyme is slow enough that fructose-1-phosphate accumulates with a high-fructose diet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION IX — AMPK ═══════════════ -->
+  <section class="section" id="ampk">
+    <div class="section-kicker">IX · AMPK</div>
+    <h2>AMP-Activated Protein Kinase — the Energy Sensor</h2>
+    <p class="lead">AMPK is activated by <strong>high AMP</strong> (low energy state). Once active, it shuts off every pathway that <em>uses</em> energy (all the synthetic/anabolic ones on the left of the metabolic map) and turns on everything that <em>makes</em> energy.</p>
+    <div class="cards cards-3">
+      <div class="card">
+        <div class="card-header">AMPK Turns OFF</div>
+        <h3>Anabolic / energy-consuming</h3>
+        <p>Fatty acid synthesis (phosphorylates and inactivates ACC), cholesterol synthesis, protein synthesis, gluconeogenesis.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">AMPK Turns ON</div>
+        <h3>Catabolic / energy-generating</h3>
+        <p>Glycolysis (glucose uptake), fatty acid oxidation (by reducing malonyl CoA → CPT-I is freed), mitochondrial biogenesis (more efficient and more mitochondria).</p>
+      </div>
+      <div class="card">
+        <div class="card-header">What Activates AMPK</div>
+        <h3>AMP, exercise, metformin</h3>
+        <p>High AMP (low ATP state) is the allosteric activator. <strong>Exercise</strong> depletes ATP → raises AMP → activates AMPK. <strong>Metformin</strong> is one drug that targets this pathway, inhibiting ACC and suppressing fatty acid synthesis.</p>
+      </div>
+    </div>
+    <div class="callout key">
+      <div class="callout-label">ACC is the Key AMPK Substrate Here</div>
+      <p>When AMPK phosphorylates ACC, ACC is inactivated. Malonyl CoA drops. CPT-I is freed. Long-chain fatty acids can enter mitochondria. Beta-oxidation resumes. This is why both exercise and metformin improve fat metabolism through AMPK → ACC inhibition.</p>
+    </div>
+    <div class="callout info">
+      <div class="callout-label">Exercise as a "Wonder Drug"</div>
+      <p>Dr. Spicer called exercise a wonder drug: it uses ATP → raises AMP → activates AMPK → triggers all the downstream metabolic improvements (glycolysis, FA oxidation, mitochondrial biogenesis, reduced FA synthesis). Muscle growth also raises basal metabolic rate because muscle has far more mitochondria than white adipose tissue.</p>
+    </div>
+    <div class="callout note">
+      <div class="callout-label">FAS Inhibitors as Chemo — Why They Fail</div>
+      <p>Cancer cells upregulate FAS for anabolic growth. FAS inhibitors were explored as chemotherapy, but they turned out to be very cytotoxic. Why? Blocking FAS builds up malonyl CoA upstream → malonyl CoA blocks CPT-I → fatty acid oxidation is wiped out → cellular energy production crashes. ACC is a much safer target than FAS itself because blocking ACC does not build up toxic intermediates.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION X — COMPLICATIONS ═══════════════ -->
+  <section class="section" id="complications">
+    <div class="section-kicker">X · Hyperglycemia Complications</div>
+    <h2>Four Pathways That Turn Chronic High Glucose into Organ Damage</h2>
+    <p class="lead">Tissues damaged in diabetes are those whose glucose uptake is <em>not</em> regulated by insulin (neurons, renal tubules, retinal vessels, lens) — they cannot control intracellular glucose concentration and suffer the consequences.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Pathway</th><th>Mechanism</th><th>Clinical Consequence</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>AGE Formation</strong></td>
+            <td>Non-enzymatic glycation (Maillard reaction) — glucose attaches to proteins. HbA1c is just a measurable marker; the same process happens on collagen, basement membranes, etc.</td>
+            <td>Nephropathy, retinopathy, neuropathy, accelerated atherosclerosis</td>
+          </tr>
+          <tr>
+            <td><strong>Polyol Pathway</strong></td>
+            <td>Excess glucose is reduced to sorbitol (same enzyme that makes galactitol in galactosemia). Sorbitol accumulates in cells that don't easily export it.</td>
+            <td>Cataracts (lens), peripheral neuropathy, retinopathy</td>
+          </tr>
+          <tr>
+            <td><strong>PKC Activation</strong></td>
+            <td>Excess lipolysis (from insulin resistance) produces diacylglycerol (DAG) as a breakdown intermediate → DAG activates PKC → PKC interferes with insulin signaling.</td>
+            <td>Worsens insulin resistance; vascular dysfunction</td>
+          </tr>
+          <tr>
+            <td><strong>Hexosamine Pathway</strong></td>
+            <td>Glucose flux into hexosamine synthesis increases → promotes pro-inflammatory gene expression.</td>
+            <td>Systemic inflammation; further insulin resistance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout info">
+      <div class="callout-label">VLDL &amp; Triglycerides in T2DM</div>
+      <p>In T2DM: the liver is making <em>more</em> fatty acids (ACC still insulin-sensitive) AND LPL in adipose is insulin-resistant so VLDL is cleared more slowly. Result: triglycerides are the <strong>most elevated lipid</strong> in early T2DM. Fasting triglycerides on a lab panel primarily reflect VLDL levels (chylomicrons are gone after an overnight fast).</p>
+    </div>
+    <div class="callout note">
+      <div class="callout-label">Neonatal Hypoglycemia — Clinical Vignette</div>
+      <p>A newborn from a poorly controlled diabetic mother was hyperinsulinemic in utero (the fetal pancreas was responding to chronically elevated maternal glucose). After delivery, maternal glucose is gone, but neonatal insulin levels remain high. With minimal glycogen stores, blood glucose plummets → neonatal hypoglycemia and seizures.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SECTION XI — BROWN/BEIGE ADIPOSE ═══════════════ -->
+  <section class="section" id="adipose">
+    <div class="section-kicker">XI · Adipose Biology</div>
+    <h2>Brown vs. White vs. Beige Adipose Tissue</h2>
+    <p class="lead">The color of adipose tissue reflects its mitochondrial density. Brown fat is warm and thermogenic; white fat is storage-only with almost no mitochondria. <strong>Exercise can convert white into beige</strong> — an intermediate with thermogenic properties.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">Brown Adipose</div>
+        <h3>Dense mitochondria, thermogenesis</h3>
+        <p>Uses uncoupled ETC (UCP1) to generate heat instead of ATP. Abundant in neonates (explains why babies are warm). Adults have less, mostly around the neck/supraclavicular region.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">White Adipose</div>
+        <h3>Storage, few mitochondria</h3>
+        <p>Subcutaneous and visceral depots. Visceral white fat in obesity is infiltrated by M2 macrophages that secrete pro-inflammatory cytokines → the root driver of peripheral insulin resistance.</p>
+      </div>
+      <div class="card">
+        <div class="card-header">Beige Adipose</div>
+        <h3>Exercise-induced browning</h3>
+        <p>Exercise signals white adipose to make more mitochondria → "beige" tissue with partial thermogenic function. Also increases basal metabolic rate. Switching 10% of body composition from fat to muscle raises BMR substantially because of the mitochondrial difference.</p>
+      </div>
+    </div>
+    <div class="callout key">
+      <div class="callout-label">BMR and Mitochondria</div>
+      <p>Basal metabolic rate is fundamentally a measure of mitochondrial activity. Muscle tissue has far more mitochondria per gram than white adipose. Gaining muscle mass raises BMR even at rest — this is the metabolic rationale for resistance training in obesity/T2DM management.</p>
+    </div>
+  </section>
+
+  <div class="footer-note">Dr. Spicer FA/TAG synthesis + Biochemistry of Diabetes notes, rebuilt from both lecture transcripts.</div>
+</main>
+
+<script>
+document.querySelectorAll('.quiz-opt').forEach(opt => {
+  opt.addEventListener('click', function() {
+    const item = this.closest('.quiz-item');
+    if (item.dataset.answered) return;
+    item.dataset.answered = 'true';
+
+    const isCorrect = this.dataset.correct === 'true';
+    const explanation = this.dataset.exp;
+    const allOpts = item.querySelectorAll('.quiz-opt');
+    const correctOpt = item.querySelector('.quiz-opt[data-correct="true"]');
+    const correctExplanation = correctOpt ? correctOpt.dataset.exp : '';
+
+    allOpts.forEach(o => {
+      if (o.dataset.correct === 'true') o.classList.add('reveal');
+    });
+
+    if (!isCorrect) this.classList.add('wrong');
+
+    const expDiv = item.querySelector('.quiz-exp');
+    expDiv.innerHTML = isCorrect
+      ? `✓ Correct — ${explanation}`
+      : `✗ Incorrect — ${explanation}<br><br>✓ Correct answer explanation — ${correctExplanation}`;
+    expDiv.classList.add('show');
+  });
+});
+
+(function () {
+  const status = document.getElementById('studyStatus');
+
+  function setStatus(message) {
+    if (status) status.textContent = message;
+  }
+
+  function getSelectionRange() {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
+      setStatus('Select note text first.');
+      return null;
+    }
+    const range = selection.getRangeAt(0);
+    const anchor = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
+      ? range.commonAncestorContainer
+      : range.commonAncestorContainer.parentElement;
+    if (!anchor || anchor.closest('.study-tools')) {
+      setStatus('Select note text, not the toolbar.');
+      return null;
+    }
+    return range;
+  }
+
+  function wrapSelection(className, noteText = '') {
+    const range = getSelectionRange();
+    if (!range) return;
+    const selection = window.getSelection();
+    const wrapper = document.createElement('span');
+    wrapper.className = `study-mark ${className}`;
+    if (noteText) wrapper.dataset.note = noteText;
+    try {
+      range.surroundContents(wrapper);
+    } catch (error) {
+      const fragment = range.extractContents();
+      wrapper.appendChild(fragment);
+      range.insertNode(wrapper);
+    }
+    selection.removeAllRanges();
+    setStatus(noteText ? 'Annotation added.' : `${className.replace('study-', '')} applied.`);
+  }
+
+  function clearMark() {
+    const selection = window.getSelection();
+    let node = selection && selection.rangeCount ? selection.getRangeAt(0).commonAncestorContainer : null;
+    if (node && node.nodeType !== Node.ELEMENT_NODE) node = node.parentElement;
+    const mark = node && node.closest ? node.closest('.study-mark') : null;
+    if (!mark || mark.closest('.study-tools')) {
+      setStatus('Place the cursor inside a marked note to clear it.');
+      return;
+    }
+    const parent = mark.parentNode;
+    while (mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+    parent.removeChild(mark);
+    parent.normalize();
+    selection.removeAllRanges();
+    setStatus('Mark cleared.');
+  }
+
+  document.getElementById('studyHighlight').addEventListener('click', function () {
+    wrapSelection('study-highlight');
+  });
+  document.getElementById('studyStrike').addEventListener('click', function () {
+    wrapSelection('study-strike');
+  });
+  document.getElementById('studyAnnotate').addEventListener('click', function () {
+    const note = window.prompt('Add an annotation for this selection:');
+    if (note === null) return;
+    if (!note.trim()) {
+      setStatus('Annotation cancelled.');
+      return;
+    }
+    wrapSelection('study-annotate', note.trim());
+  });
+  document.getElementById('studyClear').addEventListener('click', clearMark);
+  document.getElementById('studyPrint').addEventListener('click', function () {
+    window.print();
+  });
+
+  document.addEventListener('dblclick', function (event) {
+    const mark = event.target.closest('.study-annotate');
+    if (!mark) return;
+    const updated = window.prompt('Edit annotation:', mark.dataset.note || '');
+    if (updated === null) return;
+    if (!updated.trim()) {
+      const parent = mark.parentNode;
+      while (mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+      parent.removeChild(mark);
+      parent.normalize();
+      setStatus('Annotation removed.');
+      return;
+    }
+    mark.dataset.note = updated.trim();
+    setStatus('Annotation updated.');
+  });
+})();
+</script>
+</body>
+</html>
