@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferland — EBM: Confidence Intervals, Superiority, Non-Inferiority & Equivalence Trials</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F4EF;
+  --surface: #FFFFFF;
+  --ink: #1A1A1E;
+  --ink2: #3C3C44;
+  --slate: #6B7280;
+  --rule: #E2DDD6;
+  --rule2: #EDE9E3;
+
+  /* accent palette — matches Steve's notes color-coding */
+  --red: #C0392B;
+  --red-bg: #FDF3F2;
+  --red-border: #E8B4B0;
+
+  --blue: #1A5FA8;
+  --blue-bg: #EDF4FF;
+  --blue-border: #A8C9F0;
+
+  --green: #1B7A4A;
+  --green-bg: #EDFBF3;
+  --green-border: #8ED8B2;
+
+  --gold: #B07D1A;
+  --gold-bg: #FDF8EC;
+  --gold-border: #E8CFA0;
+
+  --purple: #6B3FA0;
+  --purple-bg: #F5F0FB;
+  --purple-border: #C8AAEA;
+
+  --teal: #1A7A6D;
+  --teal-bg: #E8F7F5;
+  --teal-border: #8ED0C6;
+
+  --navy: #1B2A4A;
+  --r: 10px;
+  --rs: 6px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── LAYOUT ── */
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 32px 100px;
+}
+
+/* ── HEADER ── */
+.doc-header {
+  background: var(--navy);
+  color: #fff;
+  border-radius: 16px;
+  padding: 36px 40px 32px;
+  margin-bottom: 36px;
+  position: relative;
+  overflow: hidden;
+}
+.doc-header::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(62,196,178,0.18), transparent 70%);
+}
+.doc-header .kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.52);
+  margin-bottom: 10px;
+}
+.doc-header h1 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+.doc-header .meta {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.doc-header .meta span { margin-right: 18px; }
+
+/* ── TABLE OF CONTENTS ── */
+.toc {
+  background: var(--surface);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--r);
+  padding: 22px 26px;
+  margin-bottom: 32px;
+}
+.toc h2 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 14px;
+}
+.toc ol {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 24px;
+}
+.toc ol li a {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toc ol li a:hover { text-decoration: underline; }
+.toc ol li a .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--slate);
+  min-width: 20px;
+}
+
+/* ── SECTION HEADERS ── */
+.section {
+  margin-bottom: 44px;
+  scroll-margin-top: 24px;
+}
+.sec-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2.5px solid var(--rule);
+}
+.sec-label .sec-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--teal);
+  padding: 3px 10px;
+  border-radius: 6px;
+  letter-spacing: 1px;
+}
+.sec-label h2 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.2px;
+}
+
+/* ── LO BADGE ── */
+.lo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--purple-bg);
+  border: 1.5px solid var(--purple-border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--purple);
+  font-family: 'IBM Plex Mono', monospace;
+  margin-bottom: 16px;
+}
+
+/* ── BODY TEXT ── */
+p { margin-bottom: 14px; font-size: 15.5px; color: var(--ink2); }
+p:last-child { margin-bottom: 0; }
+
+/* ── COLORED CALLOUT BOXES ── */
+.box {
+  border-radius: var(--r);
+  padding: 18px 22px;
+  margin-bottom: 16px;
+  border-left: 4px solid;
+}
+.box.red    { background: var(--red-bg);    border-color: var(--red);    }
+.box.blue   { background: var(--blue-bg);   border-color: var(--blue);   }
+.box.green  { background: var(--green-bg);  border-color: var(--green);  }
+.box.gold   { background: var(--gold-bg);   border-color: var(--gold);   }
+.box.purple { background: var(--purple-bg); border-color: var(--purple); }
+.box.teal   { background: var(--teal-bg);   border-color: var(--teal);   }
+.box.navy   { background: #EEF1F7;          border-color: var(--navy);   }
+
+.box .box-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.box.red    .box-label { color: var(--red);    }
+.box.blue   .box-label { color: var(--blue);   }
+.box.green  .box-label { color: var(--green);  }
+.box.gold   .box-label { color: var(--gold);   }
+.box.purple .box-label { color: var(--purple); }
+.box.teal   .box-label { color: var(--teal);   }
+.box.navy   .box-label { color: var(--navy);   }
+
+.box p { font-size: 15px; margin-bottom: 8px; }
+.box p:last-child { margin-bottom: 0; }
+
+/* ── INLINE COLOR HIGHLIGHTS (matching slide colors) ── */
+.r  { color: var(--red);    font-weight: 700; }
+.b  { color: var(--blue);   font-weight: 700; }
+.g  { color: var(--green);  font-weight: 700; }
+.gd { color: var(--gold);   font-weight: 700; }
+.p  { color: var(--purple); font-weight: 700; }
+.t  { color: var(--teal);   font-weight: 700; }
+.n  { color: var(--navy);   font-weight: 700; }
+.bold { font-weight: 700; }
+.ital { font-style: italic; }
+
+/* ── BULLET LISTS ── */
+ul.notes-list {
+  list-style: none;
+  margin: 0 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+ul.notes-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15.5px;
+  color: var(--ink2);
+  line-height: 1.6;
+}
+ul.notes-list li::before {
+  content: '▸';
+  color: var(--teal);
+  font-size: 12px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+ul.notes-list li.sub {
+  margin-left: 22px;
+  font-size: 14.5px;
+}
+ul.notes-list li.sub::before { color: var(--slate); content: '–'; }
+
+/* ── TABLES ── */
+.tbl-wrap { overflow-x: auto; margin-bottom: 20px; border-radius: var(--r); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: var(--surface);
+}
+thead tr {
+  background: var(--navy);
+  color: #fff;
+}
+thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid var(--rule2); }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:nth-child(even) { background: var(--bg); }
+tbody td {
+  padding: 11px 16px;
+  vertical-align: top;
+  line-height: 1.55;
+  color: var(--ink2);
+}
+tbody td:first-child {
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+}
+/* highlight rows */
+tr.hl-green td { background: var(--green-bg) !important; }
+tr.hl-blue  td { background: var(--blue-bg)  !important; }
+tr.hl-red   td { background: var(--red-bg)   !important; }
+tr.hl-gold  td { background: var(--gold-bg)  !important; }
+
+/* ── CI INTERPRETATION TABLES ── */
+.ci-table table thead tr { background: var(--teal); }
+.ci-table table tr.best td { background: var(--green-bg) !important; font-weight: 700; }
+.ci-table table tr.best td:last-child { color: var(--green); }
+.ci-table table tr.mid  td { background: #FAFAFA !important; }
+.ci-table table tr.bad  td { background: var(--red-bg) !important; }
+.ci-table table tr.bad  td:last-child { color: var(--red); }
+
+/* ── FORMULA BOX ── */
+.formula {
+  background: var(--navy);
+  color: #fff;
+  border-radius: var(--r);
+  padding: 18px 24px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.formula .f-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 8px;
+}
+.formula .f-eq { color: #7DDFC5; font-size: 17px; }
+
+/* ── COMPARISON GRID ── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.compare-card {
+  border-radius: var(--r);
+  padding: 18px 16px;
+  border: 1.5px solid;
+}
+.compare-card.sup  { background: var(--blue-bg);   border-color: var(--blue);   }
+.compare-card.ni   { background: var(--gold-bg);   border-color: var(--gold);   }
+.compare-card.eq   { background: var(--green-bg);  border-color: var(--green);  }
+.compare-card .cc-head {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.compare-card.sup .cc-head  { color: var(--blue);  }
+.compare-card.ni  .cc-head  { color: var(--gold);  }
+.compare-card.eq  .cc-head  { color: var(--green); }
+.compare-card h3 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--navy);
+}
+.compare-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.compare-card ul li {
+  font-size: 13.5px;
+  color: var(--ink2);
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+}
+.compare-card ul li::before { content: '▸'; font-size: 10px; margin-top: 4px; flex-shrink: 0; }
+.compare-card.sup ul li::before { color: var(--blue);  }
+.compare-card.ni  ul li::before { color: var(--gold);  }
+.compare-card.eq  ul li::before { color: var(--green); }
+
+/* ── CI VISUAL DIAGRAM ── */
+.ci-diagram {
+  background: var(--surface);
+  border: 1.5px solid var(--rule);
+  border-radius: var(--r);
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+.ci-diagram h4 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 20px;
+}
+.ci-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.ci-row:last-child { margin-bottom: 0; }
+.ci-row-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  width: 90px;
+  flex-shrink: 0;
+  text-align: right;
+}
+.ci-track {
+  position: relative;
+  height: 28px;
+  flex: 1;
+  min-width: 300px;
+}
+.ci-axis {
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--rule);
+  transform: translateY(-50%);
+}
+/* vertical reference lines */
+.ci-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 2px;
+}
+.ci-line.zero { background: #333; left: 50%; }
+.ci-line.delta-pos { background: var(--red); border-right: 2px dashed var(--red); left: 75%; }
+.ci-line.delta-neg { background: var(--red); border-right: 2px dashed var(--red); left: 25%; }
+/* CI bar */
+.ci-bar {
+  position: absolute;
+  top: 50%;
+  height: 6px;
+  border-radius: 3px;
+  transform: translateY(-50%);
+}
+.ci-bar .ci-dot {
+  position: absolute;
+  top: 50%;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  transform: translate(-50%, -50%);
+}
+.ci-verdict {
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 200px;
+  flex-shrink: 0;
+}
+
+/* ── HYPOTHESIS BOX ── */
+.hyp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.hyp-card {
+  border-radius: var(--rs);
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--rule);
+}
+.hyp-card .hyp-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 8px;
+}
+.hyp-card .hyp-val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.5;
+}
+
+/* ── STRENGTHS / WEAKNESSES ── */
+.sw-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.sw-card {
+  border-radius: var(--rs);
+  padding: 16px 18px;
+}
+.sw-card.str { background: var(--green-bg); border: 1.5px solid var(--green-border); }
+.sw-card.wk  { background: var(--red-bg);   border: 1.5px solid var(--red-border);   }
+.sw-card h4 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.sw-card.str h4 { color: var(--green); }
+.sw-card.wk  h4 { color: var(--red);   }
+.sw-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.sw-card ul li { font-size: 14px; color: var(--ink2); display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+.sw-card.str ul li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.sw-card.wk  ul li::before { content: '✗'; color: var(--red);   font-weight: 700; flex-shrink: 0; }
+
+/* ── WATCH-OUT BOX ── */
+.watchout {
+  background: #FFF8E6;
+  border: 2px solid var(--gold);
+  border-radius: var(--r);
+  padding: 18px 22px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.watchout .wo-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.watchout .wo-body { font-size: 14.5px; color: var(--ink2); line-height: 1.6; }
+.watchout .wo-body strong { color: var(--gold); }
+
+/* ── KEY POINT BANNER ── */
+.key-point {
+  background: var(--navy);
+  color: #fff;
+  border-radius: var(--r);
+  padding: 16px 22px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  line-height: 1.6;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.key-point .kp-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+.key-point strong { color: #7DDFC5; }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rule), transparent);
+  margin: 32px 0;
+}
+
+/* ── SCROLL HINT ── */
+@media (max-width: 600px) {
+  .page { padding: 20px 16px 80px; }
+  .compare-grid, .hyp-grid, .sw-grid { grid-template-columns: 1fr; }
+  .toc ol { grid-template-columns: 1fr; }
+  .doc-header { padding: 24px 22px; }
+  .doc-header h1 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ══ HEADER ══ -->
+<div class="doc-header">
+  <div class="kicker">EBM · Block 5 · Week 1 · Dr. Ferland</div>
+  <h1>Confidence Intervals, Superiority, Non-Inferiority &amp; Equivalence Trials</h1>
+  <div class="meta">
+    <span>📄 Ferland EBM Lecture</span>
+    <span>🎯 PLOs 11–15</span>
+    <span>📅 Week 1</span>
+  </div>
+</div>
+
+<!-- ══ TABLE OF CONTENTS ══ -->
+<div class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#s1"><span class="num">01</span> Confidence Intervals — Review</a></li>
+    <li><a href="#s2"><span class="num">02</span> CI Rules of Thumb</a></li>
+    <li><a href="#s3"><span class="num">03</span> Superiority Trials</a></li>
+    <li><a href="#s4"><span class="num">04</span> Non-Inferiority Trials</a></li>
+    <li><a href="#s5"><span class="num">05</span> Equivalence Trials</a></li>
+    <li><a href="#s6"><span class="num">06</span> Side-by-Side Comparison</a></li>
+    <li><a href="#s7"><span class="num">07</span> CI Interpretation Diagrams</a></li>
+    <li><a href="#s8"><span class="num">08</span> Strengths &amp; Weaknesses</a></li>
+  </ol>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 1 — CONFIDENCE INTERVALS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s1">
+  <div class="sec-label">
+    <span class="sec-num">01</span>
+    <h2>Confidence Intervals — Review</h2>
+  </div>
+
+  <div class="lo-badge">📋 PLO 15 — CI with hypothesis testing</div>
+
+  <div class="box blue">
+    <div class="box-label">Definition</div>
+    <p><span class="b">Confidence interval (CI)</span> = a range of values that, with a specified probability, contains the <span class="bold">true population parameter.</span></p>
+    <p>If we repeated our sampling process many times, <span class="b">95% of the calculated intervals would contain the true parameter</span>, but 5% would not.</p>
+  </div>
+
+  <p><span class="bold">Advantages of CIs over p-values alone:</span></p>
+  <ul class="notes-list">
+    <li>Provides information about <span class="b">precision of estimate</span> — the smaller the interval, the more precise</li>
+    <li>Indicates the <span class="b">range of clinically plausible values</span></li>
+    <li>Helps assess <span class="b">practical significance</span>, not just statistical significance</li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <p class="bold" style="margin-bottom: 10px;">CI Formulas (Ferland's cheat sheet):</p>
+  <div class="formula">
+    <div class="f-label">Confidence Interval Calculations</div>
+    <div class="f-eq">99% CI = Mean ± 2.58 × SEM</div>
+    <div class="f-eq">95% CI = Mean ± 1.96 × SEM &nbsp;&nbsp;<span style="color:rgba(255,255,255,0.45)">← cheat: Mean ± 2 × SEM</span></div>
+    <div class="f-eq">90% CI = Mean ± 1.65 × SEM</div>
+    <div style="margin-top:12px; color: rgba(255,255,255,0.55); font-size:13px;">SEM = SD / √n</div>
+  </div>
+
+  <div class="formula">
+    <div class="f-label">CI for a Difference Between Means</div>
+    <div class="f-eq">CI = (x̄₁ − x̄₂) ± z* × √(σ₁²/n₁ + σ₂²/n₂)</div>
+    <div style="margin-top:8px; color: rgba(255,255,255,0.55); font-size:12px;">Used in superiority, non-inferiority, and equivalence trials</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 2 — CI RULES OF THUMB
+══════════════════════════════════════════════════ -->
+<div class="section" id="s2">
+  <div class="sec-label">
+    <span class="sec-num">02</span>
+    <h2>CI Rules of Thumb</h2>
+  </div>
+
+  <div class="box red">
+    <div class="box-label">⚠ High-Yield — Know Both Rules Cold</div>
+    <p>There are two scenarios depending on whether you're comparing a <span class="r">ratio</span> or a <span class="r">difference between means</span>.</p>
+  </div>
+
+  <div class="tbl-wrap ci-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Metric Type</th>
+          <th>CI Includes...</th>
+          <th>CI Excludes...</th>
+          <th>Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="hl-blue">
+          <td><span class="b">Ratio</span> (OR, RR, HR)</td>
+          <td>1</td>
+          <td>1</td>
+          <td><span class="r">Includes 1 → NOT significant</span><br><span class="g">Excludes 1 → IS significant</span></td>
+        </tr>
+        <tr class="hl-gold">
+          <td><span class="gd">Difference between means</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="r">Includes 0 → NOT significant</span><br><span class="g">Excludes 0 → IS significant</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box green">
+    <div class="box-label">Ferland's Rule</div>
+    <p>CIs are used in many studies, but are <span class="bold">almost always seen</span> in superiority, equivalence, and non-inferiority trials. These trials <span class="g">report using CIs</span>, not just p-values.</p>
+  </div>
+
+  <p><span class="bold">Odds Ratio CI calculation (for reference):</span></p>
+  <div class="formula">
+    <div class="f-label">95% CI for Odds Ratio</div>
+    <div class="f-eq">Lower 95% CI = e^(ln(OR) − 1.96 × √(1/a + 1/b + 1/c + 1/d))</div>
+    <div class="f-eq">Upper 95% CI = e^(ln(OR) + 1.96 × √(1/a + 1/b + 1/c + 1/d))</div>
+    <div style="margin-top:8px; color:rgba(255,255,255,0.45); font-size:12px;">2×2 contingency table: a=TP, b=FP, c=FN, d=TN</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 3 — SUPERIORITY TRIALS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="sec-label">
+    <span class="sec-num">03</span>
+    <h2>Superiority Trials</h2>
+  </div>
+
+  <div class="lo-badge">📋 PLOs 11, 13, 14</div>
+
+  <div class="box red">
+    <div class="box-label">Core Definition — Superiority Trial</div>
+    <p><span class="r">Superiority trial</span> = Tests if the new intervention is <span class="r">better than the control.</span></p>
+    <p>Key phrase: <span class="r">"Novel vs. non-standard"</span> — comparing a new intervention against a placebo OR non-standard intervention.</p>
+    <p><span class="bold">Example:</span> A pharmaceutical company develops a new blood pressure medication and wants to test if it is more effective than an existing drug.</p>
+  </div>
+
+  <ul class="notes-list">
+    <li>Usually a <span class="bold">randomized controlled trial (RCT)</span></li>
+    <li>Aims to determine if new treatment is <span class="bold">superior (better)</span> than the active control or standard treatment</li>
+    <li>Used when an effective treatment already exists and researchers want to find <span class="bold">a better option</span></li>
+    <li>Common in <span class="bold">drug trials and medical device studies</span></li>
+  </ul>
+
+  <div class="hyp-grid">
+    <div class="hyp-card">
+      <div class="hyp-label">Null Hypothesis (H₀)</div>
+      <div class="hyp-val">New treatment is <span class="r">NOT better</span> than control<br><br>Treatment − Control ≤ 0</div>
+    </div>
+    <div class="hyp-card">
+      <div class="hyp-label">Alternative Hypothesis (Hₐ)</div>
+      <div class="hyp-val">New treatment IS <span class="g">superior</span> to control<br><br>Treatment − Control &gt; 0</div>
+    </div>
+    <div class="hyp-card">
+      <div class="hyp-label">Hypothesis Type</div>
+      <div class="hyp-val"><span class="b">Two-tailed</span><br><br>Tests both directions of difference</div>
+    </div>
+  </div>
+
+  <p class="bold" style="margin-top: 4px;">Key design features:</p>
+  <ul class="notes-list">
+    <li>Comparator: <span class="bold">Placebo OR active standard</span> — only trial type that can use placebo</li>
+    <li>Analysis: <span class="bold">ITT (Intention-to-Treat)</span></li>
+    <li>Reporting: <span class="bold">p-value AND confidence interval (CI)</span></li>
+    <li>Largest sample size of the three trial types</li>
+  </ul>
+
+  <div class="tbl-wrap ci-table" style="margin-top: 18px;">
+    <table>
+      <thead>
+        <tr><th colspan="2">CI Interpretation — Superiority Trials</th></tr>
+        <tr>
+          <th>95% CI for mean difference</th>
+          <th>Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="best">
+          <td>✓ <span class="g">CI is entirely above 0</span></td>
+          <td>New treatment is <strong>SUPERIOR</strong> — superiority demonstrated</td>
+        </tr>
+        <tr class="mid">
+          <td>CI crosses 0</td>
+          <td>No significant difference — superiority NOT proven</td>
+        </tr>
+        <tr class="bad">
+          <td>✗ <span class="r">CI is entirely below 0</span></td>
+          <td>Control is superior — new treatment is WORSE</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="watchout">
+    <div class="wo-icon">⚠️</div>
+    <div class="wo-body">
+      <strong>Common Misconception (Ferland flags this explicitly):</strong> A non-significant superiority result is often wrongly interpreted as <em>proof of no difference</em>. This is incorrect — it only means you cannot clearly conclude that the new agent performs better. You also <strong>cannot conclude equivalence</strong> from a non-significant superiority trial.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 4 — NON-INFERIORITY TRIALS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="sec-label">
+    <span class="sec-num">04</span>
+    <h2>Non-Inferiority Trials</h2>
+  </div>
+
+  <div class="lo-badge">📋 PLOs 11, 13, 14</div>
+
+  <div class="box gold">
+    <div class="box-label">Core Definition — Non-Inferiority Trial</div>
+    <p><span class="gd">Non-inferiority trial</span> = Tests if the new intervention is <span class="gd">not unacceptably worse than the standard.</span></p>
+    <p>Key phrase: <span class="gd">"Novel vs. standard"</span> — always uses an <span class="bold">active comparator</span> (never placebo).</p>
+    <p><span class="bold">Example:</span> A new, once-daily antibiotic is tested against a well-established, twice-daily antibiotic for treating pneumonia. The goal is to show the new antibiotic is not significantly worse while offering improved patient adherence and fewer side effects.</p>
+  </div>
+
+  <p><span class="bold">Why NI trials exist:</span> It is more and more difficult to develop truly superior treatments. New treatments are being sought that have the same approximate efficacy but demonstrate <span class="bold">better quality in other aspects</span> — e.g., side effects, convenience, sustained-release formulations.</p>
+
+  <ul class="notes-list">
+    <li>Primary objective: the investigational product is <span class="gd">not clinically inferior</span> (not unacceptably inferior) to a comparative agent</li>
+    <li>Goal: "The new treatment is <span class="gd">not worse than the standard by more than a pre-specified margin</span>"</li>
+    <li>Common in the <span class="bold">regulatory setting</span> for a new label indication</li>
+    <li>Always requires an <span class="bold">active control</span> — <span class="r">placebo cannot be used</span></li>
+  </ul>
+
+  <div class="box red">
+    <div class="box-label">⚠ The Non-Inferiority Margin (Δ)</div>
+    <p>The <span class="r">non-inferiority margin (Δ)</span> = the maximum clinically acceptable difference between treatments.</p>
+    <ul class="notes-list" style="margin-top: 10px;">
+      <li>Based on <span class="bold">clinical judgement</span></li>
+      <li>Should be <span class="bold">smaller than the established advantage</span> of the active control over placebo</li>
+      <li>For NI trials, there is only <span class="r">ONE non-inferiority margin</span> (one-sided)</li>
+      <li class="sub"><span class="r">Too large</span> → risk of accepting truly inferior treatments</li>
+      <li class="sub"><span class="r">Too small</span> → unrealistic sample size requirements</li>
+    </ul>
+  </div>
+
+  <div class="hyp-grid">
+    <div class="hyp-card">
+      <div class="hyp-label">Null Hypothesis (H₀)</div>
+      <div class="hyp-val">New is <span class="r">worse</span> than standard by more than Δ<br><br>New &lt; Standard − Δ</div>
+    </div>
+    <div class="hyp-card">
+      <div class="hyp-label">Alternative Hypothesis (Hₐ)</div>
+      <div class="hyp-val">New is <span class="g">not worse</span> than standard by more than Δ<br><br>New ≥ Standard − Δ</div>
+    </div>
+    <div class="hyp-card">
+      <div class="hyp-label">Hypothesis Type</div>
+      <div class="hyp-val"><span class="gd">One-tailed</span><br><br>Only tests in one direction (inferiority)</div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap ci-table" style="margin-top: 18px;">
+    <table>
+      <thead>
+        <tr><th colspan="2">CI Interpretation — Non-Inferiority Trials</th></tr>
+        <tr>
+          <th>95% CI lower bound vs. −Δ</th>
+          <th>Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="best">
+          <td>✓ <span class="g">CI is entirely above −Δ</span></td>
+          <td>Non-inferiority is <strong>PROVEN</strong></td>
+        </tr>
+        <tr class="mid">
+          <td>CI crosses −Δ</td>
+          <td>Non-inferiority is <strong>NOT proven</strong></td>
+        </tr>
+        <tr class="bad">
+          <td>✗ <span class="r">CI is entirely below −Δ</span></td>
+          <td>New treatment IS <strong>INFERIOR</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="key-point">
+    <div class="kp-icon">🎯</div>
+    <div><strong>Ferland's key point:</strong> For NI trials, only check the <strong>lower CI bound vs. −Δ</strong>. If the lower bound is entirely above −Δ, non-inferiority is declared — the upper bound doesn't matter for the NI conclusion. Additionally, if the CI is also entirely above zero, you can additionally claim <strong>superiority</strong>.</div>
+  </div>
+
+  <div class="box blue">
+    <div class="box-label">Analysis Note</div>
+    <p>NI trials require <span class="b">BOTH ITT and per-protocol analysis</span>. In NI trials, ITT can actually bias toward showing non-inferiority (by diluting differences), so per-protocol analysis is an essential check. This is different from superiority trials where ITT is the standard.</p>
+  </div>
+
+  <div class="box teal">
+    <div class="box-label">Sample Size Note</div>
+    <p>Calculated sample size for a non-inferiority trial is usually the <span class="t">smallest of the three trial types</span> — the NI margin creates a wider acceptable range, reducing the precision needed.</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 5 — EQUIVALENCE TRIALS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="sec-label">
+    <span class="sec-num">05</span>
+    <h2>Equivalence Trials</h2>
+  </div>
+
+  <div class="lo-badge">📋 PLOs 11, 13, 14</div>
+
+  <div class="box green">
+    <div class="box-label">Core Definition — Equivalence Trial</div>
+    <p><span class="g">Equivalence trial</span> = Tests if the new intervention is <span class="g">similar to the standard (neither significantly worse nor better).</span></p>
+    <p>Key phrase: <span class="g">"Novel vs. standard"</span> — always uses an <span class="bold">active comparator</span> (never placebo).</p>
+    <p><span class="bold">Example:</span> A generic pharmaceutical company develops a new version of a brand-name asthma inhaler. A clinical trial is conducted to determine whether the generic inhaler delivers the same therapeutic effect as the brand-name drug within a predefined equivalence margin.</p>
+  </div>
+
+  <p><span class="bold">Common uses of equivalence trials:</span></p>
+  <ul class="notes-list">
+    <li><span class="bold">Generic drugs</span> — bioequivalent to the original drug in terms of PK and PD</li>
+    <li><span class="bold">New formulations</span> — extended-release vs. immediate-release</li>
+    <li><span class="bold">Dosage forms</span> — capsule vs. tablet</li>
+    <li><span class="bold">Updated medical devices</span> — at least as safe and effective as the old device</li>
+    <li><span class="bold">Diagnostic tests</span> — equivalent sensitivity, specificity, and accuracy</li>
+  </ul>
+
+  <div class="box red">
+    <div class="box-label">⚠ Two Deltas — This Is Critical</div>
+    <p>Unlike NI trials (which have ONE margin), equivalence trials have <span class="r">TWO deltas</span>: a positive (+Δ) and a negative (−Δ).</p>
+    <p>The trial must show that the true treatment difference lies between <span class="r">−Δ and +Δ</span> — neither unacceptably worse NOR unacceptably better.</p>
+    <p>Acceptable range is often <span class="r">±20%</span> for generic drug bioequivalence.</p>
+  </div>
+
+  <div class="hyp-grid">
+    <div class="hyp-card">
+      <div class="hyp-label">Null Hypothesis (H₀)</div>
+      <div class="hyp-val">The two treatments are <span class="r">clinically different</span> beyond the equivalence margin<br><br>|New − Standard| &gt; Δ</div>
+    </div>
+    <div class="hyp-card">
+      <div class="hyp-label">Alternative Hypothesis (Hₐ)</div>
+      <div class="hyp-val">The two treatments are <span class="g">statistically and clinically equivalent</span> within the margin<br><br>|New − Standard| ≤ Δ</div>
+    </div>
+    <div class="hyp-card">
+      <div class="hyp-label">Hypothesis Type</div>
+      <div class="hyp-val"><span class="b">Two-tailed</span><br><br>Tests both directions — neither better nor worse</div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap ci-table" style="margin-top: 18px;">
+    <table>
+      <thead>
+        <tr><th colspan="2">CI Interpretation — Equivalence Trials</th></tr>
+        <tr>
+          <th>95% CI vs. (−Δ, +Δ)</th>
+          <th>Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="best">
+          <td>✓ <span class="g">CI is entirely within (−Δ, +Δ)</span></td>
+          <td>Equivalence is <strong>DEMONSTRATED</strong> — treatments are equivalent</td>
+        </tr>
+        <tr class="bad">
+          <td>✗ <span class="r">CI extends beyond −Δ or +Δ</span></td>
+          <td>Equivalence is <strong>NOT proven</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box gold">
+    <div class="box-label">Sample Size Note</div>
+    <p>Equivalence trials generally require a <span class="gd">larger sample size</span> than non-inferiority trials because they must demonstrate similarity in <span class="bold">both directions</span> (neither worse NOR better) and the equivalence delta may be small.</p>
+  </div>
+
+  <div class="key-point">
+    <div class="kp-icon">🎯</div>
+    <div>The equivalence CI must fit <strong>entirely inside the box</strong> (−Δ to +Δ). If any part of the CI sticks out beyond either boundary — the equivalence margin is breached and equivalence is NOT declared. Check <strong>both bounds</strong>, not just the lower.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 6 — SIDE-BY-SIDE COMPARISON
+══════════════════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="sec-label">
+    <span class="sec-num">06</span>
+    <h2>Side-by-Side Comparison</h2>
+  </div>
+
+  <div class="lo-badge">📋 PLOs 11, 13, 14, 15</div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th style="background:#1A5FA8;">Superiority Trial</th>
+          <th style="background:#B07D1A;">Non-Inferiority Trial</th>
+          <th style="background:#1B7A4A;">Equivalence Trial</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Purpose</td>
+          <td>New treatment is <span class="b">better</span> than comparator</td>
+          <td>New treatment is <span class="gd">not unacceptably worse</span> than standard</td>
+          <td>Two treatments are <span class="g">clinically similar</span> within a margin</td>
+        </tr>
+        <tr class="hl-blue">
+          <td>Key Phrase</td>
+          <td><span class="b">"Novel vs. non-standard"</span> — better than</td>
+          <td><span class="gd">"Novel vs. standard"</span> — not worse than</td>
+          <td><span class="g">"Novel vs. standard"</span> — similar to</td>
+        </tr>
+        <tr>
+          <td>Comparator</td>
+          <td>Placebo <em>or</em> active standard</td>
+          <td><span class="r">Active control only</span> (no placebo)</td>
+          <td><span class="r">Active control only</span> (no placebo)</td>
+        </tr>
+        <tr class="hl-gold">
+          <td>Hypothesis Type</td>
+          <td><span class="b">Two-tailed</span></td>
+          <td><span class="gd">One-tailed</span></td>
+          <td><span class="b">Two-tailed</span></td>
+        </tr>
+        <tr>
+          <td>H₀ (Null)</td>
+          <td>New is NOT better</td>
+          <td>New IS worse than Δ</td>
+          <td>Treatments ARE different beyond Δ</td>
+        </tr>
+        <tr class="hl-green">
+          <td>CI Criterion</td>
+          <td><span class="g">CI entirely above 0</span></td>
+          <td><span class="gd">Lower bound above −Δ</span></td>
+          <td><span class="g">Entire CI within (−Δ, +Δ)</span></td>
+        </tr>
+        <tr>
+          <td>Number of Margins</td>
+          <td>N/A (0 margin)</td>
+          <td><span class="gd">1 margin</span> (−Δ only)</td>
+          <td><span class="g">2 margins</span> (−Δ and +Δ)</td>
+        </tr>
+        <tr class="hl-blue">
+          <td>Analysis</td>
+          <td>ITT</td>
+          <td>ITT <span class="r">AND</span> per-protocol</td>
+          <td>ITT <span class="r">AND</span> per-protocol</td>
+        </tr>
+        <tr>
+          <td>Reporting</td>
+          <td>p-value and CI</td>
+          <td><span class="gd">CI (primary)</span></td>
+          <td><span class="g">CI (primary)</span></td>
+        </tr>
+        <tr class="hl-red">
+          <td>Sample Size</td>
+          <td><span class="r">Largest</span></td>
+          <td><span class="g">Smallest</span></td>
+          <td>Large (larger than NI)</td>
+        </tr>
+        <tr>
+          <td>Placebo Allowed?</td>
+          <td><span class="g">Yes</span></td>
+          <td><span class="r">No</span></td>
+          <td><span class="r">No</span></td>
+        </tr>
+        <tr class="hl-gold">
+          <td>Common Uses</td>
+          <td>New drug approvals; outperform existing treatments</td>
+          <td>Same efficacy, better safety/convenience/cost</td>
+          <td>Generic drugs, biosimilar approvals, device updates</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 7 — CI INTERPRETATION DIAGRAMS
+══════════════════════════════════════════════════ -->
+<div class="section" id="s7">
+  <div class="sec-label">
+    <span class="sec-num">07</span>
+    <h2>CI Interpretation Diagrams</h2>
+  </div>
+
+  <div class="lo-badge">📋 PLO 12 — Plotting and interpreting trials</div>
+
+  <div class="box navy">
+    <div class="box-label">How to Read the Diagrams</div>
+    <p>Each horizontal bar represents a <span class="n">95% CI</span>. The square/dot = point estimate. The reference lines (dashed red) = Δ margins. <span class="n">0 = no difference</span>.</p>
+    <p style="margin-top:8px;"><span class="bold">Direction convention (standard):</span> Right = Treatment better; Left = Control better. <span class="r">Watch out for flipped axes</span> — some published figures show the axes reversed!</p>
+  </div>
+
+  <!-- SUPERIORITY DIAGRAM -->
+  <p class="bold" style="margin-bottom: 12px; font-size: 15px; color: var(--blue);">▸ Superiority Trials</p>
+  <div class="ci-diagram">
+    <h4>Superiority — CI vs. Zero</h4>
+    <div class="ci-row">
+      <div class="ci-row-label" style="color: var(--green);">✓ Superior</div>
+      <div class="ci-track">
+        <div class="ci-axis"></div>
+        <div class="ci-line zero"></div>
+        <div class="ci-bar" style="left:55%;width:28%;background:var(--green);">
+          <div class="ci-dot" style="left:50%;background:var(--green);"></div>
+        </div>
+      </div>
+      <div class="ci-verdict" style="color:var(--green);">✓ Superiority proven<br><small style="color:var(--slate)">CI entirely above 0</small></div>
+    </div>
+    <div class="ci-row">
+      <div class="ci-row-label" style="color: var(--slate);">✗ Not proven</div>
+      <div class="ci-track">
+        <div class="ci-axis"></div>
+        <div class="ci-line zero"></div>
+        <div class="ci-bar" style="left:38%;width:30%;background:var(--slate);">
+          <div class="ci-dot" style="left:50%;background:var(--slate);"></div>
+        </div>
+      </div>
+      <div class="ci-verdict" style="color:var(--slate);">✗ Crosses zero<br><small>Not proven</small></div>
+    </div>
+    <div class="ci-row">
+      <div class="ci-row-label" style="color: var(--red);">✗ Worse</div>
+      <div class="ci-track">
+        <div class="ci-axis"></div>
+        <div class="ci-line zero"></div>
+        <div class="ci-bar" style="left:18%;width:26%;background:var(--red);">
+          <div class="ci-dot" style="left:50%;background:var(--red);"></div>
+        </div>
+      </div>
+      <div class="ci-verdict" style="color:var(--red);">✗ Control superior<br><small>CI entirely below 0</small></div>
+    </div>
+    <div style="margin-top:16px; display:flex; justify-content:space-between; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--slate);">
+      <span>← Control Better</span>
+      <span style="font-weight:700; color:#333;">| 0 |</span>
+      <span>Treatment Better →</span>
+    </div>
+  </div>
+
+  <!-- NON-INFERIORITY DIAGRAM -->
+  <p class="bold" style="margin-bottom: 12px; font-size: 15px; color: var(--gold);">▸ Non-Inferiority Trials</p>
+  <div class="ci-diagram">
+    <h4>Non-Inferiority — CI vs. −Δ (lower bound only)</h4>
+    <div class="ci-row">
+      <div class="ci-row-label" style="color: var(--green);">✓ NI proven</div>
+      <div class="ci-track">
+        <div class="ci-axis"></div>
+        <div class="ci-line zero"></div>
+        <div class="ci-line delta-neg"></div>
+        <div class="ci-bar" style="left:34%;width:30%;background:var(--green);">
+          <div class="ci-dot" style="left:50%;background:var(--green);"></div>
+        </div>
+      </div>
+      <div class="ci-verdict" style="color:var(--green);">✓ Lower bound above −Δ<br><small style="color:var(--slate)">NI demonstrated</small></div>
+    </div>
+    <div class="ci-row">
+      <div class="ci-row-label" style="color: var(--slate);">✗ Not proven</div>
+      <div class="ci-track">
+        <div class="ci-axis"></div>
+        <div class="ci-line zero"></div>
+        <div class="ci-line delta-neg"></div>
+        <div class="ci-bar" style="left:18%;width:32%;background:var(--slate);">
+          <div class="ci-dot" style="left:50%;background:var(--slate);"></div>
+        </div>
+      </div>
+      <div class="ci-verdict" style="color:var(--slate);">✗ Crosses −Δ<br><small>NI not proven</small></div>
+    </div>
+    <div class="ci-row">
+      <div class="ci-row-label" style="color: var(--red);">✗ Inferior</div>
+      <div class="ci-track">
+        <div class="ci-axis"></div>
+        <div class="ci-line zero"></div>
+        <div class="ci-line delta-neg"></div>
+        <div class="ci-bar" style="left:5%;width:18%;background:var(--red);">
+          <div class="ci-dot" style="left:50%;background:var(--red);"></div>
+        </div>
+      </div>
+      <div class="ci-verdict" style="color:var(--red);">✗ Entirely below −Δ<br><small>New treatment inferior</small></div>
+    </div>
+    <div style="margin-top:16px; display:flex; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--slate); gap: 0; justify-content: space-between;">
+      <span>← Control Better</span>
+      <span style="color:var(--red); font-weight:700;">|−Δ|</span>
+      <span style="font-weight:700; color:#333;">| 0 |</span>
+      <span>Treatment Better →</span>
+    </div>
+  </div>
+
+  <!-- EQUIVALENCE DIAGRAM -->
+  <p class="bold" style="margin-bottom: 12px; font-size: 15px; color: var(--green);">▸ Equivalence Trials</p>
+  <div class="ci-diagram">
+    <h4>Equivalence — CI must fit entirely within (−Δ, +Δ)</h4>
+    <div class="ci-row">
+      <div class="ci-row-label" style="color: var(--green);">✓ Equivalent</div>
+      <div class="ci-track">
+        <div class="ci-axis"></div>
+        <div class="ci-line zero"></div>
+        <div class="ci-line delta-neg"></div>
+        <div class="ci-line delta-pos"></div>
+        <div class="ci-bar" style="left:36%;width:22%;background:var(--green);">
+          <div class="ci-dot" style="left:50%;background:var(--green);"></div>
+        </div>
+      </div>
+      <div class="ci-verdict" style="color:var(--green);">✓ Entire CI within (−Δ, +Δ)<br><small style="color:var(--slate)">Equivalence declared</small></div>
+    </div>
+    <div class="ci-row">
+      <div class="ci-row-label" style="color: var(--red);">✗ Exceeds +Δ</div>
+      <div class="ci-track">
+        <div class="ci-axis"></div>
+        <div class="ci-line zero"></div>
+        <div class="ci-line delta-neg"></div>
+        <div class="ci-line delta-pos"></div>
+        <div class="ci-bar" style="left:40%;width:40%;background:var(--red);">
+          <div class="ci-dot" style="left:50%;background:var(--red);"></div>
+        </div>
+      </div>
+      <div class="ci-verdict" style="color:var(--red);">✗ Upper bound exceeds +Δ<br><small>Not equivalent</small></div>
+    </div>
+    <div class="ci-row">
+      <div class="ci-row-label" style="color: var(--red);">✗ Exceeds −Δ</div>
+      <div class="ci-track">
+        <div class="ci-axis"></div>
+        <div class="ci-line zero"></div>
+        <div class="ci-line delta-neg"></div>
+        <div class="ci-line delta-pos"></div>
+        <div class="ci-bar" style="left:10%;width:38%;background:var(--red);">
+          <div class="ci-dot" style="left:50%;background:var(--red);"></div>
+        </div>
+      </div>
+      <div class="ci-verdict" style="color:var(--red);">✗ Lower bound below −Δ<br><small>Not equivalent</small></div>
+    </div>
+    <div style="margin-top:16px; display:flex; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--slate); justify-content: space-between;">
+      <span>← Control Better</span>
+      <span style="color:var(--red); font-weight:700;">|−Δ|</span>
+      <span style="font-weight:700; color:#333;">| 0 |</span>
+      <span style="color:var(--red); font-weight:700;">|+Δ|</span>
+      <span>Treatment Better →</span>
+    </div>
+  </div>
+
+  <div class="watchout">
+    <div class="wo-icon">⚠️</div>
+    <div class="wo-body">
+      <strong>Watch out for the flipped axis!</strong> Some published figures and Ferland's slides show axes with Treatment Better on the LEFT. The colored boxes are still CIs — but the direction of effect reverses. Always check which direction is labeled "better" before interpreting.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     SECTION 8 — STRENGTHS & WEAKNESSES
+══════════════════════════════════════════════════ -->
+<div class="section" id="s8">
+  <div class="sec-label">
+    <span class="sec-num">08</span>
+    <h2>Strengths &amp; Weaknesses</h2>
+  </div>
+
+  <div class="lo-badge">📋 PLO 13 — Strengths and weaknesses</div>
+
+  <p class="bold" style="margin-bottom: 14px; color: var(--blue);">Superiority Trials</p>
+  <div class="sw-grid">
+    <div class="sw-card str">
+      <h4>Strengths</h4>
+      <ul>
+        <li>Proves a treatment is <strong>better</strong></li>
+        <li>Clear clinical relevance</li>
+        <li>Common in drug approvals</li>
+        <li>Can use placebo control</li>
+      </ul>
+    </div>
+    <div class="sw-card wk">
+      <h4>Weaknesses</h4>
+      <ul>
+        <li><strong>Largest sample size</strong> needed</li>
+        <li>Non-significant results are inconclusive (not proof of equivalence)</li>
+        <li>Ethical issues with placebo use</li>
+        <li>Non-significant results often wrongly interpreted as "no difference"</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="bold" style="margin-bottom: 14px; margin-top: 20px; color: var(--gold);">Non-Inferiority Trials (vs. Superiority)</p>
+  <div class="sw-grid">
+    <div class="sw-card str">
+      <h4>Strengths</h4>
+      <ul>
+        <li>Usually <strong>less expensive</strong>, more convenient</li>
+        <li>May use <strong>fewer subjects</strong></li>
+        <li>Useful where it may be <strong>unethical</strong> to use placebo</li>
+        <li>Smaller sample size than superiority</li>
+        <li>Compares to a gold standard</li>
+      </ul>
+    </div>
+    <div class="sw-card wk">
+      <h4>Weaknesses</h4>
+      <ul>
+        <li>More <strong>complex to design, conduct, and interpret</strong></li>
+        <li>Dependent on the level of the non-inferiority margin — choosing margin is subjective</li>
+        <li>May be more susceptible to <strong>bias</strong></li>
+        <li>Results cannot be used to show superiority</li>
+        <li>Risk of accepting truly inferior treatments if margin too large</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="bold" style="margin-bottom: 14px; margin-top: 20px; color: var(--green);">Equivalence Trials</p>
+  <div class="sw-grid">
+    <div class="sw-card str">
+      <h4>Strengths</h4>
+      <ul>
+        <li>Confirms <strong>interchangeability</strong> of treatments</li>
+        <li>Useful for safer, easier treatments</li>
+        <li>Ensures generic/biosimilar consistency</li>
+        <li>Avoids unnecessary superiority trials</li>
+      </ul>
+    </div>
+    <div class="sw-card wk">
+      <h4>Weaknesses</h4>
+      <ul>
+        <li><strong>Large sample size</strong> required</li>
+        <li>Placebo <strong>not used</strong></li>
+        <li>Requires <strong>strict confidence intervals</strong></li>
+        <li>No placebo comparison</li>
+        <li>Choosing the NI margin is subjective — can falsely claim "no difference"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box purple" style="margin-top: 24px;">
+    <div class="box-label">💡 Sample Size Summary (Ferland's Rule)</div>
+    <p>Ranked from largest to smallest required sample size:</p>
+    <ul class="notes-list" style="margin-top: 10px;">
+      <li><span class="r">Superiority</span> = largest sample size (must detect a true difference)</li>
+      <li><span class="g">Equivalence</span> = large (must prove similarity in both directions, small delta)</li>
+      <li><span class="gd">Non-inferiority</span> = <span class="gd">smallest</span> (one-sided, larger acceptable margin)</li>
+    </ul>
+  </div>
+
+  <div class="key-point" style="margin-top: 20px;">
+    <div class="kp-icon">📌</div>
+    <div>
+      <strong>Ferland's bottom line:</strong> Superiority, non-inferiority, and equivalence trials answer three different questions:<br>
+      <strong style="color:#7DDFC5;">"Better than?"</strong> → Superiority &nbsp;|&nbsp;
+      <strong style="color:#F5C842;">"Not worse than?"</strong> → Non-inferiority &nbsp;|&nbsp;
+      <strong style="color:#7DDFC5;">"Same as?"</strong> → Equivalence
+    </div>
+  </div>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>
