@@ -97,6 +97,25 @@
   .two-col-list { columns: 2; column-gap: 24px; }
   .two-col-list li { break-inside: avoid; margin-bottom: 6px; }
   .danger-line { border-left: 6px solid var(--red); background: var(--red-l); border-radius: 12px; padding: 14px 16px; font-weight: 700; font-size: 0.9rem; margin: 10px 0; }
+  .tblq-shell { margin: 10px 0 16px; }
+  .tblq-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; padding: 12px 14px; border-radius: 14px; background: var(--blue-l); border: 1.5px solid var(--blue-m); }
+  .tblq-copy { font-size: 0.84rem; font-weight: 700; color: var(--blue); }
+  .tblq-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .tblq-pill { display: inline-flex; align-items: center; border-radius: 999px; padding: 5px 10px; background: white; border: 1px solid var(--blue-m); color: var(--blue); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+  .tblq-btn { all: unset; cursor: pointer; padding: 7px 11px; border-radius: 999px; background: white; border: 1px solid var(--blue-m); color: var(--blue); font-size: 0.78rem; font-weight: 800; }
+  .tblq-btn:hover { background: #EFF6FF; }
+  .tblq-btn.active { background: var(--blue); border-color: var(--blue); color: white; }
+  .tblq-shell.quiz-mode { overflow-x: auto; border: 1px solid #BFDBFE; border-radius: 16px; padding: 10px; background: #F8FBFF; }
+  .tblq-shell.quiz-mode table { min-width: 720px; margin: 0; background: white; }
+  .tblq-shell.quiz-mode tbody th { background: #EFF6FF; color: var(--blue); }
+  .tblq-shell.quiz-mode td { padding: 0; }
+  .tblq-cell { all: unset; display: block; width: 100%; min-height: 100%; padding: 11px 12px; cursor: pointer; position: relative; color: transparent; user-select: none; }
+  .tblq-cell:hover { background: #F8FBFF; }
+  .tblq-cell.revealed { color: var(--ink); user-select: text; }
+  .tblq-cell .tblq-answer { visibility: hidden; }
+  .tblq-cell.revealed .tblq-answer { visibility: visible; }
+  .tblq-cell .tblq-placeholder { position: absolute; inset: 50% auto auto 12px; transform: translateY(-50%); color: var(--blue); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; }
+  .tblq-cell.revealed .tblq-placeholder { display: none; }
   .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 26px; }
   .modal.open { display: flex; }
   .lightbox { width: min(94vw,1320px); height: min(92vh,900px); background: white; border: 1px solid var(--gray-m); border-radius: 20px; display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
@@ -638,6 +657,80 @@
 </div>
 <script>
 (() => {
+  document.querySelectorAll('.section-body > table, .section-body .grid-2 > div > table').forEach((table, index) => {
+    if (table.dataset.tblqReady === '1') return;
+    table.dataset.tblqReady = '1';
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'tblq-shell';
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+
+    const topbar = document.createElement('div');
+    topbar.className = 'tblq-topbar';
+    topbar.innerHTML = `
+      <div class="tblq-copy">Table quiz option: keep the first column visible and reveal the remaining cells one by one.</div>
+      <div class="tblq-actions">
+        <span class="tblq-pill">Table ${index + 1}</span>
+        <button class="tblq-btn" type="button" data-mode="study">Study</button>
+        <button class="tblq-btn" type="button" data-mode="quiz">Quiz</button>
+        <button class="tblq-btn" type="button" data-action="reveal">Reveal All</button>
+        <button class="tblq-btn" type="button" data-action="reset">Reset</button>
+      </div>`;
+    wrapper.insertBefore(topbar, table);
+
+    const studyBtn = topbar.querySelector('[data-mode="study"]');
+    const quizBtn = topbar.querySelector('[data-mode="quiz"]');
+    const revealBtn = topbar.querySelector('[data-action="reveal"]');
+    const resetBtn = topbar.querySelector('[data-action="reset"]');
+
+    const cells = [];
+    table.querySelectorAll('tbody tr').forEach(row => {
+      const bodyCells = Array.from(row.querySelectorAll('td'));
+      bodyCells.forEach(cell => {
+        if (cell.querySelector('.tblq-cell')) return;
+        const original = cell.innerHTML;
+        const btn = document.createElement('button');
+        btn.className = 'tblq-cell';
+        btn.type = 'button';
+        btn.innerHTML = `<span class="tblq-placeholder">Tap to reveal</span><span class="tblq-answer">${original}</span>`;
+        btn.addEventListener('click', () => {
+          if (!wrapper.classList.contains('quiz-mode')) return;
+          btn.classList.toggle('revealed');
+        });
+        cell.innerHTML = '';
+        cell.appendChild(btn);
+        cells.push(btn);
+      });
+    });
+
+    function setMode(mode) {
+      const quiz = mode === 'quiz';
+      wrapper.classList.toggle('quiz-mode', quiz);
+      studyBtn.classList.toggle('active', !quiz);
+      quizBtn.classList.toggle('active', quiz);
+      if (!quiz) cells.forEach(cell => cell.classList.add('revealed'));
+      if (quiz) cells.forEach(cell => cell.classList.remove('revealed'));
+    }
+
+    revealBtn.addEventListener('click', () => {
+      wrapper.classList.add('quiz-mode');
+      studyBtn.classList.remove('active');
+      quizBtn.classList.add('active');
+      cells.forEach(cell => cell.classList.add('revealed'));
+    });
+
+    resetBtn.addEventListener('click', () => {
+      wrapper.classList.add('quiz-mode');
+      studyBtn.classList.remove('active');
+      quizBtn.classList.add('active');
+      cells.forEach(cell => cell.classList.remove('revealed'));
+    });
+
+    studyBtn.addEventListener('click', () => setMode('study'));
+    quizBtn.addEventListener('click', () => setMode('quiz'));
+    setMode('study');
+  });
   const modal = document.getElementById('modal');
   const img = document.getElementById('modalImg');
   const title = document.getElementById('modalTitle');
