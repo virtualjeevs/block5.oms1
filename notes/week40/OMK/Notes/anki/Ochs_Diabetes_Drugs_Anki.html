@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drugs for Diabetes — Active Recall Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════ TOKENS — SLATE (default) ═══════════════════ */
+:root {
+  --bg:#0b0f1a; --surface:#131929; --surface-2:#19223a; --surface-3:#1f2a42; --surface-4:#24314e;
+  --amber:#f6a533; --amber-soft:rgba(246,165,51,.13); --amber-mid:rgba(246,165,51,.25); --amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf;  --teal-soft:rgba(45,212,191,.12);  --teal-mid:rgba(45,212,191,.22);  --teal-dim:rgba(45,212,191,.5);
+  --green:#34d399; --green-soft:rgba(52,211,153,.13);  --green-mid:rgba(52,211,153,.22);
+  --red:#f87171;   --red-soft:rgba(248,113,113,.12);   --red-mid:rgba(248,113,113,.22);
+  --text:#dde5f0;  --text-2:#7e90a9; --text-3:#3e5065;
+  --border:#1c2a40; --border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08); --hero-glow-b:rgba(246,165,51,.09);
+  --bg-top:#0b0f1a; --bg-bottom:#0d1321;
+  --map-shadow:0 20px 45px rgba(0,0,0,.22);
+  --panel-shadow:0 22px 48px rgba(0,0,0,.24);
+  --header-shadow:0 22px 50px rgba(0,0,0,.24);
+  --header-a:#0f1929; --header-b:#0b1220;
+  --card-a:#19223a;   --card-b:#1c2640;
+  --card-action-bg:#19223a;
+  --nav-bg:#1f2a42;  --nav-bg-hover:#243348; --nav-text:#dde5f0;
+  --showall-bg:rgba(45,212,191,.14); --showall-text:#2dd4bf;
+  --meta-bg:#1f2a42;
+  --table-head-a:#1f2a42; --table-head-b:#243348;
+}
+html[data-theme="cream"] {
+  --bg:#f4efe4; --surface:#ede7d9; --surface-2:#e5ddd0; --surface-3:#ddd5c6; --surface-4:#d4cbb9;
+  --text:#2d2318; --text-2:#6b5c48; --text-3:#9e8c78;
+  --border:#d0c7b5; --border-2:#c7bcaa;
+  --hero-glow-a:rgba(45,212,191,.06); --hero-glow-b:rgba(246,165,51,.08);
+  --bg-top:#f4efe4; --bg-bottom:#ede7d9;
+  --header-a:#e8e2d4; --header-b:#e0d9ca;
+  --card-a:#ede7d9; --card-b:#e8e2d4;
+  --card-action-bg:#e8e2d4;
+  --nav-bg:#ddd5c6; --nav-bg-hover:#d4cbb9; --nav-text:#2d2318;
+  --showall-bg:rgba(45,212,191,.15); --showall-text:#0d9e8e;
+  --meta-bg:#e5ddd0;
+  --table-head-a:#ddd5c6; --table-head-b:#d4cbb9;
+  --amber:#c47f0a; --teal:#0d9e8e; --green:#0d8a5c;
+}
+html[data-theme="forest"] {
+  --bg:#081512; --surface:#0d1e18; --surface-2:#122518; --surface-3:#172c1e; --surface-4:#1c3424;
+  --text:#c8e6d4; --text-2:#6a9e80; --text-3:#3a6050;
+  --border:#1a3024; --border-2:#1f3a2a;
+  --hero-glow-a:rgba(52,211,153,.07); --hero-glow-b:rgba(246,165,51,.06);
+  --bg-top:#081512; --bg-bottom:#0a1914;
+  --header-a:#0d1e18; --header-b:#081512;
+  --card-a:#122518; --card-b:#172c1e;
+  --card-action-bg:#122518;
+  --nav-bg:#172c1e; --nav-bg-hover:#1c3424; --nav-text:#c8e6d4;
+  --showall-bg:rgba(52,211,153,.14); --showall-text:#34d399;
+  --meta-bg:#172c1e;
+  --table-head-a:#1c3424; --table-head-b:#1f3a2a;
+}
+
+/* ═══════════════════ RESET & BASE ═══════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top left, var(--hero-glow-a), transparent 26rem),
+    radial-gradient(circle at top right,var(--hero-glow-b), transparent 24rem),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+}
+
+/* ═══════════════════ HEADER ═══════════════════ */
+header{
+  background:linear-gradient(160deg,var(--header-a),var(--header-b));
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--header-shadow);
+  padding:1.6rem 2rem 1.4rem;
+}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.eyebrow{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem}
+header h1{font-family:'Crimson Pro',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:var(--text);line-height:1.15}
+.sub{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--text-2);margin-top:.4rem}
+.theme-switch{display:flex;gap:.4rem;flex-shrink:0;margin-top:.3rem}
+.theme-btn{font-family:'DM Mono',monospace;font-size:.68rem;padding:.3rem .7rem;border-radius:6px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);cursor:pointer;transition:all .2s}
+.theme-btn:hover{border-color:var(--teal);color:var(--teal)}
+.theme-btn.active{background:var(--teal-soft);border-color:var(--teal);color:var(--teal)}
+
+/* ═══════════════════ LEGEND ═══════════════════ */
+.legend{display:flex;gap:1.2rem;padding:.8rem 2rem;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:.45rem;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-2)}
+.lswatch{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+/* ═══════════════════ MAP ═══════════════════ */
+.map-wrap{padding:0 1.5rem 1rem;overflow-x:auto}
+svg.map{display:block;margin:0 auto;max-width:700px;width:100%}
+.node{cursor:pointer;transition:opacity .2s}
+.node rect{transition:filter .18s,stroke .18s}
+.node:hover rect{filter:brightness(1.12)}
+.done-node{opacity:.42}
+.c-amber rect{fill:var(--amber-soft);stroke:var(--amber);stroke-width:1.5}
+.c-amber text{fill:var(--amber)}
+.c-teal  rect{fill:var(--teal-soft); stroke:var(--teal); stroke-width:1.5}
+.c-teal  text{fill:var(--teal)}
+.c-gray  rect{fill:var(--surface-3); stroke:var(--border-2);stroke-width:1.5}
+.c-gray  text{fill:var(--text-2)}
+.conn{stroke:var(--border-2);stroke-width:1.2}
+.map-lbl{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;text-anchor:middle;dominant-baseline:central}
+.map-sub{font-family:'DM Sans',sans-serif;font-size:9px;text-anchor:middle;dominant-baseline:central;opacity:.75}
+.hint-lbl{font-family:'DM Mono',monospace;font-size:8.5px;text-anchor:middle;fill:var(--text-3)}
+
+/* ═══════════════════ PANEL ═══════════════════ */
+.panel-wrap{max-width:700px;margin:0 auto;padding:0 1.5rem 2rem}
+.panel{display:none;background:linear-gradient(160deg,var(--card-a),var(--card-b));border:1px solid var(--border-2);border-radius:14px;box-shadow:var(--panel-shadow);overflow:hidden}
+.panel.open{display:block}
+.panel-head{padding:1rem 1.2rem .8rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap}
+.panel-badge{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--teal);background:var(--teal-soft);border:1px solid var(--teal-mid);padding:.25rem .6rem;border-radius:5px;white-space:nowrap}
+.panel-title{font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);flex:1}
+.close-btn{background:none;border:none;color:var(--text-2);cursor:pointer;font-size:1.1rem;padding:.2rem .4rem;border-radius:4px;transition:color .15s}
+.close-btn:hover{color:var(--red)}
+.prog-dots{display:flex;gap:4px;align-items:center;flex-wrap:wrap;padding:.5rem 1.2rem}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--surface-4);border:1px solid var(--border-2);cursor:pointer;transition:background .2s,border-color .2s;flex-shrink:0}
+.dot.partial{background:var(--amber-soft);border-color:var(--amber)}
+.dot.complete{background:var(--green-soft);border-color:var(--green)}
+
+/* ═══════════════════ CARD ═══════════════════ */
+.card-area{padding:.8rem 1.2rem 0}
+.card-label{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--teal);margin-bottom:.35rem;letter-spacing:.05em}
+.card-body{font-size:.93rem;line-height:1.75;color:var(--text);margin-bottom:.5rem}
+.card-hint{font-size:.8rem;color:var(--text-2);border-left:2px solid var(--teal-mid);padding:.4rem .7rem;margin-top:.6rem;border-radius:0 4px 4px 0;background:var(--teal-soft)}
+
+/* ═══════════════════ OCC — fully corrected ═══════════════════ */
+.occ{
+  display:inline-block;
+  min-width:3ch;
+  background:var(--text);
+  color:transparent;
+  border:1px solid transparent;
+  border-radius:3px;
+  cursor:pointer;
+  padding:1px 6px;
+  white-space:nowrap;
+  user-select:none;
+  vertical-align:baseline;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
+.occ.rev     {background:var(--green-soft);color:var(--green); cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed  {background:var(--amber-soft);color:var(--amber); cursor:default;border-color:rgba(246,165,51,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green); cursor:default;border-color:rgba(52,211,153,.20)}
+.score-btns{display:inline-flex;gap:.3rem;margin-left:.4rem;vertical-align:baseline}
+.score-btns button{font-family:'DM Mono',monospace;font-size:.65rem;padding:.1rem .45rem;border-radius:4px;border:none;cursor:pointer;transition:opacity .15s}
+.s-knew{background:var(--green-soft);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+.s-needed{background:var(--amber-soft);color:var(--amber);border:1px solid rgba(246,165,51,.3)}
+.s-knew:hover{opacity:.8} .s-needed:hover{opacity:.8}
+.jump-link{display:inline-block;font-family:'DM Mono',monospace;font-size:.65rem;margin-left:.35rem;color:var(--teal);background:var(--teal-soft);border:1px solid var(--teal-mid);padding:.1rem .4rem;border-radius:4px;cursor:pointer;vertical-align:baseline;transition:opacity .15s}
+.jump-link:hover{opacity:.75}
+
+/* ═══════════════════ TABLE QUIZ ═══════════════════ */
+.tblq-note{display:flex;align-items:center;justify-content:space-between;gap:.6rem;background:var(--teal-soft);border:1px solid var(--teal-mid);border-radius:8px;padding:.55rem .8rem;margin-bottom:.7rem;flex-wrap:wrap}
+.tblq-copy{font-size:.78rem;color:var(--teal)}
+.tblq-actions{display:flex;gap:.4rem}
+.tblq-btn{font-family:'DM Mono',monospace;font-size:.65rem;padding:.25rem .6rem;border-radius:5px;border:1px solid var(--teal-mid);background:var(--teal-soft);color:var(--teal);cursor:pointer;transition:opacity .15s}
+.tblq-btn:hover{opacity:.75}
+.tblq-pill{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--amber);background:var(--amber-soft);border:1px solid var(--amber-mid);padding:.2rem .5rem;border-radius:4px}
+.tblq-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border-2)}
+table.tblq{width:100%;border-collapse:collapse;font-size:.83rem}
+table.tblq thead tr{background:linear-gradient(90deg,var(--table-head-a),var(--table-head-b))}
+table.tblq th{padding:.5rem .75rem;text-align:left;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;color:var(--text-2);border-bottom:1px solid var(--border-2)}
+table.tblq td{padding:.45rem .75rem;border-bottom:1px solid var(--border);vertical-align:middle}
+table.tblq tr:last-child td{border-bottom:none}
+table.tblq tr:hover td{background:rgba(255,255,255,.02)}
+table.tblq th[scope="row"]{font-weight:600;color:var(--text);background:var(--surface-3);font-size:.8rem;text-transform:none;letter-spacing:0;white-space:nowrap}
+.tblq td .occ{display:block;text-align:center;white-space:normal;padding:8px 10px;min-width:140px}
+.tblq td .score-btns{display:flex;justify-content:center;margin:3px 0 0;margin-left:0}
+
+/* ═══════════════════ CARD ACTIONS ═══════════════════ */
+.card-actions{background:var(--card-action-bg);border-top:1px solid var(--border);padding:.6rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.meta-pills{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center}
+.mpill{font-family:'DM Mono',monospace;font-size:.64rem;padding:.2rem .5rem;border-radius:5px;background:var(--meta-bg);color:var(--text-2)}
+.mpill.rev{color:var(--teal);background:var(--teal-soft)}
+.mpill.knew{color:var(--green);background:var(--green-soft)}
+.mpill.need{color:var(--amber);background:var(--amber-soft)}
+.mpill.wait{color:var(--text-2);background:var(--surface-4)}
+.action-btns{display:flex;gap:.4rem;flex-wrap:wrap}
+.btn{font-family:'DM Mono',monospace;font-size:.7rem;padding:.3rem .75rem;border-radius:6px;cursor:pointer;transition:opacity .18s,filter .18s;border:none;white-space:nowrap}
+.btn:disabled{opacity:.3;cursor:default}
+.btn-primary{background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid)}
+.btn-amber{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber-mid)}
+.btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--border-2)}
+.btn:not(:disabled):hover{opacity:.78}
+
+/* ═══════════════════ NAV ═══════════════════ */
+.card-nav{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem .8rem;gap:.5rem}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.72rem;padding:.35rem .9rem;border-radius:7px;border:1px solid var(--border-2);background:var(--nav-bg);color:var(--nav-text);cursor:pointer;transition:background .15s}
+.nav-btn:hover{background:var(--nav-bg-hover)}
+.nav-btn:disabled{opacity:.28;cursor:default}
+.nav-counter{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-2)}
+
+/* ═══════════════════ STATS BAR ═══════════════════ */
+.stats-bar{max-width:700px;margin:0 auto;padding:.6rem 1.5rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.stat-pill{font-family:'DM Mono',monospace;font-size:.68rem;padding:.22rem .55rem;border-radius:5px;background:var(--meta-bg);color:var(--text-2)}
+.stat-pill.s-rev{color:var(--teal);background:var(--teal-soft)}
+.stat-pill.s-knew{color:var(--green);background:var(--green-soft)}
+.stat-pill.s-need{color:var(--amber);background:var(--amber-soft)}
+.stat-pill.s-done{color:var(--text-2)}
+.stats-actions{display:flex;gap:.4rem;margin-left:auto;flex-wrap:wrap}
+.btn-reveal-topic{background:var(--showall-bg);color:var(--showall-text);border:1px solid var(--teal-mid);font-family:'DM Mono',monospace;font-size:.68rem;padding:.25rem .65rem;border-radius:6px;cursor:pointer;transition:opacity .15s}
+.btn-reveal-topic:disabled{opacity:.28;cursor:default}
+.btn-reveal-topic:not(:disabled):hover{opacity:.75}
+.btn-reveal-deck{background:transparent;color:var(--text-2);border:1px solid var(--border-2);font-family:'DM Mono',monospace;font-size:.68rem;padding:.25rem .65rem;border-radius:6px;cursor:pointer;transition:opacity .15s}
+.btn-reveal-deck:hover{opacity:.7}
+.btn-review{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber-mid);font-family:'DM Mono',monospace;font-size:.68rem;padding:.25rem .65rem;border-radius:6px;cursor:pointer;display:none;transition:opacity .15s}
+.btn-review:hover{opacity:.75}
+.btn-reset-all{background:transparent;color:var(--text-3);border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:.68rem;padding:.25rem .55rem;border-radius:6px;cursor:pointer;transition:opacity .15s}
+.btn-reset-all:hover{opacity:.7}
+
+/* ═══════════════════ REVIEW PANEL ═══════════════════ */
+.review-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:center;justify-content:center;padding:1.5rem}
+.review-overlay.open{display:flex}
+.review-box{background:linear-gradient(160deg,var(--card-a),var(--card-b));border:1px solid var(--border-2);border-radius:16px;max-width:560px;width:100%;box-shadow:var(--panel-shadow);overflow:hidden}
+.review-head{padding:.9rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.review-head-title{font-family:'Crimson Pro',serif;font-size:1.05rem;color:var(--text)}
+.rsub{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--amber);background:var(--amber-soft);border:1px solid var(--amber-mid);border-radius:6px;padding:.4rem .8rem;margin:.7rem 1.2rem .2rem}
+.review-body{padding:.6rem 1.2rem .8rem;font-size:.93rem;line-height:1.75;color:var(--text)}
+.review-nav{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.2rem .9rem}
+.review-counter{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-2)}
+
+/* ═══════════════════ RESPONSIVE ═══════════════════ */
+@media(max-width:720px){
+  .card-actions,.action-btns,.meta-pills{flex-direction:column;align-items:flex-start}
+  .stats-bar{gap:.4rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Pharmacology · Endocrine · Prof. Scott D. Ochs</div>
+      <h1>Drugs for Diabetes</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Learning Objectives (LO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--text-3)"></div>Central Topic</div>
+</div>
+
+<!-- MAP -->
+<div class="map-wrap">
+<svg class="map" viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg">
+  <!-- connectors top row → center -->
+  <line class="conn" x1="80"  y1="72" x2="200" y2="128"/>
+  <line class="conn" x1="240" y1="72" x2="265" y2="128"/>
+  <line class="conn" x1="400" y1="72" x2="395" y2="128"/>
+  <line class="conn" x1="560" y1="72" x2="480" y2="128"/>
+  <!-- connectors bottom row → center -->
+  <line class="conn" x1="80"  y1="240" x2="200" y2="188"/>
+  <line class="conn" x1="240" y1="240" x2="265" y2="188"/>
+  <line class="conn" x1="400" y1="240" x2="395" y2="188"/>
+  <line class="conn" x1="560" y1="240" x2="480" y2="188"/>
+
+  <!-- CENTER -->
+  <g class="node c-gray" onclick="selNode('center')" id="n-center">
+    <rect x="175" y="128" width="330" height="60" rx="10"/>
+    <text class="map-lbl" x="340" y="152">Drugs for Diabetes</text>
+    <text class="map-sub" x="340" y="168">LO 1–8 · Click a node to study</text>
+  </g>
+
+  <!-- TOP ROW -->
+  <g class="node c-teal" onclick="selNode('lo1')" id="n-lo1">
+    <rect x="15" y="12" width="130" height="60" rx="9"/>
+    <text class="map-lbl" x="80" y="35">LO 1</text>
+    <text class="map-sub" x="80" y="52">Glycemic Drugs</text>
+  </g>
+  <g class="node c-teal" onclick="selNode('lo2')" id="n-lo2">
+    <rect x="175" y="12" width="130" height="60" rx="9"/>
+    <text class="map-lbl" x="240" y="35">LO 2</text>
+    <text class="map-sub" x="240" y="52">Insulin MOA</text>
+  </g>
+  <g class="node c-teal" onclick="selNode('lo3')" id="n-lo3">
+    <rect x="335" y="12" width="130" height="60" rx="9"/>
+    <text class="map-lbl" x="400" y="35">LO 3</text>
+    <text class="map-sub" x="400" y="52">Insulin Types</text>
+  </g>
+  <g class="node c-teal" onclick="selNode('lo4')" id="n-lo4">
+    <rect x="495" y="12" width="130" height="60" rx="9"/>
+    <text class="map-lbl" x="560" y="35">LO 4</text>
+    <text class="map-sub" x="560" y="52">PK/PD &amp; ADEs</text>
+  </g>
+
+  <!-- BOTTOM ROW -->
+  <g class="node c-teal" onclick="selNode('lo5')" id="n-lo5">
+    <rect x="15" y="240" width="130" height="60" rx="9"/>
+    <text class="map-lbl" x="80" y="263">LO 5</text>
+    <text class="map-sub" x="80" y="280">Glucagon</text>
+  </g>
+  <g class="node c-teal" onclick="selNode('lo6')" id="n-lo6">
+    <rect x="175" y="240" width="130" height="60" rx="9"/>
+    <text class="map-lbl" x="240" y="263">LO 6</text>
+    <text class="map-sub" x="240" y="280">Drug Classes</text>
+  </g>
+  <g class="node c-teal" onclick="selNode('lo7')" id="n-lo7">
+    <rect x="335" y="240" width="130" height="60" rx="9"/>
+    <text class="map-lbl" x="400" y="263">LO 7</text>
+    <text class="map-sub" x="400" y="280">Drug MOAs</text>
+  </g>
+  <g class="node c-teal" onclick="selNode('lo8')" id="n-lo8">
+    <rect x="495" y="240" width="130" height="60" rx="9"/>
+    <text class="map-lbl" x="560" y="263">LO 8</text>
+    <text class="map-sub" x="560" y="280">2nd Messengers</text>
+  </g>
+
+  <text class="hint-lbl" x="340" y="312">← → navigate cards · Esc close panel · click dot to jump</text>
+</svg>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar" id="statsBar">
+  <span class="stat-pill s-rev" id="st-rev">0 revealed</span>
+  <span class="stat-pill s-knew" id="st-knew">0 knew</span>
+  <span class="stat-pill s-need" id="st-need">0 needed</span>
+  <span class="stat-pill s-done" id="st-done">0 / 8 done</span>
+  <div class="stats-actions">
+    <button class="btn-reveal-topic" id="btnRevTopic" onclick="revealTopic()" disabled>Reveal topic</button>
+    <button class="btn-reveal-deck" onclick="revealDeck()">Reveal deck</button>
+    <button class="btn-review" id="btnReview" onclick="openReview()">Review weak spots (0)</button>
+    <button class="btn-reset-all" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+
+<!-- CARD PANEL -->
+<div class="panel-wrap">
+  <div class="panel" id="mainPanel">
+    <div class="panel-head">
+      <span class="panel-badge" id="pBadge">LO 1</span>
+      <span class="panel-title" id="pTitle">Glycemic-Altering Drugs</span>
+      <button class="close-btn" onclick="closePanel()">✕</button>
+    </div>
+    <div class="prog-dots" id="progDots"></div>
+    <div class="card-area">
+      <div class="card-label" id="cardLabel"></div>
+      <div class="card-body" id="cardBody"></div>
+      <div class="card-hint" id="cardHint" style="display:none"></div>
+    </div>
+    <div class="card-actions">
+      <div class="meta-pills" id="metaPills"></div>
+      <div class="action-btns">
+        <button class="btn btn-primary" id="btnRevealCard" onclick="revealCard()">Reveal this card</button>
+        <button class="btn btn-amber"   id="btnKnewAll"   onclick="knewAllCurrentCard()">Knew all</button>
+        <button class="btn btn-ghost"   id="btnResetCard" onclick="resetCard()">Reset this card</button>
+      </div>
+    </div>
+    <div class="card-nav">
+      <button class="nav-btn" id="btnPrev" onclick="navCard(-1)">← Prev</button>
+      <span class="nav-counter" id="navCount">1 / 1</span>
+      <button class="nav-btn" id="btnNext" onclick="navCard(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW OVERLAY -->
+<div class="review-overlay" id="reviewOverlay">
+  <div class="review-box">
+    <div class="review-head">
+      <span class="review-head-title">Weak Spot Review</span>
+      <button class="close-btn" onclick="closeReview()">✕</button>
+    </div>
+    <div class="rsub" id="rSub"></div>
+    <div class="review-body" id="reviewBody"></div>
+    <div class="review-nav">
+      <button class="nav-btn" id="rPrev" onclick="navReview(-1)">← Prev</button>
+      <span class="review-counter" id="rCount">1 / 1</span>
+      <button class="nav-btn" id="rNext" onclick="navReview(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════
+   DATA — strictly from the generated HTML notes
+═══════════════════════════════════════════ */
+const D = {
+
+  lo1: {
+    label: 'LO 1', sub: 'Medications Affecting Glycemic Control', type: 'LO',
+    cards: [
+      {
+        t: 'Clinical Rule — Glycemic-Altering Drugs',
+        b: 'A single elevated glucose in a patient on a glycemic-altering drug does {NOT} diagnose diabetes. If asymptomatic, {two} diagnostic criteria must be met. If symptomatic, {one} criterion is sufficient.',
+        h: 'Monitor A1C more closely if a diabetic patient starts one of these agents.'
+      },
+      {
+        t: 'Glucocorticoids',
+        b: 'The {most clinically significant} class for glycemic disruption. Mechanisms: {↑ hepatic glucose production} and {↓ peripheral insulin sensitivity}. Examples: {prednisone, dexamethasone}.'
+      },
+      {
+        t: 'Thiazide Diuretics',
+        b: 'Mechanism of glycemic disruption: {inhibit insulin secretion} (hypokalemia-mediated) and {↓ peripheral glucose uptake}.',
+        h: 'Example: hydrochlorothiazide.'
+      },
+      {
+        t: 'Beta-Blockers',
+        b: 'Three glycemic concerns: mask signs of hypoglycemia ({tachycardia} is blocked), {inhibit insulin secretion}, and {impair glucose mobilization}. Only {diaphoresis} (sweating) remains as a hypoglycemia warning sign — it is {cholinergic}, not adrenergic.',
+        h: 'Non-selective beta-blockers are especially concerning in diabetics prone to hypoglycemia.'
+      },
+      {
+        t: 'Atypical Antipsychotics',
+        b: 'Promote {weight gain} → insulin resistance. Also inhibit {dopamine} → impaired glucose regulation. Examples: {olanzapine, clozapine}.'
+      },
+      {
+        t: 'Oral Contraceptives',
+        b: '{Estrogen/progestin} can impair glucose tolerance. The effect is {modest} compared to glucocorticoids.'
+      }
+    ]
+  },
+
+  lo2: {
+    label: 'LO 2', sub: 'Insulin Mechanism of Action', type: 'LO',
+    cards: [
+      {
+        t: 'Insulin Receptor Structure',
+        b: 'The insulin receptor is a {heterotetramer} — two α-β dimers connected to each other. It is NOT a simple {dimerization} event. The receptor type is a {Receptor Tyrosine Kinase (RTK)}.',
+        h: 'The α-subunit is extracellular; the β-subunit spans the membrane and contains the kinase domain.'
+      },
+      {
+        t: 'Insulin Receptor Signaling Cascade',
+        b: 'Insulin binds {α-subunits} → conformational change → {autophosphorylation of Tyr} residues on β-subunits → phosphorylation of {IRS (Insulin Receptor Substrate)} → diverges into {PI3K} pathway (metabolic) and {RAS/MAPK} pathway (mitogenic).'
+      },
+      {
+        t: 'PI3K → PKB/AKT Pathway (Metabolic)',
+        b: 'PKB/AKT drives translocation of {GLUT4} to the membrane of {muscle and adipose} tissue. Also: ↑ {glycogenesis}, ↑ {glycolysis}, ↑ {lipogenesis}, ↓ {glycogenolysis}, ↓ {gluconeogenesis}.',
+        h: 'Insulin is anabolic — it increases storage processes and decreases breakdown processes.'
+      },
+      {
+        t: 'GLUT Transporter Types',
+        b: '{GLUT4} is {insulin-dependent}; found in muscle, heart, adipose, and brain. {GLUT2} is {insulin-independent}; found in the {liver} (constitutive glucose entry — not blocked by insulin resistance).'
+      },
+      {
+        t: 'Insulin — Receptor Type & Second Messenger',
+        b: 'Insulin\'s receptor is a {Receptor Tyrosine Kinase (RTK)}. Second messengers: {phosphotyrosine residues on IRS}, leading to {PI3K → PIP3 → PKB/AKT} (metabolic) and {RAS → MAPK/ERK} (mitogenic). No {cAMP} or IP3/DAG involvement.'
+      }
+    ]
+  },
+
+  lo3: {
+    label: 'LO 3', sub: 'Types of Insulin & Their Uses', type: 'LO',
+    cards: [
+      {
+        t: 'Rapid-Acting Insulins',
+        b: 'Agents: {aspart} (Novolog/Fiasp), {lispro} (Humalog/Admelog), {glulisine} (Apidra). Onset: {< 15 min}. Peak: {1–2 hr}. Duration: {3–5 hr}. Preferred over regular to ↓ risk of {stacking}. Disadvantage: early {hypoglycemia} if erratic eating.',
+        h: 'Administer 15 min before or immediately after a meal.'
+      },
+      {
+        t: 'Short-Acting Insulin — Regular',
+        b: 'Brand names: {Humulin R, Novolin R}. Onset: {30–60 min}. Peak: {2–3 hr}. Duration: {6–8 hr}. Only insulin given by {IV} route (used in DKA). Administer ~{30 min} before a meal. Can be mixed with {NPH}.',
+        h: 'Longer duration → risk of late hypoglycemia.'
+      },
+      {
+        t: 'Intermediate-Acting Insulin — NPH',
+        b: 'Full name: {Neutral Protamine Hagedorn} (also called {isophane}). Brands: Humulin N, Novolin N. Onset: {2–4 hr}. Peak: {4–14 hr}. Duration: {10–16 hr}. A {crystalline suspension} of insulin and protamine. Given {2x/day} as basal coverage. Can be {mixed} with regular insulin.'
+      },
+      {
+        t: 'Long-Acting Insulin — Glargine',
+        b: 'Brands: {Lantus, Basaglar, Toujeo}. Onset: {4–5 hr}. Peak: {FLAT (peakless)}. Duration: {~24 hr}. Once-daily dosing. Soluble at {pH 4} (acidic vial) but {precipitates} at body pH → crystalline SC depot. DO NOT {mix} with other insulins.',
+        h: 'The crystalline depot slowly dissolves, releasing individual insulin molecules steadily.'
+      },
+      {
+        t: 'Ultra Long-Acting Insulin — Degludec',
+        b: 'Brand: {Tresiba}. Onset: {30–90 min}. Duration: {~42 hr}. Peak: {FLAT (peakless)}. When injected SC, forms large {multihexameric chains} that slowly dissolve. DO NOT {mix} with other insulins.'
+      },
+      {
+        t: 'Mechanism of Rapid-Acting Analogs',
+        b: 'Regular insulin forms {hexamers} in zinc, which must dissociate to monomers before absorption. Rapid-acting analogs have amino acid modifications that {prevent hexamer formation} → injected as {monomers} → rapid absorption. Lispro: {B28 Pro ↔ B29 Lys} swapped. Aspart: {B28 Pro → Asp}. Glulisine: {B3 Asn → Lys; B29 Lys → Glu}.'
+      },
+      {
+        t: 'Mechanism of Glargine\'s Long Duration',
+        b: 'Two modifications: A21 {Asn → Gly} (prevents acid-induced deamidation) and two {Arg} added to B-chain C-terminus (shifts isoelectric point). Result: precipitates at {body pH} → slow-dissolving crystalline SC depot.'
+      },
+      {
+        t: 'T1 vs. T2 DM — Insulin Strategy',
+        b: 'Type 1: MUST have insulin. Needs {basal + bolus} — one {long-acting} once daily + one {rapid-acting} with every meal. OR: insulin {pump}. Type 2: insulin is {NOT first-line}; used when A1C is very high or other agents fail. Usually {basal} insulin is added to oral regimen.'
+      },
+      {
+        t: 'Insulin Types — PK Comparison Table',
+        b: `<div class="tblq-note"><div class="tblq-copy">Table quiz: Drug column stays visible. Reveal each cell independently.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealCard()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Type</th><th>Onset</th><th>Peak</th><th>Duration</th></tr></thead><tbody><tr><th scope="row">Rapid-Acting</th><td>{&lt; 15 min}</td><td>{1–2 hr}</td><td>{3–5 hr}</td></tr><tr><th scope="row">Short-Acting (Regular)</th><td>{30–60 min}</td><td>{2–3 hr}</td><td>{6–8 hr}</td></tr><tr><th scope="row">Intermediate (NPH)</th><td>{2–4 hr}</td><td>{4–14 hr}</td><td>{10–16 hr}</td></tr><tr><th scope="row">Long-Acting (Glargine)</th><td>{4–5 hr}</td><td>{FLAT}</td><td>{~24 hr}</td></tr><tr><th scope="row">Ultra Long (Degludec)</th><td>{30–90 min}</td><td>{FLAT}</td><td>{~42 hr}</td></tr></tbody></table></div>`
+      }
+    ]
+  },
+
+  lo4: {
+    label: 'LO 4', sub: 'PK/PD Parameters & Adverse Effects', type: 'LO',
+    cards: [
+      {
+        t: 'Insulin — PK & Adverse Effects',
+        b: 'Administration: {SC} for most; {IV} only for regular insulin. Degraded in {liver}, muscle, and kidney. Not given {orally} (destroyed in GI). Major ADE: {hypoglycemia}. Also: injection site reactions, weight gain. Dose requirement {↓} in ESRD (reduced renal metabolism).'
+      },
+      {
+        t: 'GLP-1 Analogs — PK & Adverse Effects',
+        b: 'All given {SC} except oral semaglutide ({Rybelsus}; bioavail {0.4–1%} — must be taken fasting with ≤4 oz water ≥30 min before food). Renal insufficiency prolongs t½ of {exenatide}. ADEs: {nausea/vomiting}, diarrhea. Hypoglycemia risk: {low} (glucose-dependent secretion).'
+      },
+      {
+        t: 'SGLT2 Inhibitors — PK & Adverse Effects',
+        b: 'Oral bioavailability: {> 65%}. Metabolism: {O-glucuronidation} by UGT enzymes; excreted in feces and urine. Major ADEs: {genital mycotic infections} (↑ urine glucose → fungal growth), {UTIs}, rare {DKA}, and Fournier\'s gangrene.'
+      },
+      {
+        t: 'Metformin — PK & Adverse Effects',
+        b: 't½: {~1.5–3 hr}. {NOT metabolized}. Excreted {unchanged} in kidney. Must be held before {contrast dye}. ADEs: GI upset (take with food), rare {lactic acidosis}. Contraindicated in {renal failure}. No {hypoglycemia} when used alone.'
+      },
+      {
+        t: 'Tirzepatide — PK & Adverse Effects',
+        b: 'Administration: {SC}. t½: {~5 days} → once-{weekly} dosing. ADEs: {GI} (nausea, vomiting, diarrhea) — similar to GLP-1 class. FDA approved for T2DM, {obesity}, and obstructive {sleep apnea}.'
+      },
+      {
+        t: 'Sulfonylureas — PK & Adverse Effects',
+        b: 'Metabolized in {liver}. Eliminated via {renal and biliary} routes; t½ varies among agents. Major ADE: {hypoglycemia} (glucose-independent mechanism — can occur even without elevated glucose). Also causes {weight gain}. Glipizide is {pancreas-specific} (SUR1 only).',
+        h: 'Renally-cleared metabolites or parent drug may require dosage adjustment.'
+      },
+      {
+        t: 'Pioglitazone (TZD) — Adverse Effects',
+        b: 'ADEs: {fluid retention}/edema, {weight gain}, ↑ {fracture} risk, rare bladder cancer concern. Effect onset takes {weeks} because it acts via nuclear receptor → gene transcription. No {hypoglycemia} when used alone.'
+      },
+      {
+        t: 'DPP-4 Inhibitors — PK & Adverse Effects',
+        b: 'ADEs: {nasopharyngitis}, URI, rare pancreatitis, joint pain. No significant {weight} effect. No change in {gastric emptying}. Linagliptin eliminated {hepatically}; others eliminated renally — dose-{adjust} for renal impairment.'
+      },
+      {
+        t: 'Meglitinides — PK & Adverse Effects',
+        b: 'Rapidly absorbed. Metabolized {hepatically}. t½: {~1–1.5 hr}. Should be taken {before each meal}; if a meal is {skipped}, the dose must be {skipped}. ADE: {hypoglycemia} (less than sulfonylureas).'
+      },
+      {
+        t: 'Alpha-Glucosidase Inhibitors — PK & Adverse Effects',
+        b: 'Partially absorbed. Acarbose: eliminated in {feces}. Miglitol and acarbose metabolites: eliminated in {kidneys}. ADEs: {flatulence}, {bloating}, osmotic {diarrhea} — caused by undigested carbohydrates reaching the colon and being fermented by bacteria.'
+      },
+      {
+        t: 'Pramlintide — PK & Adverse Effects',
+        b: 'Given as {SC} injection before meals. ADEs: {nausea} and {hypoglycemia} when used with insulin. Reduce {insulin dose} when initiating pramlintide to minimize hypoglycemia risk.'
+      }
+    ]
+  },
+
+  lo5: {
+    label: 'LO 5', sub: 'Glucagon MOA & Indications', type: 'LO',
+    cards: [
+      {
+        t: 'Glucagon — Physiology',
+        b: 'Produced by {pancreatic α cells}. Released in response to: {low blood glucose}, amino acids ({arginine and alanine}), fasting, intense exercise. Inhibited by: {high insulin} and high fatty acids. Patients with diabetes {still produce} glucagon.',
+        h: 'Glucagon is also stimulated by CCK and inhibited by somatostatin.'
+      },
+      {
+        t: 'Glucagon — Mechanism of Action & Second Messenger',
+        b: 'Binds the Glucagon receptor — a {Class B GPCR} coupled to {Gαs} → ↑ {adenylate cyclase} → ↑ {cAMP} → PKA activation → ↑ {glycogenolysis} and ↑ {gluconeogenesis} in the liver → ↑ blood glucose. Second messenger: {cAMP}.'
+      },
+      {
+        t: 'Glucagon — Clinical Indications',
+        b: 'Primary: {severe hypoglycemia} — when patient is unconscious or cannot take oral glucose. Given {SC} or as nasal spray ({Baqsimi}, approved 2019). Second indication: {beta-blocker toxicity} — increases cardiac rate and force by bypassing {β-receptors} through its own GPCR → {cAMP} in cardiomyocytes.',
+        h: 'For mild/moderate hypoglycemia in a conscious, swallowing patient: oral glucose load is preferred.'
+      }
+    ]
+  },
+
+  lo6: {
+    label: 'LO 6', sub: 'Recognize Drug Classes for T2DM', type: 'LO',
+    cards: [
+      {
+        t: 'Naming Pattern Tip',
+        b: 'Almost all T2DM drugs have "{GL}" in the name. {-gliptin} = DPP-4 inhibitor. {-gliflozin} = SGLT2 inhibitor. {-glitazone} = TZD. {-tide} = peptide analog (GLP-1 or amylin). {-linide} = meglitinide.'
+      },
+      {
+        t: 'GLP-1 Analog Drugs',
+        b: 'Drugs: {liraglutide} (Victoza), {dulaglutide} (Trulicity), {semaglutide} (Ozempic SC / Rybelsus oral / Wegovy obesity), {exenatide} (Byetta/Bydureon), {orforglipron} (Foundayo — first non-peptidal oral GLP-1 agonist). Suffix clue: {-glutide} or -tide.'
+      },
+      {
+        t: 'SGLT2 Inhibitor Drugs',
+        b: 'All end in {-gliflozin}: {bexagliflozin} (Brenzavvy), {canagliflozin} (Invokana), {dapagliflozin} (Farxiga), {empagliflozin} (Jardiance), {ertugliflozin} (Steglatro). Memory: "gliflozin" → make the urine {flow}. Bexagliflozin is notably {cheaper} than others.'
+      },
+      {
+        t: 'Biguanide & Dual Incretin Analog',
+        b: 'Biguanide: {metformin} only (Glucophage). Dual Incretin Analog (Twincretin): {tirzepatide} — Mounjaro for {T2DM}, Zepbound for {obesity}. Tirzepatide is a {GIP/GLP-1} receptor agonist.'
+      },
+      {
+        t: 'Sulfonylureas & TZD',
+        b: 'Sulfonylureas (all start "Gli-"): {glipizide} (Glucotrol), {glyburide} (Diabeta/Glynase), {glimepiride} (Amaryl). TZD: {pioglitazone} only (Actos). Suffix clue for TZD: {-glitazone}.'
+      },
+      {
+        t: 'DPP-4 Inhibitors & Meglitinides',
+        b: 'DPP-4 inhibitors (suffix {-gliptin}): {sitagliptin} (Januvia), {saxagliptin} (Onglyza), {linagliptin} (Tradjenta), {alogliptin} (Nesina). Meglitinides (suffix {-glinide}): {repaglinide} (Prandin), {nateglinide} (Starlix).'
+      },
+      {
+        t: 'Alpha-Glucosidase Inhibitors & Amylin Analog',
+        b: 'Alpha-glucosidase inhibitors: {acarbose} (Precose) and {miglitol} (Glyset). Amylin analog: {pramlintide} (Symlin). Pramlintide is indicated in both {Type 1} and {Type 2} DM as {add-on} to insulin therapy.'
+      },
+      {
+        t: 'Drug Class Matching — Table Quiz',
+        b: `<div class="tblq-note"><div class="tblq-copy">Table quiz: Drug column stays visible. Reveal each class cell independently.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealCard()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Drug</th><th>Class</th><th>Brand</th></tr></thead><tbody><tr><th scope="row">Empagliflozin</th><td>{SGLT2 Inhibitor}</td><td>{Jardiance}</td></tr><tr><th scope="row">Sitagliptin</th><td>{DPP-4 Inhibitor}</td><td>{Januvia}</td></tr><tr><th scope="row">Nateglinide</th><td>{Meglitinide}</td><td>{Starlix}</td></tr><tr><th scope="row">Pioglitazone</th><td>{TZD}</td><td>{Actos}</td></tr><tr><th scope="row">Semaglutide</th><td>{GLP-1 Analog}</td><td>{Ozempic / Wegovy}</td></tr><tr><th scope="row">Tirzepatide</th><td>{Dual Incretin (GIP/GLP-1)}</td><td>{Mounjaro / Zepbound}</td></tr><tr><th scope="row">Repaglinide</th><td>{Meglitinide}</td><td>{Prandin}</td></tr><tr><th scope="row">Acarbose</th><td>{Alpha-Glucosidase Inhibitor}</td><td>{Precose}</td></tr></tbody></table></div>`
+      }
+    ]
+  },
+
+  lo7: {
+    label: 'LO 7', sub: 'Mechanism of Action — Each Drug', type: 'LO',
+    cards: [
+      {
+        t: 'GLP-1 Analogs — MOA (Liraglutide, Dulaglutide, Semaglutide)',
+        b: 'Bind {GLP-1R} (Class B GPCR) → {Gαs} → ↑ adenylate cyclase → ↑ {cAMP} → PKA → ↑ insulin secretion ({glucose-dependent} — low hypoglycemia risk), ↓ {glucagon} secretion, ↓ {gastric emptying}, ↑ {satiety} → weight loss.',
+        h: 'Glucose-dependent secretion means GLP-1 analogs typically do NOT cause hypoglycemia alone.'
+      },
+      {
+        t: 'SGLT2 Inhibitors — MOA',
+        b: 'Block {SGLT2 co-transporter} in the {early proximal tubule} → ↓ renal glucose reabsorption → {glucosuria} → ↓ blood glucose. SGLT2 normally reabsorbs ~{90%} of filtered glucose. In T2DM, SGLT2 is {upregulated} → worsens hyperglycemia. No {cAMP}; no direct insulin effect.'
+      },
+      {
+        t: 'Metformin — MOA',
+        b: 'Inhibits {Complex I} of the electron transport chain → ↓ ATP / ↑ AMP → activates {AMPK}. Via AMPK: ↑ fatty acid oxidation, ↑ {glucose uptake}, ↑ non-oxidative glucose metabolism, ↓ {lipogenesis}, ↓ {gluconeogenesis}. Also increases {GLUT4} translocation in muscle/adipose in an insulin-independent manner.',
+        h: 'Lactic acidosis risk: inhibition of gluconeogenesis from pyruvate → lactate accumulates. Accumulates in renal failure (excreted unchanged).'
+      },
+      {
+        t: 'Tirzepatide — MOA (Dual Incretin)',
+        b: 'Engineered from the {GIP} molecule; binds both {GIP-R} and {GLP-1R} (both Class B GPCRs → {Gαs} → ↑ {cAMP}). High affinity at {GIP-R}; ~18–20× weaker at GLP-1R vs. native GLP-1. Synergistic effects: ↑ insulin secretion (glucose-dependent), ↓ {glucagon}, ↓ {gastric emptying}, ↑ {satiety}. GIP-R also acts on {adipose} tissue (no GLP-1R there) → ↑ SC fat storage, ↓ ectopic fat.',
+        h: 'Weight loss (~25 lbs) is significantly greater than GLP-1 agonist alone due to synergistic GIP+GLP-1 receptor agonism.'
+      },
+      {
+        t: 'Sulfonylureas — MOA (Glipizide, Glyburide, Glimepiride)',
+        b: 'Bind {SUR} subunit of {ATP-sensitive K⁺ (KATP)} channels in β-cells → block {K⁺ efflux} → membrane {depolarization} → voltage-dependent Ca²⁺ channels open → ↑ intracellular {Ca²⁺} → insulin {exocytosis}. Release is {glucose-INDEPENDENT} → major {hypoglycemia} risk. Glipizide: specific for {SUR1} (pancreas only). Glyburide/glimepiride: {non-selective} (also SUR2A/2B in cardiac/vascular muscle).'
+      },
+      {
+        t: 'Pioglitazone — MOA',
+        b: 'Binds and activates {PPARγ} (peroxisome proliferator-activated receptor gamma) — a {nuclear receptor} on fat and vascular cells. Alters {gene transcription}: causes preadipocytes to differentiate into {mature adipocytes} in SC stores, ↑ adipose storage of {FFAs}, ↓ ectopic fat in liver/muscle, ↑ tissue {insulin sensitivity}, ↓ pro-inflammatory {cytokines} from adipose macrophages.',
+        h: 'Takes weeks for full effect because PPARγ must alter gene transcription → new protein synthesis.'
+      },
+      {
+        t: 'DPP-4 Inhibitors — MOA (Sitagliptin, Saxagliptin, Linagliptin, Alogliptin)',
+        b: 'Inhibit {DPP-4} enzyme → ↑ levels of intact {GLP-1 and GIP} → ↑ glucose-dependent insulin secretion, ↓ {glucagon}. DPP-4 normally removes {2 N-terminal amino acids} from GLP-1/GIP — truncated products are {inactive}. DO NOT alter {gastric emptying}. NO significant effect on {satiety} or weight.',
+        h: 'Weaker than GLP-1 analogs — reliant on endogenous GLP-1/GIP production, which is limited and impaired in T2DM.'
+      },
+      {
+        t: 'Pramlintide — MOA',
+        b: 'Synthetic analog of {amylin}, which is {co-secreted with insulin} by β-cells. Activates amylin receptors → ↓ {glucagon} secretion (postprandial), ↓ {gastric emptying}, ↑ {satiety}. May lead to modest {weight loss}. Used as {add-on} to insulin in T1 or T2 DM.'
+      },
+      {
+        t: 'Meglitinides — MOA (Repaglinide, Nateglinide)',
+        b: 'Same target as sulfonylureas: bind {SUR} subunit of {KATP} channel → ↑ intracellular {Ca²⁺} → insulin secretion. Bind with {lower affinity} → shorter duration, more {glucose-dependent} → less {hypoglycemia} risk than sulfonylureas.'
+      },
+      {
+        t: 'Alpha-Glucosidase Inhibitors — MOA (Acarbose, Miglitol)',
+        b: 'Competitively inhibit brush-border enzymes of the small intestine: {maltase}, {isomaltase}, {sucrase}, {glucoamylase}. Delay breakdown of {sucrose and complex carbohydrates} → ↓ rise in {postprandial} blood sugar. No effect on {insulin} itself. Take with the {first bite} of each meal.'
+      }
+    ]
+  },
+
+  lo8: {
+    label: 'LO 8', sub: 'Second Messengers of Antidiabetic Drugs', type: 'LO',
+    cards: [
+      {
+        t: 'cAMP-Generating Antidiabetic Drugs',
+        b: 'Drugs using {Gαs → cAMP} as second messenger: {GLP-1 analogs} (liraglutide, dulaglutide, semaglutide) via GLP-1R; {tirzepatide} via GIP-R + GLP-1R; {DPP-4 inhibitors} (indirectly — preserve endogenous GLP-1/GIP); {pramlintide} via amylin receptor; {glucagon} via glucagon receptor. All use {Class B GPCRs}.'
+      },
+      {
+        t: 'Non-cAMP Second Messengers',
+        b: 'Insulin: {RTK} → phospho-Tyr on IRS → {PI3K/AKT} + RAS/MAPK. Sulfonylureas & Meglitinides: {KATP} block → ↑ {Ca²⁺}. Metformin: Complex I → ↑ {AMP:ATP} → {AMPK}. Pioglitazone: {PPARγ} (nuclear receptor) — no cytoplasmic 2nd messenger. SGLT2i: direct {transporter} block — no receptor. Acarbose/Miglitol: luminal {enzyme} inhibition — no receptor.'
+      },
+      {
+        t: 'Insulin — Second Messenger Detail',
+        b: 'Receptor: {Receptor Tyrosine Kinase (RTK)} — heterotetramer. Autophosphorylation of {Tyr} on β-subunits → phosphorylation of {IRS} → (1) {PI3K → PIP3 → PKB/AKT} (metabolic) → GLUT4 translocation; (2) {RAS → MAPK/ERK} (mitogenic). NO {cAMP} involvement.'
+      },
+      {
+        t: 'Two Pathways to GLUT4 Translocation',
+        b: 'Pathway 1 (Insulin): RTK → IRS → {PI3K} → PIP3 → PDK1 → {PKB/AKT} → phosphorylates {AS160} → GLUT4 vesicles released to membrane. Pathway 2 (Metformin/AMPK): ↑ AMP:ATP → {AMPK} → also phosphorylates {AS160} → same endpoint: GLUT4 to membrane. This is why metformin can increase glucose uptake in an {insulin-independent} manner.',
+        h: 'AMPK activation by metformin bypasses the insulin receptor entirely.'
+      },
+      {
+        t: 'Drug → Receptor → 2nd Messenger — Table Quiz',
+        b: `<div class="tblq-note"><div class="tblq-copy">Table quiz: Drug column stays visible. Reveal receptor type and second messenger.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealCard()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Drug</th><th>Receptor Type</th><th>2nd Messenger</th></tr></thead><tbody><tr><th scope="row">Insulin</th><td>{Receptor Tyrosine Kinase (RTK)}</td><td>{IRS → PI3K/AKT + RAS/MAPK}</td></tr><tr><th scope="row">Liraglutide / Dulaglutide / Semaglutide</th><td>{Class B GPCR (GLP-1R) → Gαs}</td><td>{↑ cAMP → PKA}</td></tr><tr><th scope="row">Tirzepatide</th><td>{Class B GPCR (GIP-R + GLP-1R) → Gαs}</td><td>{↑ cAMP → PKA}</td></tr><tr><th scope="row">SGLT2 Inhibitors</th><td>{Transporter protein — no GPCR}</td><td>{None (direct block)}</td></tr><tr><th scope="row">Metformin</th><td>{Mitochondrial Complex I inhibition}</td><td>{↑ AMP:ATP → AMPK}</td></tr><tr><th scope="row">Glipizide / Glyburide / Glimepiride</th><td>{SUR subunit of KATP channel}</td><td>{↑ intracellular Ca²⁺}</td></tr><tr><th scope="row">Pioglitazone</th><td>{PPARγ — Nuclear Receptor}</td><td>{None (direct nuclear action)}</td></tr><tr><th scope="row">DPP-4 Inhibitors</th><td>{DPP-4 enzyme inhibition; indirect GLP-1R/GIP-R}</td><td>{↑ cAMP (indirect)}</td></tr><tr><th scope="row">Pramlintide</th><td>{Amylin receptor (GPCR family)}</td><td>{↑ cAMP}</td></tr><tr><th scope="row">Repaglinide / Nateglinide</th><td>{SUR subunit of KATP channel}</td><td>{↑ intracellular Ca²⁺}</td></tr><tr><th scope="row">Acarbose / Miglitol</th><td>{Brush-border enzyme inhibition}</td><td>{None}</td></tr><tr><th scope="row">Glucagon</th><td>{Glucagon-R (Class B GPCR) → Gαs}</td><td>{↑ cAMP → PKA}</td></tr></tbody></table></div>`
+      }
+    ]
+  }
+
+};
+
+/* ═══════════════════════════════════════════
+   CROSS-NODE JUMP LINKS
+═══════════════════════════════════════════ */
+const LINKS = {
+  'cAMP': ['lo8','LO 8','teal'],
+  'AMPK': ['lo8','LO 8','teal'],
+  'PPARγ': ['lo8','LO 8','teal'],
+  'Ca²⁺': ['lo8','LO 8','teal'],
+  'PI3K/AKT': ['lo2','LO 2','teal'],
+  'RTK': ['lo2','LO 2','teal'],
+  'GLUT4': ['lo2','LO 2','teal'],
+  'glucagon': ['lo5','LO 5','teal'],
+  'Glucagon': ['lo5','LO 5','teal'],
+  'GLP-1R': ['lo7','LO 7','teal'],
+  'Receptor Tyrosine Kinase (RTK)': ['lo2','LO 2','teal'],
+};
+
+/* ═══════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════ */
+let cur = null, ci = 0;
+let tr = {}, sc = {};
+let done = new Set();
+let totRev = 0, totKnew = 0, totNeed = 0;
+let revQueue = [], revIdx = 0, revTr = {};
+
+const COOKIE = 'diabetes_anki_v1';
+
+function initNode(nid) {
+  if (!tr[nid]) {
+    tr[nid] = D[nid].cards.map(() => new Set());
+    sc[nid] = D[nid].cards.map(() => ({}));
+  }
+}
+
+/* ═══════════════════════════════════════════
+   PARSE BODY — dual mode (main + review)
+═══════════════════════════════════════════ */
+function parseBody(body, nid, cidx, opts = {}) {
+  if (body.includes('tblq-wrap')) {
+    // table card — process {terms} inside HTML
+    let i = 0;
+    return body.replace(/\{([^}]+)\}/g, (_, t) => {
+      const idx = i++;
+      return renderTerm(t, nid, cidx, idx, opts);
+    });
+  }
+  let i = 0;
+  return body.replace(/\{([^}]+)\}/g, (_, t) => {
+    const idx = i++;
+    return renderTerm(t, nid, cidx, idx, opts);
+  });
+}
+
+function renderTerm(t, nid, cidx, idx, opts) {
+  const revealed = opts.forReview
+    ? (opts.revealedSet && opts.revealedSet.has(idx))
+    : (tr[nid] && tr[nid][cidx] && tr[nid][cidx].has(idx));
+  const scored = sc[nid] && sc[nid][cidx] && sc[nid][cidx][idx];
+
+  if (opts.forReview) {
+    if (idx === opts.targetTermIdx) {
+      // target — render as occluded or revealed
+      if (revealed) {
+        return `<span class="occ unscored">${t}</span>`;
+      }
+      return `<span class="occ" onclick="revealReviewTerm(${idx})">${t}</span>`;
+    } else {
+      // non-target — show dimly
+      return `<span style="color:var(--text-2)">${t}</span>`;
+    }
+  }
+
+  // main mode
+  if (!revealed) {
+    return `<span class="occ" onclick="revealTerm('${nid}',${cidx},${idx})">${t}</span>`;
+  }
+
+  let cls = 'rev';
+  if (scored === 'needed') cls = 'needed';
+  else if (!scored) cls = 'unscored';
+
+  let scoreBtns = '';
+  if (revealed && !scored) {
+    scoreBtns = `<span class="score-btns">
+      <button class="s-knew" onclick="event.stopPropagation();scoreIt('${nid}',${cidx},${idx},'knew')">✓ knew</button>
+      <button class="s-needed" onclick="event.stopPropagation();scoreIt('${nid}',${cidx},${idx},'needed')">✗ needed</button>
+    </span>`;
+  }
+
+  let jumpLink = '';
+  if (revealed && LINKS[t] && LINKS[t][0] !== nid) {
+    const [targetNid, targetLabel] = LINKS[t];
+    jumpLink = `<span class="jump-link" onclick="event.stopPropagation();selNode('${targetNid}')">→ ${targetLabel}</span>`;
+  }
+
+  return `<span class="occ ${cls}">${t}</span>${scoreBtns}${jumpLink}`;
+}
+
+/* ═══════════════════════════════════════════
+   REVEAL LOGIC
+═══════════════════════════════════════════ */
+function revealTerm(nid, cidx, idx) {
+  initNode(nid);
+  if (tr[nid][cidx].has(idx)) return;
+  tr[nid][cidx].add(idx);
+  totRev++;
+  saveProgress();
+  render();
+  updateStats();
+}
+
+function revealCard() {
+  if (!cur) return;
+  initNode(cur);
+  const card = D[cur].cards[ci];
+  let count = 0;
+  let i = 0;
+  (card.b.match(/\{[^}]+\}/g) || []).forEach((_, idx) => {
+    if (!tr[cur][ci].has(idx)) { tr[cur][ci].add(idx); totRev++; count++; }
+    i++;
+  });
+  if (count > 0) { saveProgress(); render(); updateStats(); }
+}
+
+function revealTopic() {
+  if (!cur) return;
+  initNode(cur);
+  D[cur].cards.forEach((card, cidx) => {
+    let i = 0;
+    (card.b.match(/\{[^}]+\}/g) || []).forEach((_, idx) => {
+      if (!tr[cur][cidx].has(idx)) { tr[cur][cidx].add(idx); totRev++; }
+    });
+  });
+  saveProgress(); render(); updateStats();
+}
+
+function revealDeck() {
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((card, cidx) => {
+      (card.b.match(/\{[^}]+\}/g) || []).forEach((_, idx) => {
+        if (!tr[nid][cidx].has(idx)) { tr[nid][cidx].add(idx); totRev++; }
+      });
+    });
+  });
+  saveProgress(); render(); updateStats();
+  updateMapDone();
+}
+
+/* ═══════════════════════════════════════════
+   SCORING
+═══════════════════════════════════════════ */
+function scoreIt(nid, cidx, idx, score) {
+  initNode(nid);
+  const prev = sc[nid][cidx][idx];
+  if (prev === score) return;
+  if (prev === 'knew') totKnew--;
+  if (prev === 'needed') totNeed--;
+  sc[nid][cidx][idx] = score;
+  if (score === 'knew') totKnew++;
+  else totNeed++;
+  saveProgress(); render(); updateStats();
+  updateBtnReview();
+}
+
+function knewAllCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const card = D[cur].cards[ci];
+  let i = 0;
+  (card.b.match(/\{[^}]+\}/g) || []).forEach((_, idx) => {
+    const prev = sc[cur][ci][idx];
+    if (prev === 'knew') return;
+    if (prev === 'needed') totNeed--;
+    sc[cur][ci][idx] = 'knew';
+    totKnew++;
+    i++;
+  });
+  if (i > 0) { saveProgress(); render(); updateStats(); updateBtnReview(); }
+}
+
+/* ═══════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════ */
+function resetCard() {
+  if (!cur) return;
+  initNode(cur);
+  const card = D[cur].cards[ci];
+  let i = 0;
+  (card.b.match(/\{[^}]+\}/g) || []).forEach((_, idx) => {
+    if (tr[cur][ci].has(idx)) { tr[cur][ci].delete(idx); totRev--; }
+    const prev = sc[cur][ci][idx];
+    if (prev === 'knew') totKnew--;
+    if (prev === 'needed') totNeed--;
+    delete sc[cur][ci][idx];
+  });
+  saveProgress(); render(); updateStats(); updateMapDone();
+}
+
+function resetAll() {
+  if (!confirm('Reset all progress?')) return;
+  tr = {}; sc = {}; done = new Set();
+  totRev = 0; totKnew = 0; totNeed = 0;
+  deleteCookie();
+  closePanel(); render(); updateStats(); updateMapDone();
+}
+
+/* ═══════════════════════════════════════════
+   NODE SELECTION & PANEL
+═══════════════════════════════════════════ */
+function selNode(nid) {
+  if (nid === 'center') return;
+  cur = nid; ci = 0;
+  initNode(nid);
+  document.getElementById('mainPanel').classList.add('open');
+  document.getElementById('pBadge').textContent = D[nid].label;
+  document.getElementById('pTitle').textContent = D[nid].sub;
+  document.getElementById('btnRevTopic').disabled = false;
+  buildDots();
+  render();
+  updateStats();
+  document.querySelector('.panel-wrap').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closePanel() {
+  cur = null;
+  document.getElementById('mainPanel').classList.remove('open');
+  document.getElementById('btnRevTopic').disabled = true;
+}
+
+/* ═══════════════════════════════════════════
+   PROGRESS DOTS
+═══════════════════════════════════════════ */
+function buildDots() {
+  const wrap = document.getElementById('progDots');
+  wrap.innerHTML = '';
+  if (!cur) return;
+  D[cur].cards.forEach((_, idx) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (idx === ci ? ' active-dot' : '');
+    d.title = `Card ${idx+1}`;
+    d.onclick = () => { ci = idx; render(); };
+    wrap.appendChild(d);
+  });
+  updateDots();
+}
+
+function updateDots() {
+  if (!cur) return;
+  const dots = document.querySelectorAll('#progDots .dot');
+  D[cur].cards.forEach((card, idx) => {
+    if (!dots[idx]) return;
+    const terms = (card.b.match(/\{[^}]+\}/g) || []).length;
+    const rev = tr[cur] ? tr[cur][idx].size : 0;
+    const knew = tr[cur] ? Object.values(sc[cur][idx]||{}).filter(v=>v==='knew').length : 0;
+    dots[idx].className = 'dot' + (terms > 0 && rev >= terms && knew >= terms ? ' complete' : rev > 0 ? ' partial' : '');
+  });
+}
+
+/* ═══════════════════════════════════════════
+   CARD METRICS
+═══════════════════════════════════════════ */
+function cardMetrics(nid, cidx) {
+  initNode(nid);
+  const card = D[nid].cards[cidx];
+  const total = (card.b.match(/\{[^}]+\}/g) || []).length;
+  const revealed = tr[nid][cidx].size;
+  const knew = Object.values(sc[nid][cidx]).filter(v=>v==='knew').length;
+  const needed = Object.values(sc[nid][cidx]).filter(v=>v==='needed').length;
+  const unscored = revealed - knew - needed;
+  return {total, revealed, knew, needed, unscored, allRevealed: total === 0 || revealed >= total};
+}
+
+/* ═══════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════ */
+function render() {
+  if (!cur) return;
+  const card = D[cur].cards[ci];
+  document.getElementById('cardLabel').textContent = `Card ${ci+1} of ${D[cur].cards.length} · ${card.t}`;
+  document.getElementById('cardBody').innerHTML = parseBody(card.b, cur, ci);
+  const hint = document.getElementById('cardHint');
+  if (card.h) { hint.textContent = card.h; hint.style.display = 'block'; }
+  else { hint.style.display = 'none'; }
+
+  const m = cardMetrics(cur, ci);
+  // meta pills
+  const pills = document.getElementById('metaPills');
+  pills.innerHTML = `
+    <span class="mpill rev">${m.revealed}/${m.total} revealed</span>
+    ${m.knew > 0 ? `<span class="mpill knew">${m.knew} knew</span>` : ''}
+    ${m.needed > 0 ? `<span class="mpill need">${m.needed} needed</span>` : ''}
+    ${m.unscored > 0 ? `<span class="mpill wait">${m.unscored} to score</span>` : ''}
+  `;
+  document.getElementById('btnRevealCard').disabled = m.total === 0 || m.allRevealed;
+  document.getElementById('btnKnewAll').disabled = !m.allRevealed;
+  document.getElementById('btnResetCard').disabled = m.revealed === 0;
+
+  document.getElementById('btnPrev').disabled = ci === 0;
+  document.getElementById('btnNext').disabled = ci >= D[cur].cards.length - 1;
+  document.getElementById('navCount').textContent = `${ci+1} / ${D[cur].cards.length}`;
+
+  updateDots();
+  updateMapDone();
+}
+
+/* ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ */
+function navCard(dir) {
+  if (!cur) return;
+  ci = Math.max(0, Math.min(D[cur].cards.length - 1, ci + dir));
+  render();
+}
+
+/* ═══════════════════════════════════════════
+   STATS & MAP
+═══════════════════════════════════════════ */
+function updateStats() {
+  document.getElementById('st-rev').textContent  = `${totRev} revealed`;
+  document.getElementById('st-knew').textContent = `${totKnew} knew`;
+  document.getElementById('st-need').textContent = `${totNeed} needed`;
+  document.getElementById('st-done').textContent = `${done.size} / ${Object.keys(D).length} done`;
+  updateBtnReview();
+}
+
+function updateBtnReview() {
+  const btn = document.getElementById('btnReview');
+  if (totNeed > 0) {
+    btn.style.display = 'inline-block';
+    btn.textContent = `Review weak spots (${totNeed})`;
+  } else {
+    btn.style.display = 'none';
+  }
+}
+
+function updateMapDone() {
+  Object.keys(D).forEach(nid => {
+    if (!tr[nid]) return;
+    let allDone = true;
+    D[nid].cards.forEach((card, cidx) => {
+      const total = (card.b.match(/\{[^}]+\}/g) || []).length;
+      const kn = Object.values(sc[nid][cidx]||{}).filter(v=>v==='knew').length;
+      if (total > 0 && kn < total) allDone = false;
+    });
+    const el = document.getElementById(`n-${nid}`);
+    if (el) {
+      if (allDone && tr[nid].some(s=>s.size>0)) { el.classList.add('done-node'); done.add(nid); }
+      else { el.classList.remove('done-node'); done.delete(nid); }
+    }
+  });
+  document.getElementById('st-done').textContent = `${done.size} / ${Object.keys(D).length} done`;
+}
+
+/* ═══════════════════════════════════════════
+   REVIEW MODE
+═══════════════════════════════════════════ */
+let revealedReviewTerms = new Set();
+
+function openReview() {
+  revQueue = [];
+  Object.keys(D).forEach(nid => {
+    if (!sc[nid]) return;
+    D[nid].cards.forEach((card, cidx) => {
+      let idx = 0;
+      (card.b.match(/\{[^}]+\}/g) || []).forEach((m, i) => {
+        if (sc[nid][cidx][i] === 'needed') {
+          revQueue.push({nid, cidx, termIdx: i, term: m.slice(1,-1)});
+        }
+        idx++;
+      });
+    });
+  });
+  // Fisher-Yates shuffle
+  for (let i = revQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [revQueue[i], revQueue[j]] = [revQueue[j], revQueue[i]];
+  }
+  revIdx = 0;
+  revealedReviewTerms = new Set();
+  if (revQueue.length === 0) return;
+  document.getElementById('reviewOverlay').classList.add('open');
+  renderReview();
+}
+
+function closeReview() {
+  document.getElementById('reviewOverlay').classList.remove('open');
+}
+
+function renderReview() {
+  if (revQueue.length === 0) { closeReview(); return; }
+  const item = revQueue[revIdx];
+  const card = D[item.nid].cards[item.cidx];
+  document.getElementById('rSub').textContent = `${D[item.nid].label} — ${card.t} · Term to recall: "${item.term}"`;
+  document.getElementById('rCount').textContent = `${revIdx+1} / ${revQueue.length}`;
+
+  const html = parseBody(card.b, item.nid, item.cidx, {
+    forReview: true,
+    targetTermIdx: item.termIdx,
+    revealedSet: revealedReviewTerms
+  });
+  document.getElementById('reviewBody').innerHTML = html;
+  document.getElementById('rPrev').disabled = revIdx === 0;
+  document.getElementById('rNext').disabled = revIdx >= revQueue.length - 1;
+}
+
+function revealReviewTerm(idx) {
+  revealedReviewTerms.add(idx);
+  renderReview();
+}
+
+function navReview(dir) {
+  revIdx = Math.max(0, Math.min(revQueue.length - 1, revIdx + dir));
+  revealedReviewTerms = new Set();
+  renderReview();
+}
+
+/* ═══════════════════════════════════════════
+   COOKIE PERSISTENCE
+═══════════════════════════════════════════ */
+function saveProgress() {
+  const r = {}, s = {};
+  Object.keys(tr).forEach(nid => {
+    r[nid] = tr[nid].map(set => [...set].join('.'));
+    s[nid] = sc[nid].map(obj => Object.entries(obj).map(([k,v])=>`${k}${v[0]}`).join('.'));
+  });
+  const payload = JSON.stringify({c:cur, i:ci, r, s});
+  const exp = new Date(Date.now() + 180*24*3600*1000).toUTCString();
+  document.cookie = `${COOKIE}=${encodeURIComponent(payload)};expires=${exp};path=/;SameSite=Lax`;
+}
+
+function loadProgress() {
+  const match = document.cookie.split(';').find(c => c.trim().startsWith(COOKIE+'='));
+  if (!match) return null;
+  try { return JSON.parse(decodeURIComponent(match.trim().slice(COOKIE.length+1))); }
+  catch(e) { return null; }
+}
+
+function deleteCookie() {
+  document.cookie = `${COOKIE}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;SameSite=Lax`;
+}
+
+function recalcState() {
+  totRev = 0; totKnew = 0; totNeed = 0;
+  Object.keys(tr).forEach(nid => {
+    tr[nid].forEach(set => totRev += set.size);
+    sc[nid].forEach(obj => Object.values(obj).forEach(v => { if(v==='knew') totKnew++; else if(v==='needed') totNeed++; }));
+  });
+}
+
+function restoreSession() {
+  const data = loadProgress();
+  if (!data) return;
+  if (data.r) Object.keys(data.r).forEach(nid => {
+    if (!D[nid]) return;
+    initNode(nid);
+    data.r[nid].forEach((s, cidx) => {
+      if (s) s.split('.').filter(Boolean).forEach(i => tr[nid][cidx].add(+i));
+    });
+    if (data.s && data.s[nid]) {
+      data.s[nid].forEach((s, cidx) => {
+        if (!s) return;
+        s.split('.').filter(Boolean).forEach(tok => {
+          const score = tok.slice(-1) === 'k' ? 'knew' : 'needed';
+          sc[nid][cidx][+tok.slice(0,-1)] = score;
+        });
+      });
+    }
+  });
+  recalcState();
+  updateMapDone();
+  updateStats();
+  if (data.c && D[data.c]) {
+    ci = data.i || 0;
+    selNode(data.c);
+  }
+}
+
+/* ═══════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════ */
+function setTheme(theme) {
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+  if (theme === 'slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('contextual-anki-theme', theme);
+}
+
+/* ═══════════════════════════════════════════
+   KEYBOARD
+═══════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  const reviewOpen = document.getElementById('reviewOverlay').classList.contains('open');
+  if (e.key === 'Escape') { reviewOpen ? closeReview() : closePanel(); return; }
+  if (reviewOpen) {
+    if (e.key === 'ArrowLeft') navReview(-1);
+    if (e.key === 'ArrowRight') navReview(1);
+    return;
+  }
+  if (cur) {
+    if (e.key === 'ArrowLeft') navCard(-1);
+    if (e.key === 'ArrowRight') navCard(1);
+  }
+});
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+(function init() {
+  const total = Object.values(D).reduce((n,node) => n + node.cards.length, 0);
+  document.getElementById('deckMeta').textContent =
+    `Active recall map · ${Object.keys(D).length} topics · ${total} cards`;
+
+  const savedTheme = localStorage.getItem('contextual-anki-theme') || 'slate';
+  setTheme(savedTheme);
+
+  restoreSession();
+  updateStats();
+})();
+</script>
+</body>
+</html>

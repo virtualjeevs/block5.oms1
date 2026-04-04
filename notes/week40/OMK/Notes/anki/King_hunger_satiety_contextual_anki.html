@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>King — Hunger, Satiation & Satiety · Active Recall Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f1a;
+  --surface:#131929;
+  --surface-2:#19223a;
+  --surface-3:#1f2a42;
+  --surface-4:#24314e;
+  --amber:#f6a533;
+  --amber-soft:rgba(246,165,51,.13);
+  --amber-mid:rgba(246,165,51,.25);
+  --amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf;
+  --teal-soft:rgba(45,212,191,.12);
+  --teal-mid:rgba(45,212,191,.22);
+  --teal-dim:rgba(45,212,191,.5);
+  --green:#34d399;
+  --green-soft:rgba(52,211,153,.13);
+  --green-mid:rgba(52,211,153,.22);
+  --red:#f87171;
+  --red-soft:rgba(248,113,113,.12);
+  --red-mid:rgba(248,113,113,.22);
+  --text:#dde5f0;
+  --text-2:#7e90a9;
+  --text-3:#3e5065;
+  --border:#1c2a40;
+  --border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08);
+  --hero-glow-b:rgba(246,165,51,.09);
+  --bg-top:#0b0f1a;
+  --bg-bottom:#0d1321;
+  --map-shadow:0 20px 45px rgba(0,0,0,.22);
+  --panel-shadow:0 22px 48px rgba(0,0,0,.24);
+  --header-shadow:0 22px 50px rgba(0,0,0,.24);
+  --header-a:rgba(25,34,58,.78);
+  --header-b:rgba(19,25,41,.56);
+  --card-a:rgba(25,34,58,.98);
+  --card-b:rgba(21,29,47,.98);
+  --card-action-bg:rgba(31,42,66,.55);
+  --nav-bg:rgba(25,34,58,.85);
+  --nav-bg-hover:rgba(31,42,66,.98);
+  --nav-text:#dde5f0;
+  --showall-bg:rgba(255,255,255,.03);
+  --showall-text:#7e90a9;
+  --meta-bg:rgba(221,229,240,.04);
+  --table-head-a:#2863d8;
+  --table-head-b:#3d7bf4;
+}
+html[data-theme="cream"]{
+  --bg:#f4efe4;
+  --surface:#fffaf1;
+  --surface-2:#f6efe2;
+  --surface-3:#efe5d3;
+  --surface-4:#e4d5ba;
+  --amber:#b86519;
+  --amber-soft:rgba(184,101,25,.13);
+  --amber-mid:rgba(184,101,25,.22);
+  --amber-dim:rgba(184,101,25,.45);
+  --teal:#0f8a7b;
+  --teal-soft:rgba(15,138,123,.12);
+  --teal-mid:rgba(15,138,123,.2);
+  --teal-dim:rgba(15,138,123,.42);
+  --green:#21885a;
+  --green-soft:rgba(33,136,90,.12);
+  --green-mid:rgba(33,136,90,.22);
+  --red:#c65a52;
+  --red-soft:rgba(198,90,82,.12);
+  --red-mid:rgba(198,90,82,.22);
+  --text:#2f2a24;
+  --text-2:#6c5f51;
+  --text-3:#a28d78;
+  --border:#e4d5ba;
+  --border-2:#d6c2a1;
+  --hero-glow-a:rgba(15,138,123,.08);
+  --hero-glow-b:rgba(184,101,25,.08);
+  --bg-top:#f7f2e8;
+  --bg-bottom:#efe7d9;
+  --header-a:rgba(255,250,241,.96);
+  --header-b:rgba(246,239,226,.92);
+  --card-a:rgba(255,251,244,.98);
+  --card-b:rgba(246,239,226,.98);
+  --card-action-bg:rgba(239,229,211,.86);
+  --nav-bg:rgba(246,239,226,.95);
+  --nav-bg-hover:rgba(239,229,211,.98);
+  --nav-text:#5f5141;
+  --showall-bg:rgba(255,250,241,.92);
+  --showall-text:#5f5141;
+  --meta-bg:rgba(255,250,241,.8);
+  --table-head-a:#0f8a7b;
+  --table-head-b:#b86519;
+}
+html[data-theme="forest"]{
+  --bg:#081512;
+  --surface:#0f201b;
+  --surface-2:#16302a;
+  --surface-3:#1d4037;
+  --surface-4:#28544a;
+  --amber:#e4b04b;
+  --amber-soft:rgba(228,176,75,.12);
+  --amber-mid:rgba(228,176,75,.22);
+  --amber-dim:rgba(228,176,75,.45);
+  --teal:#52d6b7;
+  --teal-soft:rgba(82,214,183,.12);
+  --teal-mid:rgba(82,214,183,.2);
+  --teal-dim:rgba(82,214,183,.42);
+  --green:#7ae582;
+  --green-soft:rgba(122,229,130,.12);
+  --green-mid:rgba(122,229,130,.22);
+  --red:#ff8b7a;
+  --red-soft:rgba(255,139,122,.12);
+  --red-mid:rgba(255,139,122,.22);
+  --text:#e4f2ec;
+  --text-2:#8fb6aa;
+  --text-3:#54756b;
+  --border:#1d3a32;
+  --border-2:#295049;
+  --hero-glow-a:rgba(82,214,183,.08);
+  --hero-glow-b:rgba(228,176,75,.08);
+  --bg-top:#081512;
+  --bg-bottom:#0b1c18;
+  --header-a:rgba(15,32,27,.96);
+  --header-b:rgba(10,24,21,.92);
+  --card-a:rgba(22,48,42,.98);
+  --card-b:rgba(15,32,27,.98);
+  --card-action-bg:rgba(29,64,55,.82);
+  --nav-bg:rgba(22,48,42,.95);
+  --nav-bg-hover:rgba(29,64,55,.98);
+  --nav-text:#d0e9e0;
+  --showall-bg:rgba(15,32,27,.86);
+  --showall-text:#c7e7dc;
+  --meta-bg:rgba(255,255,255,.04);
+  --table-head-a:#1f7a67;
+  --table-head-b:#d79f42;
+}
+html{font-size:17px;-webkit-font-smoothing:antialiased}
+body{
+  background:
+    radial-gradient(circle at top left, var(--hero-glow-a), transparent 26rem),
+    radial-gradient(circle at top right, var(--hero-glow-b), transparent 24rem),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:40px 16px 80px;
+}
+.wrap{width:100%;max-width:860px}
+header{
+  margin-bottom:32px;text-align:center;
+  background:linear-gradient(180deg, var(--header-a), var(--header-b));
+  border:1px solid var(--border-2);
+  box-shadow:var(--header-shadow);
+  border-radius:24px;
+  padding:24px 20px 20px;
+}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.hero-copy{flex:1;min-width:240px}
+.theme-switch{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.theme-btn{
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  color:var(--text-2);font-size:11px;font-family:'DM Mono',monospace;
+  padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .14s
+}
+.theme-btn:hover{color:var(--text);background:var(--surface-3);border-color:var(--border-2)}
+.theme-btn.active{background:var(--teal-soft);border-color:rgba(45,212,191,.24);color:var(--teal)}
+.eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px}
+h1{font-family:'Crimson Pro',serif;font-weight:600;font-size:clamp(32px,5vw,48px);line-height:1.05;letter-spacing:-.025em;color:var(--text);margin-bottom:6px}
+.sub{font-size:14px;color:var(--text-2)}
+.legend{display:flex;gap:18px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text-2)}
+.lswatch{width:9px;height:9px;border-radius:50%}
+.map-wrap{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:18px;padding:20px 16px 14px;margin-bottom:12px;
+  overflow:hidden;box-shadow:var(--map-shadow);
+}
+.c-gray rect{fill:var(--surface-3);stroke:var(--border-2);stroke-width:.5}
+.c-gray .th{fill:var(--text);font-family:'Crimson Pro',serif;font-size:13px;font-weight:600}
+.c-gray .ts{fill:var(--text-2);font-family:'DM Sans',sans-serif;font-size:10px}
+.c-amber rect{fill:var(--amber-soft);stroke:var(--amber-dim);stroke-width:.75}
+.c-amber .th{fill:var(--amber);font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500}
+.c-amber .ts{fill:var(--text);font-family:'DM Sans',sans-serif;font-size:10px}
+.c-teal rect{fill:var(--teal-soft);stroke:var(--teal-dim);stroke-width:.75}
+.c-teal .th{fill:var(--teal);font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500}
+.c-teal .ts{fill:var(--text);font-family:'DM Sans',sans-serif;font-size:10px}
+.conn{stroke:var(--border-2);stroke-width:1;fill:none;opacity:.7}
+.node{cursor:pointer;transition:filter .15s}
+.node:hover{filter:brightness(1.25)}
+.sel-node.c-amber rect{stroke:var(--amber)!important;stroke-width:2!important;filter:drop-shadow(0 0 7px rgba(246,165,51,.5))}
+.sel-node.c-teal rect{stroke:var(--teal)!important;stroke-width:2!important;filter:drop-shadow(0 0 7px rgba(45,212,191,.4))}
+.done-node{opacity:.45}
+.hint-lbl{fill:var(--text-3);font-family:'DM Mono',monospace;font-size:9.5px;font-style:italic}
+.panel,.review-panel{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:18px;padding:22px 20px;margin-bottom:12px;
+  display:none;box-shadow:var(--panel-shadow);
+}
+.panel.open{display:block;animation:rise .22s ease-out}
+.review-panel.open{display:block;border-color:rgba(246,165,51,.25);animation:rise .22s ease-out}
+@keyframes rise{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.phead{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.badge{font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:5px}
+.b-plo{background:var(--amber-soft);color:var(--amber);border:1px solid rgba(246,165,51,.28)}
+.b-lo{background:var(--teal-soft);color:var(--teal);border:1px solid rgba(45,212,191,.25)}
+.ptitle{font-size:15px;font-weight:500;color:var(--text);flex:1;line-height:1.4}
+.dots{display:flex;gap:6px;align-items:center}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--border-2);transition:background .2s}
+.dot.active{background:var(--text)}
+.dot.done{background:var(--green)}
+.dot.partial{background:var(--amber)}
+.xbtn{background:none;border:none;cursor:pointer;color:var(--text-3);font-size:20px;line-height:1;padding:2px 7px;border-radius:5px;transition:color .12s,background .12s}
+.xbtn:hover{color:var(--text);background:var(--surface-3)}
+.card{background:linear-gradient(180deg, var(--card-a), var(--card-b));border:1px solid var(--border);border-radius:16px;padding:18px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.ctitle{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.cbody{font-size:16px;line-height:1.9;color:var(--text)}
+.card-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:var(--card-action-bg)}
+.card-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--text-2);font-size:11px;font-family:'DM Mono',monospace}
+.meta-pill{padding:5px 10px;border-radius:999px;border:1px solid var(--border-2);background:var(--meta-bg)}
+.meta-pill strong{color:var(--text)}
+.action-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.action-btn{background:rgba(255,255,255,.03);border:1px solid var(--border-2);color:var(--text-2);font-size:11px;font-family:'DM Mono',monospace;padding:8px 12px;border-radius:999px;cursor:pointer;transition:all .14s}
+.action-btn:hover:not(:disabled){color:var(--text);background:var(--surface-3);border-color:var(--surface-4)}
+.action-btn:disabled{opacity:.35;cursor:not-allowed}
+.action-btn.primary{background:var(--teal-soft);border-color:rgba(45,212,191,.22);color:var(--teal)}
+.action-btn.primary:hover:not(:disabled){background:var(--teal-mid);color:#dffef8}
+.action-btn.amber{background:var(--amber-soft);border-color:rgba(246,165,51,.25);color:var(--amber)}
+.action-btn.amber:hover:not(:disabled){background:var(--amber-mid);color:#fff3df}
+.action-btn.ghost{color:var(--text-3)}
+.occ{display:inline-block;min-width:3ch;background:var(--text);color:transparent;border:1px solid transparent;border-radius:3px;cursor:pointer;padding:1px 6px;white-space:nowrap;user-select:none;vertical-align:baseline;transition:background .15s,color .15s,border-color .15s}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
+.occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed{background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.2)}
+.score-row{display:inline-flex;gap:3px;margin-left:5px;vertical-align:middle;animation:pop .15s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+.sbtn{font-size:9px;padding:1px 6px;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;transition:background .1s,border-color .1s}
+.sbtn.know{background:var(--green-soft);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+.sbtn.know:hover{background:var(--green-mid)}
+.sbtn.need{background:var(--red-soft);color:var(--red);border:1px solid rgba(248,113,113,.25)}
+.sbtn.need:hover{background:var(--red-mid)}
+.jump{display:inline-flex;align-items:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);background:var(--surface-3);border:1px solid var(--border-2);border-radius:3px;padding:1px 5px;margin-left:3px;cursor:pointer;vertical-align:middle;transition:all .12s;white-space:nowrap}
+.jump.amber:hover{color:var(--amber);border-color:var(--amber-dim);background:var(--amber-soft)}
+.jump.teal:hover{color:var(--teal);border-color:var(--teal-dim);background:var(--teal-soft)}
+.hint{font-size:13px;color:var(--text-2);background:var(--surface-3);border-left:2px solid var(--border-2);border-radius:0 7px 7px 0;padding:9px 14px;margin-top:14px;line-height:1.65}
+.hlbl{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:var(--text-3);display:block;margin-bottom:4px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:8px}
+.nbtn{background:var(--nav-bg);border:1px solid var(--border);color:var(--nav-text);font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 16px;border-radius:10px;cursor:pointer;transition:background .12s,color .12s}
+.nbtn:hover:not(:disabled){background:var(--nav-bg-hover);color:var(--text)}
+.nbtn:disabled{opacity:.25;cursor:not-allowed}
+.nmc{display:flex;gap:10px;align-items:center}
+.ncnt{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
+.showall{background:var(--showall-bg);border:1px solid var(--border);color:var(--showall-text);font-size:11px;font-family:'DM Sans',sans-serif;padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .12s}
+.showall:hover{color:var(--text);border-color:var(--border-2)}
+.stats{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;box-shadow:0 18px 40px rgba(0,0,0,.2)}
+.stat{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
+.stat strong{color:var(--text)}
+.sep{color:var(--border-2)}
+.sactions{display:flex;gap:8px;align-items:center;margin-left:auto}
+.sbtn-lite{background:none;border:1px solid var(--border);cursor:pointer;font-size:11px;color:var(--text-2);font-family:'DM Mono',monospace;border-radius:999px;padding:7px 12px;transition:all .12s}
+.sbtn-lite:hover:not(:disabled){color:var(--text);background:var(--surface-3);border-color:var(--border-2)}
+.sbtn-lite:disabled{opacity:.35;cursor:not-allowed}
+.review-btn{background:var(--amber-soft);border:1px solid rgba(246,165,51,.28);color:var(--amber);font-size:11px;font-family:'DM Sans',sans-serif;padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .12s;display:none;align-items:center;gap:5px}
+.review-btn.vis{display:inline-flex}
+.review-btn:hover{background:var(--amber-mid)}
+.reset-btn{background:none;border:none;cursor:pointer;font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace;text-decoration:underline;text-underline-offset:2px}
+.reset-btn:hover{color:var(--text-2)}
+.rhdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rtitle{font-family:'Crimson Pro',serif;font-size:17px;font-weight:600;color:var(--amber);flex:1}
+.rprog{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2)}
+.rsub{font-size:11px;color:var(--text-2);font-family:'DM Mono',monospace;background:var(--surface-3);border:1px solid var(--border);padding:7px 12px;border-radius:7px;margin-bottom:14px;line-height:1.5}
+.kbhint{text-align:center;font-size:10px;color:var(--text-3);font-family:'DM Mono',monospace;margin-top:10px;letter-spacing:.04em}
+@media(max-width:720px){
+  body{padding:22px 12px 64px}
+  header{padding:20px 16px 18px}
+  .hero-top,.theme-switch{justify-content:center}
+  .card-actions{padding:10px 12px}
+  .action-row,.card-meta,.sactions{width:100%}
+  .sactions{margin-left:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Block 5 · Dr. Tamara King · UNE COM M1</div>
+      <h1>Hunger, Satiation &amp; Satiety</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" type="button" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" type="button" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" type="button" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Lecture Objectives (LO)</div>
+</div>
+
+<div class="map-wrap">
+<svg width="100%" viewBox="0 0 760 322" style="display:block">
+  <!-- connectors PLO → center -->
+  <line class="conn" x1="125" y1="60" x2="265" y2="120"/>
+  <line class="conn" x1="380" y1="60" x2="380" y2="120"/>
+  <line class="conn" x1="635" y1="60" x2="495" y2="120"/>
+  <!-- connectors LO → center -->
+  <line class="conn" x1="90"  y1="246" x2="240" y2="176"/>
+  <line class="conn" x1="235" y1="246" x2="305" y2="176"/>
+  <line class="conn" x1="380" y1="246" x2="380" y2="176"/>
+  <line class="conn" x1="525" y1="246" x2="455" y2="176"/>
+  <line class="conn" x1="670" y1="246" x2="520" y2="176"/>
+  <!-- center block -->
+  <g class="c-gray">
+    <rect x="190" y="120" width="380" height="56" rx="10"/>
+    <text class="th" x="380" y="142" text-anchor="middle" dominant-baseline="central">Hunger, Satiation &amp; Satiety</text>
+    <text class="ts" x="380" y="162" text-anchor="middle" dominant-baseline="central">Dr. King · Block 5 · Arcuate Nucleus &amp; Gut Hormones</text>
+  </g>
+  <!-- PLO nodes (top) -->
+  <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+    <rect x="55" y="16" width="140" height="44" rx="8"/>
+    <text class="th" x="125" y="31" text-anchor="middle" dominant-baseline="central">PLO 1</text>
+    <text class="ts" x="125" y="49" text-anchor="middle" dominant-baseline="central">Synthesis, Secretion &amp; Effect</text>
+  </g>
+  <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+    <rect x="310" y="16" width="140" height="44" rx="8"/>
+    <text class="th" x="380" y="31" text-anchor="middle" dominant-baseline="central">PLO 2</text>
+    <text class="ts" x="380" y="49" text-anchor="middle" dominant-baseline="central">Orexigenic vs Anorexigenic</text>
+  </g>
+  <g id="n-plo3" class="node c-amber" onclick="selNode('plo3')">
+    <rect x="565" y="16" width="140" height="44" rx="8"/>
+    <text class="th" x="635" y="31" text-anchor="middle" dominant-baseline="central">PLO 3</text>
+    <text class="ts" x="635" y="49" text-anchor="middle" dominant-baseline="central">Arcuate Neural Populations</text>
+  </g>
+  <!-- LO nodes (bottom) -->
+  <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+    <rect x="35" y="246" width="110" height="44" rx="8"/>
+    <text class="th" x="90" y="261" text-anchor="middle" dominant-baseline="central">LO 1</text>
+    <text class="ts" x="90" y="279" text-anchor="middle" dominant-baseline="central">GI Signals → Arcuate</text>
+  </g>
+  <g id="n-lo2" class="node c-teal" onclick="selNode('lo2')">
+    <rect x="180" y="246" width="110" height="44" rx="8"/>
+    <text class="th" x="235" y="261" text-anchor="middle" dominant-baseline="central">LO 2</text>
+    <text class="ts" x="235" y="279" text-anchor="middle" dominant-baseline="central">AgRP &amp; α-MSH on MC4R</text>
+  </g>
+  <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+    <rect x="325" y="246" width="110" height="44" rx="8"/>
+    <text class="th" x="380" y="261" text-anchor="middle" dominant-baseline="central">LO 3</text>
+    <text class="ts" x="380" y="279" text-anchor="middle" dominant-baseline="central">Leptin Resistance</text>
+  </g>
+  <g id="n-lo4" class="node c-teal" onclick="selNode('lo4')">
+    <rect x="470" y="246" width="110" height="44" rx="8"/>
+    <text class="th" x="525" y="261" text-anchor="middle" dominant-baseline="central">LO 4</text>
+    <text class="ts" x="525" y="279" text-anchor="middle" dominant-baseline="central">Leptin → Arcuate</text>
+  </g>
+  <g id="n-lo5" class="node c-teal" onclick="selNode('lo5')">
+    <rect x="615" y="246" width="110" height="44" rx="8"/>
+    <text class="th" x="670" y="261" text-anchor="middle" dominant-baseline="central">LO 5</text>
+    <text class="ts" x="670" y="279" text-anchor="middle" dominant-baseline="central">Gastric Bypass</text>
+  </g>
+  <text class="hint-lbl" x="380" y="312" text-anchor="middle">Click any node to begin · ← → navigate · ✓/✗ score each term</text>
+</svg>
+</div>
+
+<!-- Card panel -->
+<div id="panel" class="panel">
+  <div class="phead">
+    <span id="bdg" class="badge"></span>
+    <span id="ptitle" class="ptitle"></span>
+    <div id="dots" class="dots"></div>
+    <button class="xbtn" onclick="closePanel()">×</button>
+  </div>
+  <div id="ccard" class="card"></div>
+  <div id="cardActions" class="card-actions"></div>
+  <div class="nav">
+    <button class="nbtn" id="bprev" onclick="goCard(-1)">← Prev</button>
+    <div class="nmc">
+      <span id="cnt" class="ncnt"></span>
+      <button class="showall" onclick="revealAll()">Reveal this card</button>
+    </div>
+    <button class="nbtn" id="bnext" onclick="goCard(1)">Next →</button>
+  </div>
+</div>
+
+<!-- Review mode panel -->
+<div id="reviewPanel" class="review-panel">
+  <div class="rhdr">
+    <span class="rtitle">⟳ Spaced Repetition Review</span>
+    <span id="rprog" class="rprog"></span>
+    <button class="xbtn" onclick="closeReview()">×</button>
+  </div>
+  <div id="rsub" class="rsub"></div>
+  <div id="rccard" class="card"></div>
+  <div class="nav">
+    <button class="nbtn" id="rbprev" onclick="goReview(-1)">← Prev</button>
+    <div class="nmc">
+      <span id="rcnt" class="ncnt"></span>
+      <button class="showall" onclick="revAllReview()">Reveal</button>
+    </div>
+    <button class="nbtn" id="rbnext" onclick="goReview(1)">Next →</button>
+  </div>
+</div>
+
+<!-- Stats bar -->
+<div class="stats">
+  <span class="stat"><strong id="st-rev">0</strong> revealed</span>
+  <span class="sep">·</span>
+  <span class="stat" style="color:var(--green)"><strong id="st-knew">0</strong> knew it</span>
+  <span class="sep">·</span>
+  <span class="stat" style="color:var(--amber)"><strong id="st-need">0</strong> needed help</span>
+  <span class="sep">·</span>
+  <span class="stat"><strong id="st-done">0</strong>/8 done</span>
+  <div class="sactions">
+    <button id="revealTopicBtn" class="sbtn-lite" onclick="revealTopic()" disabled>Reveal topic</button>
+    <button class="sbtn-lite" onclick="revealDeck()">Reveal deck</button>
+    <button id="reviewBtn" class="review-btn" onclick="startReview()">⟳ Review weak spots (<span id="rcount">0</span>)</button>
+    <button class="reset-btn" onclick="resetAll()">reset</button>
+  </div>
+</div>
+
+<div class="kbhint">← → arrow keys &nbsp;·&nbsp; ESC to close &nbsp;·&nbsp; ✓ knew it &nbsp;·&nbsp; ✗ needed help</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATA — Dr. King: Hormone Control of Hunger, Satiation & Satiety
+// ═══════════════════════════════════════════════════
+const D={
+  plo1:{label:'PLO 1',sub:'Synthesis, Secretion & Effect on Food Intake',type:'PLO',cards:[
+    {t:'Ghrelin — Source & Secretion Pattern',
+     b:'Ghrelin is produced by the {stomach fundus} (minor contribution from intestine) and is the {only orexigenic gut hormone}. It binds {GHSR (Gq GPCR)}, rising {1–2 hr before a meal}, peaking just before eating, and falling within 1 hr after. Trigger: {empty stomach}; suppressed by nutrients ({carbs & protein} more than fat). Action: activates {NPY/AgRP neurons} → hunger.',
+     h:'Ghrelin is unique as the sole gut hormone that increases appetite. Carbs/protein suppress it faster than fat — clinically relevant for dietary counseling.'},
+    {t:'PYY — Source & Secretion Pattern',
+     b:'PYY is synthesized by {L-cells of the ileum and colon} (highest in large bowel and rectum). Receptor: {Y2R (Gi GPCR)}, which inhibits AgRP/NPY neurons. Secretion: Phase I is rapid (~{15 min}, neural reflex); Phase II occurs ~{2 hr post-meal} as nutrients reach the colon. Primary trigger: {fat & protein content} in the distal gut. Active circulating form: {PYY₃₋₃₆}. Effect: {satiation — anorexigenic}.',
+     h:'PYY₃₋₃₆ is the active form. Fat and protein are more potent triggers than carbohydrates.'},
+    {t:'GLP-1 — Source & Secretion Pattern',
+     b:'GLP-1 (Glucagon-like Peptide 1) is released from {L-cells of the distal gut}, CNS neurons, and {α-cells of pancreatic islets}. It is cleaved from {proglucagon} — the same precursor as glucagon. Receptor: {GLP-1R (Gs GPCR)}. Release is {proportional to calories ingested}. Trigger: {free fatty acids} in the intestinal lumen. Action: {↑ POMC/CART neurons} + {vagus nerve → NTS} → satiation. Classified as {anorexigenic}.',
+     h:'GLP-1 receptor agonists (e.g., semaglutide) exploit this exact pathway as obesity/diabetes medications.'},
+    {t:'CCK — Source & Secretion Pattern',
+     b:'CCK (Cholecystokinin) is produced by {duodenal I-cells and jejunal mucosa}, cleaved from the CCK propeptide. Receptor: {CCK1R (Gs GPCR)} located on the {vagus nerve}. Trigger: {luminal lipids, proteins, and amino acids}. Action: {activates vagus → NTS (nucleus of solitary tract)} → satiation signal. Critically, CCK does {NOT act directly on the arcuate nucleus} — its route is {vagal afferents only}. Classified as {anorexigenic}.',
+     h:'CCK is a short-term satiation signal released during a meal. Its purely vagal route is a high-yield exam distinction — no direct arcuate signaling.'},
+    {t:'Leptin — Source & Secretion Pattern',
+     b:'Leptin is produced by {white adipose tissue (WAT)} and functions as an {adipokine (cytokine-like signal)}. Receptor: {cytokine receptor → Jak-STAT signaling pathway}. Leptin levels are {proportional to total fat mass} (↑ fat → ↑ leptin). It is not a meal-to-meal signal — it reflects {long-term energy stores}. Key action: {inhibits NPY/AgRP neurons} and {stimulates POMC/CART neurons} → appetite suppressed. Classified as {anorexigenic}.',
+     h:'Low leptin = starvation signal → triggers food-seeking behavior. Contrast with ghrelin: ghrelin = short-term, stomach; leptin = long-term, fat.'}
+  ]},
+
+  plo2:{label:'PLO 2',sub:'Orexigenic vs Anorexigenic Classification',type:'PLO',cards:[
+    {t:'Orexigenic vs Anorexigenic Hormones',
+     b:'{Ghrelin} is the {only known orexigenic gut hormone} — it stimulates food intake. The four anorexigenic hormones that inhibit food intake are {PYY}, {GLP-1}, {CCK}, and {Leptin}. Anorexigenic hormones signal to {stop eating or delay the return of hunger}; the orexigenic hormone signals to {start eating}.',
+     h:'Memory hook: "Only Ghrelin is Greedy (Orexigenic)" — every other hormone on this list suppresses appetite.'},
+    {t:'High-Yield: Leptin vs Ghrelin',
+     b:'Leptin is released from {adipose tissue} and reflects {long-term energy stores}; it signals {energy sufficiency}. Ghrelin is released from the {stomach fundus} and reflects {short-term meal timing}; it signals {immediate hunger}. Both influence the arcuate nucleus via opposite populations: leptin {activates POMC/CART and suppresses AgRP/NPY}; ghrelin {activates AgRP/NPY and suppresses POMC/CART}.',
+     h:'Classic exam pair. Leptin = long-term, fat-derived. Ghrelin = short-term, stomach-derived. Opposite effects on the same two arcuate neuron populations.'}
+  ]},
+
+  plo3:{label:'PLO 3',sub:'Arcuate Neural Populations & Key Neurotransmitters',type:'PLO',cards:[
+    {t:'POMC/CART Neurons — Anorexigenic Population',
+     b:'POMC = {pro-opiomelanocortin}, a precursor cleaved to produce {α-MSH (melanocyte-stimulating hormone)}. α-MSH acts on {MC4R (Gs GPCR)} → ↑ {cAMP} → appetite suppressed. CART = {cocaine & amphetamine-regulated transcript} — peptides co-released from the same neurons. Activation results in {decreased food intake and increased energy expenditure}. POMC/CART neurons are stimulated by {GLP-1 and leptin}.',
+     h:'POMC/CART = the "brake pedal" for eating. When active: eat less, burn more. Stimulated by satiety hormones (leptin, GLP-1).'},
+    {t:'AgRP/NPY Neurons — Orexigenic Population',
+     b:'NPY = {neuropeptide Y}, the most potent stimulator of food intake in the CNS. Acts via {Y1R (Gi GPCR)} → ↓ cAMP → hunger. AgRP = {agouti-related peptide} — acts as an {inverse agonist at MC4R}, directly blocking the satiety effect of α-MSH at the receptor. AgRP/NPY neurons also {directly inhibit POMC neurons}. Activation produces {increased food intake}. Primarily stimulated by {ghrelin via GHSR (Gq GPCR)}.',
+     h:'AgRP is an INVERSE agonist — not merely a competitive antagonist. It actively drives MC4R activity below baseline, amplifying hunger beyond simply blocking satiety.'}
+  ]},
+
+  lo1:{label:'LO 1',sub:'GI Signals on AgRP/NPY and POMC Neural Populations',type:'LO',cards:[
+    {t:'Ghrelin → Arcuate Nucleus: Hunger Pathway',
+     b:'1. Empty stomach → {ghrelin released from fundus}. 2. Ghrelin binds {GHSR (Gq GPCR)} on AgRP/NPY neurons in the arcuate. 3. ↑ NPY release → {Y1R (Gi)} on second-order neurons → ↓ cAMP → hunger drive. 4. ↑ AgRP release → binds MC4R as {inverse agonist} → blocks α-MSH satiety signal. 5. Ghrelin also {directly inhibits POMC/CART neurons}. Net: {hunger and food-seeking behavior}.',
+     h:'Two-pronged attack: ghrelin simultaneously activates hunger neurons AND shuts down satiety neurons. GHSR signals via Gq → ↑ IP3/DAG → ↑ Ca²⁺ → neuron depolarization.'},
+    {t:'PYY & GLP-1 → Arcuate Nucleus: Satiation Pathway',
+     b:'Food intake → satiation: PYY (active form: {PYY₃₋₃₆}) from L-cells acts on {Y2R (Gi GPCR)} on AgRP/NPY neurons → {inhibits AgRP/NPY} → less hunger drive. GLP-1 from L-cells acts on {GLP-1R (Gs GPCR)} on POMC neurons → stimulates POMC/CART → {↑ α-MSH release}. ↑ α-MSH at MC4R → {Gs → ↑ cAMP → appetite suppressed}. GLP-1 also acts on {vagus nerve → NTS} → additional satiation signal. Net: {satiation (stop eating) + reduced hunger between meals}.',
+     h:'Mnemonic: "PG SUPPRESS THE HUNGRY NPY" — PYY and GLP-1 silence NPY/AgRP (PYY via Y2R-Gi) and boost POMC (GLP-1 via Gs). CCK takes a separate route via the vagus to NTS only.'}
+  ]},
+
+  lo2:{label:'LO 2',sub:'Actions of AgRP and α-MSH on MC4R',type:'LO',cards:[
+    {t:'MC4R — The Appetite Integration Point',
+     b:'MC4R (melanocortin-4 receptor) is a {Gs GPCR} on second-order hypothalamic neurons — the pivot point for appetite control. α-MSH (from POMC neurons): {agonist at MC4R} → Gs → ↑ cAMP → {appetite suppressed}. AgRP (from AgRP/NPY neurons): {inverse agonist at MC4R} → opposes α-MSH → {appetite increased}. An inverse agonist {binds the receptor and produces the opposite pharmacological effect} compared to the agonist — it does not merely block; it actively reduces baseline receptor signaling below resting levels.',
+     h:'MC4R loss-of-function mutations cause severe monogenic obesity. Key concept: AgRP is an INVERSE agonist (not just an antagonist) — it actively drives cAMP below baseline, maximally amplifying hunger.'}
+  ]},
+
+  lo3:{label:'LO 3',sub:'Leptin Resistance and Development of Obesity',type:'LO',cards:[
+    {t:'Leptin Resistance — The Obesity Paradox',
+     b:'In obesity, leptin levels are {elevated} (more fat → more leptin produced), yet the brain {fails to respond appropriately} — this is {leptin resistance}, the most common mechanism of obesity-related appetite dysregulation. Leptin deficiency: {very rare (<1:1 million)}, levels {↓↓↓ (absent/very low)}, brain interprets as {starvation}. Leptin resistance: {very common in obese patients}, levels {↑↑ (high but ineffective)}, brain {ignores the satiety signal}. Treatment of resistance: {lifestyle changes, GLP-1 RA, or bariatric surgery} — leptin replacement {does not work for resistance}.',
+     h:'Paradox: high leptin should mean less hunger — but chronic elevation desensitizes receptors. Same conceptual principle as insulin resistance.'},
+    {t:'Factors Contributing to Leptin Resistance',
+     b:'{Hyperleptinemia} itself causes receptor desensitization — chronically elevated leptin {downregulates LEPR receptors}. {Obesity-associated inflammation} impairs LEPR/Jak-STAT signaling. {Impaired leptin transport across the BBB} reduces hypothalamic access. {SOCS3 upregulation} (suppressor of cytokine signaling 3) inhibits Jak-STAT downstream of LEPR. {High-fat/high-calorie diet} directly impairs hypothalamic leptin signaling. Sleep deprivation alters the balance: {↓ leptin, ↑ ghrelin}. The vicious cycle: weight gain → ↑ fat → ↑ leptin → {receptor desensitization} → ↓ leptin effect → ↑ appetite → {further weight gain}.',
+     h:'SOCS3 is a key molecular mediator — it feeds back to constitutively inhibit Jak-STAT in obesity. Remember: sleep deprivation simultaneously lowers leptin AND raises ghrelin — a double hit on appetite control.'}
+  ]},
+
+  lo4:{label:'LO 4',sub:'Leptin Effects on AgRP/NPY and POMC Populations',type:'LO',cards:[
+    {t:'Leptin\'s Dual Action on the Arcuate Nucleus',
+     b:'Leptin acts via {LEPR (leptin receptor)}, a cytokine receptor signaling through {Jak-STAT pathway}. Dual simultaneous effects: (1) ↑ POMC/CART: leptin binds LEPR on POMC neurons → Jak-STAT → ↑ POMC transcription → ↑ {α-MSH} → MC4R → {appetite suppressed}. (2) ↓ AgRP/NPY: leptin directly inhibits AgRP/NPY neurons → ↓ {NPY and AgRP release} → less hunger drive. Net: {dual appetite suppression} by activating satiety neurons AND silencing hunger neurons simultaneously.',
+     h:'Leptin uniquely acts on BOTH arcuate populations at once. In leptin resistance, neither effect works — both the satiety brake and the hunger suppressor are lost, explaining why appetite dysregulation in obesity is so difficult to correct.'}
+  ]},
+
+  lo5:{label:'LO 5',sub:'Gastric Bypass and Gut Hormone Changes',type:'LO',cards:[
+    {t:'Types of Bariatric Surgery',
+     b:'Sleeve Gastrectomy: removes ~{80%} of the stomach, leaving a sleeve-shaped remnant. Specifically reduces the {ghrelin-producing fundus}. {Pylorus preserved} — no dumping syndrome. Effect on ghrelin: {↓↓ (fundus removed)}. Roux-en-Y Gastric Bypass (RYGB): small pouch connected directly to the {ileum}, bypassing {stomach/duodenum/proximal jejunum}. Biliopancreatic secretions mix with nutrients in the ileum. Effect: {↓ absorption length; dumping syndrome possible} (pylorus bypassed). The major mechanism of weight loss is {altered gut hormone signaling}, not restriction or malabsorption alone.',
+     h:'Key insight: Weight loss after bariatric surgery is predominantly hormonal — enhanced nutrient delivery to the distal gut triggers exaggerated PYY and GLP-1 release far beyond what restriction alone achieves.'},
+    {t:'Hormonal Changes After Roux-en-Y Gastric Bypass (RYGB)',
+     b:'Ghrelin: {↓ or no change} — fundus excluded from food stream → {↓ hunger drive}. PYY: {↑↑↑} — rapid nutrient delivery to distal ileum/colon → exaggerated L-cell stimulation → {↑ satiation (↓ NPY/AgRP)}. GLP-1: {↑↑↑} — same mechanism (enhanced hindgut delivery) → L-cell hyper-response → {↑ POMC signaling + vagal satiation}. CCK: {variable/↑} — altered fat/protein delivery to duodenum → ↑ satiation via vagus. Leptin: {↓ gradually} — fat mass decreases post-op; {leptin resistance may improve} as fat decreases. Net: patients experience {dramatically increased satiation after meals}, well beyond what caloric restriction alone achieves.',
+     h:'Post-RYGB: the dramatic rise in PYY and GLP-1 suppresses NPY/AgRP and boosts POMC/α-MSH — producing sustained appetite reduction. This is the key pharmacological benefit of RYGB over diet alone.'}
+  ]}
+};
+
+// Cross-node jump links: term text (as in {curly braces}) → [targetNodeId, label, colorClass]
+const LINKS={};
+
+const DECK_ID='king_hunger_satiety_v1';
+const THEME_STORAGE_KEY=`${DECK_ID}_theme`;
+
+function setTheme(theme){
+  const next=theme||'slate';
+  if(next==='slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme',next);
+  document.querySelectorAll('.theme-btn').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.theme===next);
+  });
+  try{localStorage.setItem(THEME_STORAGE_KEY,next);}catch(e){}
+}
+try{setTheme(localStorage.getItem(THEME_STORAGE_KEY)||'slate');}catch(e){setTheme('slate');}
+
+document.getElementById('deckMeta').textContent=
+  `Active recall map · ${Object.keys(D).length} topics · ${Object.values(D).reduce((n,node)=>n+node.cards.length,0)} cards`;
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let cur=null, ci=0;
+let tr={};
+let sc={};
+let done=new Set();
+let totRev=0, totKnew=0, totNeed=0;
+let revQueue=[], revIdx=0, revTr={};
+const PROGRESS_COOKIE=`${DECK_ID}_progress_v1`;
+
+function nT(b){return(b.match(/\{[^}]+\}/g)||[]).length}
+
+function initNode(id){
+  if(!tr[id]){
+    tr[id]={};sc[id]={};
+    D[id].cards.forEach((_,i)=>{tr[id][i]=new Set();sc[id][i]={}});
+  }
+}
+
+function setCookie(name,value,days){
+  document.cookie=`${name}=${encodeURIComponent(value)}; path=/; max-age=${days*24*60*60}; SameSite=Lax`;
+}
+function getCookie(name){
+  const prefix=`${name}=`;
+  return document.cookie.split('; ').reduce((found,part)=>{
+    if(found!==null) return found;
+    return part.indexOf(prefix)===0?decodeURIComponent(part.slice(prefix.length)):null;
+  },null);
+}
+function clearCookie(name){document.cookie=`${name}=; path=/; max-age=0; SameSite=Lax`;}
+
+function serializeProgress(){
+  const state={c:cur||'',i:ci||0,r:{},s:{}};
+  Object.keys(tr).forEach(nid=>{
+    const rows=D[nid].cards.map((_,cidx)=>{
+      const set=tr[nid][cidx];
+      return set&&set.size?Array.from(set).sort((a,b)=>a-b).join('.'):'';
+    });
+    if(rows.some(Boolean)) state.r[nid]=rows;
+  });
+  Object.keys(sc).forEach(nid=>{
+    const rows=D[nid].cards.map((_,cidx)=>{
+      const obj=sc[nid][cidx]||{};
+      const packed=Object.keys(obj).sort((a,b)=>parseInt(a)-parseInt(b)).map(idx=>`${idx}${obj[idx]==='knew'?'k':'n'}`).join('.');
+      return packed;
+    });
+    if(rows.some(Boolean)) state.s[nid]=rows;
+  });
+  return JSON.stringify(state);
+}
+
+function saveProgress(){
+  try{setCookie(PROGRESS_COOKIE,serializeProgress(),180);}catch(e){}
+}
+
+function loadProgress(){
+  const raw=getCookie(PROGRESS_COOKIE);
+  if(!raw) return;
+  try{
+    const state=JSON.parse(raw);
+    tr={};sc={};
+    Object.keys(D).forEach(nid=>{
+      initNode(nid);
+      const revRows=(state.r&&state.r[nid])||[];
+      revRows.forEach((row,cidx)=>{
+        if(!row) return;
+        row.split('.').forEach(v=>{if(v!=='') tr[nid][cidx].add(parseInt(v,10));});
+      });
+      const scRows=(state.s&&state.s[nid])||[];
+      scRows.forEach((row,cidx)=>{
+        if(!row) return;
+        row.split('.').forEach(token=>{
+          if(!token) return;
+          const score=token.slice(-1)==='k'?'knew':'needed';
+          const idx=parseInt(token.slice(0,-1),10);
+          if(!Number.isNaN(idx)) sc[nid][cidx][idx]=score;
+        });
+      });
+    });
+    if(state.c&&D[state.c]){
+      cur=state.c;
+      ci=Math.max(0,Math.min(D[cur].cards.length-1,parseInt(state.i,10)||0));
+    }
+  }catch(e){clearCookie(PROGRESS_COOKIE);}
+}
+
+function cardMetrics(nid,cidx){
+  initNode(nid);
+  const total=nT(D[nid].cards[cidx].b);
+  const revealed=tr[nid][cidx].size;
+  let unscored=0, knew=0, needed=0;
+  for(let i=0;i<total;i++){
+    const score=sc[nid][cidx][i];
+    if(score==='knew') knew++;
+    else if(score==='needed') needed++;
+    else if(tr[nid][cidx].has(i)) unscored++;
+  }
+  return{total,revealed,unscored,knew,needed,allRevealed:total>0&&revealed>=total};
+}
+
+function parseBody(body,nid,cidx,opts={}){
+  let i=0;
+  return body.replace(/\{([^}]+)\}/g,(_,t)=>{
+    const idx=i++;
+    let revealed, scored;
+    if(opts.forReview){
+      revealed=opts.revealedSet?opts.revealedSet.has(idx):false;
+      scored=null;
+    }else{
+      revealed=tr[nid]&&tr[nid][cidx]&&tr[nid][cidx].has(idx);
+      scored=revealed&&sc[nid]&&sc[nid][cidx]?(sc[nid][cidx][idx]||null):null;
+    }
+    const link=LINKS[t];
+    const showJump=revealed&&link&&link[0]!==nid;
+    const isTarget=opts.forReview&&opts.targetTermIdx===idx;
+    let cls='occ';
+    if(revealed||isTarget){
+      if(scored==='knew') cls+=' rev';
+      else if(scored==='needed') cls+=' needed';
+      else cls+=' unscored';
+    }
+    const da=opts.forReview?'':`data-nid="${nid}" data-ci="${cidx}" data-i="${idx}"`;
+    const onclick=(!revealed&&!opts.forReview)?` onclick="revTerm(this)"`
+      :(opts.forReview&&isTarget&&!opts.revealedSet?.has(idx))?' onclick="revRevTerm(this)"':'';
+    let html=`<span class="${cls}"${da}${onclick}>${t}</span>`;
+    if(revealed&&!scored&&!opts.forReview){
+      html+=`<span class="score-row" data-nid="${nid}" data-ci="${cidx}" data-i="${idx}">`+
+        `<button class="sbtn know" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button>`+
+        `<button class="sbtn need" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button>`+
+        `</span>`;
+    }
+    if(showJump){
+      html+=`<span class="jump ${link[2]}" onclick="jumpNode('${link[0]}',event)" title="Jump to ${link[1]}">→ ${link[1]}</span>`;
+    }
+    return html;
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════
+function render(){
+  const d=D[cur].cards[ci];
+  const m=cardMetrics(cur,ci);
+  document.getElementById('dots').innerHTML=D[cur].cards.map((_,i)=>{
+    const tot=nT(D[cur].cards[i].b),got=tr[cur][i].size;
+    const cls=i===ci?'active':got>=tot&&tot>0?'done':got>0?'partial':'';
+    return `<span class="dot ${cls}"></span>`;
+  }).join('');
+  document.getElementById('cnt').textContent=`${ci+1} / ${D[cur].cards.length}`;
+  document.getElementById('bprev').disabled=ci===0;
+  document.getElementById('bnext').disabled=ci===D[cur].cards.length-1;
+  document.getElementById('revealTopicBtn').disabled=!cur;
+  document.getElementById('ccard').innerHTML=
+    `<div class="ctitle">${d.t}</div>`+
+    `<div class="cbody">${parseBody(d.b,cur,ci)}</div>`+
+    (d.h?`<div class="hint"><span class="hlbl">Clinical note</span>${d.h}</div>`:'');
+  document.getElementById('cardActions').innerHTML=
+    `<div class="card-meta">`+
+      `<span class="meta-pill"><strong>${m.revealed}</strong> / ${m.total} revealed</span>`+
+      `<span class="meta-pill"><strong>${m.knew}</strong> knew</span>`+
+      `<span class="meta-pill"><strong>${m.needed}</strong> needed help</span>`+
+      (m.unscored?`<span class="meta-pill"><strong>${m.unscored}</strong> waiting to score</span>`:'')+
+    `</div>`+
+    `<div class="action-row">`+
+      `<button class="action-btn primary" onclick="revealAll()" ${m.total===0||m.allRevealed?'disabled':''}>Reveal this card</button>`+
+      `<button class="action-btn amber" onclick="knewAllCurrentCard()" ${!m.allRevealed?'disabled':''}>Knew all</button>`+
+      `<button class="action-btn ghost" onclick="resetCard()" ${m.revealed===0&&m.knew===0&&m.needed===0?'disabled':''}>Reset this card</button>`+
+    `</div>`;
+}
+
+function renderReview(){
+  if(!revQueue.length) return;
+  const q=revQueue[revIdx];
+  const revSet=revTr[revIdx]||new Set();
+  document.getElementById('rprog').textContent=`${revIdx+1} / ${revQueue.length}`;
+  document.getElementById('rcnt').textContent=`${revIdx+1} / ${revQueue.length}`;
+  document.getElementById('rsub').innerHTML=
+    `<strong>${D[q.nid].label} — ${q.card.t}</strong><br>`+
+    `Term to recall: <span style="color:var(--amber)">${q.term}</span>`;
+  document.getElementById('rbprev').disabled=revIdx===0;
+  document.getElementById('rbnext').disabled=revIdx===revQueue.length-1;
+  let i=0;
+  const body=q.card.b.replace(/\{([^}]+)\}/g,(_,t)=>{
+    const idx=i++;
+    const isTarget=idx===q.tidx;
+    const isRevealed=revSet.has(idx);
+    if(isTarget){
+      return isRevealed
+        ?`<span class="occ needed">${t}</span>`
+        :`<span class="occ" onclick="revRevTerm()" style="cursor:pointer">${t}</span>`;
+    }
+    return `<span style="color:var(--text-2)">${t}</span>`;
+  });
+  document.getElementById('rccard').innerHTML=
+    `<div class="ctitle">${q.card.t}</div>`+
+    `<div class="cbody">${body}</div>`+
+    (q.card.h?`<div class="hint"><span class="hlbl">Clinical note</span>${q.card.h}</div>`:'');
+}
+
+// ═══════════════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════════════
+function selNode(id){
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
+  document.getElementById('n-'+id).classList.add('sel-node');
+  cur=id;ci=0;
+  initNode(id);
+  const p=document.getElementById('panel');
+  p.classList.add('open');
+  const d=D[id];
+  const b=document.getElementById('bdg');
+  b.textContent=d.label;
+  b.className='badge '+(d.type==='PLO'?'b-plo':'b-lo');
+  document.getElementById('ptitle').textContent=d.sub;
+  render();
+  saveProgress();
+  p.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function jumpNode(id,e){e.stopPropagation();selNode(id);}
+
+function revTerm(s){
+  if(s.classList.contains('rev')||s.classList.contains('needed')||s.classList.contains('unscored')) return;
+  const nid=s.dataset.nid,cidx=parseInt(s.dataset.ci),tidx=parseInt(s.dataset.i);
+  initNode(nid);
+  tr[nid][cidx].add(tidx);
+  totRev++;
+  updStats();render();
+}
+
+function scoreIt(e,nid,cidx,tidx,score){
+  e.stopPropagation();
+  if(sc[nid][cidx][tidx]) return;
+  sc[nid][cidx][tidx]=score;
+  if(score==='knew') totKnew++;
+  else totNeed++;
+  chkDone(nid);updStats();render();
+}
+
+function revealAll(){
+  const n=nT(D[cur].cards[ci].b);
+  for(let i=0;i<n;i++){if(!tr[cur][ci].has(i)){tr[cur][ci].add(i);totRev++;}}
+  chkDone(cur);updStats();render();
+}
+
+function knewAllCurrentCard(){
+  if(!cur) return;
+  initNode(cur);
+  const n=nT(D[cur].cards[ci].b);
+  for(let i=0;i<n;i++){
+    if(!tr[cur][ci].has(i)){tr[cur][ci].add(i);totRev++;}
+    const prev=sc[cur][ci][i];
+    if(prev==='needed') totNeed--;
+    if(prev!=='knew') totKnew++;
+    sc[cur][ci][i]='knew';
+  }
+  chkDone(cur);updStats();render();
+}
+
+function revealNodeCards(nid){
+  initNode(nid);
+  D[nid].cards.forEach((card,cidx)=>{
+    const n=nT(card.b);
+    for(let i=0;i<n;i++){if(!tr[nid][cidx].has(i)){tr[nid][cidx].add(i);totRev++;}}
+    chkDone(nid);
+  });
+}
+
+function revealTopic(){if(!cur) return;revealNodeCards(cur);updStats();render();}
+
+function revealDeck(){Object.keys(D).forEach(nid=>revealNodeCards(nid));updStats();if(cur) render();}
+
+function goCard(dir){
+  ci=Math.max(0,Math.min(D[cur].cards.length-1,ci+dir));
+  render();saveProgress();
+}
+
+function closePanel(){
+  document.getElementById('panel').classList.remove('open');
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
+  cur=null;
+  document.getElementById('revealTopicBtn').disabled=true;
+  saveProgress();
+}
+
+function chkDone(id){
+  const all=D[id].cards.every((_,i)=>{
+    const t=nT(D[id].cards[i].b);
+    return t===0||tr[id][i].size>=t;
+  });
+  if(all){done.add(id);document.getElementById('n-'+id).classList.add('done-node');}
+}
+
+function countNeeded(){
+  let n=0;
+  Object.keys(sc).forEach(nid=>Object.keys(sc[nid]).forEach(cidx=>
+    Object.values(sc[nid][cidx]).forEach(v=>{if(v==='needed')n++})
+  ));
+  return n;
+}
+
+function updStats(){
+  document.getElementById('st-rev').textContent=totRev;
+  document.getElementById('st-knew').textContent=totKnew;
+  document.getElementById('st-need').textContent=totNeed;
+  document.getElementById('st-done').textContent=done.size;
+  const n=countNeeded();
+  document.getElementById('rcount').textContent=n;
+  document.getElementById('reviewBtn').classList.toggle('vis',n>0);
+  saveProgress();
+}
+
+function recalcState(){
+  totRev=0;totKnew=0;totNeed=0;done=new Set();
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('done-node'));
+  Object.keys(D).forEach(nid=>{
+    let all=true;
+    D[nid].cards.forEach((card,i)=>{
+      const got=tr[nid]&&tr[nid][i]?tr[nid][i].size:0;
+      const tot=nT(card.b);
+      totRev+=got;
+      Object.values(sc[nid]&&sc[nid][i]?sc[nid][i]:{}).forEach(v=>{
+        if(v==='knew') totKnew++;
+        else if(v==='needed') totNeed++;
+      });
+      if(!(tot===0||got>=tot)) all=false;
+    });
+    if(all){done.add(nid);const el=document.getElementById('n-'+nid);if(el) el.classList.add('done-node');}
+  });
+  updStats();
+}
+
+function resetCard(){
+  if(!cur) return;
+  initNode(cur);
+  tr[cur][ci]=new Set();
+  sc[cur][ci]={};
+  closeReview();recalcState();render();
+}
+
+function resetAll(){
+  tr={};sc={};done.clear();totRev=0;totKnew=0;totNeed=0;
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node','done-node'));
+  document.getElementById('revealTopicBtn').disabled=!cur;
+  updStats();closeReview();
+  if(cur){initNode(cur);render();}
+}
+
+// ═══════════════════════════════════════════════════
+// REVIEW (SPACED REP)
+// ═══════════════════════════════════════════════════
+function startReview(){
+  revQueue=[];
+  Object.keys(sc).forEach(nid=>{
+    Object.keys(sc[nid]).forEach(cidx=>{
+      const card=D[nid].cards[parseInt(cidx)];
+      let termIdx=0;
+      card.b.replace(/\{([^}]+)\}/g,(_,t)=>{
+        const i=termIdx++;
+        if(sc[nid][cidx][i]==='needed') revQueue.push({nid,cidx:parseInt(cidx),tidx:i,term:t,card});
+      });
+    });
+  });
+  for(let i=revQueue.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [revQueue[i],revQueue[j]]=[revQueue[j],revQueue[i]];
+  }
+  revIdx=0;revTr={};
+  if(!revQueue.length) return;
+  const rp=document.getElementById('reviewPanel');
+  rp.classList.add('open');
+  rp.scrollIntoView({behavior:'smooth',block:'nearest'});
+  renderReview();
+}
+
+function revRevTerm(){
+  if(!revTr[revIdx]) revTr[revIdx]=new Set();
+  revTr[revIdx].add(revQueue[revIdx].tidx);
+  renderReview();
+}
+function revAllReview(){revRevTerm();}
+function goReview(dir){revIdx=Math.max(0,Math.min(revQueue.length-1,revIdx+dir));renderReview();}
+function closeReview(){document.getElementById('reviewPanel').classList.remove('open');}
+
+function restoreSession(){
+  loadProgress();recalcState();
+  if(cur&&D[cur]){
+    document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
+    const el=document.getElementById('n-'+cur);
+    if(el) el.classList.add('sel-node');
+    const d=D[cur];
+    const p=document.getElementById('panel');
+    p.classList.add('open');
+    const b=document.getElementById('bdg');
+    b.textContent=d.label;
+    b.className='badge '+(d.type==='PLO'?'b-plo':'b-lo');
+    document.getElementById('ptitle').textContent=d.sub;
+    document.getElementById('revealTopicBtn').disabled=false;
+    render();
+  }else{
+    document.getElementById('revealTopicBtn').disabled=true;
+  }
+}
+
+restoreSession();
+
+// ═══════════════════════════════════════════════════
+// KEYBOARD
+// ═══════════════════════════════════════════════════
+document.addEventListener('keydown',e=>{
+  const inRev=document.getElementById('reviewPanel').classList.contains('open');
+  if(inRev){
+    if(e.key==='ArrowLeft'){e.preventDefault();goReview(-1)}
+    else if(e.key==='ArrowRight'){e.preventDefault();goReview(1)}
+    else if(e.key==='Escape') closeReview();
+    return;
+  }
+  if(!cur) return;
+  if(e.key==='ArrowLeft'){e.preventDefault();goCard(-1)}
+  else if(e.key==='ArrowRight'){e.preventDefault();goCard(1)}
+  else if(e.key==='Escape') closePanel();
+});
+</script>
+</body>
+</html>

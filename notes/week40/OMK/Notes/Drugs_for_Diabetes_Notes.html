@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drugs for Diabetes — Study Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #21262d;
+    --border: #30363d;
+    --accent: #00d4aa;
+    --accent2: #4f94d4;
+    --accent3: #e8a838;
+    --accent4: #e05c6d;
+    --accent5: #a78bfa;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --text-dim: #484f58;
+    --green: #3fb950;
+    --red: #f85149;
+    --orange: #ffa657;
+    --blue: #58a6ff;
+    --hero-bg: linear-gradient(135deg, #0d1117 0%, #0a2030 50%, #0d1117 100%);
+    --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(0,212,170,0.12) 0%, transparent 70%);
+  }
+
+  body.theme-cream {
+    --bg: #faf7f2;
+    --surface: #fffaf3;
+    --surface2: #f2eadf;
+    --border: #d9cbbb;
+    --accent: #0f8a7b;
+    --accent2: #5077aa;
+    --accent3: #b67714;
+    --accent4: #c35b69;
+    --accent5: #7e63ca;
+    --text: #241b14;
+    --text-muted: #6d6258;
+    --text-dim: #a18f82;
+    --green: #2f8a52;
+    --red: #b94141;
+    --orange: #c87a2e;
+    --blue: #3d78b8;
+    --hero-bg: linear-gradient(135deg, #f5efe5 0%, #efe2d0 50%, #faf7f2 100%);
+    --hero-glow: radial-gradient(ellipse at 50% 0%, rgba(15,138,123,0.10) 0%, transparent 70%);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: var(--hero-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--hero-glow);
+  }
+  .hero-top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .theme-switch {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+  .theme-btn {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.06);
+    color: var(--text-muted);
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .theme-btn:hover,
+  .theme-btn.active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(0,212,170,0.08);
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(0,212,170,0.1);
+    border: 1px solid rgba(0,212,170,0.3);
+    padding: 0.3rem 0.9rem;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar {
+    position: sticky; top: 0; z-index: 100;
+    height: 3px;
+    background: var(--border);
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    width: 0%;
+    transition: width 0.1s;
+  }
+
+  /* ── NAV ── */
+  .lo-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1.2rem 2rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    justify-content: center;
+    position: sticky; top: 3px; z-index: 99;
+  }
+  .lo-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.3rem 0.7rem;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .lo-nav a:hover { color: var(--accent); border-color: var(--accent); background: rgba(0,212,170,0.06); }
+
+  /* ── MAIN LAYOUT ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+  /* ── LO SECTION ── */
+  .lo-section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 80px;
+  }
+  .lo-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+  }
+  .lo-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 0.3rem 0.5rem;
+    border-radius: 5px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+  }
+  .lo-number.blue { background: var(--accent2); }
+  .lo-number.gold { background: var(--accent3); color: var(--bg); }
+  .lo-number.red { background: var(--accent4); }
+  .lo-number.purple { background: var(--accent5); color: var(--bg); }
+  .lo-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+  .card-title {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.7rem;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+  .card-title.blue { color: var(--accent2); }
+  .card-title.gold { color: var(--accent3); }
+  .card-title.red { color: var(--accent4); }
+  .card-title.purple { color: var(--accent5); }
+  .card-title.green { color: var(--green); }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+
+  ul.styled { list-style: none; }
+  ul.styled li { padding: 0.28rem 0 0.28rem 1.4rem; position: relative; font-size: 0.93rem; }
+  ul.styled li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 0.35rem; }
+  ul.styled.blue li::before { color: var(--accent2); }
+  ul.styled.gold li::before { color: var(--accent3); }
+  ul.styled.red li::before { color: var(--accent4); }
+  ul.styled.purple li::before { color: var(--accent5); }
+  ul.styled.green li::before { color: var(--green); }
+
+  /* ── PILL BADGES ── */
+  .badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    margin: 0.15rem;
+    font-weight: 500;
+  }
+  .badge-teal { background: rgba(0,212,170,0.15); color: var(--accent); border: 1px solid rgba(0,212,170,0.3); }
+  .badge-blue { background: rgba(79,148,212,0.15); color: var(--accent2); border: 1px solid rgba(79,148,212,0.3); }
+  .badge-gold { background: rgba(232,168,56,0.15); color: var(--accent3); border: 1px solid rgba(232,168,56,0.3); }
+  .badge-red { background: rgba(224,92,109,0.15); color: var(--accent4); border: 1px solid rgba(224,92,109,0.3); }
+  .badge-purple { background: rgba(167,139,250,0.15); color: var(--accent5); border: 1px solid rgba(167,139,250,0.3); }
+  .badge-green { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+
+  /* ── DRUG TABLE ── */
+  .drug-table-wrap { overflow-x: auto; margin: 1rem 0; border-radius: 10px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  thead { background: var(--surface2); }
+  th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .drug-name { font-weight: 600; color: var(--text); }
+  .brand { color: var(--text-muted); font-size: 0.82rem; }
+
+  /* ── MESSENGER HIGHLIGHT ── */
+  .messenger {
+    display: inline-block;
+    background: rgba(167,139,250,0.2);
+    color: var(--accent5);
+    border: 1px solid rgba(167,139,250,0.4);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  /* ── PATHWAY DIAGRAM (CSS only) ── */
+  .pathway {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    align-items: center;
+    margin: 1.2rem 0;
+    padding: 1rem;
+    background: var(--surface2);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .path-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.82rem;
+    text-align: center;
+    color: var(--text);
+    line-height: 1.3;
+    min-width: 110px;
+  }
+  .path-step.highlight { border-color: var(--accent); color: var(--accent); }
+  .path-arrow {
+    color: var(--text-dim);
+    font-size: 1.3rem;
+    padding: 0 0.4rem;
+    flex-shrink: 0;
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: rgba(0,212,170,0.06);
+    border-radius: 0 8px 8px 0;
+    padding: 0.9rem 1.1rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
+  .callout.blue { border-color: var(--accent2); background: rgba(79,148,212,0.06); }
+  .callout.gold { border-color: var(--accent3); background: rgba(232,168,56,0.06); }
+  .callout.red { border-color: var(--accent4); background: rgba(224,92,109,0.06); }
+  .callout.purple { border-color: var(--accent5); background: rgba(167,139,250,0.06); }
+  .callout strong { color: var(--accent); }
+  .callout.blue strong { color: var(--accent2); }
+  .callout.gold strong { color: var(--accent3); }
+  .callout.red strong { color: var(--accent4); }
+  .callout.purple strong { color: var(--accent5); }
+
+  /* ── QUIZ ── */
+  .quiz-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem;
+    margin-top: 2rem;
+  }
+  .quiz-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--accent3);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .quiz-title::before {
+    content: '⚡';
+    font-size: 1rem;
+  }
+  .quiz-q {
+    margin-bottom: 1.3rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .quiz-q-text {
+    padding: 0.9rem 1rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    background: var(--surface2);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: background 0.2s;
+  }
+  .quiz-q-text:hover { background: rgba(232,168,56,0.06); }
+  .quiz-q-text .toggle {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent3);
+    background: rgba(232,168,56,0.12);
+    border: 1px solid rgba(232,168,56,0.3);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .quiz-answer {
+    display: none;
+    padding: 0.9rem 1rem;
+    background: rgba(63,185,80,0.05);
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--green);
+  }
+  .quiz-answer.show { display: block; }
+
+  /* ── TABLE QUIZ ── */
+  .table-quiz-shell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.5rem;
+    margin-top: 2rem;
+  }
+  .table-quiz-head {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .table-quiz-copy {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    max-width: 650px;
+  }
+  .table-quiz-btns {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .table-quiz-btn {
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--accent3);
+    border-radius: 999px;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+  }
+  .table-quiz-btn:hover {
+    background: rgba(232,168,56,0.08);
+    border-color: var(--accent3);
+  }
+  .quiz-cell {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    background: rgba(232,168,56,0.12);
+    color: transparent;
+    border: 1px dashed rgba(232,168,56,0.4);
+    border-radius: 6px;
+    padding: 0.2rem 0.55rem;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.18s ease;
+  }
+  .quiz-cell::before {
+    content: 'Tap to reveal';
+    color: var(--accent3);
+    font-size: 0.68rem;
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .quiz-cell.revealed {
+    color: var(--text);
+    background: rgba(63,185,80,0.08);
+    border-style: solid;
+    border-color: rgba(63,185,80,0.35);
+  }
+  .quiz-cell.revealed::before { content: ''; }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+
+  /* ── INSULIN TIMELINE ── */
+  .insulin-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin: 1rem 0;
+  }
+  .insulin-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    align-items: center;
+  }
+  .insulin-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: right;
+  }
+  .insulin-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 28px;
+    position: relative;
+  }
+  .insulin-bar {
+    height: 22px;
+    border-radius: 4px;
+    position: relative;
+    min-width: 20px;
+  }
+  .insulin-bar-info {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+  }
+
+  @media (max-width: 600px) {
+    .lo-nav { display: none; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .insulin-row { grid-template-columns: 100px 1fr; }
+    .hero { padding: 2.4rem 1.1rem 2rem; }
+    .hero-top { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="theme-switch" aria-label="Theme switcher">
+      <button class="theme-btn active" type="button" data-theme="dark" onclick="setTheme('dark')">Dark</button>
+      <button class="theme-btn" type="button" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+    </div>
+  </div>
+  <div class="hero-tag">Pharmacology · Endocrine</div>
+  <h1>Drugs for <span>Diabetes</span></h1>
+  <p>Comprehensive study notes organized by learning objectives — including mechanism tables, PK/PD summaries, second messenger maps, and quizzes.</p>
+</div>
+
+<!-- NAV -->
+<nav class="lo-nav">
+  <a href="#lo1">LO 1: Glycemic Drugs</a>
+  <a href="#lo2">LO 2: Insulin MOA</a>
+  <a href="#lo3">LO 3: Insulin Types</a>
+  <a href="#lo4">LO 4: PK/PD & ADEs</a>
+  <a href="#lo5">LO 5: Glucagon</a>
+  <a href="#lo6">LO 6: Drug Classes</a>
+  <a href="#lo7">LO 7: Drug MOAs</a>
+  <a href="#lo8">LO 8: 2nd Messengers</a>
+  <a href="#table-quiz">Table Quiz</a>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════
+     LO 1: MEDICATIONS AFFECTING GLYCEMIC CONTROL
+═══════════════════════════════════════════ -->
+<section class="lo-section" id="lo1">
+  <div class="lo-header">
+    <div class="lo-number">LO 1</div>
+    <h2 class="lo-title">Identify medications that affect glycemic control</h2>
+  </div>
+
+  <div class="callout red">
+    <strong>⚠ Key Clinical Point:</strong> These are non-diabetic drugs that can raise blood glucose. Don't diagnose diabetes from a single elevated glucose — check if the patient is on one of these agents. If a diabetic patient starts one, monitor A1C more closely.
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title red">Glucocorticoids</div>
+      <ul class="styled red">
+        <li>Most clinically significant class</li>
+        <li>Increase hepatic glucose production</li>
+        <li>Decrease peripheral insulin sensitivity</li>
+        <li>Ex: prednisone, dexamethasone</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title gold">Thiazide Diuretics</div>
+      <ul class="styled gold">
+        <li>Inhibit insulin secretion (hypokalemia-mediated)</li>
+        <li>Decrease peripheral glucose uptake</li>
+        <li>Ex: hydrochlorothiazide</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title blue">Beta-Blockers</div>
+      <ul class="styled blue">
+        <li>Mask signs of hypoglycemia (tachycardia)</li>
+        <li>Inhibit insulin secretion</li>
+        <li>Impair glucose mobilization</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title purple">Atypical Antipsychotics</div>
+      <ul class="styled purple">
+        <li>Promote weight gain → insulin resistance</li>
+        <li>Inhibit dopamine → ↓ glucose regulation</li>
+        <li>Ex: olanzapine, clozapine</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Oral Contraceptives</div>
+      <ul class="styled">
+        <li>Estrogen/progestin can impair glucose tolerance</li>
+        <li>Modest effect vs. glucocorticoids</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-title">Quick Quiz — LO 1</div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A patient on long-term prednisone for RA has a random glucose of 230 mg/dL and no symptoms. What's the most likely cause and is this enough to diagnose diabetes?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Glucocorticoid-induced hyperglycemia. No — without symptoms, you need TWO diagnostic criteria met. The prednisone is likely causing the elevated glucose. If stopping the drug resolves it, it's steroid-induced, not diabetes mellitus.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A Type 1 diabetic on metoprolol (beta-blocker) experiences a hypoglycemic episode. Why is this particularly dangerous?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Beta-blockers mask the sympathetic symptoms of hypoglycemia (tachycardia, palpitations, tremor). The patient loses the warning signs. Only diaphoresis (sweating) remains unmasked because it's cholinergic, not adrenergic.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════════════════
+     LO 2: INSULIN MOA
+═══════════════════════════════════════════ -->
+<section class="lo-section" id="lo2">
+  <div class="lo-header">
+    <div class="lo-number blue">LO 2</div>
+    <h2 class="lo-title">Identify the mechanism of action of insulin and its effects on metabolic processes</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-title blue">Insulin Receptor Structure</div>
+    <p style="font-size:0.9rem; margin-bottom:0.8rem;">The insulin receptor is a <strong>heterotetramer</strong> — two α-β dimers connected to each other (NOT a simple dimerization event as previously taught). It is a receptor tyrosine kinase.</p>
+    <div class="pathway">
+      <div class="path-step highlight">Insulin binds α-subunits</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">Conformational change</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step highlight">Autophosphorylation of Tyr residues on β-subunits</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">Phosphorylation of IRS (Insulin Receptor Substrate)</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">PI3K pathway (metabolic)</div>
+      <div class="path-arrow">&</div>
+      <div class="path-step">RAS/MAPK pathway (mitogenic)</div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title blue">PI3K → PKB/AKT Pathway (Metabolic)</div>
+      <ul class="styled blue">
+        <li><strong>GLUT4 translocation</strong> to membrane (muscle & adipose)</li>
+        <li>↑ Glycogenesis (glucose → glycogen)</li>
+        <li>↑ Glycolysis (glucose → pyruvate)</li>
+        <li>↑ Lipogenesis (fatty acid synthesis)</li>
+        <li>↓ Glycogenolysis (glycogen → glucose)</li>
+        <li>↓ Gluconeogenesis (new glucose synthesis)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title purple">RAS/MAPK Pathway (Mitogenic)</div>
+      <ul class="styled purple">
+        <li>Cell growth and proliferation</li>
+        <li>Gene expression changes</li>
+        <li>Also contributes to some metabolic effects</li>
+      </ul>
+      <div style="margin-top:1rem;">
+        <div class="card-title green">GLUT Transporters</div>
+        <ul class="styled green">
+          <li><strong>GLUT4</strong> — Insulin-dependent; muscle, heart, adipose, brain</li>
+          <li><strong>GLUT2</strong> — Insulin-independent; liver (constitutive glucose entry)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout blue">
+    <strong>Memory Hook:</strong> Insulin is <em>anabolic</em> — it stores energy. It increases everything that builds up (glycogenesis, lipogenesis, glycolysis) and decreases everything that breaks down (glycogenolysis, gluconeogenesis).
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    <div class="card-title">Second Messenger for Insulin</div>
+    <p style="font-size:0.9rem;">Insulin's receptor is a <span class="messenger">Receptor Tyrosine Kinase (RTK)</span>. Its "second messengers" are <span class="messenger">phosphotyrosine residues on IRS</span>, leading to activation of <span class="messenger">PI3K → PIP3 → PKB/AKT</span> and <span class="messenger">RAS → MAPK/ERK</span>. No cAMP or IP3/DAG involvement.</p>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-title">Quick Quiz — LO 2</div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Insulin increases glucose uptake in muscle primarily by what mechanism?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">PKB/AKT (downstream of PI3K) phosphorylates serine/threonine residues on target proteins, causing translocation of GLUT4 glucose transporters from intracellular vesicles to the cell surface membrane of muscle and adipose tissue.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        What type of receptor is the insulin receptor, and what are its major downstream signaling branches?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">The insulin receptor is a Receptor Tyrosine Kinase (RTK) — specifically a heterotetramer. After autophosphorylation of tyrosine residues on β-subunits, it phosphorylates IRS, which then activates: (1) PI3K → PKB/AKT (metabolic effects) and (2) RAS/MAPK (mitogenic effects).</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A patient has severe liver disease. How might this affect insulin metabolism?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Insulin is degraded primarily in the liver (~60%), with kidney (~15-20% endogenous; up to 65% exogenous) and muscle also contributing. Severe liver disease would reduce insulin degradation, potentially increasing hypoglycemic risk. Similarly, renal disease reduces kidney-mediated insulin degradation, explaining lower insulin requirements in end-stage renal disease.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════════════════
+     LO 3: TYPES OF INSULIN
+═══════════════════════════════════════════ -->
+<section class="lo-section" id="lo3">
+  <div class="lo-header">
+    <div class="lo-number gold">LO 3</div>
+    <h2 class="lo-title">Differentiate between types of insulin and their uses for Type 1 and Type 2 DM</h2>
+  </div>
+
+  <div class="callout gold">
+    <strong>Mnemonic:</strong> "Rapid → Regular → NPH → Long → Ultra-Long" = fastest to slowest onset. Type 1 always needs <strong>basal + bolus</strong> (1 long-acting + 1 rapid/regular with each meal). Type 2 only uses insulin when oral agents fail.
+  </div>
+
+  <div class="drug-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Drug (Brand)</th>
+          <th>Onset</th>
+          <th>Peak</th>
+          <th>Duration</th>
+          <th>Use</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-teal">Ultra-Rapid</span></td>
+          <td><span class="drug-name">Inhaled insulin</span><br><span class="brand">Afrezza</span></td>
+          <td>&lt; 15 min</td>
+          <td>~30 min</td>
+          <td>~3 hr</td>
+          <td>Mealtime; T1 (with basal) + T2; NOT for DKA</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-teal">Rapid-Acting</span></td>
+          <td><span class="drug-name">Aspart, Lispro, Glulisine</span><br><span class="brand">Novolog/Fiasp, Humalog/Admelog, Apidra</span></td>
+          <td>&lt; 15 min</td>
+          <td>1–2 hr</td>
+          <td>3–5 hr</td>
+          <td>Mealtime bolus (T1 & T2). Preferred over regular — ↓ stacking risk.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-blue">Short-Acting</span></td>
+          <td><span class="drug-name">Regular Insulin</span><br><span class="brand">Humulin R, Novolin R</span></td>
+          <td>30–60 min</td>
+          <td>2–3 hr</td>
+          <td>6–8 hr</td>
+          <td>Mealtime (give 30 min before meal). IV for DKA. Can mix with NPH.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-gold">Intermediate</span></td>
+          <td><span class="drug-name">NPH (Isophane)</span><br><span class="brand">Humulin N, Novolin N</span></td>
+          <td>2–4 hr</td>
+          <td>4–14 hr</td>
+          <td>10–16 hr</td>
+          <td>Basal insulin; given 2x/day. Crystalline suspension (protamine + insulin). Can mix with regular. Cheaper alternative.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-red">Long-Acting</span></td>
+          <td><span class="drug-name">Insulin Glargine</span><br><span class="brand">Lantus, Basaglar, Toujeo</span></td>
+          <td>4–5 hr</td>
+          <td><strong>FLAT (peakless)</strong></td>
+          <td>~24 hr</td>
+          <td>Once-daily basal. DO NOT MIX with other insulins. pH 4 (acidic) → precipitates at body pH → slow dissolving depot.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">Ultra Long-Acting</span></td>
+          <td><span class="drug-name">Insulin Degludec</span><br><span class="brand">Tresiba</span></td>
+          <td>30–90 min</td>
+          <td><strong>FLAT (peakless)</strong></td>
+          <td>~42 hr</td>
+          <td>Once-daily basal. DO NOT MIX. Forms large multihexameric chains SC → very slow release.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem;">
+    <div class="card">
+      <div class="card-title">Why Are Rapid-Acting Analogs Faster?</div>
+      <p style="font-size:0.9rem;">Regular insulin forms <strong>hexamers</strong> in zinc → must dissociate to monomers before absorption. Rapid-acting analogs have amino acid modifications that <strong>prevent hexamer formation</strong> → injected as monomers → rapid absorption.</p>
+      <ul class="styled" style="margin-top:0.7rem; font-size:0.85rem;">
+        <li><strong>Lispro:</strong> B28 Pro ↔ B29 Lys swapped</li>
+        <li><strong>Aspart:</strong> B28 Pro → Asp</li>
+        <li><strong>Glulisine:</strong> B3 Asn → Lys; B29 Lys → Glu</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">Why Is Glargine Long-Acting?</div>
+      <p style="font-size:0.9rem;">Modifications make it <strong>soluble at pH 4</strong> (acidic vial) but <strong>precipitate at pH 7.4</strong> (body). Creates a crystalline SC depot that slowly dissolves. Modifications:</p>
+      <ul class="styled" style="margin-top:0.7rem; font-size:0.85rem;">
+        <li>A21 Asn → Gly (prevents acid-induced deamidation)</li>
+        <li>Two Arg added to B-chain C-terminus (shifts isoelectric point)</li>
+      </ul>
+      <p style="font-size:0.85rem; margin-top:0.5rem;"><strong>Degludec:</strong> B30 Thr removed; B29 Lys conjugated to hexadecanoic acid → dihexamers form multihexameric chains SC → 42h action.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    <div class="card-title red">T1 vs. T2 Insulin Strategy</div>
+    <div class="grid-2">
+      <div>
+        <p style="font-size:0.88rem; font-weight:600; color:var(--accent4); margin-bottom:0.5rem;">Type 1 DM</p>
+        <ul class="styled red" style="font-size:0.88rem;">
+          <li><strong>MUST have insulin</strong> — no endogenous production</li>
+          <li>Basal: Glargine or Degludec (once daily)</li>
+          <li>Bolus: Rapid-acting with EVERY meal</li>
+          <li>OR: Insulin pump (continuous SC infusion)</li>
+          <li>Add pramlintide if poorly controlled on insulin</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-size:0.88rem; font-weight:600; color:var(--accent2); margin-bottom:0.5rem;">Type 2 DM</p>
+        <ul class="styled blue" style="font-size:0.88rem;">
+          <li>Insulin not first-line (oral agents preferred)</li>
+          <li>Use when: A1C very high (&gt;13-15%), other agents fail</li>
+          <li>Usually basal insulin (glargine) added to oral regimen</li>
+          <li>Insulin IS used in T2, just not first</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-title">Quick Quiz — LO 3</div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A 17-year-old presents in DKA. Which insulin do you use and by what route?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Regular insulin (short-acting) administered IV infusion. Rapid-acting analogs (aspart, lispro) are given SC and NOT recommended for DKA IV use. Inhaled insulin is also NOT recommended for DKA.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Why can't glargine be mixed in the same syringe as regular insulin?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Glargine is formulated at acidic pH (pH ~4) which is required for its solubility. Mixing with regular insulin (neutral pH) would alter the pH, causing glargine to precipitate prematurely in the syringe, losing its controlled-release pharmacokinetics. NPH CAN be mixed with regular insulin because NPH is a neutral-pH suspension.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Rank these insulins from fastest to slowest onset: NPH, Glargine, Aspart, Regular.
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Aspart (&lt;15 min) → Regular (30–60 min) → NPH (2–4 hr) → Glargine (4–5 hr). Remember: more modifications = faster OR more prolonged action depending on the engineering goal.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A patient with T1DM is on glargine at night and aspart before meals. They keep running high glucose before breakfast. What is the breakfast rapid-acting insulin used for vs. the glargine?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Aspart is the BOLUS insulin — covers the glucose spike from the meal. Glargine is the BASAL insulin — provides continuous low-level insulin throughout the day to suppress hepatic glucose production and maintain fasting glucose. High fasting glucose (before breakfast) would suggest the basal glargine dose needs adjustment, not the aspart.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════════════════
+     LO 4: PK/PD & ADVERSE EFFECTS
+═══════════════════════════════════════════ -->
+<section class="lo-section" id="lo4">
+  <div class="lo-header">
+    <div class="lo-number red">LO 4</div>
+    <h2 class="lo-title">Relate PK/PD parameters and adverse effects of insulins and other antidiabetic drugs</h2>
+  </div>
+
+  <div class="drug-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Drug Class</th>
+          <th>Key PK Facts</th>
+          <th>Key Adverse Effects</th>
+          <th>Special Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-teal">Insulin (all)</span></td>
+          <td>SC (or IV for regular). Degraded in liver, muscle, kidney. Not oral (destroyed in GI).</td>
+          <td><strong>Hypoglycemia</strong> (major), injection site reactions, weight gain</td>
+          <td>↓ Dose required in ESRD (↓ renal metabolism)</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-teal">Rapid-acting</span></td>
+          <td>Onset &lt;15 min, peak 1–2h, dur 3–5h</td>
+          <td>Early hypoglycemia (erratic eating — kids, elderly)</td>
+          <td>Preferred over regular to ↓ "stacking"</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-teal">Regular</span></td>
+          <td>Onset 30–60 min, peak 2–3h, dur 6–8h</td>
+          <td>Late hypoglycemia (due to long duration)</td>
+          <td>Give 30 min before meals; only insulin for IV use</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-blue">GLP-1 Analogs</span></td>
+          <td>SC (except oral semaglutide — 0.4–1% bioavail). Renal insufficiency ↑ t½ of exenatide. Orforglipron: oral, 20–40% bioavail.</td>
+          <td>Nausea/vomiting, diarrhea, ↓ gastric emptying; rare pancreatitis concern</td>
+          <td>Low hypoglycemia risk (glucose-dependent). ↑ Satiety → weight loss</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-blue">SGLT2 Inhibitors</span></td>
+          <td>&gt;65% oral bioavailable; O-glucuronidation by UGT enzymes; excreted feces + urine</td>
+          <td>Genital mycotic infections (↑ glucose in urine), UTIs, DKA (rare), Fournier's gangrene</td>
+          <td>"Glucosuria" mechanism = effective when GFR adequate</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-gold">Metformin</span></td>
+          <td>t½ ~1.5–3 h; NOT metabolized; excreted unchanged by kidney</td>
+          <td>GI upset (take with food), lactic acidosis (rare — contraindicated in renal failure)</td>
+          <td>Hold before contrast dye. Requires adequate renal function. No hypoglycemia.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-gold">Tirzepatide</span></td>
+          <td>SC; t½ ~5 days (once weekly dosing)</td>
+          <td>GI (N/V/D), similar to GLP-1 class</td>
+          <td>Greater weight loss than GLP-1 alone; FDA-approved for T2DM, obesity, OSA</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-red">Sulfonylureas</span></td>
+          <td>Hepatically metabolized; renal/biliary elimination; t½ varies</td>
+          <td><strong>Hypoglycemia</strong> (major — non-glucose-dependent!), weight gain</td>
+          <td>Dose adjust in renal impairment; glipizide pancreas-selective (SUR1)</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-red">Pioglitazone (TZD)</span></td>
+          <td>Well-absorbed; hepatic metabolism</td>
+          <td>Fluid retention/edema, weight gain, ↑ fracture risk, rare bladder cancer concern</td>
+          <td>Takes weeks for full effect (nuclear receptor). No hypoglycemia. May benefit lipids.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">DPP-4 Inhibitors</span></td>
+          <td>Varies by agent; linagliptin hepatic; others renally eliminated</td>
+          <td>Nasopharyngitis, URI, rare pancreatitis; joint pain</td>
+          <td>No significant weight effect, no gastric emptying change</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">Meglitinides</span></td>
+          <td>Rapidly absorbed; hepatic metabolism; t½ ~1–1.5h</td>
+          <td>Hypoglycemia (less than sulfonylureas); GI</td>
+          <td>Take before EACH meal; skip if meal skipped</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">Alpha-glucosidase Inhibitors</span></td>
+          <td>Partially absorbed; acarbose eliminated in feces; miglitol in kidneys</td>
+          <td>GI: flatulence, bloating, osmotic diarrhea (undigested carbs)</td>
+          <td>With first bite of each meal. No systemic hypoglycemia alone.</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">Pramlintide</span></td>
+          <td>SC injection before meals</td>
+          <td>Nausea, hypoglycemia (when used with insulin)</td>
+          <td>Add-on to insulin; reduce insulin dose when initiating</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-title">Quick Quiz — LO 4</div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A patient with T2DM and stage 4 CKD (eGFR 22) needs glycemic control. Which agents are problematic and which are preferred?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">PROBLEMATIC: Metformin (renally excreted unchanged → lactic acidosis risk), SGLT2 inhibitors (require adequate GFR to work; less effective with low eGFR), some sulfonylureas (renally-cleared active metabolites). PREFERRED: SGLT2i actually now have indications for CKD cardioprotection (at lower doses), GLP-1 analogs (except exenatide in severe renal failure), DPP-4 inhibitors (most safe, dose-adjust sitagliptin), insulin (requires dose reduction).</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Why do alpha-glucosidase inhibitors cause flatulence and bloating?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">They prevent brush-border enzyme breakdown of complex carbohydrates in the small intestine. Undigested carbohydrates pass to the large intestine where colonic bacteria ferment them, producing gas (flatulence, bloating, osmotic diarrhea). This is the direct pharmacological consequence of the mechanism.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Why does metformin cause lactic acidosis (albeit rarely)?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Metformin inhibits Complex I of the mitochondrial electron transport chain in liver cells. This inhibits gluconeogenesis (specifically pyruvate carboxylase) causing pyruvate/lactate to accumulate. It also inhibits mitochondrial glycerol phosphate dehydrogenase and blunts glucagon effects on lactate/glycerol → glucose conversion. The MOAs that decrease gluconeogenesis specifically increase lactic acid as a byproduct. Accumulates in renal failure because metformin is cleared unchanged by the kidney.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════════════════
+     LO 5: GLUCAGON
+═══════════════════════════════════════════ -->
+<section class="lo-section" id="lo5">
+  <div class="lo-header">
+    <div class="lo-number purple">LO 5</div>
+    <h2 class="lo-title">Recall the mechanism of action and indications of glucagon</h2>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title purple">Physiology</div>
+      <ul class="styled purple">
+        <li>Produced by <strong>pancreatic α cells</strong></li>
+        <li>Released in response to: low blood glucose, amino acids (arginine, alanine), fasting, intense exercise</li>
+        <li>Inhibited by: high insulin, high fatty acids, somatostatin</li>
+        <li>Patients with diabetes <strong>still produce glucagon</strong></li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title purple">Mechanism of Action</div>
+      <p style="font-size:0.9rem; margin-bottom:0.8rem;">Glucagon binds the <strong>Glucagon receptor</strong> — a Class B G-protein-coupled receptor (GPCR) coupled to <strong>Gαs</strong>.</p>
+      <div class="pathway" style="padding:0.8rem;">
+        <div class="path-step">Glucagon binds Glucagon-R (Class B GPCR)</div>
+        <div class="path-arrow">→</div>
+        <div class="path-step highlight">Gαs → ↑ Adenylate Cyclase</div>
+        <div class="path-arrow">→</div>
+        <div class="path-step">↑ <span class="messenger">cAMP</span> → PKA</div>
+        <div class="path-arrow">→</div>
+        <div class="path-step">↑ Glycogenolysis &amp; Gluconeogenesis</div>
+      </div>
+      <p style="font-size:0.85rem; margin-top:0.7rem; color:var(--text-muted);">Second messenger: <span class="messenger">cAMP</span></p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:1rem;">
+    <div class="card-title purple">Clinical Indications</div>
+    <div class="grid-2">
+      <ul class="styled purple">
+        <li><strong>Severe hypoglycemia</strong> — SC injection (most common); nasal spray (Baqsimi, approved 2019)</li>
+        <li>When patient is unconscious / unable to take oral glucose</li>
+        <li>Acts by ↑ hepatic glycogenolysis + gluconeogenesis → ↑ blood glucose</li>
+      </ul>
+      <ul class="styled purple">
+        <li><strong>Beta-blocker toxicity/overdose</strong> — stimulates cardiac rate and force by bypassing blocked β-receptors (activates Gs → ↑ cAMP in cardiomyocytes directly)</li>
+        <li>Also used in radiology (GI hypotonia) — relaxes smooth muscle</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-title">Quick Quiz — LO 5</div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A patient on propranolol (non-selective beta-blocker) for hypertension develops symptomatic bradycardia and hypotension. Atropine fails. What is the pharmacological rationale for glucagon here?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Propranolol blocks β1-adrenergic receptors, preventing catecholamine stimulation of the heart. Glucagon acts on its own separate GPCR (Glucagon receptor → Gαs → ↑cAMP → ↑PKA) on cardiomyocytes, completely bypassing β-receptors. It increases heart rate and contractility through a β-receptor-independent pathway.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        What is the second messenger for glucagon and what receptor type is involved?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Second messenger: cAMP. Receptor type: Class B G-protein-coupled receptor (GPCR) — these bind peptide hormones. Coupled to Gαs → activates adenylate cyclase → ↑cAMP → activates PKA → phosphorylates glycogen phosphorylase (activates glycogenolysis) and phosphorylates CREB (↑gluconeogenic genes).</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════════════════
+     LO 6: DRUG CLASS RECOGNITION
+═══════════════════════════════════════════ -->
+<section class="lo-section" id="lo6">
+  <div class="lo-header">
+    <div class="lo-number">LO 6</div>
+    <h2 class="lo-title">Recognize which drugs belong to which class for T2DM</h2>
+  </div>
+
+  <div class="callout">
+    <strong>Naming Pattern Tip:</strong> Almost all T2DM drugs have "GL" in the name (for glucose). The suffix tells you the class: -gliptin = DPP-4i, -gliflozin = SGLT2i, -glitazone = TZD, -tide = peptide (GLP-1 analog or amylin), -linide = meglitinide.
+  </div>
+
+  <div class="drug-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Drugs</th>
+          <th>Brand Names</th>
+          <th>Suffix Clue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge badge-teal">GLP-1 Analogs</span></td>
+          <td>Liraglutide, Dulaglutide, Semaglutide, Exenatide, Orforglipron</td>
+          <td>Victoza, Trulicity, Ozempic/Rybelsus/Wegovy, Byetta/Bydureon, Foundayo</td>
+          <td>-glutide; or -tide</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-blue">SGLT2 Inhibitors</span></td>
+          <td>Bexagliflozin, Canagliflozin, Dapagliflozin, Empagliflozin, Ertugliflozin</td>
+          <td>Brenzavvy, Invokana, Farxiga, Jardiance, Steglatro</td>
+          <td>-gliflozin</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-gold">Biguanide</span></td>
+          <td>Metformin</td>
+          <td>Glucophage</td>
+          <td>Only one!</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-gold">Dual Incretin Analog</span></td>
+          <td>Tirzepatide</td>
+          <td>Mounjaro (T2DM), Zepbound (obesity)</td>
+          <td>-tide (GIP/GLP-1 dual)</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-red">Sulfonylureas</span></td>
+          <td>Glipizide, Glyburide, Glimepiride</td>
+          <td>Glucotrol, Diabeta/Glynase, Amaryl</td>
+          <td>Gli- prefix</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-red">Thiazolidinedione (TZD)</span></td>
+          <td>Pioglitazone</td>
+          <td>Actos</td>
+          <td>-glitazone</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">DPP-4 Inhibitors</span></td>
+          <td>Sitagliptin, Saxagliptin, Linagliptin, Alogliptin</td>
+          <td>Januvia, Onglyza, Tradjenta, Nesina</td>
+          <td>-gliptin</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-purple">Meglitinides</span></td>
+          <td>Repaglinide, Nateglinide</td>
+          <td>Prandin, Starlix</td>
+          <td>-glinide</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">Alpha-Glucosidase Inhibitors</span></td>
+          <td>Acarbose, Miglitol</td>
+          <td>Precose, Glyset</td>
+          <td>-carbose / -glitol</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">Amylin Analog</span></td>
+          <td>Pramlintide</td>
+          <td>Symlin</td>
+          <td>-tide</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-title">Drug Class Matching Quiz — LO 6</div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Match each drug to its class: Empagliflozin / Saxagliptin / Nateglinide / Pioglitazone / Semaglutide / Tirzepatide
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">
+        Empagliflozin → SGLT2 Inhibitor (-gliflozin)<br>
+        Saxagliptin → DPP-4 Inhibitor (-gliptin)<br>
+        Nateglinide → Meglitinide (-glinide)<br>
+        Pioglitazone → Thiazolidinedione / TZD (-glitazone)<br>
+        Semaglutide → GLP-1 Analog (-glutide)<br>
+        Tirzepatide → Dual Incretin Analog (GIP/GLP-1)
+      </div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A 58-year-old with T2DM and newly diagnosed heart failure with reduced ejection fraction (HFrEF) needs a diabetes drug. Which class is first-line?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">SGLT2 Inhibitors (e.g., empagliflozin, dapagliflozin). They have FDA indications for reducing CV death and HF hospitalizations independent of glycemic control. They should be initiated as first-line in T2DM with HF or CKD, even if the patient is already on metformin.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A 45-year-old with T2DM and BMI of 38 (class II obesity) needs treatment. No other comorbidities. Rank your top treatment options.
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Top choices: (1) Tirzepatide (GIP/GLP-1 dual agonist — greatest weight loss ~25 lbs, FDA-approved for T2DM + obesity) or (2) GLP-1 Analog (semaglutide or liraglutide — ~27 lbs weight loss with semaglutide at obesity dose). Both are preferred per AACE guidelines for T2DM with obesity. Metformin is still appropriate as adjunctive therapy but not for obesity-driven first-line selection.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════════════════
+     LO 7: MECHANISM OF ACTION — EACH DRUG
+═══════════════════════════════════════════ -->
+<section class="lo-section" id="lo7">
+  <div class="lo-header">
+    <div class="lo-number blue">LO 7</div>
+    <h2 class="lo-title">Identify the mechanism of action of all specified T2DM drugs</h2>
+  </div>
+
+  <!-- GLP-1 -->
+  <div class="card">
+    <div class="card-title">GLP-1 Analogs: Liraglutide, Dulaglutide, Semaglutide</div>
+    <div class="pathway" style="flex-wrap:wrap;">
+      <div class="path-step highlight">Bind GLP-1R (Class B GPCR)</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">Gαs → ↑ Adenylate Cyclase → ↑ <span class="messenger">cAMP</span></div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">↑ Insulin secretion (glucose-dependent)</div>
+    </div>
+    <ul class="styled" style="margin-top:0.8rem; font-size:0.88rem;">
+      <li>↑ Insulin secretion — <strong>only when glucose is high</strong> (glucose-dependent) → low hypoglycemia risk</li>
+      <li>↓ Glucagon secretion → ↓ hepatic glucose production</li>
+      <li>↓ Gastric emptying (GI hormone signaling stomach)</li>
+      <li>↑ Satiety (acts on brain appetite centers) → weight loss</li>
+      <li><strong>Semaglutide oral (Rybelsus):</strong> bioavail 0.4–1%; must take fasting + ≤4oz water, ≥30 min before food</li>
+    </ul>
+  </div>
+
+  <!-- SGLT2 -->
+  <div class="card">
+    <div class="card-title blue">SGLT2 Inhibitors: Bexagliflozin, Canagliflozin, Dapagliflozin, Empagliflozin, Ertugliflozin</div>
+    <div class="pathway">
+      <div class="path-step highlight">Block SGLT2 co-transporter in proximal tubule</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">↓ Renal glucose reabsorption (glucosuria)</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">↓ Blood glucose + ↓ BP + osmotic diuresis</div>
+    </div>
+    <p style="font-size:0.88rem; margin-top:0.8rem;">SGLT2 is found in the <strong>early proximal tubule</strong> and reabsorbs ~90% of filtered glucose. SGLT1 is in the distal proximal tubule (remaining 10%) and the GI tract. In T2DM, SGLT2 is upregulated → worsens hyperglycemia. Blocking it = excreting glucose in urine. <strong>No cAMP, no direct insulin effect.</strong></p>
+  </div>
+
+  <!-- Metformin -->
+  <div class="card">
+    <div class="card-title gold">Metformin (Biguanide)</div>
+    <div class="pathway">
+      <div class="path-step highlight">Inhibits Complex I of ETC → ↓ ATP/↑ AMP</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step highlight">↑ AMPK activation</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">↑ FA oxidation, ↑ glucose uptake<br>↓ lipogenesis, ↓ gluconeogenesis</div>
+    </div>
+    <ul class="styled gold" style="margin-top:0.8rem; font-size:0.88rem;">
+      <li>Primary effect: <strong>↓ hepatic gluconeogenesis</strong> (also inhibits glycerol phosphate dehydrogenase)</li>
+      <li>↑ GLUT4 translocation in muscle/adipose (insulin-independent) via AMPK</li>
+      <li>Blunts glucagon effects (↓ lactate/glycerol → glucose conversion)</li>
+      <li>Lactic acidosis risk: inhibits gluconeogenesis from pyruvate → lactate accumulates</li>
+    </ul>
+  </div>
+
+  <!-- Tirzepatide -->
+  <div class="card">
+    <div class="card-title gold">Tirzepatide (Dual Incretin / Twincretin)</div>
+    <p style="font-size:0.9rem; margin-bottom:0.8rem;">Engineered from the human GIP molecule with modifications allowing binding to <strong>BOTH GIP-R and GLP-1R</strong>. High affinity at GIP-R; ~18–20× weaker at GLP-1R vs. native GLP-1.</p>
+    <div class="pathway">
+      <div class="path-step highlight">GIP-R agonism (Gαs → ↑ <span class="messenger">cAMP</span>)</div>
+      <div class="path-arrow">+</div>
+      <div class="path-step highlight">GLP-1R agonism (Gαs → ↑ <span class="messenger">cAMP</span>)</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">Synergistic: ↑ insulin secretion, ↓ glucagon, ↓ gastric emptying, ↑ satiety</div>
+    </div>
+    <ul class="styled gold" style="margin-top:0.8rem; font-size:0.88rem;">
+      <li>GIP-R effects on adipose (no GLP-1R there): ↑ fatty acid storage in SC adipose, ↓ ectopic fat</li>
+      <li>GIP-R agonism augments/enhances GLP-1R agonism synergistically</li>
+      <li>Greater A1C reduction and weight loss (~25 lbs) vs. GLP-1 alone</li>
+      <li>FDA approved: T2DM (2022), Obesity (2023), Obstructive Sleep Apnea (Dec 2024)</li>
+    </ul>
+  </div>
+
+  <!-- Sulfonylureas -->
+  <div class="card">
+    <div class="card-title red">Sulfonylureas: Glipizide, Glyburide, Glimepiride</div>
+    <div class="pathway">
+      <div class="path-step highlight">Bind SUR subunit of ATP-sensitive K⁺ channels (KATP) in β-cell</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">Block K⁺ efflux → membrane depolarization</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">↑ Ca²⁺ influx → Insulin exocytosis</div>
+    </div>
+    <p style="font-size:0.88rem; margin-top:0.7rem;"><strong>Glucose-INDEPENDENT</strong> — still releases insulin even with normal/low glucose = major hypoglycemia risk. <strong>Glipizide</strong> is specific for pancreatic SUR1; glyburide/glimepiride are non-selective (also SUR2A/2B in cardiac/vascular muscle).</p>
+    <p style="font-size:0.85rem; margin-top:0.4rem; color:var(--text-muted);">No direct cAMP second messenger — channels are the effector. Downstream: ↑ intracellular Ca²⁺ acts as the intracellular messenger for exocytosis.</p>
+  </div>
+
+  <!-- TZD -->
+  <div class="card">
+    <div class="card-title red">Pioglitazone (TZD)</div>
+    <div class="pathway">
+      <div class="path-step highlight">Binds PPARγ (nuclear receptor in adipose/vascular cells)</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">Alters gene transcription (nuclear action)</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">↑ Adipocyte differentiation, ↑ insulin sensitivity, ↓ ectopic lipid</div>
+    </div>
+    <ul class="styled red" style="margin-top:0.8rem; font-size:0.88rem;">
+      <li>PPARγ = peroxisome proliferator-activated receptor gamma — a <strong>nuclear receptor</strong> (not membrane GPCR)</li>
+      <li>Preadipocytes → mature adipocytes in SC fat (↑ healthy fat storage)</li>
+      <li>↑ Adipose storage of FFAs → ↓ TGs, ↑ HDL</li>
+      <li>↓ Ectopic fat in liver and muscle → ↑ insulin sensitivity there</li>
+      <li>↑ GLUT4 in muscle/adipose, ↓ hepatic glucose production (indirect — via ↑ insulin sensitivity)</li>
+      <li>↓ Pro-inflammatory cytokines from adipose macrophages (adipokines)</li>
+    </ul>
+  </div>
+
+  <!-- DPP-4 -->
+  <div class="card">
+    <div class="card-title purple">DPP-4 Inhibitors: Sitagliptin, Saxagliptin, Linagliptin, Alogliptin</div>
+    <div class="pathway">
+      <div class="path-step">DPP-4 enzyme normally degrades GLP-1 and GIP</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step highlight">DPP-4 inhibitor blocks this enzyme</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">↑ Intact GLP-1 and GIP levels</div>
+      <div class="path-arrow">→</div>
+      <div class="path-step">↑ Glucose-dependent insulin release, ↓ glucagon</div>
+    </div>
+    <p style="font-size:0.88rem; margin-top:0.7rem;">DPP-4 removes the 2 N-terminal amino acids from GLP-1 and GIP (Pro/Ala at position 2 is the cleavage site). Truncated products [GLP-1(9-36)] and [GIP(3-42)] are <strong>inactive</strong>. Blocking DPP-4 = more intact active incretin. Still reliant on endogenous GLP-1/GIP production = weaker than exogenous GLP-1 analogs. <strong>No gastric slowing, no significant weight loss, no appetite suppression.</strong></p>
+  </div>
+
+  <!-- Pramlintide -->
+  <div class="card">
+    <div class="card-title">Pramlintide (Amylin Analog)</div>
+    <ul class="styled" style="font-size:0.9rem;">
+      <li><strong>MOA:</strong> Synthetic analog of amylin (co-secreted with insulin by β-cells). Activates amylin receptors.</li>
+      <li>↓ Glucagon secretion (postprandial)</li>
+      <li>↓ Gastric emptying rate</li>
+      <li>↑ Satiety → ↓ food intake → modest weight loss</li>
+      <li><strong>Indication:</strong> Add-on to insulin in T1DM or T2DM with inadequate control</li>
+      <li>Reduce insulin dose when initiating (hypoglycemia risk)</li>
+    </ul>
+  </div>
+
+  <!-- Meglitinides -->
+  <div class="card">
+    <div class="card-title green">Meglitinides: Repaglinide, Nateglinide</div>
+    <p style="font-size:0.9rem;">Same mechanism as sulfonylureas — <strong>bind SUR subunit → block KATP channels → ↑ Ca²⁺ → insulin secretion</strong>. However, they bind with <strong>lower affinity</strong> at overlapping but distinct sites. Shorter acting → <strong>require glucose</strong> to maximally stimulate (more glucose-dependent than sulfonylureas → less hypoglycemia). Take before each meal; skip if meal skipped.</p>
+  </div>
+
+  <!-- Alpha-glucosidase Inhibitors -->
+  <div class="card">
+    <div class="card-title green">Alpha-Glucosidase Inhibitors: Acarbose, Miglitol</div>
+    <p style="font-size:0.9rem;"><strong>Competitive inhibitors</strong> of brush-border enzymes lining the small intestine: maltase, isomaltase, sucrase, glucoamylase. These enzymes break down complex carbohydrates and sucrose into absorbable monosaccharides. Blocking them → delays absorption → ↓ postprandial glucose spike. <strong>No systemic absorption effect on insulin itself.</strong> Take with first bite of each meal.</p>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-title">MOA Deep Dive Quiz — LO 7</div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Compare the mechanism of sulfonylureas vs. meglitinides vs. GLP-1 analogs in terms of insulin secretion stimulation and hypoglycemia risk.
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">
+        Sulfonylureas: Block KATP channels directly → insulin release regardless of glucose levels → HIGH hypoglycemia risk (glucose-INDEPENDENT).<br><br>
+        Meglitinides: Same KATP blockade mechanism but lower affinity, shorter duration, more glucose-sensitive → MODERATE hypoglycemia risk (somewhat glucose-dependent).<br><br>
+        GLP-1 Analogs: Activate GLP-1R (Gαs → cAMP) which enhances insulin secretion ONLY in the presence of high glucose (glucose-DEPENDENT) → LOW hypoglycemia risk. cAMP-mediated closure of KATP requires glucose to trigger initial depolarization.
+      </div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Explain why DPP-4 inhibitors do NOT cause weight loss but GLP-1 analogs do.
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">GLP-1 analogs are exogenous, long-acting, supraphysiological concentrations of GLP-1 that can strongly activate CNS appetite centers and significantly slow gastric emptying → marked satiety + weight loss (up to 27 lbs with semaglutide).<br><br>DPP-4 inhibitors only prevent breakdown of endogenous GLP-1 produced in small amounts after meals. The resulting increase in GLP-1 is within physiological range — not high enough to cause significant CNS appetite suppression or meaningful gastric slowing. Also, in T2DM, endogenous GLP-1 secretion is often already impaired, limiting the effect further.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Pioglitazone takes 4–12 weeks to show full glycemic effect. Why?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Pioglitazone acts on PPARγ, a nuclear receptor that regulates gene transcription. It must diffuse into the nucleus, bind PPARγ-RXR heterodimers, and alter transcription of multiple target genes (GLUT4, adiponectin, fatty acid transporters, etc.). New protein synthesis takes time. This is fundamentally different from membrane receptor drugs (GLP-1, SGLT2i) that work within hours.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═══════════════════════════════════════════
+     LO 8: SECOND MESSENGERS
+═══════════════════════════════════════════ -->
+<section class="lo-section" id="lo8">
+  <div class="lo-header">
+    <div class="lo-number purple">LO 8</div>
+    <h2 class="lo-title">Recognize second messengers related to the mechanism of action of all antidiabetic drugs</h2>
+  </div>
+
+  <div class="callout purple">
+    <strong>Key Framework:</strong> Second messengers = the intracellular signaling molecules generated after receptor activation. For antidiabetic drugs, the key ones are: <span class="messenger">cAMP</span>, <span class="messenger">Tyr kinase / IRS</span>, <span class="messenger">Ca²⁺</span>, <span class="messenger">AMPK</span>, and <span class="messenger">PPARγ (transcription factor)</span>.
+  </div>
+
+  <div class="drug-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Drug / Class</th>
+          <th>Receptor Type</th>
+          <th>Second Messenger(s)</th>
+          <th>Key Downstream Effect</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="drug-name">Insulin</span></td>
+          <td>Receptor Tyrosine Kinase (RTK) — Heterotetramer</td>
+          <td><span class="messenger">Phospho-Tyr on IRS</span><br><span class="messenger">PI3K → PIP3</span><br><span class="messenger">PKB/AKT</span><br><span class="messenger">RAS/MAPK</span></td>
+          <td>↑ GLUT4 translocation, ↑ glycogenesis, ↑ lipogenesis, ↓ gluconeogenesis</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Liraglutide, Dulaglutide, Semaglutide</span><br>(GLP-1 Analogs)</td>
+          <td>Class B GPCR (GLP-1R) → Gαs</td>
+          <td><span class="messenger">↑ cAMP</span> → PKA</td>
+          <td>↑ Glucose-dependent insulin secretion, ↓ glucagon</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Tirzepatide</span><br>(Dual Incretin)</td>
+          <td>Class B GPCR: GIP-R + GLP-1R → Gαs</td>
+          <td><span class="messenger">↑ cAMP</span> (from both receptors) → PKA</td>
+          <td>Synergistic ↑ insulin secretion, ↓ glucagon, GIP-specific adipose effects</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Bexagliflozin, Canagliflozin, Dapagliflozin, Empagliflozin, Ertugliflozin</span><br>(SGLT2i)</td>
+          <td>Transporter protein (not GPCR or RTK)</td>
+          <td><strong>No classical second messenger</strong> — direct transporter blockade</td>
+          <td>↓ Glucose reabsorption in proximal tubule → glucosuria</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Metformin</span><br>(Biguanide)</td>
+          <td>Mitochondrial Complex I inhibition</td>
+          <td><span class="messenger">↑ AMP:ATP ratio</span> → <span class="messenger">↑ AMPK</span></td>
+          <td>↓ Gluconeogenesis, ↑ FA oxidation, ↑ glucose uptake (GLUT4 translocation via AMPK)</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Glipizide, Glyburide, Glimepiride</span><br>(Sulfonylureas)</td>
+          <td>SUR1/SUR2 subunit of KATP channel (not GPCR)</td>
+          <td><span class="messenger">↑ Intracellular Ca²⁺</span> (via membrane depolarization → VDCC opening)</td>
+          <td>Ca²⁺-mediated insulin granule exocytosis from β-cells</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Pioglitazone</span><br>(TZD)</td>
+          <td>PPARγ — Nuclear Receptor (Ligand-activated transcription factor)</td>
+          <td><strong>No classical cytoplasmic second messenger</strong> — binds nucleus directly</td>
+          <td>Gene transcription changes → ↑ insulin sensitivity, ↑ adipocyte differentiation</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Sitagliptin, Saxagliptin, Linagliptin, Alogliptin</span><br>(DPP-4i)</td>
+          <td>Enzyme inhibition (DPP-4 ectoenzyme); downstream effects via GLP-1R and GIP-R → Gαs</td>
+          <td><span class="messenger">↑ cAMP</span> (indirectly, via preserved endogenous GLP-1 and GIP)</td>
+          <td>Modest ↑ glucose-dependent insulin secretion, modest ↓ glucagon</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Pramlintide</span><br>(Amylin Analog)</td>
+          <td>Amylin receptor (GPCR family — calcitonin receptor-like)</td>
+          <td><span class="messenger">↑ cAMP</span> (Gαs-mediated)</td>
+          <td>↓ Glucagon secretion, ↓ gastric emptying, ↑ satiety</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Repaglinide, Nateglinide</span><br>(Meglitinides)</td>
+          <td>SUR subunit of KATP channel (same target as SUs)</td>
+          <td><span class="messenger">↑ Intracellular Ca²⁺</span></td>
+          <td>↑ Insulin secretion (shorter-acting, lower affinity than SUs)</td>
+        </tr>
+        <tr>
+          <td><span class="drug-name">Acarbose, Miglitol</span><br>(Alpha-Glucosidase Inhibitors)</td>
+          <td>Enzyme inhibition (brush-border glucosidases); no receptor</td>
+          <td><strong>No second messenger</strong> — luminal enzyme inhibition only</td>
+          <td>↓ Carbohydrate digestion → ↓ postprandial glucose absorption</td>
+        </tr>
+        <tr style="background: rgba(0,212,170,0.05);">
+          <td><span class="drug-name">Glucagon</span></td>
+          <td>Glucagon receptor — Class B GPCR → Gαs</td>
+          <td><span class="messenger">↑ cAMP</span> → PKA</td>
+          <td>↑ Glycogenolysis, ↑ gluconeogenesis → ↑ blood glucose</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.5rem;">
+    <div class="card">
+      <div class="card-title purple">cAMP → PKA Drugs (Gαs-coupled)</div>
+      <ul class="styled purple">
+        <li>GLP-1 Analogs (liraglutide, dulaglutide, semaglutide)</li>
+        <li>Tirzepatide (GIP-R + GLP-1R)</li>
+        <li>DPP-4 inhibitors (indirect — preserve endogenous GLP-1/GIP)</li>
+        <li>Pramlintide (amylin receptor)</li>
+        <li>Glucagon (glucagon receptor)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title blue">Non-cAMP Messengers</div>
+      <ul class="styled blue">
+        <li><strong>Insulin:</strong> RTK → Tyr-P → IRS → PI3K/RAS</li>
+        <li><strong>Sulfonylureas/Meglitinides:</strong> KATP block → ↑Ca²⁺</li>
+        <li><strong>Metformin:</strong> Complex I → ↑AMP:ATP → AMPK</li>
+        <li><strong>Pioglitazone:</strong> PPARγ (nuclear receptor — no cytoplasmic 2nd msg)</li>
+        <li><strong>SGLT2i:</strong> Direct transporter block — no receptor signaling</li>
+        <li><strong>Acarbose/Miglitol:</strong> Luminal enzyme inhibition — no receptor</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-title">Second Messenger Mastery Quiz — LO 8</div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Which antidiabetic drugs share cAMP as their key second messenger? What receptor type do they use?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">cAMP-generating drugs: GLP-1 analogs (liraglutide, dulaglutide, semaglutide) via GLP-1R; Tirzepatide via GIP-R and GLP-1R; DPP-4 inhibitors (indirectly); Pramlintide via amylin receptor; Glucagon via glucagon receptor. All use Class B GPCRs (peptide hormone receptors) coupled to Gαs → adenylate cyclase → ↑cAMP → PKA activation. DPP-4 inhibitors just preserve endogenous GLP-1/GIP to activate these same receptors.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Metformin is listed as activating AMPK. Is AMPK itself a "second messenger"? What is the upstream signal?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">AMPK is more accurately an intracellular energy-sensing kinase than a classical second messenger. The upstream signal: Metformin inhibits Complex I of the electron transport chain → ↓ATP production → ↑ AMP:ATP ratio. The ↑AMP:ATP ratio directly allosterically activates AMPK (AMP binds γ subunit of AMPK and enables phosphorylation by LKB1). The "second messenger" concept here centers on the AMP:ATP ratio change as the initial intracellular signal, and AMPK as the effector kinase.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        A classmate says "sulfonylureas work via cAMP like GLP-1." Are they correct?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Incorrect. Sulfonylureas bind the SUR1 subunit of ATP-sensitive K⁺ (KATP) channels — they are not GPCRs and do NOT generate cAMP. Blockade of KATP channels → K⁺ stays inside → membrane depolarizes → voltage-dependent Ca²⁺ channels open → ↑ intracellular Ca²⁺ → insulin granule exocytosis. The second messenger is Ca²⁺, not cAMP. GLP-1 analogs use Gαs → cAMP → PKA, which eventually also closes KATP channels but via PKA phosphorylation of channel subunits, not direct blockade.</div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        Fill in the table: Drug → Receptor → 2nd Messenger for: (1) Semaglutide, (2) Empagliflozin, (3) Pioglitazone, (4) Glimepiride, (5) Tirzepatide
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">
+        (1) Semaglutide → GLP-1R (Class B GPCR, Gαs) → ↑cAMP<br>
+        (2) Empagliflozin → SGLT2 transporter (not a receptor) → No 2nd messenger (direct block)<br>
+        (3) Pioglitazone → PPARγ (nuclear receptor / transcription factor) → No cytoplasmic 2nd messenger (direct nuclear action)<br>
+        (4) Glimepiride → SUR1 (KATP channel subunit) → ↑ intracellular Ca²⁺<br>
+        (5) Tirzepatide → GIP-R + GLP-1R (both Class B GPCRs, Gαs) → ↑cAMP
+      </div>
+    </div>
+    <div class="quiz-q">
+      <div class="quiz-q-text" onclick="toggleQ(this)">
+        How does GLUT4 translocation relate to both insulin signaling AND AMPK activation (metformin)?
+        <span class="toggle">Show Answer</span>
+      </div>
+      <div class="quiz-answer">Two independent pathways can drive GLUT4 to the cell membrane:<br><br>
+        1. Insulin: RTK → IRS → PI3K → PIP3 → PDK1 → PKB/AKT → phosphorylates AS160 (Akt substrate 160) → releases GLUT4 vesicles → membrane insertion.<br><br>
+        2. AMPK (Metformin): ↑AMP:ATP → AMPK activation → also phosphorylates AS160 at different sites → same endpoint: GLUT4 translocation to membrane.<br><br>
+        This is why metformin can increase glucose uptake even in insulin-resistant states — it bypasses the insulin receptor and acts through an independent energy-sensing pathway. This is the "insulin-independent" glucose uptake mechanism.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section class="lo-section" id="table-quiz">
+  <div class="lo-header">
+    <div class="lo-number gold">QUIZ</div>
+    <h2 class="lo-title">Table Quiz — Match Key Diabetes Drug Patterns</h2>
+  </div>
+
+  <div class="callout gold">
+    <strong>Use this for speed rounds:</strong> class, target, second messenger, and best-fit clinical niche. Tap the boxes only after you answer in your head.
+  </div>
+
+  <div class="table-quiz-shell" id="diabetes-table-quiz">
+    <div class="table-quiz-head">
+      <div class="table-quiz-copy">High-yield cross-table for the drugs Ochs likes to compare against each other: metformin, semaglutide, empagliflozin, glimepiride, and pioglitazone.</div>
+      <div class="table-quiz-btns">
+        <button class="table-quiz-btn" type="button" onclick="revealQuiz('diabetes-table-quiz')">Reveal all</button>
+        <button class="table-quiz-btn" type="button" onclick="resetQuiz('diabetes-table-quiz')">Reset</button>
+      </div>
+    </div>
+
+    <div class="drug-table-wrap" style="margin-top:0;">
+      <table>
+        <thead>
+          <tr>
+            <th>Drug</th>
+            <th>Class / Target</th>
+            <th>2nd Messenger</th>
+            <th>Signature Clinical Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="drug-name">Metformin</span></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">Biguanide; inhibits Complex I → activates AMPK</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">AMPK pathway</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">First-line T2DM unless contraindicated; weight-neutral to slight loss</button></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Semaglutide</span></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">GLP-1 receptor agonist</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">cAMP via Gs Class B GPCR</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">T2DM with obesity / major weight loss benefit</button></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Empagliflozin</span></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">SGLT2 inhibitor in proximal tubule</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">None; direct transporter block</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">T2DM with heart failure or CKD benefit</button></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Glimepiride</span></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">Sulfonylurea; blocks SUR1 on KATP channel</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">Increased intracellular Ca²⁺</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">Cheap insulin secretagogue; hypoglycemia and weight gain risk</button></td>
+          </tr>
+          <tr>
+            <td><span class="drug-name">Pioglitazone</span></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">TZD; activates PPARγ nuclear receptor</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">No classic cytoplasmic 2nd messenger; gene transcription</button></td>
+            <td><button class="quiz-cell" type="button" onclick="toggleReveal(this)">Insulin resistance phenotype; avoid in edema / HF</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- COMPREHENSIVE REVIEW TABLE -->
+<section class="lo-section" id="review">
+  <div class="lo-header">
+    <div class="lo-number" style="background:var(--accent4);">★</div>
+    <h2 class="lo-title">Master Reference: All Drugs at a Glance</h2>
+  </div>
+
+  <div class="drug-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Drug</th>
+          <th>Class</th>
+          <th>MOA (Short)</th>
+          <th>2nd Messenger</th>
+          <th>T1?</th>
+          <th>T2?</th>
+          <th>Obesity?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>All Insulins</td><td>Insulin</td><td>RTK → PI3K/AKT, ↑ GLUT4</td><td>IRS/PI3K/AKT</td><td>✅ Required</td><td>✅ (later-line)</td><td>—</td></tr>
+        <tr><td>Liraglutide</td><td>GLP-1 Analog</td><td>GLP-1R → ↑cAMP → ↑ insulin (glu-dep), ↓ glucagon, ↓ gastric emptying</td><td>cAMP</td><td>—</td><td>✅</td><td>✅ (Saxenda)</td></tr>
+        <tr><td>Dulaglutide</td><td>GLP-1 Analog</td><td>Same as above</td><td>cAMP</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Semaglutide</td><td>GLP-1 Analog</td><td>Same as above; SC or oral</td><td>cAMP</td><td>—</td><td>✅</td><td>✅ (Wegovy)</td></tr>
+        <tr><td>Bexagliflozin</td><td>SGLT2i</td><td>Block SGLT2 in proximal tubule → glucosuria</td><td>None (transporter)</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Canagliflozin</td><td>SGLT2i</td><td>Same</td><td>None</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Dapagliflozin</td><td>SGLT2i</td><td>Same</td><td>None</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Empagliflozin</td><td>SGLT2i</td><td>Same</td><td>None</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Ertugliflozin</td><td>SGLT2i</td><td>Same</td><td>None</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Metformin</td><td>Biguanide</td><td>Complex I → ↑AMP:ATP → AMPK → ↓ gluconeogenesis, ↑ glucose uptake</td><td>AMPK</td><td>—</td><td>✅ (1st line)</td><td>—</td></tr>
+        <tr><td>Tirzepatide</td><td>Dual Incretin</td><td>GIP-R + GLP-1R → ↑cAMP; ↑ insulin, ↓ glucagon, ↑ satiety</td><td>cAMP</td><td>—</td><td>✅</td><td>✅ (Zepbound)</td></tr>
+        <tr><td>Glipizide</td><td>Sulfonylurea</td><td>Block SUR1 (KATP) → ↑ Ca²⁺ → ↑ insulin (non-glu-dep)</td><td>Ca²⁺</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Glyburide</td><td>Sulfonylurea</td><td>Block SUR1/2 (KATP) → ↑ Ca²⁺ → ↑ insulin</td><td>Ca²⁺</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Glimepiride</td><td>Sulfonylurea</td><td>Block SUR1/2 (KATP) → ↑ Ca²⁺ → ↑ insulin</td><td>Ca²⁺</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Pioglitazone</td><td>TZD</td><td>Bind PPARγ (nuclear) → ↑ adipocyte differentiation, ↑ insulin sensitivity</td><td>PPARγ (nuclear)</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Sitagliptin</td><td>DPP-4i</td><td>Inhibit DPP-4 → ↑ intact GLP-1/GIP → ↑cAMP (indirect)</td><td>cAMP (indirect)</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Saxagliptin</td><td>DPP-4i</td><td>Same</td><td>cAMP (indirect)</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Linagliptin</td><td>DPP-4i</td><td>Same</td><td>cAMP (indirect)</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Alogliptin</td><td>DPP-4i</td><td>Same</td><td>cAMP (indirect)</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Pramlintide</td><td>Amylin Analog</td><td>Amylin-R → ↑cAMP → ↓ glucagon, ↓ gastric emptying, ↑ satiety</td><td>cAMP</td><td>✅ (add-on)</td><td>✅ (add-on)</td><td>—</td></tr>
+        <tr><td>Repaglinide</td><td>Meglitinide</td><td>Block SUR (KATP, lower affinity) → ↑ Ca²⁺ → ↑ insulin</td><td>Ca²⁺</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Nateglinide</td><td>Meglitinide</td><td>Same</td><td>Ca²⁺</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Acarbose</td><td>α-glucosidase inhibitor</td><td>Inhibit brush-border glucosidases → ↓ CHO digestion → ↓ postprandial glucose</td><td>None (luminal enzyme)</td><td>—</td><td>✅</td><td>—</td></tr>
+        <tr><td>Miglitol</td><td>α-glucosidase inhibitor</td><td>Same</td><td>None</td><td>—</td><td>✅</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  Pharmacology | Drugs for Diabetes · Notes based on lecture slides & transcript · Scott D. Ochs, Professor of Pharmacology
+</footer>
+
+<script>
+  const THEME_KEY = 'drugs-for-diabetes-theme-v1';
+
+  function applyTheme(theme) {
+    document.body.classList.toggle('theme-cream', theme === 'cream');
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.theme === theme);
+    });
+  }
+
+  function setTheme(theme) {
+    applyTheme(theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch (err) {}
+  }
+
+  try {
+    applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+  } catch (err) {
+    applyTheme('dark');
+  }
+
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const el = document.documentElement;
+    const scrollTop = el.scrollTop || document.body.scrollTop;
+    const scrollHeight = el.scrollHeight - el.clientHeight;
+    const pct = (scrollTop / scrollHeight) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+
+  // Quiz toggles
+  function toggleQ(el) {
+    const answer = el.nextElementSibling;
+    const toggle = el.querySelector('.toggle');
+    if (answer.classList.contains('show')) {
+      answer.classList.remove('show');
+      toggle.textContent = 'Show Answer';
+    } else {
+      answer.classList.add('show');
+      toggle.textContent = 'Hide Answer';
+    }
+  }
+
+  function toggleReveal(el) {
+    el.classList.toggle('revealed');
+  }
+
+  function revealQuiz(id) {
+    const quiz = document.getElementById(id);
+    if (!quiz) return;
+    quiz.querySelectorAll('.quiz-cell').forEach(cell => cell.classList.add('revealed'));
+  }
+
+  function resetQuiz(id) {
+    const quiz = document.getElementById(id);
+    if (!quiz) return;
+    quiz.querySelectorAll('.quiz-cell').forEach(cell => cell.classList.remove('revealed'));
+  }
+
+  // Smooth scroll for nav
+  document.querySelectorAll('.lo-nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
