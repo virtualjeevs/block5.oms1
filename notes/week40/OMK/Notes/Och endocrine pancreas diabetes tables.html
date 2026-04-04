@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Endocrine Pancreas &amp; Diabetes Pharmacology — Tables Only</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #faf8f5;
+  --text: #2c2520;
+  --heading: #1a1510;
+  --accent: #b85042;
+  --accent2: #2c5f2d;
+  --accent3: #1a5276;
+  --accent4: #7d3c98;
+  --callout-bg: #f0ebe4;
+  --callout-border: #d4c9bc;
+  --hiyield-bg: #fde8e5;
+  --hiyield-border: #b85042;
+  --mech-bg: #e8f5e9;
+  --mech-border: #2c5f2d;
+  --pharm-bg: #e3f2fd;
+  --pharm-border: #1a5276;
+  --clinical-bg: #f3e5f5;
+  --clinical-border: #7d3c98;
+  --table-header: #3e2723;
+  --table-alt: #f5f0eb;
+  --code-bg: #f0ebe4;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --nav-bg: #3e2723;
+  --nav-text: #faf8f5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Merriweather', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text);
+  background: var(--bg);
+  padding-bottom: 80px;
+}
+
+/* Navigation */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  flex-wrap: wrap;
+}
+.top-nav h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: auto;
+}
+.nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
+.nav-links a {
+  color: var(--nav-text);
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.1);
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.nav-links a:hover { background: rgba(255,255,255,0.25); }
+
+.container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
+
+/* Section Headers */
+h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--heading);
+  margin: 50px 0 8px 0;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--accent);
+}
+h2 .lo-tag {
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--accent);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+h3 {
+  font-family: 'Inter', sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--accent3);
+  margin: 28px 0 10px 0;
+}
+h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 18px 0 8px 0;
+}
+
+p { margin: 10px 0; }
+
+/* Callout boxes */
+.callout {
+  border-left: 4px solid var(--callout-border);
+  background: var(--callout-bg);
+  padding: 14px 18px;
+  margin: 16px 0;
+  border-radius: 0 6px 6px 0;
+}
+.callout.hiyield {
+  border-left-color: var(--hiyield-border);
+  background: var(--hiyield-bg);
+}
+.callout.mechanism {
+  border-left-color: var(--mech-border);
+  background: var(--mech-bg);
+}
+.callout.pharm {
+  border-left-color: var(--pharm-border);
+  background: var(--pharm-bg);
+}
+.callout.clinical {
+  border-left-color: var(--clinical-border);
+  background: var(--clinical-bg);
+}
+.callout-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.callout.hiyield .callout-title { color: var(--hiyield-border); }
+.callout.mechanism .callout-title { color: var(--mech-border); }
+.callout.pharm .callout-title { color: var(--pharm-border); }
+.callout.clinical .callout-title { color: var(--clinical-border); }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+  box-shadow: var(--shadow);
+  border-radius: 6px;
+  overflow: hidden;
+}
+th {
+  background: var(--table-header);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  text-align: left;
+  padding: 10px 12px;
+}
+td {
+  padding: 9px 12px;
+  border-bottom: 1px solid #e0d8d0;
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: var(--table-alt); }
+tr:hover td { background: #ebe4db; }
+
+/* Figures */
+.figure {
+  text-align: center;
+  margin: 20px 0;
+}
+.figure img {
+  max-width: 100%;
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  border: 1px solid #e0d8d0;
+}
+.figure-cap {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #888;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* Lists */
+ul, ol { margin: 8px 0 8px 24px; }
+li { margin: 4px 0; }
+
+/* Bold keywords */
+strong { color: var(--heading); }
+.drug-name { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 13px; color: var(--accent3); }
+.brand { color: #888; font-size: 13px; }
+
+/* Two-column layout */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+@media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+/* Badge */
+.badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-right: 4px;
+}
+.badge-stim { background: #c8e6c9; color: #1b5e20; }
+.badge-inhib { background: #ffcdd2; color: #b71c1c; }
+.badge-class { background: #e1bee7; color: #4a148c; }
+.badge-2msg { background: #b3e5fc; color: #01579b; }
+
+/* Arrow */
+.arrow { color: var(--accent); font-weight: 700; }
+
+/* Section divider */
+.section-divider {
+  text-align: center;
+  margin: 40px 0 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.section-divider::before, .section-divider::after {
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: #ccc;
+  vertical-align: middle;
+  margin: 0 12px;
+}
+.toc { columns: 2; column-gap: 30px; }
+.toc li { font-size: 13px; break-inside: avoid; }
+@media (max-width: 600px) { .toc { columns: 1; } }
+
+
+html { scroll-behavior: smooth; }
+
+body {
+  overflow-x: hidden;
+  line-height: 1.72;
+}
+
+.top-nav {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-links a {
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  background: rgba(255,255,255,0.18);
+  outline: none;
+}
+
+.container {
+  width: min(980px, calc(100% - 32px));
+  padding: 34px 24px 72px;
+}
+
+h2, h3, h4 {
+  scroll-margin-top: 96px;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 2.4rem);
+  line-height: 1.15;
+  margin-top: 56px;
+}
+
+h3 {
+  font-size: clamp(1.45rem, 2.7vw, 1.85rem);
+  line-height: 1.2;
+}
+
+h4 {
+  line-height: 1.25;
+}
+
+p, li, td {
+  overflow-wrap: anywhere;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin: 16px 0 22px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrap table {
+  margin: 0;
+  min-width: 720px;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.figure {
+  margin: 24px 0 28px;
+}
+
+.figure img {
+  cursor: zoom-in;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  background: white;
+}
+
+.figure-cap {
+  max-width: 70ch;
+  margin: 8px auto 0;
+  line-height: 1.45;
+}
+
+.footer-note {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 2px solid #ddd;
+  text-align: center;
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  color: #8c8c8c;
+  line-height: 1.6;
+}
+
+.img-lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: rgba(20, 16, 12, 0.88);
+  z-index: 9999;
+}
+
+.img-lightbox.open {
+  display: flex;
+}
+
+.img-lightbox img {
+  max-width: min(96vw, 1400px);
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+  background: white;
+  cursor: zoom-out;
+}
+
+.img-lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  border: 0;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.img-lightbox-close:hover,
+.img-lightbox-close:focus-visible {
+  background: rgba(255,255,255,0.22);
+  outline: none;
+}
+
+@media (max-width: 760px) {
+  body { font-size: 14px; }
+  .top-nav { padding: 10px 14px; gap: 10px; }
+  .top-nav h1 { width: 100%; margin-right: 0; font-size: 15px; }
+  .nav-links { gap: 8px; }
+  .nav-links a { font-size: 11px; padding: 6px 10px; }
+  .container { width: min(100%, calc(100% - 20px)); padding: 24px 10px 56px; }
+  th, td { padding: 10px 10px; }
+  .figure-cap { font-size: 11px; }
+}
+
+
+/* Table quiz mode */
+.table-quiz-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: linear-gradient(180deg, #f8f4ef 0%, #efe7de 100%);
+  border-bottom: 1px solid #e0d8d0;
+}
+.table-quiz-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #5f5348;
+  font-weight: 600;
+}
+.table-quiz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.table-quiz-btn {
+  appearance: none;
+  border: 1px solid #cdbfb0;
+  background: #fff;
+  color: var(--heading);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.table-quiz-btn:hover,
+.table-quiz-btn:focus-visible {
+  background: #f8f1e8;
+  border-color: #bfa792;
+  outline: none;
+}
+.table-quiz-btn:active { transform: translateY(1px); }
+.table-quiz-btn.primary {
+  background: var(--table-header);
+  color: #fff;
+  border-color: var(--table-header);
+}
+.table-wrap.quiz-active table td.quiz-hidden {
+  position: relative;
+  color: transparent;
+  cursor: pointer;
+  user-select: none;
+}
+.table-wrap.quiz-active table td.quiz-hidden > * {
+  opacity: 0;
+}
+.table-wrap.quiz-active table td.quiz-hidden::after {
+  content: 'Click to reveal';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  text-align: center;
+  color: #5a4637;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  background:
+    linear-gradient(135deg, rgba(248,244,239,0.96), rgba(239,231,222,0.98));
+}
+.table-wrap.quiz-active table td.quiz-hidden:hover::after,
+.table-wrap.quiz-active table td.quiz-hidden:focus-visible::after {
+  background: linear-gradient(135deg, rgba(255,251,247,0.98), rgba(245,235,224,0.98));
+}
+.table-wrap.quiz-active table td.quiz-hidden.revealed {
+  color: inherit;
+}
+.table-wrap.quiz-active table td.quiz-hidden.revealed > * {
+  opacity: 1;
+}
+.table-wrap.quiz-active table td.quiz-hidden.revealed::after {
+  display: none;
+}
+.table-wrap.quiz-active table td.quiz-hidden.revealed {
+  cursor: default;
+}
+.table-wrap.quiz-active table td.quiz-fixed-col {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  box-shadow: 6px 0 8px -8px rgba(0,0,0,0.22);
+}
+.table-wrap.quiz-active table tr:nth-child(even) td.quiz-fixed-col { background: var(--table-alt); }
+.table-wrap.quiz-active table tr:hover td.quiz-fixed-col { background: #ebe4db; }
+@media (max-width: 760px) {
+  .table-quiz-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .table-quiz-controls {
+    width: 100%;
+  }
+  .table-quiz-btn {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+.study-tools {
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.92);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  backdrop-filter: blur(10px);
+}
+.study-tools-label {
+  font-weight: 700;
+  color: #2c241c;
+}
+.study-tools button {
+  border: 1px solid rgba(0,0,0,0.12);
+  background: #fff;
+  color: #2c241c;
+  border-radius: 999px;
+  padding: 9px 14px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.study-tools button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+.study-tools-status {
+  margin-left: auto;
+  font-size: 0.92rem;
+  color: #6b6258;
+}
+.study-mark.study-highlight {
+  background: #fff2a8;
+  border-radius: 0.25em;
+  padding: 0 0.08em;
+}
+.study-mark.study-strike {
+  background: #ffe7e7;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #b42318;
+  border-radius: 0.25em;
+  padding: 0 0.08em;
+}
+.study-mark.study-annotate {
+  position: relative;
+  background: #e8f1ff;
+  border-bottom: 2px dotted #2563eb;
+  border-radius: 0.25em;
+  padding: 0 0.08em;
+  cursor: help;
+}
+.study-mark.study-annotate:hover::after {
+  content: attr(data-note);
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  width: min(280px, 70vw);
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #1f2937;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+  white-space: normal;
+}
+@media print {
+  .study-tools,
+  .img-lightbox,
+  .table-quiz-toolbar,
+  .table-quiz-controls {
+    display: none !important;
+  }
+  .study-mark.study-annotate::after {
+    content: " [Note: " attr(data-note) "]";
+    position: static;
+    display: inline;
+    width: auto;
+    padding: 0;
+    margin-left: 0.25em;
+    background: transparent;
+    color: #000;
+    box-shadow: none;
+  }
+}
+
+
+.tables-only-intro{margin:24px 0 28px;padding:20px 22px;background:linear-gradient(180deg,#fffdf9,#f7f1e9);border:1px solid rgba(101,67,33,.16);border-radius:18px;box-shadow:0 10px 24px rgba(0,0,0,.05)}
+.tables-only-intro h1{margin:0 0 10px}
+.tables-only-intro p{margin:0;color:#5b4a3a}
+</style>
+<meta content="light" name="color-scheme"/>
+</head>
+<body>
+<div class="container">
+  <div class="tables-only-intro">
+    <h1>Endocrine Pancreas &amp; Diabetes Pharmacology — Tables Only</h1>
+    <p>Table-only extraction from the main Dr. Ochs note. Quiz mode is preserved so you can study the charts separately.</p>
+  </div>
+  <h2 id="anatomy">Pancreatic Islets of Langerhans <span class="lo-tag">PLO 1</span></h2>
+<h3>Cell Types and Their Hormones</h3>
+<div class="table-wrap" data-quiz-table="1"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Cell Type</th><th>Hormone</th><th>Chemical Nature</th><th>Function</th></tr>
+<tr><td><strong>β (beta)</strong></td><td>Insulin</td><td>51-AA peptide (A &amp; B chains)</td><td><strong>Anabolic</strong>: ↑ glucose uptake, ↑ glycogenesis, ↑ lipogenesis</td></tr>
+<tr><td><strong>β (beta)</strong></td><td>Amylin (IAPP)</td><td>Peptide</td><td>Co-secreted with insulin; slows glucose absorption in duodenum; suppresses glucagon</td></tr>
+<tr><td><strong>α (alpha)</strong></td><td>Glucagon</td><td>29-AA peptide</td><td><strong>Catabolic</strong>: ↑ glycogenolysis, ↑ gluconeogenesis, ↑ hepatic glucose output</td></tr>
+<tr><td><strong>δ (delta)</strong></td><td>Somatostatin</td><td>Peptide</td><td>↓ GI activity; suppresses both glucagon and insulin secretion</td></tr>
+<tr><td><strong>PP (γ)</strong></td><td>Pancreatic polypeptide</td><td>Peptide</td><td>May inhibit exocrine pancreatic secretion &amp; gall bladder contraction; role in nutrient metabolism unknown</td></tr>
+<tr><td><strong>ε (epsilon)</strong></td><td>Ghrelin</td><td>Peptide</td><td>Stimulates appetite, increases food intake, promotes fat storage</td></tr>
+</table></div>
+<h2 id="insulin">Insulin: Structure, Secretion, Receptor &amp; Actions <span class="lo-tag">PLOs 2–5</span></h2>
+<h3>Insulin Synthesis</h3>
+<div class="table-wrap" data-quiz-table="2"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Component</th><th>t½</th><th>Key Facts</th></tr>
+<tr><td><strong>Insulin</strong></td><td>3–5 min</td><td>First-pass removes 50% in liver</td></tr>
+<tr><td><strong>C-peptide</strong></td><td>~15–20 min</td><td>No bioactivity; renal clearance; biomarker of endogenous insulin</td></tr>
+<tr><td><strong>Proinsulin</strong></td><td>Long</td><td>Small amount secreted intact; 7–8% bioactivity of insulin; makes up 12–20% of immunoreactive insulin</td></tr>
+</table></div>
+<h3 id="effects">Endocrine Effects of Insulin <span class="lo-tag">PLO 4</span></h3>
+<div class="table-wrap" data-quiz-table="3"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Target Tissue</th><th>Insulin Effects</th></tr>
+<tr><td><strong>Liver</strong></td><td>↑ glycogenesis, ↑ glycolysis, ↑ lipogenesis, ↑ protein synthesis<br/>↓ glycogenolysis, ↓ gluconeogenesis, ↓ ketogenesis<br/>GLUT2 entry is <strong>insulin-independent</strong></td></tr>
+<tr><td><strong>Skeletal Muscle</strong></td><td>↑ glucose uptake (<strong>GLUT4</strong> translocation — insulin-dependent)<br/>↑ glycogenesis, ↑ protein synthesis, ↑ K⁺ uptake<br/>Major site of glucose disposal</td></tr>
+<tr><td><strong>Adipose Tissue</strong></td><td>↑ glucose uptake (<strong>GLUT4</strong>), ↑ lipogenesis<br/>↓ lipolysis (insulin is a <strong>potent inhibitor of lipolysis</strong>)<br/>↑ FFA esterification to TGs</td></tr>
+<tr><td><strong>Brain</strong></td><td>Glucose entry via <strong>GLUT1</strong> (BBB) and <strong>GLUT3</strong> (neuronal) — <strong>insulin-independent</strong></td></tr>
+</table></div>
+<h3>Glucose Transporter Family</h3>
+<div class="table-wrap" data-quiz-table="4"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Transporter</th><th>Location</th><th>Key Feature</th></tr>
+<tr><td><strong>GLUT1</strong></td><td>BBB, RBCs, most tissues</td><td>High affinity → transports at LOW glucose (fasting). Bidirectional. Also in human β cells</td></tr>
+<tr><td><strong>GLUT2</strong></td><td>Liver, intestines, kidney</td><td>Low affinity → transports at HIGH glucose. Bidirectional. In RAT β cells only (NOT human!)</td></tr>
+<tr><td><strong>GLUT3</strong></td><td>Neurons</td><td>High affinity. Also in human β cells</td></tr>
+<tr><td><strong>GLUT4</strong></td><td>Muscle, adipose, heart</td><td><strong>Insulin-dependent.</strong> Sequestered intracellularly; requires insulin for translocation. Exercise also ↑ GLUT4 via AMPK</td></tr>
+<tr><td><strong>GLUT5</strong></td><td>Intestine</td><td>Fructose transporter</td></tr>
+<tr><td><strong>SGLT1</strong></td><td>Intestine, kidney (distal PT)</td><td>Active Na⁺ co-transporter; 10% of renal glucose reabsorption</td></tr>
+<tr><td><strong>SGLT2</strong></td><td>Kidney (proximal PT)</td><td>Active Na⁺ co-transporter; <strong>90%</strong> of renal glucose reabsorption. Target of SGLT2 inhibitors</td></tr>
+</table></div>
+<h2 id="glucagon">Glucagon &amp; Related Hormones <span class="lo-tag">PLO 5</span></h2>
+<h3 id="incretins-section">Incretins (GLP-1 &amp; GIP) <span class="lo-tag">PLO 5</span></h3>
+<div class="table-wrap" data-quiz-table="5"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Feature</th><th>GLP-1</th><th>GIP</th></tr>
+<tr><td><strong>Source</strong></td><td>L cells (distal intestinal mucosa)</td><td>K cells (intestine)</td></tr>
+<tr><td><strong>Stimulated by</strong></td><td>FAs, AAs, oral glucose</td><td>FAs, AAs, oral glucose</td></tr>
+<tr><td><strong>Insulin effect</strong></td><td>↑ insulin secretion</td><td>↑ insulin secretion</td></tr>
+<tr><td><strong>Glucagon</strong></td><td>↓ (suppresses)</td><td>No significant effect</td></tr>
+<tr><td><strong>Gastric emptying</strong></td><td>↓ (slows)</td><td>No significant effect on motility</td></tr>
+<tr><td><strong>Satiety</strong></td><td>↑ (decreases food intake)</td><td>No significant effect</td></tr>
+<tr><td><strong>Gastric H⁺</strong></td><td>—</td><td>↓ (may be supraphysiological)</td></tr>
+<tr><td><strong>Degradation</strong></td><td colspan="2">Both rapidly inactivated by <strong>DPP-4</strong> (&lt; 2 min)</td></tr>
+</table></div>
+<h2 id="dm">Diabetes Mellitus: Type 1 vs. Type 2 <span class="lo-tag">LOs 1, 2, 6</span></h2>
+<div class="table-wrap" data-quiz-table="6"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Feature</th><th>Type 1 DM</th><th>Type 2 DM</th></tr>
+<tr><td><strong>Mechanism</strong></td><td><strong>Insulin deficiency</strong> — autoimmune β cell destruction</td><td><strong>Insulin resistance</strong> ± progressive β cell failure</td></tr>
+<tr><td><strong>Onset</strong></td><td>Usually childhood/young adult</td><td>Usually adult (increasingly younger)</td></tr>
+<tr><td><strong>% of DM</strong></td><td>~5–10%</td><td><strong>&gt;90%</strong> in the US</td></tr>
+<tr><td><strong>Body habitus</strong></td><td>Usually thin/normal</td><td>Usually obese (↑ abdominal fat)</td></tr>
+<tr><td><strong>Insulin levels</strong></td><td><strong>None</strong> (absolute deficiency)</td><td><strong>High initially</strong> (hyperinsulinemia), then low in advanced disease</td></tr>
+<tr><td><strong>Insulin sensitivity</strong></td><td>High (receptors work)</td><td><strong>Low</strong> (resistance)</td></tr>
+<tr><td><strong>Ketosis</strong></td><td>Common — DKA is presenting feature in 20–40%</td><td>Rare (if occurs → usually infection/trauma)</td></tr>
+<tr><td><strong>Genetics</strong></td><td>HLA-DR3 &amp; HLA-DR4; concordance 25–50% in twins</td><td><strong>Strong genetic link</strong>; &gt;90% concordance in monozygotic twins</td></tr>
+<tr><td><strong>Histology</strong></td><td>Islet leukocytic infiltrates</td><td>Islet amyloid polypeptide (IAPP/amylin) deposits</td></tr>
+<tr><td><strong>Treatment</strong></td><td><strong>Exogenous insulin required</strong> for survival</td><td>Lifestyle + oral agents ± insulin</td></tr>
+<tr><td><strong>Presentation</strong></td><td>Polydipsia, polyuria, polyphagia, weight loss, DKA</td><td>Often asymptomatic; acanthosis nigricans; large waist</td></tr>
+</table></div>
+<h2 id="t2path">T2DM Pathophysiology &amp; Obesity <span class="lo-tag">LO 4</span></h2>
+<h3>Insulin Resistance: Tissue-Specific Effects</h3>
+<div class="table-wrap" data-quiz-table="7"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Tissue</th><th>Effect of Insulin Resistance</th></tr>
+<tr><td><strong>Liver</strong></td><td>↑ Basal hepatic glucose production → <strong>fasting hyperglycemia</strong> (hallmark). Failure to suppress glucagon (may even rise after meals) = hyperglucagonemia</td></tr>
+<tr><td><strong>Muscle</strong></td><td>Major site of glucose disposal. In T2DM, glucose uptake ↓ by 50% due to impaired signaling. Compensatory hyperinsulinemia may contribute to <strong>atherosclerosis</strong></td></tr>
+<tr><td><strong>Adipocyte</strong></td><td>↑ Basal FFA levels; fail to suppress after glucose ingestion. Chronically ↑ FFAs → insulin resistance in muscle &amp; liver, impaired insulin secretion</td></tr>
+</table></div>
+<h3>Mechanisms of Insulin Resistance</h3>
+<div class="table-wrap" data-quiz-table="8"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>↓ Insulin Signaling (Bad)</th><th>↑ Insulin Signaling (Good)</th></tr>
+<tr><td>TNFα, IL-6, leptin, resistin</td><td><strong>Adiponectin</strong> (also ↑ AMPK)</td></tr>
+</table></div>
+<h2 id="dx">Diagnosis of DM <span class="lo-tag">LOs 6, 7</span></h2>
+<div class="table-wrap" data-quiz-table="9"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Test</th><th>Normal</th><th>Prediabetes</th><th>Diabetes</th></tr>
+<tr><td><strong>Fasting Plasma Glucose</strong></td><td>&lt;100 mg/dL</td><td>100–125 mg/dL</td><td><strong>≥126 mg/dL</strong></td></tr>
+<tr><td><strong>2-hr OGTT</strong></td><td>&lt;140 mg/dL</td><td>140–199 mg/dL</td><td><strong>≥200 mg/dL</strong></td></tr>
+<tr><td><strong>HbA1c</strong></td><td>&lt;5.7%</td><td>5.7–6.4%</td><td><strong>≥6.5%</strong></td></tr>
+<tr><td><strong>Random Plasma Glucose</strong></td><td colspan="2">—</td><td><strong>≥200 mg/dL</strong> + symptoms</td></tr>
+</table></div>
+<h2 id="insulin-drugs">Insulin Preparations <span class="lo-tag">LOs 9, 10, 11</span></h2>
+<div class="table-wrap" data-quiz-table="10"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Category</th><th>Agent(s)</th><th>Onset</th><th>Peak</th><th>Duration</th><th>Key Notes</th></tr>
+<tr><td><strong>Rapid-acting</strong></td><td><span class="drug-name">Aspart</span> <span class="brand">(Novolog/Fiasp)</span>, <span class="drug-name">Lispro</span> <span class="brand">(Humalog/Admelog)</span>, <span class="drug-name">Glulisine</span> <span class="brand">(Apidra)</span></td><td>&lt;15 min</td><td>1–2 hr</td><td>3–5 hr</td><td>Don't form hexamers → faster onset. Give 15 min before or right after meal. Preferred over regular to reduce "stacking"</td></tr>
+<tr><td><strong>Short-acting</strong></td><td><span class="drug-name">Regular</span> <span class="brand">(Humulin R, Novolin R)</span></td><td>30–60 min</td><td>2–3 hr</td><td>6–8 hr</td><td>Give ~30 min before meal. More late hypoglycemia</td></tr>
+<tr><td><strong>Intermediate</strong></td><td><span class="drug-name">NPH</span> <span class="brand">(Humulin N, Novolin N)</span></td><td>2–4 hr</td><td>4–14 hr</td><td>10–16 hr</td><td>Crystalline suspension with protamine; tissue enzymes degrade protamine to release insulin</td></tr>
+<tr><td><strong>Long-acting</strong></td><td><span class="drug-name">Glargine</span> <span class="brand">(Lantus, Basaglar, Toujeo)</span></td><td>4–5 hr</td><td>Flat (no peak)</td><td>~24 hr</td><td>Soluble in acid, precipitates at body pH → slow dissolution. Once daily. Don't mix with other insulins</td></tr>
+<tr><td><strong>Long-acting</strong></td><td><span class="drug-name">Detemir</span> <span class="brand">(Levemir)</span></td><td>0.5–1 hr</td><td>Flat</td><td>~17 hr</td><td>Myristoylated insulin analog with albumin binding → lower variability; often once or twice daily</td></tr>
+<tr><td><strong>Ultra long-acting</strong></td><td><span class="drug-name">Degludec</span> <span class="brand">(Tresiba)</span></td><td>30–90 min</td><td>Flat</td><td><strong>42 hr</strong></td><td>Forms multihexameric chains SC → very slow dissolution. Once daily. Don't mix</td></tr>
+<tr><td><strong>Inhaled</strong></td><td><span class="drug-name">Inhaled insulin</span> <span class="brand">(Afrezza)</span></td><td>&lt;15 min</td><td>~1 hr</td><td>~3 hr</td><td>Ultra-rapid dry powder. Not substitute for long-acting. Not for DKA. Avoid in smokers, asthma, or COPD; spirometry should be checked first</td></tr>
+</table></div>
+<h2 id="2msg">Second Messengers Summary <span class="lo-tag">LO 15</span></h2>
+<div class="table-wrap" data-quiz-table="11"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Drug/Class</th><th>Target</th><th>Second Messenger / Signaling</th></tr>
+<tr><td><strong>Insulin</strong></td><td>Insulin receptor (RTK)</td><td><strong>Tyrosine kinase → IRS → PI3K/AKT</strong> (metabolic) + RAS/MAPK (mitogenic)</td></tr>
+<tr><td><strong>Liraglutide, Dulaglutide, Semaglutide</strong></td><td>GLP-1 receptor (GPCR, Gs)</td><td><strong>↑ cAMP → PKA / EPAC2</strong></td></tr>
+<tr><td><strong>Tirzepatide</strong></td><td>GIP + GLP-1 receptors (GPCR, Gs)</td><td><strong>↑ cAMP → PKA</strong></td></tr>
+<tr><td><strong>Bexagliflozin, Canagliflozin, Dapagliflozin, Empagliflozin, Ertugliflozin</strong></td><td>SGLT2 transporter</td><td><strong>None</strong> — direct transporter blockade</td></tr>
+<tr><td><strong>Metformin</strong></td><td>Mitochondria → AMPK</td><td><strong>↑ AMP → AMPK activation</strong></td></tr>
+<tr><td><strong>Glipizide, Glyburide, Glimepiride</strong></td><td>SUR1 on KATP channel (β cell)</td><td><strong>↑ Intracellular Ca²⁺</strong> (via depolarization → VGCC)</td></tr>
+<tr><td><strong>Pioglitazone</strong></td><td>PPARγ (nuclear receptor)</td><td><strong>Gene transcription</strong> (nuclear receptor, no classic 2nd messenger)</td></tr>
+<tr><td><strong>Sitagliptin, Saxagliptin, Linagliptin, Alogliptin</strong></td><td>DPP-4 enzyme</td><td><strong>Indirect ↑ cAMP</strong> (via preserved GLP-1/GIP)</td></tr>
+<tr><td><strong>Pramlintide</strong></td><td>Amylin receptor (CT + RAMP)</td><td><strong>↑ cAMP</strong> (Gs-coupled)</td></tr>
+<tr><td><strong>Repaglinide, Nateglinide</strong></td><td>SUR1 on KATP channel (β cell)</td><td><strong>↑ Intracellular Ca²⁺</strong> (via depolarization → VGCC)</td></tr>
+<tr><td><strong>Acarbose, Miglitol</strong></td><td>α-glucosidase enzymes (brush border)</td><td><strong>None</strong> — direct enzyme inhibition</td></tr>
+</table></div>
+<h2 id="drug-classes">Drug Class Identification <span class="lo-tag">LO 13</span></h2>
+<div class="table-wrap" data-quiz-table="12"><div class="table-quiz-toolbar"><div class="table-quiz-meta">Table quiz mode: first column stays visible, other cells reveal on click.</div><div class="table-quiz-controls"><button class="table-quiz-btn primary" data-action="toggle-quiz" type="button">Start table quiz</button><button class="table-quiz-btn" data-action="reveal-all" type="button">Reveal all</button><button class="table-quiz-btn" data-action="reset-quiz" type="button">Reset</button></div></div><table>
+<tr><th>Drug Class</th><th>Agents</th><th>Key Suffix/Pattern</th></tr>
+<tr><td><strong>GLP-1 Receptor Agonists</strong></td><td>Liraglutide, Dulaglutide, Semaglutide, Exenatide</td><td>-glutide / -natide</td></tr>
+<tr><td><strong>SGLT2 Inhibitors</strong></td><td>Bexagliflozin, Canagliflozin, Dapagliflozin, Empagliflozin, Ertugliflozin</td><td><strong>-gliflozin</strong></td></tr>
+<tr><td><strong>Biguanide</strong></td><td>Metformin</td><td>Only one</td></tr>
+<tr><td><strong>Dual Incretin (GIP/GLP-1 RA)</strong></td><td>Tirzepatide</td><td>First-in-class</td></tr>
+<tr><td><strong>Sulfonylureas</strong></td><td>Glipizide, Glyburide, Glimepiride</td><td><strong>Gli-/Gly-</strong></td></tr>
+<tr><td><strong>Thiazolidinedione</strong></td><td>Pioglitazone</td><td><strong>-glitazone</strong></td></tr>
+<tr><td><strong>DPP-4 Inhibitors</strong></td><td>Sitagliptin, Saxagliptin, Linagliptin, Alogliptin</td><td><strong>-gliptin</strong></td></tr>
+<tr><td><strong>Amylin Analog</strong></td><td>Pramlintide</td><td>Only one used</td></tr>
+<tr><td><strong>Meglitinides</strong></td><td>Repaglinide, Nateglinide</td><td><strong>-glinide</strong></td></tr>
+<tr><td><strong>Alpha-Glucosidase Inhibitors</strong></td><td>Acarbose, Miglitol</td><td>Acarbose, Miglitol</td></tr>
+</table></div>
+</div>
+<script>
+(() => {
+  const setupTableQuiz = (wrap) => {
+    if (!wrap || wrap.dataset.quizReady === 'true') return;
+    const table = wrap.querySelector('table');
+    if (!table) return;
+    const rows = Array.from(table.querySelectorAll('tr'));
+    rows.forEach((row) => {
+      const cells = Array.from(row.querySelectorAll('th, td'));
+      cells.forEach((cell, cellIndex) => {
+        if (cell.tagName === 'TD' && cellIndex === 0) cell.classList.add('quiz-fixed-col');
+        if (cell.tagName === 'TD' && cellIndex > 0) {
+          cell.classList.add('quiz-hidden');
+          cell.setAttribute('tabindex', '0');
+          cell.setAttribute('role', 'button');
+          cell.setAttribute('aria-label', 'Reveal answer cell');
+          const reveal = () => {
+            if (!wrap.classList.contains('quiz-active')) return;
+            cell.classList.add('revealed');
+          };
+          cell.addEventListener('click', reveal);
+          cell.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              reveal();
+            }
+          });
+        }
+      });
+    });
+    const toggleBtn = wrap.querySelector('[data-action="toggle-quiz"]');
+    const revealBtn = wrap.querySelector('[data-action="reveal-all"]');
+    const resetBtn = wrap.querySelector('[data-action="reset-quiz"]');
+    const hiddenCells = () => Array.from(wrap.querySelectorAll('td.quiz-hidden'));
+    const resetQuiz = () => hiddenCells().forEach((cell) => cell.classList.remove('revealed'));
+    const revealAll = () => hiddenCells().forEach((cell) => cell.classList.add('revealed'));
+    toggleBtn?.addEventListener('click', () => {
+      const active = wrap.classList.toggle('quiz-active');
+      resetQuiz();
+      if (toggleBtn) toggleBtn.textContent = active ? 'Exit quiz mode' : 'Start table quiz';
+    });
+    revealBtn?.addEventListener('click', () => {
+      if (!wrap.classList.contains('quiz-active')) {
+        wrap.classList.add('quiz-active');
+        if (toggleBtn) toggleBtn.textContent = 'Exit quiz mode';
+      }
+      revealAll();
+    });
+    resetBtn?.addEventListener('click', () => {
+      if (!wrap.classList.contains('quiz-active')) {
+        wrap.classList.add('quiz-active');
+        if (toggleBtn) toggleBtn.textContent = 'Exit quiz mode';
+      }
+      resetQuiz();
+    });
+    wrap.dataset.quizReady = 'true';
+  };
+  document.querySelectorAll('.table-wrap').forEach(setupTableQuiz);
+})();
+</script>
+</body>
+</html>
