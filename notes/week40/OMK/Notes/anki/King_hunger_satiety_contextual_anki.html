@@ -235,6 +235,50 @@ h1{font-family:'Crimson Pro',serif;font-weight:600;font-size:clamp(32px,5vw,48px
 .action-btn.amber{background:var(--amber-soft);border-color:rgba(246,165,51,.25);color:var(--amber)}
 .action-btn.amber:hover:not(:disabled){background:var(--amber-mid);color:#fff3df}
 .action-btn.ghost{color:var(--text-3)}
+.tblq-note{
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  background:var(--surface-3);border:1px solid var(--border);
+  border-radius:12px;padding:12px 14px;margin-bottom:14px;line-height:1.5;
+}
+.tblq-copy{color:var(--text-2);flex:1;min-width:220px}
+.tblq-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.tblq-pill,.tblq-btn{
+  border-radius:999px;padding:8px 14px;font-size:11px;
+  font-family:'DM Mono',monospace
+}
+.tblq-pill{
+  background:var(--teal-soft);border:1px solid rgba(45,212,191,.25);color:var(--teal)
+}
+.tblq-btn{
+  background:none;border:1px solid var(--border-2);color:var(--text-2);cursor:pointer
+}
+.tblq-btn:hover{background:var(--surface-2);color:var(--text)}
+.review-panel .tblq-actions{display:none}
+.tblq-wrap{
+  overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--surface)
+}
+.tblq{
+  width:100%;border-collapse:collapse;font-size:15px;line-height:1.6
+}
+.tblq thead th{
+  background:linear-gradient(135deg,var(--table-head-a),var(--table-head-b));
+  color:#f6f9ff;padding:14px 16px;text-align:left;font-weight:600;
+  border-right:1px solid rgba(255,255,255,.08)
+}
+.tblq thead th:last-child{border-right:none}
+.tblq tbody th[scope="row"]{
+  background:rgba(221,229,240,.06);color:var(--text);font-weight:600;
+  padding:14px 16px;vertical-align:top;border-top:1px solid var(--border)
+}
+.tblq tbody td{
+  background:rgba(255,255,255,.02);padding:14px 16px;vertical-align:top;border-top:1px solid var(--border)
+}
+.tblq td .occ{
+  display:block;text-align:center;white-space:normal;padding:10px 12px;min-width:170px
+}
+.tblq td .score-row{
+  display:flex;justify-content:center;flex-wrap:wrap;margin:8px 0 0
+}
 .occ{display:inline-block;min-width:3ch;background:var(--text);color:transparent;border:1px solid transparent;border-radius:3px;cursor:pointer;padding:1px 6px;white-space:nowrap;user-select:none;vertical-align:baseline;transition:background .15s,color .15s,border-color .15s}
 .occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
 .occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
@@ -455,7 +499,10 @@ const D={
      h:'CCK is a short-term satiation signal released during a meal. Its purely vagal route is a high-yield exam distinction — no direct arcuate signaling.'},
     {t:'Leptin — Source & Secretion Pattern',
      b:'Leptin is produced by {white adipose tissue (WAT)} and functions as an {adipokine (cytokine-like signal)}. Receptor: {cytokine receptor → Jak-STAT signaling pathway}. Leptin levels are {proportional to total fat mass} (↑ fat → ↑ leptin). It is not a meal-to-meal signal — it reflects {long-term energy stores}. Key action: {inhibits NPY/AgRP neurons} and {stimulates POMC/CART neurons} → appetite suppressed. Classified as {anorexigenic}.',
-     h:'Low leptin = starvation signal → triggers food-seeking behavior. Contrast with ghrelin: ghrelin = short-term, stomach; leptin = long-term, fat.'}
+     h:'Low leptin = starvation signal → triggers food-seeking behavior. Contrast with ghrelin: ghrelin = short-term, stomach; leptin = long-term, fat.'},
+    {t:'Table Quiz — Hormone Comparison',
+     b:'<div class="tblq-note"><div class="tblq-copy">Try to answer each box before revealing it. Run the whole table a few times until source, trigger, target, and route feel automatic.</div><div class="tblq-actions"><span class="tblq-pill">Active Recall</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Hormone</th><th>Source</th><th>Main Trigger</th><th>Arcuate / CNS Target</th><th>Route</th></tr></thead><tbody><tr><th scope="row">Ghrelin</th><td>{Stomach fundus}</td><td>{Empty stomach / fasting}</td><td>{↑ AgRP/NPY via GHSR (Gq)}</td><td>{Blood + vagus}</td></tr><tr><th scope="row">PYY</th><td>{L-cells of ileum and colon}</td><td>{Fat and protein entering distal gut}</td><td>{↓ AgRP/NPY via Y2R (Gi)}</td><td>{Blood to arcuate nucleus}</td></tr><tr><th scope="row">GLP-1</th><td>{L-cells, CNS, pancreatic alpha-cells}</td><td>{Calories and free fatty acids}</td><td>{↑ POMC/CART via GLP-1R (Gs)}</td><td>{Blood + vagus}</td></tr><tr><th scope="row">CCK</th><td>{Duodenal I-cells and jejunum}</td><td>{Lipids, proteins, amino acids}</td><td>{Vagus to NTS, not direct arcuate signaling}</td><td>{Primarily vagal afferents}</td></tr><tr><th scope="row">Leptin</th><td>{White adipose tissue}</td><td>{Increased fat mass}</td><td>{↑ POMC and ↓ AgRP/NPY via LEPR (Jak-STAT)}</td><td>{Blood to arcuate nucleus}</td></tr></tbody></table></div>',
+     h:'Quiz yourself on the five major hunger and satiation hormones: source, trigger, arcuate target, and signaling route.'}
   ]},
 
   plo2:{label:'PLO 2',sub:'Orexigenic vs Anorexigenic Classification',type:'PLO',cards:[
