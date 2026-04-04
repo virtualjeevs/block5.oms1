@@ -471,6 +471,102 @@ ul.styled li { margin: 0.4rem 0; }
 }
 .compare-box .row.alt > div { background: var(--cream2); }
 
+/* ── TABLE QUIZ ── */
+.table-quiz {
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1rem 0;
+  box-shadow: var(--shadow);
+}
+.table-quiz-controls {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cream2);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.75rem 0.9rem;
+}
+.table-quiz-copy {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  max-width: 560px;
+}
+.table-quiz-btns {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.table-quiz-btn {
+  border: 1px solid var(--rule);
+  background: white;
+  color: var(--rust);
+  border-radius: 999px;
+  padding: 0.38rem 0.75rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.table-quiz-btn:hover {
+  background: var(--rust-pale);
+}
+.table-quiz table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.table-quiz th {
+  background: var(--teal);
+  color: white;
+  padding: 0.65rem 0.8rem;
+  text-align: left;
+  font-family: 'Source Serif 4', serif;
+  font-weight: 600;
+}
+.table-quiz td {
+  padding: 0.55rem 0.8rem;
+  border-top: 1px solid var(--rule);
+  vertical-align: top;
+  background: white;
+}
+.table-quiz tr:nth-child(even) td {
+  background: var(--cream2);
+}
+.quiz-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  border: 1px dashed var(--gold-border);
+  background: var(--gold-pale);
+  color: transparent;
+  border-radius: 6px;
+  padding: 0.25rem 0.55rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.18s ease;
+}
+.quiz-chip::before {
+  content: "Tap to reveal";
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.quiz-chip.revealed {
+  background: var(--green-pale);
+  border-style: solid;
+  border-color: #8fc8a1;
+  color: var(--ink);
+}
+.quiz-chip.revealed::before {
+  content: "";
+}
+
 /* ── MECHANISM STEPS ── */
 .steps {
   counter-reset: step;
@@ -1272,6 +1368,76 @@ ul.styled li { margin: 0.4rem 0; }
 <section>
   <div class="section-header">
     <span class="section-num">10</span>
+    <h2>Table Quiz</h2>
+  </div>
+
+  <div class="callout key">
+    <div class="callout-title">🧠 Active Recall</div>
+    <p>Use this table like a rapid-fire deck. Try to answer each box before revealing it, then reset and run it again until the patterns feel automatic.</p>
+  </div>
+
+  <div class="table-quiz" id="hormone-table-quiz">
+    <div class="table-quiz-controls">
+      <div class="table-quiz-copy">Quiz yourself on the five major hunger and satiation hormones: source, trigger, arcuate target, and signaling route.</div>
+      <div class="table-quiz-btns">
+        <button class="table-quiz-btn" type="button" onclick="revealQuiz('hormone-table-quiz')">Reveal all</button>
+        <button class="table-quiz-btn" type="button" onclick="resetQuiz('hormone-table-quiz')">Reset</button>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Hormone</th>
+          <th>Source</th>
+          <th>Main Trigger</th>
+          <th>Arcuate / CNS Target</th>
+          <th>Route</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Ghrelin</strong></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Stomach fundus</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Empty stomach / fasting</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">↑ AgRP/NPY via GHSR (Gq)</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Blood + vagus</button></td>
+        </tr>
+        <tr>
+          <td><strong>PYY</strong></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">L-cells of ileum and colon</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Fat and protein entering distal gut</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">↓ AgRP/NPY via Y2R (Gi)</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Blood to arcuate nucleus</button></td>
+        </tr>
+        <tr>
+          <td><strong>GLP-1</strong></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">L-cells, CNS, pancreatic alpha-cells</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Calories and free fatty acids</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">↑ POMC/CART via GLP-1R (Gs)</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Blood + vagus</button></td>
+        </tr>
+        <tr>
+          <td><strong>CCK</strong></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Duodenal I-cells and jejunum</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Lipids, proteins, amino acids</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Vagus to NTS, not direct arcuate signaling</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Primarily vagal afferents</button></td>
+        </tr>
+        <tr>
+          <td><strong>Leptin</strong></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">White adipose tissue</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Increased fat mass</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">↑ POMC and ↓ AgRP/NPY via LEPR (Jak-STAT)</button></td>
+          <td><button class="quiz-chip" type="button" onclick="toggleReveal(this)">Blood to arcuate nucleus</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <span class="section-num">11</span>
     <h2>Master Summary Table</h2>
   </div>
 
@@ -1350,6 +1516,19 @@ function openLightbox(img) {
 }
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
+}
+function toggleReveal(el) {
+  el.classList.toggle('revealed');
+}
+function revealQuiz(id) {
+  const quiz = document.getElementById(id);
+  if (!quiz) return;
+  quiz.querySelectorAll('.quiz-chip').forEach(chip => chip.classList.add('revealed'));
+}
+function resetQuiz(id) {
+  const quiz = document.getElementById(id);
+  if (!quiz) return;
+  quiz.querySelectorAll('.quiz-chip').forEach(chip => chip.classList.remove('revealed'));
 }
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
 
