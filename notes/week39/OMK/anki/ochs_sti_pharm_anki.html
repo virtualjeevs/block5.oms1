@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STI Pharmacology — Dr. Ochs · Active Recall Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f1a;--surface:#131929;--surface-2:#19223a;--surface-3:#1f2a42;--surface-4:#24314e;
+  --amber:#f6a533;--amber-soft:rgba(246,165,51,.13);--amber-mid:rgba(246,165,51,.25);--amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf;--teal-soft:rgba(45,212,191,.12);--teal-mid:rgba(45,212,191,.22);--teal-dim:rgba(45,212,191,.5);
+  --green:#34d399;--green-soft:rgba(52,211,153,.13);--green-mid:rgba(52,211,153,.22);
+  --red:#f87171;--red-soft:rgba(248,113,113,.12);--red-mid:rgba(248,113,113,.22);
+  --text:#dde5f0;--text-2:#7e90a9;--text-3:#3e5065;
+  --border:#1c2a40;--border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08);--hero-glow-b:rgba(246,165,51,.09);
+  --bg-top:#0b0f1a;--bg-bottom:#0d1321;
+  --map-shadow:0 20px 45px rgba(0,0,0,.22);--panel-shadow:0 22px 48px rgba(0,0,0,.24);--header-shadow:0 22px 50px rgba(0,0,0,.24);
+}
+html[data-theme="cream"]{
+  --bg:#f4efe4;--surface:#fffaf1;--surface-2:#f6efe2;--surface-3:#efe5d3;--surface-4:#e4d5ba;
+  --amber:#b86519;--amber-soft:rgba(184,101,25,.13);--amber-mid:rgba(184,101,25,.22);--amber-dim:rgba(184,101,25,.45);
+  --teal:#0f8a7b;--teal-soft:rgba(15,138,123,.12);--teal-mid:rgba(15,138,123,.2);--teal-dim:rgba(15,138,123,.42);
+  --green:#21885a;--green-soft:rgba(33,136,90,.12);--green-mid:rgba(33,136,90,.22);
+  --red:#c65a52;--red-soft:rgba(198,90,82,.12);--red-mid:rgba(198,90,82,.22);
+  --text:#2f2a24;--text-2:#6c5f51;--text-3:#a28d78;--border:#e4d5ba;--border-2:#d6c2a1;
+  --hero-glow-a:rgba(15,138,123,.08);--hero-glow-b:rgba(184,101,25,.08);
+  --bg-top:#f7f2e8;--bg-bottom:#efe7d9;
+  --header-a:rgba(255,250,241,.96);--header-b:rgba(246,239,226,.92);
+  --card-a:rgba(255,251,244,.98);--card-b:rgba(246,239,226,.98);--card-action-bg:rgba(239,229,211,.86);
+  --nav-bg:rgba(246,239,226,.95);--nav-bg-hover:rgba(239,229,211,.98);--nav-text:#5f5141;
+  --showall-bg:rgba(255,250,241,.92);--showall-text:#5f5141;--meta-bg:rgba(255,250,241,.8);
+  --table-head-a:#0f8a7b;--table-head-b:#b86519;
+}
+html[data-theme="forest"]{
+  --bg:#081512;--surface:#0f201b;--surface-2:#16302a;--surface-3:#1d4037;--surface-4:#28544a;
+  --amber:#e4b04b;--amber-soft:rgba(228,176,75,.12);--amber-mid:rgba(228,176,75,.22);--amber-dim:rgba(228,176,75,.45);
+  --teal:#52d6b7;--teal-soft:rgba(82,214,183,.12);--teal-mid:rgba(82,214,183,.2);--teal-dim:rgba(82,214,183,.42);
+  --green:#7ae582;--green-soft:rgba(122,229,130,.12);--green-mid:rgba(122,229,130,.22);
+  --red:#ff8b7a;--red-soft:rgba(255,139,122,.12);--red-mid:rgba(255,139,122,.22);
+  --text:#e4f2ec;--text-2:#8fb6aa;--text-3:#54756b;--border:#1d3a32;--border-2:#295049;
+  --hero-glow-a:rgba(82,214,183,.08);--hero-glow-b:rgba(228,176,75,.08);
+  --bg-top:#081512;--bg-bottom:#0b1c18;
+  --header-a:rgba(15,32,27,.96);--header-b:rgba(10,24,21,.92);
+  --card-a:rgba(22,48,42,.98);--card-b:rgba(15,32,27,.98);--card-action-bg:rgba(29,64,55,.82);
+  --nav-bg:rgba(22,48,42,.95);--nav-bg-hover:rgba(29,64,55,.98);--nav-text:#d0e9e0;
+  --showall-bg:rgba(15,32,27,.86);--showall-text:#c7e7dc;--meta-bg:rgba(255,255,255,.04);
+  --table-head-a:#1f7a67;--table-head-b:#d79f42;
+}
+html:not([data-theme]),html[data-theme="slate"]{
+  --header-a:rgba(25,34,58,.78);--header-b:rgba(19,25,41,.56);
+  --card-a:rgba(25,34,58,.98);--card-b:rgba(21,29,47,.98);--card-action-bg:rgba(31,42,66,.55);
+  --nav-bg:rgba(25,34,58,.85);--nav-bg-hover:rgba(31,42,66,.98);--nav-text:#dde5f0;
+  --showall-bg:rgba(255,255,255,.03);--showall-text:#7e90a9;--meta-bg:rgba(221,229,240,.04);
+  --table-head-a:#2863d8;--table-head-b:#3d7bf4;
+}
+html{font-size:17px;-webkit-font-smoothing:antialiased}
+body{
+  background:radial-gradient(circle at top left,var(--hero-glow-a),transparent 26rem),
+    radial-gradient(circle at top right,var(--hero-glow-b),transparent 24rem),
+    linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bottom) 100%);
+  color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;padding:40px 16px 80px;
+}
+.wrap{width:100%;max-width:880px}
+header{
+  margin-bottom:32px;text-align:center;
+  background:linear-gradient(180deg,var(--header-a),var(--header-b));
+  border:1px solid var(--border-2);box-shadow:var(--header-shadow);
+  border-radius:24px;padding:24px 20px 20px;
+}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.hero-copy{flex:1;min-width:240px}
+.theme-switch{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.theme-btn{background:rgba(255,255,255,.03);border:1px solid var(--border);color:var(--text-2);font-size:11px;font-family:'DM Mono',monospace;padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .14s}
+.theme-btn:hover{color:var(--text);background:var(--surface-3);border-color:var(--border-2)}
+.theme-btn.active{background:var(--teal-soft);border-color:rgba(45,212,191,.24);color:var(--teal)}
+.eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px}
+h1{font-family:'Crimson Pro',serif;font-weight:600;font-size:clamp(32px,5vw,48px);line-height:1.05;letter-spacing:-.025em;color:var(--text);margin-bottom:6px}
+.sub{font-size:14px;color:var(--text-2)}
+.legend{display:flex;gap:18px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text-2)}
+.lswatch{width:9px;height:9px;border-radius:50%}
+.map-wrap{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 16px 14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--map-shadow)}
+.c-gray rect{fill:var(--surface-3);stroke:var(--border-2);stroke-width:.5}
+.c-gray .th{fill:var(--text);font-family:'Crimson Pro',serif;font-size:13px;font-weight:600}
+.c-gray .ts{fill:var(--text-2);font-family:'DM Sans',sans-serif;font-size:10px}
+.c-amber rect{fill:var(--amber-soft);stroke:var(--amber-dim);stroke-width:.75}
+.c-amber .th{fill:var(--amber);font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500}
+.c-amber .ts{fill:var(--text);font-family:'DM Sans',sans-serif;font-size:10px}
+.c-teal rect{fill:var(--teal-soft);stroke:var(--teal-dim);stroke-width:.75}
+.c-teal .th{fill:var(--teal);font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500}
+.c-teal .ts{fill:var(--text);font-family:'DM Sans',sans-serif;font-size:10px}
+.conn{stroke:var(--border-2);stroke-width:1;fill:none;opacity:.7}
+.node{cursor:pointer;transition:filter .15s}
+.node:hover{filter:brightness(1.25)}
+.sel-node.c-amber rect{stroke:var(--amber)!important;stroke-width:2!important;filter:drop-shadow(0 0 7px rgba(246,165,51,.5))}
+.sel-node.c-teal rect{stroke:var(--teal)!important;stroke-width:2!important;filter:drop-shadow(0 0 7px rgba(45,212,191,.4))}
+.done-node{opacity:.45}
+.hint-lbl{fill:var(--text-3);font-family:'DM Mono',monospace;font-size:9.5px;font-style:italic}
+.panel,.review-panel{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px 20px;margin-bottom:12px;display:none;box-shadow:var(--panel-shadow)}
+.panel.open{display:block;animation:rise .22s ease-out}
+.review-panel.open{display:block;border-color:rgba(246,165,51,.25);animation:rise .22s ease-out}
+@keyframes rise{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.phead{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.badge{font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:5px}
+.b-plo{background:var(--amber-soft);color:var(--amber);border:1px solid rgba(246,165,51,.28)}
+.b-lo{background:var(--teal-soft);color:var(--teal);border:1px solid rgba(45,212,191,.25)}
+.ptitle{font-size:15px;font-weight:500;color:var(--text);flex:1;line-height:1.4}
+.dots{display:flex;gap:6px;align-items:center}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--border-2);transition:background .2s}
+.dot.active{background:var(--text)}
+.dot.done{background:var(--green)}
+.dot.partial{background:var(--amber)}
+.xbtn{background:none;border:none;cursor:pointer;color:var(--text-3);font-size:20px;line-height:1;padding:2px 7px;border-radius:5px;transition:color .12s,background .12s}
+.xbtn:hover{color:var(--text);background:var(--surface-3)}
+.card{background:linear-gradient(180deg,var(--card-a),var(--card-b));border:1px solid var(--border);border-radius:16px;padding:18px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.ctitle{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.cbody{font-size:16px;line-height:1.9;color:var(--text)}
+.card-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:var(--card-action-bg)}
+.card-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--text-2);font-size:11px;font-family:'DM Mono',monospace}
+.meta-pill{padding:5px 10px;border-radius:999px;border:1px solid var(--border-2);background:var(--meta-bg)}
+.meta-pill strong{color:var(--text)}
+.action-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.action-btn{background:rgba(255,255,255,.03);border:1px solid var(--border-2);color:var(--text-2);font-size:11px;font-family:'DM Mono',monospace;padding:8px 12px;border-radius:999px;cursor:pointer;transition:all .14s}
+.action-btn:hover:not(:disabled){color:var(--text);background:var(--surface-3);border-color:var(--surface-4)}
+.action-btn:disabled{opacity:.35;cursor:not-allowed}
+.action-btn.primary{background:var(--teal-soft);border-color:rgba(45,212,191,.22);color:var(--teal)}
+.action-btn.primary:hover:not(:disabled){background:var(--teal-mid);color:#dffef8}
+.action-btn.amber{background:var(--amber-soft);border-color:rgba(246,165,51,.25);color:var(--amber)}
+.action-btn.amber:hover:not(:disabled){background:var(--amber-mid);color:#fff3df}
+.action-btn.ghost{color:var(--text-3)}
+.tblq-note{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--surface-3);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:14px;line-height:1.5}
+.tblq-copy{color:var(--text-2);flex:1;min-width:220px}
+.tblq-actions{display:none}
+.tblq-pill,.tblq-btn{border-radius:999px;padding:8px 14px;font-size:11px;font-family:'DM Mono',monospace}
+.tblq-pill{background:var(--teal-soft);border:1px solid rgba(45,212,191,.25);color:var(--teal)}
+.tblq-btn{background:none;border:1px solid var(--border-2);color:var(--text-2);cursor:pointer}
+.tblq-btn:hover{background:var(--surface-2);color:var(--text)}
+.tblq-wrap{overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.tblq{width:100%;border-collapse:collapse;font-size:15px;line-height:1.6}
+.tblq thead th{background:linear-gradient(135deg,var(--table-head-a),var(--table-head-b));color:#f6f9ff;padding:14px 16px;text-align:left;font-weight:600;border-right:1px solid rgba(255,255,255,.08)}
+.tblq thead th:last-child{border-right:none}
+.tblq tbody th[scope="row"]{background:rgba(221,229,240,.06);color:var(--text);font-weight:600;padding:14px 16px;vertical-align:top;border-top:1px solid var(--border)}
+.tblq tbody td{background:rgba(255,255,255,.02);padding:14px 16px;vertical-align:top;border-top:1px solid var(--border)}
+.tblq td .occ{display:block;text-align:center;white-space:normal;padding:10px 12px;min-width:180px}
+.tblq td .score-row{display:flex;justify-content:center;flex-wrap:wrap;margin:8px 0 0}
+.occ{display:inline-block;min-width:3ch;background:var(--text);color:transparent;border:1px solid transparent;border-radius:3px;cursor:pointer;padding:1px 6px;white-space:nowrap;user-select:none;vertical-align:baseline;transition:background .15s,color .15s,border-color .15s}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
+.occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed{background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.20)}
+.score-row{display:inline-flex;gap:3px;margin-left:5px;vertical-align:middle;animation:pop .15s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+.sbtn{font-size:9px;padding:1px 6px;border-radius:3px;cursor:pointer;font-family:'DM Mono',monospace;transition:background .1s,border-color .1s}
+.sbtn.know{background:var(--green-soft);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+.sbtn.know:hover{background:var(--green-mid)}
+.sbtn.need{background:var(--red-soft);color:var(--red);border:1px solid rgba(248,113,113,.25)}
+.sbtn.need:hover{background:var(--red-mid)}
+.jump{display:inline-flex;align-items:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--text-3);background:var(--surface-3);border:1px solid var(--border-2);border-radius:3px;padding:1px 5px;margin-left:3px;cursor:pointer;vertical-align:middle;transition:all .12s;white-space:nowrap}
+.jump.amber:hover{color:var(--amber);border-color:var(--amber-dim);background:var(--amber-soft)}
+.jump.teal:hover{color:var(--teal);border-color:var(--teal-dim);background:var(--teal-soft)}
+.hint{font-size:13px;color:var(--text-2);background:var(--surface-3);border-left:2px solid var(--border-2);border-radius:0 7px 7px 0;padding:9px 14px;margin-top:14px;line-height:1.65}
+.hlbl{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:var(--text-3);display:block;margin-bottom:4px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:8px}
+.nbtn{background:var(--nav-bg);border:1px solid var(--border);color:var(--nav-text);font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 16px;border-radius:10px;cursor:pointer;transition:background .12s,color .12s}
+.nbtn:hover:not(:disabled){background:var(--nav-bg-hover);color:var(--text)}
+.nbtn:disabled{opacity:.25;cursor:not-allowed}
+.nmc{display:flex;gap:10px;align-items:center}
+.ncnt{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
+.showall{background:var(--showall-bg);border:1px solid var(--border);color:var(--showall-text);font-size:11px;font-family:'DM Sans',sans-serif;padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .12s}
+.showall:hover{color:var(--text);border-color:var(--border-2)}
+.stats{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;box-shadow:0 18px 40px rgba(0,0,0,.2)}
+.stat{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
+.stat strong{color:var(--text)}
+.sep{color:var(--border-2)}
+.sactions{display:flex;gap:8px;align-items:center;margin-left:auto}
+.sbtn-lite{background:none;border:1px solid var(--border);cursor:pointer;font-size:11px;color:var(--text-2);font-family:'DM Mono',monospace;border-radius:999px;padding:7px 12px;transition:all .12s}
+.sbtn-lite:hover:not(:disabled){color:var(--text);background:var(--surface-3);border-color:var(--border-2)}
+.sbtn-lite:disabled{opacity:.35;cursor:not-allowed}
+.review-btn{background:var(--amber-soft);border:1px solid rgba(246,165,51,.28);color:var(--amber);font-size:11px;font-family:'DM Sans',sans-serif;padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .12s;display:none;align-items:center;gap:5px}
+.review-btn.vis{display:inline-flex}
+.review-btn:hover{background:var(--amber-mid)}
+.reset-btn{background:none;border:none;cursor:pointer;font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace;text-decoration:underline;text-underline-offset:2px}
+.reset-btn:hover{color:var(--text-2)}
+.rhdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rtitle{font-family:'Crimson Pro',serif;font-size:17px;font-weight:600;color:var(--amber);flex:1}
+.rprog{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2)}
+.rsub{font-size:11px;color:var(--text-2);font-family:'DM Mono',monospace;background:var(--surface-3);border:1px solid var(--border);padding:7px 12px;border-radius:7px;margin-bottom:14px;line-height:1.5}
+.kbhint{text-align:center;font-size:10px;color:var(--text-3);font-family:'DM Mono',monospace;margin-top:10px;letter-spacing:.04em}
+@media(max-width:720px){
+  body{padding:22px 12px 64px}
+  header{padding:20px 16px 18px}
+  .hero-top,.theme-switch{justify-content:center}
+  .card-actions{padding:10px 12px}
+  .action-row,.card-meta,.sactions{width:100%}
+  .sactions{margin-left:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Dr. Scott D. Ochs &middot; Pharmacology &middot; STI Unit</div>
+      <h1>STI Pharmacology</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" type="button" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" type="button" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" type="button" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Lecture Objectives (LO)</div>
+</div>
+
+<div class="map-wrap">
+<svg width="100%" viewBox="0 0 920 330" style="display:block">
+  <!-- PLO connectors to center top -->
+  <line class="conn" x1="275" y1="60" x2="275" y2="128"/>
+  <line class="conn" x1="645" y1="60" x2="645" y2="128"/>
+  <!-- LO connectors to center bottom -->
+  <line class="conn" x1="55"  y1="256" x2="145" y2="184"/>
+  <line class="conn" x1="160" y1="256" x2="175" y2="184"/>
+  <line class="conn" x1="265" y1="256" x2="265" y2="184"/>
+  <line class="conn" x1="370" y1="256" x2="370" y2="184"/>
+  <line class="conn" x1="550" y1="256" x2="550" y2="184"/>
+  <line class="conn" x1="655" y1="256" x2="655" y2="184"/>
+  <line class="conn" x1="760" y1="256" x2="760" y2="184"/>
+  <line class="conn" x1="865" y1="256" x2="790" y2="184"/>
+  <!-- center -->
+  <g class="c-gray">
+    <rect x="130" y="128" width="660" height="56" rx="10"/>
+    <text class="th" x="460" y="150" text-anchor="middle" dominant-baseline="central">STI Pharmacology</text>
+    <text class="ts" x="460" y="168" text-anchor="middle" dominant-baseline="central">Dr. Scott D. Ochs · Comprehensive Drug Management of STIs</text>
+  </g>
+  <!-- PLO nodes (amber, top) -->
+  <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+    <rect x="195" y="16" width="160" height="44" rx="8"/>
+    <text class="th" x="275" y="31" text-anchor="middle" dominant-baseline="central">PLO 1</text>
+    <text class="ts" x="275" y="49" text-anchor="middle" dominant-baseline="central">Identify Pathogens</text>
+  </g>
+  <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+    <rect x="565" y="16" width="160" height="44" rx="8"/>
+    <text class="th" x="645" y="31" text-anchor="middle" dominant-baseline="central">PLO 2</text>
+    <text class="ts" x="645" y="49" text-anchor="middle" dominant-baseline="central">Drug of Choice</text>
+  </g>
+  <!-- LO nodes (teal, bottom) — left group LO1-4 -->
+  <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+    <rect x="10" y="256" width="90" height="44" rx="8"/>
+    <text class="th" x="55" y="271" text-anchor="middle" dominant-baseline="central">LO 1</text>
+    <text class="ts" x="55" y="289" text-anchor="middle" dominant-baseline="central">Pubic Lice</text>
+  </g>
+  <g id="n-lo2" class="node c-teal" onclick="selNode('lo2')">
+    <rect x="113" y="256" width="90" height="44" rx="8"/>
+    <text class="th" x="158" y="271" text-anchor="middle" dominant-baseline="central">LO 2</text>
+    <text class="ts" x="158" y="289" text-anchor="middle" dominant-baseline="central">Warts/Donov.</text>
+  </g>
+  <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+    <rect x="216" y="256" width="90" height="44" rx="8"/>
+    <text class="th" x="261" y="271" text-anchor="middle" dominant-baseline="central">LO 3</text>
+    <text class="ts" x="261" y="289" text-anchor="middle" dominant-baseline="central">Presentations</text>
+  </g>
+  <g id="n-lo4" class="node c-teal" onclick="selNode('lo4')">
+    <rect x="319" y="256" width="90" height="44" rx="8"/>
+    <text class="th" x="364" y="271" text-anchor="middle" dominant-baseline="central">LO 4</text>
+    <text class="ts" x="364" y="289" text-anchor="middle" dominant-baseline="central">Lab Diagnosis</text>
+  </g>
+  <!-- LO nodes (teal, bottom) — right group LO5-8 -->
+  <g id="n-lo5" class="node c-teal" onclick="selNode('lo5')">
+    <rect x="505" y="256" width="90" height="44" rx="8"/>
+    <text class="th" x="550" y="271" text-anchor="middle" dominant-baseline="central">LO 5</text>
+    <text class="ts" x="550" y="289" text-anchor="middle" dominant-baseline="central">Mechanisms</text>
+  </g>
+  <g id="n-lo6" class="node c-teal" onclick="selNode('lo6')">
+    <rect x="610" y="256" width="90" height="44" rx="8"/>
+    <text class="th" x="655" y="271" text-anchor="middle" dominant-baseline="central">LO 6</text>
+    <text class="ts" x="655" y="289" text-anchor="middle" dominant-baseline="central">In Pregnancy</text>
+  </g>
+  <g id="n-lo7" class="node c-teal" onclick="selNode('lo7')">
+    <rect x="715" y="256" width="90" height="44" rx="8"/>
+    <text class="th" x="760" y="271" text-anchor="middle" dominant-baseline="central">LO 7</text>
+    <text class="ts" x="760" y="289" text-anchor="middle" dominant-baseline="central">Side Effects</text>
+  </g>
+  <g id="n-lo8" class="node c-teal" onclick="selNode('lo8')">
+    <rect x="820" y="256" width="90" height="44" rx="8"/>
+    <text class="th" x="865" y="271" text-anchor="middle" dominant-baseline="central">LO 8</text>
+    <text class="ts" x="865" y="289" text-anchor="middle" dominant-baseline="central">Interactions</text>
+  </g>
+  <text class="hint-lbl" x="460" y="320" text-anchor="middle">Click any node to begin &nbsp;&middot;&nbsp; &#8592; &#8594; navigate &nbsp;&middot;&nbsp; &#10003;/&#10007; score each term</text>
+</svg>
+</div>
+
+<!-- Card panel -->
+<div id="panel" class="panel">
+  <div class="phead">
+    <span id="bdg" class="badge"></span>
+    <span id="ptitle" class="ptitle"></span>
+    <div id="dots" class="dots"></div>
+    <button class="xbtn" onclick="closePanel()">&#215;</button>
+  </div>
+  <div id="ccard" class="card"></div>
+  <div id="cardActions" class="card-actions"></div>
+  <div class="nav">
+    <button class="nbtn" id="bprev" onclick="goCard(-1)">&#8592; Prev</button>
+    <div class="nmc">
+      <span id="cnt" class="ncnt"></span>
+      <button class="showall" onclick="revealAll()">Reveal this card</button>
+    </div>
+    <button class="nbtn" id="bnext" onclick="goCard(1)">Next &#8594;</button>
+  </div>
+</div>
+
+<!-- Review mode panel -->
+<div id="reviewPanel" class="review-panel">
+  <div class="rhdr">
+    <span class="rtitle">&#10227; Spaced Repetition Review</span>
+    <span id="rprog" class="rprog"></span>
+    <button class="xbtn" onclick="closeReview()">&#215;</button>
+  </div>
+  <div id="rsub" class="rsub"></div>
+  <div id="rccard" class="card"></div>
+  <div class="nav">
+    <button class="nbtn" id="rbprev" onclick="goReview(-1)">&#8592; Prev</button>
+    <div class="nmc">
+      <span id="rcnt" class="ncnt"></span>
+      <button class="showall" onclick="revAllReview()">Reveal</button>
+    </div>
+    <button class="nbtn" id="rbnext" onclick="goReview(1)">Next &#8594;</button>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <span class="stat"><strong id="st-rev">0</strong> revealed</span>
+  <span class="sep">&middot;</span>
+  <span class="stat" style="color:var(--green)"><strong id="st-knew">0</strong> knew it</span>
+  <span class="sep">&middot;</span>
+  <span class="stat" style="color:var(--amber)"><strong id="st-need">0</strong> needed help</span>
+  <span class="sep">&middot;</span>
+  <span class="stat"><strong id="st-done">0</strong>/10 done</span>
+  <div class="sactions">
+    <button id="revealTopicBtn" class="sbtn-lite" onclick="revealTopic()" disabled>Reveal topic</button>
+    <button class="sbtn-lite" onclick="revealDeck()">Reveal deck</button>
+    <button id="reviewBtn" class="review-btn" onclick="startReview()">&#10227; Review weak spots (<span id="rcount">0</span>)</button>
+    <button class="reset-btn" onclick="resetAll()">reset</button>
+  </div>
+</div>
+
+<div class="kbhint">&#8592; &#8594; arrow keys &nbsp;&middot;&nbsp; ESC to close &nbsp;&middot;&nbsp; &#10003; knew it &nbsp;&middot;&nbsp; &#10007; needed help</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATA — All content verbatim from Dr. Ochs STI Pharm Notes
+// ═══════════════════════════════════════════════════
+const D={
+  plo1:{label:'PLO 1',sub:'Identify the Pathogens of Each STI',type:'PLO',cards:[
+    {t:'Bacterial STI Pathogens',
+     b:'<div class="tblq-note"><div class="tblq-copy">Match each STI to its causative organism. Row labels stay visible &mdash; click each cell to reveal and score.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>STI</th><th>Causative Pathogen</th><th>Type &amp; Key Micro Fact</th></tr></thead><tbody><tr><th scope="row">Gonorrhea</th><td>{Neisseria gonorrhoeae}</td><td>{Gram-negative diplococcus; intracellular}</td></tr><tr><th scope="row">Chlamydia</th><td>{Chlamydia trachomatis}</td><td>{Obligate intracellular; most common bacterial STI; serovars D&ndash;K genital, L1&ndash;L3 LGV}</td></tr><tr><th scope="row">Syphilis</th><td>{Treponema pallidum}</td><td>{Spirochete; cannot be cultured on standard media}</td></tr><tr><th scope="row">Chancroid</th><td>{Haemophilus ducreyi}</td><td>{Gram-negative coccobacilli; requires special media to culture}</td></tr><tr><th scope="row">Granuloma Inguinale</th><td>{Klebsiella granulomatis}</td><td>{Gram-negative; Donovan bodies on biopsy}</td></tr><tr><th scope="row">Bacterial Vaginosis</th><td>{Polymicrobial: G. vaginalis, Bacteroides, Prevotella, Mobiluncus, M. hominis}</td><td>{Not a true STI; clue cells on wet prep}</td></tr></tbody></table></div>',
+     h:'BV is polymicrobial (anaerobes + Gardnerella + Mycoplasma hominis) &mdash; not caused by one organism. Syphilis and Lyme disease are both spirochetes. Trichomoniasis is a protozoan, not bacterial (see Card 2).'},
+    {t:'Viral &amp; Parasitic STI Pathogens',
+     b:'<div class="tblq-note"><div class="tblq-copy">Non-bacterial STI pathogens. Click each cell to reveal.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>STI</th><th>Pathogen</th><th>Type / Key Fact</th></tr></thead><tbody><tr><th scope="row">Herpes Genitalis</th><td>{HSV-2 (HSV-1 also possible)}</td><td>{dsDNA virus; latent in sacral dorsal root ganglia}</td></tr><tr><th scope="row">Genital Warts</th><td>{HPV types 6 and 11}</td><td>{dsDNA virus; types 16 &amp; 18 &rarr; cervical cancer; &gt;100 HPV types exist}</td></tr><tr><th scope="row">Trichomoniasis</th><td>{Trichomonas vaginalis}</td><td>{Flagellated protozoan; NOT a bacterium}</td></tr><tr><th scope="row">Pubic Lice</th><td>{Pthirus pubis}</td><td>{Ectoparasite; spread by sexual and close physical contact}</td></tr></tbody></table></div>',
+     h:'HPV is the most common viral STI in the US. Trichomoniasis: ~3&ndash;5 million US cases annually. HSV-2 latency in sacral dorsal root ganglia explains the prodrome of tingling/burning in legs and buttocks before recurrent outbreaks.'}
+  ]},
+
+  plo2:{label:'PLO 2',sub:'Recommended Drug(s) for Each STI',type:'PLO',cards:[
+    {t:'First-Line Drug Regimens',
+     b:'<div class="tblq-note"><div class="tblq-copy">Drug of choice for each STI. Click cells to reveal, then score yourself.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>STI</th><th>Drug of Choice</th><th>Alternative / Key Note</th></tr></thead><tbody><tr><th scope="row">Gonorrhea</th><td>{Ceftriaxone IM single dose}</td><td>True ceph allergy: gentamicin 240 mg IM + azithromycin 2 g PO</td></tr><tr><th scope="row">Chlamydia</th><td>{Doxycycline 100 mg BID &times; 7 days}</td><td>Azithromycin if compliance questionable; erythromycin for neonatal</td></tr><tr><th scope="row">Syphilis (1&deg;/2&deg;/early latent)</th><td>{Benzathine penicillin G IM single dose}</td><td>PCN-allergic non-pregnant: doxycycline &times; 14 d or ceftriaxone &times; 8&ndash;10 d</td></tr><tr><th scope="row">Syphilis (late latent/tertiary)</th><td>{Benzathine penicillin G IM weekly &times; 3}</td><td>PCN-allergic non-pregnant: tetracycline or doxycycline &times; 4 weeks</td></tr><tr><th scope="row">Neurosyphilis</th><td>{Aqueous crystalline penicillin G IV q4h &times; 10&ndash;14 days}</td><td>Procaine PCN IM + probenecid &times; 10&ndash;14 d if compliance assured</td></tr><tr><th scope="row">Bacterial Vaginosis</th><td>{Metronidazole 500 mg PO BID &times; 7 days}</td><td>Metro gel intravaginal, clindamycin, or secnidazole single dose</td></tr><tr><th scope="row">Trichomoniasis</th><td>{Metronidazole 500 mg PO BID &times; 7 days}</td><td>Tinidazole 2 g single dose (alternative)</td></tr><tr><th scope="row">Herpes &mdash; 1st episode</th><td>{Acyclovir PO &times; 7&ndash;10 days}</td><td>Famciclovir or valacyclovir equally acceptable</td></tr><tr><th scope="row">Herpes &mdash; recurrent</th><td>{Acyclovir / Famciclovir / Valacyclovir}</td><td>Episodic: start within 1 day of prodrome. Suppressive (&ge;6/yr): daily acyclovir or valacyclovir</td></tr><tr><th scope="row">Granuloma Inguinale</th><td>{Azithromycin (macrolide)}</td><td>Alt: doxycycline, ciprofloxacin, erythromycin, TMP-SMX</td></tr><tr><th scope="row">Chancroid</th><td>{Azithromycin 1 g PO single dose OR Ceftriaxone 250 mg IM}</td><td>No single preferred; both acceptable</td></tr><tr><th scope="row">Pubic Lice</th><td>{Permethrin 1% cream rinse OR Pyrethrins + piperonyl butoxide (OTC)}</td><td>Re-evaluate and retreat at 9&ndash;10 days if needed</td></tr></tbody></table></div>',
+     h:'Gonorrhea + Chlamydia co-infection: if chlamydia has not been excluded, add doxycycline 100 mg BID &times; 7 days to ceftriaxone. For genital warts (HPV 6 &amp; 11), there is no single DOC &mdash; treatment depends on location and patient preference.'},
+    {t:'Coverage Gaps &amp; Special Situations',
+     b:'If gonorrhea chlamydia co-infection is possible, always add {doxycycline 100 mg BID &times; 7 days} to ceftriaxone. For herpes suppression when episodes are {&ge;6 per year}, prescribe daily {acyclovir or valacyclovir}. Tinidazole {2 g PO single dose} is an acceptable alternative to metronidazole for trichomoniasis. For genital warts, patient-applied options include {podofilox, imiquimod, and sinecatechins}; provider-applied options include {cryotherapy, podophyllin, TCA/BCA, and surgical removal}.',
+     h:'IV acyclovir is used for severe or disseminated herpes. Gardasil (HPV vaccine) covers types causing 70% of cervical cancer and 90% of genital warts &mdash; vaccinate at 11&ndash;12 years (or 9&ndash;26 years), ideally before sexual activity.'}
+  ]},
+
+  lo1:{label:'LO 1',sub:'Pediculosis Pubis (Pubic Lice)',type:'LO',cards:[
+    {t:'Causative Organism, Presentation &amp; First-Line Tx',
+     b:'Pubic lice are caused by {Pthirus pubis}, an ectoparasite. The most common symptom is {pruritus} (itching) in the pubic area. Visible lice or {nits} (eggs) on hair shafts confirm the diagnosis. First-line OTC agents: {permethrin 1% cream rinse (Nix)} or {pyrethrins + piperonyl butoxide (Rid)}. These disrupt {insect sodium transport proteins} &rarr; neurotoxicity and paralysis. Piperonyl butoxide potentiates pyrethrins by {inhibiting the arthropod enzyme} that metabolizes them &mdash; it has no independent insecticidal activity.',
+     h:'Re-evaluate and retreat at 9&ndash;10 days if lice or eggs persist. Machine wash/dry on hot cycle, or dry-clean, or remove from body contact &ge;72 hours. Treat all sexual partners from the previous month simultaneously.'},
+    {t:'Alternative Agents &amp; Special Populations',
+     b:'If first-line topicals fail: {malathion} (organophosphate; irreversible AChE inhibitor; Rx only) or {ivermectin} (oral; binds glutamate-gated Cl&minus; channels in invertebrates; alternative when topicals fail). {Lindane} is designated second-line only due to {CNS neurotoxicity} and is no longer available in the US. Lindane is contraindicated in pregnancy, breastfeeding, infants, seizure disorders, elderly, irritated skin, and patients weighing {&lt;110 lb}.',
+     h:'Pregnancy: permethrin or pyrethrins + piperonyl butoxide are recommended. Ivermectin is classified as "human data suggest low risk." Malathion is not recommended in pregnancy. Lindane is contraindicated.'}
+  ]},
+
+  lo2:{label:'LO 2',sub:'Granuloma Inguinale &amp; Genital Warts Treatment',type:'LO',cards:[
+    {t:'Granuloma Inguinale (Donovanosis)',
+     b:'Caused by {Klebsiella granulomatis} (formerly Calymmatobacterium granulomatis), a Gram-negative organism. Drug of choice: {azithromycin} (macrolide). Alternatives: {doxycycline, ciprofloxacin, erythromycin, TMP-SMX}. Diagnosis requires visualization of {Donovan bodies} &mdash; intracytoplasmic clusters of bacteria in macrophages on tissue preparation or biopsy. No reliable culture method exists. Partners who had sexual contact within {60 days} should be examined and offered treatment.',
+     h:'Rare in the US; sporadic in India, South Africa, South America. Clinical presentation: painless beefy-red ulcerative lesions on genitals/perineum, no regional lymphadenopathy (unlike chancroid). In pregnancy, azithromycin (macrolide regimen) is safe.'},
+    {t:'Genital Warts (HPV 6 &amp; 11) &mdash; Treatment Options',
+     b:'<div class="tblq-note"><div class="tblq-copy">Genital warts (HPV 6 &amp; 11) have no single DOC. Goal is removal of visible warts &mdash; does not eradicate virus. Click cells to reveal mechanism and pregnancy safety.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Agent</th><th>Applied By</th><th>Mechanism</th><th>Safe in Pregnancy?</th></tr></thead><tbody><tr><th scope="row">Podofilox</th><td>{Patient-applied}</td><td>{Antimitotic &mdash; inhibits microtubule formation}</td><td>{No &mdash; avoid}</td></tr><tr><th scope="row">Imiquimod</th><td>{Patient-applied}</td><td>{Immune modulator &mdash; stimulates IFN-&alpha; and cytokines}</td><td>{No &mdash; avoid}</td></tr><tr><th scope="row">Sinecatechins</th><td>{Patient-applied}</td><td>{Unclear; likely immune modulation}</td><td>{No &mdash; avoid}</td></tr><tr><th scope="row">Cryotherapy</th><td>{Provider-applied}</td><td>{Physical destruction &mdash; liquid nitrogen &rarr; necrosis}</td><td>{Yes &mdash; OK}</td></tr><tr><th scope="row">Podophyllin resin</th><td>{Provider-applied}</td><td>{Antimitotic}</td><td>{No &mdash; avoid}</td></tr><tr><th scope="row">TCA/BCA 80&ndash;90%</th><td>{Provider-applied}</td><td>{Protein coagulation of wart tissue}</td><td>{Yes &mdash; OK}</td></tr><tr><th scope="row">Surgical removal</th><td>{Provider-applied}</td><td>{Physical excision}</td><td>{Yes &mdash; OK}</td></tr></tbody></table></div>',
+     h:'Sinecatechins may weaken condoms and diaphragms. For cryotherapy adverse effects: pain during/after application, blistering, hypo/hyperpigmentation. TCA/BCA excess acid: neutralize with sodium bicarbonate.'}
+  ]},
+
+  lo3:{label:'LO 3',sub:'Clinical Presentations of Each STI',type:'LO',cards:[
+    {t:'Ulcerative Lesion Presentations',
+     b:'Syphilis (primary): {painless chancre} at inoculation site &mdash; heals spontaneously. Chancroid: {painful ulcer with inguinal lymphadenopathy (bubo)} &mdash; ragged, undermined edges; T. pallidum negative. Granuloma inguinale: {painless beefy-red ulcer without lymphadenopathy} &mdash; can bleed; subcutaneous granulomas possible. Herpes genitalis: {painful vesicles/ulcers} preceded by a {prodrome of tingling, burning, or shooting pain in legs/buttocks}. Syphilis secondary: diffuse {maculopapular rash on palms and soles} + condylomata lata + flu-like symptoms.',
+     h:'Dr. Ochs vignette tip: Painful ulcer + T. pallidum negative &rarr; chancroid. Painless ulcer (chancre) &rarr; syphilis. Painless beefy-red ulcer &rarr; granuloma inguinale. Vesicles with prodrome &rarr; herpes. All three ulcerative STIs are risk factors for HIV acquisition.'},
+    {t:'Discharge Syndromes &amp; Other Presentations',
+     b:'BV: thin grayish-white discharge, positive {whiff test (amine/KOH)}, {clue cells} on wet prep (epithelial cells coated with bacteria), vaginal {pH &gt;4.5}. Trichomoniasis: {yellow-green malodorous discharge}, {strawberry cervix} (cervical petechiae), dysuria; men are often asymptomatic. Gonorrhea: {purulent urethral or cervical discharge}; neonates &rarr; {ophthalmia neonatorum}. Chlamydia: often {asymptomatic}; neonates &rarr; conjunctivitis (up to 50%) or pneumonia (up to 16%). Genital warts: {flesh-colored cauliflower-like warts}. Pubic lice: intense {pruritus} with visible nits.',
+     h:'LGV (C. trachomatis L-types): genital ulcer + lymphadenopathy + proctocolitis. Disseminated gonorrhea: septic arthritis + skin lesions. Syphilis tertiary: gummas, cardiovascular syphilis (aortitis), neurosyphilis (dementia, tabes dorsalis).'}
+  ]},
+
+  lo4:{label:'LO 4',sub:'Laboratory Tests Used for Diagnosis',type:'LO',cards:[
+    {t:'Diagnostic Tests by STI',
+     b:'<div class="tblq-note"><div class="tblq-copy">Primary diagnostic test for each STI. Row labels are visible &mdash; click cells to reveal.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>STI</th><th>Primary Test</th><th>Gold Standard / Key Note</th></tr></thead><tbody><tr><th scope="row">Gonorrhea</th><td>{NAAT (preferred); Gram stain; culture}</td><td>{Gram stain: sensitive in men (urethral), less so in women}</td></tr><tr><th scope="row">Chlamydia</th><td>{NAAT &mdash; gold standard}</td><td>{Cannot culture on standard media; obligate intracellular}</td></tr><tr><th scope="row">Syphilis</th><td>{RPR or VDRL (non-treponemal screening) + FTA-ABS or TPPA (confirmatory)}</td><td>{Non-treponemal titers track treatment response; dark-field microscopy for direct visualization}</td></tr><tr><th scope="row">Chancroid</th><td>{Culture on selective agar; no FDA-approved NAAT}</td><td>{Often clinical: painful ulcer + negative syphilis/HSV tests}</td></tr><tr><th scope="row">Granuloma Inguinale</th><td>{Donovan bodies on tissue prep or biopsy}</td><td>{Intracytoplasmic bacteria in macrophages; no reliable culture}</td></tr><tr><th scope="row">Bacterial Vaginosis</th><td>{Amsel criteria (&ge;3 of 4)}</td><td>{Clue cells; pH &gt;4.5; positive whiff test; homogeneous discharge}</td></tr><tr><th scope="row">Trichomoniasis</th><td>{Wet prep (motile trichomonads); NAAT (most sensitive)}</td><td>{Wet prep: visualize motile flagellated protozoa}</td></tr><tr><th scope="row">Herpes Genitalis</th><td>{PCR of lesion swab &mdash; gold standard}</td><td>{Tzanck smear: multinucleated giant cells (not type-specific)}</td></tr><tr><th scope="row">Genital Warts</th><td>{Clinical diagnosis (visual)}</td><td>{Biopsy if uncertain; HPV DNA for cervical screening (Pap/colposcopy)}</td></tr><tr><th scope="row">Pubic Lice</th><td>{Clinical diagnosis &mdash; visual ID of lice/nits}</td><td>{No lab test required; dermatoscopy may confirm}</td></tr></tbody></table></div>',
+     h:'For syphilis, test ALL patients for HIV. Non-treponemal titers (RPR/VDRL) fall with successful treatment; treponemal tests (FTA-ABS/TPPA) remain positive for life even after cure.'},
+    {t:'BV Amsel Criteria &amp; Syphilis Serology Details',
+     b:'BV diagnosis requires {&ge;3 of 4 Amsel criteria}: (1) thin homogeneous discharge, (2) vaginal {pH &gt;4.5}, (3) positive {whiff test} (amine odor with KOH), (4) {clue cells} on wet prep. For syphilis: {RPR or VDRL} are non-treponemal screening tests &mdash; their titers track {treatment response}. {FTA-ABS or TPPA} are treponemal confirmatory tests &mdash; these remain positive for life. Dark-field microscopy allows direct visualization of {Treponema pallidum spirochetes}.',
+     h:'Alternative to Amsel for BV: Nugent score on Gram stain. Clue cells = vaginal epithelial cells stippled/coated with Gardnerella bacteria &mdash; a hallmark finding on wet prep. Syphilis serology algorithm: non-treponemal test first (screening), then confirm with treponemal test if positive.'}
+  ]},
+
+  lo5:{label:'LO 5',sub:'Mechanisms of Action of Recommended Drugs',type:'LO',cards:[
+    {t:'Cell Wall Inhibitors &amp; Ribosomal Inhibitors',
+     b:'Beta-lactams (penicillins, cephalosporins) bind {penicillin-binding proteins (PBPs)}, which are transpeptidases, blocking {peptidoglycan cross-linking} of the bacterial cell wall &rarr; cell lysis. Killing is {time-dependent}. Tetracyclines bind the {30S ribosomal subunit} &rarr; inhibit protein synthesis ({bacteriostatic}). Macrolides (azithromycin, erythromycin) bind the {50S ribosomal subunit} &rarr; primarily bacteriostatic (azithromycin can be bactericidal at higher concentrations).',
+     h:'Memory: "Thirty-S for Tetracyclines." Beta-lactam resistance arises from: (1) altered PBPs (MRSA) or (2) beta-lactamase production that degrades the beta-lactam ring. Penicillins are used for syphilis; ceftriaxone (3rd-gen cephalosporin) is DOC for gonorrhea.'},
+    {t:'Fluoroquinolones, Nitroimidazoles &amp; Nucleoside Antivirals',
+     b:'Fluoroquinolones inhibit two bacterial DNA topoisomerases: {DNA gyrase (Type II)} is the primary target for Gram-negative organisms, while {Type IV topoisomerase} is the primary target for Gram-positive organisms &rarr; inhibit DNA replication &rarr; bactericidal, {concentration-dependent} killing. Metronidazole is a {prodrug}: reduced under {anaerobic conditions} &rarr; forms a reactive {nitro radical anion} &rarr; disrupts DNA/nucleic acid synthesis. Acyclovir requires {viral thymidine kinase} (in infected cells only) for initial phosphorylation; host kinases complete phosphorylation &rarr; inhibits {viral DNA polymerase} and causes {chain termination} (lacks 3&prime;-OH group needed to extend the chain).',
+     h:'Valacyclovir is a prodrug metabolized to acyclovir. Famciclovir is metabolized to penciclovir, which DOES possess the 3&prime;-OH group and therefore does NOT cause chain termination &mdash; it still inhibits viral DNA polymerase. Acyclovir/valacyclovir/famciclovir are palliative, not curative: virus remains latent in sacral dorsal root ganglia.'},
+    {t:'HPV Wart Treatments &amp; Pediculicides',
+     b:'Podofilox/Podophyllin: {antimitotic} &mdash; inhibits microtubule formation &rarr; prevents cell division. Imiquimod: stimulates production of {interferon-&alpha; and other cytokines} &rarr; activates innate and cell-mediated immunity. TCA/BCA: {protein coagulation} of wart tissue (chemical destruction). Cryotherapy: liquid nitrogen &rarr; {necrosis and blistering}. Permethrin/Pyrethrins: interfere with {insect sodium transport proteins} &rarr; neurotoxicity and paralysis. Malathion: organophosphate &rarr; {irreversible AChE inhibitor}. Ivermectin: binds {glutamate-gated chloride channels} in invertebrates (not present in mammals) &rarr; paralysis and death.',
+     h:'Sinecatechins (green tea extract): exact mechanism unclear &mdash; likely immune modulation and direct anti-proliferative effects. Piperonyl butoxide alone has no insecticidal activity; it potentiates pyrethrins by inhibiting the arthropod enzyme that would otherwise metabolize them.'}
+  ]},
+
+  lo6:{label:'LO 6',sub:'Treatment Recommendations in Pregnancy',type:'LO',cards:[
+    {t:'Master Rules for Pregnancy',
+     b:'Drugs to {avoid in pregnancy}: tetracyclines/doxycycline ({teeth discoloration} in children; avoid in pregnancy and children &lt;8 years); fluoroquinolones ({cartilage damage} risk); patient-applied wart drugs (podofilox, podophyllin, imiquimod, sinecatechins). {Beta-lactams} (penicillins, cephalosporins) and {macrolides} are generally safe. Critical syphilis rule: {benzathine penicillin G is the only acceptable treatment in pregnancy &mdash; there is no alternative}. If the patient is PCN-allergic: perform allergy skin testing and {desensitize}, then administer penicillin G. T. pallidum crosses the placenta and causes {fetal death, prematurity, and congenital syphilis}.',
+     h:'The no-alternative rule for syphilis in pregnancy is absolute. Other STIs (BV, trichomoniasis, herpes, gonorrhea) largely use the same first-line regimens in pregnancy. Neonatal prophylaxis: erythromycin ophthalmic ointment in both eyes at birth prevents gonorrheal and chlamydial ophthalmia neonatorum.'},
+    {t:'Pregnancy-Specific Treatment Reference',
+     b:'<div class="tblq-note"><div class="tblq-copy">Pregnancy-specific treatments. Note what changes vs. non-pregnant adults &mdash; and what stays the same.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>STI</th><th>Pregnancy Treatment</th><th>Key Point</th></tr></thead><tbody><tr><th scope="row">Gonorrhea</th><td>{Ceftriaxone IM (same dose as non-pregnant)}</td><td>{Add azithromycin (NOT doxycycline) if chlamydia not excluded}</td></tr><tr><th scope="row">Syphilis</th><td>{Benzathine PCN G &mdash; NO alternative; desensitize if allergic}</td><td>{T. pallidum crosses placenta &rarr; fetal death, congenital syphilis}</td></tr><tr><th scope="row">Bacterial Vaginosis</th><td>{Metronidazole (same regimen)}</td><td>{Treat even if asymptomatic &mdash; BV &rarr; risk of premature labor}</td></tr><tr><th scope="row">Trichomoniasis</th><td>{Metronidazole 500 mg BID &times; 7 days}</td><td>{If lactating: wait 12&ndash;24 hours after dose (pump and dump)}</td></tr><tr><th scope="row">Herpes Genitalis</th><td>{Oral acyclovir (preferred &mdash; best safety record)}</td><td>{Suppressive therapy near term reduces active lesions at delivery, may prevent C-section}</td></tr><tr><th scope="row">Genital Warts</th><td>{Cryotherapy, TCA/BCA, or surgical removal only}</td><td>{Avoid: podofilox, podophyllin, imiquimod, sinecatechins}</td></tr><tr><th scope="row">Pubic Lice</th><td>{Permethrin or pyrethrins + piperonyl butoxide (OTC)}</td><td>{Malathion not recommended; Lindane contraindicated}</td></tr><tr><th scope="row">Granuloma Inguinale</th><td>{Azithromycin (macrolide regimen)}</td><td>{Macrolides are safe in pregnancy}</td></tr><tr><th scope="row">Chancroid</th><td>{Azithromycin or ceftriaxone (avoid ciprofloxacin)}</td><td>{Fluoroquinolones risk cartilage damage}</td></tr></tbody></table></div>',
+     h:'Chlamydia in pregnancy: azithromycin single dose or erythromycin &mdash; NOT doxycycline. Erythromycin ophthalmic ointment at birth = prophylaxis for neonatal conjunctivitis (gonorrheal and chlamydial).'}
+  ]},
+
+  lo7:{label:'LO 7',sub:'Common &amp; Serious Adverse Effects',type:'LO',cards:[
+    {t:'Antibiotic Adverse Effects',
+     b:'Penicillins: most important adverse effect is {drug-induced hypersensitivity} via penicillin degradation &rarr; {pennicilloic acid} forms hapten + body proteins &rarr; antibody response. {Type I (IgE-mediated)}: urticaria or anaphylactic shock; also serum sickness (Type III) and interstitial nephritis. Cephalosporins: generally well-tolerated; ~5% cross-sensitivity with PCN (highest with 1st gen; &lt;1% with 3rd gen ceftriaxone). Tetracyclines: {discoloration of teeth} (avoid pregnancy and children &lt;8), {photosensitization}, {esophageal ulcers} (take with full glass of water; remain upright). Macrolides (azithromycin/erythromycin): GI diarrhea/nausea, {QT interval prolongation}; erythromycin (especially estolate form) also causes {cholestatic hepatitis} (rare).',
+     h:'Macrolide QT prolongation is additive &mdash; avoid combining with fluoroquinolones or antiarrhythmics. Clarithromycin has an FDA warning for potential increased cardiovascular risk/death in patients with heart disease. Ceftriaxone cross-reactivity with penicillin is &lt;1% clinically significant.'},
+    {t:'Fluoroquinolones, Metronidazole, Acyclovir &amp; Jarisch-Herxheimer',
+     b:'Fluoroquinolones: {tendonitis and tendon rupture} (Achilles &mdash; classic board question); {glucose excursions} (hypoglycemia OR hyperglycemia); {phototoxicity}; {peripheral neuropathy}; QT prolongation. Historically contraindicated in pregnancy and pediatrics due to {cartilage damage risk}. Metronidazole: anorexia, nausea, vomiting, {metallic taste} (highly testable); take with food. Acyclovir IV: {phlebitis} (~15%) and {crystalline nephropathy} (risk increases with rapid infusion and dehydration). {Jarisch-Herxheimer reaction}: fever, headache, and myalgia within {24 hours} of the first syphilis treatment dose; resolves within 24 hours; also occurs in Lyme disease. Counsel patients before they leave the office.',
+     h:'Metronidazole + alcohol: the disulfiram-like reaction is largely disproved by controlled trials; CDC no longer recommends avoiding alcohol with metronidazole. Dr. Ochs will not test this. Lindane (no longer available in US): neurotoxic; contraindicated in premature infants, seizure disorders, pregnancy, breastfeeding.'}
+  ]},
+
+  lo8:{label:'LO 8',sub:'Major Drug Interactions',type:'LO',cards:[
+    {t:'Tetracyclines &amp; Macrolide Drug Interactions',
+     b:'Tetracyclines + {divalent and trivalent cations} (Ca&#178;&#8314;, Mg&#178;&#8314;, Al&#179;&#8314;, Fe&#178;&#8314;) &rarr; {chelation} &rarr; significantly decreased absorption. Sources: {dairy products, antacids containing Mg or Al, calcium supplements, iron supplements}. Counseling: take tetracycline at least {2 hours apart} from cation-containing products and with a full glass of water. Erythromycin and clarithromycin are potent {CYP3A4 inhibitors} &rarr; increase plasma concentrations of CYP3A4 substrates (statins, warfarin, immunosuppressants, benzodiazepines). Key distinction: {azithromycin does NOT inhibit CYP3A4} &mdash; the CYP3A4 interaction is primarily an erythromycin/clarithromycin issue.',
+     h:'The tetracycline chelation interaction is one of the most commonly tested drug interactions on pharmacology exams. "2 hours apart" is the clinical counseling takeaway. Clarithromycin is now rarely used; erythromycin is still seen in neonatal/pediatric contexts.'},
+    {t:'Fluoroquinolone Drug Interactions',
+     b:'Fluoroquinolones (ciprofloxacin) share the same {chelation with divalent/trivalent cations} problem as tetracyclines &mdash; dairy and cation-containing antacids reduce absorption. Second major interaction: ciprofloxacin is a {CYP1A2 inhibitor} &rarr; inhibits {caffeine} metabolism &rarr; elevated caffeine levels &rarr; nervousness, insomnia, tachycardia. Third interaction: all three antibiotic classes &mdash; tetracyclines, macrolides, and fluoroquinolones &mdash; share risk of {additive QT prolongation} when combined with other QT-prolonging agents (e.g., antiarrhythmics). Novel agent: zoliflodacin (new dacin-class for gonorrhea) has significant interaction with {CYP3A4 inducers} (rifampin, carbamazepine) &rarr; reduced drug levels.',
+     h:'Quick summary table: Tetracyclines &rarr; chelation (dairy/antacids). Erythromycin/clarithromycin &rarr; CYP3A4 inhibition (many substrates). Ciprofloxacin &rarr; chelation + CYP1A2 inhibition (caffeine). All three classes &rarr; additive QT prolongation risk.'}
+  ]}
+};
+
+// Cross-node jump links: term text (exact match) &rarr; [targetNodeId, label, colorClass]
+const LINKS={
+  'Donovan bodies':['lo4','LO 4','teal'],
+  'clue cells':['lo4','LO 4','teal'],
+  'Amsel criteria':['lo4','LO 4','teal'],
+  'viral thymidine kinase':['lo5','LO 5','teal'],
+  'penicillin-binding proteins (PBPs)':['lo5','LO 5','teal'],
+  'CYP3A4 inhibitors':['lo8','LO 8','teal'],
+  'azithromycin does NOT inhibit CYP3A4':['lo8','LO 8','teal']
+};
+
+const DECK_ID='ochs_sti_pharm_v1';
+const THEME_STORAGE_KEY=`${DECK_ID}_theme`;
+
+function setTheme(theme){
+  const next=theme||'slate';
+  if(next==='slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme',next);
+  document.querySelectorAll('.theme-btn').forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.theme===next);
+  });
+  try{localStorage.setItem(THEME_STORAGE_KEY,next);}catch(e){}
+}
+try{setTheme(localStorage.getItem(THEME_STORAGE_KEY)||'slate');}catch(e){setTheme('slate');}
+
+document.getElementById('deckMeta').textContent=`Active recall map \u00b7 ${Object.keys(D).length} topics \u00b7 ${Object.values(D).reduce((n,node)=>n+node.cards.length,0)} cards`;
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let cur=null,ci=0;
+let tr={},sc={},done=new Set();
+let totRev=0,totKnew=0,totNeed=0;
+let revQueue=[],revIdx=0,revTr={};
+const PROGRESS_COOKIE=`${DECK_ID}_progress_v1`;
+
+// ═══════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════
+function nT(b){return(b.match(/\{[^}]+\}/g)||[]).length}
+
+function initNode(id){
+  if(!tr[id]){
+    tr[id]={};sc[id]={};
+    D[id].cards.forEach((_,i)=>{tr[id][i]=new Set();sc[id][i]={}});
+  }
+}
+
+function setCookie(name,value,days){
+  document.cookie=`${name}=${encodeURIComponent(value)}; path=/; max-age=${days*24*60*60}; SameSite=Lax`;
+}
+function getCookie(name){
+  const prefix=`${name}=`;
+  return document.cookie.split('; ').reduce((found,part)=>{
+    if(found!==null) return found;
+    return part.indexOf(prefix)===0?decodeURIComponent(part.slice(prefix.length)):null;
+  },null);
+}
+function clearCookie(name){document.cookie=`${name}=; path=/; max-age=0; SameSite=Lax`;}
+
+function serializeProgress(){
+  const state={c:cur||'',i:ci||0,r:{},s:{}};
+  Object.keys(tr).forEach(nid=>{
+    const rows=D[nid].cards.map((_,cardIdx)=>{
+      const set=tr[nid][cardIdx];
+      return set&&set.size?Array.from(set).sort((a,b)=>a-b).join('.'):'';
+    });
+    if(rows.some(Boolean)) state.r[nid]=rows;
+  });
+  Object.keys(sc).forEach(nid=>{
+    const rows=D[nid].cards.map((_,cardIdx)=>{
+      const obj=sc[nid][cardIdx]||{};
+      const packed=Object.keys(obj).sort((a,b)=>parseInt(a)-parseInt(b)).map(idx=>`${idx}${obj[idx]==='knew'?'k':'n'}`).join('.');
+      return packed;
+    });
+    if(rows.some(Boolean)) state.s[nid]=rows;
+  });
+  return JSON.stringify(state);
+}
+
+function saveProgress(){
+  try{setCookie(PROGRESS_COOKIE,serializeProgress(),180);}catch(e){}
+}
+
+function loadProgress(){
+  const raw=getCookie(PROGRESS_COOKIE);
+  if(!raw) return;
+  try{
+    const state=JSON.parse(raw);
+    tr={};sc={};
+    Object.keys(D).forEach(nid=>{
+      initNode(nid);
+      const revealedRows=(state.r&&state.r[nid])||[];
+      revealedRows.forEach((row,cardIdx)=>{
+        if(!row) return;
+        row.split('.').forEach(v=>{if(v!=='') tr[nid][cardIdx].add(parseInt(v,10));});
+      });
+      const scoredRows=(state.s&&state.s[nid])||[];
+      scoredRows.forEach((row,cardIdx)=>{
+        if(!row) return;
+        row.split('.').forEach(token=>{
+          if(!token) return;
+          const score=token.slice(-1)==='k'?'knew':'needed';
+          const idx=parseInt(token.slice(0,-1),10);
+          if(!Number.isNaN(idx)) sc[nid][cardIdx][idx]=score;
+        });
+      });
+    });
+    if(state.c&&D[state.c]){
+      cur=state.c;
+      ci=Math.max(0,Math.min(D[cur].cards.length-1,parseInt(state.i,10)||0));
+    }
+  }catch(e){clearCookie(PROGRESS_COOKIE);}
+}
+
+function cardMetrics(nid,cidx){
+  initNode(nid);
+  const total=nT(D[nid].cards[cidx].b);
+  const revealed=tr[nid][cidx].size;
+  let unscored=0,knew=0,needed=0;
+  for(let i=0;i<total;i++){
+    const score=sc[nid][cidx][i];
+    if(score==='knew') knew++;
+    else if(score==='needed') needed++;
+    else if(tr[nid][cidx].has(i)) unscored++;
+  }
+  return{total,revealed,unscored,knew,needed,allRevealed:total>0&&revealed>=total};
+}
+
+function parseBody(body,nid,cidx,opts={}){
+  let i=0;
+  return body.replace(/\{([^}]+)\}/g,(_,t)=>{
+    const idx=i++;
+    let revealed,scored;
+    if(opts.forReview){
+      revealed=opts.revealedSet?opts.revealedSet.has(idx):false;
+      scored=null;
+    }else{
+      revealed=tr[nid]&&tr[nid][cidx]&&tr[nid][cidx].has(idx);
+      scored=revealed&&sc[nid]&&sc[nid][cidx]?(sc[nid][cidx][idx]||null):null;
+    }
+    const link=LINKS[t];
+    const showJump=revealed&&link&&link[0]!==nid;
+    const isTarget=opts.forReview&&opts.targetTermIdx===idx;
+    let cls='occ';
+    if(revealed||isTarget){
+      if(scored==='knew') cls+=' rev';
+      else if(scored==='needed') cls+=' needed';
+      else cls+=' unscored';
+    }
+    const da=opts.forReview?'':`data-nid="${nid}" data-ci="${cidx}" data-i="${idx}"`;
+    const onclick=(!revealed&&!opts.forReview)?` onclick="revTerm(this)"`:
+      (opts.forReview&&isTarget&&!opts.revealedSet?.has(idx))?' onclick="revRevTerm()"':'';
+    let html=`<span class="${cls}"${da}${onclick}>${t}</span>`;
+    if(revealed&&!scored&&!opts.forReview){
+      html+=`<span class="score-row" data-nid="${nid}" data-ci="${cidx}" data-i="${idx}">`+
+        `<button class="sbtn know" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">&#10003; knew</button>`+
+        `<button class="sbtn need" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">&#10007; needed</button>`+
+        `</span>`;
+    }
+    if(showJump){
+      html+=`<span class="jump ${link[2]}" onclick="jumpNode('${link[0]}',event)" title="Jump to ${link[1]}">&rarr; ${link[1]}</span>`;
+    }
+    return html;
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════
+function render(){
+  const d=D[cur].cards[ci];
+  const m=cardMetrics(cur,ci);
+  document.getElementById('dots').innerHTML=D[cur].cards.map((_,i)=>{
+    const tot=nT(D[cur].cards[i].b),got=tr[cur][i].size;
+    const cls=i===ci?'active':got>=tot&&tot>0?'done':got>0?'partial':'';
+    return `<span class="dot ${cls}"></span>`;
+  }).join('');
+  document.getElementById('cnt').textContent=`${ci+1} / ${D[cur].cards.length}`;
+  document.getElementById('bprev').disabled=ci===0;
+  document.getElementById('bnext').disabled=ci===D[cur].cards.length-1;
+  document.getElementById('revealTopicBtn').disabled=!cur;
+  document.getElementById('ccard').innerHTML=
+    `<div class="ctitle">${d.t}</div>`+
+    `<div class="cbody">${parseBody(d.b,cur,ci)}</div>`+
+    (d.h?`<div class="hint"><span class="hlbl">Clinical note</span>${d.h}</div>`:'');
+  document.getElementById('cardActions').innerHTML=
+    `<div class="card-meta">`+
+      `<span class="meta-pill"><strong>${m.revealed}</strong> / ${m.total} revealed</span>`+
+      `<span class="meta-pill"><strong>${m.knew}</strong> knew</span>`+
+      `<span class="meta-pill"><strong>${m.needed}</strong> needed help</span>`+
+      (m.unscored?`<span class="meta-pill"><strong>${m.unscored}</strong> waiting to score</span>`:'')+
+    `</div>`+
+    `<div class="action-row">`+
+      `<button class="action-btn primary" onclick="revealAll()" ${m.total===0||m.allRevealed?'disabled':''}>Reveal this card</button>`+
+      `<button class="action-btn amber" onclick="knewAllCurrentCard()" ${!m.allRevealed?'disabled':''}>Knew all</button>`+
+      `<button class="action-btn ghost" onclick="resetCard()" ${m.revealed===0&&m.knew===0&&m.needed===0?'disabled':''}>Reset this card</button>`+
+    `</div>`;
+}
+
+function renderReview(){
+  if(!revQueue.length) return;
+  const q=revQueue[revIdx];
+  const revSet=revTr[revIdx]||new Set();
+  document.getElementById('rprog').textContent=`${revIdx+1} / ${revQueue.length}`;
+  document.getElementById('rcnt').textContent=`${revIdx+1} / ${revQueue.length}`;
+  document.getElementById('rsub').innerHTML=
+    `<strong>${D[q.nid].label} &mdash; ${q.card.t}</strong><br>`+
+    `Term to recall: <span style="color:var(--amber)">${q.term}</span>`;
+  document.getElementById('rbprev').disabled=revIdx===0;
+  document.getElementById('rbnext').disabled=revIdx===revQueue.length-1;
+  let i=0;
+  const body=q.card.b.replace(/\{([^}]+)\}/g,(_,t)=>{
+    const idx=i++;
+    const isTarget=idx===q.tidx;
+    const isRevealed=revSet.has(idx);
+    if(isTarget){
+      return isRevealed?
+        `<span class="occ needed">${t}</span>`:
+        `<span class="occ" onclick="revRevTerm()" style="cursor:pointer">${t}</span>`;
+    }
+    return `<span style="color:var(--text-2)">${t}</span>`;
+  });
+  document.getElementById('rccard').innerHTML=
+    `<div class="ctitle">${q.card.t}</div>`+
+    `<div class="cbody">${body}</div>`+
+    (q.card.h?`<div class="hint"><span class="hlbl">Clinical note</span>${q.card.h}</div>`:'');
+}
+
+// ═══════════════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════════════
+function selNode(id){
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
+  document.getElementById('n-'+id).classList.add('sel-node');
+  cur=id;ci=0;
+  initNode(id);
+  const p=document.getElementById('panel');
+  p.classList.add('open');
+  const d=D[id];
+  const b=document.getElementById('bdg');
+  b.textContent=d.label;
+  b.className='badge '+(d.type==='PLO'?'b-plo':'b-lo');
+  document.getElementById('ptitle').textContent=d.sub;
+  render();
+  saveProgress();
+  p.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function jumpNode(id,e){e.stopPropagation();selNode(id);}
+
+function revTerm(s){
+  if(s.classList.contains('rev')||s.classList.contains('needed')||s.classList.contains('unscored')) return;
+  const nid=s.dataset.nid,cidx=parseInt(s.dataset.ci),tidx=parseInt(s.dataset.i);
+  initNode(nid);
+  tr[nid][cidx].add(tidx);
+  totRev++;
+  updStats();render();
+}
+
+function scoreIt(e,nid,cidx,tidx,score){
+  e.stopPropagation();
+  if(sc[nid][cidx][tidx]) return;
+  sc[nid][cidx][tidx]=score;
+  if(score==='knew') totKnew++;
+  else totNeed++;
+  chkDone(nid);updStats();render();
+}
+
+function revealAll(){
+  const d=D[cur].cards[ci];
+  const n=nT(d.b);
+  for(let i=0;i<n;i++){
+    if(!tr[cur][ci].has(i)){tr[cur][ci].add(i);totRev++;}
+  }
+  chkDone(cur);updStats();render();
+}
+
+function knewAllCurrentCard(){
+  if(!cur) return;
+  initNode(cur);
+  const n=nT(D[cur].cards[ci].b);
+  for(let i=0;i<n;i++){
+    if(!tr[cur][ci].has(i)){tr[cur][ci].add(i);totRev++;}
+    const prev=sc[cur][ci][i];
+    if(prev==='needed') totNeed--;
+    if(prev!=='knew') totKnew++;
+    sc[cur][ci][i]='knew';
+  }
+  chkDone(cur);updStats();render();
+}
+
+function revealNodeCards(nid){
+  initNode(nid);
+  D[nid].cards.forEach((card,cidx)=>{
+    const n=nT(card.b);
+    for(let i=0;i<n;i++){
+      if(!tr[nid][cidx].has(i)){tr[nid][cidx].add(i);totRev++;}
+    }
+    chkDone(nid);
+  });
+}
+
+function revealTopic(){if(!cur) return;revealNodeCards(cur);updStats();render();}
+function revealDeck(){Object.keys(D).forEach(nid=>revealNodeCards(nid));updStats();if(cur) render();}
+
+function goCard(dir){
+  ci=Math.max(0,Math.min(D[cur].cards.length-1,ci+dir));
+  render();saveProgress();
+}
+
+function closePanel(){
+  document.getElementById('panel').classList.remove('open');
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
+  cur=null;
+  document.getElementById('revealTopicBtn').disabled=true;
+  saveProgress();
+}
+
+function chkDone(id){
+  const all=D[id].cards.every((_,i)=>{
+    const t=nT(D[id].cards[i].b);
+    return t===0||tr[id][i].size>=t;
+  });
+  if(all){done.add(id);document.getElementById('n-'+id).classList.add('done-node');}
+}
+
+function countNeeded(){
+  let n=0;
+  Object.keys(sc).forEach(nid=>Object.keys(sc[nid]).forEach(cidx=>
+    Object.values(sc[nid][cidx]).forEach(v=>{if(v==='needed')n++;})
+  ));
+  return n;
+}
+
+function updStats(){
+  document.getElementById('st-rev').textContent=totRev;
+  document.getElementById('st-knew').textContent=totKnew;
+  document.getElementById('st-need').textContent=totNeed;
+  document.getElementById('st-done').textContent=done.size;
+  const n=countNeeded();
+  document.getElementById('rcount').textContent=n;
+  document.getElementById('reviewBtn').classList.toggle('vis',n>0);
+  saveProgress();
+}
+
+function recalcState(){
+  totRev=0;totKnew=0;totNeed=0;done=new Set();
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('done-node'));
+  Object.keys(D).forEach(nid=>{
+    let all=true;
+    D[nid].cards.forEach((card,i)=>{
+      const got=tr[nid]&&tr[nid][i]?tr[nid][i].size:0;
+      const tot=nT(card.b);
+      totRev+=got;
+      Object.values(sc[nid]&&sc[nid][i]?sc[nid][i]:{}).forEach(v=>{
+        if(v==='knew') totKnew++;
+        else if(v==='needed') totNeed++;
+      });
+      if(!(tot===0||got>=tot)) all=false;
+    });
+    if(all){done.add(nid);const el=document.getElementById('n-'+nid);if(el) el.classList.add('done-node');}
+  });
+  updStats();
+}
+
+function resetCard(){
+  if(!cur) return;
+  initNode(cur);
+  tr[cur][ci]=new Set();sc[cur][ci]={};
+  closeReview();recalcState();render();
+}
+
+function resetAll(){
+  tr={};sc={};done.clear();totRev=0;totKnew=0;totNeed=0;
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node','done-node'));
+  document.getElementById('revealTopicBtn').disabled=!cur;
+  updStats();closeReview();
+  if(cur){initNode(cur);render();}
+}
+
+// ═══════════════════════════════════════════════════
+// REVIEW (SPACED REPETITION)
+// ═══════════════════════════════════════════════════
+function startReview(){
+  revQueue=[];
+  Object.keys(sc).forEach(nid=>{
+    Object.keys(sc[nid]).forEach(cidx=>{
+      const card=D[nid].cards[parseInt(cidx)];
+      let termIdx=0;
+      card.b.replace(/\{([^}]+)\}/g,(_,t)=>{
+        const i=termIdx++;
+        if(sc[nid][cidx][i]==='needed') revQueue.push({nid,cidx:parseInt(cidx),tidx:i,term:t,card});
+      });
+    });
+  });
+  for(let i=revQueue.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [revQueue[i],revQueue[j]]=[revQueue[j],revQueue[i]];
+  }
+  revIdx=0;revTr={};
+  if(!revQueue.length) return;
+  const rp=document.getElementById('reviewPanel');
+  rp.classList.add('open');
+  rp.scrollIntoView({behavior:'smooth',block:'nearest'});
+  renderReview();
+}
+
+function revRevTerm(){
+  if(!revTr[revIdx]) revTr[revIdx]=new Set();
+  revTr[revIdx].add(revQueue[revIdx].tidx);
+  renderReview();
+}
+function revAllReview(){revRevTerm();}
+function goReview(dir){revIdx=Math.max(0,Math.min(revQueue.length-1,revIdx+dir));renderReview();}
+function closeReview(){document.getElementById('reviewPanel').classList.remove('open');}
+
+function restoreSession(){
+  loadProgress();recalcState();
+  if(cur&&D[cur]){
+    document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
+    const nodeEl=document.getElementById('n-'+cur);
+    if(nodeEl) nodeEl.classList.add('sel-node');
+    const d=D[cur];
+    const p=document.getElementById('panel');
+    p.classList.add('open');
+    const b=document.getElementById('bdg');
+    b.textContent=d.label;
+    b.className='badge '+(d.type==='PLO'?'b-plo':'b-lo');
+    document.getElementById('ptitle').textContent=d.sub;
+    document.getElementById('revealTopicBtn').disabled=false;
+    render();
+  }else{
+    document.getElementById('revealTopicBtn').disabled=true;
+  }
+}
+restoreSession();
+
+// ═══════════════════════════════════════════════════
+// KEYBOARD
+// ═══════════════════════════════════════════════════
+document.addEventListener('keydown',e=>{
+  const inRev=document.getElementById('reviewPanel').classList.contains('open');
+  if(inRev){
+    if(e.key==='ArrowLeft'){e.preventDefault();goReview(-1);}
+    else if(e.key==='ArrowRight'){e.preventDefault();goReview(1);}
+    else if(e.key==='Escape') closeReview();
+    return;
+  }
+  if(!cur) return;
+  if(e.key==='ArrowLeft'){e.preventDefault();goCard(-1);}
+  else if(e.key==='ArrowRight'){e.preventDefault();goCard(1);}
+  else if(e.key==='Escape') closePanel();
+});
+</script>
+</body>
+</html>
