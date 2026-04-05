@@ -107,7 +107,16 @@
   .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
   .emoji-list { list-style: none; padding-left: 0; }
   .emoji-list li::before { content: attr(data-icon) " "; }
-</style>
+  .tblq-shell { border: 1px solid #d9c7ef; border-radius: 12px; background: linear-gradient(180deg, #faf8fe 0%, #f5f0fb 100%); padding: 16px; }
+  .tblq-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+  .tblq-copy { font-size: 0.88rem; color: var(--muted); max-width: 68ch; }
+  .tblq-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tblq-btn { all: unset; cursor: pointer; padding: 7px 11px; border-radius: 8px; background: #fff; border: 1px solid #cbb2e8; color: var(--purple); font-size: 0.79rem; font-weight: 700; }
+  .tblq-btn:hover { background: var(--purple-light); }
+  .tblq-cell { all: unset; display: block; width: 100%; min-height: 54px; cursor: pointer; border-radius: 8px; padding: 10px 11px; background: #f7f9fc; border: 1.5px dashed #cbb2e8; color: #607089; font-size: 0.84rem; line-height: 1.5; }
+  .tblq-cell:hover { background: #eef3fb; color: var(--purple); }
+  .tblq-cell.revealed { background: var(--purple-light); border-style: solid; color: #40216a; font-weight: 600; }
+  </style>
 </head>
 <body>
 
@@ -1251,10 +1260,15 @@
     </div>
   </div>
   <div class="section-body">
-    <div class="callout info">
-      <strong>How to use:</strong> Cover the answer columns and work left to right. If you miss a row, jump back to that corresponding section before moving on.
-    </div>
-    <div class="table-wrap">
+    <div class="tblq-shell" id="stiQuizTable">
+      <div class="tblq-top">
+        <div class="tblq-copy"><strong>How to use:</strong> Try to answer each row before revealing it. Use the table to drill bug-drug pairs, pregnancy exceptions, and classic adverse-effect hooks without rereading the whole note.</div>
+        <div class="tblq-actions">
+          <button class="tblq-btn" type="button" onclick="revealQuizTable('stiQuizTable')">Reveal All</button>
+          <button class="tblq-btn" type="button" onclick="resetQuizTable('stiQuizTable')">Reset</button>
+        </div>
+      </div>
+      <div class="table-wrap">
       <table>
         <thead>
           <tr>
@@ -1266,70 +1280,98 @@
         <tbody>
           <tr>
             <td>Most common bacterial STI; first-line treatment in a non-pregnant adult?</td>
-            <td><strong>Chlamydia</strong> -> <strong>Doxycycline 100 mg BID x 7 days</strong></td>
-            <td>Azithromycin becomes the pregnancy-friendly alternative</td>
+            <td><button class="tblq-cell" type="button" data-answer="Chlamydia -> Doxycycline 100 mg BID x 7 days">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Azithromycin becomes the pregnancy-friendly alternative.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>Purulent cervicitis or urethritis caused by a gram-negative intracellular diplococcus?</td>
-            <td><strong>Gonorrhea</strong> -> <strong>Ceftriaxone IM</strong></td>
-            <td>If chlamydia has not been excluded, add doxycycline</td>
+            <td><button class="tblq-cell" type="button" data-answer="Gonorrhea -> Ceftriaxone IM">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="If chlamydia has not been excluded, add doxycycline.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>Painless chancre with a spirochete on the differential; drug of choice?</td>
-            <td><strong>Syphilis</strong> -> <strong>Benzathine penicillin G IM</strong></td>
-            <td>Jarisch-Herxheimer reaction can occur after treatment</td>
+            <td><button class="tblq-cell" type="button" data-answer="Syphilis -> Benzathine penicillin G IM">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Jarisch-Herxheimer reaction can occur after treatment.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>Pregnant patient with syphilis and a penicillin allergy: what must you do?</td>
-            <td><strong>Desensitize and give penicillin</strong></td>
-            <td>No acceptable substitute in pregnancy</td>
+            <td><button class="tblq-cell" type="button" data-answer="Desensitize and give penicillin.">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="There is no acceptable substitute in pregnancy.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>Frothy discharge with a flagellated protozoan; best treatment?</td>
-            <td><strong>Trichomoniasis</strong> -> <strong>Metronidazole</strong></td>
-            <td>Think metallic taste and disulfiram-like reaction with alcohol</td>
+            <td><button class="tblq-cell" type="button" data-answer="Trichomoniasis -> Metronidazole">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Think metallic taste and a disulfiram-like reaction with alcohol.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>BV versus trichomoniasis: which one is polymicrobial rather than parasitic?</td>
-            <td><strong>Bacterial vaginosis</strong></td>
-            <td>Clue cells and anaerobes point to BV</td>
+            <td><button class="tblq-cell" type="button" data-answer="Bacterial vaginosis.">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Clue cells and anaerobes point to BV.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>Recurrent painful genital vesicles managed with a viral DNA polymerase inhibitor?</td>
-            <td><strong>HSV</strong> -> <strong>Acyclovir, valacyclovir, or famciclovir</strong></td>
-            <td>Acyclovir needs viral thymidine kinase for activation</td>
+            <td><button class="tblq-cell" type="button" data-answer="HSV -> Acyclovir, valacyclovir, or famciclovir">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Acyclovir needs viral thymidine kinase for activation.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>External genital warts in pregnancy: which treatment types are acceptable?</td>
-            <td><strong>Cryotherapy, TCA/BCA, or surgery</strong></td>
-            <td>Avoid podofilox, podophyllin, and imiquimod in pregnancy</td>
+            <td><button class="tblq-cell" type="button" data-answer="Cryotherapy, TCA/BCA, or surgery.">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Avoid podofilox, podophyllin, and imiquimod in pregnancy.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>Pubic lice first-line therapy available OTC?</td>
-            <td><strong>Permethrin</strong> or <strong>pyrethrins + piperonyl butoxide</strong></td>
-            <td>Lindane is second-line only because of neurotoxicity</td>
+            <td><button class="tblq-cell" type="button" data-answer="Permethrin or pyrethrins + piperonyl butoxide.">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Lindane is second-line only because of neurotoxicity.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>Granuloma inguinale caused by <em>Klebsiella granulomatis</em>: preferred treatment?</td>
-            <td><strong>Azithromycin</strong></td>
-            <td>Donovan bodies are the buzzword</td>
+            <td><button class="tblq-cell" type="button" data-answer="Azithromycin.">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Donovan bodies are the buzzword.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>Macrolide with major CYP3A4 inhibition concern in these notes?</td>
-            <td><strong>Erythromycin</strong> (more than azithromycin)</td>
-            <td>Azithromycin is the exception and does not meaningfully inhibit CYP3A4</td>
+            <td><button class="tblq-cell" type="button" data-answer="Erythromycin, much more than azithromycin.">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Azithromycin is the exception and does not meaningfully inhibit CYP3A4.">Tap to reveal</button></td>
           </tr>
           <tr>
             <td>Classic absorption interaction shared by doxycycline and ciprofloxacin?</td>
-            <td><strong>Chelation with divalent or trivalent cations</strong></td>
-            <td>Dairy, iron, calcium, magnesium, and aluminum products lower absorption</td>
+            <td><button class="tblq-cell" type="button" data-answer="Chelation with divalent or trivalent cations.">Tap to reveal</button></td>
+            <td><button class="tblq-cell" type="button" data-answer="Dairy, iron, calcium, magnesium, and aluminum products lower absorption.">Tap to reveal</button></td>
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </div>
 </section>
 
 </div><!-- /container -->
+<script>
+(() => {
+  function revealCell(btn) {
+    if (!btn || !btn.dataset.answer) return;
+    btn.textContent = btn.dataset.answer;
+    btn.classList.add('revealed');
+  }
+  function resetCell(btn) {
+    if (!btn) return;
+    btn.textContent = 'Tap to reveal';
+    btn.classList.remove('revealed');
+  }
+  window.revealQuizTable = (id) => {
+    const shell = document.getElementById(id);
+    if (!shell) return;
+    shell.querySelectorAll('.tblq-cell').forEach(revealCell);
+  };
+  window.resetQuizTable = (id) => {
+    const shell = document.getElementById(id);
+    if (!shell) return;
+    shell.querySelectorAll('.tblq-cell').forEach(resetCell);
+  };
+  document.querySelectorAll('.tblq-cell').forEach((btn) => {
+    btn.addEventListener('click', () => revealCell(btn));
+  });
+})();
+</script>
 </body>
 </html>
