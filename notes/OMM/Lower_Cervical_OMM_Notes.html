@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lower Cervical OMM — Study Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2334;
+    --border: #2a3050;
+    --accent: #5b8fff;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --accent4: #fb923c;
+    --accent5: #f472b6;
+    --text: #e2e8f0;
+    --muted: #8896b3;
+    --heading: #f0f4ff;
+  }
+
+  body[data-theme="cream"] {
+    --bg: #f6f0e4;
+    --surface: #fffaf0;
+    --surface2: #efe4d1;
+    --border: #d9c8ad;
+    --accent: #8c5b2b;
+    --accent2: #b17a44;
+    --accent3: #4f7f65;
+    --accent4: #c67d2f;
+    --accent5: #a55d6f;
+    --text: #40362d;
+    --muted: #7d6d5d;
+    --heading: #2f251c;
+  }
+
+  body[data-theme="sage"] {
+    --bg: #edf4ef;
+    --surface: #f8fcf9;
+    --surface2: #e2eee6;
+    --border: #bdd1c3;
+    --accent: #446a59;
+    --accent2: #5e7f6f;
+    --accent3: #2f7a57;
+    --accent4: #b07d42;
+    --accent5: #8b5a70;
+    --text: #27372f;
+    --muted: #607469;
+    --heading: #1d2b24;
+  }
+
+  body[data-theme="midnight"] {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2334;
+    --border: #2a3050;
+    --accent: #5b8fff;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --accent4: #fb923c;
+    --accent5: #f472b6;
+    --text: #e2e8f0;
+    --muted: #8896b3;
+    --heading: #f0f4ff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 28px 0 40px;
+    z-index: 100;
+  }
+  nav .nav-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 13px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 0 20px 18px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+  nav a {
+    display: block;
+    padding: 7px 20px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    border-left: 2px solid transparent;
+    transition: all .15s;
+    line-height: 1.4;
+  }
+  nav a:hover, nav a.active {
+    color: var(--text);
+    border-left-color: var(--accent);
+    background: rgba(91,143,255,.07);
+  }
+  nav .nav-section {
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    padding: 16px 20px 4px;
+    font-weight: 600;
+  }
+
+  /* MAIN */
+  main {
+    margin-left: 260px;
+    padding: 0 0 80px;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0f1117 0%, #141926 40%, #1a2040 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 64px 56px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(91,143,255,.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(167,139,250,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(91,143,255,.15);
+    border: 1px solid rgba(91,143,255,.3);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 46px;
+    color: var(--heading);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    max-width: 640px;
+  }
+  .hero h1 em { color: var(--accent); font-style: italic; }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 520px;
+  }
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+  .pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .theme-palette {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    backdrop-filter: blur(10px);
+  }
+  .theme-palette-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .theme-palette-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .theme-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.55);
+    box-shadow: 0 0 0 1px rgba(15,17,23,.16);
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .theme-dot:hover { transform: scale(1.08); }
+  .theme-dot.active {
+    border-color: var(--heading);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  .theme-dot[data-theme="midnight"] { background: linear-gradient(135deg, #182033, #5b8fff); }
+  .theme-dot[data-theme="cream"] { background: linear-gradient(135deg, #fff7ea, #c68a52); }
+  .theme-dot[data-theme="sage"] { background: linear-gradient(135deg, #f3faf5, #5c8a72); }
+
+  /* SECTIONS */
+  section {
+    padding: 48px 56px 0;
+    scroll-margin-top: 24px;
+  }
+
+  .section-label {
+    font-size: 10.5px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--heading);
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px;
+  }
+  h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 19px;
+    color: var(--heading);
+    margin: 28px 0 10px;
+  }
+  h4 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 20px 0 8px;
+  }
+  p { margin-bottom: 12px; color: var(--text); }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .card-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 900px) {
+    .card-grid, .card-grid-3 { grid-template-columns: 1fr; }
+    .hero-actions { align-items: flex-start; }
+    .figure-grid, .figure-grid-3 { grid-template-columns: 1fr; }
+    .image-lightbox { padding: 16px; }
+    .image-lightbox-inner { padding: 14px; }
+  }
+
+  /* CALLOUTS */
+  .callout {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .callout-body { flex: 1; }
+  .callout-body strong { display: block; margin-bottom: 4px; font-size: 13px; }
+  .callout.blue { background: rgba(91,143,255,.1); border: 1px solid rgba(91,143,255,.25); }
+  .callout.blue .callout-body strong { color: var(--accent); }
+  .callout.purple { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.25); }
+  .callout.purple .callout-body strong { color: var(--accent2); }
+  .callout.green { background: rgba(52,211,153,.1); border: 1px solid rgba(52,211,153,.25); }
+  .callout.green .callout-body strong { color: var(--accent3); }
+  .callout.orange { background: rgba(251,146,60,.1); border: 1px solid rgba(251,146,60,.25); }
+  .callout.orange .callout-body strong { color: var(--accent4); }
+  .callout.pink { background: rgba(244,114,182,.1); border: 1px solid rgba(244,114,182,.25); }
+  .callout.pink .callout-body strong { color: var(--accent5); }
+  .callout.red { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.3); }
+  .callout.red .callout-body strong { color: #f87171; }
+
+  /* TABLES */
+  .table-wrap { overflow-x: auto; margin: 16px 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  th {
+    background: var(--surface2);
+    color: var(--accent);
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,.02); }
+
+  /* LISTS */
+  ul, ol {
+    padding-left: 20px;
+    margin-bottom: 12px;
+  }
+  li { margin-bottom: 5px; color: var(--text); }
+  li strong { color: var(--heading); }
+
+  /* BADGES */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 99px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .05em;
+  }
+  .badge-blue { background: rgba(91,143,255,.15); color: var(--accent); border: 1px solid rgba(91,143,255,.3); }
+  .badge-green { background: rgba(52,211,153,.15); color: var(--accent3); border: 1px solid rgba(52,211,153,.3); }
+  .badge-purple { background: rgba(167,139,250,.15); color: var(--accent2); border: 1px solid rgba(167,139,250,.3); }
+  .badge-orange { background: rgba(251,146,60,.15); color: var(--accent4); border: 1px solid rgba(251,146,60,.3); }
+  .badge-red { background: rgba(248,113,113,.15); color: #f87171; border: 1px solid rgba(248,113,113,.3); }
+
+  /* TECHNIQUE CARDS */
+  .technique-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .technique-header {
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .technique-num {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+    flex-shrink: 0;
+  }
+  .technique-body {
+    padding: 18px 22px;
+  }
+  .step-list {
+    counter-reset: steps;
+    list-style: none;
+    padding: 0;
+  }
+  .step-list li {
+    counter-increment: steps;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+  .step-list li::before {
+    content: counter(steps);
+    background: rgba(91,143,255,.15);
+    color: var(--accent);
+    border: 1px solid rgba(91,143,255,.3);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* KEY BOX */
+  .key-box {
+    background: linear-gradient(135deg, rgba(91,143,255,.1), rgba(167,139,250,.07));
+    border: 1px solid rgba(91,143,255,.25);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .key-box-title {
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0 0;
+  }
+
+  /* MNEMONIC */
+  .mnemonic {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--heading);
+    letter-spacing: .04em;
+  }
+  .mnemonic span { color: var(--accent2); }
+
+  /* NOTATION */
+  .notation {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    color: var(--accent3);
+    display: inline-block;
+    margin: 4px 4px 4px 0;
+  }
+
+  /* HIGHLIGHT ROW */
+  .highlight-row {
+    display: flex;
+    gap: 16px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .highlight-item {
+    flex: 1;
+    min-width: 180px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: center;
+  }
+  .highlight-item .hi-label {
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .highlight-item .hi-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--heading);
+  }
+
+  /* FIGURES */
+  .figure-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 18px 0;
+  }
+  .figure-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 18px 0;
+  }
+  .study-figure {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 16px 0;
+    box-shadow: 0 10px 24px rgba(0,0,0,.08);
+  }
+  .study-figure.zoomable { cursor: zoom-in; }
+  .study-figure-media {
+    padding: 12px;
+    background: color-mix(in srgb, var(--surface2) 78%, white 22%);
+  }
+  .study-figure-media.is-compact,
+  .study-figure-media.is-tall,
+  .study-figure-media.is-wide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .study-figure-media.is-compact { min-height: 280px; }
+  .study-figure-media.is-tall { min-height: 360px; }
+  .study-figure-media.is-wide { min-height: 220px; }
+  .study-figure-media.is-paper { background: rgba(255,255,255,.96); }
+  .study-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  .study-figure-media.is-compact img,
+  .study-figure-media.is-tall img,
+  .study-figure-media.is-wide img {
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+  .study-figure-media.is-compact img { max-height: 320px; }
+  .study-figure-media.is-tall img { max-height: 420px; }
+  .study-figure-media.is-wide img { max-height: 260px; }
+  .study-figure figcaption {
+    padding: 12px 14px 14px;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.55;
+    border-top: 1px solid var(--border);
+  }
+  .figure-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: -4px;
+    margin-bottom: 14px;
+  }
+
+  /* IMAGE LIGHTBOX */
+  .image-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 10, 18, .88);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    z-index: 1200;
+  }
+  .image-lightbox.open { display: flex; }
+  .image-lightbox-inner {
+    position: relative;
+    max-width: min(1100px, 92vw);
+    max-height: 88vh;
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 24px 64px rgba(0,0,0,.28);
+  }
+  .image-lightbox img {
+    display: block;
+    width: 100%;
+    max-height: calc(88vh - 90px);
+    object-fit: contain;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--surface2) 82%, white 18%);
+  }
+  .image-lightbox-caption {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .image-lightbox-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: rgba(0,0,0,.32);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  /* SCROLL */
+  nav::-webkit-scrollbar { width: 4px; }
+  nav::-webkit-scrollbar-track { background: transparent; }
+  nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-title">Lower Cervical OMM</div>
+
+  <div class="nav-section">Foundations</div>
+  <a href="#communication">Communication & Consent</a>
+  <a href="#anatomy">Anatomic Landmarks</a>
+  <a href="#biomechanics">Biomechanics</a>
+  <a href="#barriers">Motion Barriers</a>
+  <a href="#vasculature">Neurovasculature</a>
+
+  <div class="nav-section">Diagnosis</div>
+  <a href="#structural-exam">Osteopathic Structural Exam</a>
+  <a href="#tart">TART & Diagnosis Notation</a>
+  <a href="#red-flags">Red Flags & Safety</a>
+
+  <div class="nav-section">Treatment</div>
+  <a href="#me-principles">Muscle Energy: Principles</a>
+  <a href="#me-extended">ME: Extended Dysfunctions</a>
+  <a href="#me-flexed">ME: Flexed Dysfunctions</a>
+  <a href="#me-long">ME: Long Restrictors (SCM/Scalene)</a>
+  <a href="#cs-principles">Counterstrain: Principles</a>
+  <a href="#ac1">Counterstrain: AC1</a>
+  <a href="#ac2-6">Counterstrain: AC2–6</a>
+  <a href="#ac7">Counterstrain: AC7</a>
+  <a href="#ac8">Counterstrain: AC8</a>
+
+  <div class="nav-section">Quick Reference</div>
+  <a href="#indications">Indications & Contraindications</a>
+  <a href="#clinical-pearls">Clinical Pearls</a>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">OMM Study Notes</div>
+    <h1>Lower <em>Cervical</em> Spine</h1>
+    <p class="hero-sub">Comprehensive notes covering anatomy, biomechanics, diagnosis, muscle energy, and counterstrain for the lower cervical region (C2–C7).</p>
+    <div class="hero-actions">
+      <div class="hero-pills">
+        <span class="pill">🦴 C2–C7</span>
+        <span class="pill">⚡ Muscle Energy</span>
+        <span class="pill">🎯 Counterstrain AC1–AC8</span>
+        <span class="pill">📐 TART Diagnosis</span>
+        <span class="pill">🔴 Red Flags</span>
+        <span class="pill">💬 Communication & Consent</span>
+      </div>
+      <div class="theme-palette" aria-label="Theme palette">
+        <span class="theme-palette-label">Theme</span>
+        <div class="theme-palette-dots">
+          <button class="theme-dot active" type="button" data-theme="midnight" aria-label="Midnight theme" title="Midnight"></button>
+          <button class="theme-dot" type="button" data-theme="cream" aria-label="Cream theme" title="Cream"></button>
+          <button class="theme-dot" type="button" data-theme="sage" aria-label="Sage theme" title="Sage"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       COMMUNICATION & CONSENT
+  ════════════════════════════════════════════════ -->
+  <section id="communication">
+    <div class="section-label">Learning Objective 1 & 2 & 3</div>
+    <h2>Communication, Consent & Professional Touch</h2>
+
+    <div class="callout green">
+      <div class="callout-icon">💬</div>
+      <div class="callout-body">
+        <strong>Core Principle</strong>
+        Consent must be obtained BEFORE examination AND treatment. Communication should be adapted to the audience—lay terms for patients, medical terminology for colleagues.
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>Communicating with Patients (Lay Terms)</h4>
+        <ul>
+          <li>Explain what you are going to do <em>before</em> you do it</li>
+          <li>Describe procedures in plain language: <em>"I'm going to gently feel the joints in your neck and move them to see which directions feel stiff."</em></li>
+          <li>Avoid jargon like "zygapophyseal joint" or "somatic dysfunction"</li>
+          <li>Ask about comfort throughout the exam</li>
+          <li>Use terms like "tender spot," "stiff area," "joint that doesn't move well"</li>
+          <li>Explain treatment benefit in terms of outcomes: <em>"This gentle technique may help reduce stiffness and pain."</em></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Communicating with Medical Professionals</h4>
+        <ul>
+          <li>Use standardized TART notation: e.g., <span class="notation">C5 ERSl</span></li>
+          <li>Document somatic dysfunction diagnoses using ICD coding</li>
+          <li>Describe findings: asymmetry, tissue texture change, restriction of motion, tenderness</li>
+          <li>Reference specific anatomic landmarks (articular pillar, transverse process, uncinate process)</li>
+          <li>Communicate technique rationale: "Used muscle energy targeting C5 extended, rotated and sidebent left to restore motion"</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Obtaining Informed Consent</h3>
+    <div class="callout orange">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <strong>Always Before Exam or Treatment</strong>
+        Consent is not optional. Obtain it before every examination AND before every treatment, even if the patient consented to exam.
+      </div>
+    </div>
+    <ul>
+      <li>Explain the procedure, its purpose, and what the patient should expect to feel</li>
+      <li>Describe potential risks and benefits</li>
+      <li>Confirm the patient understands and agrees before proceeding</li>
+      <li>Respect the right to refuse or withdraw consent at any time</li>
+    </ul>
+
+    <h3>Professionalism & Consensual Touch</h3>
+    <div class="card">
+      <ul>
+        <li><strong>Careful touch:</strong> Use appropriate pressure; avoid pressing on sensitive structures (carotid pulse, anterior transverse processes) without warning</li>
+        <li><strong>Considerate touch:</strong> Monitor patient comfort continuously; check in verbally throughout</li>
+        <li><strong>Consensual touch:</strong> No touch without prior consent; explain each new area of contact before touching</li>
+        <li><strong>Positioning comfort:</strong> Ensure patient's head is supported and they feel safe (e.g., head grounded in your hand, resting on the table—not feeling like it could drop)</li>
+        <li><strong>Slow transitions:</strong> Move in and out of treatment positions gradually; do not abruptly release the head</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       ANATOMY
+  ════════════════════════════════════════════════ -->
+  <section id="anatomy">
+    <div class="section-label">Learning Objective 4</div>
+    <h2>Anatomic Landmarks of the Lower Cervical Spine</h2>
+
+    <h3>Vertebrae Overview</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Typical Cervical Vertebrae (C3–C6)</h4>
+        <ul>
+          <li><strong>Bifid spinous processes</strong> — short, forked at the tip</li>
+          <li><strong>Short transverse processes</strong> with transverse foramina (for vertebral arteries)</li>
+          <li><strong>Uncinate processes</strong> — bony ridges on the lateral edges of the superior vertebral body; create a saddle shape</li>
+          <li><strong>Articular process</strong> — located between the superior and inferior articular facets</li>
+          <li><strong>Articular pillar</strong> — the column formed by stacked articular processes; the primary palpatory target</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Atypical Cervical Vertebrae</h4>
+        <ul>
+          <li><strong>C1 (Atlas):</strong> No vertebral body; a ring that rotates around the dens of C2; no spinous process</li>
+          <li><strong>C2 (Axis):</strong> Has the dens (odontoid process), which is essentially the body of C1; site of primary rotation</li>
+          <li><strong>C7:</strong> Has a large non-bifid spinous process (like thoracic vertebrae); palpable landmark. When patient looks up, C7 is less prominent; T1 remains prominent — helps identify C7 vs T1</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="figure-grid">
+      <figure class="study-figure zoomable js-zoomable">
+        <div class="study-figure-media is-compact">
+          <img src="assets/lower-cervical/lc_c3_superior.png" alt="C3 vertebra superior view with uncinate processes, transverse foramina, and bifid spinous process labeled" loading="lazy">
+        </div>
+        <figcaption>C3 superior view. This is the cleanest anatomy image for spotting the uncinate process, transverse foramen, articular surfaces, and bifid spinous process.</figcaption>
+      </figure>
+      <figure class="study-figure zoomable js-zoomable">
+        <div class="study-figure-media is-compact">
+          <img src="assets/lower-cervical/lc_c3_lateral.png" alt="C3 vertebra lateral view with articular pillar, lamina, spinous process, and transverse process tubercles labeled" loading="lazy">
+        </div>
+        <figcaption>C3 lateral view. Useful for visualizing the articular pillar and for remembering why the pillar is the main palpatory target during diagnosis.</figcaption>
+      </figure>
+    </div>
+    <p class="figure-note">Click any image to zoom.</p>
+
+    <h3>Key Surface Landmarks for Palpation</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Landmark</th>
+            <th>Approximate Level</th>
+            <th>Clinical Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Angle of the mandible</td>
+            <td>~C3</td>
+            <td>Rough guide for locating C3 transverse process</td>
+          </tr>
+          <tr>
+            <td>Mental process (chin)</td>
+            <td>~C4</td>
+            <td>Rough guide for C4 level</td>
+          </tr>
+          <tr>
+            <td>Hyoid bone</td>
+            <td>C3</td>
+            <td>More precise surgical landmark</td>
+          </tr>
+          <tr>
+            <td>Thyroid cartilage</td>
+            <td>C4–C5</td>
+            <td>Landmark for mid-cervical levels</td>
+          </tr>
+          <tr>
+            <td>Cricoid cartilage</td>
+            <td>C6</td>
+            <td>Landmark for C6</td>
+          </tr>
+          <tr>
+            <td>Vertebra prominens</td>
+            <td>C7</td>
+            <td>Most prominent posterior spinous process; primary landmark for counting</td>
+          </tr>
+          <tr>
+            <td>Mastoid process</td>
+            <td>—</td>
+            <td>Posterior anchor for finding C1 lateral process (AC1 tender point)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout blue">
+      <div class="callout-icon">🖐️</div>
+      <div class="callout-body">
+        <strong>Practical Palpation Tip</strong>
+        Use your middle fingers on the articular pillars (not the transverse processes). If someone standing across the room can see your fingers protruding from the neck, you're too anterior. Stay back on the articular pillars, not the pointed transverse processes.
+      </div>
+    </div>
+
+    <h3>Articulations of the Cervical Spine</h3>
+    <div class="card-grid-3">
+      <div class="card">
+        <h4>Intervertebral Joint</h4>
+        <ul>
+          <li>Fibrocartilaginous joint</li>
+          <li>Disc is thicker anteriorly → creates the normal lordosis</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Zygapophyseal (Facet) Joint</h4>
+        <ul>
+          <li>Synovial joints</li>
+          <li>Oriented 45° in the coronal plane, backward, upward, medial (<strong>BUM</strong>)</li>
+          <li>Allows flexion, extension, lateral flexion, and rotation</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Uncovertebral Joint (Luschka)</h4>
+        <ul>
+          <li>Formed by uncinate processes</li>
+          <li>Creates the saddle shape of the vertebral bodies</li>
+          <li>Stabilizes the cervical spine</li>
+          <li>Decreases incidence of disc herniation</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="figure-grid-3">
+      <figure class="study-figure zoomable js-zoomable">
+        <div class="study-figure-media is-tall is-paper">
+          <img src="assets/lower-cervical/lc_cervical_articulations_lateral.png" alt="Lateral illustration of stacked cervical vertebrae showing the sloped facet joints" loading="lazy">
+        </div>
+        <figcaption>Lateral view of the stacked cervical articulations.</figcaption>
+      </figure>
+      <figure class="study-figure zoomable js-zoomable">
+        <div class="study-figure-media is-tall is-paper">
+          <img src="assets/lower-cervical/lc_cervical_articulations_anterior.png" alt="Anterior illustration of the cervical spine showing vertebral bodies and uncovertebral contours" loading="lazy">
+        </div>
+        <figcaption>Anterior view showing the vertebral bodies and uncovertebral contour.</figcaption>
+      </figure>
+      <figure class="study-figure zoomable js-zoomable">
+        <div class="study-figure-media is-wide is-paper">
+          <img src="assets/lower-cervical/lc_facet_orientation.png" alt="Orientation chart comparing cervical, thoracic, and lumbar facet joint planes" loading="lazy">
+        </div>
+        <figcaption>Facet orientation comparison. The cervical facets are angled to support flexion, extension, sidebending, and rotation.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Key Ligaments</h3>
+    <ul>
+      <li><strong>Anterior Longitudinal Ligament (ALL)</strong> — runs entire length of spine on anterior aspect; relatively narrow</li>
+      <li><strong>Posterior Longitudinal Ligament (PLL)</strong> — runs inside the spinal canal; posterior to vertebral bodies</li>
+      <li><strong>Ligamentum Flavum</strong> — "yellow ligament"; forms the posterior wall of the spinal canal between arches</li>
+      <li><strong>Interspinous Ligament</strong> — connects adjacent spinous processes</li>
+      <li><strong>Ligamentum Nuchae</strong> — the cervical continuation of the supraspinous ligament; a major posterior support for the head; fills the spaces between the small cervical spinous processes</li>
+    </ul>
+
+    <h3>Key Muscles</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>Primary Muscles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Flexion</strong> (bilateral)</td>
+            <td>Longus colli, Scalenes, SCM</td>
+          </tr>
+          <tr>
+            <td><strong>Extension</strong> (bilateral)</td>
+            <td>Levator Scapulae, Trapezius, Splenius cervicis/capitis, Iliocostalis cervicis, Longissimus capitis, Semispinalis cervicis/capitis, Multifidus</td>
+          </tr>
+          <tr>
+            <td><strong>Sidebending</strong></td>
+            <td>Scalenes, Splenius capitis/cervicis, Iliocostalis cervicis, Longissimus capitis/cervicis, Intertransversarii</td>
+          </tr>
+          <tr>
+            <td><strong>Rotation</strong></td>
+            <td>Splenius cervicis, Semispinalis capitis/cervicis, Multifidus, Rotatores</td>
+          </tr>
+          <tr>
+            <td><strong>SCM</strong></td>
+            <td>Bilateral: flexion; Unilateral: ipsilateral sidebending + contralateral rotation</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       BIOMECHANICS
+  ════════════════════════════════════════════════ -->
+  <section id="biomechanics">
+    <div class="section-label">Learning Objective 5 & 6</div>
+    <h2>Biomechanics of the Lower Cervical Spine</h2>
+
+    <div class="callout red">
+      <div class="callout-icon">🚫</div>
+      <div class="callout-body">
+        <strong>Critical Point: The Cervical Spine Does NOT Follow Fryette's Laws</strong>
+        The lower cervical spine exhibits "Type II-like" mechanics, but it is NOT subject to Fryette's laws as described for the thoracic and lumbar spine.
+      </div>
+    </div>
+
+    <h3>Regional Mechanics at a Glance</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Region</th>
+            <th>Mechanics</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Occiput–C1 (OA)</strong></td>
+            <td>Type I-like</td>
+            <td>Sidebending and rotation opposite; primary flexion/extension of the head</td>
+          </tr>
+          <tr>
+            <td><strong>C1–C2 (AA)</strong></td>
+            <td>Rotation</td>
+            <td>~50% of total cervical rotation occurs here; dens as pivot</td>
+          </tr>
+          <tr>
+            <td><strong>C2–C7 (Lower Cervicals)</strong></td>
+            <td>Type II-like</td>
+            <td>Sidebending and rotation ALWAYS coupled in the SAME direction</td>
+          </tr>
+          <tr>
+            <td><strong>T1–L5</strong></td>
+            <td>Type I and II</td>
+            <td>Standard Fryette's laws apply</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Lower Cervical Coupling Rule (C2–C7)</h3>
+    <div class="key-box">
+      <div class="key-box-title">🔑 The Golden Rule</div>
+      <p>In the lower cervicals, <strong>sidebending and rotation are ALWAYS coupled in the SAME direction</strong>, regardless of whether the segment is flexed, extended, or neutral.</p>
+      <ul>
+        <li>Sidebent LEFT → also Rotated LEFT</li>
+        <li>Sidebent RIGHT → also Rotated RIGHT</li>
+        <li>There is almost ALWAYS a flexion or extension component</li>
+        <li>Pure neutral mechanics are possible but rare in clinical practice</li>
+      </ul>
+    </div>
+
+    <h3>Role of Key Joints in Biomechanics</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Zygapophyseal (Facet) Joints</h4>
+        <ul>
+          <li>Oriented 45° from the transverse plane in the coronal plane (BUM — Backward, Upward, Medial)</li>
+          <li>Slope allows all motions: flexion, extension, sidebending, rotation</li>
+          <li>Rotation occurs around the facet that is "relatively more closed" — the vertebra rotates away from it</li>
+          <li>The more prominent/resistant articular pillar is on the side OPPOSITE to the direction of rotation</li>
+          <li>Think of "lateral translation" as the key movement — pushing one articular pillar induces sidebending toward the opposite side</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Uncovertebral Joints (Joints of Luschka)</h4>
+        <ul>
+          <li>The saddle shape of the vertebral body (created by uncinate processes) guides and constrains motion</li>
+          <li>Help couple sidebending and rotation in the same direction</li>
+          <li>Stabilize the segment and prevent excessive disc herniation</li>
+          <li>Anterior cervical tender points are found at the anterior aspect of the transverse processes — near where scalene muscles attach</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Translation → Sidebending Relationship</h3>
+    <div class="callout blue">
+      <div class="callout-icon">↔️</div>
+      <div class="callout-body">
+        <strong>The Translation Rule</strong>
+        Translating the vertebra from RIGHT to LEFT = induces sidebending to the RIGHT + rotation to the RIGHT.<br>
+        Translating the vertebra from LEFT to RIGHT = induces sidebending to the LEFT + rotation to the LEFT.<br><br>
+        <em>Think of pushing one side of a bow — the bow bends toward the other side.</em>
+      </div>
+    </div>
+
+    <div class="highlight-row">
+      <div class="highlight-item">
+        <div class="hi-label">Push Right → Left</div>
+        <div class="hi-val">SB Right, R Right</div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-label">Push Left → Right</div>
+        <div class="hi-val">SB Left, R Left</div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-label">Coupling</div>
+        <div class="hi-val">SB = R (always)</div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-label">Then test</div>
+        <div class="hi-val">Flexion vs Extension</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       BARRIERS
+  ════════════════════════════════════════════════ -->
+  <section id="barriers">
+    <div class="section-label">Learning Objective 5</div>
+    <h2>Motion Barriers — Anatomic, Physiologic & Pathologic</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Barrier Type</th>
+            <th>Description</th>
+            <th>Clinical Significance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-green">Anatomic</span></td>
+            <td>The absolute end of range — defined by bone-on-bone or structural limits. CANNOT be exceeded without injury.</td>
+            <td>Never approach this; HVLA should not exceed the physiologic barrier</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-blue">Physiologic</span></td>
+            <td>The normal range of active motion. Defined by muscle strength and ligamentous tension. Variable between individuals.</td>
+            <td>Passive motion can exceed this slightly without pathology</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-orange">Elastic Zone</span></td>
+            <td>The zone between physiologic and anatomic barriers — accessible only with passive motion; springs back</td>
+            <td>HVLA is performed in this zone; ME works at the physiologic barrier edge</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-red">Restrictive / Pathologic</span></td>
+            <td>An abnormal barrier within the physiologic range, caused by somatic dysfunction. Motion is reduced compared to normal.</td>
+            <td>The target of OMT — removing the restrictive barrier restores normal motion</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The "Feather's Edge" — Key for Muscle Energy</h3>
+    <div class="callout purple">
+      <div class="callout-icon">🪶</div>
+      <div class="callout-body">
+        <strong>Feather's Edge</strong>
+        In muscle energy, you bring the segment to the point of first resistance (the restrictive barrier) without forcing through it. This is called the "feather's edge." Then the patient contracts against your resistance, and you re-engage the new barrier after each repetition (usually 3–5 times).
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       VASCULATURE
+  ════════════════════════════════════════════════ -->
+  <section id="vasculature">
+    <div class="section-label">Learning Objective 6</div>
+    <h2>Neurovasculature of the Cervical Spine</h2>
+
+    <h3>Vertebral Arteries</h3>
+    <div class="callout red">
+      <div class="callout-icon">🩸</div>
+      <div class="callout-body">
+        <strong>Critical Safety Consideration for OMT</strong>
+        Vertebral arteries travel through the transverse foramina (C1–C6). They are most vulnerable at C1–C2, where they hook laterally before entering the skull. Combined EXTENSION + ROTATION is the position of greatest risk for vertebral artery injury. This is why HVLA always uses FLEXION for the lower cervicals.
+      </div>
+    </div>
+    <ul>
+      <li>Vertebral arteries ascend through transverse foramina bilaterally (starting at C6, some say C7)</li>
+      <li>At C1, they curve posteriorly then superiorly to enter the skull via the foramen magnum</li>
+      <li>They unite to form the basilar artery</li>
+      <li>The nerve root and vertebral artery foramen are in close proximity — dysfunction in one can affect the other</li>
+      <li>Segmental rotation of a cervical vertebra places tension on the vessel ipsilaterally</li>
+    </ul>
+
+    <h3>Vagus Nerve (CN X)</h3>
+    <ul>
+      <li>Exits the skull via the jugular foramen (along with CN IX — glossopharyngeal, and CN XI — spinal accessory)</li>
+      <li>Travels in the carotid sheath between the carotid artery and jugular vein</li>
+      <li>Provides parasympathetic innervation to all thoracoabdominal viscera down to the splenic flexure of the colon</li>
+      <li>Cervical somatic dysfunction can compress or tension the vagus → may affect GI motility, cardiac rate, respiratory function</li>
+      <li>Clinically significant: reflux, nausea, otitis media, sinus issues can all relate to upper cervical/OA dysfunction affecting vagal tone</li>
+    </ul>
+
+    <h3>Spinal Accessory Nerve (CN XI)</h3>
+    <ul>
+      <li>Also exits via jugular foramen</li>
+      <li>Innervates SCM and trapezius</li>
+      <li>Restriction at the occipitomastoidal suture (where jugular foramen forms) can irritate CN XI → hypertonicity of SCM/trapezius that is resistant to direct treatment</li>
+    </ul>
+
+    <h3>Cervical Nerve Roots</h3>
+    <div class="callout blue">
+      <div class="callout-icon">⚡</div>
+      <div class="callout-body">
+        <strong>Unique Numbering</strong>
+        In the cervical spine, nerve roots C1–C7 exit <em>above</em> their numbered vertebra. C8 exits below C7 (there is no C8 vertebra). Below C8, all nerve roots exit below their numbered vertebra. This is why there are 8 cervical nerve roots but only 7 cervical vertebrae.
+      </div>
+    </div>
+
+    <h3>Sympathetic Trunk</h3>
+    <ul>
+      <li>Runs adjacent to the carotid sheath, closely parallel to the vagus nerve</li>
+      <li>Cervical sympathetics come from upper thoracic cord (T1–T5)</li>
+      <li>Segmental dysfunction causing rotation can put pressure on or tension the sympathetic trunk</li>
+    </ul>
+
+    <h3>Greater Occipital Nerve</h3>
+    <ul>
+      <li>Emerges through the upper trapezius attachment</li>
+      <li>Hypertonic upper trapezius or levator scapulae can compress this → occipital headaches</li>
+      <li>Managing cervical tension and treating the OA can relieve greater occipital neuralgia</li>
+    </ul>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       STRUCTURAL EXAM
+  ════════════════════════════════════════════════ -->
+  <section id="structural-exam">
+    <div class="section-label">Learning Objective 7</div>
+    <h2>Osteopathic Structural Exam of the Lower Cervical Spine</h2>
+
+    <h3>Patient Position</h3>
+    <p>Patient is <strong>supine</strong>. Physician is seated at the head of the table. Patient's head rests on the table (not held up by the physician).</p>
+
+    <h3>Step 1: Screening — Translatory Motion Testing</h3>
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(91,143,255,.15);color:var(--accent)">1</div>
+        <div>
+          <strong style="color:var(--heading)">Lateral Translation Screen</strong>
+          <div style="color:var(--muted);font-size:13px">Identify restricted segments and direction of restriction</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <ol class="step-list">
+          <li>Place middle fingers (or index fingers) bilaterally on the articular pillars of each cervical level. Brace patient's head with palms to prevent excessive movement.</li>
+          <li>Translate the segment from right to left (push the right articular pillar), then from left to right (push the left articular pillar).</li>
+          <li>Compare ease of motion in each direction. A resistant, "stuck" segment is the dysfunctional one.</li>
+          <li>Note any tenderness on palpation — this contributes to TART.</li>
+          <li>A segment that does NOT translate easily from right to left is sidebent right and rotated right. Note the level and direction of restriction.</li>
+          <li>Work systematically from C2 to C7 (or top to bottom or bottom to top — no mandated order).</li>
+        </ol>
+        <div class="callout green" style="margin-top:12px">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Practical Tip</strong>
+            Use a general guideline: upper neck = C2–C3; middle = C4–C5; lower = C6–C7. Exact levels can be confirmed by counting from the vertebra prominens (C7).
+          </div>
+        </div>
+        <figure class="study-figure zoomable js-zoomable" style="margin-top:16px">
+          <div class="study-figure-media is-compact is-paper">
+            <img src="assets/lower-cervical/lc_segmental_translation.png" alt="Hand position diagram for segmental cervical translation testing at the articular pillars" loading="lazy">
+          </div>
+          <figcaption>Segmental translation hand placement. This fits the lateral translation screen in the note: contact the articular pillars, then compare right-to-left and left-to-right motion.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h3>Step 2: Flexion/Extension Testing of Restricted Segments</h3>
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(167,139,250,.15);color:var(--accent2)">2</div>
+        <div>
+          <strong style="color:var(--heading)">F/E Discrimination</strong>
+          <div style="color:var(--muted);font-size:13px">Determine whether dysfunction is flexed or extended</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <p>For each restricted segment identified in the screen:</p>
+        <ol class="step-list">
+          <li><strong>Flexion test:</strong> Scoop/lift the patient's head and tuck the chin to flex down to the level of the restricted segment. Then attempt translation again. If restriction IMPROVES in flexion → the dysfunction is EXTENDED (it prefers flexion = extended dysfunction).</li>
+          <li><strong>Extension test:</strong> Place ring and pinky fingers just inferior to the restricted segment and lift toward the ceiling to induce local extension at that level. Then attempt translation. If restriction IMPROVES in extension → the dysfunction is FLEXED (it prefers extension = flexed dysfunction).</li>
+          <li>Confirm: the side of resistance corresponds to sidebending and rotation toward the same side.</li>
+        </ol>
+        <div class="callout orange" style="margin-top:12px">
+          <div class="callout-icon">🔄</div>
+          <div class="callout-body">
+            <strong>Logic Check</strong>
+            If the segment cannot translate from RIGHT to LEFT in EXTENSION → it is restricted in right sidebending and right rotation in extension → it is FLEXED rotated sidebent RIGHT (it is stuck in flexion).<br><br>
+            Named by what it CAN do (its position of ease) → <span class="notation">C6 FRSr</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Translation → Diagnosis Logic</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Cannot translate…</th>
+            <th>Sidebending</th>
+            <th>Rotation</th>
+            <th>Worse in…</th>
+            <th>Diagnosis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>R → L</td>
+            <td>Right</td>
+            <td>Right</td>
+            <td>Flexion</td>
+            <td><span class="notation">ERSr</span></td>
+          </tr>
+          <tr>
+            <td>R → L</td>
+            <td>Right</td>
+            <td>Right</td>
+            <td>Extension</td>
+            <td><span class="notation">FRSr</span></td>
+          </tr>
+          <tr>
+            <td>L → R</td>
+            <td>Left</td>
+            <td>Left</td>
+            <td>Flexion</td>
+            <td><span class="notation">ERSl</span></td>
+          </tr>
+          <tr>
+            <td>L → R</td>
+            <td>Left</td>
+            <td>Left</td>
+            <td>Extension</td>
+            <td><span class="notation">FRSl</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       TART
+  ════════════════════════════════════════════════ -->
+  <section id="tart">
+    <div class="section-label">Learning Objective 8</div>
+    <h2>TART Findings & Somatic Dysfunction Notation</h2>
+
+    <h3>TART Components</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>T — Tissue Texture Change</h4>
+        <p>Palpatory changes in the skin, fascia, or muscle overlying the dysfunctional segment. May include: bogginess, ropiness, increased firmness, moisture changes.</p>
+      </div>
+      <div class="card">
+        <h4>A — Asymmetry</h4>
+        <p>Positional asymmetry of the articular pillar, transverse process, or spinous process. In the cervical spine, the prominent (resistant) articular pillar is on the side OPPOSITE the rotation direction.</p>
+      </div>
+      <div class="card">
+        <h4>R — Restriction of Motion</h4>
+        <p>Reduced range of motion in one or more planes. Identified by translatory testing in the cervical spine. The segment does not translate easily in the direction of restriction.</p>
+      </div>
+      <div class="card">
+        <h4>T — Tenderness</h4>
+        <p>Palpatory tenderness at the articular pillar or associated soft tissues. Note whether tenderness is unilateral or bilateral and its severity.</p>
+      </div>
+    </div>
+
+    <div class="callout blue">
+      <div class="callout-icon">🔗</div>
+      <div class="callout-body">
+        <strong>TART Overlap</strong>
+        Tenderness and restricted motion both contribute to TART. An anterior tender point AND a segmental restriction at the same level are related findings — treating the counterstrain point may reduce the segmental restriction, and vice versa. These modalities are complementary, not separate silos.
+      </div>
+    </div>
+
+    <h3>Three-Positional Diagnosis Notation</h3>
+    <div class="key-box">
+      <div class="key-box-title">📝 Standard Notation Format</div>
+      <p style="margin-bottom:12px"><strong>[Segment] [E or F] [R or S] [r or l]</strong></p>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px">
+        <div>
+          <div style="color:var(--muted);font-size:11px;margin-bottom:4px">Extended, Rotated/Sidebent Right</div>
+          <div class="notation">C5 ERSr</div>
+        </div>
+        <div>
+          <div style="color:var(--muted);font-size:11px;margin-bottom:4px">Flexed, Rotated/Sidebent Left</div>
+          <div class="notation">C3 FRSl</div>
+        </div>
+        <div>
+          <div style="color:var(--muted);font-size:11px;margin-bottom:4px">Extended, Rotated/Sidebent Left</div>
+          <div class="notation">C6 ERSl</div>
+        </div>
+        <div>
+          <div style="color:var(--muted);font-size:11px;margin-bottom:4px">Flexed, Rotated/Sidebent Right</div>
+          <div class="notation">C4 FRSr</div>
+        </div>
+      </div>
+      <ul>
+        <li>E = Extended dysfunction (prefers extension; restricted in flexion)</li>
+        <li>F = Flexed dysfunction (prefers flexion; restricted in extension)</li>
+        <li>R = Rotation (same direction as sidebending)</li>
+        <li>S = Sidebending (same direction as rotation)</li>
+        <li>Lowercase r = right, l = left</li>
+      </ul>
+    </div>
+
+    <h3>Translating TART → Somatic Dysfunction Diagnosis</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Finding</th><th>Meaning</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Prominent articular pillar on the right</td><td>Rotated RIGHT → sidebent RIGHT</td></tr>
+          <tr><td>Cannot translate R→L; worse in flexion</td><td>ERSr (extended, prefers extension, restricted in flexion)</td></tr>
+          <tr><td>Cannot translate L→R; worse in extension</td><td>FRSl (flexed, prefers flexion, restricted in extension)</td></tr>
+          <tr><td>Tender anterior transverse process on left</td><td>Anterior counterstrain tender point on left → treat with CS</td></tr>
+          <tr><td>Motion improves in flexion position</td><td>Dysfunction is Extended (EXTENDED = better in flexion)</td></tr>
+          <tr><td>Motion improves in extension position</td><td>Dysfunction is Flexed (FLEXED = better in extension)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Worked Examples</h3>
+    <div class="card">
+      <h4>Example A</h4>
+      <p>C6 translates easily from L→R but NOT from R→L. It is WORSE in extension and BETTER in flexion.</p>
+      <p><strong>Analysis:</strong> Cannot go R→L → restricted in right sidebending/rotation. Worse in extension → prefers flexion → FLEXED dysfunction.</p>
+      <p><strong>Diagnosis:</strong> <span class="notation">C6 FRSr</span></p>
+    </div>
+    <div class="card">
+      <h4>Example B</h4>
+      <p>C3 translates easily from R→L but NOT from L→R. It is WORSE in flexion and BETTER in extension.</p>
+      <p><strong>Analysis:</strong> Cannot go L→R → restricted in left sidebending/rotation. Worse in flexion → prefers extension → EXTENDED dysfunction.</p>
+      <p><strong>Diagnosis:</strong> <span class="notation">C3 ERSl</span></p>
+    </div>
+    <div class="card">
+      <h4>Example C — Backward Reasoning</h4>
+      <p>Patient is diagnosed with <span class="notation">C5 ERSl</span>. What would you find on exam?</p>
+      <p><strong>Analysis:</strong> Extended = worse in flexion. Sidebent/Rotated LEFT = prominent articular pillar on the RIGHT. Will NOT translate from R→L. Worse (more restricted) in flexion.</p>
+      <p><strong>Answer:</strong> Prominent articular pillar on the RIGHT at C5. Cannot translate R→L. Restriction worse in flexion.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       RED FLAGS
+  ════════════════════════════════════════════════ -->
+  <section id="red-flags">
+    <div class="section-label">Safety</div>
+    <h2>Red Flags & Safety Considerations</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>Red Flags in History</h4>
+        <ul>
+          <li>Severe trauma (MVA, fall, assault)</li>
+          <li>Bladder incontinence or bowel changes</li>
+          <li>Weakness or paralysis in extremities</li>
+          <li>High fever (possible infection/meningitis)</li>
+          <li>Inability to flex the cervical spine</li>
+          <li>Numbness, tingling, or pain in upper extremities</li>
+          <li>Progressive spastic paralysis</li>
+          <li>Unexplained weight loss</li>
+          <li>Known cancer (breast, lung, prostate, lymphoma, myeloma, thyroid, kidney)</li>
+          <li>Osteoporosis</li>
+          <li>History of systemic steroid use, immunocompromise</li>
+          <li>Sudden, severe onset pain (possible fracture)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Red Flags on Physical Exam</h4>
+        <ul>
+          <li>Diminished DTRs</li>
+          <li>Sensory loss in a dermatomal pattern</li>
+          <li>Muscle weakness (myotomal)</li>
+          <li>Spastic paralysis</li>
+          <li>Fever</li>
+          <li>Intolerance of C-spine flexion (meningismus)</li>
+          <li>Lethargy or altered mental status</li>
+          <li>Carotid bruit</li>
+          <li>Thyroid nodules or enlargement</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Special Tests for Cervical Nerve Root Pathology</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Test</th><th>Technique</th><th>Positive Finding</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Spurling's Test</strong></td>
+            <td>Patient looks over shoulder and up; examiner applies downward axial pressure on the head</td>
+            <td>Reproduction of radicular symptoms down the ipsilateral arm</td>
+          </tr>
+          <tr>
+            <td><strong>Distraction Test</strong></td>
+            <td>Examiner lifts the patient's head upward (traction)</td>
+            <td>Relief of radicular symptoms = positive; indicates nerve root compression</td>
+          </tr>
+          <tr>
+            <td><strong>Compression Test</strong></td>
+            <td>Straight axial downward pressure on the head</td>
+            <td>Reproduction of pain or radiculopathy</td>
+          </tr>
+          <tr>
+            <td><strong>Valsalva Test</strong></td>
+            <td>Patient performs Valsalva maneuver (bear down)</td>
+            <td>Reproduction of cervical symptoms = space-occupying lesion likely</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <figure class="study-figure zoomable js-zoomable">
+      <div class="study-figure-media is-wide">
+        <img src="assets/lower-cervical/lc_spurling_setup.jpeg" alt="Clinician performing Spurling test with head sidebent and rotated" loading="lazy">
+      </div>
+      <figcaption>Spurling setup visual. The maneuver combines extension, sidebending, and rotation with gentle axial compression to reproduce ipsilateral radicular symptoms.</figcaption>
+    </figure>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       MUSCLE ENERGY PRINCIPLES
+  ════════════════════════════════════════════════ -->
+  <section id="me-principles">
+    <div class="section-label">Learning Objective 9 & 10 & 11</div>
+    <h2>Muscle Energy: Principles, Safety, Efficacy</h2>
+
+    <h3>What Is Muscle Energy?</h3>
+    <p>Muscle energy is a direct, active technique in which the physician localizes the segment to its restrictive barrier, then asks the patient to perform a precisely controlled isometric contraction against the physician's unyielding counterforce. After relaxation, the physician takes up the new barrier and repeats.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>Mechanism</h4>
+        <ul>
+          <li>Post-isometric relaxation: contracting the muscle leads to relaxation of the agonist after release</li>
+          <li>Reciprocal inhibition: contracting an antagonist relaxes the agonist</li>
+          <li>Restores normal joint mechanics by engaging the restrictive barrier and progressively moving through it</li>
+          <li>Directly treats the dysfunctional segment</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>General Principles</h4>
+        <ul>
+          <li>Engage ALL three planes of motion (F/E, SB, R) to the barrier before the patient contracts</li>
+          <li>Patient provides only 20% force (gentle isometric, not maximal)</li>
+          <li>Hold contraction for 3–5 seconds</li>
+          <li>Take up new slack after each repetition (3–5 reps typical)</li>
+          <li>Always monitor at the dysfunctional segment to confirm the force reaches it</li>
+          <li>Recheck after treatment</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Indications</h3>
+    <ul>
+      <li>Somatic dysfunction of the lower cervical spine (C2–C7): both extended and flexed dysfunctions</li>
+      <li>Hypertonic long muscles (SCM, scalenes)</li>
+      <li>Post-injury or post-surgical cervical pain with preserved range of motion</li>
+      <li>Patients who cannot tolerate HVLA or for whom HVLA is contraindicated</li>
+      <li>Cervicogenic headache, restricted ROM, neck pain, shoulder/arm referral</li>
+    </ul>
+
+    <h3>Contraindications</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Absolute</h4>
+        <ul>
+          <li>Acute fracture or dislocation in the treatment area</li>
+          <li>Severe instability (e.g., atlantoaxial instability in Down syndrome, RA)</li>
+          <li>Active infection or osteomyelitis at the segment</li>
+          <li>Active malignancy at the treatment site</li>
+          <li>Patient refusal</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Relative (Use Judgment)</h4>
+        <ul>
+          <li>Osteoporosis (apply lower forces)</li>
+          <li>Vertebral artery insufficiency (use care with rotation + extension)</li>
+          <li>Acute disc herniation with significant radiculopathy</li>
+          <li>Patient is systemically unwell or hemodynamically unstable</li>
+          <li>Severe pain that prevents relaxation and cooperation</li>
+          <li>Provider inexperience in the region</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout orange">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body">
+        <strong>Key Safety Note for Cervical ME</strong>
+        Unlike HVLA, muscle energy does NOT require the cervical spine to be placed in full extension with rotation. You control forces carefully through monitoring at the segment. However, avoid excessive extension + rotation especially in patients with vascular risk factors.
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       ME EXTENDED
+  ════════════════════════════════════════════════ -->
+  <section id="me-extended">
+    <div class="section-label">Learning Objective 12 — Technique</div>
+    <h2>Muscle Energy: Extended Dysfunctions (C2–C7)</h2>
+
+    <div class="callout blue">
+      <div class="callout-icon">📐</div>
+      <div class="callout-body">
+        <strong>Quick Logic</strong>
+        An EXTENDED dysfunction prefers extension and is RESTRICTED in FLEXION. To treat → bring to the FLEXION barrier, then ask patient to EXTEND (push back) against your resistance.
+      </div>
+    </div>
+
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(91,143,255,.15);color:var(--accent)">ME</div>
+        <div>
+          <strong style="color:var(--heading)">Extended Dysfunction Setup</strong>
+          <div style="color:var(--muted);font-size:13px">e.g., C5 ERSl — restricted in flexion, right sidebending, right rotation</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <ol class="step-list">
+          <li><strong>Localize the level:</strong> Place your monitoring fingers bilaterally on the articular pillars of the dysfunctional segment (e.g., C5).</li>
+          <li><strong>Engage flexion barrier:</strong> Lift/scoop the patient's head and tuck the chin, flexing the spine DOWN TO the restricted segment. You should feel the motion localize at C5.</li>
+          <li><strong>Engage SB/Rotation barrier:</strong> Translate the segment toward the side of restriction (e.g., for ERSl — translate from RIGHT to LEFT, inducing right sidebending and right rotation). Take it to the feather's edge — just at the point of first resistance, not beyond.</li>
+          <li><strong>Patient instruction:</strong> "Push your head back into the table" OR "Gently push the back of your head up toward the ceiling." The patient extends against your unyielding resistance for 3–5 seconds.</li>
+          <li><strong>Relax:</strong> Patient completely relaxes for 2–3 seconds.</li>
+          <li><strong>Re-engage:</strong> Take up the new slack in ALL planes — a little more flexion, a little more translation toward restriction. Repeat 3–5 times.</li>
+          <li><strong>Recheck:</strong> Reassess translation. The segment should now move more freely.</li>
+        </ol>
+
+        <div class="callout green" style="margin-top:12px">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Monitor at the Segment</strong>
+            Always confirm the patient's force reaches your monitoring fingers at the targeted vertebra. If not, change your instruction: instead of "push your head back," try "push your whole neck back into my hand." Adjust until you feel it.
+          </div>
+        </div>
+
+        <h4 style="margin-top:18px">Alternative Positioning</h4>
+        <p>Instead of using the head as a long lever, hold the segment between your thumb (one articular pillar) and index/middle finger (other pillar). Pull toward you to induce sidebending/rotation to the barrier. Lift just below the segment to engage extension. Then use the other hand under the chin to direct the force. This makes the technique more focal and avoids excessive global motion.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       ME FLEXED
+  ════════════════════════════════════════════════ -->
+  <section id="me-flexed">
+    <div class="section-label">Learning Objective 12 — Technique</div>
+    <h2>Muscle Energy: Flexed Dysfunctions (C2–C7)</h2>
+
+    <div class="callout purple">
+      <div class="callout-icon">📐</div>
+      <div class="callout-body">
+        <strong>Quick Logic</strong>
+        A FLEXED dysfunction prefers flexion and is RESTRICTED in EXTENSION. To treat → bring to the EXTENSION barrier, then ask patient to FLEX (tuck chin) against your resistance.
+      </div>
+    </div>
+
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(167,139,250,.15);color:var(--accent2)">ME</div>
+        <div>
+          <strong style="color:var(--heading)">Flexed Dysfunction Setup</strong>
+          <div style="color:var(--muted);font-size:13px">e.g., C6 FRSr — restricted in extension, left sidebending, left rotation</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <ol class="step-list">
+          <li><strong>Localize the level:</strong> Place monitoring fingers bilaterally on the articular pillars at C6.</li>
+          <li><strong>Engage extension barrier:</strong> Place ring and pinky fingers just INFERIOR to C6 and lift toward the ceiling to induce local extension at that segment.</li>
+          <li><strong>Engage SB/Rotation barrier:</strong> Translate C6 from right to left (inducing left sidebending and left rotation) to the feather's edge.</li>
+          <li><strong>Patient instruction:</strong> "Tuck your chin" OR "Gently bring your chin toward your chest" OR "Lift your head up slightly." The patient flexes against your unyielding resistance for 3–5 seconds.</li>
+          <li><strong>Relax and re-engage:</strong> Relax, take up new slack in extension + translation. Repeat 3–5 times.</li>
+          <li><strong>Recheck:</strong> Reassess. Restriction should have improved.</li>
+        </ol>
+
+        <div class="callout blue" style="margin-top:12px">
+          <div class="callout-icon">⚡</div>
+          <div class="callout-body">
+            <strong>Key Distinction from HVLA</strong>
+            In HVLA, ALL lower cervical dysfunctions are treated in FLEXION (for safety). In Muscle Energy, you treat extended dysfunctions in FLEXION and flexed dysfunctions in EXTENSION. Don't confuse these — muscle energy is position-specific to the dysfunction.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       ME LONG RESTRICTORS
+  ════════════════════════════════════════════════ -->
+  <section id="me-long">
+    <div class="section-label">Learning Objective 12 — Technique</div>
+    <h2>Muscle Energy: Long Restrictors — SCM & Scalenes</h2>
+
+    <div class="callout orange">
+      <div class="callout-icon">💪</div>
+      <div class="callout-body">
+        <strong>Principle for Long Restrictors</strong>
+        These techniques treat hypertonic muscles by placing them under a gentle stretch (direct approach) and then asking the patient to contract against resistance. Use after ruling out an acute strain or if counterstrain did not resolve the hypertonicity. Note: if the muscle is acutely tender, consider treating with counterstrain first (AC7/8 for SCM).
+      </div>
+    </div>
+
+    <h3>Sternocleidomastoid (SCM) Muscle Energy</h3>
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(251,146,60,.15);color:var(--accent4)">SCM</div>
+        <div>
+          <strong style="color:var(--heading)">SCM Muscle Energy</strong>
+          <div style="color:var(--muted);font-size:13px">Treating hypertonicity of the sternocleidomastoid</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <h4>Assessment</h4>
+        <p>Palpate both SCM muscles for hypertonicity. If one is significantly more hypertonic, treat that side. (Note: AC7/AC8 tender points relate to the sternal and clavicular heads of SCM — if acutely tender, counterstrain first.)</p>
+
+        <h4>Setup (opposite of AC7 counterstrain position)</h4>
+        <ol class="step-list">
+          <li>Have the patient slide up on the table until the head is just off the end (support the head).</li>
+          <li>Introduce <strong>Extension</strong> at the cervical level — allow the head to drop into extension (opposite of the AC7 flexion position).</li>
+          <li>Introduce <strong>Sidebending away</strong> from the side being treated (e.g., treating right SCM → sidebend left).</li>
+          <li>Introduce <strong>Rotation toward</strong> the side being treated (e.g., treating right SCM → rotate right). You should feel the SCM begin to stretch.</li>
+          <li>Support the head with your knee or thigh to maintain position hands-free.</li>
+        </ol>
+
+        <h4>Muscle Energy</h4>
+        <ol class="step-list">
+          <li>Instruct the patient: "Lift your head toward the ceiling AND turn your head to the left" (for treating right SCM). This fires the SCM.</li>
+          <li>Resist for 3–5 seconds. Relax.</li>
+          <li>Increase extension, sidebending away, and rotation toward slightly. Repeat 3–5 times.</li>
+          <li><strong>Recheck:</strong> Palpate SCM for reduced hypertonicity.</li>
+        </ol>
+
+        <div class="callout green" style="margin-top:12px">
+          <div class="callout-icon">🧠</div>
+          <div class="callout-body">
+            <strong>Memory Hook</strong>
+            AC7 CS = Flex, SB toward, Rotate away (STAR/STRAW). SCM ME = OPPOSITE → Extend, SB away, Rotate toward.
+          </div>
+        </div>
+        <figure class="study-figure zoomable js-zoomable" style="margin-top:16px">
+          <div class="study-figure-media is-wide is-paper">
+            <img src="assets/lower-cervical/lc_scm_me_setup.png" alt="SCM muscle energy setup showing physician support and patient position" loading="lazy">
+          </div>
+          <figcaption>SCM muscle energy setup from lab. Notice the extension with sidebending away and rotation toward the treated SCM.</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h3>Scalene Muscle Energy</h3>
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(52,211,153,.15);color:var(--accent3)">SC</div>
+        <div>
+          <strong style="color:var(--heading)">Scalene Muscle Energy</strong>
+          <div style="color:var(--muted);font-size:13px">Treating hypertonicity of the scalene muscles</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <h4>Anatomy Reminder</h4>
+        <p>The scalenes (anterior, middle, posterior) attach from the cervical transverse processes to the 1st and 2nd ribs. They are lateral flexors and accessory respiratory muscles. Anterior tender points (AC2–6) are located near their cervical attachments.</p>
+        <figure class="study-figure zoomable js-zoomable">
+          <div class="study-figure-media is-compact is-paper">
+            <img src="assets/lower-cervical/lc_scalene_anatomy.jpeg" alt="Illustration of anterior, middle, and posterior scalene attachments from cervical transverse processes to the first and second ribs" loading="lazy">
+          </div>
+          <figcaption>Scalene anatomy review. This helps tie the AC2–6 tender points to the anterior cervical transverse processes and the rib attachments.</figcaption>
+        </figure>
+
+        <h4>Setup</h4>
+        <ol class="step-list">
+          <li>Have the patient slide up so the head is at the edge of the table.</li>
+          <li>Palpate the scalene region to identify the most hypertonic area. Monitor with fingertips.</li>
+          <li>Introduce <strong>Extension</strong> — allow or gently guide the head into slight extension to begin stretching the scalenes.</li>
+          <li>Introduce <strong>Sidebending away</strong> from the treated side (e.g., treating left scalenes → sidebend right).</li>
+          <li>Introduce <strong>Rotation away</strong> from the treated side. Feel the scalene begin to engage.</li>
+          <li>Place one hand on the ipsilateral shoulder/clavicular region to prevent the first and second ribs from rising (stabilize the distal attachment).</li>
+          <li>Support the head with your thigh or knee. Relax and feel the scalene engage.</li>
+        </ol>
+
+        <h4>Muscle Energy</h4>
+        <ol class="step-list">
+          <li>Instruct the patient: "Gently lift your head up" (toward the ceiling). This fires the scalenes.</li>
+          <li>Resist for 3–5 seconds. Relax.</li>
+          <li>Increase extension, sidebending away, and rotation away slightly. Repeat 3–5 times.</li>
+          <li><strong>Recheck:</strong> Palpate scalene region for reduced hypertonicity.</li>
+        </ol>
+        <figure class="study-figure zoomable js-zoomable" style="margin-top:16px">
+          <div class="study-figure-media is-wide is-paper">
+            <img src="assets/lower-cervical/lc_scalene_me_setup.png" alt="Scalene muscle energy setup with physician stabilizing the shoulder and positioning the neck" loading="lazy">
+          </div>
+          <figcaption>Scalene muscle energy setup. The ipsilateral shoulder is stabilized so the distal rib attachment does not ride upward during the contraction.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       COUNTERSTRAIN PRINCIPLES
+  ════════════════════════════════════════════════ -->
+  <section id="cs-principles">
+    <div class="section-label">Learning Objective 9 & 10 & 11</div>
+    <h2>Counterstrain: Principles, Safety, Efficacy</h2>
+
+    <h3>What Is Counterstrain?</h3>
+    <p>Counterstrain is an indirect, passive technique. The physician identifies a tender point, places the patient in a position that maximally reduces tenderness (position of ease), holds for 90 seconds, and then passively returns to neutral. The proposed mechanism involves resetting abnormally firing proprioceptors or muscle spindles.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>Mechanism</h4>
+        <ul>
+          <li>Tender points reflect areas of abnormal neuromuscular activity or fascial tension</li>
+          <li>Shortening the affected tissues (indirect approach) quiets aberrant spindle activity</li>
+          <li>90-second hold allows reset of gamma motor neuron output</li>
+          <li>Slow passive return to neutral is essential — do not let the patient move themselves</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>General Rules</h4>
+        <ul>
+          <li>Monitor the tender point throughout — must achieve ≥70% reduction in tenderness</li>
+          <li>Fine-tune position until maximum reduction is reached</li>
+          <li>Hold 90 seconds without moving</li>
+          <li>Return SLOWLY and PASSIVELY to neutral</li>
+          <li>Recheck tenderness and range of motion</li>
+          <li>Can treat multiple tender points per session</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Indications for Counterstrain</h3>
+    <ul>
+      <li>Acute and chronic cervical somatic dysfunction with identifiable tender points</li>
+      <li>Patients who cannot tolerate more direct techniques (post-trauma, acute pain, hypersensitive)</li>
+      <li>As a first step before muscle energy (CS may resolve segmental dysfunction and simplify further treatment)</li>
+      <li>Cervicogenic headache, restricted rotation (especially AC1), neck stiffness</li>
+    </ul>
+
+    <h3>Relative Contraindications for Counterstrain</h3>
+    <ul>
+      <li>Unstable fracture, dislocation, or severe instability</li>
+      <li>Active malignancy or infection at the site</li>
+      <li>Positioning required would compromise vascular or neurological structures</li>
+      <li>Patient unable to cooperate or relax</li>
+    </ul>
+
+    <div class="callout green">
+      <div class="callout-icon">✅</div>
+      <div class="callout-body">
+        <strong>Safety Profile</strong>
+        Counterstrain is one of the safest OMT techniques because it is indirect (no forces applied toward the barrier), involves no high-velocity thrust, and the patient is in a comfortable, shortened position. It is appropriate for most patients including the elderly, post-surgical, and acutely injured.
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       ANTERIOR CERVICAL CS OVERVIEW
+  ════════════════════════════════════════════════ -->
+  <section id="ac-overview" style="padding-bottom:0">
+    <div class="section-label">Learning Objective 12 — Technique Overview</div>
+    <h2>Anterior Cervical Counterstrain — Overview</h2>
+
+    <h3>Finding Anterior Tender Points</h3>
+    <div class="card">
+      <h4>Overview of Anterior Cervical Tender Points</h4>
+      <ul>
+        <li><strong>AC1 (maverick point):</strong> High on the posterior edge of the ramus of the mandible between the earlobe and the angle of the mandible, near the transverse process of C1. Anatomical correlation: <strong>rectus capitis anterior</strong>.</li>
+        <li><strong>AC2:</strong> Anterolateral tip of the anterior tubercle of the transverse process with the lateral muscle mass at that level. Anatomical correlation: <strong>rectus capitis anterior and rectus capitis lateralis</strong>.</li>
+        <li><strong>AC3:</strong> At the anterior cervical transverse process level, just anterior to the articular pillar. Anatomical correlation: <strong>longus capitis</strong>.</li>
+        <li><strong>AC4:</strong> At the anterior cervical transverse process level, just anterior to the articular pillar. Anatomical correlation: <strong>longus capitis</strong>.</li>
+        <li><strong>AC5:</strong> At the anterior cervical transverse process level, just anterior to the articular pillar. Anatomical correlation: <strong>longus colli</strong>.</li>
+        <li><strong>AC6:</strong> At the anterior cervical transverse process level, just anterior to the articular pillar. Anatomical correlation: <strong>longus colli</strong>.</li>
+        <li><strong>AC7 (maverick point):</strong> Superior surface of the clavicle at the clavicular attachment of the sternocleidomastoid. Anatomical correlation: <strong>clavicular division of the sternocleidomastoid</strong>.</li>
+        <li><strong>AC8:</strong> Medial head of the clavicle at the sternal attachment of the sternocleidomastoid. Anatomical correlation: <strong>sternal division of the sternocleidomastoid</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="callout blue">
+      <div class="callout-icon">🧭</div>
+      <div class="callout-body">
+        <strong>Pattern to Remember</strong>
+        AC1 and AC7 are the maverick points. AC1 lives high near the mandible/C1 region, AC7 sits on the clavicular SCM attachment, and AC2–6 march down the anterior cervical transverse processes with muscle correlations shifting from rectus capitis to longus capitis to longus colli.
+      </div>
+    </div>
+
+    <h3>General Treatment Rule</h3>
+    <div class="mnemonic"><span>SEA</span> — Sidebend Away, Rotate Away</div>
+    <p>For most anterior cervical tender points (AC1, AC2–6, AC8): <strong>Sidebend AWAY</strong> from the tender point and <strong>Rotate AWAY</strong> from the tender point. FLEX the spine (because it's anterior). The exception is AC7.</p>
+
+    <div class="callout pink">
+      <div class="callout-icon">⭐</div>
+      <div class="callout-body">
+        <strong>Exception: AC7 — STAR/STRAW</strong>
+        AC7 is associated with the clavicular head of the SCM. Because this is far enough lateral, you need to sidebend TOWARD the tender point (not away) while still rotating away.<br><br>
+        <strong>AC7 = Flex + Sidebend TOWARD + Rotate AWAY</strong><br>
+        Mnemonic: <strong>STAR</strong> (Sidebend Toward, Rotate Away) or <strong>STRAW</strong> (Sidebend Toward, Rotate Away, oh Well)
+      </div>
+    </div>
+
+    <h3>Flexion Amount by Level (AC2–6)</h3>
+    <div class="callout purple">
+      <div class="callout-icon">📏</div>
+      <div class="callout-body">
+        <strong>How Much to Flex?</strong>
+        The amount of flexion varies by level. A helpful memory aid:<br><br>
+        <strong>AC2–6 flexion amount: Little, A lot, Little, A lot, A lot</strong><br>
+        (AC2 = slight, AC3 = marked, AC4 = slight, AC5 = marked, AC6 = marked)<br><br>
+        For written questions: if flexion is described as <em>marked / moderate / significant</em> → AC3, 5, or 6. If <em>slight / minimal</em> → AC2 or 4.
+      </div>
+    </div>
+  </section>
+
+  <!-- AC1 -->
+  <section id="ac1">
+    <div class="section-label">Counterstrain Technique</div>
+    <h2>Anterior C1 (AC1)</h2>
+
+    <div class="card">
+      <h4>Tender Point Location</h4>
+      <p>On the <strong>lateral process of C1</strong> — between the mastoid process and the angle of the mandible. Posterior to the ascending ramus of the mandible, anterior to the mastoid. This is a sensitive area — palpate with light pressure only.</p>
+    </div>
+
+    <div class="card">
+      <h4>Clinical Presentation</h4>
+      <p>Patients often present unable to rotate their head in one direction (e.g., cannot look over one shoulder). The AC1 tender point will be on the opposite side from the direction they cannot look. Treating it can dramatically restore rotation in 90 seconds.</p>
+    </div>
+
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(244,114,182,.15);color:var(--accent5)">AC1</div>
+        <div>
+          <strong style="color:var(--heading)">Treatment Position</strong>
+          <div style="color:var(--muted);font-size:13px">Primarily rotation away from the tender point</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <ol class="step-list">
+          <li>Identify and monitor the tender point (e.g., right AC1 tender point).</li>
+          <li>Scoop the hand under the opposite side of the patient's head (e.g., if treating right AC1, support from the left). Rest the head in your hand on the table — not held up in the air.</li>
+          <li>Rotate the head AWAY from the tender point (e.g., right AC1 → rotate to the LEFT). This is the direction the patient said they COULD look.</li>
+          <li>Fine-tune: sidebend AWAY from the tender point. Because the head is rotated ~90°, this will look like flexion/extension but is actually sidebending. Add small adjustments until maximum tenderness reduction is achieved (≥70%).</li>
+          <li>Hold for <strong>90 seconds</strong>.</li>
+          <li>Slowly and passively return the head to neutral by sliding your hand out from underneath — do not have the patient turn their own head.</li>
+          <li>Recheck tender point and rotation ROM.</li>
+        </ol>
+        <div class="callout blue" style="margin-top:12px">
+          <div class="callout-icon">📝</div>
+          <div class="callout-body">
+            <strong>Written Question Note</strong>
+            For CS and board-style questions: AC1 = primarily ROTATION AWAY. Sidebend away for fine-tuning. No significant flexion component needed.
+          </div>
+        </div>
+      </div>
+    </div>
+    <figure class="study-figure zoomable js-zoomable">
+      <div class="study-figure-media is-compact">
+        <img src="assets/lower-cervical/lc_ac1_position.png" alt="AC1 counterstrain position with physician supporting the occiput and rotating away from the tender point" loading="lazy">
+      </div>
+      <figcaption>AC1 position image. The main move is marked rotation away, with small fine-tuning adjustments layered in afterward.</figcaption>
+    </figure>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- AC2–6 -->
+  <section id="ac2-6">
+    <div class="section-label">Counterstrain Technique</div>
+    <h2>Anterior C2–6 (AC2–6)</h2>
+
+    <div class="card">
+      <h4>Tender Point Location</h4>
+      <p>On the <strong>anterior aspect of the transverse processes</strong> of C2–C6. Coming slightly anterior to the articular pillar — there is a bump (the anterior tubercle of the transverse process). Slide anterior from the articular pillar. These are related to scalene and other anterior muscle attachments.</p>
+    </div>
+
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(91,143,255,.15);color:var(--accent)">AC2–6</div>
+        <div>
+          <strong style="color:var(--heading)">Treatment Position — SEA Rule</strong>
+          <div style="color:var(--muted);font-size:13px">Flex + Sidebend Away + Rotate Away</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <ol class="step-list">
+          <li>Identify and monitor the tender point (e.g., left AC4 tender point).</li>
+          <li>Support the patient's head in your palm, elbow resting on hip for stability.</li>
+          <li>Introduce <strong>Flexion</strong> — tuck chin toward chest. Amount of flexion depends on level (see chart below).</li>
+          <li>Introduce <strong>Sidebending AWAY</strong> from the tender point (e.g., left AC4 → sidebend right).</li>
+          <li>Introduce <strong>Rotation AWAY</strong> from the tender point (e.g., left AC4 → rotate right).</li>
+          <li>Fine-tune all three planes until ≥70% reduction in tenderness.</li>
+          <li>Hold for <strong>90 seconds</strong>.</li>
+          <li>Return slowly and passively to neutral.</li>
+          <li>Recheck tender point.</li>
+        </ol>
+
+        <h4 style="margin-top:16px">Flexion Amount by Level</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Level</th><th>Flexion Amount</th><th>Special Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>AC2</strong></td><td>Slight (minimal)</td><td>Least flexion of the group</td></tr>
+              <tr><td><strong>AC3</strong></td><td>Marked</td><td>Significant flexion needed</td></tr>
+              <tr><td><strong>AC4</strong></td><td>Slight (minimal)</td><td>Head may be off end of table; maintain NORMAL lordosis (not excessive extension)</td></tr>
+              <tr><td><strong>AC5</strong></td><td>Marked</td><td>Significant flexion needed</td></tr>
+              <tr><td><strong>AC6</strong></td><td>Marked</td><td>Significant flexion needed</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout green" style="margin-top:12px">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Practical Tip: Watch the SCMs</strong>
+            If the SCM is visibly prominent (popping out), the patient is not relaxed. Ensure the head is fully supported so the patient can let go. Your stability = their relaxation.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- AC7 -->
+  <section id="ac7">
+    <div class="section-label">Counterstrain Technique</div>
+    <h2>Anterior C7 (AC7)</h2>
+
+    <div class="card">
+      <h4>Tender Point Location</h4>
+      <p>On the <strong>superior aspect of the clavicle</strong> at the attachment of the <strong>clavicular head of the SCM</strong>. More lateral than AC2–6 tender points. Palpate at the medial clavicle, just at the SCM clavicular head attachment.</p>
+    </div>
+
+    <div class="callout pink">
+      <div class="callout-icon">⭐</div>
+      <div class="callout-body">
+        <strong>The Exception — STAR</strong>
+        AC7 breaks the SEA rule. Because the clavicular head of the SCM is sufficiently lateral, you must sidebend TOWARD the tender point (not away) to adequately shorten it.
+      </div>
+    </div>
+
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(244,114,182,.15);color:var(--accent5)">AC7</div>
+        <div>
+          <strong style="color:var(--heading)">Treatment Position — STAR Rule</strong>
+          <div style="color:var(--muted);font-size:13px">Flex + Sidebend TOWARD + Rotate AWAY</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <ol class="step-list">
+          <li>Identify and monitor the tender point at the clavicular SCM attachment (e.g., left AC7).</li>
+          <li>Support the patient's head.</li>
+          <li>Introduce <strong>Flexion</strong> — tuck the chin.</li>
+          <li>Introduce <strong>Sidebending TOWARD</strong> the side of the tender point (e.g., left AC7 → sidebend LEFT).</li>
+          <li>Introduce <strong>Rotation AWAY</strong> from the tender point (e.g., left AC7 → rotate RIGHT).</li>
+          <li>Fine-tune. Monitor at the clavicular SCM attachment until ≥70% reduction.</li>
+          <li>Hold for <strong>90 seconds</strong>.</li>
+          <li>Return slowly and passively to neutral.</li>
+          <li>Recheck.</li>
+        </ol>
+        <div class="callout blue" style="margin-top:12px">
+          <div class="callout-icon">🧠</div>
+          <div class="callout-body">
+            <strong>Mnemonic for AC7</strong>
+            <strong>STRAW</strong> = Sidebend Toward, Rotate Away (well...) OR <strong>STAR</strong> = Sidebend Toward And Rotate-away. Either way, sidebend TOWARD is the key differentiator.
+          </div>
+        </div>
+      </div>
+    </div>
+    <figure class="study-figure zoomable js-zoomable">
+      <div class="study-figure-media is-wide is-paper">
+        <img src="assets/lower-cervical/lc_ac7_position.png" alt="AC7 counterstrain position at the clavicular head of the sternocleidomastoid" loading="lazy">
+      </div>
+      <figcaption>AC7 visual. This one is worth keeping because it makes the STAR exception easier to remember at the clavicular SCM attachment.</figcaption>
+    </figure>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- AC8 -->
+  <section id="ac8">
+    <div class="section-label">Counterstrain Technique</div>
+    <h2>Anterior C8 (AC8)</h2>
+
+    <div class="card">
+      <h4>Tender Point Location</h4>
+      <p>On the <strong>medial end of the clavicle</strong> near the sternoclavicular joint / suprasternal notch. This corresponds to the <strong>sternal head of the SCM</strong>. Both AC7 and AC8 are SCM-related — AC7 = clavicular head; AC8 = sternal head.</p>
+    </div>
+
+    <div class="technique-card">
+      <div class="technique-header">
+        <div class="technique-num" style="background:rgba(52,211,153,.15);color:var(--accent3)">AC8</div>
+        <div>
+          <strong style="color:var(--heading)">Treatment Position — Back to SEA</strong>
+          <div style="color:var(--muted);font-size:13px">Flex + Sidebend AWAY + Rotate AWAY</div>
+        </div>
+      </div>
+      <div class="technique-body">
+        <ol class="step-list">
+          <li>Identify and monitor the tender point at the sternoclavicular joint / suprasternal notch (e.g., left AC8).</li>
+          <li>Support the patient's head.</li>
+          <li>Introduce <strong>Flexion</strong>.</li>
+          <li>Introduce <strong>Sidebending AWAY</strong> from the tender point (e.g., left AC8 → sidebend RIGHT).</li>
+          <li>Introduce <strong>Rotation AWAY</strong> from the tender point (e.g., left AC8 → rotate RIGHT).</li>
+          <li>Fine-tune until ≥70% reduction at the tender point.</li>
+          <li>Hold <strong>90 seconds</strong>. Return passively to neutral.</li>
+          <li>Recheck tenderness and range of motion.</li>
+        </ol>
+        <div class="callout orange" style="margin-top:12px">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>AC7 vs AC8 Distinction</strong>
+            Both are on the clavicular region but AC8 uses SEA (sidebend/rotate AWAY) like most others — the distinction is the anatomic head of the SCM involved. AC7 = clavicular head → sidebend TOWARD. AC8 = sternal head → sidebend AWAY.
+          </div>
+        </div>
+      </div>
+    </div>
+    <figure class="study-figure zoomable js-zoomable">
+      <div class="study-figure-media is-wide is-paper">
+        <img src="assets/lower-cervical/lc_ac8_position.png" alt="AC8 counterstrain position at the sternal head of the sternocleidomastoid near the sternoclavicular region" loading="lazy">
+      </div>
+      <figcaption>AC8 visual. Compare it directly with AC7: this one returns to the usual SEA pattern even though both tender points are SCM-related.</figcaption>
+    </figure>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       INDICATIONS & CONTRAINDICATIONS
+  ════════════════════════════════════════════════ -->
+  <section id="indications">
+    <div class="section-label">Learning Objective 10 & 11</div>
+    <h2>Indications & Contraindications Summary</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Condition/Situation</th><th>Muscle Energy</th><th>Counterstrain</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lower cervical somatic dysfunction</td>
+            <td><span class="badge badge-green">Indicated</span></td>
+            <td><span class="badge badge-green">Indicated</span></td>
+          </tr>
+          <tr>
+            <td>Hypertonic SCM or scalene</td>
+            <td><span class="badge badge-green">Long restrictor ME</span></td>
+            <td><span class="badge badge-green">AC7/AC8</span></td>
+          </tr>
+          <tr>
+            <td>Acute pain, hypersensitivity</td>
+            <td><span class="badge badge-orange">Use caution</span></td>
+            <td><span class="badge badge-green">Preferred — gentler</span></td>
+          </tr>
+          <tr>
+            <td>Cervicogenic headache</td>
+            <td><span class="badge badge-green">Indicated</span></td>
+            <td><span class="badge badge-green">Indicated (esp. AC1)</span></td>
+          </tr>
+          <tr>
+            <td>Acute fracture or dislocation</td>
+            <td><span class="badge badge-red">Contraindicated</span></td>
+            <td><span class="badge badge-red">Contraindicated</span></td>
+          </tr>
+          <tr>
+            <td>Vertebral artery insufficiency</td>
+            <td><span class="badge badge-orange">Relative CI — avoid ext+rotation</span></td>
+            <td><span class="badge badge-green">Generally safer</span></td>
+          </tr>
+          <tr>
+            <td>Osteoporosis</td>
+            <td><span class="badge badge-orange">Reduce forces</span></td>
+            <td><span class="badge badge-green">Safer — no direct forces</span></td>
+          </tr>
+          <tr>
+            <td>Active malignancy at site</td>
+            <td><span class="badge badge-red">Contraindicated</span></td>
+            <td><span class="badge badge-red">Contraindicated</span></td>
+          </tr>
+          <tr>
+            <td>Myelopathy / cord compression</td>
+            <td><span class="badge badge-orange">Extreme caution</span></td>
+            <td><span class="badge badge-orange">Extreme caution</span></td>
+          </tr>
+          <tr>
+            <td>Patient cannot cooperate/relax</td>
+            <td><span class="badge badge-orange">Difficult</span></td>
+            <td><span class="badge badge-orange">Position of ease may still work</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       CLINICAL PEARLS
+  ════════════════════════════════════════════════ -->
+  <section id="clinical-pearls">
+    <div class="section-label">Clinical Integration</div>
+    <h2>Clinical Pearls & Why Treat the Cervical Spine?</h2>
+
+    <h3>Clinical Reasons to Evaluate & Treat the Cervical Spine</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Biomechanical Model</h4>
+        <ul>
+          <li>Neck pain, restricted ROM</li>
+          <li>Shoulder pain (referral patterns, levator scap tension)</li>
+          <li>Thoracic outlet syndrome considerations</li>
+          <li>Upper extremity radiculopathy (C5–C8)</li>
+          <li>Forward head posture contributing to global mechanics</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Neurological Model</h4>
+        <ul>
+          <li>Sinus congestion, otitis media (upper cervical → CN innervation)</li>
+          <li>Headaches (especially greater occipital neuralgia)</li>
+          <li>CN XI irritation → SCM/trapezius hypertonicity</li>
+          <li>Cervical radiculopathy (numbness/tingling in arm)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Respiratory-Circulatory Model</h4>
+        <ul>
+          <li>Lymphatic drainage of the head and neck (scalene pump)</li>
+          <li>Accessory respiratory muscle hypertonicity (scalenes)</li>
+          <li>Pneumonia, asthma: scalene tension affects rib 1 mobility</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Autonomic / Vagal Model</h4>
+        <ul>
+          <li>Reflux, nausea, vomiting (vagal → upper GI)</li>
+          <li>Upper GI dysmotility</li>
+          <li>Sinus/middle ear conditions (OA/upper cervical vagal proximity)</li>
+          <li>Cardiac rate modulation (vagal innervation)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Quick Reference Summary — All Techniques</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Technique</th><th>Dysfunction Type</th><th>Barrier Engaged</th><th>Patient Contracts</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ME Extended</strong></td>
+            <td>ERSr/l</td>
+            <td>Flexion + SB/R toward restriction</td>
+            <td>Extend (push head back/up)</td>
+          </tr>
+          <tr>
+            <td><strong>ME Flexed</strong></td>
+            <td>FRSr/l</td>
+            <td>Extension + SB/R toward restriction</td>
+            <td>Flex (tuck chin / lift head)</td>
+          </tr>
+          <tr>
+            <td><strong>ME SCM</strong></td>
+            <td>Hypertonic SCM</td>
+            <td>Ext + SB away + Rotate toward</td>
+            <td>Lift head + rotate toward SCM side</td>
+          </tr>
+          <tr>
+            <td><strong>ME Scalene</strong></td>
+            <td>Hypertonic scalene</td>
+            <td>Ext + SB away + Rotate away</td>
+            <td>Lift head up</td>
+          </tr>
+          <tr>
+            <td><strong>CS AC1</strong></td>
+            <td>AC1 tender point</td>
+            <td>Rotate away (+ SB away)</td>
+            <td>None — passive 90 sec hold</td>
+          </tr>
+          <tr>
+            <td><strong>CS AC2–6</strong></td>
+            <td>AC2–6 tender point</td>
+            <td>Flex + SB away + Rotate away</td>
+            <td>None — passive 90 sec hold</td>
+          </tr>
+          <tr>
+            <td><strong>CS AC7</strong></td>
+            <td>AC7 (clavicular SCM)</td>
+            <td>Flex + SB TOWARD + Rotate away</td>
+            <td>None — passive 90 sec hold</td>
+          </tr>
+          <tr>
+            <td><strong>CS AC8</strong></td>
+            <td>AC8 (sternal SCM)</td>
+            <td>Flex + SB away + Rotate away</td>
+            <td>None — passive 90 sec hold</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Common Exam Question Traps</h3>
+    <div class="card">
+      <ul>
+        <li><strong>"Always treated in flexion" for ME</strong> → FALSE for ME (only true for HVLA). ME treats extended dysfunctions in flexion and flexed dysfunctions in extension.</li>
+        <li><strong>Prominent articular pillar side</strong> → Opposite the direction of rotation (e.g., ERSl → prominent RIGHT pillar).</li>
+        <li><strong>AC7 uses SEA like all others</strong> → FALSE. AC7 uses STAR/STRAW — sidebend TOWARD.</li>
+        <li><strong>Worse in flexion = flexed dysfunction</strong> → FALSE. Worse in flexion = EXTENDED dysfunction (restricted in flexion = prefers extension = extended).</li>
+        <li><strong>Translation from R→L = sidebending LEFT</strong> → FALSE. Translating from right to left pushes the segment left, creating sidebending to the RIGHT.</li>
+        <li><strong>You can have type I mechanics in the lower cervicals</strong> → Technically possible but very uncommon. For all practical purposes and exam purposes, lower cervicals always couple SB and R in the same direction.</li>
+      </ul>
+    </div>
+
+    <div class="callout green" style="margin-bottom:40px">
+      <div class="callout-icon">🏆</div>
+      <div class="callout-body">
+        <strong>The Bottom Line</strong>
+        Name it by what it DOES (position of ease). Treat it by engaging what it DOESN'T DO (the barrier). For counterstrain, go indirect (shorten). For muscle energy, go direct (engage the barrier, then resist). Always monitor at the segment. Always recheck.
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="image-lightbox" id="imageLightbox" aria-hidden="true">
+  <button class="image-lightbox-close" id="imageLightboxClose" type="button" aria-label="Close enlarged image">&times;</button>
+  <div class="image-lightbox-inner">
+    <img id="imageLightboxImg" alt="">
+    <div class="image-lightbox-caption" id="imageLightboxCaption"></div>
+  </div>
+</div>
+
+<script>
+  const THEME_STORAGE_KEY = 'lower-cervical-omm-theme';
+  const themeDots = document.querySelectorAll('.theme-dot');
+
+  function applyTheme(theme) {
+    const nextTheme = theme || 'midnight';
+    document.body.setAttribute('data-theme', nextTheme);
+    themeDots.forEach(dot => dot.classList.toggle('active', dot.dataset.theme === nextTheme));
+    try { localStorage.setItem(THEME_STORAGE_KEY, nextTheme); } catch (err) {}
+  }
+
+  try {
+    applyTheme(localStorage.getItem(THEME_STORAGE_KEY) || 'midnight');
+  } catch (err) {
+    applyTheme('midnight');
+  }
+
+  themeDots.forEach(dot => {
+    dot.addEventListener('click', () => applyTheme(dot.dataset.theme));
+  });
+
+  const lightbox = document.getElementById('imageLightbox');
+  const lightboxImg = document.getElementById('imageLightboxImg');
+  const lightboxCaption = document.getElementById('imageLightboxCaption');
+  const lightboxClose = document.getElementById('imageLightboxClose');
+  const zoomableFigures = document.querySelectorAll('.js-zoomable');
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImg.src = '';
+    lightboxImg.alt = '';
+    lightboxCaption.textContent = '';
+  }
+
+  zoomableFigures.forEach(figure => {
+    figure.addEventListener('click', () => {
+      const img = figure.querySelector('img');
+      const caption = figure.querySelector('figcaption');
+      if (!img) return;
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt || '';
+      lightboxCaption.textContent = caption ? caption.textContent : '';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+    });
+  });
+
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox || event.target === lightboxClose) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && lightbox.classList.contains('open')) {
+      closeLightbox();
+    }
+  });
+
+  // Active nav highlighting on scroll
+  const sections = document.querySelectorAll('section[id], div[id="ac-overview"]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const activeLink = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
