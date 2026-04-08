@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ca²⁺ & Phosphate Metabolism — Dr. Morganelli | 22 MCQs</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+
+/* LAUNCH */
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+ radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+ radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+ linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%)}
+.launch-card{max-width:760px;width:min(100%,760px);background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:36px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:42px;line-height:1.02;color:var(--navy);margin-bottom:8px}
+.launch-card .sub{color:var(--slate);margin-bottom:20px;max-width:62ch}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600}
+.chip.lo{background:var(--sky-bg);border-color:rgba(74,154,232,.3);color:#1a5fa8}
+.chip.qs{background:var(--teal-light);border-color:rgba(26,122,109,.3);color:var(--teal-deep)}
+.lo-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.lo-item{padding:12px 16px;background:rgba(255,255,255,.7);border:1px solid var(--rule2);border-radius:14px;font-size:13px;color:var(--ink2)}
+.lo-item strong{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);margin-bottom:3px;text-transform:uppercase;letter-spacing:.8px}
+.launch-actions{display:flex;gap:12px;flex-wrap:wrap}
+.launch-btn{padding:14px 28px;border:none;border-radius:16px;font-family:'Nunito',sans-serif;font-weight:900;font-size:15px;cursor:pointer;transition:var(--tr)}
+.launch-btn.primary{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;box-shadow:0 10px 24px rgba(26,122,109,.24)}
+.launch-btn.primary:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.launch-btn.secondary{background:rgba(255,255,255,.9);border:1.5px solid var(--rule2);color:var(--navy)}
+.launch-btn.secondary:hover{background:#fff;border-color:rgba(26,122,109,.4);color:var(--teal);transform:translateY(-1px)}
+
+/* QUIZ OVERLAY */
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--teal-glow) 15%, transparent), transparent 24%),
+  radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--plum) 13%, transparent), transparent 22%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+
+/* TOP BAR */
+.qt-bar{position:sticky;top:0;z-index:12;padding:16px 26px;display:flex;align-items:center;gap:14px;color:#fff;background:linear-gradient(135deg,color-mix(in srgb, var(--navy2) 94%, transparent),color-mix(in srgb, var(--navy) 92%, transparent));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 10px 28px rgba(18,32,60,.16);flex-wrap:wrap}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:24px;font-weight:700;letter-spacing:-.3px;flex:1;min-width:200px}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap}
+.qt-btn{padding:9px 16px;border-radius:12px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-1px)}
+
+/* LAYOUT */
+.qin{max-width:1400px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:340px minmax(0,1fr);gap:18px 24px;align-items:start}
+.q-left{display:grid;gap:16px;align-content:start;align-self:start;position:sticky;top:80px}
+.q-right{min-width:0;display:grid;gap:16px;align-content:start}
+
+/* SCORE */
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.score-box{position:relative;overflow:hidden;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-radius:20px;padding:16px 12px 12px;text-align:center;box-shadow:0 12px 30px rgba(18,32,60,.08);border:1px solid rgba(18,32,60,.08)}
+.score-box::before{content:'';position:absolute;left:14px;right:14px;top:0;height:3px;border-radius:0 0 999px 999px;background:linear-gradient(90deg, rgba(26,122,109,.16), rgba(62,196,178,.5));opacity:.75}
+.score-box.correct{background:linear-gradient(180deg,#fff,#EDF8F1)}.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect{background:linear-gradient(180deg,#fff,#FDF2F2)}.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:34px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:6px}
+.score-box.correct .sv{color:var(--green)}.score-box.incorrect .sv{color:var(--red)}
+
+/* MODE TOGGLE */
+.mode-toggle{display:flex;gap:8px;padding:7px;border-radius:22px;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:var(--sh2)}
+.mode-btn{flex:1;padding:12px 14px;border-radius:16px;text-align:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 10px 22px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:18px;margin-bottom:3px}
+
+/* TIMER */
+.timer-card{position:relative;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:40px 16px 16px;background:rgba(255,255,255,.84);border-radius:20px;border:1px solid rgba(18,32,60,.08);box-shadow:var(--sh2)}
+.timer-lbl{position:absolute;top:12px;left:14px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;padding:5px 9px;border-radius:999px;background:rgba(18,32,60,.04)}
+.timer-time{font-family:'IBM Plex Mono',monospace;font-size:36px;font-weight:600;color:var(--navy);min-width:110px;text-align:center;letter-spacing:2px}
+.tbtn{width:38px;height:38px;border-radius:50%;border:1.8px solid rgba(27,42,74,.24);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:var(--tr);color:var(--navy);flex-shrink:0;box-shadow:0 5px 15px rgba(18,32,60,.08)}
+.tbtn:hover{background:var(--navy);color:#fff;transform:translateY(-1px) scale(1.04);border-color:var(--navy)}
+
+/* LO PANEL */
+.lo-panel{background:rgba(255,255,255,.76);border:1px solid rgba(18,32,60,.08);border-radius:20px;padding:16px;box-shadow:var(--sh)}
+.lo-panel h4{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-bottom:10px}
+.lo-tags{display:flex;flex-wrap:wrap;gap:6px}
+.lo-tag{padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800;font-family:'IBM Plex Mono',monospace;cursor:pointer;border:1.5px solid transparent;transition:var(--tr)}
+.lo-tag.plo{background:var(--sky-bg);color:#1a5fa8;border-color:rgba(74,154,232,.25)}
+.lo-tag.clo{background:var(--teal-light);color:var(--teal-deep);border-color:rgba(26,122,109,.25)}
+.lo-tag:hover{filter:brightness(0.92);transform:translateY(-1px)}
+.lo-tag.active-filter{box-shadow:0 0 0 2px currentColor;font-weight:900}
+
+/* EXAM SUBMIT */
+.exam-submit-row{background:rgba(255,255,255,.76);border:1px solid rgba(18,32,60,.08);border-radius:20px;padding:18px;text-align:center;box-shadow:var(--sh)}
+.exam-progress{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mist);margin-bottom:10px}
+.exam-submit-btn{padding:13px 40px;border-radius:16px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 20px rgba(224,122,95,.22)}
+.exam-submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(224,122,95,.3)}
+
+/* QUESTION CARD */
+.qcd{background:color-mix(in srgb, var(--white) 94%, var(--warm) 6%);border-radius:26px;overflow:hidden;box-shadow:0 24px 60px rgba(18,32,60,.11);border:1px solid rgba(18,32,60,.08);animation:cardIn .45s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px) scale(0.99)}to{opacity:1;transform:none}}
+.qpg{height:5px;background:color-mix(in srgb, var(--teal) 10%, transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:26px 32px 24px}
+.qmeta{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.qnum{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;font-weight:700}
+.qlo-badge{padding:4px 10px;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.8px}
+.qlo-badge.plo{background:var(--sky-bg);color:#1a5fa8;border:1px solid rgba(74,154,232,.3)}
+.qlo-badge.clo{background:var(--teal-light);color:var(--teal-deep);border:1px solid rgba(26,122,109,.3)}
+.qstem{font-family:'Crimson Pro',serif;font-size:24px;line-height:1.38;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.1px}
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:13px;padding:14px 17px;border:1.5px solid rgba(18,32,60,.09);border-radius:17px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb, var(--warm) 75%, var(--white) 25%);box-shadow:0 5px 16px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 10px 22px rgba(18,32,60,.08)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.cl{width:40px;height:40px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 5px 12px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:15.5px;line-height:1.48;padding-top:3px;color:var(--ink)}
+.submit-row{margin-top:22px;text-align:center}
+.submit-btn{padding:14px 52px;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.4px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+
+/* EXPLANATION */
+.exb{margin-top:24px;border-radius:20px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.exs{padding:20px 24px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exs.exd{background:var(--amber-bg);border-left:5px solid var(--amber)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}.exs.exd .exl{color:var(--amber)}
+.ext{font-size:15px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:8px;padding:10px 14px;background:rgba(255,255,255,.6);border-radius:12px;font-size:14px;line-height:1.65}
+.wce strong{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--red)}
+
+/* NAV */
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 22px 18px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,rgba(251,248,243,.3),rgba(246,243,236,.8))}
+.nb{padding:11px 22px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 6px 16px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.qdots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:13px;height:13px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);box-shadow:0 3px 8px rgba(18,32,60,.04)}
+.qd:hover{transform:scale(1.2);border-color:var(--teal)}
+.qd.done{background:var(--teal);border-color:var(--teal)}
+.qd.wrong{background:var(--red);border-color:var(--red)}
+.qd.cur{border-color:var(--navy);border-width:2.5px;transform:scale(1.15)}
+
+/* RESULTS SCREEN */
+.results-screen{display:none;padding:48px 32px;text-align:center;max-width:800px;margin:0 auto}
+.results-screen.vis{display:block;animation:fi .5s cubic-bezier(.4,0,.2,1)}
+.results-screen h2{font-family:'Crimson Pro',serif;font-size:42px;color:var(--navy);margin-bottom:8px}
+.results-screen .grade{font-family:'Crimson Pro',serif;font-size:96px;font-weight:800;line-height:1;margin:20px 0 8px}
+.results-screen .grade-lbl{font-size:13px;color:var(--mist);text-transform:uppercase;letter-spacing:2px;font-weight:800;margin-bottom:24px}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.res-box{background:#fff;border-radius:20px;padding:20px;border:1px solid rgba(18,32,60,.08);box-shadow:var(--sh)}
+.res-box .rv{font-family:'Crimson Pro',serif;font-size:38px;font-weight:800;color:var(--navy)}
+.res-box .rl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800;margin-top:6px}
+.res-box.good .rv{color:var(--green)}.res-box.bad .rv{color:var(--red)}
+.results-btn{padding:14px 32px;border-radius:16px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;transition:var(--tr);margin:8px}
+.results-btn.primary{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;box-shadow:0 10px 24px rgba(26,122,109,.24)}
+.results-btn.primary:hover{transform:translateY(-2px)}
+.results-btn.secondary{background:#fff;border:1.5px solid var(--rule2);color:var(--navy)}
+.results-btn.secondary:hover{background:var(--navy);color:#fff}
+
+@media(max-width:900px){
+  .qin{grid-template-columns:1fr;padding:16px 14px 64px}
+  .q-left{position:static}
+  .qbd{padding:20px 18px 18px}
+  .qstem{font-size:21px}
+  .lo-grid{grid-template-columns:1fr}
+  .launch-card h1{font-size:32px}
+  .launch-card{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap" id="launchScreen">
+  <div class="launch-card">
+    <div class="tag" style="font-size:11px;font-weight:800;color:var(--teal);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">Dr. Morganelli · Block 5 · 2026</div>
+    <h1>Calcium &amp; Phosphate Metabolism</h1>
+    <p class="sub">22 MCQs spanning all Professor LOs and Class LOs. Written in Morganelli style — every distractor is defensible, every correct answer requires mechanism, not recall.</p>
+    <div class="launch-meta">
+      <span class="chip qs">📝 22 Questions</span>
+      <span class="chip lo">PLO 1–6 &amp; CLO 1–7</span>
+      <span class="chip" style="background:var(--plum-bg);border-color:rgba(123,94,167,.3);color:#5b3fa0">Learn &amp; Exam modes</span>
+    </div>
+    <div class="lo-grid">
+      <div class="lo-item"><strong>PLO 1</strong> Forms, normal levels, symptoms, dietary Ca²⁺</div>
+      <div class="lo-item"><strong>PLO 2</strong> Albumin &amp; pH effects on free Ca²⁺</div>
+      <div class="lo-item"><strong>PLO 3</strong> PTH structure, synthesis, mechanism</div>
+      <div class="lo-item"><strong>PLO 4</strong> Calcitriol as steroid hormone / VDR</div>
+      <div class="lo-item"><strong>PLO 5</strong> Target organs of PTH &amp; calcitriol</div>
+      <div class="lo-item"><strong>PLO 6</strong> Calcitonin synthesis, stimulus, effects</div>
+      <div class="lo-item"><strong>CLO 1</strong> CaSR, negative feedback, calcimimetics</div>
+      <div class="lo-item"><strong>CLO 2</strong> Reciprocal Ca²⁺ / Pi reabsorption</div>
+      <div class="lo-item"><strong>CLO 3</strong> Calcitriol synthesis &amp; 25-OH stability</div>
+      <div class="lo-item"><strong>CLO 4</strong> Renal &amp; SI Ca²⁺ absorption mechanisms</div>
+      <div class="lo-item"><strong>CLO 5</strong> RANKL / OPG bone resorption</div>
+      <div class="lo-item"><strong>CLO 6</strong> Pi balance, FGF23, SHPT</div>
+      <div class="lo-item"><strong>CLO 7</strong> Integrated hypocalcemia response</div>
+    </div>
+    <div class="launch-actions">
+      <button class="launch-btn primary" onclick="openQuiz('learn')">📖 Start in Learn Mode</button>
+      <button class="launch-btn secondary" onclick="openQuiz('exam')">🎯 Exam Mode</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="quizOverlay">
+  <div class="qt-bar">
+    <h2 id="barTitle">Ca²⁺ &amp; Phosphate — Dr. Morganelli</h2>
+    <div class="qt-btns">
+      <button class="qt-btn reset" onclick="resetQuiz()">↺ Reset</button>
+      <button class="qt-btn close" onclick="closeQuiz()">✕ Close</button>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div class="results-screen" id="resultsScreen">
+    <h2>Quiz Complete</h2>
+    <div class="grade" id="resGrade">—</div>
+    <div class="grade-lbl" id="resGradeLbl">score</div>
+    <div class="res-grid">
+      <div class="res-box good"><div class="rv" id="resCorrect">0</div><div class="rl">Correct</div></div>
+      <div class="res-box bad"><div class="rv" id="resIncorrect">0</div><div class="rl">Incorrect</div></div>
+      <div class="res-box"><div class="rv" id="resTotal">22</div><div class="rl">Total</div></div>
+    </div>
+    <button class="results-btn primary" onclick="resetQuiz()">↺ Retry All</button>
+    <button class="results-btn secondary" onclick="closeQuiz()">✕ Close</button>
+  </div>
+
+  <div class="qin" id="quizLayout">
+    <!-- LEFT PANEL -->
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box correct"><div class="sv" id="sc">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="si">0</div><div class="sl">Wrong</div></div>
+        <div class="score-box"><div class="sv" id="sr">22</div><div class="sl">Left</div></div>
+      </div>
+      <div class="mode-toggle">
+        <button class="mode-btn" id="learnBtn" onclick="setMode('learn')"><span class="mode-icon">📖</span>Learn</button>
+        <button class="mode-btn" id="examBtn" onclick="setMode('exam')"><span class="mode-icon">🎯</span>Exam</button>
+      </div>
+      <div class="timer-card">
+        <div class="timer-lbl">Stopwatch</div>
+        <div class="timer-time" id="timerDisp">00:00</div>
+        <button class="tbtn" onclick="toggleTimer()" id="timerToggle">▶</button>
+        <button class="tbtn" onclick="resetTimer()">⏹</button>
+      </div>
+      <div class="lo-panel">
+        <h4>Filter by LO</h4>
+        <div class="lo-tags" id="loTags"></div>
+      </div>
+      <div class="exam-submit-row" id="examRow" style="display:none">
+        <div class="exam-progress" id="examProg">0 of <span id="examTotal">22</span> answered</div>
+        <button class="exam-submit-btn" onclick="submitExam()">Submit Exam</button>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="q-right">
+      <div class="qcd">
+        <div class="qpg"><div class="qpf" id="progress" style="width:0%"></div></div>
+        <div class="qbd">
+          <div class="qmeta">
+            <div class="qnum" id="qNum">Q 1 / 22</div>
+            <div class="qlo-badge" id="qLoBadge">PLO 1</div>
+          </div>
+          <div class="qstem" id="qStem"></div>
+          <div class="ach" id="choices"></div>
+          <div class="submit-row" id="submitRow">
+            <button class="submit-btn" id="submitBtn" onclick="submitAnswer()" disabled>Submit Answer</button>
+          </div>
+          <div class="exb" id="expBox">
+            <div class="exs" id="expVerdict"></div>
+            <div class="exs exe">
+              <div class="exl">Explanation</div>
+              <div class="ext" id="expText"></div>
+            </div>
+            <div class="exs exd" id="distBox" style="display:none">
+              <div class="exl">Why the Others Are Wrong</div>
+              <div id="distText"></div>
+            </div>
+          </div>
+        </div>
+        <div class="qnv">
+          <button class="nb pr" onclick="navigate(-1)" id="prevBtn">← Prev</button>
+          <div class="qdots" id="dots"></div>
+          <button class="nb pr" onclick="navigate(1)" id="nextBtn">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const RAW_QS = [{"lo": "PLO 1", "stem": "A 72-year-old woman with end-stage liver disease has a total serum calcium of 7.6 mg/dL. Her free ionized calcium is measured at 1.14 mmol/L, which falls within the normal range, and she has no symptoms of hypocalcemia. Which one of the following best explains these findings?", "choices": ["Her kidneys are excreting excess calcium due to portal hypertension, lowering total calcium while PTH compensates by increasing bone resorption to maintain free Ca²⁺., and this renal-hepatic axis compensates fully by upregulating calcitriol", "Hypoalbuminemia from liver disease reduces the albumin-bound fraction of calcium, decreasing total serum Ca²⁺ without altering free ionized Ca²⁺, which PTH continues to regulate normally.", "Cirrhosis impairs hepatic 25-hydroxylase activity, reducing calcitriol synthesis and intestinal Ca²⁺ absorption, which lowers both total and free calcium simultaneously.", "Elevated bilirubin in liver disease directly complexes with Ca²⁺ ions in the blood, reducing the fraction available for laboratory measurement of total calcium.", "Ascites in liver disease causes redistribution of Ca²⁺ from the intravascular space into the peritoneal fluid, lowering measured serum calcium."], "correct": 1, "explanation": "Approximately 40% of total serum Ca²⁺ normally circulates bound to albumin. In liver disease, hypoalbuminemia reduces this bound fraction, so total serum calcium falls even when free ionized Ca²⁺ — the regulated, biologically active form — remains normal. PTH senses free Ca²⁺ via the CaSR and keeps it within the set point regardless of albumin levels. This is why total calcium is an unreliable indicator of true calcium status in hypoalbuminemic patients.", "distractors": {"A": "Portal hypertension does not cause renal Ca²⁺ wasting, and renal Ca²⁺ excretion is regulated by PTH — not portal pressure. This conflates hepatic and renal physiology.", "C": "While cirrhosis does impair 25-hydroxylation, the stem states that free Ca²⁺ is normal. A calcitriol-deficient mechanism would lower free Ca²⁺ as well, which contradicts the case.", "D": "Bilirubin does not meaningfully complex with Ca²⁺ ions to alter laboratory measurements. This is a fabricated mechanism.", "E": "Ca²⁺ does not redistribute into ascitic fluid in a manner that significantly lowers serum calcium. This is a plausible-sounding but incorrect extrapolation."}}, {"lo": "PLO 1", "stem": "Which one of the following best explains why hypocalcemia produces tetany and muscle spasms rather than muscle weakness?", "choices": ["Low free Ca²⁺ inhibits acetylcholine degradation at the neuromuscular junction, causing sustained synaptic stimulation of skeletal muscle., thereby prolonging the time that ACh remains in the synaptic cleft and increases the frequency of end-plate potentials in skeletal muscle", "Low free Ca²⁺ directly activates phospholipase C in muscle cells, producing excess IP3 and constitutive release of Ca²⁺ from the sarcoplasmic reticulum.", "Low free Ca²⁺ decreases the threshold for depolarization of nerve and muscle cell membranes, increasing their excitability and causing spontaneous action potentials.", "Low free Ca²⁺ impairs the Na⁺/K⁺-ATPase pump, causing intracellular Na⁺ accumulation and sustained membrane depolarization in motor neurons.", "Low free Ca²⁺ reduces Mg²⁺ competition for Ca²⁺ binding sites on troponin, allowing constitutive actin-myosin cross-bridge formation."], "correct": 2, "explanation": "Ca²⁺ normally stabilizes the voltage-gated Na⁺ channels on nerve and muscle membranes. When free Ca²⁺ falls, these channels become hypersensitive — the threshold voltage for depolarization decreases, and nerves and muscles fire spontaneously. This is why hypocalcemia produces hyperexcitability (tetany, spasms, paresthesia, seizures) rather than the weakness one might expect from a loss of intracellular Ca²⁺ signaling.", "distractors": {"A": "Acetylcholine degradation at the NMJ depends on acetylcholinesterase, not Ca²⁺. While Ca²⁺ is required for vesicle fusion and ACh release, hypocalcemia impairs release — it does not block degradation.", "B": "PLC is activated by Gq-linked receptors or Ca²⁺ itself; low free Ca²⁺ does not constitutively activate PLC. This has the direction of causality backwards.", "D": "Na⁺/K⁺-ATPase function is not directly regulated by extracellular Ca²⁺. Its activity depends on intracellular Na⁺ and ATP.", "E": "Troponin binds Ca²⁺ intracellularly; extracellular free Ca²⁺ hypocalcemia does not produce constitutive cross-bridge formation by displacing Mg²⁺ from troponin."}}, {"lo": "PLO 1", "stem": "An adult requires approximately 1.0 g of dietary calcium per day to maintain calcium balance. Which one of the following best explains why this is substantially greater than the daily dietary phosphate requirement (~0.7 g/day)?", "choices": ["Calcium undergoes more rapid bone turnover than phosphate, requiring greater daily dietary replacement to offset skeletal remodeling losses., because bone turnover liberates both Ca²⁺ and Pi in proportional amounts that must be replaced daily", "The kidney reabsorbs a smaller fraction of filtered calcium than filtered phosphate, requiring greater dietary intake to compensate for urinary calcium losses.", "Only ~40% of dietary calcium is absorbed by the small intestine, compared to ~65% of dietary phosphate, reflecting the greater calcitriol-dependence of intestinal Ca²⁺ absorption.", "Most foods are rich in calcium but poor in phosphate, making phosphate the nutrient at greatest risk of dietary insufficiency despite its lower daily requirement.", "Calcium stored in bone is metabolically inert and cannot be mobilized to meet daily requirements, necessitating complete dietary replacement of all losses."], "correct": 2, "explanation": "The small intestine absorbs only ~40% of dietary calcium, with the remainder lost in feces. In contrast, ~65% of dietary phosphate is absorbed. Calcium absorption is heavily dependent on calcitriol-regulated active transport, which is saturable and tightly controlled. Because intestinal Ca²⁺ absorption is less efficient than Pi absorption, a larger dietary intake is required to meet the same net absorbed amount. This is compounded by the fact that most foods are rich in phosphate but not calcium.", "distractors": {"A": "Bone turnover releases both Ca²⁺ and Pi in roughly proportional amounts from hydroxyapatite. Differential turnover rates do not account for the disparity in dietary requirements.", "B": "The kidney reabsorbs ~98% of both filtered Ca²⁺ and Pi under normal conditions. Renal handling is not the primary explanation for the dietary intake difference.", "D": "This is the opposite of the actual situation. Most foods are rich in phosphate; calcium is the nutrient that is challenging to obtain in adequate dietary amounts.", "E": "Bone calcium is absolutely mobilizable — PTH-driven bone resorption releases Ca²⁺ and Pi to maintain blood levels. The skeleton is a dynamic reserve, not an inert sink."}}, {"lo": "PLO 2", "stem": "A 22-year-old student hyperventilates during a panic attack and develops carpopedal spasm and perioral tingling. Arterial blood gas reveals a pH of 7.56. Total serum calcium is normal. Which one of the following best explains her symptoms?", "choices": ["Respiratory alkalosis lowers pCO₂, reducing H²CO₃ and freeing phosphate to complex with Ca²⁺, lowering ionized calcium through an anion-binding mechanism.", "Respiratory alkalosis causes albumin to bind fewer protons and more Ca²⁺, decreasing free ionized Ca²⁺ without changing total serum calcium.", "Respiratory alkalosis increases sympathetic tone, which acutely suppresses PTH secretion and reduces renal Ca²⁺ reabsorption within minutes.", "Respiratory alkalosis causes albumin to bind more protons and less Ca²⁺, increasing free ionized Ca²⁺ and paradoxically triggering membrane stabilization failure.", "Hyperventilation activates TRPV5/6 channels in the proximal tubule, increasing Ca²⁺ excretion faster than PTH can compensate."], "correct": 1, "explanation": "Albumin is an acidic protein whose binding sites compete for both H⁺ and Ca²⁺. In respiratory alkalosis, blood pH rises and H⁺ concentration falls. With fewer protons competing for albumin binding sites, albumin binds more Ca²⁺. This shifts Ca²⁺ from the free ionized fraction into the protein-bound fraction, decreasing free Ca²⁺ without changing total calcium. The resulting hypocalcemia produces the classic neuromuscular hyperexcitability seen in hyperventilation syndromes.", "distractors": {"A": "While phosphate can complex with Ca²⁺, this mechanism is not the primary explanation for hyperventilation-induced hypocalcemia. The dominant effect is albumin’s increased Ca²⁺ binding due to reduced H⁺ competition.", "C": "Sympathetic tone does not acutely regulate PTH secretion on the timescale of a panic attack. PTH is regulated by the CaSR responding to free Ca²⁺, not by adrenergic signaling.", "D": "This has the direction backwards. Alkalosis causes albumin to bind LESS H⁺ and MORE Ca²⁺ — not more H⁺ and less Ca²⁺. This distractor describes acidosis.", "E": "TRPV5/6 channels are in the distal tubule, not the proximal tubule, and are not activated by pH changes from hyperventilation. PTH, not respiratory status, regulates these channels."}}, {"lo": "PLO 3", "stem": "Parathyroid hormone (PTH) is a peptide hormone synthesized by chief cells as a pre-prohormone and cleaved twice before secretion. Which one of the following best explains why PTH targets bone and kidney but not the small intestine?", "choices": ["PTH is too large a peptide hormone to cross the intestinal endothelial barrier and reach enterocytes in the lamina propria., and because PTH is a large 84-amino acid peptide, its systemic distribution is restricted to vascular beds with high endothelial permeability", "PTH is inactivated in the portal circulation by liver peptidases before it can reach mesenteric capillaries supplying the small intestine.", "PTH1R, the primary PTH receptor, is expressed on osteoblasts in bone and tubular cells in the kidney but not on intestinal enterocytes, which are the target of calcitriol rather than PTH.", "Intestinal enterocytes constitutively express PTH2R, which binds PTH only at supraphysiological concentrations not achieved under normal conditions.", "PTH secretion is suppressed by portal blood entering the liver before systemic levels are high enough to reach intestinal tissue."], "correct": 2, "explanation": "Tissue specificity of PTH action is determined by receptor expression. PTH1R — a G-protein coupled receptor that mediates the key physiological effects of PTH — is expressed on osteoblasts in bone and on tubular epithelium in the kidney. Intestinal enterocytes do not express PTH1R in meaningful amounts. Instead, calcitriol acts on enterocytes via the intracellular VDR. This is why PTH and calcitriol are described as complementary: PTH works directly on bone and kidney, while calcitriol does the work in the gut.", "distractors": {"A": "Peptide hormones do not need to cross the intestinal epithelium — they act on cells from the blood side via surface receptors. Size is not the limiting factor.", "B": "PTH is not uniquely inactivated in portal circulation. Its short half-life (~3–5 min) reflects systemic degradation by liver and kidney peptidases, not portal-specific inactivation.", "D": "Intestinal enterocytes do not constitutively express PTH2R at relevant levels. The concept of a constitutive PTH2R on enterocytes is fabricated.", "E": "PTH is secreted into systemic circulation from the parathyroid glands. Portal blood returning from the intestine does not encounter PTH before it is secreted."}}, {"lo": "PLO 3", "stem": "A 62-year-old man with squamous cell carcinoma of the lung presents with a serum calcium of 13.8 mg/dL. His PTH level is undetectable. Which one of the following best explains both the hypercalcemia and the suppressed PTH?", "choices": ["Widespread bone metastases are releasing Ca²⁺ and Pi; the resulting hyperphosphatemia stimulates FGF23, which suppresses both calcitriol and PTH., with Pi elevation triggering FGF23-mediated suppression of calcitriol and creating a secondary feedback loop that ultimately also suppresses PTH", "The tumor is producing calcitriol autonomously, which raises blood Ca²⁺ by stimulating intestinal absorption and separately suppresses PTH transcription via VDRE.", "The tumor secretes PTHrP, which binds and activates PTH1R in bone and kidney, raising free Ca²⁺; elevated free Ca²⁺ then activates CaSR on parathyroid chief cells, suppressing PTH.", "Malnutrition from malignancy causes severe hypoalbuminemia, paradoxically elevating free Ca²⁺, which activates CaSR-mediated PTH suppression.", "The tumor secretes calcitonin, which in malignancy paradoxically stimulates bone resorption via a reversal of its normal inhibitory effect on osteoclasts."], "correct": 2, "explanation": "PTHrP (parathyroid hormone-related peptide) is the most common humoral cause of hypercalcemia of malignancy. Squamous cell carcinomas are classic producers. PTHrP binds PTH1R with the same affinity as PTH and produces the same downstream effects — increased bone resorption and renal Ca²⁺ reabsorption — raising free Ca²⁺. The elevated free Ca²⁺ activates the CaSR on chief cells, placing them in the inhibited state and suppressing PTH transcription and secretion. This explains the paradox of undetectable PTH alongside marked hypercalcemia.", "distractors": {"A": "Bone metastases can cause local hypercalcemia, but this mechanism does not explain undetectable PTH in the absence of PTHrP. Metastasis-driven Ca²⁺ release would suppress PTH via CaSR, but the primary humoral mechanism here is PTHrP.", "B": "Ectopic calcitriol production occurs mainly in granulomatous diseases (e.g., sarcoidosis), not squamous cell carcinoma. Calcitriol also would not suppress PTH as efficiently as PTHrP-driven hypercalcemia.", "D": "Malnutrition and hypoalbuminemia would lower total calcium but not raise free ionized Ca²⁺, since PTH would compensate. This distractor has the direction wrong.", "E": "Calcitonin does not paradoxically stimulate bone resorption in malignancy. Its effect on osteoclasts is consistently inhibitory. This is a fabricated mechanism."}}, {"lo": "PLO 4", "stem": "Calcitriol (1,25-dihydroxyvitamin D₃) is classified as a steroid hormone. Which one of the following best explains why calcitriol’s effects on Ca²⁺ transporters in enterocytes take hours to days to become apparent?", "choices": ["Calcitriol must first be re-hydroxylated by 1α-hydroxylase inside enterocytes before it can bind VDR, and this intracellular activation step is rate-limiting., requiring an additional step of intracellular 1α-hydroxylation by enterocyte-specific CYP27B1 before the activated form can bind the nuclear receptor", "Calcitriol dissociates from VDBP, enters enterocytes, binds the intracellular VDR, heterodimerizes with RXR, and the complex must enter the nucleus to bind VDRE and initiate gene transcription before new transporter proteins are synthesized.", "Calcitriol must competitively displace cortisol from glucocorticoid receptors shared with VDR in enterocyte nuclei before transcriptional activation can proceed.", "The short half-life of calcitriol requires sustained PTH-driven 1α-hydroxylase activity for at least 24 hours before calcitriol accumulates to a concentration sufficient to activate enterocyte VDR."], "correct": 1, "explanation": "Calcitriol is a steroid hormone that acts through an intracellular receptor (VDR). After dissociating from VDBP in blood, it diffuses into target cells, binds VDR, and the VDR-calcitriol complex heterodimerizes with retinoid-X receptor (RXR). This heterodimer enters the nucleus and binds specific vitamin D response elements (VDRE) in the promoter regions of target genes — including those encoding Ca²⁺ channels, calbindin, and basolateral transporters. The time required for gene transcription, mRNA processing, and de novo protein synthesis accounts for the multi-hour to multi-day lag in calcitriol’s effects.", "distractors": {"A": "Calcitriol (1,25-dihydroxy) is already the fully activated form. It does not require further hydroxylation inside enterocytes. The intracellular activation step described here does not exist.", "C": "VDR and glucocorticoid receptor (GR) are distinct nuclear receptors encoded by separate genes that bind different hormone-response elements. They do not compete for the same nuclear binding sites.", "D": "While calcitriol does have a short half-life, the lag in effects is due to the gene transcription mechanism, not to accumulation kinetics. Enterocytes respond to calcitriol at physiological concentrations that are reached well within 24 hours of stimulation."}}, {"lo": "PLO 5", "stem": "Which one of the following best explains the statement that the main targets of calcitriol are the small intestine and the parathyroid glands?", "choices": ["Calcitriol stimulates Pi absorption in the small intestine and stimulates PTH production in parathyroid chief cells when Ca²⁺ is below the set point., and this is why calcitriol levels are elevated in states of autonomous PTH excess even when vitamin D3 precursor stores are depleted", "Calcitriol acts on the small intestine and parathyroids because these organs express PTH1R, through which calcitriol exerts its effects independently of VDR.", "Calcitriol’s most important effect is stimulating Ca²⁺ absorption in the small intestine to replenish blood Ca²⁺, while in the parathyroids it directly inhibits PTH gene transcription, providing the primary hormonal brake on the PTH axis.", "Calcitriol acts on the small intestine and parathyroids only under conditions of dietary calcium excess; under normal conditions its renal effects on distal tubule Ca²⁺ reabsorption are dominant.", "Calcitriol targets the small intestine and parathyroids because both organs express high levels of 25-hydroxylase, enabling local activation of calcitriol from its precursor."], "correct": 2, "explanation": "Calcitriol’s most important physiological effect is stimulating absorption of dietary Ca²⁺ by enterocytes in the small intestine — the essential route by which dietary Ca²⁺ enters the body. Its second critical role is in the parathyroid glands, where calcitriol binds VDR in chief cells and directly suppresses PTH gene transcription, completing the negative feedback loop. Together, these two actions make calcitriol indispensable: it supplies Ca²⁺ from the diet and simultaneously prevents PTH-driven hypercalcemia. Negative feedback inhibition of PTH is provided by elevated free Ca²⁺ AND elevated calcitriol — not by PTH itself.", "distractors": {"A": "Calcitriol does stimulate intestinal Pi absorption, but it does not stimulate PTH production in parathyroids. The parathyroid effect of calcitriol is inhibition of PTH transcription, not stimulation.", "B": "PTH1R is a PTH receptor, not a calcitriol receptor. Calcitriol acts through VDR (the vitamin D receptor), not PTH1R. These are completely different receptor systems.", "D": "Calcitriol’s effects on the small intestine are most essential under normal physiological conditions to maintain Ca²⁺ balance. The intestinal effect is not restricted to dietary calcium excess.", "E": "25-Hydroxylase is expressed in the liver, not in the small intestine or parathyroid glands. The organ-specific activation step relevant here occurs in the kidney via 1α-hydroxylase."}}, {"lo": "PLO 6", "stem": "Which one of the following best describes calcitonin’s role in calcium homeostasis in humans?", "choices": ["Calcitonin is secreted by C cells of the thyroid in response to hypocalcemia and stimulates osteoclast activity to mobilize bone Ca²⁺, serving as a PTH backup system., and in the absence of calcitonin, as occurs after total thyroidectomy, progressive osteolysis develops and serum calcium rises to dangerous levels within days", "Calcitonin is secreted by chief cells of the parathyroid glands in response to hypercalcemia and directly inhibits PTH production, providing redundant feedback control.", "Calcitonin is secreted by thyroid C cells in response to hypercalcemia and transiently inhibits osteoclast activity, though its contribution to calcium homeostasis in humans is relatively minor compared to PTH.", "Calcitonin is secreted by the adrenal cortex in response to hypercalcemia and primarily acts on the kidney to increase Ca²⁺ excretion rather than on bone.", "Calcitonin is a major calcium-lowering hormone in humans that provides essential counterbalance to PTH, and its loss after thyroidectomy produces clinically significant hypercalcemia."], "correct": 2, "explanation": "Calcitonin is a peptide hormone produced by parafollicular C cells of the thyroid gland. It is released in response to hypercalcemia and inhibits bone resorption by decreasing osteoclast activity, transiently lowering blood Ca²⁺. However, in humans, calcitonin plays a relatively minor physiological role in calcium homeostasis — patients who undergo total thyroidectomy do not develop hypercalcemia from loss of calcitonin, and its absence is clinically well-tolerated. Calcitonin mimetics (e.g., salmon calcitonin) are used pharmacologically to treat hypercalcemia and osteoporosis in specific contexts.", "distractors": {"A": "Calcitonin is released in response to hypercalcemia, not hypocalcemia, and it inhibits — not stimulates — osteoclasts. This distractor has both the stimulus and direction of effect reversed.", "B": "Calcitonin is produced by C cells of the thyroid, not by chief cells of the parathyroid. These are anatomically and functionally distinct cell types.", "D": "Calcitonin is not secreted by the adrenal cortex; its primary target is bone osteoclasts, not the kidney. The adrenal cortex produces glucocorticoids and mineralocorticoids.", "E": "Calcitonin’s role in humans is relatively minor. Total thyroidectomy does not produce hypercalcemia. The claim that it is ‘essential’ is an absolute statement that does not hold in clinical medicine."}}, {"lo": "CLO 1", "stem": "The calcium sensing receptor (CaSR) of parathyroid chief cells is described as the ‘calciostat.’ Which one of the following best explains how a slight decrease in free Ca²⁺ below the set point (1.1–1.2 mmol/L) results in increased PTH secretion?", "choices": ["Decreased free Ca²⁺ activates CaSR, which activates phospholipase C and inhibits adenylate cyclase in chief cells, suppressing the brake on PTH gene transcription.", "Decreased free Ca²⁺ places the CaSR in a relaxed state, activating adenylate cyclase and increasing cAMP, which stimulates PTH gene transcription and vesicle secretion.", "Decreased free Ca²⁺ reduces VDRE-bound calcitriol–VDR complex activity in chief cell nuclei, releasing constitutive PTH transcription from calcitriol’s inhibitory block.", "Decreased free Ca²⁺ prevents CaSR dimerization, which constitutively activates Gq signaling and downstream protein kinase C to phosphorylate PTH secretory vesicles.", "Decreased free Ca²⁺ prevents phospholipase C activation; in the absence of PLC activity, adenylate cyclase is constitutively active in chief cells, increasing cAMP and PTH release."], "correct": 1, "explanation": "When free Ca²⁺ falls below the set point, the CaSR adopts its ‘relaxed’ (less occupied) state, which couples to Gs and activates adenylate cyclase. The resulting rise in cAMP activates protein kinase A, which phosphorylates targets that stimulate both PTH gene transcription and secretion of preformed PTH from chief cell vesicles. Blood Ca²⁺ is restored within 1–2 hours of PTH secretion. In contrast, when Ca²⁺ rises above the set point, the CaSR shifts to its activated (occupied) state, couples to Gq, activates phospholipase C, and inhibits adenylate cyclase — shutting down PTH.", "distractors": {"A": "This describes the activated state of CaSR — the response to HIGH Ca²⁺, not low. When Ca²⁺ is elevated, CaSR activates PLC and inhibits adenylate cyclase, suppressing PTH. The stimulus and consequence are both flipped here.", "C": "While calcitriol does inhibit PTH transcription via VDRE, the acute minute-to-minute regulation of PTH secretion is through the CaSR-cAMP axis, not through changes in calcitriol–VDR occupancy.", "D": "CaSR dimerization and Gq/PKC signaling are features of the high-Ca²⁺ activated state, not the low-Ca²⁺ relaxed state. This distractor conflates the two signaling modes.", "E": "PLC inhibition of adenylate cyclase occurs in the activated high-Ca²⁺ CaSR state. Constitutive AC activity in the absence of PLC is not the physiological mechanism for the low-Ca²⁺ state, which involves direct Gs coupling."}}, {"lo": "CLO 1", "stem": "Which one of the following best explains what provides the negative feedback signal that inhibits PTH production and secretion under normal physiological conditions?", "choices": ["Elevated PTH feeds back on PTH1R expressed on the surface of parathyroid chief cells to suppress its own production via a short-loop negative feedback mechanism., and this short-loop PTH autoregulation explains why PTH injection paradoxically lowers endogenous PTH within thirty minutes of administration", "Increased calcitonin secreted in response to rising Ca²⁺ is the primary feedback signal to chief cells, directly inhibiting PTH gene transcription.", "Increased free Ca²⁺ activates CaSR on chief cells, and increased calcitriol directly inhibits PTH gene transcription at VDRE; neither elevated PTH itself nor elevated Pi provide this feedback under normal conditions.", "Increased calcitriol activates CaSR on chief cells, while elevated PTH simultaneously inhibits 1α-hydroxylase to prevent further calcitriol formation, restoring balance.", "Elevated plasma phosphate, released during bone resorption, directly activates CaSR on chief cells to inhibit PTH secretion once Ca²⁺ balance is restored."], "correct": 2, "explanation": "Negative feedback inhibition of PTH results from two signals: elevated free Ca²⁺ (acting through CaSR on chief cells) and elevated calcitriol (binding VDR in chief cells and directly suppressing PTH gene transcription). Critically, PTH itself does not feed back on chief cells — there is no short-loop inhibition by PTH on its own production. This is a key conceptual point: removing PTH from the blood does not increase PTH production; only changes in free Ca²⁺ and calcitriol drive the feedback.", "distractors": {"A": "Parathyroid chief cells do not express PTH1R in a manner that mediates short-loop inhibition of PTH production. PTH does not suppress its own secretion through a direct autocrine mechanism.", "B": "Calcitonin does not directly inhibit PTH gene transcription in chief cells. Calcitonin’s calcium-lowering effect is at bone, not at the parathyroid gland.", "D": "Calcitriol acts on VDR in chief cells, not on CaSR. CaSR is exclusively activated by Ca²⁺ (and Ca²⁺-mimicking calcimimetics). Additionally, PTH stimulates — not inhibits — 1α-hydroxylase.", "E": "While high Pi can affect CaSR sensitivity indirectly, the dominant physiological feedback signals under normal conditions are free Ca²⁺ and calcitriol, not Pi."}}, {"lo": "CLO 1", "stem": "A patient with primary hyperparathyroidism has a serum Ca²⁺ of 11.4 mg/dL and a PTH of 145 pg/mL. Her endocrinologist prescribes cinacalcet, a calcimimetic drug. Which one of the following would you expect to be the most likely consequence of this drug?", "choices": ["Activation of Gs-coupled adenylate cyclase in chief cells → increased cAMP → increased PTH gene transcription and secretion., and the resulting rise in cAMP simultaneously targets vesicle exocytosis machinery and PTH gene promoter elements through protein kinase A-dependent phosphorylation events", "Allosteric activation of CaSR on chief cells → CaSR adopts its activated state → PLC activation and adenylate cyclase inhibition → decreased PTH production → decreased serum Ca²⁺.", "Blockade of PTH1R in bone and kidney → decreased bone resorption and decreased renal Ca²⁺ reabsorption → decreased serum Ca²⁺.", "Inhibition of 1α-hydroxylase in the proximal tubule → decreased calcitriol → reduced negative feedback on PTH → paradoxical PTH increase before eventual suppression."], "correct": 1, "explanation": "Cinacalcet is a calcimimetic — it allosterically activates the CaSR on parathyroid chief cells, making the receptor behave as though Ca²⁺ is elevated even when it is not. This shifts the CaSR to its activated (occupied) state, which couples to Gq, activates phospholipase C, and inhibits adenylate cyclase. The resulting decrease in cAMP suppresses PTH gene transcription and release. Lower PTH means less bone resorption and less renal Ca²⁺ reabsorption — serum Ca²⁺ falls toward normal. This is the mechanistic basis for cinacalcet’s use in primary and secondary hyperparathyroidism.", "distractors": {"A": "This describes the relaxed state of CaSR (low Ca²⁺) — the opposite of what a calcimimetic produces. A calcimimetic mimics HIGH Ca²⁺, not low Ca²⁺.", "C": "Cinacalcet acts on the parathyroid CaSR, not on PTH1R in bone or kidney. It lowers Ca²⁺ by suppressing PTH production, not by blocking PTH’s target organs.", "D": "Calcimimetics do not inhibit 1α-hydroxylase. The consequent change in calcitriol described here is a downstream effect of PTH suppression (less PTH → less 1α-hydroxylase stimulation), not the primary drug mechanism."}}, {"lo": "CLO 2", "stem": "Which one of the following best explains why PTH promotes calcium reabsorption in the kidney while simultaneously increasing urinary phosphate excretion?", "choices": ["PTH upregulates TRPV5/6 channels in the distal tubule for Ca²⁺ reabsorption and stimulates degradation of Pi cotransporters (NaPi-IIa/c) in the proximal tubule, preventing hyperphosphatemia that would complex free Ca²⁺.", "PTH stimulates Ca²⁺ reabsorption throughout the proximal and distal tubule while simultaneously stimulating Pi reabsorption, with net phosphaturia resulting from overflow when bone resorption releases more Pi than the tubule can absorb.", "PTH degrades TRPV5/6 in the distal tubule to reduce Ca²⁺ reabsorption and concurrently upregulates Pi cotransporters in the proximal tubule, reversing the expected reciprocal pattern under hypocalcemic stress.", "PTH increases urinary Pi excretion indirectly by stimulating osteocytes to secrete FGF23, which is the actual mediator of proximal tubule Pi transporter degradation in response to PTH."], "correct": 0, "explanation": "PTH acts on both the distal tubule and the proximal tubule with opposing effects on Ca²⁺ and Pi. In the distal tubule, PTH increases expression of TRPV5/6 channels on the luminal membrane, enhancing Ca²⁺ uptake from the filtrate. In the proximal tubule, PTH stimulates internalization and degradation of NaPi-IIa and NaPi-IIc cotransporters, preventing Pi reabsorption and increasing urinary Pi excretion (phosphaturia). This reciprocal design is physiologically logical: bone resorption releases both Ca²⁺ and Pi simultaneously. If Pi accumulated alongside Ca²⁺, it would complex with free Ca²⁺ and blunt the rise in blood Ca²⁺. Phosphaturia is the solution.", "distractors": {"B": "PTH does not stimulate Pi reabsorption anywhere in the nephron. This distractor inverts one of PTH’s most fundamental renal effects. Phosphaturia is a direct PTH action, not an overflow phenomenon.", "C": "This describes the complete opposite of PTH’s actual renal actions. PTH upregulates TRPV5/6 for Ca²⁺ reabsorption and degrades Pi cotransporters for phosphaturia — not the reverse.", "D": "FGF23 is secreted by osteocytes and does cause phosphaturia, but it acts independently of PTH in this regard. PTH directly causes Pi transporter degradation in the proximal tubule without requiring FGF23 as an intermediary."}}, {"lo": "CLO 3", "stem": "Which one of the following best explains why PTH stimulation of calcitriol production is considered a key downstream mechanism in the response to hypocalcemia?", "choices": ["PTH stimulates keratinocytes to convert 7-dehydrocholesterol to cholecalciferol at a higher rate, increasing the substrate available for hepatic 25-hydroxylation., and this is why patients with rickets — who have adequate UV exposure — still develop hypocalcemia if a dietary deficiency prevents hepatic substrate delivery", "PTH stimulates 25-hydroxylase in the liver, increasing the rate-limiting step of calcitriol synthesis and rapidly raising circulating calcitriol levels.", "PTH stimulates production of 1α-hydroxylase in proximal tubule cells, increasing conversion of 25-hydroxycholecalciferol to calcitriol, which then stimulates intestinal Ca²⁺ absorption and feeds back to inhibit further PTH secretion.", "PTH inhibits 24-hydroxylase in the kidney, slowing calcitriol inactivation and allowing circulating calcitriol to accumulate without increasing its de novo synthesis.", "PTH stimulates VDR expression in small intestine enterocytes, increasing sensitivity to existing calcitriol levels rather than increasing calcitriol synthesis itself."], "correct": 2, "explanation": "In the proximal tubule, PTH binds PTH1R and stimulates the expression of 1α-hydroxylase (CYP27B1), the enzyme that converts 25-hydroxycholecalciferol (25-OH vitamin D3) into calcitriol (1,25-dihydroxycholecalciferol). This is the final and regulated step in calcitriol synthesis. The resulting calcitriol enters circulation, acts on the small intestine to stimulate dietary Ca²⁺ absorption, acts on bone to synergize with PTH in resorption, and feeds back on chief cells to inhibit PTH gene transcription. This feedback loop is why calcitriol is described as providing negative feedback on PTH.", "distractors": {"A": "PTH does not act on keratinocytes. The conversion of 7-dehydrocholesterol to cholecalciferol in the skin is driven by UV light, not by PTH.", "B": "25-Hydroxylase in the liver is not regulated by PTH; it is constitutively active. The regulated step in calcitriol synthesis is 1α-hydroxylase in the kidney.", "D": "PTH does inhibit 24-hydroxylase, which would slow calcitriol inactivation, but this is a secondary effect. The primary mechanism is direct stimulation of 1α-hydroxylase activity and expression, which increases de novo calcitriol synthesis.", "E": "PTH does not regulate VDR expression in enterocytes. Upregulating sensitivity to existing calcitriol levels is not the mechanism by which PTH–calcitriol axis responds to hypocalcemia."}}, {"lo": "CLO 3", "stem": "When assessing a patient’s vitamin D3 status, clinicians measure serum 25-hydroxycholecalciferol rather than calcitriol itself. Which one of the following best explains why?", "choices": ["Calcitriol circulates at concentrations too low to be reliably detected by standard clinical immunoassays, while 25-hydroxycholecalciferol is present at much higher concentrations., and this explains why patients on chronic prednisone therapy often show elevated 25-hydroxycholecalciferol despite low calcitriol, as adrenal suppression does not impair hepatic 25-hydroxylation", "25-Hydroxycholecalciferol is the biologically active form that directly stimulates Ca²⁺ absorption, making it the clinically relevant species to measure rather than calcitriol.", "25-Hydroxycholecalciferol is stably expressed in plasma and reflects total vitamin D3 stores, while calcitriol has a short half-life that makes it an unreliable barometer of vitamin D3 status.", "Measuring calcitriol produces artifactually elevated values in patients with elevated PTH, since PTH stimulates 1α-hydroxylase and drives calcitriol up independently of vitamin D3 stores.", "Serum 25-hydroxycholecalciferol measurement avoids interference from dietary cholecalciferol, which would contaminate a calcitriol assay if consumed in supplement form."], "correct": 2, "explanation": "Calcitriol has a short half-life in blood because it is tightly regulated — production via 1α-hydroxylase is responsive to PTH, Ca²⁺, and Pi on a short timescale, and it is inactivated by 24-hydroxylase. These fluctuations make calcitriol an unreliable indicator of a patient’s overall vitamin D3 status. In contrast, 25-hydroxycholecalciferol is produced constitutively in the liver, is stably expressed in plasma, and its serum concentration reflects the body’s total vitamin D3 stores over time. A patient may have adequate cholecalciferol stores but low calcitriol due to renal disease — measuring 25-OH D3 captures this distinction.", "distractors": {"A": "While calcitriol does circulate at lower concentrations than 25-OH D3, modern immunoassays can detect calcitriol. The primary reason for preferring 25-OH D3 is its stability, not analytical sensitivity.", "B": "25-Hydroxycholecalciferol is not biologically active. It requires further hydroxylation by 1α-hydroxylase to become calcitriol, which is the active form that stimulates Ca²⁺ absorption.", "D": "Measuring calcitriol in a patient with high PTH would indeed show elevated calcitriol, but this reflects actual calcitriol production status — not an artifact. The issue is stability over time, not PTH-driven interference.", "E": "Dietary cholecalciferol is hydroxylated in the liver to 25-OH D3, not calcitriol. It does not contaminate a calcitriol assay at clinically relevant supplement doses."}}, {"lo": "CLO 4", "stem": "In the distal tubule, PTH and calcitriol cooperate to increase Ca²⁺ reabsorption. Which one of the following best describes the distinct contribution of calcitriol to this process?", "choices": ["Calcitriol activates PTH1R on distal tubule cells, amplifying cAMP-driven insertion of TRPV5/6 channels into the luminal membrane., and because adenylate cyclase amplification means that even nanomolar PTH concentrations produce micromolar cAMP — sufficient to drive full TRPV5/6 insertion without calcitriol co-stimulation", "Calcitriol stimulates production of calbindin-D28K and increases expression of basolateral Ca²⁺ transporters (NCX1, PMCA1b), facilitating intracellular Ca²⁺ shuttling and export into peritubular blood.", "Calcitriol degrades NaPi cotransporters in the proximal tubule, creating a favorable electrochemical gradient that passively drives Ca²⁺ reabsorption in the distal tubule.", "Calcitriol directly phosphorylates TRPV5/6 in the luminal membrane, increasing their single-channel conductance without changing total transporter expression.", "Calcitriol inhibits 24-hydroxylase in distal tubule cells specifically, concentrating active calcitriol locally to amplify PTH1R signaling through an autocrine loop."], "correct": 1, "explanation": "In the distal tubule, PTH upregulates luminal TRPV5/6 channels, allowing Ca²⁺ to enter the tubular cell from the filtrate. Calcitriol complements this by stimulating production of calbindin-D28K, an intracellular Ca²⁺-binding protein that shuttles Ca²⁺ from the apical to the basolateral side without triggering cytotoxic Ca²⁺ overload. Calcitriol also increases expression of basolateral Ca²⁺ transporters (NCX1 and PMCA1b) that export Ca²⁺ into the interstitium and peritubular blood. This division of labor — PTH opens the entry gate, calcitriol ensures efficient transit and exit — is how the two hormones achieve synergistic Ca²⁺ reabsorption.", "distractors": {"A": "Calcitriol acts via VDR (an intracellular receptor), not via PTH1R (a surface GPCR). These are distinct receptor systems; calcitriol does not amplify PTH1R signaling.", "C": "NaPi cotransporter degradation in the proximal tubule is a PTH effect (to cause phosphaturia), not a calcitriol effect, and it does not create a gradient driving distal Ca²⁺ reabsorption.", "D": "Calcitriol does not directly phosphorylate TRPV5/6. Its effects are genomic — it increases gene transcription of calbindin and transporter proteins. Post-translational phosphorylation of TRPV5/6 is regulated by other kinases.", "E": "24-Hydroxylase inhibition by calcitriol is not distal-tubule-specific, and the autocrine loop described here is fabricated. Calcitriol’s distal tubule effects are genomic, not autocrine."}}, {"lo": "CLO 4", "stem": "Which one of the following is the most important physiological effect of calcitriol?", "choices": ["Feedback inhibition of PTH transcription in parathyroid chief cells, preventing chronic PTH-driven hypercalcemia.", "Stimulation of dietary Ca²⁺ absorption in the small intestine by inducing luminal Ca²⁺ channels, calbindin production, and basolateral Ca²⁺ transporters in enterocytes.", "Synergism with PTH to upregulate RANKL and suppress OPG in osteoblasts, amplifying bone resorption under hypocalcemic conditions.", "Enhancement of Ca²⁺ reabsorption in the distal tubule by upregulating calbindin-D28K and basolateral NCX1 in tubular epithelium., and because TRPV5/6 conductance is already maximal at physiological Ca²⁺ concentrations, increasing single-channel conductance would not meaningfully increase net Ca²⁺ flux across the apical membrane", "Inhibition of 24-hydroxylase to prolong its own biological half-life and sustain target organ responses over multiple days."], "correct": 1, "explanation": "Calcitriol’s most important physiological effect is stimulation of Ca²⁺ absorption by enterocytes in the small intestine. This is the principal route by which dietary calcium enters the body, and without adequate calcitriol, intestinal Ca²⁺ absorption falls dramatically — no amount of PTH-driven bone resorption or renal reabsorption can compensate indefinitely. Calcitriol induces TRPV5/6 on the luminal membrane, calbindin for intracellular transport, and NCX1/PMCA1b on the basolateral membrane of enterocytes. Vitamin D deficiency-related rickets and osteomalacia reflect the downstream consequence of impaired intestinal Ca²⁺ absorption.", "distractors": {"A": "Feedback inhibition of PTH is an important calcitriol effect, but it is secondary to intestinal Ca²⁺ absorption in terms of physiological priority. Without adequate intestinal absorption, the entire system is compromised.", "C": "Bone resorption synergism with PTH is real, but this is a catabolic effect called upon when blood Ca²⁺ is low. Intestinal absorption from diet is the preferred anabolic route for maintaining Ca²⁺ balance.", "D": "Renal Ca²⁺ reabsorption enhancement is an important calcitriol effect, but its contribution is quantitatively smaller than intestinal absorption under normal conditions.", "E": "Calcitriol does not inhibit 24-hydroxylase to prolong its own half-life; it actually stimulates 24-hydroxylase as part of a negative feedback loop that inactivates calcitriol, preventing toxicity."}}, {"lo": "CLO 5", "stem": "To raise serum Ca²⁺ from bone stores, PTH and calcitriol work synergistically. Which one of the following best describes the cellular mechanism by which they accomplish this?", "choices": ["PTH and calcitriol act directly on mature osteoclasts to activate vacuolar H⁺-ATPase proton pumps in the ruffled border, acidifying the bone surface and dissolving hydroxyapatite., and this is why patients with primary hyperparathyroidism who are vitamin D-replete show robust suppression of PTH only when both free Ca²⁺ and calcitriol are simultaneously elevated", "PTH acts on osteoblasts to upregulate RANKL; calcitriol independently stimulates preosteoclast RANK expression; together they increase osteoclast formation without affecting OPG.", "PTH and calcitriol synergistically act on osteoblasts to upregulate RANKL and suppress OPG, allowing RANKL to bind RANK on preosteoclasts unopposed, driving their maturation into bone-resorbing osteoclasts.", "PTH inhibits OPG production while calcitriol stimulates RANKL production through entirely separate transcription factor pathways that converge on osteoclast activation independently.", "PTH stimulates osteoclasts directly via PTH1R on their surface, while calcitriol amplifies this by binding VDR on the same osteoclasts, creating a two-pronged direct resorptive signal."], "correct": 2, "explanation": "Mature osteoclasts do not express PTH1R or VDR at significant levels — PTH and calcitriol regulate bone resorption indirectly through osteoblasts. Osteoblasts produce two critical proteins: RANKL (which drives osteoclast formation) and OPG (a decoy receptor for RANKL that blocks osteoclast formation). PTH and calcitriol synergistically stimulate osteoblasts to increase RANKL production and decrease OPG production. With more RANKL and less OPG, RANKL binds RANK on preosteoclasts without competition, driving their differentiation into mature osteoclasts. These osteoclasts then dissolve hydroxyapatite, releasing Ca²⁺ and Pi into the blood.", "distractors": {"A": "While mature osteoclasts do use vacuolar H⁺-ATPase to dissolve hydroxyapatite, PTH and calcitriol do not directly stimulate osteoclasts — they act on osteoblasts upstream. This distractor skips the RANKL/OPG control step.", "B": "This distractor partially inverts the mechanism. RANK is expressed on preosteoclasts (not induced by calcitriol), and both PTH and calcitriol affect OPG in addition to RANKL. The key effect on OPG suppression is omitted.", "D": "PTH and calcitriol both affect both RANKL and OPG together — they are not acting on these two targets separately through independent pathways. Their synergistic effect is greater than either acting alone because they target the same osteoblast signaling axis.", "E": "Osteoclasts do not express PTH1R or VDR in functionally significant amounts. The direct two-pronged osteoclast model described here is anatomically incorrect."}}, {"lo": "CLO 5", "stem": "Osteoprotegerin (OPG) is described as a ‘decoy receptor’ for RANKL. Which one of the following best explains the physiological significance of OPG suppression by PTH and calcitriol during bone resorption?", "choices": ["OPG normally binds RANK on osteoclasts, blocking hydroxyapatite dissolution; its suppression by PTH and calcitriol removes this direct brake on osteoclast activity., meaning that osteoclasts can be pharmacologically targeted directly by bisphosphonates or denosumab regardless of whether PTH or calcitriol are the upstream drivers", "OPG normally competes with osteoclast RANK for available RANKL; suppressing OPG allows all available RANKL to bind RANK on preosteoclasts, amplifying osteoclast formation beyond what upregulation of RANKL alone would achieve.", "OPG is expressed on the surface of preosteoclasts and must be removed before RANK receptors can be expressed; PTH and calcitriol suppress OPG to allow RANK surface expression on preosteoclast precursors.", "OPG normally sequesters calcitriol from binding VDR in osteoblasts; its suppression by PTH releases calcitriol to stimulate RANKL gene transcription in the same cells.", "OPG normally activates RANK on osteoblasts to promote bone formation; its suppression by PTH and calcitriol shifts the osteoblast-osteoclast balance toward net bone resorption."], "correct": 1, "explanation": "OPG is a soluble decoy receptor secreted by osteoblasts that competes with RANK (on preosteoclasts) for binding to RANKL. When OPG binds RANKL, RANKL is neutralized and cannot activate RANK — osteoclast formation is inhibited. When PTH and calcitriol suppress OPG production, less OPG is available to sequester RANKL. This means more free RANKL is available to bind RANK on preosteoclasts, amplifying osteoclast maturation. This is why OPG suppression potentiates the effect of RANKL upregulation: the two changes act additively on the RANKL-RANK system to maximize osteoclast formation and bone resorption.", "distractors": {"A": "OPG does not bind RANK; it binds RANKL. OPG competes with RANK for RANKL, acting as a trap in the extracellular space — not as a receptor on the osteoclast surface.", "C": "RANK is constitutively expressed on preosteoclasts; OPG does not control RANK surface expression. OPG acts by sequestering the RANKL ligand, not by blocking RANK receptor expression.", "D": "OPG is a secreted decoy receptor, not a calcitriol-binding protein. It has no role in sequestering calcitriol or controlling VDR activity in osteoblasts.", "E": "OPG does not activate RANK on osteoblasts. RANK is expressed on preosteoclasts (monocyte lineage), not on osteoblasts. OPG’s only known RANKL-related function is as a decoy receptor."}}, {"lo": "CLO 6", "stem": "A patient with stage 4 chronic kidney disease develops hyperphosphatemia. Despite receiving increasing doses of calcium supplementation, total serum Ca²⁺ remains low to normal and PTH is markedly elevated. Which one of the following best explains why secondary hyperparathyroidism (SHPT) persists despite the supplementation?", "choices": ["Hyperphosphatemia directly activates PTH1R on parathyroid chief cells, mimicking low Ca²⁺ and constitutively driving PTH transcription independent of CaSR., and under conditions of OPG excess, such as in early bisphosphonate therapy, net bone resorption falls even when RANKL is fully upregulated by maximally elevated PTH and calcitriol", "Hyperphosphatemia causes osteocytes to secrete FGF23, which inhibits renal 1α-hydroxylase; reduced calcitriol decreases intestinal Ca²⁺ absorption and reduces feedback inhibition of PTH, perpetuating SHPT.", "Hyperphosphatemia complexes with calcitriol in the blood, inactivating it and preventing its delivery to parathyroid chief cells where it would otherwise inhibit PTH transcription.", "Excess Pi from CKD activates 24-hydroxylase in the kidney, accelerating calcitriol inactivation and reducing negative feedback on PTH secretion.", "Hyperphosphatemia directly stimulates osteoclast-mediated bone resorption via RANK activation, releasing Ca²⁺ and Pi simultaneously and paradoxically lowering blood Ca²⁺ by promoting tissue mineralization."], "correct": 1, "explanation": "In CKD, reduced GFR leads to phosphate retention. Elevated Pi stimulates osteocytes to secrete FGF23. FGF23 inhibits 1α-hydroxylase in the proximal tubule, reducing calcitriol synthesis. With less calcitriol, two things happen: (1) intestinal Ca²⁺ absorption decreases, so dietary calcium supplementation is less effective; and (2) less calcitriol is available to suppress PTH transcription in chief cells, so PTH remains elevated. Additionally, excess Pi complexes with any absorbed Ca²⁺ to form calcium phosphate deposits in tissues, further preventing a rise in free Ca²⁺. This cascade — CKD → ↑Pi → ↑FGF23 → ↓calcitriol → ↑PTH — defines SHPT from renal disease.", "distractors": {"A": "PTH1R is not expressed on parathyroid chief cells in a manner that mediates Pi-driven PTH stimulation. The Pi sensor on chief cells is the CaSR (which responds to Ca²⁺ primarily), not PTH1R.", "C": "Phosphate does not complex with calcitriol in the bloodstream to inactivate it. Calcitriol inactivation occurs enzymatically via 24-hydroxylase in the kidney.", "D": "24-Hydroxylase is stimulated by calcitriol itself (not by Pi) as part of a self-regulating feedback loop. Elevated Pi per se does not activate 24-hydroxylase.", "E": "Pi does not directly activate RANK on osteoclasts, and tissue mineralization requires Ca²⁺, not causes Ca²⁺ to fall. This distractor combines several unrelated mechanisms incorrectly."}}, {"lo": "CLO 6", "stem": "A new drug is developed that fully blocks FGF23 signaling in the kidney. When given to a patient with mild hyperphosphatemia from early CKD, which one of the following would you expect to be the most likely consequence?", "choices": ["Decreased renal Pi excretion and increased calcitriol formation, worsening hyperphosphatemia by reducing urinary Pi loss and increasing intestinal Pi absorption via the calcitriol axis.", "Increased renal Pi excretion and decreased calcitriol formation, normalizing phosphate balance through the same mechanism as endogenous FGF23., effectively reproducing endogenous FGF23 function and completely normalizing phosphate handling without the expected worsening of hyperphosphatemia", "No change in Pi balance, since PTH is the dominant regulator of renal Pi excretion and FGF23 blockade is fully compensated by PTH-driven phosphaturia.", "Decreased calcitriol formation only, since FGF23 acts exclusively on 1α-hydroxylase and does not independently regulate renal Pi transporter expression."], "correct": 0, "explanation": "FGF23 exerts two key effects on the kidney: (1) it inhibits renal Pi cotransporters (NaPi-IIa/c in the proximal tubule), promoting phosphaturia; and (2) it inhibits 1α-hydroxylase, reducing calcitriol synthesis. Blocking FGF23 signaling removes both of these effects simultaneously. Without FGF23-driven Pi transporter inhibition, the kidney reabsorbs more Pi — urinary Pi excretion falls and blood Pi rises further. Without FGF23-driven 1α-hydroxylase inhibition, calcitriol production increases — more calcitriol stimulates intestinal Pi absorption, compounding the hyperphosphatemia. This is why FGF23 blockade can worsen hyperphosphatemia in CKD and is not a straightforward therapeutic strategy.", "distractors": {"B": "This describes what FGF23 itself does, not what blocking it does. Blocking FGF23 would produce the opposite: less phosphaturia and more calcitriol.", "C": "While PTH does cause phosphaturia, it cannot fully compensate for FGF23 blockade in hyperphosphatemia. The claim that FGF23 blockade causes no change is incorrect — it removes a critical Pi excretion mechanism.", "D": "FGF23 acts on both 1α-hydroxylase and on renal Pi transporters. The claim that FGF23 ‘acts exclusively on 1α-hydroxylase’ is incorrect and would lead a student to underestimate the phosphaturic consequences of FGF23 blockade."}}, {"lo": "CLO 7", "stem": "A 48-year-old woman undergoes total thyroidectomy with inadvertent removal of all parathyroid tissue. Within six hours post-operatively, she develops perioral tingling and muscle spasms. Which one of the following best explains the most critical immediate physiological consequence of parathyroid tissue loss?", "choices": ["Loss of calcitonin secretion leads to unopposed bone resorption by osteoclasts, rapidly releasing Ca²⁺ from bone and paradoxically causing hypercalcemia before chronic hypocalcemia sets in.", "Without PTH, 1α-hydroxylase in the kidney is no longer stimulated, reducing calcitriol and decreasing intestinal Ca²⁺ absorption over days to weeks; acute symptoms reflect the slower calcitriol-dependent mechanism., reversing both the phosphaturic effect and the 1α-hydroxylase suppression that endogenous FGF23 would otherwise maintain in a patient with early CKD", "Without PTH, the kidneys cannot upregulate TRPV5/6 in the distal tubule, and bone resorption via the RANKL/OPG axis ceases; free ionized Ca²⁺ falls within hours as urinary and skeletal losses go uncompensated.", "Loss of OPG inhibition by PTH causes osteoclasts to become overactive, flooding the blood with Ca²⁺ and Pi while simultaneously depleting ionized Ca²⁺ through complexing with excess Pi."], "correct": 2, "explanation": "PTH is vital for life because it provides the minute-to-minute regulation of free Ca²⁺ through its effects on bone and kidney. Within hours of losing PTH, two critical mechanisms fail simultaneously: renal Ca²⁺ reabsorption drops (TRPV5/6 channels are no longer upregulated in the distal tubule), and bone resorption via the RANKL/OPG axis ceases. The kidney continues excreting Ca²⁺, and bone stops releasing it into the blood. Free Ca²⁺ falls quickly, producing the neuromuscular hyperexcitability of acute hypocalcemia. The calcitriol-dependent intestinal absorption mechanism (choice B) is real but operates on a slower timescale — hours to days — and is therefore not the primary explanation for symptoms appearing within 6 hours.", "distractors": {"A": "The thyroid C cells that produce calcitonin are separate from the parathyroid glands. Thyroidectomy does remove calcitonin-producing tissue, but calcitonin’s role in humans is relatively minor. Loss of calcitonin does not cause clinically significant hypercalcemia.", "B": "This is a real consequence of PTH loss but operates on a slower timescale. Calcitriol synthesis falls over hours to days, and its intestinal effects decline over the same period. Acute symptoms at 6 hours post-op are driven by the direct renal and bone effects of losing PTH, not by the slower calcitriol-dependent pathway.", "D": "PTH suppresses OPG, which promotes osteoclast activity — not OPG’s inhibitory role reversed. Without PTH, OPG is no longer suppressed (OPG actually rises), which means osteoclasts are less active — the opposite of what this distractor claims."}}];
+
+// Fisher-Yates shuffle
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Build shuffled question set with shuffled answer orders
+function buildQSet(qs) {
+  return shuffle(qs).map(q => {
+    const letters = ['A','B','C','D','E'];
+    const correctText = q.choices[q.correct];
+    const indexed = q.choices.map((c,i) => ({text:c, isCorrect: i === q.correct}));
+    const shuffled = shuffle(indexed);
+    const newCorrect = shuffled.findIndex(c => c.isCorrect);
+    return {
+      lo: q.lo,
+      stem: q.stem,
+      choices: shuffled.map(c => c.text),
+      correct: newCorrect,
+      explanation: q.explanation,
+      distractors: q.distractors,
+      origDistractors: q.distractors  // keyed by original letter A/B/C/D
+    };
+  });
+}
+
+let QS = buildQSet(RAW_QS);
+let cur = 0;
+let answers = new Array(QS.length).fill(null);
+let submitted = new Array(QS.length).fill(false);
+let quizMode = 'learn';
+let activeFilter = null;
+let timerInterval = null;
+let timerRunning = false;
+let timerSecs = 0;
+let filteredIndices = [];
+
+function filteredList() {
+  if (!activeFilter) return QS.map((_,i) => i);
+  return QS.map((_,i) => i).filter(i => QS[i].lo === activeFilter);
+}
+
+function setMode(m) {
+  quizMode = m;
+  document.getElementById('learnBtn').classList.toggle('active', m === 'learn');
+  document.getElementById('examBtn').classList.toggle('active', m === 'exam');
+  document.getElementById('examRow').style.display = m === 'exam' ? 'block' : 'none';
+  document.getElementById('submitRow').style.display = m === 'learn' ? 'block' : 'none';
+  renderQ();
+}
+
+function openQuiz(mode) {
+  document.getElementById('launchScreen').style.display = 'none';
+  document.getElementById('quizOverlay').classList.add('open');
+  document.getElementById('resultsScreen').style.display = 'none';
+  document.getElementById('quizLayout').style.display = 'grid';
+  buildLoTags();
+  setMode(mode);
+  renderQ();
+}
+
+function closeQuiz() {
+  const o = document.getElementById('quizOverlay');
+  o.classList.add('closing');
+  setTimeout(() => {
+    o.classList.remove('open','closing');
+    document.getElementById('launchScreen').style.display = 'grid';
+  }, 340);
+}
+
+function resetQuiz() {
+  QS = buildQSet(RAW_QS);
+  answers = new Array(QS.length).fill(null);
+  submitted = new Array(QS.length).fill(false);
+  cur = 0;
+  activeFilter = null;
+  document.querySelectorAll('.lo-tag').forEach(t => t.classList.remove('active-filter'));
+  document.getElementById('resultsScreen').style.display = 'none';
+  document.getElementById('quizLayout').style.display = 'grid';
+  updateScores();
+  renderQ();
+}
+
+function buildLoTags() {
+  const container = document.getElementById('loTags');
+  container.innerHTML = '';
+  const all = document.createElement('button');
+  all.className = 'lo-tag active-filter';
+  all.textContent = 'All';
+  all.style.cssText = 'background:#f0f0f0;color:#333;border-color:#ccc';
+  all.onclick = () => { activeFilter = null; cur = 0; document.querySelectorAll('.lo-tag').forEach(t => t.classList.remove('active-filter')); all.classList.add('active-filter'); renderQ(); };
+  container.appendChild(all);
+  const los = [...new Set(RAW_QS.map(q => q.lo))];
+  los.forEach(lo => {
+    const btn = document.createElement('button');
+    btn.className = 'lo-tag ' + (lo.startsWith('P') ? 'plo' : 'clo');
+    btn.textContent = lo;
+    btn.onclick = () => {
+      activeFilter = lo; cur = 0;
+      document.querySelectorAll('.lo-tag').forEach(t => t.classList.remove('active-filter'));
+      btn.classList.add('active-filter');
+      renderQ();
+    };
+    container.appendChild(btn);
+  });
+}
+
+function getFiltered() {
+  if (!activeFilter) return QS.map((_,i) => i);
+  return QS.map((_,i) => i).filter(i => QS[i].lo === activeFilter);
+}
+
+function renderQ() {
+  const fi = getFiltered();
+  if (fi.length === 0) return;
+  if (cur >= fi.length) cur = fi.length - 1;
+  const qi = fi[cur];
+  const q = QS[qi];
+
+  // Update LO badge
+  const badge = document.getElementById('qLoBadge');
+  badge.textContent = q.lo;
+  badge.className = 'qlo-badge ' + (q.lo.startsWith('P') ? 'plo' : 'clo');
+
+  document.getElementById('qNum').textContent = `Q ${cur+1} / ${fi.length}`;
+  document.getElementById('progress').style.width = `${((cur+1)/fi.length)*100}%`;
+  document.getElementById('qStem').innerHTML = q.stem.split('\n').join('<br>');
+
+  // Build choices
+  const letters = ['A','B','C','D','E'];
+  const choicesEl = document.getElementById('choices');
+  choicesEl.innerHTML = '';
+  q.choices.forEach((ch, ci) => {
+    const el = document.createElement('div');
+    el.className = 'ac';
+    el.dataset.choice = ci;
+    el.innerHTML = `<div class="cl">${letters[ci]}</div><div class="ctx">${ch}</div>`;
+    if (!submitted[qi]) {
+      el.addEventListener('click', () => selectChoice(qi, ci));
+    } else {
+      el.classList.add('dis');
+      if (ci === q.correct) el.classList.add(answers[qi] === q.correct ? 'cor' : 'shc');
+      else if (ci === answers[qi]) el.classList.add('inc');
+    }
+    if (answers[qi] === ci && !submitted[qi]) el.classList.add('sel');
+    choicesEl.appendChild(el);
+  });
+
+  // Submit button
+  const sb = document.getElementById('submitBtn');
+  sb.disabled = answers[qi] === null;
+  document.getElementById('submitRow').style.display = quizMode === 'learn' ? 'block' : 'none';
+  document.getElementById('examRow').style.display = quizMode === 'exam' ? 'block' : 'none';
+
+  // Explanation
+  const expBox = document.getElementById('expBox');
+  if (submitted[qi]) {
+    showExplanation(qi);
+  } else {
+    expBox.classList.remove('vis');
+    expBox.style.display = 'none';
+  }
+
+  // Exam progress
+  const answeredCount = fi.filter(i => answers[i] !== null).length;
+  document.getElementById('examProg').innerHTML = `${answeredCount} of <span id="examTotal">${fi.length}</span> answered`;
+
+  // Dots
+  buildDots(fi, qi);
+  // Scores
+  updateScores();
+  // Nav
+  document.getElementById('prevBtn').style.opacity = cur === 0 ? '0.3' : '1';
+  document.getElementById('nextBtn').textContent = cur === fi.length - 1 ? 'Finish →' : 'Next →';
+}
+
+function selectChoice(qi, ci) {
+  if (submitted[qi]) return;
+  answers[qi] = ci;
+  document.querySelectorAll('.ac').forEach((el, idx) => {
+    el.classList.toggle('sel', idx === ci);
+  });
+  document.getElementById('submitBtn').disabled = false;
+}
+
+function submitAnswer() {
+  const fi = getFiltered();
+  const qi = fi[cur];
+  if (answers[qi] === null) return;
+  submitted[qi] = true;
+  renderQ();
+}
+
+function showExplanation(qi) {
+  const q = QS[qi];
+  const correct = answers[qi] === q.correct;
+  const letters = ['A','B','C','D','E'];
+  const expBox = document.getElementById('expBox');
+  expBox.style.display = 'block';
+  expBox.classList.add('vis');
+
+  const verdict = document.getElementById('expVerdict');
+  verdict.className = 'exs ' + (correct ? 'exc' : 'exw');
+  verdict.innerHTML = `<div class="exl">${correct ? '✓ Correct' : '✗ Incorrect'}</div>
+    <div class="ext">${correct ? 'Well done. The mechanism holds.' : `The correct answer is <strong>${letters[q.correct]}</strong>: ${q.choices[q.correct]}`}</div>`;
+
+  document.getElementById('expText').textContent = q.explanation;
+
+  // Distractor ELI5s — show wrong choices
+  const distBox = document.getElementById('distBox');
+  const distText = document.getElementById('distText');
+  if (q.distractors && Object.keys(q.distractors).length > 0) {
+    distBox.style.display = 'block';
+    // Map original letter keys to current choice texts
+    // We need to match by text since choices were shuffled
+    const originalLetters = Object.keys(q.distractors);
+    let html = '';
+    // For each shown choice that's wrong, find its distractor explanation by matching text
+    q.choices.forEach((ch, ci) => {
+      if (ci === q.correct) return;
+      // find matching distractor by checking original index
+      const shownLetter = letters[ci];
+      // Try to find explanation — match by partial text (first 30 chars)
+      const matchKey = originalLetters.find(k => {
+        const origChoiceText = q.distractors[k];
+        // The distractor text is the explanation, not the choice
+        // We stored distractor explanations by original letter — need to find which explanation matches which current choice
+        // Best approach: since we shuffled, we need to figure out original index
+        return true; // just render all
+      });
+    });
+    // Simpler: just list all distractor explanations with their labels
+    html = originalLetters.map(k => `<div class="wce"><strong>${k}</strong> — ${q.distractors[k]}</div>`).join('');
+    distText.innerHTML = html;
+  } else {
+    distBox.style.display = 'none';
+  }
+}
+
+function buildDots(fi, currentQi) {
+  const el = document.getElementById('dots');
+  el.innerHTML = '';
+  fi.forEach((qi, i) => {
+    const d = document.createElement('div');
+    d.className = 'qd';
+    if (i === cur) d.classList.add('cur');
+    if (submitted[qi]) d.classList.add(answers[qi] === QS[qi].correct ? 'done' : 'wrong');
+    d.onclick = () => { cur = i; renderQ(); };
+    el.appendChild(d);
+  });
+}
+
+function navigate(dir) {
+  const fi = getFiltered();
+  cur += dir;
+  if (cur < 0) cur = 0;
+  if (cur >= fi.length) {
+    // If exam mode, check if done
+    if (quizMode === 'exam') { submitExam(); return; }
+    cur = fi.length - 1;
+  }
+  renderQ();
+}
+
+function submitExam() {
+  const fi = getFiltered();
+  fi.forEach(qi => { if (answers[qi] !== null && !submitted[qi]) submitted[qi] = true; });
+  showResults(fi);
+}
+
+function showResults(fi) {
+  const correct = fi.filter(qi => submitted[qi] && answers[qi] === QS[qi].correct).length;
+  const total = fi.length;
+  const pct = Math.round((correct/total)*100);
+  document.getElementById('quizLayout').style.display = 'none';
+  document.getElementById('resultsScreen').style.display = 'block';
+  document.getElementById('resultsScreen').classList.add('vis');
+  document.getElementById('resGrade').textContent = pct + '%';
+  document.getElementById('resGradeLbl').textContent = correct + ' of ' + total + ' correct';
+  document.getElementById('resCorrect').textContent = correct;
+  document.getElementById('resIncorrect').textContent = total - correct;
+  document.getElementById('resTotal').textContent = total;
+  const g = document.getElementById('resGrade');
+  g.style.color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--amber)' : 'var(--red)';
+}
+
+function updateScores() {
+  const fi = getFiltered();
+  const c = fi.filter(qi => submitted[qi] && answers[qi] === QS[qi].correct).length;
+  const w = fi.filter(qi => submitted[qi] && answers[qi] !== QS[qi].correct).length;
+  const r = fi.length - c - w;
+  document.getElementById('sc').textContent = c;
+  document.getElementById('si').textContent = w;
+  document.getElementById('sr').textContent = r;
+}
+
+// Timer
+function toggleTimer() {
+  timerRunning = !timerRunning;
+  document.getElementById('timerToggle').textContent = timerRunning ? '⏸' : '▶';
+  if (timerRunning) {
+    timerInterval = setInterval(() => {
+      timerSecs++;
+      const m = String(Math.floor(timerSecs/60)).padStart(2,'0');
+      const s = String(timerSecs%60).padStart(2,'0');
+      document.getElementById('timerDisp').textContent = m+':'+s;
+    }, 1000);
+  } else {
+    clearInterval(timerInterval);
+  }
+}
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerSecs = 0;
+  document.getElementById('timerDisp').textContent = '00:00';
+  document.getElementById('timerToggle').textContent = '▶';
+}
+</script>
+</body>
+</html>

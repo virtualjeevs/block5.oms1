@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ca²⁺ & Phosphate Metabolism — Contextual Anki · Dr. Morganelli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f1a;
+  --surface:#131929;
+  --surface-2:#19223a;
+  --surface-3:#1f2a42;
+  --surface-4:#24314e;
+  --amber:#f6a533;
+  --amber-soft:rgba(246,165,51,.13);
+  --amber-mid:rgba(246,165,51,.25);
+  --amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf;
+  --teal-soft:rgba(45,212,191,.12);
+  --teal-mid:rgba(45,212,191,.22);
+  --teal-dim:rgba(45,212,191,.5);
+  --green:#34d399;
+  --green-soft:rgba(52,211,153,.13);
+  --green-mid:rgba(52,211,153,.22);
+  --red:#f87171;
+  --red-soft:rgba(248,113,113,.12);
+  --red-mid:rgba(248,113,113,.22);
+  --text:#dde5f0;
+  --text-2:#7e90a9;
+  --text-3:#3e5065;
+  --border:#1c2a40;
+  --border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08);
+  --hero-glow-b:rgba(246,165,51,.09);
+  --bg-top:#0b0f1a;
+  --bg-bottom:#0d1321;
+  --map-shadow:0 20px 45px rgba(0,0,0,.22);
+  --panel-shadow:0 22px 48px rgba(0,0,0,.24);
+  --header-shadow:0 22px 50px rgba(0,0,0,.24);
+  --header-a:rgba(25,34,58,.78);
+  --header-b:rgba(19,25,41,.56);
+  --card-a:rgba(25,34,58,.98);
+  --card-b:rgba(21,29,47,.98);
+  --card-action-bg:rgba(31,42,66,.55);
+  --nav-bg:rgba(25,34,58,.85);
+  --nav-bg-hover:rgba(31,42,66,.98);
+  --nav-text:#dde5f0;
+  --showall-bg:rgba(255,255,255,.03);
+  --showall-text:#7e90a9;
+  --meta-bg:rgba(221,229,240,.04);
+  --table-head-a:#2863d8;
+  --table-head-b:#3d7bf4;
+}
+html[data-theme="cream"]{
+  --bg:#f4efe4;--surface:#fffaf1;--surface-2:#f6efe2;--surface-3:#efe5d3;--surface-4:#e4d5ba;
+  --amber:#b86519;--amber-soft:rgba(184,101,25,.13);--amber-mid:rgba(184,101,25,.22);--amber-dim:rgba(184,101,25,.45);
+  --teal:#0f8a7b;--teal-soft:rgba(15,138,123,.12);--teal-mid:rgba(15,138,123,.2);--teal-dim:rgba(15,138,123,.42);
+  --green:#21885a;--green-soft:rgba(33,136,90,.12);--green-mid:rgba(33,136,90,.22);
+  --red:#c65a52;--red-soft:rgba(198,90,82,.12);--red-mid:rgba(198,90,82,.22);
+  --text:#2f2a24;--text-2:#6c5f51;--text-3:#a28d78;--border:#e4d5ba;--border-2:#d6c2a1;
+  --hero-glow-a:rgba(15,138,123,.08);--hero-glow-b:rgba(184,101,25,.08);
+  --bg-top:#f7f2e8;--bg-bottom:#efe7d9;
+  --map-shadow:0 18px 40px rgba(106,80,45,.11);--panel-shadow:0 20px 42px rgba(106,80,45,.12);--header-shadow:0 18px 42px rgba(106,80,45,.12);
+  --header-a:rgba(255,250,241,.96);--header-b:rgba(246,239,226,.92);
+  --card-a:rgba(255,251,244,.98);--card-b:rgba(246,239,226,.98);--card-action-bg:rgba(239,229,211,.86);
+  --nav-bg:rgba(246,239,226,.95);--nav-bg-hover:rgba(239,229,211,.98);--nav-text:#5f5141;
+  --showall-bg:rgba(255,250,241,.92);--showall-text:#5f5141;--meta-bg:rgba(255,250,241,.8);
+  --table-head-a:#0f8a7b;--table-head-b:#b86519;
+}
+html[data-theme="forest"]{
+  --bg:#081512;--surface:#0f201b;--surface-2:#16302a;--surface-3:#1d4037;--surface-4:#28544a;
+  --amber:#e4b04b;--amber-soft:rgba(228,176,75,.12);--amber-mid:rgba(228,176,75,.22);--amber-dim:rgba(228,176,75,.45);
+  --teal:#52d6b7;--teal-soft:rgba(82,214,183,.12);--teal-mid:rgba(82,214,183,.2);--teal-dim:rgba(82,214,183,.42);
+  --green:#7ae582;--green-soft:rgba(122,229,130,.12);--green-mid:rgba(122,229,130,.22);
+  --red:#ff8b7a;--red-soft:rgba(255,139,122,.12);--red-mid:rgba(255,139,122,.22);
+  --text:#e4f2ec;--text-2:#8fb6aa;--text-3:#54756b;--border:#1d3a32;--border-2:#295049;
+  --hero-glow-a:rgba(82,214,183,.08);--hero-glow-b:rgba(228,176,75,.08);
+  --bg-top:#081512;--bg-bottom:#0b1c18;
+  --header-a:rgba(15,32,27,.96);--header-b:rgba(10,24,21,.92);
+  --card-a:rgba(22,48,42,.98);--card-b:rgba(15,32,27,.98);--card-action-bg:rgba(29,64,55,.82);
+  --nav-bg:rgba(22,48,42,.95);--nav-bg-hover:rgba(29,64,55,.98);--nav-text:#d0e9e0;
+  --showall-bg:rgba(15,32,27,.86);--showall-text:#c7e7dc;--meta-bg:rgba(255,255,255,.04);
+  --table-head-a:#1f7a67;--table-head-b:#d79f42;
+}
+html{font-size:17px;-webkit-font-smoothing:antialiased}
+body{
+  background:
+    radial-gradient(circle at top left,var(--hero-glow-a),transparent 26rem),
+    radial-gradient(circle at top right,var(--hero-glow-b),transparent 24rem),
+    linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bottom) 100%);
+  color:var(--text);font-family:"DM Sans",sans-serif;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;padding:40px 16px 80px;
+}
+.wrap{width:100%;max-width:960px}
+header{
+  margin-bottom:32px;text-align:center;
+  background:linear-gradient(180deg,var(--header-a),var(--header-b));
+  border:1px solid var(--border-2);box-shadow:var(--header-shadow);
+  border-radius:24px;padding:24px 20px 20px;
+}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.hero-copy{flex:1;min-width:240px}
+.theme-switch{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.theme-btn{
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  color:var(--text-2);font-size:11px;font-family:"DM Mono",monospace;
+  padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .14s
+}
+.theme-btn:hover{color:var(--text);background:var(--surface-3);border-color:var(--border-2)}
+.theme-btn.active{background:var(--teal-soft);border-color:rgba(45,212,191,.24);color:var(--teal)}
+.eyebrow{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px}
+h1{font-family:"Crimson Pro",serif;font-weight:600;font-size:clamp(28px,5vw,44px);line-height:1.05;letter-spacing:-.025em;color:var(--text);margin-bottom:6px}
+.sub{font-size:14px;color:var(--text-2)}
+.legend{display:flex;gap:18px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text-2)}
+.lswatch{width:9px;height:9px;border-radius:50%}
+.map-wrap{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 16px 14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--map-shadow)}
+.c-gray rect{fill:var(--surface-3);stroke:var(--border-2);stroke-width:.5}
+.c-gray .th{fill:var(--text);font-family:"Crimson Pro",serif;font-size:13px;font-weight:600}
+.c-gray .ts{fill:var(--text-2);font-family:"DM Sans",sans-serif;font-size:10px}
+.c-amber rect{fill:var(--amber-soft);stroke:var(--amber-dim);stroke-width:.75}
+.c-amber .th{fill:var(--amber);font-family:"DM Mono",monospace;font-size:10px;font-weight:500}
+.c-amber .ts{fill:var(--text);font-family:"DM Sans",sans-serif;font-size:9.5px}
+.c-teal rect{fill:var(--teal-soft);stroke:var(--teal-dim);stroke-width:.75}
+.c-teal .th{fill:var(--teal);font-family:"DM Mono",monospace;font-size:10px;font-weight:500}
+.c-teal .ts{fill:var(--text);font-family:"DM Sans",sans-serif;font-size:9.5px}
+.conn{stroke:var(--border-2);stroke-width:1;fill:none;opacity:.7}
+.node{cursor:pointer;transition:filter .15s}
+.node:hover{filter:brightness(1.25)}
+.sel-node.c-amber rect{stroke:var(--amber)!important;stroke-width:2!important;filter:drop-shadow(0 0 7px rgba(246,165,51,.5))}
+.sel-node.c-teal rect{stroke:var(--teal)!important;stroke-width:2!important;filter:drop-shadow(0 0 7px rgba(45,212,191,.4))}
+.done-node{opacity:.45}
+.hint-lbl{fill:var(--text-3);font-family:"DM Mono",monospace;font-size:9px;font-style:italic}
+.panel,.review-panel{
+  background:var(--surface);border:1px solid var(--border);border-radius:18px;
+  padding:22px 20px;margin-bottom:12px;display:none;box-shadow:var(--panel-shadow);
+}
+.panel.open{display:block;animation:rise .22s ease-out}
+.review-panel.open{display:block;border-color:rgba(246,165,51,.25);animation:rise .22s ease-out}
+@keyframes rise{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.phead{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.badge{font-family:"DM Mono",monospace;font-size:9.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:5px}
+.b-plo{background:var(--amber-soft);color:var(--amber);border:1px solid rgba(246,165,51,.28)}
+.b-lo{background:var(--teal-soft);color:var(--teal);border:1px solid rgba(45,212,191,.25)}
+.ptitle{font-size:15px;font-weight:500;color:var(--text);flex:1;line-height:1.4}
+.dots{display:flex;gap:6px;align-items:center}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--border-2);transition:background .2s}
+.dot.active{background:var(--text)}.dot.done{background:var(--green)}.dot.partial{background:var(--amber)}
+.xbtn{background:none;border:none;cursor:pointer;color:var(--text-3);font-size:20px;line-height:1;padding:2px 7px;border-radius:5px;transition:color .12s,background .12s}
+.xbtn:hover{color:var(--text);background:var(--surface-3)}
+.card{background:linear-gradient(180deg,var(--card-a),var(--card-b));border:1px solid var(--border);border-radius:16px;padding:18px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.ctitle{font-family:"DM Mono",monospace;font-size:10px;font-weight:500;color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.cbody{font-size:16px;line-height:1.9;color:var(--text)}
+.card-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:12px;padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:var(--card-action-bg)}
+.card-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--text-2);font-size:11px;font-family:"DM Mono",monospace}
+.meta-pill{padding:5px 10px;border-radius:999px;border:1px solid var(--border-2);background:var(--meta-bg)}
+.meta-pill strong{color:var(--text)}
+.action-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.action-btn{background:rgba(255,255,255,.03);border:1px solid var(--border-2);color:var(--text-2);font-size:11px;font-family:"DM Mono",monospace;padding:8px 12px;border-radius:999px;cursor:pointer;transition:all .14s}
+.action-btn:hover:not(:disabled){color:var(--text);background:var(--surface-3);border-color:var(--surface-4)}
+.action-btn:disabled{opacity:.35;cursor:not-allowed}
+.action-btn.primary{background:var(--teal-soft);border-color:rgba(45,212,191,.22);color:var(--teal)}
+.action-btn.primary:hover:not(:disabled){background:var(--teal-mid);color:#dffef8}
+.action-btn.amber{background:var(--amber-soft);border-color:rgba(246,165,51,.25);color:var(--amber)}
+.action-btn.amber:hover:not(:disabled){background:var(--amber-mid);color:#fff3df}
+.action-btn.ghost{color:var(--text-3)}
+.occ{
+  display:inline-block;min-width:3ch;
+  background:var(--text);color:transparent;
+  border:1px solid transparent;border-radius:3px;cursor:pointer;
+  padding:1px 6px;white-space:nowrap;user-select:none;
+  vertical-align:baseline;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
+.occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed{background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.2)}
+.score-row{display:inline-flex;gap:3px;margin-left:5px;vertical-align:middle;animation:pop .15s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+.sbtn{font-size:9px;padding:1px 6px;border-radius:3px;cursor:pointer;font-family:"DM Mono",monospace;transition:background .1s,border-color .1s}
+.sbtn.know{background:var(--green-soft);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+.sbtn.know:hover{background:var(--green-mid)}
+.sbtn.need{background:var(--red-soft);color:var(--red);border:1px solid rgba(248,113,113,.25)}
+.sbtn.need:hover{background:var(--red-mid)}
+.jump{display:inline-flex;align-items:center;font-family:"DM Mono",monospace;font-size:9px;color:var(--text-3);background:var(--surface-3);border:1px solid var(--border-2);border-radius:3px;padding:1px 5px;margin-left:3px;cursor:pointer;vertical-align:middle;transition:all .12s;white-space:nowrap}
+.jump.amber:hover{color:var(--amber);border-color:var(--amber-dim);background:var(--amber-soft)}
+.jump.teal:hover{color:var(--teal);border-color:var(--teal-dim);background:var(--teal-soft)}
+.hint{font-size:13px;color:var(--text-2);background:var(--surface-3);border-left:2px solid var(--border-2);border-radius:0 7px 7px 0;padding:9px 14px;margin-top:14px;line-height:1.65}
+.hlbl{font-family:"DM Mono",monospace;font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:var(--text-3);display:block;margin-bottom:4px}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:8px}
+.nbtn{background:var(--nav-bg);border:1px solid var(--border);color:var(--nav-text);font-family:"DM Sans",sans-serif;font-size:13px;padding:9px 16px;border-radius:10px;cursor:pointer;transition:background .12s,color .12s}
+.nbtn:hover:not(:disabled){background:var(--nav-bg-hover);color:var(--text)}
+.nbtn:disabled{opacity:.25;cursor:not-allowed}
+.nmc{display:flex;gap:10px;align-items:center}
+.ncnt{font-size:12px;color:var(--text-2);font-family:"DM Mono",monospace}
+.showall{background:var(--showall-bg);border:1px solid var(--border);color:var(--showall-text);font-size:11px;font-family:"DM Sans",sans-serif;padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .12s}
+.showall:hover{color:var(--text);border-color:var(--border-2)}
+.stats{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;box-shadow:0 18px 40px rgba(0,0,0,.2)}
+.stat{font-size:12px;color:var(--text-2);font-family:"DM Mono",monospace}
+.stat strong{color:var(--text)}
+.sep{color:var(--border-2)}
+.sactions{display:flex;gap:8px;align-items:center;margin-left:auto}
+.sbtn-lite{background:none;border:1px solid var(--border);cursor:pointer;font-size:11px;color:var(--text-2);font-family:"DM Mono",monospace;border-radius:999px;padding:7px 12px;transition:all .12s}
+.sbtn-lite:hover:not(:disabled){color:var(--text);background:var(--surface-3);border-color:var(--border-2)}
+.sbtn-lite:disabled{opacity:.35;cursor:not-allowed}
+.review-btn{background:var(--amber-soft);border:1px solid rgba(246,165,51,.28);color:var(--amber);font-size:11px;font-family:"DM Sans",sans-serif;padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .12s;display:none;align-items:center;gap:5px}
+.review-btn.vis{display:inline-flex}
+.review-btn:hover{background:var(--amber-mid)}
+.reset-btn{background:none;border:none;cursor:pointer;font-size:11px;color:var(--text-3);font-family:"DM Mono",monospace;text-decoration:underline;text-underline-offset:2px}
+.reset-btn:hover{color:var(--text-2)}
+.rhdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rtitle{font-family:"Crimson Pro",serif;font-size:17px;font-weight:600;color:var(--amber);flex:1}
+.rprog{font-family:"DM Mono",monospace;font-size:11px;color:var(--text-2)}
+.rsub{font-size:11px;color:var(--text-2);font-family:"DM Mono",monospace;background:var(--surface-3);border:1px solid var(--border);padding:7px 12px;border-radius:7px;margin-bottom:14px;line-height:1.5}
+.kbhint{text-align:center;font-size:10px;color:var(--text-3);font-family:"DM Mono",monospace;margin-top:10px;letter-spacing:.04em}
+@media(max-width:720px){
+  body{padding:22px 12px 64px}
+  header{padding:20px 16px 18px}
+  .hero-top,.theme-switch{justify-content:center}
+  .card-actions{padding:10px 12px}
+  .action-row,.card-meta,.sactions{width:100%}
+  .sactions{margin-left:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Block 5 · 2026 · Dr. Peter Morganelli</div>
+      <h1>Calcium &amp; Phosphate Metabolism</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" type="button" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" type="button" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" type="button" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Professor LOs (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Class LOs (CLO)</div>
+</div>
+
+<div class="map-wrap">
+<svg width="100%" viewBox="0 0 1020 325" style="display:block">
+  <line class="conn" x1="89" y1="60" x2="230" y2="128"/>
+  <line class="conn" x1="229" y1="60" x2="320" y2="128"/>
+  <line class="conn" x1="369" y1="60" x2="410" y2="128"/>
+  <line class="conn" x1="509" y1="60" x2="510" y2="128"/>
+  <line class="conn" x1="649" y1="60" x2="610" y2="128"/>
+  <line class="conn" x1="789" y1="60" x2="700" y2="128"/>
+  <line class="conn" x1="69" y1="256" x2="240" y2="184"/>
+  <line class="conn" x1="207" y1="256" x2="320" y2="184"/>
+  <line class="conn" x1="345" y1="256" x2="400" y2="184"/>
+  <line class="conn" x1="483" y1="256" x2="490" y2="184"/>
+  <line class="conn" x1="621" y1="256" x2="570" y2="184"/>
+  <line class="conn" x1="759" y1="256" x2="650" y2="184"/>
+  <line class="conn" x1="897" y1="256" x2="730" y2="184"/>
+  <!-- center -->
+  <g class="c-gray">
+    <rect x="200" y="128" width="620" height="56" rx="10"/>
+    <text class="th" x="510" y="150" text-anchor="middle" dominant-baseline="central">Calcium &amp; Phosphate Metabolism</text>
+    <text class="ts" x="510" y="168" text-anchor="middle" dominant-baseline="central">Dr. Morganelli · Block 5 · 2026</text>
+  </g>
+  <!-- PLOs -->
+  <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+    <rect x="30" y="16" width="118" height="44" rx="8"/>
+    <text class="th" x="89" y="31" text-anchor="middle" dominant-baseline="central">PLO 1</text>
+    <text class="ts" x="89" y="49" text-anchor="middle" dominant-baseline="central">Forms & Normal Levels</text>
+  </g>
+  <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+    <rect x="170" y="16" width="118" height="44" rx="8"/>
+    <text class="th" x="229" y="31" text-anchor="middle" dominant-baseline="central">PLO 2</text>
+    <text class="ts" x="229" y="49" text-anchor="middle" dominant-baseline="central">Albumin & pH</text>
+  </g>
+  <g id="n-plo3" class="node c-amber" onclick="selNode('plo3')">
+    <rect x="310" y="16" width="118" height="44" rx="8"/>
+    <text class="th" x="369" y="31" text-anchor="middle" dominant-baseline="central">PLO 3</text>
+    <text class="ts" x="369" y="49" text-anchor="middle" dominant-baseline="central">PTH Synthesis</text>
+  </g>
+  <g id="n-plo4" class="node c-amber" onclick="selNode('plo4')">
+    <rect x="450" y="16" width="118" height="44" rx="8"/>
+    <text class="th" x="509" y="31" text-anchor="middle" dominant-baseline="central">PLO 4</text>
+    <text class="ts" x="509" y="49" text-anchor="middle" dominant-baseline="central">Calcitriol</text>
+  </g>
+  <g id="n-plo5" class="node c-amber" onclick="selNode('plo5')">
+    <rect x="590" y="16" width="118" height="44" rx="8"/>
+    <text class="th" x="649" y="31" text-anchor="middle" dominant-baseline="central">PLO 5</text>
+    <text class="ts" x="649" y="49" text-anchor="middle" dominant-baseline="central">Target Organs</text>
+  </g>
+  <g id="n-plo6" class="node c-amber" onclick="selNode('plo6')">
+    <rect x="730" y="16" width="118" height="44" rx="8"/>
+    <text class="th" x="789" y="31" text-anchor="middle" dominant-baseline="central">PLO 6</text>
+    <text class="ts" x="789" y="49" text-anchor="middle" dominant-baseline="central">Calcitonin</text>
+  </g>
+  <!-- CLOs -->
+  <g id="n-clo1" class="node c-teal" onclick="selNode('clo1')">
+    <rect x="10" y="256" width="118" height="44" rx="8"/>
+    <text class="th" x="69" y="271" text-anchor="middle" dominant-baseline="central">CLO 1</text>
+    <text class="ts" x="69" y="289" text-anchor="middle" dominant-baseline="central">CaSR & Feedback</text>
+  </g>
+  <g id="n-clo2" class="node c-teal" onclick="selNode('clo2')">
+    <rect x="148" y="256" width="118" height="44" rx="8"/>
+    <text class="th" x="207" y="271" text-anchor="middle" dominant-baseline="central">CLO 2</text>
+    <text class="ts" x="207" y="289" text-anchor="middle" dominant-baseline="central">Ca²⁺ / Pi Reciprocal</text>
+  </g>
+  <g id="n-clo3" class="node c-teal" onclick="selNode('clo3')">
+    <rect x="286" y="256" width="118" height="44" rx="8"/>
+    <text class="th" x="345" y="271" text-anchor="middle" dominant-baseline="central">CLO 3</text>
+    <text class="ts" x="345" y="289" text-anchor="middle" dominant-baseline="central">Calcitriol Synthesis</text>
+  </g>
+  <g id="n-clo4" class="node c-teal" onclick="selNode('clo4')">
+    <rect x="424" y="256" width="118" height="44" rx="8"/>
+    <text class="th" x="483" y="271" text-anchor="middle" dominant-baseline="central">CLO 4</text>
+    <text class="ts" x="483" y="289" text-anchor="middle" dominant-baseline="central">Renal & SI Transport</text>
+  </g>
+  <g id="n-clo5" class="node c-teal" onclick="selNode('clo5')">
+    <rect x="562" y="256" width="118" height="44" rx="8"/>
+    <text class="th" x="621" y="271" text-anchor="middle" dominant-baseline="central">CLO 5</text>
+    <text class="ts" x="621" y="289" text-anchor="middle" dominant-baseline="central">Bone Resorption</text>
+  </g>
+  <g id="n-clo6" class="node c-teal" onclick="selNode('clo6')">
+    <rect x="700" y="256" width="118" height="44" rx="8"/>
+    <text class="th" x="759" y="271" text-anchor="middle" dominant-baseline="central">CLO 6</text>
+    <text class="ts" x="759" y="289" text-anchor="middle" dominant-baseline="central">Pi & FGF23</text>
+  </g>
+  <g id="n-clo7" class="node c-teal" onclick="selNode('clo7')">
+    <rect x="838" y="256" width="118" height="44" rx="8"/>
+    <text class="th" x="897" y="271" text-anchor="middle" dominant-baseline="central">CLO 7</text>
+    <text class="ts" x="897" y="289" text-anchor="middle" dominant-baseline="central">Hypo/Hypercalcemia</text>
+  </g>
+  <text class="hint-lbl" x="510" y="316" text-anchor="middle">Click any node to begin · ← → navigate cards · ✓/✗ score each term · ESC to close</text>
+</svg>
+</div>
+
+<div id="panel" class="panel">
+  <div class="phead">
+    <span id="bdg" class="badge"></span>
+    <span id="ptitle" class="ptitle"></span>
+    <div id="dots" class="dots"></div>
+    <button class="xbtn" onclick="closePanel()">×</button>
+  </div>
+  <div id="ccard" class="card"></div>
+  <div id="cardActions" class="card-actions"></div>
+  <div class="nav">
+    <button class="nbtn" id="bprev" onclick="goCard(-1)">← Prev</button>
+    <div class="nmc">
+      <span id="cnt" class="ncnt"></span>
+      <button class="showall" onclick="revealAll()">Reveal this card</button>
+    </div>
+    <button class="nbtn" id="bnext" onclick="goCard(1)">Next →</button>
+  </div>
+</div>
+
+<div id="reviewPanel" class="review-panel">
+  <div class="rhdr">
+    <span class="rtitle">⟳ Spaced Repetition Review</span>
+    <span id="rprog" class="rprog"></span>
+    <button class="xbtn" onclick="closeReview()">×</button>
+  </div>
+  <div id="rsub" class="rsub"></div>
+  <div id="rccard" class="card"></div>
+  <div class="nav">
+    <button class="nbtn" id="rbprev" onclick="goReview(-1)">← Prev</button>
+    <div class="nmc">
+      <span id="rcnt" class="ncnt"></span>
+      <button class="showall" onclick="revAllReview()">Reveal</button>
+    </div>
+    <button class="nbtn" id="rbnext" onclick="goReview(1)">Next →</button>
+  </div>
+</div>
+
+<div class="stats">
+  <span class="stat"><strong id="st-rev">0</strong> revealed</span>
+  <span class="sep">·</span>
+  <span class="stat" style="color:var(--green)"><strong id="st-knew">0</strong> knew it</span>
+  <span class="sep">·</span>
+  <span class="stat" style="color:var(--amber)"><strong id="st-need">0</strong> needed help</span>
+  <span class="sep">·</span>
+  <span class="stat"><strong id="st-done">0</strong>/13 done</span>
+  <div class="sactions">
+    <button id="revealTopicBtn" class="sbtn-lite" onclick="revealTopic()" disabled>Reveal topic</button>
+    <button class="sbtn-lite" onclick="revealDeck()">Reveal deck</button>
+    <button id="reviewBtn" class="review-btn" onclick="startReview()">⟳ Review weak spots (<span id="rcount">0</span>)</button>
+    <button class="reset-btn" onclick="resetAll()">reset</button>
+  </div>
+</div>
+
+<div class="kbhint">← → arrow keys &nbsp;·&nbsp; ESC to close &nbsp;·&nbsp; ✓ knew it &nbsp;·&nbsp; ✗ needed help</div>
+
+</div>
+
+<script>
+const D={"plo1": {"label": "PLO 1", "sub": "Ca²⁺ & Pi forms, normal levels, symptoms, dietary needs", "type": "PLO", "cards": [{"t": "Three fractions of serum Ca²⁺", "b": "Only {free ionized Ca²⁺} is biologically active and regulated by PTH; it makes up approximately {~50%} of total blood Ca²⁺. The albumin-bound fraction accounts for {~40%}, and the remainder (~10%) is {complexed to anions}, especially phosphate.", "h": "Total Ca²⁺ does NOT equal free Ca²⁺. Hypoalbuminemia drops total Ca²⁺ but PTH keeps free Ca²⁺ normal — no symptoms, no action needed."}, {"t": "Normal blood levels", "b": "Total serum Ca²⁺: {8.5–10.5 mg/dL}. Total serum phosphate (Pi): {2.5–4.5 mg/dL}. Normal PTH: {10–65 pg/mL}. These values vary by age and sex but these ranges apply to healthy adults.", "h": "Memorize the ranges as pairs: Ca²⁺ 8.5–10.5 / Pi 2.5–4.5. The PTH range (10–65) is wider because secretion is pulsatile."}, {"t": "Daily dietary requirements (adults)", "b": "Adults require approximately {~1.0 g/day} of dietary calcium to maintain balance, because only {~40%} of dietary Ca²⁺ is absorbed in the small intestine. For inorganic phosphate, the daily requirement is {~0.7 g/day} with about {~65%} absorbed. Approximately {98%} of filtered Ca²⁺ and Pi is reabsorbed by the kidney.", "h": "Most foods are rich in Pi — Ca²⁺ is the nutritional challenge. This is why calcitriol-driven intestinal Ca²⁺ absorption is so physiologically critical."}, {"t": "Clinical symptoms of Ca²⁺ imbalance", "b": "Hypocalcemia (<8.5 mg/dL) produces neuromuscular hyperexcitability: {tetany}, {muscle spasms}, {convulsions/seizures}, {paresthesia}, and {arrhythmias}. Hypercalcemia (>10.5 mg/dL) presents with {kidney stones}, bone loss, {hypercalciuria}, and {organ calcification} (especially heart, kidneys, and blood vessels).", "h": "Hypo = hyperexcitable (Ca²⁺ stabilizes membranes; remove it and they fire spontaneously). Hypercalcemia = stones, bones, groans, psychic moans."}]}, "plo2": {"label": "PLO 2", "sub": "Albumin & blood pH effects on free Ca²⁺", "type": "PLO", "cards": [{"t": "Albumin binding and total vs. free Ca²⁺", "b": "Albumin is an {acidic protein} whose binding sites compete for both H⁺ and Ca²⁺. Hypoalbuminemia {decreases total Ca²⁺} without changing free Ca²⁺ — PTH maintains the free fraction normally. Hyperalbuminemia {increases total Ca²⁺} while free Ca²⁺ remains normal.", "h": "Clinical rule: always correct total Ca²⁺ for albumin, or directly measure ionized Ca²⁺, before diagnosing hypo- or hypercalcemia in a hypoalbuminemic patient (e.g., liver disease, nephrotic syndrome)."}, {"t": "pH shift and free Ca²⁺", "b": "In {alkalosis} (pH ↑, H⁺ ↓): albumin binds less H⁺ and {more Ca²⁺} → free Ca²⁺ {decreases} → hypocalcemic symptoms. In {acidosis} (pH ↓, H⁺ ↑): albumin binds more H⁺ and {less Ca²⁺} → free Ca²⁺ {increases} → hypercalcemia. Total Ca²⁺ is unchanged in both cases.", "h": "Classic exam scenario: hyperventilation → respiratory alkalosis → carpopedal spasm (tetany). Total Ca²⁺ is normal — it’s the free fraction that drops."}]}, "plo3": {"label": "PLO 3", "sub": "PTH structure, synthesis & mechanism of action", "type": "PLO", "cards": [{"t": "PTH synthesis and structure", "b": "PTH is an {84 amino acid} peptide hormone synthesized by {chief cells (principal cells)} of the parathyroid glands as a {pre-prohormone}, then cleaved twice to yield mature PTH. Secretion is {pulsatile} and the half-life in blood is {~3–5 minutes}; it is broken down by {kidney and liver} into fragments, some of which retain PTH activity.", "h": "PTH is vital for life — without it, free Ca²⁺ cannot be maintained, and acute hypocalcemia follows within hours (as after inadvertent parathyroidectomy during thyroidectomy)."}, {"t": "PTH receptor and signaling", "b": "The primary PTH receptor is {PTH1R}, a {G-protein coupled receptor (GPCR)} expressed in {bone} and {kidney}. PTH1R also binds {PTHrP} (parathyroid hormone-related peptide). A second receptor, PTH2R, also exists but is less physiologically prominent.", "h": "PTH1R is the target of both PTH and PTHrP. Since they share the same receptor, PTHrP produces PTH-like effects (bone resorption, renal Ca²⁺ retention, phosphaturia) even though it is not PTH."}, {"t": "PTHrP and hypercalcemia of malignancy", "b": "PTHrP (parathyroid hormone-related peptide) is produced by {placenta, fetal parathyroids, and some cancers}. It binds {PTH1R} and mimics PTH effects. PTHrP is the {most common humoral cause} of hypercalcemia of malignancy. Because PTHrP raises free Ca²⁺, the {CaSR} on chief cells activates and {suppresses PTH} — hence undetectable PTH with marked hypercalcemia.", "h": "Squamous cell carcinomas are the classic PTHrP producers. The diagnostic clue: hypercalcemia + undetectable PTH (not elevated, as in PHPT) + known malignancy."}]}, "plo4": {"label": "PLO 4", "sub": "Calcitriol — structure, nature, mechanism of action", "type": "PLO", "cards": [{"t": "Calcitriol identity", "b": "Calcitriol = {1,25-dihydroxycholecalciferol} = {1,25-dihydroxy vitamin D₃}. It is the {biologically active} form of precursor vitamin D₃ (cholecalciferol). Calcitriol is classified as a {steroid hormone} because it is a {cholesterol derivative} that acts via an {intracellular receptor}.", "h": "The name encodes the structure: 1,25-dihydroxy → hydroxyl groups at positions 1 and 25 of the cholesterol ring system. The 1-hydroxyl (added by 1α-hydroxylase in the kidney) is the regulated, rate-limiting step."}, {"t": "Calcitriol receptor mechanism (VDR pathway)", "b": "In blood, >85% of calcitriol is bound to {vitamin D binding protein (VDBP)}. Free calcitriol enters target cells and binds the intracellular {VDR} (vitamin D receptor). VDR then heterodimerizes with {RXR} (retinoid-X receptor). The VDR-RXR complex enters the nucleus and binds {VDRE} (vitamin D response elements) to regulate gene transcription.", "h": "Because calcitriol acts through gene transcription, its effects (new transporter proteins, calbindin, etc.) take hours to days to appear — classic steroid hormone kinetics. Contrast with PTH, whose GPCR-cAMP effects are rapid (minutes)."}]}, "plo5": {"label": "PLO 5", "sub": "Target organs of PTH & calcitriol", "type": "PLO", "cards": [{"t": "Primary targets — the critical distinction", "b": "Main targets of PTH: {bone} and {kidney}. Main targets of calcitriol: {small intestine} and {parathyroid glands}. This division of labor allows PTH to rapidly mobilize Ca²⁺ from bone and kidney while calcitriol handles the slower but essential task of absorbing dietary Ca²⁺ from the gut.", "h": "This is Dr. Morganelli’s most-emphasized distinction. If asked ‘where does PTH act?’ — bone and kidney. ‘Where does calcitriol act most importantly?’ — small intestine first, then parathyroid."}, {"t": "Key effects of PTH at its target organs", "b": "At bone: stimulates {bone resorption} (most important effect for raising blood Ca²⁺ AND Pi). At kidney: stimulates {1α-hydroxylase} in proximal tubule → ↑ calcitriol; increases {Ca²⁺ reabsorption} (distal tubule via TRPV5/6); decreases {Pi reabsorption} (proximal tubule → phosphaturia).", "h": "The phosphaturia caused by PTH is not a side effect — it’s essential. Without it, the Pi released during bone resorption would complex with the newly raised Ca²⁺ and blunt the rise in free Ca²⁺."}, {"t": "Key effects of calcitriol at its target organs", "b": "At small intestine (#1 most important): stimulates {absorption of dietary Ca²⁺} (and Pi) by inducing Ca²⁺ channels, calbindin, and basolateral transporters. At parathyroid glands: {feedback inhibition of PTH} gene transcription (via VDR on chief cells). At bone: synergizes with PTH to {increase RANKL} and {decrease OPG} → ↑ bone resorption. At kidney: enhances {Ca²⁺ reabsorption} via calbindin-D28K and basolateral transporters.", "h": "Negative feedback on PTH = ↑ free Ca²⁺ (via CaSR) + ↑ calcitriol (via VDR at VDRE). NOT elevated PTH itself — there is no short-loop PTH autoregulation."}]}, "plo6": {"label": "PLO 6", "sub": "Calcitonin — synthesis, stimulus, effects", "type": "PLO", "cards": [{"t": "Calcitonin — source, stimulus, and effect", "b": "Calcitonin is a peptide hormone produced by {C cells (parafollicular cells)} of the {thyroid gland}. It is secreted in response to {hypercalcemia}. Its effect: {inhibits bone resorption} by decreasing osteoclast activity, thereby lowering blood Ca²⁺. In humans, calcitonin is a {relatively minor} regulator compared to PTH.", "h": "Unlike PTH loss (which is rapidly fatal), loss of calcitonin (e.g., total thyroidectomy) does not produce clinically significant hypercalcemia in humans. Calcitonin mimetics (e.g., salmon calcitonin) are used pharmacologically for hypercalcemia and osteoporosis."}]}, "clo1": {"label": "CLO 1", "sub": "CaSR mechanism, negative feedback, calcimimetics", "type": "LO", "cards": [{"t": "CaSR as the ‘calciostat’", "b": "The {calcium sensing receptor (CaSR)} on parathyroid chief cells is the primary sensor of free Ca²⁺. The set point for PTH secretion is {1.1–1.2 mmol/L} free Ca²⁺; slight changes above or below this restore blood Ca²⁺ within {1–2 hours}. In {primary hyperparathyroidism}, the CaSR sigmoidal curve shifts {right} — more Ca²⁺ is required to suppress PTH.", "h": "The set point varies per person. Think of it as the thermostat setting: in PHPT, the thermostat is stuck high, so PTH keeps secreting even at Ca²⁺ levels that would suppress it in a normal person."}, {"t": "CaSR signaling — two states", "b": "Relaxed state (low Ca²⁺): CaSR activates {adenylate cyclase} → ↑ {cAMP} → stimulates {PTH} production and secretion. Activated state (high Ca²⁺): CaSR activates {phospholipase C} and inhibits adenylate cyclase → ↓ cAMP → inhibits {PTH} production and secretion.", "h": "Key: low Ca²⁺ → CaSR relaxed → AC on → cAMP up → PTH up. High Ca²⁺ → CaSR activated → PLC on, AC off → cAMP down → PTH down. The two G-proteins (Gs vs Gq) toggle opposite effects."}, {"t": "Sources of negative feedback on PTH", "b": "PTH secretion is inhibited by two signals: (1) elevated {free Ca²⁺} acting through CaSR on chief cells, and (2) elevated {calcitriol} binding VDR in chief cells and directly suppressing PTH {gene transcription}. Critically, {PTH itself} does NOT feed back to inhibit its own production — there is no short-loop PTH autoregulation.", "h": "This is a classic Morganelli conceptual trap: students assume PTH auto-inhibits. It doesn’t. Only free Ca²⁺ and calcitriol are the brakes. Calcitriol is why vitamin D deficiency causes secondary hyperparathyroidism even when Ca²⁺ is borderline."}, {"t": "Calcimimetics (Cinacalcet)", "b": "Calcimimetics (e.g., {Cinacalcet}) are drugs that allosterically {activate the CaSR} on parathyroid chief cells, mimicking high Ca²⁺. This shifts the CaSR to its activated state → {PLC activation + adenylate cyclase inhibition} → ↓ cAMP → {decreased PTH} production and secretion → decreased serum Ca²⁺.", "h": "Used to treat primary hyperparathyroidism (PHPT) and secondary hyperparathyroidism (SHPT) in CKD. The drug doesn’t block PTH at its target organs — it suppresses PTH at its source (the parathyroid)."}]}, "clo2": {"label": "CLO 2", "sub": "Reciprocal Ca²⁺ / Pi reabsorption by PTH", "type": "LO", "cards": [{"t": "PTH’s opposing renal effects on Ca²⁺ and Pi", "b": "PTH upregulates {TRPV5/6} channels on the luminal membrane of {distal tubule} cells → ↑ Ca²⁺ reabsorption. Simultaneously, PTH stimulates degradation of {NaPi-IIa/c} cotransporters in the {proximal tubule} → ↑ urinary Pi excretion ({phosphaturia}). These two effects are reciprocal and simultaneous.", "h": "The reciprocal design is not arbitrary: bone resorption releases Ca²⁺ AND Pi together. If Pi accumulated with Ca²⁺, they would complex → ↓ free Ca²⁺. PTH-driven phosphaturia is the safety valve."}, {"t": "Physiological logic of the reciprocal relationship", "b": "When PTH ↑: blood Ca²⁺ ↑ (via bone resorption + renal reabsorption). Bone resorption also releases Pi into blood, but PTH-driven {renal Pi excretion} prevents hyperphosphatemia. Increased dietary Pi absorption (driven by {calcitriol} in the SI) is similarly offset by {increased renal Pi excretion}, maintaining Pi balance while allowing Ca²⁺ to rise.", "h": "This is why measuring PTH + Pi together gives useful clinical information: ↑PTH with ↓Pi (phosphaturia) = PHPT. ↑PTH with ↑Pi = think CKD/SHPT where the kidney can’t excrete Pi despite high PTH."}]}, "clo3": {"label": "CLO 3", "sub": "Calcitriol synthesis pathway & 25-OH stability", "type": "LO", "cards": [{"t": "Calcitriol synthesis: three-step pathway", "b": "Step 1: {7-dehydrocholesterol} in skin keratinocytes is converted to {cholecalciferol (vitamin D₃)} by {UV light}. Step 2: cholecalciferol is hydroxylated to {25-hydroxycholecalciferol} by {25-hydroxylase} in the {liver}. Step 3: 25-hydroxycholecalciferol is converted to {calcitriol (1,25-dihydroxycholecalciferol)} by {1α-hydroxylase} in the {proximal tubule} of the kidney.", "h": "~25% of US adults are vitamin D₃ deficient; ~50% borderline. Step 3 is the regulated, rate-limiting step — 1α-hydroxylase in the kidney is stimulated by PTH and inhibited by calcitriol (self-inhibition)."}, {"t": "Regulation of 1α-hydroxylase and 24-hydroxylase", "b": "{1α-hydroxylase} (produces calcitriol): stimulated by {PTH}, inhibited by {calcitriol} (negative feedback). {24-hydroxylase} (produces inactive 24,25-dihydroxycholecalciferol): stimulated by {calcitriol and Ca²⁺}, inhibited by {PTH}. These two enzymes operate as a toggle: PTH on → calcitriol up, inactivation down; calcitriol up → self-brakes by switching to the inactivation path.", "h": "24,25-dihydroxycholecalciferol is inactive. When calcitriol is high, it drives its own inactivation via 24-hydroxylase — a classic negative feedback loop. PTH inhibits 24-hydroxylase to keep calcitriol circulating."}, {"t": "Why 25-hydroxycholecalciferol is the clinical marker", "b": "{25-hydroxycholecalciferol} is the standard clinical marker of vitamin D₃ status because it is {stably expressed in plasma} and reflects total body vitamin D₃ stores. {Calcitriol} has a {short half-life} and fluctuates with PTH, Ca²⁺, and Pi on a short timescale, making it an unreliable barometer of vitamin D status. A patient may have adequate cholecalciferol stores but low calcitriol due to {CKD} (impaired 1α-hydroxylase).", "h": "This is why CKD patients need calcitriol (or an analogue) supplemented directly, not just vitamin D₃ — their kidneys cannot convert 25-OH D₃ to calcitriol. Serum 25-OH D₃ may be normal, but active calcitriol is low."}]}, "clo4": {"label": "CLO 4", "sub": "Mechanisms of renal Ca²⁺ reabsorption & SI absorption", "type": "LO", "cards": [{"t": "Distal tubule Ca²⁺ reabsorption — PTH + calcitriol cooperation", "b": "~70% of filtered Ca²⁺ is passively reabsorbed in the {proximal tubule}. Fine regulation occurs in the {distal tubule}: PTH upregulates luminal {TRPV5/TRPV6} channels → Ca²⁺ enters the cell from the filtrate. Calcitriol stimulates production of intracellular {calbindin-D28K} (shuttles Ca²⁺ across the cell) and increases basolateral {NCX1} and {PMCA1b} transporters → Ca²⁺ exits into blood.", "h": "Division of labor: PTH opens the luminal entry gate (TRPV5/6), calcitriol ensures efficient transit (calbindin) and exit (NCX1/PMCA1b). PTH also degrades NaPi transporters in the proximal tubule to cause phosphaturia."}, {"t": "Small intestine Ca²⁺ absorption — calcitriol’s primary role", "b": "Calcitriol-driven Ca²⁺ absorption in the small intestine is the {most important physiological effect} of calcitriol. Calcitriol induces: luminal {TRPV5/6} channels (Ca²⁺ entry into enterocyte), intracellular {calbindin} (transport across cell), basolateral {NCX1/PMCA1b} (Ca²⁺ exit into blood). Dietary Pi is absorbed by {passive transport} and does not require calcitriol to the same degree. High dietary Ca²⁺ also results in some {passive paracellular absorption}.", "h": "The SI and the distal tubule use the same transporter toolkit (TRPV5/6, calbindin, NCX1/PMCA1b), all induced by calcitriol. The SI machinery is why vitamin D deficiency causes rickets — dietary Ca²⁺ simply cannot be absorbed without it."}]}, "clo5": {"label": "CLO 5", "sub": "RANKL / OPG bone resorption mechanism", "type": "LO", "cards": [{"t": "RANKL / OPG axis", "b": "{Osteoblasts} produce both {RANKL} (receptor activator of NF-κB ligand, which drives osteoclast formation) and {OPG} (osteoprotegerin, a decoy receptor for RANKL that blocks osteoclast formation). PTH plus calcitriol {synergistically} ↑ RANKL production and ↓ OPG production → RANKL binds {RANK} on preosteoclasts → mature {osteoclasts} form → dissolve {hydroxyapatite} → Ca²⁺ and Pi released into blood.", "h": "Neither PTH nor calcitriol act directly on mature osteoclasts — both act on osteoblasts to modulate the RANKL/OPG ratio. Denosumab (anti-RANKL antibody) exploits this pathway therapeutically to prevent bone resorption."}, {"t": "OPG as a decoy receptor — significance", "b": "OPG is a soluble {decoy receptor} that competes with {RANK} (on preosteoclasts) for available {RANKL}. When OPG binds RANKL, RANKL is {neutralized} and cannot activate RANK. Suppressing OPG means more free RANKL can bind RANK, {amplifying} osteoclast formation beyond what RANKL upregulation alone achieves. The combined effect of ↑ RANKL + ↓ OPG is therefore {greater than additive}.", "h": "This is why PTH + calcitriol together produce more bone resorption than either alone. They target both sides of the same axis: more RANKL signal AND less RANKL trap. OPG is the clinically targetable brake — denosumab mimics OPG."}]}, "clo6": {"label": "CLO 6", "sub": "Pi balance, FGF23, & SHPT in CKD", "type": "LO", "cards": [{"t": "FGF23 — the third Pi regulator", "b": "Pi balance is regulated by {PTH}, {calcitriol}, AND {FGF23}. FGF23 is secreted by {osteocytes} in response to {hyperphosphatemia}. FGF23 effects: (1) inhibits renal {Pi transporters (NaPi-IIa/c)} → ↑ urinary Pi excretion; (2) inhibits {1α-hydroxylase} in the proximal tubule → ↓ calcitriol formation.", "h": "FGF23 was the ‘missing third hormone’ discovered in patients with X-linked hypophosphatemia (XLH) — FGF23 excess causes phosphate wasting even without PTH elevation. It adds a bone-to-kidney hormonal axis independent of PTH."}, {"t": "Causes of hyperphosphatemia", "b": "Hyperphosphatemia most commonly results from {CKD} (decreased GFR → decreased Pi excretion). Other causes: {RBC hemolysis} (releases intracellular Pi), {metabolic or respiratory acidosis} (shifts Pi out of cells), and overuse of {Pi-containing clinical solutions}.", "h": "CKD is the setting where the FGF23/SHPT cascade becomes clinically dangerous. Under normal GFR, Pi is efficiently excreted; in CKD, even maximal FGF23 and PTH cannot excrete enough Pi."}, {"t": "SHPT cascade in CKD", "b": "CKD → ↓ GFR → {hyperphosphatemia} → stimulates {FGF23} from osteocytes AND activates {CaSR} (high Pi mildly inhibits Ca²⁺ sensing) → ↑ PTH. FGF23 inhibits {1α-hydroxylase} → ↓ calcitriol → {less negative feedback on PTH} → further ↑ PTH (secondary hyperparathyroidism). ↓ calcitriol also ↓ intestinal Ca²⁺ absorption, and excess Pi complexes with Ca²⁺ → tissue calcium phosphate deposits prevent hypercalcemia despite elevated PTH.", "h": "In SHPT from CKD: total Ca²⁺ is low-to-normal despite markedly elevated PTH. This seems contradictory until you remember that calcitriol is the key link: without calcitriol, the gut cannot absorb Ca²⁺ and bone resorption is impaired. Treatment: phosphate binders + calcitriol analogues + cinacalcet."}]}, "clo7": {"label": "CLO 7", "sub": "Causes of hypo/hypercalcemia & integrated response", "type": "LO", "cards": [{"t": "Hypercalcemia — causes", "b": "Most common cause: {primary hyperparathyroidism (PHPT)} from a {benign parathyroid adenoma} → excess PTH, elevated serum Ca²⁺. Other causes: {PTHrP} from malignancy (most common humoral cause), abuse of {Ca²⁺/vitamin D supplements}, and {secondary hyperparathyroidism (SHPT)} from hypocalcemia or CKD. PHPT is the most common cause of hypercalcemia found on {routine blood work} in outpatients.", "h": "Inpatient hypercalcemia: think malignancy (PTHrP). Outpatient hypercalcemia: think PHPT. PTH is high in PHPT and suppressed in PTHrP-driven hypercalcemia — this is the key laboratory distinction."}, {"t": "PHPT — two phenotypes", "b": "{Asymptomatic hypercalcemic phenotype}: >80% of all PHPT cases, predominantly in {postmenopausal women}; detected incidentally on routine blood work showing elevated total serum Ca²⁺. {Symptomatic hypercalcemic phenotype}: common features include {kidney stones}, {bone loss}, {hypercalciuria}, and {organ calcification} (especially heart, kidneys, and blood vessels).", "h": "Memory hook: ‘bones, stones, groans, psychic moans’ — bone pain, kidney stones, abdominal pain (groans), and neuropsychiatric symptoms. The asymptomatic majority is managed conservatively unless criteria for surgery are met."}, {"t": "Hypocalcemia — causes", "b": "Common causes of hypocalcemia: {vitamin D deficiency} and/or insufficient dietary calcium, and {hypoparathyroidism} from damage to parathyroids after {thyroidectomy} or from {autoimmune disease}. SHPT is elevated PTH stimulated by {factors outside the parathyroids}; most common cause is {hypocalcemia}; also caused by elevated Pi (CKD) or malabsorptive GI conditions.", "h": "Post-thyroidectomy hypocalcemia is an acute emergency if all parathyroid tissue is removed. Symptoms (tetany, paresthesia, arrhythmia) can appear within hours because PTH is immediately lost — there is no reserve once secretion ceases."}, {"t": "Integrated response to acute hypocalcemia", "b": "Total Ca²⁺ <8.5 mg/dL → ↓ free Ca²⁺ → {CaSR relaxes} → ↑ PTH (within minutes). Step (1): PTH stimulates {bone resorption} → ↑ blood Ca²⁺ AND Pi (most important acute effect). Step (2): PTH stimulates {1α-hydroxylase} → ↑ calcitriol + ↑ renal Ca²⁺ reabsorption (TRPV5/6). Step (3): calcitriol stimulates {intestinal Ca²⁺ absorption} → ↑ dietary Ca²⁺ input (slower, hours to days). Increased intestinal Pi absorption is balanced by {PTH-driven renal Pi excretion} to prevent hyperphosphatemia.", "h": "Timeline matters: bone resorption is the fastest (minutes to hours), renal reabsorption next, intestinal absorption slowest (hours to days). This is why patients who lose all parathyroid tissue (thyroidectomy) develop acute hypocalcemia within hours — the bone/renal effects of PTH are immediately lost."}]}};
+const LINKS={"PTH": ["plo3", "PLO 3", "amber"], "calcitriol": ["plo4", "PLO 4", "amber"], "calcitonin": ["plo6", "PLO 6", "amber"], "CaSR": ["clo1", "CLO 1", "teal"], "RANKL": ["clo5", "CLO 5", "teal"], "OPG": ["clo5", "CLO 5", "teal"], "FGF23": ["clo6", "CLO 6", "teal"], "1α-hydroxylase": ["clo3", "CLO 3", "teal"], "TRPV5/6": ["clo4", "CLO 4", "teal"], "TRPV5/TRPV6": ["clo4", "CLO 4", "teal"], "vitamin D binding protein (VDBP)": ["plo4", "PLO 4", "amber"], "secondary hyperparathyroidism (SHPT)": ["clo6", "CLO 6", "teal"], "hyperphosphatemia": ["clo6", "CLO 6", "teal"], "PTH1R": ["plo3", "PLO 3", "amber"]};
+const DECK_ID='capo_morganelli_b5_2026';
+const THEME_KEY=DECK_ID+'_theme';
+
+function setTheme(t){
+  if(t==='slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme',t);
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.theme===t));
+  try{localStorage.setItem(THEME_KEY,t);}catch(e){}
+}
+try{setTheme(localStorage.getItem(THEME_KEY)||'slate');}catch(e){setTheme('slate');}
+
+document.getElementById('deckMeta').textContent=
+  'Active recall map · '+Object.keys(D).length+' topics · '+Object.values(D).reduce((n,nd)=>n+nd.cards.length,0)+' cards · '+
+  Object.values(D).reduce((n,nd)=>n+nd.cards.reduce((m,c)=>m+(c.b.match(/\{([^}]+)\}/g)||[]).length,0),0)+' terms';
+
+let cur=null,ci=0;
+let tr={},sc={};
+let done=new Set();
+let totRev=0,totKnew=0,totNeed=0;
+let revQueue=[],revIdx=0,revTr={};
+const PCOOKIE=DECK_ID+'_progress_v1';
+
+function nT(b){return(b.match(/\{([^}]+)\}/g)||[]).length}
+function initNode(id){
+  if(!tr[id]){tr[id]={};sc[id]={};D[id].cards.forEach((_,i)=>{tr[id][i]=new Set();sc[id][i]={};});}
+}
+function setCookie(n,v,d){document.cookie=n+'='+encodeURIComponent(v)+'; path=/; max-age='+(d*86400)+'; SameSite=Lax';}
+function getCookie(n){const p=n+'=';return document.cookie.split('; ').reduce((f,c)=>f!==null?f:c.indexOf(p)===0?decodeURIComponent(c.slice(p.length)):null,null);}
+function clearCookie(n){document.cookie=n+'=; path=/; max-age=0; SameSite=Lax';}
+
+function serializeProgress(){
+  const s={c:cur||'',i:ci||0,r:{},s:{}};
+  Object.keys(tr).forEach(nid=>{
+    const rows=D[nid].cards.map((_,ci2)=>{const set=tr[nid][ci2];return set&&set.size?Array.from(set).sort((a,b)=>a-b).join('.'):''});
+    if(rows.some(Boolean)) s.r[nid]=rows;
+  });
+  Object.keys(sc).forEach(nid=>{
+    const rows=D[nid].cards.map((_,ci2)=>{
+      const obj=sc[nid][ci2]||{};
+      return Object.keys(obj).sort((a,b)=>+a-+b).map(idx=>idx+(obj[idx]==='knew'?'k':'n')).join('.');
+    });
+    if(rows.some(Boolean)) s.s[nid]=rows;
+  });
+  return JSON.stringify(s);
+}
+function saveProgress(){try{setCookie(PCOOKIE,serializeProgress(),180);}catch(e){}}
+function loadProgress(){
+  const raw=getCookie(PCOOKIE);if(!raw)return;
+  try{
+    const s=JSON.parse(raw);tr={};sc={};
+    Object.keys(D).forEach(nid=>{
+      initNode(nid);
+      ((s.r&&s.r[nid])||[]).forEach((row,ci2)=>{if(!row)return;row.split('.').forEach(v=>{if(v)tr[nid][ci2].add(+v);});});
+      ((s.s&&s.s[nid])||[]).forEach((row,ci2)=>{if(!row)return;row.split('.').forEach(tok=>{if(!tok)return;sc[nid][ci2][+tok.slice(0,-1)]=tok.slice(-1)==='k'?'knew':'needed';});});
+    });
+    if(s.c&&D[s.c]){cur=s.c;ci=Math.max(0,Math.min(D[cur].cards.length-1,+s.i||0));}
+  }catch(e){clearCookie(PCOOKIE);}
+}
+
+function cardMetrics(nid,cidx){
+  initNode(nid);
+  const total=nT(D[nid].cards[cidx].b);
+  const revealed=tr[nid][cidx].size;
+  let unscored=0,knew=0,needed=0;
+  for(let i=0;i<total;i++){
+    const v=sc[nid][cidx][i];
+    if(v==='knew') knew++;
+    else if(v==='needed') needed++;
+    else if(tr[nid][cidx].has(i)) unscored++;
+  }
+  return {total,revealed,unscored,knew,needed,allRevealed:total>0&&revealed>=total};
+}
+
+function parseBody(body,nid,cidx,opts={}){
+  let i=0;
+  return body.replace(/\{([^}]+)\}/g,(_,t)=>{
+    const idx=i++;
+    let revealed,scored;
+    if(opts.forReview){revealed=opts.revealedSet?opts.revealedSet.has(idx):false;scored=null;}
+    else{revealed=tr[nid]&&tr[nid][cidx]&&tr[nid][cidx].has(idx);scored=revealed&&sc[nid]&&sc[nid][cidx]?(sc[nid][cidx][idx]||null):null;}
+    const link=LINKS[t];
+    const showJump=revealed&&link&&link[0]!==nid;
+    const isTarget=opts.forReview&&opts.targetTermIdx===idx;
+    let cls='occ';
+    if(revealed||isTarget){if(scored==='knew')cls+=' rev';else if(scored==='needed')cls+=' needed';else cls+=' unscored';}
+    const da=opts.forReview?'':`data-nid="${nid}" data-ci="${cidx}" data-i="${idx}"`;
+    const oc=(!revealed&&!opts.forReview)?` onclick="revTerm(this)"`:(opts.forReview&&isTarget&&!opts.revealedSet?.has(idx))?' onclick="revRevTerm()"':'';
+    let html=`<span class="${cls}"${da}${oc}>${t}</span>`;
+    if(revealed&&!scored&&!opts.forReview){
+      html+=`<span class="score-row" data-nid="${nid}" data-ci="${cidx}" data-i="${idx}">`+
+        `<button class="sbtn know" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button>`+
+        `<button class="sbtn need" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button>`+
+        `</span>`;
+    }
+    if(showJump){html+=`<span class="jump ${link[2]}" onclick="jumpNode('${link[0]}',event)" title="Jump to ${link[1]}">→ ${link[1]}</span>`;}
+    return html;
+  });
+}
+
+function render(){
+  const d=D[cur].cards[ci];
+  const m=cardMetrics(cur,ci);
+  document.getElementById('dots').innerHTML=D[cur].cards.map((_,i2)=>{
+    const tot=nT(D[cur].cards[i2].b),got=tr[cur][i2].size;
+    const cls=i2===ci?'active':got>=tot&&tot>0?'done':got>0?'partial':'';
+    return `<span class="dot ${cls}"></span>`;
+  }).join('');
+  document.getElementById('cnt').textContent=(ci+1)+' / '+D[cur].cards.length;
+  document.getElementById('bprev').disabled=ci===0;
+  document.getElementById('bnext').disabled=ci===D[cur].cards.length-1;
+  document.getElementById('revealTopicBtn').disabled=!cur;
+  document.getElementById('ccard').innerHTML=
+    `<div class="ctitle">${d.t}</div>`+
+    `<div class="cbody">${parseBody(d.b,cur,ci)}</div>`+
+    (d.h?`<div class="hint"><span class="hlbl">Clinical note</span>${d.h}</div>`:'');
+  document.getElementById('cardActions').innerHTML=
+    `<div class="card-meta">`+
+      `<span class="meta-pill"><strong>${m.revealed}</strong> / ${m.total} revealed</span>`+
+      `<span class="meta-pill"><strong>${m.knew}</strong> knew</span>`+
+      `<span class="meta-pill"><strong>${m.needed}</strong> needed</span>`+
+      (m.unscored?`<span class="meta-pill"><strong>${m.unscored}</strong> to score</span>`:'')+
+    `</div>`+
+    `<div class="action-row">`+
+      `<button class="action-btn primary" onclick="revealAll()" ${m.total===0||m.allRevealed?'disabled':''}>Reveal card</button>`+
+      `<button class="action-btn amber" onclick="knewAllCurrentCard()" ${!m.allRevealed?'disabled':''}>Knew all</button>`+
+      `<button class="action-btn ghost" onclick="resetCard()" ${m.revealed===0?'disabled':''}>Reset card</button>`+
+    `</div>`;
+}
+
+function renderReview(){
+  if(!revQueue.length)return;
+  const q=revQueue[revIdx];const revSet=revTr[revIdx]||new Set();
+  document.getElementById('rprog').textContent=(revIdx+1)+' / '+revQueue.length;
+  document.getElementById('rcnt').textContent=(revIdx+1)+' / '+revQueue.length;
+  document.getElementById('rsub').innerHTML=`<strong>${D[q.nid].label} — ${q.card.t}</strong><br>Term to recall: <span style="color:var(--amber)">${q.term}</span>`;
+  document.getElementById('rbprev').disabled=revIdx===0;
+  document.getElementById('rbnext').disabled=revIdx===revQueue.length-1;
+  let i=0;
+  const body=q.card.b.replace(/\{([^}]+)\}/g,(_,t)=>{
+    const idx=i++;const isTarget=idx===q.tidx;const isRevealed=revSet.has(idx);
+    if(isTarget){return isRevealed?`<span class="occ needed">${t}</span>`:`<span class="occ" onclick="revRevTerm()" style="cursor:pointer">${t}</span>`;}
+    return `<span style="color:var(--text-2)">${t}</span>`;
+  });
+  document.getElementById('rccard').innerHTML=`<div class="ctitle">${q.card.t}</div><div class="cbody">${body}</div>`+(q.card.h?`<div class="hint"><span class="hlbl">Clinical note</span>${q.card.h}</div>`:'');
+}
+
+function selNode(id){
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
+  document.getElementById('n-'+id).classList.add('sel-node');
+  cur=id;ci=0;initNode(id);
+  const p=document.getElementById('panel');p.classList.add('open');
+  const d=D[id],b=document.getElementById('bdg');
+  b.textContent=d.label;b.className='badge '+(d.type==='PLO'?'b-plo':'b-lo');
+  document.getElementById('ptitle').textContent=d.sub;
+  render();saveProgress();p.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function jumpNode(id,e){e.stopPropagation();selNode(id);}
+function revTerm(s){
+  if(s.classList.contains('rev')||s.classList.contains('needed')||s.classList.contains('unscored'))return;
+  const nid=s.dataset.nid,cidx=+s.dataset.ci,tidx=+s.dataset.i;
+  initNode(nid);tr[nid][cidx].add(tidx);totRev++;updStats();render();
+}
+function scoreIt(e,nid,cidx,tidx,score){
+  e.stopPropagation();if(sc[nid][cidx][tidx])return;
+  sc[nid][cidx][tidx]=score;if(score==='knew')totKnew++;else totNeed++;
+  chkDone(nid);updStats();render();
+}
+function revealAll(){
+  const n=nT(D[cur].cards[ci].b);
+  for(let i=0;i<n;i++){if(!tr[cur][ci].has(i)){tr[cur][ci].add(i);totRev++;}}
+  chkDone(cur);updStats();render();
+}
+function knewAllCurrentCard(){
+  if(!cur)return;initNode(cur);
+  const n=nT(D[cur].cards[ci].b);
+  for(let i=0;i<n;i++){
+    if(!tr[cur][ci].has(i)){tr[cur][ci].add(i);totRev++;}
+    const prev=sc[cur][ci][i];
+    if(prev==='needed')totNeed--;
+    if(prev!=='knew')totKnew++;
+    sc[cur][ci][i]='knew';
+  }
+  chkDone(cur);updStats();render();
+}
+function revealNodeCards(nid){
+  initNode(nid);
+  D[nid].cards.forEach((card,cidx2)=>{
+    const n=nT(card.b);
+    for(let i=0;i<n;i++){if(!tr[nid][cidx2].has(i)){tr[nid][cidx2].add(i);totRev++;}}
+    chkDone(nid);
+  });
+}
+function revealTopic(){if(!cur)return;revealNodeCards(cur);updStats();render();}
+function revealDeck(){Object.keys(D).forEach(nid=>revealNodeCards(nid));updStats();if(cur)render();}
+function goCard(dir){ci=Math.max(0,Math.min(D[cur].cards.length-1,ci+dir));render();saveProgress();}
+function closePanel(){
+  document.getElementById('panel').classList.remove('open');
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
+  cur=null;document.getElementById('revealTopicBtn').disabled=true;saveProgress();
+}
+function chkDone(id){
+  const all=D[id].cards.every((_,i2)=>{const t=nT(D[id].cards[i2].b);return t===0||tr[id][i2].size>=t;});
+  if(all){done.add(id);document.getElementById('n-'+id).classList.add('done-node');}
+}
+function countNeeded(){
+  let n=0;Object.keys(sc).forEach(nid=>Object.keys(sc[nid]).forEach(cidx=>Object.values(sc[nid][cidx]).forEach(v=>{if(v==='needed')n++;})));return n;
+}
+function updStats(){
+  document.getElementById('st-rev').textContent=totRev;
+  document.getElementById('st-knew').textContent=totKnew;
+  document.getElementById('st-need').textContent=totNeed;
+  document.getElementById('st-done').textContent=done.size;
+  const n=countNeeded();document.getElementById('rcount').textContent=n;
+  document.getElementById('reviewBtn').classList.toggle('vis',n>0);
+  saveProgress();
+}
+function recalcState(){
+  totRev=0;totKnew=0;totNeed=0;done=new Set();
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('done-node'));
+  Object.keys(D).forEach(nid=>{
+    let all=true;
+    D[nid].cards.forEach((card,i2)=>{
+      const got=tr[nid]&&tr[nid][i2]?tr[nid][i2].size:0;
+      const tot=nT(card.b);totRev+=got;
+      Object.values(sc[nid]&&sc[nid][i2]?sc[nid][i2]:{}).forEach(v=>{if(v==='knew')totKnew++;else if(v==='needed')totNeed++;});
+      if(!(tot===0||got>=tot))all=false;
+    });
+    if(all){done.add(nid);const el=document.getElementById('n-'+nid);if(el)el.classList.add('done-node');}
+  });
+  updStats();
+}
+function resetCard(){if(!cur)return;initNode(cur);tr[cur][ci]=new Set();sc[cur][ci]={};closeReview();recalcState();render();}
+function resetAll(){
+  tr={};sc={};done.clear();totRev=0;totKnew=0;totNeed=0;
+  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node','done-node'));
+  document.getElementById('revealTopicBtn').disabled=!cur;
+  updStats();closeReview();if(cur){initNode(cur);render();}
+}
+function startReview(){
+  revQueue=[];
+  Object.keys(sc).forEach(nid=>{
+    Object.keys(sc[nid]).forEach(cidx=>{
+      const card=D[nid].cards[+cidx];let ti=0;
+      card.b.replace(/\{([^}]+)\}/g,(_,t)=>{
+        const i=ti++;if(sc[nid][cidx][i]==='needed')revQueue.push({nid,cidx:+cidx,tidx:i,term:t,card});
+      });
+    });
+  });
+  for(let i=revQueue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[revQueue[i],revQueue[j]]=[revQueue[j],revQueue[i]];}
+  revIdx=0;revTr={};
+  if(!revQueue.length)return;
+  const rp=document.getElementById('reviewPanel');rp.classList.add('open');
+  rp.scrollIntoView({behavior:'smooth',block:'nearest'});renderReview();
+}
+function revRevTerm(){if(!revTr[revIdx])revTr[revIdx]=new Set();revTr[revIdx].add(revQueue[revIdx].tidx);renderReview();}
+function revAllReview(){revRevTerm();}
+function goReview(dir){revIdx=Math.max(0,Math.min(revQueue.length-1,revIdx+dir));renderReview();}
+function closeReview(){document.getElementById('reviewPanel').classList.remove('open');}
+function restoreSession(){
+  loadProgress();recalcState();
+  if(cur&&D[cur]){
+    document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
+    const el=document.getElementById('n-'+cur);if(el)el.classList.add('sel-node');
+    const d=D[cur],p=document.getElementById('panel');p.classList.add('open');
+    const b=document.getElementById('bdg');b.textContent=d.label;b.className='badge '+(d.type==='PLO'?'b-plo':'b-lo');
+    document.getElementById('ptitle').textContent=d.sub;
+    document.getElementById('revealTopicBtn').disabled=false;render();
+  }else{document.getElementById('revealTopicBtn').disabled=true;}
+}
+restoreSession();
+document.addEventListener('keydown',e=>{
+  const inRev=document.getElementById('reviewPanel').classList.contains('open');
+  if(inRev){
+    if(e.key==='ArrowLeft'){e.preventDefault();goReview(-1);}
+    else if(e.key==='ArrowRight'){e.preventDefault();goReview(1);}
+    else if(e.key==='Escape')closeReview();
+    return;
+  }
+  if(!cur)return;
+  if(e.key==='ArrowLeft'){e.preventDefault();goCard(-1);}
+  else if(e.key==='ArrowRight'){e.preventDefault();goCard(1);}
+  else if(e.key==='Escape')closePanel();
+});
+</script>
+</body>
+</html>
