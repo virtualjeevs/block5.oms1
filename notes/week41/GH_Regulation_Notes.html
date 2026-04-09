@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Growth Hormone Regulation — Dr. Johnson Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Source+Serif+4:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ef;
+    --surface: #ffffff;
+    --surface2: #f0ece4;
+    --ink: #1a1714;
+    --ink2: #4a443c;
+    --accent: #7c4a2d;
+    --accent2: #3a6b8a;
+    --accent3: #4a7c59;
+    --warn: #8a3a3a;
+    --gold: #b8924a;
+    --border: #d4cdc3;
+    --shadow: 0 2px 16px rgba(26,23,20,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #f7f4ef;
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,74,45,0.35), transparent 70%);
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 30%;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(58,107,138,0.3), transparent 70%);
+  }
+  .header-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+  .course-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    font-style: italic;
+    opacity: 0.7;
+    font-size: 0.95rem;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav ul {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    list-style: none;
+    overflow-x: auto;
+  }
+  nav a {
+    display: block;
+    padding: 0.8rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(247,244,239,0.6);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  nav a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── MAIN ── */
+  main { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+  /* ── SECTION ── */
+  section { margin-bottom: 3.5rem; }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 18px; height: 2px;
+    background: var(--accent);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--border);
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 1.4rem 0 0.5rem;
+  }
+  h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin: 1rem 0 0.3rem;
+  }
+
+  p { margin-bottom: 0.8rem; color: var(--ink2); }
+  strong { color: var(--ink); }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+  .card-accent { border-left: 4px solid var(--accent); }
+  .card-blue   { border-left: 4px solid var(--accent2); }
+  .card-green  { border-left: 4px solid var(--accent3); }
+  .card-red    { border-left: 4px solid var(--warn); }
+
+  /* ── GRID LAYOUTS ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+  @media (max-width: 650px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-wrap { overflow-x: auto; margin: 1rem 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: var(--surface);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  th {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink2);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--surface2); }
+  td:first-child { font-weight: 600; color: var(--ink); }
+
+  /* ── LISTS ── */
+  ul.styled, ol.styled {
+    padding-left: 1.2rem;
+    margin: 0.4rem 0 0.8rem;
+    color: var(--ink2);
+  }
+  ul.styled li, ol.styled li { margin-bottom: 0.35rem; }
+  ul.styled li::marker { color: var(--accent); }
+
+  /* ── PILL BADGES ── */
+  .pill {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .pill-red    { background: #fce8e8; color: var(--warn); }
+  .pill-green  { background: #e8f4ec; color: var(--accent3); }
+  .pill-blue   { background: #e8f1f7; color: var(--accent2); }
+  .pill-gold   { background: #f7f0e2; color: var(--gold); }
+
+  /* ── SIGNAL ARROWS ── */
+  .signal-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 6px;
+    margin-bottom: 0.4rem;
+    font-size: 0.92rem;
+  }
+  .signal-up   { background: #f0f8f2; color: #2d6b42; }
+  .signal-down { background: #fdf0f0; color: #8a2b2b; }
+  .arrow { font-size: 1.1rem; font-weight: 700; }
+
+  /* ── CALLOUT BOX ── */
+  .callout {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+  }
+  .callout-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  /* ── KEY CONCEPT ── */
+  .key-concept {
+    background: linear-gradient(135deg, #1a1714 0%, #2e2820 100%);
+    color: #f7f4ef;
+    border-radius: 10px;
+    padding: 1.4rem 1.8rem;
+    margin: 1.2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .key-concept::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 12px;
+    font-size: 5rem;
+    opacity: 0.08;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+  }
+  .key-concept p { color: rgba(247,244,239,0.85); margin: 0; }
+  .key-concept strong { color: var(--gold); }
+
+  /* ── PATHWAY DIAGRAM ── */
+  .pathway {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+  }
+  .pathway-node {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+    min-width: 90px;
+  }
+  .pathway-node.active { border-color: var(--accent); color: var(--accent); }
+  .pathway-node.blue { border-color: var(--accent2); color: var(--accent2); }
+  .pathway-arrow {
+    font-size: 1.2rem;
+    color: var(--ink2);
+    padding: 0 0.3rem;
+  }
+  .pathway-arrow.inhibit { color: var(--warn); }
+
+  /* ── TWO-TONE COMPARISON ── */
+  .vs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    margin: 1rem 0;
+  }
+  .vs-col { padding: 1.4rem; }
+  .vs-col:first-child { background: #f7ede8; border-right: 1px solid var(--border); }
+  .vs-col:last-child  { background: #e8eff7; }
+  .vs-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(0,0,0,0.08);
+  }
+  .vs-col:first-child .vs-header { color: var(--accent); }
+  .vs-col:last-child  .vs-header { color: var(--accent2); }
+  @media (max-width: 580px) {
+    .vs-grid { grid-template-columns: 1fr; }
+    .vs-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+
+  /* ── PLO BANNER ── */
+  .plo-banner {
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 8px;
+    padding: 0.7rem 1.2rem;
+    margin-bottom: 1.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+  }
+  .plo-banner span { color: var(--gold); }
+
+  /* ── STEP LIST ── */
+  .step-list { counter-reset: step; list-style: none; padding: 0; margin: 0.6rem 0 1rem; }
+  .step-list li {
+    counter-increment: step;
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 0.7rem;
+    align-items: flex-start;
+  }
+  .step-list li::before {
+    content: counter(step);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
+
+  /* ── DIVIDER ── */
+  hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--ink2);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── STIMULI BOXES ── */
+  .stimuli-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .stimuli-box { border-radius: 8px; padding: 1.1rem 1.3rem; }
+  .stimuli-up   { background: #eef7f1; border: 1px solid #b5dcc4; }
+  .stimuli-down { background: #fdf0f0; border: 1px solid #e8baba; }
+  .stimuli-title {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    font-size: 0.88rem;
+    margin-bottom: 0.6rem;
+  }
+  .stimuli-up .stimuli-title   { color: #2d6b42; }
+  .stimuli-down .stimuli-title { color: var(--warn); }
+  .stimuli-box ul { padding-left: 1.1rem; font-size: 0.87rem; color: var(--ink2); }
+  .stimuli-box ul li { margin-bottom: 0.2rem; }
+  @media (max-width: 580px) { .stimuli-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="course-tag">UNECOM · Endocrinology · Dr. Dave Johnson</div>
+    <h1>Regulation of Growth Hormone Secretion</h1>
+    <p class="subtitle">Acromegaly · Pediatric GH Deficiency · GH Excess · PLO & LO Review Notes</p>
+  </div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#plo1">PLO 1 — Dysfunction</a></li>
+    <li><a href="#plo2">PLO 2 — Stimuli & Effects</a></li>
+    <li><a href="#plo3">PLO 3 — Stimulation Tests</a></li>
+    <li><a href="#lo1">LO 1 — GH Deficiency</a></li>
+    <li><a href="#lo2">LO 2 — GH Excess</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ════════════════════════════════════════════════
+     BACKGROUND: THE AXIS
+════════════════════════════════════════════════ -->
+<section>
+  <div class="section-label">Background</div>
+  <h2>The Hypothalamic–Pituitary–GH Axis</h2>
+
+  <p>The hypothalamus controls GH production by secreting two opposing signals to the anterior pituitary somatotrophs:</p>
+
+  <div class="pathway" style="justify-content:center; margin:1.4rem 0;">
+    <div class="pathway-node active">Hypothalamus</div>
+    <div class="pathway-arrow">→ GHRH (+)</div>
+    <div class="pathway-node blue">Anterior Pituitary<br><small>Somatotrophs</small></div>
+    <div class="pathway-arrow">→ GH (+)</div>
+    <div class="pathway-node">Liver &amp; Tissues</div>
+    <div class="pathway-arrow">→ IGF-1 (+)</div>
+    <div class="pathway-node">Growth / Metabolism</div>
+  </div>
+
+  <div class="pathway" style="justify-content:center;">
+    <div class="pathway-node active">Hypothalamus</div>
+    <div class="pathway-arrow inhibit">→ Somatostatin (−)</div>
+    <div class="pathway-node blue">Anterior Pituitary</div>
+    <span class="pill pill-red" style="margin:0 0.5rem">Inhibits GH release</span>
+  </div>
+
+  <div class="callout" style="margin-top:1.2rem;">
+    <div class="callout-title">Neuron Locations</div>
+    <p><strong>GHRH-secreting neurons</strong> → arcuate nuclei &nbsp;|&nbsp; <strong>Somatostatin neurons</strong> → periventricular nuclei<br>
+    <strong>Ghrelin</strong> (gut hormone) also stimulates GH via the growth hormone secretagogue receptor (GHS-R)</p>
+  </div>
+
+  <h3>GHRH Signal Transduction</h3>
+  <p>GHRH binds to its receptor on somatotrophs → activates <strong>stimulatory G protein (Gαs)</strong> → ↑ adenylyl cyclase → ↑ <strong>cAMP</strong> → PKA activation → stimulates somatotroph proliferation + GH synthesis/secretion.</p>
+
+  <h3>Somatostatin Receptors</h3>
+  <p>5 known GPCR subtypes (adult pituitary expresses all except Type 4). Activation → ↓ intracellular cAMP and Ca²⁺ → <strong>net decrease in GH secretion</strong>.</p>
+
+  <h3>GH Receptor</h3>
+  <p>Member of the <strong>cytokine receptor superfamily</strong>; large extracellular and cytoplasmic domains. GH has <em>two</em> receptor-binding domains — one GH molecule binds one receptor, then the second binding site recruits a second receptor → <strong>homodimerization</strong>, which is <em>essential</em> for receptor activation. Downstream cascades include JAK2/STAT, MAPK, PI3K/IRS, and PLC pathways.</p>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     PLO 1 — PRIMARY / SECONDARY / TERTIARY DYSFUNCTION
+════════════════════════════════════════════════ -->
+<section id="plo1">
+  <div class="plo-banner"><span>PLO 1</span> — Differentiate primary, secondary, and tertiary dysfunction in hypothalamic-pituitary signaling</div>
+  <div class="section-label">PLO 1</div>
+  <h2>Primary, Secondary &amp; Tertiary Dysfunction</h2>
+
+  <p>The level at which signaling breaks down determines the classification. Think of it as <em>where</em> in the axis the problem originates:</p>
+
+  <div class="compare-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Site of Dysfunction</th>
+          <th>GH Example</th>
+          <th>Hormone Pattern</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill pill-red">Primary</span></td>
+          <td>The target endocrine gland itself (anterior pituitary / somatotrophs)</td>
+          <td>Pituitary somatotroph adenoma (↑ GH); Pituitary damage → ↓ GH</td>
+          <td>Abnormal end-hormone; feedback signals are high but do not suppress production</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-blue">Secondary</span></td>
+          <td>Anterior pituitary responding abnormally to hypothalamic input</td>
+          <td>Pituitary fails to secrete GH despite normal GHRH; radiation-induced hypopituitarism</td>
+          <td>↓ GH; GHRH may be normal or elevated; IGF-1 low</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill-green">Tertiary</span></td>
+          <td>Hypothalamus fails to deliver appropriate releasing or inhibiting hormone</td>
+          <td>Hypothalamic damage → ↓ GHRH → ↓ GH (or ↑ GHRH causing GH excess)</td>
+          <td>↓ GHRH → ↓ GH → ↓ IGF-1; or ↑ GHRH → ↑ GH → ↑ IGF-1</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-accent">
+    <h4>Clinical Pearl — Feedback Loops</h4>
+    <p>In primary pituitary adenoma (acromegaly): negative feedback is intact — somatostatin ↑, GHRH ↓ — but the adenoma is <strong>autonomous</strong> and does not respond. GH remains elevated regardless.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card card-blue">
+      <h4>Causes of Acquired Secondary/Tertiary GH Deficiency</h4>
+      <ul class="styled">
+        <li>Damage to pituitary and/or hypothalamus</li>
+        <li>Inadequate blood supply to anterior pituitary</li>
+        <li>Cranial irradiation</li>
+        <li>Intracranial tumors (e.g., craniopharyngioma)</li>
+        <li>Head trauma</li>
+        <li>Genetic disorders (congenital)</li>
+      </ul>
+    </div>
+    <div class="card card-green">
+      <h4>Potential Sources of GH Excess (Acromegaly/Gigantism)</h4>
+      <ul class="styled">
+        <li><strong>(A)</strong> Normal axis — baseline</li>
+        <li><strong>(B)</strong> Increased hypothalamic GHRH secretion</li>
+        <li><strong>(C)</strong> Increased pituitary GH secretion (adenoma)</li>
+        <li><strong>(D)</strong> Decreased somatostatin tone</li>
+        <li>Rarely: ectopic source of GH or GHRH</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     PLO 2 — STIMULI & EFFECTS OF GH / IGF-1
+════════════════════════════════════════════════ -->
+<section id="plo2">
+  <div class="plo-banner"><span>PLO 2</span> — Identify stimuli that evoke GH release and the effects of GH and IGF-1</div>
+  <div class="section-label">PLO 2</div>
+  <h2>Stimuli for GH Release &amp; Physiologic Effects</h2>
+
+  <h3>Stimuli for GH Secretion</h3>
+  <div class="stimuli-grid">
+    <div class="stimuli-box stimuli-up">
+      <div class="stimuli-title">▲ Stimuli that INCREASE GH</div>
+      <ul>
+        <li>Hypoglycemia / 2-deoxyglucose</li>
+        <li>Exercise</li>
+        <li>Fasting</li>
+        <li>↑ Circulating amino acids (arginine infusion, protein meal)</li>
+        <li>Glucagon</li>
+        <li>Stressful stimuli / pyrogen / lysine vasopressin</li>
+        <li>Various psychologic stresses</li>
+        <li>Going to sleep (onset of deep sleep, stages 3/4)</li>
+        <li>L-Dopa &amp; α-adrenergic agonists</li>
+        <li>Apomorphine &amp; dopamine receptor agonists</li>
+        <li>Estrogens and androgens</li>
+        <li>Ghrelin (gut hormone, signals empty stomach)</li>
+      </ul>
+    </div>
+    <div class="stimuli-box stimuli-down">
+      <div class="stimuli-title">▼ Stimuli that DECREASE GH</div>
+      <ul>
+        <li>REM sleep</li>
+        <li>Glucose (hyperglycemia)</li>
+        <li>Cortisol</li>
+        <li>Free fatty acids (FFA)</li>
+        <li>Medroxyprogesterone</li>
+        <li>Growth hormone itself (negative feedback)</li>
+        <li>IGF-1 (long-loop negative feedback)</li>
+        <li>Somatostatin</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Sleep Pattern</div>
+    <p>Adults have ~<strong>10 pulses</strong> of GH secretion per day, each lasting ~90 min, separated by ~128 min. <strong>Peak GH release</strong> occurs within 1 hour of onset of <em>deep sleep</em> (stages 3–4). PRL also rises after sleep onset but is not sleep-stage dependent.</p>
+  </div>
+
+  <h3>Direct vs. Indirect (IGF-1 Mediated) Effects of GH</h3>
+
+  <div class="grid-2">
+    <div class="card card-accent">
+      <h4>Direct Effects of GH</h4>
+      <ul class="styled">
+        <li>Na⁺ retention</li>
+        <li>Lipolysis (↑ free fatty acids)</li>
+        <li>↓ Insulin sensitivity (anti-insulin)</li>
+        <li>Protein synthesis</li>
+        <li>Epiphyseal growth (direct)</li>
+        <li>Acts on cartilage stem cells → primes them to respond to IGF-1</li>
+      </ul>
+    </div>
+    <div class="card card-blue">
+      <h4>Indirect Effects (via IGF-1)</h4>
+      <ul class="styled">
+        <li>Insulin-like activity (↑ glucose uptake)</li>
+        <li>Antilipolytic activity</li>
+        <li>Protein synthesis</li>
+        <li>Epiphyseal growth (major driver)</li>
+        <li>Balanced, symmetric growth (IGF-1 receptor expressed in many tissues)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Anti-Insulin (Diabetogenic) Effects of GH on Metabolism</h3>
+  <p>GH antagonizes insulin's actions on peripheral tissues:</p>
+
+  <div class="grid-3">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.8rem; margin-bottom:0.3rem;">🧠 / 💪</div>
+      <strong>Skeletal muscle</strong>
+      <div class="signal-row signal-up" style="margin-top:0.5rem; font-size:0.8rem;">▲ Gluconeogenesis</div>
+      <div class="signal-row signal-down" style="font-size:0.8rem;">▼ Glucose uptake</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.8rem; margin-bottom:0.3rem;">🫀</div>
+      <strong>Liver</strong>
+      <div class="signal-row signal-up" style="margin-top:0.5rem; font-size:0.8rem;">▲ Gluconeogenesis</div>
+      <div class="signal-row signal-up" style="font-size:0.8rem;">▲ Glycogenolysis</div>
+      <div class="signal-row signal-up" style="font-size:0.8rem;">▲ IGF-1 production</div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div style="font-size:1.8rem; margin-bottom:0.3rem;">🫘</div>
+      <strong>Adipose tissue</strong>
+      <div class="signal-row signal-down" style="margin-top:0.5rem; font-size:0.8rem;">▼ Glucose uptake</div>
+      <div class="signal-row signal-up" style="font-size:0.8rem;">▲ Lipolysis → ↑ FFA</div>
+    </div>
+  </div>
+
+  <div class="key-concept">
+    <p><strong>Clinical nuance:</strong> GH itself raises plasma glucose (hyperglycemia), but GH also stimulates the liver to produce <strong>IGF-1</strong>, which <em>increases</em> glucose uptake in liver and muscle. Therefore a patient with <strong>chronically high GH levels may have near-normal plasma glucose</strong> because IGF-1 partially counteracts GH's diabetogenic effects.</p>
+  </div>
+
+  <h3>IGF-1 Key Facts</h3>
+  <div class="card card-green">
+    <ul class="styled">
+      <li><strong>Structure:</strong> Small peptide (MW 7647); closely related to insulin but C-chain is not separated and has a D-domain extension</li>
+      <li><strong>Source:</strong> ~75% of circulating IGF-1 comes from the <em>liver</em>; also produced locally in tissues</li>
+      <li><strong>Binding:</strong> >99% protein-bound in serum (unusual; extends half-life)</li>
+      <li><strong>Regulation:</strong> Primarily regulated by GH; also by thyroxine (T4)</li>
+      <li><strong>Receptors:</strong> Present in multiple cell types → accounts for symmetric, balanced growth</li>
+      <li><strong>Feedback:</strong> IGF-1 feeds back negatively on both the hypothalamus (↑ somatostatin, ↓ GHRH) and directly on the pituitary</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     PLO 3 — STIMULATION TESTS
+════════════════════════════════════════════════ -->
+<section id="plo3">
+  <div class="plo-banner"><span>PLO 3</span> — Describe how stimulation tests are used to determine GH deficiency</div>
+  <div class="section-label">PLO 3</div>
+  <h2>Stimulation Tests for GH Deficiency</h2>
+
+  <p>Because GH is secreted in pulses, a <em>single random GH level</em> is unreliable. Testing follows a stepwise approach:</p>
+
+  <ol class="step-list">
+    <li><strong>Measure serum IGF-1</strong> — unlike GH, IGF-1 does not fluctuate hour-to-hour with food, exercise, stress, or sleep. It is the best <em>screening</em> test. A low IGF-1 (below gender/age-specific lower limit) in a patient with organic pituitary disease suggests GH deficiency.</li>
+    <li><strong>If IGF-1 is equivocal</strong> → proceed to a <em>provocative (stimulation) test</em> to confirm GH deficiency.</li>
+    <li><strong>Interpret results:</strong> A subnormal GH response to the provocative test confirms GH deficiency.</li>
+  </ol>
+
+  <h3>Commonly Used Provocative Tests</h3>
+
+  <div class="compare-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Test</th>
+          <th>Mechanism</th>
+          <th>Protocol</th>
+          <th>Normal Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Clonidine</td>
+          <td>Stimulates GHRH release via α-adrenergic pathways</td>
+          <td>Oral 5 mcg/kg (max 250 mcg); GH measured at 0, 30, 60, 90 min</td>
+          <td>GH rises above threshold</td>
+        </tr>
+        <tr>
+          <td>Glucagon</td>
+          <td>→ transient hyperglycemia → endogenous insulin → controlled hypoglycemia → GH secretion</td>
+          <td>IM injection; GH sampled serially</td>
+          <td>GH rises in response to hypoglycemia</td>
+        </tr>
+        <tr>
+          <td>Arginine infusion</td>
+          <td>Amino acid stimulates GHRH/GH release (inhibits somatostatin)</td>
+          <td>IV 0.5 g/kg (max 40 g) over 30 min; GH at 0, 30, 60, 90, 120 min</td>
+          <td>GH rises above threshold</td>
+        </tr>
+        <tr>
+          <td>Oral Glucose Tolerance Test (GH suppression — for <em>excess</em>)</td>
+          <td>Hyperglycemia normally suppresses GH; used to confirm <em>acromegaly/gigantism</em></td>
+          <td>75 g glucose; GH measured before and 2 hours after</td>
+          <td>Normal: GH &lt;1 ng/mL at 2 h<br>Acromegaly: GH stays &gt;2 ng/mL in &gt;85% of cases</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">Diagnosis of Acromegaly — Best Tests</div>
+    <p><strong>Best single test:</strong> Serum IGF-1 (elevated in acromegaly). If equivocal, follow with an <strong>oral glucose tolerance test (GH suppression test)</strong>. Failure of GH to suppress below 1 ng/mL at 2 hours = diagnostic of acromegaly. For pituitary gigantism, workup is the same; children who fail suppression → MRI to look for pituitary adenoma.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     LO 1 — DECREASED GH
+════════════════════════════════════════════════ -->
+<section id="lo1">
+  <div class="plo-banner"><span>LO 1</span> — Differentiate consequences of decreased GH secretion before vs. after epiphyseal plate closure</div>
+  <div class="section-label">LO 1</div>
+  <h2>Decreased GH Secretion: Dwarfism vs. Adult GH Deficiency</h2>
+
+  <div class="vs-grid">
+    <div class="vs-col">
+      <div class="vs-header">🧒 BEFORE Epiphyseal Closure<br><small>GH Deficiency in Children — Dwarfism</small></div>
+      <p><strong>Defining feature:</strong> Growth failure. Epiphyseal plates are still open → bones cannot elongate normally without adequate GH/IGF-1.</p>
+      <h4>Causes</h4>
+      <ul class="styled">
+        <li>Damage to pituitary/hypothalamus</li>
+        <li>Inadequate blood supply to anterior pituitary</li>
+        <li>Genetic disorder (congenital)</li>
+        <li>Cranial irradiation</li>
+        <li>Tumor (e.g., craniopharyngioma)</li>
+        <li>Head trauma</li>
+      </ul>
+      <h4>Key Features</h4>
+      <ul class="styled">
+        <li>Growth failure / decreased height velocity — <em>most important clinical sign</em></li>
+        <li>Delayed bone age</li>
+        <li>Congenital forms may not manifest until late infancy</li>
+        <li>Short stature (proportionate)</li>
+        <li>Possible associated hormone deficiencies (hypopituitarism)</li>
+      </ul>
+      <h4>Diagnosis</h4>
+      <ul class="styled">
+        <li>Serum IGF-1 (low)</li>
+        <li>Provocative tests if IGF-1 equivocal (clonidine, glucagon, arginine)</li>
+        <li>Growth charts — track height velocity carefully</li>
+      </ul>
+      <h4>Treatment</h4>
+      <ul class="styled">
+        <li>Synthetic human GH (recombinant; FDA approved 1985)</li>
+        <li>Trade names: Genotropin®, Humatrope®, Norditropin®, Nutropin®, Saizen®</li>
+        <li>Sogroya (somapacitan) FDA-approved 2020 for adults</li>
+      </ul>
+    </div>
+
+    <div class="vs-col">
+      <div class="vs-header">🧑 AFTER Epiphyseal Closure<br><small>Adult GH Deficiency</small></div>
+      <p><strong>Defining feature:</strong> No longitudinal bone growth possible (plates fused), but GH still plays important metabolic roles throughout life.</p>
+      <h4>Note on Aging</h4>
+      <p style="font-size:0.88rem;">GH production falls ~50% every 7 years after peak. IGF-1, testosterone, and DHEA all decline with age → contributes to sarcopenia and metabolic changes.</p>
+      <h4>Key Clinical Features</h4>
+      <ul class="styled">
+        <li><strong>Brain:</strong> ↑ Social isolation; ↓ quality of life, energy, drive, self-esteem</li>
+        <li><strong>Cardiovascular:</strong> Abnormal cardiac structure/function; ↑ lipids &amp; inflammatory markers; ↓ fibrinolysis; ↓ VO₂ max</li>
+        <li><strong>Glucose metabolism:</strong> Insulin resistance</li>
+        <li><strong>Adipose tissue:</strong> ↑ Fat mass &amp; truncal obesity; ↓ lean body mass</li>
+        <li><strong>Bone:</strong> ↑ Skeletal fragility &amp; vertebral fractures; ↓ bone density</li>
+        <li><strong>Skeletal muscle:</strong> ↓ Muscle mass (sarcopenia)</li>
+        <li><strong>Hypothalamic-pituitary:</strong> ↓ Pituitary mass; secondary adrenal, thyroid, gonadal failure</li>
+      </ul>
+      <h4>Treatment</h4>
+      <ul class="styled">
+        <li>Recombinant GH replacement</li>
+        <li>Follow AACE/ACE guidelines for management</li>
+        <li>Note: also abused by athletes/bodybuilders for ↑ muscle mass, ↓ body fat</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════
+     LO 2 — INCREASED GH
+════════════════════════════════════════════════ -->
+<section id="lo2">
+  <div class="plo-banner"><span>LO 2</span> — Differentiate consequences of increased GH secretion before vs. after epiphyseal plate closure</div>
+  <div class="section-label">LO 2</div>
+  <h2>Increased GH Secretion: Gigantism vs. Acromegaly</h2>
+
+  <div class="vs-grid">
+    <div class="vs-col">
+      <div class="vs-header">🧒 BEFORE Epiphyseal Closure<br><small>Pituitary Gigantism</small></div>
+      <p>GH excess occurring <em>before</em> fusion of epiphyseal growth plates → unrestrained longitudinal bone growth. By definition, only seen in growing children.</p>
+      <h4>Causes (same as acromegaly)</h4>
+      <ul class="styled">
+        <li>Pituitary GH-secreting adenoma (most common)</li>
+        <li>Excessive GHRH production from hypothalamus</li>
+        <li>Rarely: ectopic source of GH or GHRH</li>
+      </ul>
+      <h4>Key Features</h4>
+      <ul class="styled">
+        <li>Abnormal height growth (typically precedes or concurrent with rapid weight gain)</li>
+        <li>Accelerated growth velocity</li>
+        <li>Most children with tall stature do <em>not</em> have pituitary gigantism — must distinguish</li>
+        <li>May also develop acromegalic features</li>
+      </ul>
+      <h4>Diagnosis</h4>
+      <ul class="styled">
+        <li>Serum IGF-1 (elevated)</li>
+        <li>GH suppression test (oral glucose tolerance test)</li>
+        <li>MRI of pituitary if biochemistry confirms excess</li>
+      </ul>
+      <h4>Treatment</h4>
+      <ul class="styled">
+        <li>Transsphenoidal surgery (initial therapy)</li>
+        <li>Pegvisomant (GH receptor antagonist)</li>
+        <li>Octreotide / Lanreotide (somatostatin analogs)</li>
+      </ul>
+    </div>
+
+    <div class="vs-col">
+      <div class="vs-header">🧑 AFTER Epiphyseal Closure<br><small>Acromegaly</small></div>
+      <p>GH excess in adults (after plate fusion). No longitudinal growth possible → characteristic soft tissue and bone remodeling changes. Incidence: <strong>6–8 per million/year</strong>; mean age at diagnosis: <strong>40–45 years</strong>; avg time to diagnosis: ~12 years.</p>
+      <h4>Most Common Cause</h4>
+      <p style="font-size:0.88rem;"><strong>Somatotrophic macroadenoma</strong> of the anterior pituitary (~1/3 of all hormone-secreting pituitary adenomas). Onset is insidious; progression very slow.</p>
+      <h4>Clinical Features</h4>
+      <ul class="styled">
+        <li><strong>Facial:</strong> Prognathism (protruding lower jaw), maxillary widening, teeth separation &amp; malocclusion, thickened nose/lips, frontal bossing</li>
+        <li><strong>Hands/Feet:</strong> Enlargement, soft tissue thickening, increased bony tufts at distal phalanges — patients notice rings no longer fit</li>
+        <li><strong>Bone/Cartilage:</strong> Hyperplasia of soft tissue &amp; cartilage; increased osteoblast activity; increased protein synthesis → tissue/bone hyperplasia</li>
+        <li><strong>Viscera:</strong> Thyroid, heart, liver enlargement</li>
+        <li><strong>Skin:</strong> Thickening, soft tissue overgrowth (virtually all patients)</li>
+        <li><strong>Endocrine:</strong> Menstrual dysfunction (most women); hyperprolactinemia in ~30% (cosecretion of PRL + GH by somatomammotroph); ↓ gonadotropins (macroadenoma compresses)</li>
+        <li><strong>Metabolic:</strong> Insulin resistance; may have near-normal glucose (IGF-1 counteracts)</li>
+        <li><strong>Feedback loop:</strong> ↑ Somatostatin + ↓ GHRH, but adenoma is autonomous — GH stays elevated</li>
+      </ul>
+      <h4>Diagnosis</h4>
+      <ul class="styled">
+        <li><strong>Best single test:</strong> Serum IGF-1 (stable, not pulsatile)</li>
+        <li>If IGF-1 equivocal → <strong>Oral Glucose Tolerance Test</strong> (GH suppression test)</li>
+        <li>Normal: GH &lt;1 ng/mL at 2 h post-glucose</li>
+        <li>Acromegaly: GH &gt;2 ng/mL in &gt;85% of patients</li>
+      </ul>
+      <h4>Treatment</h4>
+      <ul class="styled">
+        <li><strong>1st line:</strong> Transsphenoidal surgery</li>
+        <li><strong>Pegvisomant (Somavert):</strong> GH receptor antagonist; efficacy monitored by IGF-1 (not GH)</li>
+        <li><strong>Octreotide (Sandostatin):</strong> Somatostatin analog; longer half-life (2 h vs. 2 min for native SS); inhibits GH more effectively</li>
+        <li><strong>Lanreotide (Somatuline):</strong> Also a somatostatin analog</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Summary Comparison Table</h3>
+  <div class="compare-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Pituitary Gigantism</th>
+          <th>Acromegaly</th>
+          <th>Pediatric GH Deficiency</th>
+          <th>Adult GH Deficiency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Epiphyseal plates</td>
+          <td>Open (growing child)</td>
+          <td>Fused (adult)</td>
+          <td>Open (growing child)</td>
+          <td>Fused (adult)</td>
+        </tr>
+        <tr>
+          <td>GH level</td>
+          <td>↑ Elevated</td>
+          <td>↑ Elevated</td>
+          <td>↓ Low</td>
+          <td>↓ Low</td>
+        </tr>
+        <tr>
+          <td>IGF-1</td>
+          <td>↑ Elevated</td>
+          <td>↑ Elevated</td>
+          <td>↓ Low</td>
+          <td>↓ Low</td>
+        </tr>
+        <tr>
+          <td>Height effect</td>
+          <td>↑↑ Tall stature (abnormal acceleration)</td>
+          <td>No change in height; soft tissue/acral growth</td>
+          <td>↓ Short stature, growth failure</td>
+          <td>No height change (plates fused)</td>
+        </tr>
+        <tr>
+          <td>Hallmark finding</td>
+          <td>Tall stature + rapid weight gain</td>
+          <td>Acral enlargement, jaw protrusion, ring size increase</td>
+          <td>Decreased height velocity</td>
+          <td>↑ Body fat, ↓ muscle, ↓ bone density, poor QoL</td>
+        </tr>
+        <tr>
+          <td>Best diagnostic test</td>
+          <td>IGF-1 → OGTT → MRI</td>
+          <td>IGF-1 → OGTT (GH suppression)</td>
+          <td>IGF-1 → Provocative stimulation test</td>
+          <td>IGF-1 → Provocative stimulation test</td>
+        </tr>
+        <tr>
+          <td>Treatment</td>
+          <td>Transsphenoidal surgery; somatostatin analogs; pegvisomant</td>
+          <td>Transsphenoidal surgery; somatostatin analogs; pegvisomant</td>
+          <td>Recombinant GH replacement</td>
+          <td>Recombinant GH replacement</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <div class="section-label">Quick Reference</div>
+  <h2>Drug Reference</h2>
+  <div class="grid-2">
+    <div class="card card-red">
+      <h4>For GH Excess (Acromegaly / Gigantism)</h4>
+      <ul class="styled">
+        <li><strong>Pegvisomant (Somavert)</strong> — GH receptor antagonist; first-line medical option; monitor with IGF-1</li>
+        <li><strong>Octreotide (Sandostatin)</strong> — Somatostatin analog; t½ = 2 h (vs. 2 min for native SS)</li>
+        <li><strong>Lanreotide (Somatuline)</strong> — Somatostatin analog</li>
+        <li>Surgery: <strong>Transsphenoidal</strong> is preferred first-line for most patients</li>
+      </ul>
+    </div>
+    <div class="card card-green">
+      <h4>For GH Deficiency</h4>
+      <ul class="styled">
+        <li><strong>Genotropin®, Humatrope®, Norditropin®, Nutropin®, Saizen®, Serostim®</strong> — recombinant human GH</li>
+        <li><strong>Sogroya (somapacitan)</strong> — FDA approved Aug 2020 for adult GH deficiency; once-weekly dosing</li>
+        <li>Note: GH is commonly <em>abused</em> by athletes/bodybuilders — not an approved use</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  UNECOM · Dr. Dave Johnson · Growth Hormone Regulation · Study Notes<br>
+  Sources: Ganong's Review of Medical Physiology 26e · Greenspan's Basic &amp; Clinical Endocrinology 10e · UpToDate
+</footer>
+
+</body>
+</html>

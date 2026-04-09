@@ -107,35 +107,42 @@
   nav {
     background: var(--cream2);
     border-bottom: 2px solid var(--rule);
-    padding: 1rem 2rem;
-    position: sticky;
-    top: 0;
+    padding: 0.45rem 1rem 0.5rem;
     z-index: 100;
     box-shadow: var(--shadow-md);
   }
   nav h2 {
-    font-size: 0.72rem;
+    font-size: 0.62rem;
     color: var(--ink-muted);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 0.35rem;
+    margin: 0;
+    min-width: 110px;
+    flex-shrink: 0;
   }
-  nav .nav-section + .nav-section { margin-top: 0.9rem; }
+  nav .nav-section {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+  }
+  nav .nav-section + .nav-section { margin-top: 0.35rem; }
   nav ul {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.45rem 1.1rem;
+    gap: 0.12rem 0.75rem;
+    align-items: center;
   }
   nav ul li a {
     color: var(--rust);
     text-decoration: none;
-    font-size: 0.82rem;
+    font-size: 0.74rem;
     font-weight: 500;
     letter-spacing: 0.02em;
-    padding: 0.15rem 0;
+    padding: 0.02rem 0;
     border-bottom: 1.5px solid transparent;
     transition: border-color 0.2s, color 0.2s;
+    line-height: 1.1;
   }
   nav ul li a:hover,
   nav ul li a.active {
@@ -145,15 +152,16 @@
   nav .nav-badge {
     display: inline-block;
     margin-left: 0.35rem;
-    padding: 0.08rem 0.45rem;
+    padding: 0.04rem 0.32rem;
     border-radius: 999px;
-    font-size: 0.68rem;
+    font-size: 0.58rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     background: var(--amber-pale);
     color: var(--amber);
     border: 1px solid rgba(192,112,32,0.18);
     vertical-align: middle;
+    line-height: 1.05;
   }
   nav .nav-badge.clo {
     background: var(--green-pale);
@@ -296,6 +304,7 @@
   .slide-img img {
     width: 100%;
     display: block;
+    cursor: zoom-in;
   }
   .slide-caption {
     background: var(--cream2);
@@ -309,6 +318,26 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+  }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.86);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    padding: 2rem;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img {
+    max-width: 92vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+    background: white;
   }
 
   table {
@@ -395,7 +424,14 @@
   }
 
   @media (max-width: 900px) {
-    nav { padding: 0.9rem 1rem; }
+    nav { padding: 0.45rem 0.7rem 0.5rem; }
+    nav .nav-section {
+      display: block;
+    }
+    nav h2 {
+      min-width: 0;
+      margin-bottom: 0.12rem;
+    }
     .page-header { padding: 2.5rem 1.25rem 2rem; }
     main { padding: 2rem 1rem 3rem; }
   }
@@ -1080,6 +1116,10 @@
 
 </main>
 
+<div class="lightbox" id="lightbox">
+  <img id="lightboxImg" alt="Zoomed slide image">
+</div>
+
 <script>
 // Active nav highlighting
 const sections = document.querySelectorAll('[id]');
@@ -1094,6 +1134,32 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: '-20% 0px -70% 0px' });
 sections.forEach(s => observer.observe(s));
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const slideImages = document.querySelectorAll('.slide-img img');
+
+function openLightbox(img) {
+  lightboxImg.src = img.src;
+  lightboxImg.alt = img.alt || 'Zoomed slide image';
+  lightbox.classList.add('active');
+}
+
+slideImages.forEach(img => {
+  img.addEventListener('click', () => openLightbox(img));
+});
+
+lightbox.addEventListener('click', () => {
+  lightbox.classList.remove('active');
+  lightboxImg.src = '';
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+    lightbox.classList.remove('active');
+    lightboxImg.src = '';
+  }
+});
 </script>
 
 </body>
