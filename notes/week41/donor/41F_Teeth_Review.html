@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>41F — Teeth: Types & Microstructure</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #faf8f3;
+    --cream: #f2ede0;
+    --warm-tan: #e8dfc8;
+    --enamel-blue: #dbeaf7;
+    --enamel-dark: #2563a8;
+    --dentin-gold: #f5d98a;
+    --dentin-dark: #7a5c10;
+    --cementum-green: #d4edd8;
+    --cementum-dark: #1a5c28;
+    --pulp-rose: #fce0e0;
+    --pulp-dark: #8c1a1a;
+    --perio-purple: #e8e0f5;
+    --perio-dark: #4a2c8c;
+    --ink: #1a1710;
+    --muted: #6b6450;
+    --accent: #b85c20;
+    --border: #d4c9a8;
+    --card-bg: #ffffff;
+    --section-bg: #fdf9f2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--ivory);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1710 0%, #3d2e10 60%, #5a3e18 100%);
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(184,92,32,0.15);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(184,92,32,0.08);
+  }
+  .hero-label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c8a97a;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    color: #faf8f3;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero-sub {
+    color: #c8a97a;
+    font-size: 15px;
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+
+  .toc {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 36px 0;
+  }
+  .toc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .toc ol {
+    padding-left: 20px;
+  }
+  .toc li {
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  .toc a {
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 400;
+  }
+  .toc a:hover { color: var(--accent); text-decoration: underline; }
+
+  .section {
+    margin-bottom: 48px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--warm-tan);
+  }
+  .section-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--ink);
+  }
+
+  /* Tooth types grid */
+  .tooth-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .tooth-card {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    padding: 20px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tooth-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .tc-incisor::before { background: #2563a8; }
+  .tc-canine::before { background: #b85c20; }
+  .tc-premolar::before { background: #1a5c28; }
+  .tc-molar::before { background: #4a2c8c; }
+  .tooth-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .tooth-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin-bottom: 6px;
+  }
+  .tooth-count {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .tooth-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .tooth-fn {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Dentition comparison */
+  .dent-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  @media (max-width: 600px) { .dent-compare { grid-template-columns: 1fr; } }
+  .dent-box {
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 20px;
+    background: var(--card-bg);
+  }
+  .dent-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .dent-box ul { list-style: none; padding: 0; }
+  .dent-box li {
+    font-size: 14px;
+    padding: 4px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .dent-box li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+  /* Layer diagram */
+  .tooth-diagram {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    margin: 24px 0;
+  }
+  @media (max-width: 650px) { .tooth-diagram { flex-direction: column; } }
+  .tooth-svg-wrap { flex-shrink: 0; }
+  .tooth-layers { flex: 1; }
+
+  .layer-card {
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    border: 1px solid transparent;
+  }
+  .lc-enamel { background: var(--enamel-blue); border-color: #90bce8; }
+  .lc-dentin { background: var(--dentin-gold); border-color: #d4a820; }
+  .lc-cementum { background: var(--cementum-green); border-color: #6cbe80; }
+  .lc-pulp { background: var(--pulp-rose); border-color: #e8a0a0; }
+
+  .layer-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .lc-enamel .layer-title { color: var(--enamel-dark); }
+  .lc-dentin .layer-title { color: var(--dentin-dark); }
+  .lc-cementum .layer-title { color: var(--cementum-dark); }
+  .lc-pulp .layer-title { color: var(--pulp-dark); }
+
+  .layer-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .lc-enamel .layer-badge { background: #2563a8; color: #fff; }
+  .lc-dentin .layer-badge { background: #8c6a10; color: #fff; }
+  .lc-cementum .layer-badge { background: #1a5c28; color: #fff; }
+  .lc-pulp .layer-badge { background: #8c1a1a; color: #fff; }
+
+  .layer-body { font-size: 14px; line-height: 1.65; }
+  .lc-enamel .layer-body { color: #1a3d6a; }
+  .lc-dentin .layer-body { color: #5c430a; }
+  .lc-cementum .layer-body { color: #0f3b18; }
+  .lc-pulp .layer-body { color: #6b1010; }
+
+  /* Surrounding structures */
+  .struct-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .struct-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--card-bg);
+    padding: 18px;
+  }
+  .struct-icon { font-size: 22px; margin-bottom: 8px; }
+  .struct-name {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .struct-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* Development timeline */
+  .dev-steps {
+    position: relative;
+    padding-left: 32px;
+    margin: 20px 0;
+  }
+  .dev-steps::before {
+    content: '';
+    position: absolute;
+    left: 11px; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--warm-tan);
+  }
+  .dev-step {
+    position: relative;
+    margin-bottom: 22px;
+  }
+  .dev-step::before {
+    content: '';
+    position: absolute;
+    left: -25px; top: 6px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--ivory);
+  }
+  .dev-step-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .dev-step-body { font-size: 14px; color: var(--muted); }
+
+  /* Key cells table */
+  .cells-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 20px 0;
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .cells-table th {
+    background: var(--ink);
+    color: #faf8f3;
+    padding: 10px 14px;
+    font-weight: 600;
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .cells-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .cells-table tr:last-child td { border-bottom: none; }
+  .cells-table tr:nth-child(even) td { background: var(--section-bg); }
+  .cell-name { font-weight: 600; color: var(--accent); }
+
+  /* Callout boxes */
+  .callout {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-left: 4px solid;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .callout-key { background: #fff8e0; border-color: #e0a800; color: #5c4400; }
+  .callout-fact { background: #e8f0fa; border-color: #2563a8; color: #12336b; }
+  .callout-clinic { background: #fce8e8; border-color: #c0392b; color: #7a1a1a; }
+  .callout strong { font-weight: 600; }
+
+  /* MCQ section */
+  .mcq-section { margin-top: 56px; }
+  .mcq-header {
+    background: var(--ink);
+    border-radius: 14px 14px 0 0;
+    padding: 24px 32px;
+  }
+  .mcq-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #faf8f3;
+  }
+  .mcq-header p { font-size: 14px; color: #c8a97a; margin-top: 4px; }
+
+  .mcq-body {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 14px 14px;
+    padding: 32px;
+  }
+
+  .mcq-item {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .mcq-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .mcq-q {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 12px;
+    line-height: 1.55;
+  }
+  .mcq-num {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  .mcq-options { list-style: none; padding: 0; }
+  .mcq-options li {
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: background 0.15s;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .mcq-options li:hover { background: var(--cream); }
+  .mcq-options li.correct { background: #d4f0da; border-color: #2a8c45; color: #124a20; }
+  .mcq-options li.wrong { background: #f5d8d8; border-color: #c0392b; color: #7a1212; }
+  .mcq-options li.revealed { pointer-events: none; }
+  .opt-letter {
+    font-weight: 700;
+    font-size: 13px;
+    min-width: 18px;
+  }
+
+  .mcq-explain {
+    display: none;
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.65;
+    background: #f0f7ff;
+    border-left: 3px solid #2563a8;
+    padding: 12px 14px;
+    border-radius: 0 8px 8px 0;
+    color: #12336b;
+  }
+  .mcq-explain.show { display: block; }
+
+  .btn-reveal {
+    margin-top: 10px;
+    padding: 7px 16px;
+    background: var(--ink);
+    color: #faf8f3;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .btn-reveal:hover { background: var(--accent); }
+
+  .score-bar {
+    display: none;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 24px;
+    margin-top: 24px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  /* Dental formula section */
+  .formula-wrap {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .formula {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+  }
+  .formula-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  /* Inner scroll note */
+  .note-pill {
+    display: inline-block;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  /* Innervation table */
+  .inn-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    margin: 16px 0;
+  }
+  .inn-table th {
+    background: #3d2e10;
+    color: #faf8f3;
+    padding: 10px 14px;
+    font-size: 13px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .inn-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .inn-table tr:last-child td { border-bottom: none; }
+  .inn-table tr:nth-child(even) td { background: var(--section-bg); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">Learning Objective 41F · Oral Cavity Session</div>
+  <h1>Teeth: Types &<br>Microstructure</h1>
+  <p class="hero-sub">Types of teeth · Tooth layers · Surrounding structures · Development · MCQs</p>
+</div>
+
+<div class="container">
+  <p class="note-pill">Click any MCQ answer to check yourself — explanations reveal automatically</p>
+
+  <nav class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#types">Types of teeth &amp; dental formulae</a></li>
+      <li><a href="#micro">Microstructure of a tooth</a></li>
+      <li><a href="#surrounding">Surrounding structures</a></li>
+      <li><a href="#cells">Key cells &amp; their products</a></li>
+      <li><a href="#development">Tooth development</a></li>
+      <li><a href="#innervation">Innervation &amp; blood supply</a></li>
+      <li><a href="#mcq">10 MCQs — test yourself</a></li>
+    </ol>
+  </nav>
+
+  <!-- ──────────────────────────────────────── 1. TYPES ── -->
+  <section class="section" id="types">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2 class="section-title">Types of teeth &amp; dental formulae</h2>
+    </div>
+
+    <div class="tooth-grid">
+      <div class="tooth-card tc-incisor">
+        <span class="tooth-icon">🦷</span>
+        <div class="tooth-name">Incisors</div>
+        <div class="tooth-count">8 permanent · 8 deciduous</div>
+        <div class="tooth-desc">Chisel-shaped single-rooted teeth at the front. Thin sharp cutting edge.</div>
+        <div class="tooth-fn">Function: cutting / biting</div>
+      </div>
+      <div class="tooth-card tc-canine">
+        <span class="tooth-icon">🦷</span>
+        <div class="tooth-name">Canines</div>
+        <div class="tooth-count">4 permanent · 4 deciduous</div>
+        <div class="tooth-desc">Single cusp, single root. Longest tooth. Located at the corners of the dental arch.</div>
+        <div class="tooth-fn">Function: tearing / piercing</div>
+      </div>
+      <div class="tooth-card tc-premolar">
+        <span class="tooth-icon">🦷</span>
+        <div class="tooth-name">Premolars</div>
+        <div class="tooth-count">8 permanent only</div>
+        <div class="tooth-desc">Two cusps (bi-cuspid). 1–2 roots. Absent in the primary dentition — replace the primary molars.</div>
+        <div class="tooth-fn">Function: crushing / grinding</div>
+      </div>
+      <div class="tooth-card tc-molar">
+        <span class="tooth-icon">🦷</span>
+        <div class="tooth-name">Molars</div>
+        <div class="tooth-count">12 permanent · 8 deciduous</div>
+        <div class="tooth-desc">Multiple cusps. Upper: 3 roots; lower: 2 roots. Third molars = wisdom teeth (may be absent).</div>
+        <div class="tooth-fn">Function: grinding / chewing</div>
+      </div>
+    </div>
+
+    <div class="formula-wrap">
+      <div class="formula">Permanent: 2·1·2·3 / 2·1·2·3 × 2 = 32</div>
+      <div class="formula-label">Incisors · Canines · Premolars · Molars — upper jaw / lower jaw × bilateral</div>
+    </div>
+
+    <div class="dent-compare">
+      <div class="dent-box">
+        <h3>Primary (deciduous) dentition</h3>
+        <ul>
+          <li>20 teeth total</li>
+          <li>Formula: 2·1·0·2 / 2·1·0·2</li>
+          <li>No premolars</li>
+          <li>Eruption begins ~6 months; complete ~2–3 years</li>
+          <li>Shed and replaced by age 12–13</li>
+          <li>Smaller, whiter, and less mineralised than permanent teeth</li>
+        </ul>
+      </div>
+      <div class="dent-box">
+        <h3>Permanent (secondary) dentition</h3>
+        <ul>
+          <li>32 teeth total (28 if wisdom absent)</li>
+          <li>Formula: 2·1·2·3 / 2·1·2·3</li>
+          <li>First permanent tooth: first molar (~age 6)</li>
+          <li>Wisdom teeth: ~17–25 years (may be impacted or absent)</li>
+          <li>Larger, more yellow due to dentin showing through enamel</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-key">
+      <strong>Crown vs root:</strong> The <strong>anatomical crown</strong> is the portion covered by enamel. The <strong>clinical crown</strong> is the portion visible above the gum. The <strong>root</strong> is the portion embedded in the alveolar socket, covered by cementum.
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────── 2. MICROSTRUCTURE ── -->
+  <section class="section" id="micro">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2 class="section-title">Microstructure of a tooth</h2>
+    </div>
+
+    <p style="font-size:15px;color:var(--muted);margin-bottom:20px;">A tooth is a mineralized structure consisting of four main tissues. Working from outside inward:</p>
+
+    <div class="tooth-diagram">
+      <div class="tooth-svg-wrap">
+        <svg width="170" height="320" viewBox="0 0 170 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- Root canal fill -->
+          <path d="M 80,150 Q 72,200 70,260 Q 85,280 100,260 Q 98,200 90,150 Z" fill="#fce0e0" stroke="#e8a0a0" stroke-width="1"/>
+          <!-- Dentin body -->
+          <path d="M 55,120 Q 50,200 55,255 Q 85,285 115,255 Q 120,200 115,120 Z" fill="#f5d98a" stroke="#d4a820" stroke-width="1.5"/>
+          <!-- Pulp cavity -->
+          <path d="M 78,118 Q 72,170 72,235 Q 85,260 98,235 Q 98,170 92,118 Z" fill="#fce0e0" stroke="#e8a0a0" stroke-width="1"/>
+          <!-- Cementum overlay on root -->
+          <path d="M 55,195 Q 50,220 55,255 Q 85,285 115,255 Q 120,220 115,195" fill="none" stroke="#6cbe80" stroke-width="5" stroke-linecap="round"/>
+          <!-- Enamel crown -->
+          <path d="M 40,80 Q 38,130 55,150 L 115,150 Q 132,130 130,80 Q 110,30 85,25 Q 60,30 40,80 Z" fill="#dbeaf7" stroke="#90bce8" stroke-width="1.5"/>
+          <!-- CEJ line -->
+          <line x1="53" y1="148" x2="117" y2="148" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+          <!-- Labels -->
+          <text x="138" y="65" font-size="10" fill="#2563a8" font-family="sans-serif" font-weight="600">Enamel</text>
+          <line x1="125" y1="68" x2="100" y2="80" stroke="#2563a8" stroke-width="1"/>
+          <text x="135" y="130" font-size="10" fill="#7a5c10" font-family="sans-serif" font-weight="600">Dentin</text>
+          <line x1="130" y1="133" x2="112" y2="135" stroke="#7a5c10" stroke-width="1"/>
+          <text x="4" y="172" font-size="9" fill="#555" font-family="sans-serif">CEJ</text>
+          <text x="126" y="220" font-size="10" fill="#1a5c28" font-family="sans-serif" font-weight="600">Cementum</text>
+          <line x1="124" y1="222" x2="115" y2="228" stroke="#1a5c28" stroke-width="1"/>
+          <text x="15" y="225" font-size="10" fill="#8c1a1a" font-family="sans-serif" font-weight="600">Pulp</text>
+          <line x1="32" y1="222" x2="72" y2="200" stroke="#8c1a1a" stroke-width="1"/>
+          <!-- Alveolar bone hint -->
+          <rect x="20" y="290" width="130" height="20" rx="3" fill="#e8dfc8" stroke="#d4c9a8" stroke-width="1"/>
+          <text x="85" y="304" font-size="9" fill="#6b6450" font-family="sans-serif" text-anchor="middle">Alveolar bone</text>
+          <!-- PDL hint -->
+          <rect x="40" y="250" width="15" height="42" rx="2" fill="none" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,2"/>
+          <rect x="115" y="250" width="15" height="42" rx="2" fill="none" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,2"/>
+        </svg>
+      </div>
+
+      <div class="tooth-layers">
+        <div class="layer-card lc-enamel">
+          <div class="layer-title">Enamel <span class="layer-badge">Crown only</span></div>
+          <div class="layer-body">
+            Hardest biological substance known. Formed by <strong>ameloblasts</strong> (ectodermal origin). Acellular once tooth erupts — ameloblasts are lost at eruption, so <strong>enamel cannot regenerate</strong>. Composed of calcium hydroxyapatite (96–97% mineral). Formed in rods (prisms) running from the dentinoenamel junction (DEJ) to the tooth surface. The DEJ is scalloped, interlocking enamel and dentin.
+          </div>
+        </div>
+        <div class="layer-card lc-dentin">
+          <div class="layer-title">Dentin <span class="layer-badge">Crown + Root</span></div>
+          <div class="layer-body">
+            Less hard than enamel (~70% mineral). Formed by <strong>odontoblasts</strong> (mesodermal origin). Odontoblasts persist throughout life — they line the pulp cavity and continue to form dentin slowly. Contains <strong>dentinal tubules</strong> housing odontoblast processes (Tomes' fibres). Predentin = unmineralised dentin just inside the pulp. Types: primary (during development), secondary (lifelong deposition), tertiary/reparative (response to injury).
+          </div>
+        </div>
+        <div class="layer-card lc-cementum">
+          <div class="layer-title">Cementum <span class="layer-badge">Root only</span></div>
+          <div class="layer-body">
+            Bone-like tissue (~50% mineral). Formed by <strong>cementoblasts</strong>. Covers dentin of the root. Anchors the periodontal ligament (Sharpey's fibres) to the root surface. The <strong>cementoenamel junction (CEJ)</strong> marks the border between enamel and cementum — a key anatomical landmark. Acellular cementum (primary) near the crown; cellular cementum (secondary) near the root apex.
+          </div>
+        </div>
+        <div class="layer-card lc-pulp">
+          <div class="layer-title">Pulp cavity <span class="layer-badge">Core</span></div>
+          <div class="layer-body">
+            Contains loose connective tissue, <strong>blood vessels, lymphatics, and nerves</strong> — the only innervated region of the tooth. The pulp chamber occupies the coronal portion; root canals extend into each root. Neurovascular bundles enter through the apical foramen at the root tip. The pulp is supplied by branches of the inferior and superior alveolar nerves and vessels. All dentinal pain is sensed via pulp nerves (hydrodynamic theory).
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-fact">
+      <strong>Remember:</strong> Only the pulp is innervated. Enamel and dentin contain no nerve fibres. Pain from exposed dentin is explained by the <strong>hydrodynamic theory</strong> — fluid movement within dentinal tubules stimulates pulp nerve fibres.
+    </div>
+    <div class="callout callout-clinic">
+      <strong>Clinical pearl:</strong> Enamel cannot regenerate after eruption. Fluoride works by substituting fluorapatite for hydroxyapatite, making enamel more acid-resistant — this is why it prevents caries, not by regenerating enamel.
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────── 3. SURROUNDING STRUCTURES ── -->
+  <section class="section" id="surrounding">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2 class="section-title">Surrounding structures</h2>
+    </div>
+
+    <div class="struct-grid">
+      <div class="struct-card">
+        <div class="struct-icon">🦴</div>
+        <div class="struct-name">Alveolar bone (alveolar process)</div>
+        <div class="struct-body">The tooth socket — the bony housing of the tooth root. Contains the cribriform plate (bundle bone) which is highly vascular and perforated for neurovascular supply. Remodels throughout life in response to mechanical loading (basis of orthodontics). Resorbs when a tooth is lost.</div>
+      </div>
+      <div class="struct-card">
+        <div class="struct-icon">🔗</div>
+        <div class="struct-name">Periodontal ligament (PDL)</div>
+        <div class="struct-body">Dense fibrous connective tissue occupying the <strong>periodontal space</strong> between cementum and alveolar bone. Contains <strong>Sharpey's fibres</strong> (principal fibres) that anchor into both cementum and bone. Provides cushioning and proprioception. Contains cementoblasts, osteoblasts, fibroblasts, and undifferentiated mesenchymal stem cells. ~0.15–0.38 mm wide.</div>
+      </div>
+      <div class="struct-card">
+        <div class="struct-icon">🩸</div>
+        <div class="struct-name">Gingiva (gum)</div>
+        <div class="struct-body">Masticatory mucosa covering the alveolar ridge and surrounding the necks of teeth. Composed of keratinised stratified squamous epithelium. The <strong>gingival sulcus</strong> is the shallow groove between the free gingiva and the tooth (≤3 mm normal). Junctional epithelium attaches to the enamel/cementum at the base of the sulcus.</div>
+      </div>
+      <div class="struct-card">
+        <div class="struct-icon">🔵</div>
+        <div class="struct-name">Apical foramen</div>
+        <div class="struct-body">Small opening at the tip of each root through which the neurovascular bundle enters the pulp cavity. Infection spreading beyond the apex causes <strong>periapical abscess</strong>. The foramen narrows with age as secondary cementum deposits.</div>
+      </div>
+    </div>
+
+    <div class="callout callout-key">
+      <strong>Periodontium</strong> = the collective term for all supporting structures: gingiva + PDL + cementum + alveolar bone. Periodontitis is inflammation/destruction of the periodontium.
+    </div>
+
+    <h3 style="font-size:17px;margin:24px 0 12px;font-family:'Playfair Display',serif;">PDL fibre groups (principal fibres)</h3>
+    <table class="cells-table">
+      <tr><th>Fibre group</th><th>Orientation</th><th>Function</th></tr>
+      <tr><td class="cell-name">Alveolar crest fibres</td><td>Oblique — downward from cementum to alveolar crest</td><td>Resist lateral &amp; tipping forces; limit eruption</td></tr>
+      <tr><td class="cell-name">Horizontal fibres</td><td>Perpendicular to long axis</td><td>Resist lateral forces</td></tr>
+      <tr><td class="cell-name">Oblique fibres</td><td>Oblique — upward from bone to cementum (most numerous)</td><td>Resist vertical/intrusive forces — primary load-bearing group</td></tr>
+      <tr><td class="cell-name">Apical fibres</td><td>Radiate from apex</td><td>Resist tipping &amp; avulsion (tooth extraction forces)</td></tr>
+      <tr><td class="cell-name">Interradicular fibres</td><td>Between roots (multi-rooted teeth)</td><td>Resist tipping and rotation</td></tr>
+    </table>
+  </section>
+
+  <!-- ──────────────────────────────────────── 4. KEY CELLS ── -->
+  <section class="section" id="cells">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <h2 class="section-title">Key cells &amp; their products</h2>
+    </div>
+
+    <table class="cells-table">
+      <tr><th>Cell</th><th>Origin</th><th>Location</th><th>Product</th><th>Key fact</th></tr>
+      <tr>
+        <td class="cell-name">Ameloblasts</td>
+        <td>Ectoderm (inner dental epithelium)</td>
+        <td>Surface of developing tooth crown</td>
+        <td>Enamel (amelogenin → enamel matrix)</td>
+        <td>Lost at eruption — no enamel repair possible after eruption</td>
+      </tr>
+      <tr>
+        <td class="cell-name">Odontoblasts</td>
+        <td>Mesoderm (dental papilla)</td>
+        <td>Lining pulp cavity throughout life</td>
+        <td>Dentin (predentin → dentin)</td>
+        <td>Persist for life; produce secondary/tertiary dentin in response to stimuli</td>
+      </tr>
+      <tr>
+        <td class="cell-name">Cementoblasts</td>
+        <td>Mesoderm / neural crest (ectomesenchyme)</td>
+        <td>Surface of root cementum</td>
+        <td>Cementum</td>
+        <td>Derived from connective tissue cells along the root sheath margin</td>
+      </tr>
+      <tr>
+        <td class="cell-name">Cementoclasts</td>
+        <td>Monocyte lineage</td>
+        <td>Root surface during resorption</td>
+        <td>Resorb cementum (and dentin)</td>
+        <td>Activated in orthodontic tooth movement; analogous to osteoclasts</td>
+      </tr>
+      <tr>
+        <td class="cell-name">Fibroblasts</td>
+        <td>Mesoderm</td>
+        <td>Periodontal ligament</td>
+        <td>Collagen fibres of PDL</td>
+        <td>Most numerous cell of PDL; rapid turnover (~2 weeks)</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- ──────────────────────────────────────── 5. DEVELOPMENT ── -->
+  <section class="section" id="development">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <h2 class="section-title">Tooth development (odontogenesis)</h2>
+    </div>
+
+    <p style="font-size:14px;color:var(--muted);margin-bottom:16px;">
+      Begins as an interaction between the <strong>ectoderm of the alveolar ridge</strong> (dental lamina) and the underlying <strong>mesenchyme</strong> overlying the alveolar bone.
+    </p>
+
+    <div class="dev-steps">
+      <div class="dev-step">
+        <div class="dev-step-title">1. Initiation — Dental lamina forms</div>
+        <div class="dev-step-body">Ectoderm of alveolar ridge thickens to form the dental lamina. This is the origin of all teeth in the arch.</div>
+      </div>
+      <div class="dev-step">
+        <div class="dev-step-title">2. Bud stage</div>
+        <div class="dev-step-body">Dental lamina forms ectodermal buds that proliferate into the underlying mesenchyme. One bud per tooth.</div>
+      </div>
+      <div class="dev-step">
+        <div class="dev-step-title">3. Cap stage — Enamel organ forms</div>
+        <div class="dev-step-body">The bud expands to partially surround a condensation of mesenchyme (the <strong>dental papilla</strong>), forming a cap-shaped <strong>enamel organ</strong>. Three layers: outer dental epithelium, stellate reticulum, inner dental epithelium.</div>
+      </div>
+      <div class="dev-step">
+        <div class="dev-step-title">4. Bell stage — Differentiation of key cells</div>
+        <div class="dev-step-body">
+          Inner dental epithelium differentiates into <strong>ameloblasts</strong>. The dental papilla cells adjacent to ameloblasts differentiate into <strong>odontoblasts</strong>. The two cell layers face each other across the future dentinoenamel junction (DEJ).
+        </div>
+      </div>
+      <div class="dev-step">
+        <div class="dev-step-title">5. Apposition — Matrix secretion</div>
+        <div class="dev-step-body">
+          Ameloblasts secrete enamel matrix <em>inward</em> (toward the DEJ). Odontoblasts secrete predentin <em>outward</em>. As mineral is deposited, the two rows of cells move apart — enamel grows outward, dentin grows inward.
+        </div>
+      </div>
+      <div class="dev-step">
+        <div class="dev-step-title">6. Root formation — Root sheath &amp; cementum</div>
+        <div class="dev-step-body">
+          At the future CEJ, the enamel organ layers fuse to form <strong>Hertwig's epithelial root sheath</strong>, which grows inward around the root dentin. Connective tissue cells along the root sheath differentiate into <strong>cementoblasts</strong>, laying down cementum. The dental papilla becomes enclosed as the pulp.
+        </div>
+      </div>
+      <div class="dev-step">
+        <div class="dev-step-title">7. Eruption</div>
+        <div class="dev-step-body">
+          The tooth erupts through the gingiva. Ameloblasts are stripped off at eruption → enamel formation ends permanently. Deciduous teeth are eventually lost as permanent successors develop within the alveolar ridge.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-fact">
+      <strong>Origin summary:</strong> Enamel = ectodermal origin (ameloblasts). Dentin, pulp, cementum, PDL, alveolar bone = mesodermal / neural crest (ectomesenchyme) origin.
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────── 6. INNERVATION ── -->
+  <section class="section" id="innervation">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <h2 class="section-title">Innervation &amp; blood supply</h2>
+    </div>
+
+    <table class="inn-table">
+      <tr><th>Structure</th><th>Nerve</th><th>Artery</th></tr>
+      <tr><td><strong>Upper teeth</strong></td><td>Posterior, middle &amp; anterior superior alveolar nerves (branches of V2 — maxillary)</td><td>Superior alveolar arteries (from maxillary artery)</td></tr>
+      <tr><td><strong>Lower teeth</strong></td><td>Inferior alveolar nerve (branch of V3 — mandibular) — enters mandibular canal via mandibular foramen</td><td>Inferior alveolar artery (from maxillary artery)</td></tr>
+      <tr><td><strong>Upper gingiva (buccal)</strong></td><td>Buccal nerve (V3) anteriorly; posterior superior alveolar (V2)</td><td>Branches of facial &amp; maxillary arteries</td></tr>
+      <tr><td><strong>Upper gingiva (palatal)</strong></td><td>Greater &amp; lesser palatine nerves (V2)</td><td>Greater palatine artery</td></tr>
+      <tr><td><strong>Lower gingiva (buccal)</strong></td><td>Mental nerve (terminal branch of inferior alveolar — V3)</td><td>Mental artery (from inferior alveolar)</td></tr>
+      <tr><td><strong>Lower gingiva (lingual)</strong></td><td>Lingual nerve (V3)</td><td>Sublingual artery</td></tr>
+    </table>
+
+    <div class="callout callout-clinic">
+      <strong>Clinical application:</strong> Inferior alveolar nerve block (mandibular block) at the mandibular foramen anaesthetises all lower teeth on that side, lower lip, chin, and anterior 2/3 of tongue (via lingual nerve). The long buccal nerve (sensory to buccal gingiva of lower molars) is often blocked separately as it is not anaesthetised by the standard block.
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────── MCQ ── -->
+  <section class="mcq-section" id="mcq">
+    <div class="mcq-header">
+      <h2>10 Practice MCQs</h2>
+      <p>Click an answer to check yourself — explanation appears automatically</p>
+    </div>
+    <div class="mcq-body" id="mcq-container">
+
+      <!-- Q1 -->
+      <div class="mcq-item" data-correct="b">
+        <div class="mcq-q"><span class="mcq-num">1</span> Which cell type is responsible for enamel formation, and what happens to these cells upon tooth eruption?</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> Odontoblasts; they persist lining the pulp cavity</li>
+          <li data-opt="b"><span class="opt-letter">B</span> Ameloblasts; they are lost at eruption, so no new enamel can be formed</li>
+          <li data-opt="c"><span class="opt-letter">C</span> Cementoblasts; they migrate to cover the crown</li>
+          <li data-opt="d"><span class="opt-letter">D</span> Fibroblasts; they are replaced by keratinocytes</li>
+        </ul>
+        <div class="mcq-explain">Ameloblasts (ectodermal origin, from inner dental epithelium) secrete enamel matrix during tooth development. At eruption, the ameloblast layer is stripped off — which is why enamel cannot be regenerated after a tooth erupts. This is a key exam fact!</div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="mcq-item" data-correct="c">
+        <div class="mcq-q"><span class="mcq-num">2</span> A patient complains of pain in a lower molar triggered by cold water but no spontaneous pain. Histologically, which region of the tooth mediates this pain sensation?</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> Enamel — direct nerve endings in enamel rods</li>
+          <li data-opt="b"><span class="opt-letter">B</span> Dentin — nerve fibres within dentinal tubules</li>
+          <li data-opt="c"><span class="opt-letter">C</span> Pulp — nerves stimulated via fluid movement in dentinal tubules (hydrodynamic theory)</li>
+          <li data-opt="d"><span class="opt-letter">D</span> Cementum — nociceptors in Sharpey's fibres</li>
+        </ul>
+        <div class="mcq-explain">The pulp is the only innervated part of the tooth. Enamel and dentin contain no nerves. Pain from dentinal stimuli is explained by the hydrodynamic theory: thermal or osmotic changes cause fluid movement in dentinal tubules → stimulates odontoblast processes → detected by pulp nerve fibres at the pulp-dentin boundary.</div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="mcq-item" data-correct="d">
+        <div class="mcq-q"><span class="mcq-num">3</span> Which of the following correctly describes the cementoenamel junction (CEJ)?</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> The junction between enamel and dentin on the crown</li>
+          <li data-opt="b"><span class="opt-letter">B</span> The attachment of the periodontal ligament to alveolar bone</li>
+          <li data-opt="c"><span class="opt-letter">C</span> The base of the gingival sulcus</li>
+          <li data-opt="d"><span class="opt-letter">D</span> The border between enamel (crown) and cementum (root) — the anatomical crown-root junction</li>
+        </ul>
+        <div class="mcq-explain">The CEJ (cementoenamel junction) is where enamel and cementum meet, marking the anatomical boundary between the crown and root. It is an important clinical landmark — gingival recession exposes cementum below the CEJ, which is much softer and more vulnerable to erosion than enamel.</div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="mcq-item" data-correct="a">
+        <div class="mcq-q"><span class="mcq-num">4</span> During tooth development, the dental papilla is significant because it:</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> Gives rise to odontoblasts (which form dentin) and ultimately becomes the pulp</li>
+          <li data-opt="b"><span class="opt-letter">B</span> Differentiates into ameloblasts to form enamel</li>
+          <li data-opt="c"><span class="opt-letter">C</span> Forms the periodontal ligament fibres</li>
+          <li data-opt="d"><span class="opt-letter">D</span> Becomes the cementum of the root</li>
+        </ul>
+        <div class="mcq-explain">The dental papilla is a condensation of mesenchyme enclosed within the enamel organ. Its peripheral cells differentiate into odontoblasts (which form dentin), while its central cells become trapped within the forming dentin and form the pulp tissue. The PDL and cementum arise from the dental follicle (sac), not the papilla.</div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="mcq-item" data-correct="b">
+        <div class="mcq-q"><span class="mcq-num">5</span> How many teeth are present in the complete adult permanent dentition?</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> 20</li>
+          <li data-opt="b"><span class="opt-letter">B</span> 32</li>
+          <li data-opt="c"><span class="opt-letter">C</span> 28</li>
+          <li data-opt="d"><span class="opt-letter">D</span> 24</li>
+        </ul>
+        <div class="mcq-explain">The complete permanent dentition has 32 teeth: 8 incisors + 4 canines + 8 premolars + 12 molars. If third molars (wisdom teeth) are absent or impacted and removed, this reduces to 28. The primary dentition has 20 teeth (no premolars, only 8 molars).</div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="mcq-item" data-correct="c">
+        <div class="mcq-q"><span class="mcq-num">6</span> Sharpey's fibres are a key histological feature of which structure?</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> Enamel, anchoring it to the dentin</li>
+          <li data-opt="b"><span class="opt-letter">B</span> Pulp, forming its fibrous core</li>
+          <li data-opt="c"><span class="opt-letter">C</span> Periodontal ligament, embedded into both cementum and alveolar bone</li>
+          <li data-opt="d"><span class="opt-letter">D</span> Gingival epithelium, anchoring it to the tooth</li>
+        </ul>
+        <div class="mcq-explain">Sharpey's fibres are bundles of collagen that are embedded (inserted) into both cementum on the root side and alveolar bone on the other side. They are the principal fibres of the periodontal ligament and are responsible for suspending and cushioning the tooth within its bony socket.</div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="mcq-item" data-correct="d">
+        <div class="mcq-q"><span class="mcq-num">7</span> A patient requires a mandibular block for extraction of a lower first molar. Which nerve is primarily targeted?</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> Posterior superior alveolar nerve (V2)</li>
+          <li data-opt="b"><span class="opt-letter">B</span> Lingual nerve (V3) at its origin</li>
+          <li data-opt="c"><span class="opt-letter">C</span> Mental nerve</li>
+          <li data-opt="d"><span class="opt-letter">D</span> Inferior alveolar nerve (V3) at the mandibular foramen</li>
+        </ul>
+        <div class="mcq-explain">The inferior alveolar nerve (branch of V3 — mandibular division) enters the mandibular canal via the mandibular foramen on the medial surface of the ramus. Blocking it here anaesthetises all ipsilateral lower teeth, lower lip, and chin. The posterior superior alveolar nerve (V2) supplies the upper molars. The mental nerve is the terminal branch of the inferior alveolar nerve, supplying the chin and lower lip only.</div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="mcq-item" data-correct="a">
+        <div class="mcq-q"><span class="mcq-num">8</span> Which of the following tooth types is absent from the primary (deciduous) dentition but present in the permanent dentition?</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> Premolars</li>
+          <li data-opt="b"><span class="opt-letter">B</span> Canines</li>
+          <li data-opt="c"><span class="opt-letter">C</span> Incisors</li>
+          <li data-opt="d"><span class="opt-letter">D</span> First molars</li>
+        </ul>
+        <div class="mcq-explain">Premolars do not exist in the primary dentition (formula 2·1·0·2). They erupt at around ages 10–12 and replace the primary molars. The primary dentition has 20 teeth; canines, incisors, and molars (though primary molars are replaced by premolars) are all present in both dentitions.</div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="mcq-item" data-correct="b">
+        <div class="mcq-q"><span class="mcq-num">9</span> Hertwig's epithelial root sheath is important in tooth development because it:</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> Secretes enamel matrix on the crown surface</li>
+          <li data-opt="b"><span class="opt-letter">B</span> Determines root shape and induces cementoblast differentiation</li>
+          <li data-opt="c"><span class="opt-letter">C</span> Forms the periodontal ligament principal fibres</li>
+          <li data-opt="d"><span class="opt-letter">D</span> Produces the dental lamina for the permanent tooth bud</li>
+        </ul>
+        <div class="mcq-explain">Hertwig's epithelial root sheath forms when the layers of the enamel organ fuse at the future CEJ and grow inward to mould the shape of the root(s). It induces the overlying mesenchymal cells to differentiate into cementoblasts, which deposit cementum. Gaps (fenestrations) in the sheath allow cementoblasts to reach the dentin surface. The shape of the sheath determines single vs. multi-rooted morphology.</div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="mcq-item" data-correct="c">
+        <div class="mcq-q"><span class="mcq-num">10</span> On a histological section you observe a tissue lining the root canal containing loose connective tissue, collagen fibres, blood vessels, and nerve fibres. The peripheral cells appear tall and columnar with processes extending into adjacent mineralised tissue. What are these peripheral cells?</div>
+        <ul class="mcq-options">
+          <li data-opt="a"><span class="opt-letter">A</span> Ameloblasts secreting enamel matrix</li>
+          <li data-opt="b"><span class="opt-letter">B</span> Cementoblasts depositing cementum</li>
+          <li data-opt="c"><span class="opt-letter">C</span> Odontoblasts lining the pulp cavity and sending processes into dentinal tubules</li>
+          <li data-opt="d"><span class="opt-letter">D</span> Fibroblasts of the periodontal ligament</li>
+        </ul>
+        <div class="mcq-explain">Odontoblasts are tall columnar cells lining the pulp cavity. Each sends a long cytoplasmic process (Tomes' fibre / odontoblast process) into a dentinal tubule within the mineralised dentin. They form dentin throughout life and persist in the pulp. The description — tall columnar cells with processes extending into an adjacent mineralised tissue, found lining a central cavity — is the classic histological description of odontoblasts.</div>
+      </div>
+
+      <div class="score-bar" id="score-bar"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const container = document.getElementById('mcq-container');
+  const scoreBar = document.getElementById('score-bar');
+  let answered = 0;
+  let correct = 0;
+  const total = 10;
+
+  container.addEventListener('click', function(e) {
+    const li = e.target.closest('li[data-opt]');
+    if (!li) return;
+    const item = li.closest('.mcq-item');
+    if (item.dataset.done) return;
+    item.dataset.done = '1';
+
+    const correctOpt = item.dataset.correct;
+    const chosen = li.dataset.opt;
+    const options = item.querySelectorAll('li[data-opt]');
+
+    options.forEach(opt => {
+      opt.classList.add('revealed');
+      if (opt.dataset.opt === correctOpt) opt.classList.add('correct');
+    });
+
+    if (chosen !== correctOpt) {
+      li.classList.add('wrong');
+    }
+
+    item.querySelector('.mcq-explain').classList.add('show');
+    answered++;
+    if (chosen === correctOpt) correct++;
+
+    if (answered === total) {
+      scoreBar.style.display = 'block';
+      const pct = Math.round((correct / total) * 100);
+      let msg = pct >= 80 ? '🎉 Excellent!' : pct >= 60 ? '👍 Good effort!' : '📖 Review the notes again!';
+      scoreBar.innerHTML = `${msg} You scored <strong>${correct} / ${total}</strong> (${pct}%)`;
+    }
+  });
+</script>
+</body>
+</html>
