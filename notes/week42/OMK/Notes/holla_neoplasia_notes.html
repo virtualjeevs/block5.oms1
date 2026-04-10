@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Intro to Neoplasia — Dr. Holla</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --surface2: #f0ede8;
+  --border: #e2ddd6;
+  --text: #1e1a14;
+  --text2: #5c5449;
+  --text3: #8a8178;
+
+  --red:    #c0392b;
+  --red-bg: #fdf0ef;
+  --red-border: #f0b8b3;
+
+  --orange:    #d35400;
+  --orange-bg: #fdf3ec;
+  --orange-border: #f5c9a3;
+
+  --gold:    #9a7d0a;
+  --gold-bg: #fdf8e7;
+  --gold-border: #e8d98a;
+
+  --green:    #1e7e45;
+  --green-bg: #edf7f1;
+  --green-border: #a8d9bc;
+
+  --blue:    #1a5fa8;
+  --blue-bg: #edf3fc;
+  --blue-border: #a8c8f0;
+
+  --purple:    #6b3fa0;
+  --purple-bg: #f3eefb;
+  --purple-border: #c9b0e8;
+
+  --teal:    #0e7490;
+  --teal-bg: #ecfafb;
+  --teal-border: #99dde8;
+
+  --accent: #c0392b;
+  --sidebar-w: 260px;
+  --font: 'Nunito', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 0 0 2rem;
+  flex-shrink: 0;
+}
+#sidebar-header {
+  background: var(--red);
+  color: #fff;
+  padding: 1rem 1.1rem 0.85rem;
+}
+#sidebar-header .course { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8; }
+#sidebar-header .title { font-size: 1.05rem; font-weight: 900; line-height: 1.25; margin-top: 0.15rem; }
+#sidebar-header .prof { font-size: 0.75rem; margin-top: 0.35rem; opacity: 0.85; font-weight: 600; }
+
+.sb-section { padding: 0.5rem 0.5rem 0; }
+.sb-section-label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text3);
+  padding: 0.55rem 0.6rem 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.sb-section-label::before { content:''; flex:1; height:1px; background: var(--border); }
+.sb-link {
+  display: block;
+  padding: 0.35rem 0.75rem 0.35rem 0.9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--text2);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+  transition: background 0.15s, color 0.15s;
+  margin: 0.05rem 0;
+}
+.sb-link:hover { background: var(--red-bg); color: var(--red); }
+.sb-link.plo { border-left: 3px solid var(--red); }
+.sb-link.lo { border-left: 3px solid var(--blue); padding-left: 1.2rem; }
+.sb-badge {
+  display: inline-block; font-size: 0.58rem; font-weight: 800;
+  padding: 0.1em 0.4em; border-radius: 4px; margin-right: 0.3rem;
+  font-family: var(--mono); vertical-align: middle;
+}
+.badge-plo { background: var(--red); color: #fff; }
+.badge-lo  { background: var(--blue); color: #fff; }
+
+/* ── MAIN ── */
+#main { flex: 1; padding: 2rem 2.5rem 4rem; max-width: 960px; }
+
+/* ── FONT SIZE CONTROLS ── */
+#font-controls {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.4rem 0.75rem;
+  position: sticky; top: 0.75rem; z-index: 50;
+  width: fit-content; margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+#font-controls span { font-size: 0.75rem; color: var(--text3); font-weight: 700; }
+.fc-btn {
+  width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border);
+  background: var(--surface2); cursor: pointer; font-size: 1rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text2); transition: background 0.15s;
+}
+.fc-btn:hover { background: var(--border); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);
+  border-radius: 14px;
+  padding: 1.75rem 2rem;
+  color: white;
+  margin-bottom: 2rem;
+}
+.page-header h1 { font-size: 1.75rem; font-weight: 900; line-height: 1.2; }
+.page-header .meta { margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.85; font-weight: 600; }
+.page-header .overview-chips { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ov-chip {
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px; padding: 0.2rem 0.7rem;
+  font-size: 0.72rem; font-weight: 700;
+}
+
+/* ── SECTION HEADERS ── */
+.section-header {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2.5px solid var(--border);
+}
+.section-header .tag {
+  font-family: var(--mono); font-size: 0.65rem; font-weight: 600;
+  padding: 0.25em 0.6em; border-radius: 5px; white-space: nowrap;
+}
+.tag-plo { background: var(--red); color: #fff; }
+.tag-lo  { background: var(--blue); color: #fff; }
+.section-header h2 { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+.section-header h3 { font-size: 1.05rem; font-weight: 700; color: var(--text2); }
+
+/* ── CALLOUT BOXES ── */
+.callout {
+  border-radius: 10px; padding: 0.9rem 1.1rem;
+  margin: 0.85rem 0; border-left: 4px solid;
+}
+.callout-title {
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.35rem;
+}
+.callout p, .callout li { font-size: 0.92rem; }
+.callout ul, .callout ol { padding-left: 1.2rem; }
+.callout li { margin: 0.2rem 0; }
+
+.red    { background: var(--red-bg);    border-color: var(--red);    color: var(--red);    }
+.red    p, .red li, .red .callout-body  { color: var(--text); }
+.orange { background: var(--orange-bg); border-color: var(--orange); color: var(--orange); }
+.orange p, .orange li, .orange .callout-body { color: var(--text); }
+.gold   { background: var(--gold-bg);   border-color: var(--gold);   color: var(--gold);   }
+.gold   p, .gold li, .gold .callout-body { color: var(--text); }
+.green  { background: var(--green-bg);  border-color: var(--green);  color: var(--green);  }
+.green  p, .green li, .green .callout-body { color: var(--text); }
+.blue   { background: var(--blue-bg);   border-color: var(--blue);   color: var(--blue);   }
+.blue   p, .blue li, .blue .callout-body { color: var(--text); }
+.purple { background: var(--purple-bg); border-color: var(--purple); color: var(--purple); }
+.purple p, .purple li, .purple .callout-body { color: var(--text); }
+.teal   { background: var(--teal-bg);   border-color: var(--teal);   color: var(--teal);   }
+.teal   p, .teal li, .teal .callout-body { color: var(--text); }
+
+/* ── TABLES ── */
+.table-wrap { overflow-x: auto; margin: 0.85rem 0; border-radius: 10px; border: 1.5px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th {
+  background: var(--surface2); font-weight: 800; font-size: 0.75rem;
+  text-transform: uppercase; letter-spacing: 0.06em; padding: 0.65rem 1rem;
+  border-bottom: 2px solid var(--border); text-align: left;
+}
+td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--surface2); }
+td strong { color: var(--red); }
+
+/* ── GRID / COMPARISON ── */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 0.85rem 0; }
+.compare-card {
+  border-radius: 10px; padding: 1rem 1.1rem;
+  border: 1.5px solid var(--border);
+}
+.compare-card.benign { border-color: var(--green-border); background: var(--green-bg); }
+.compare-card.malignant { border-color: var(--red-border); background: var(--red-bg); }
+.compare-card h4 { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+.compare-card.benign h4 { color: var(--green); }
+.compare-card.malignant h4 { color: var(--red); }
+.compare-card ul { padding-left: 1.1rem; }
+.compare-card li { font-size: 0.88rem; margin: 0.2rem 0; }
+
+/* ── PILL CHIPS ── */
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0; }
+.chip {
+  border-radius: 20px; padding: 0.25rem 0.75rem;
+  font-size: 0.75rem; font-weight: 700; border: 1.5px solid;
+}
+.chip-red    { background: var(--red-bg);    border-color: var(--red-border);    color: var(--red);    }
+.chip-blue   { background: var(--blue-bg);   border-color: var(--blue-border);   color: var(--blue);   }
+.chip-green  { background: var(--green-bg);  border-color: var(--green-border);  color: var(--green);  }
+.chip-purple { background: var(--purple-bg); border-color: var(--purple-border); color: var(--purple); }
+.chip-gold   { background: var(--gold-bg);   border-color: var(--gold-border);   color: var(--gold);   }
+.chip-teal   { background: var(--teal-bg);   border-color: var(--teal-border);   color: var(--teal);   }
+.chip-orange { background: var(--orange-bg); border-color: var(--orange-border); color: var(--orange); }
+
+/* ── DEFINITION CARDS ── */
+.def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 0.85rem 0; }
+.def-card {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 0.9rem 1.1rem;
+  border-top: 4px solid var(--blue);
+}
+.def-card .term { font-size: 0.85rem; font-weight: 900; color: var(--blue); margin-bottom: 0.3rem; font-family: var(--mono); }
+.def-card p { font-size: 0.88rem; color: var(--text2); }
+
+/* ── SPREAD PATH CARDS ── */
+.path-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.85rem; margin: 0.85rem 0; }
+.path-card {
+  border-radius: 10px; padding: 1rem 1.1rem; border: 1.5px solid var(--border);
+  text-align: center;
+}
+.path-card .icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+.path-card h4 { font-size: 0.85rem; font-weight: 800; margin-bottom: 0.4rem; }
+.path-card p { font-size: 0.8rem; color: var(--text2); }
+
+/* ── PARANEOPLASTIC TABLE ── */
+.pns-chip { display: inline-block; background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); border-radius: 4px; font-size: 0.72rem; font-weight: 700; padding: 0.1em 0.4em; }
+
+/* ── TNM GRID ── */
+.tnm-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.85rem; margin: 0.85rem 0; }
+.tnm-card {
+  border-radius: 10px; padding: 1rem 1.1rem;
+  border: 1.5px solid var(--border);
+}
+.tnm-card.t-card { border-color: var(--blue-border); background: var(--blue-bg); }
+.tnm-card.n-card { border-color: var(--green-border); background: var(--green-bg); }
+.tnm-card.m-card { border-color: var(--red-border); background: var(--red-bg); }
+.tnm-card h4 { font-size: 1.1rem; font-weight: 900; font-family: var(--mono); margin-bottom: 0.4rem; }
+.tnm-card.t-card h4 { color: var(--blue); }
+.tnm-card.n-card h4 { color: var(--green); }
+.tnm-card.m-card h4 { color: var(--red); }
+.tnm-card ul { padding-left: 1rem; }
+.tnm-card li { font-size: 0.82rem; margin: 0.15rem 0; }
+
+/* ── HIGH YIELD BANNER ── */
+.hy-banner {
+  background: linear-gradient(90deg, var(--red-bg), var(--orange-bg));
+  border: 1.5px solid var(--red-border);
+  border-radius: 10px; padding: 0.75rem 1.1rem;
+  margin: 0.85rem 0; display: flex; align-items: flex-start; gap: 0.75rem;
+}
+.hy-banner .icon { font-size: 1.2rem; flex-shrink: 0; }
+.hy-banner p { font-size: 0.88rem; }
+.hy-banner strong { color: var(--red); }
+
+/* ── INLINE MONO HIGHLIGHT ── */
+code { font-family: var(--mono); font-size: 0.82em; background: var(--surface2); padding: 0.1em 0.35em; border-radius: 4px; color: var(--red); }
+
+/* ── FIGURES ── */
+.figure-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(30, 26, 20, 0.06);
+}
+.figure-card.single {
+  max-width: 640px;
+  margin: 1rem auto 1.25rem;
+}
+.figure-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  background: #fff;
+  cursor: zoom-in;
+}
+.figure-card figcaption {
+  padding: 0.75rem 0.95rem;
+  font-size: 0.82rem;
+  color: var(--text2);
+  border-top: 1px solid var(--border);
+}
+.figure-card figcaption strong { color: var(--text); }
+
+/* ── IMAGE LIGHTBOX ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(18, 18, 18, 0.88);
+  z-index: 9999;
+}
+.lightbox.open { display: flex; }
+.lightbox-inner {
+  position: relative;
+  max-width: min(1100px, 92vw);
+  max-height: 92vh;
+}
+.lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
+}
+.lightbox-close {
+  position: absolute;
+  top: -0.75rem;
+  right: -0.75rem;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.94);
+  color: #111;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+.zoom-hint {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.74rem;
+  color: #f2eee7;
+  letter-spacing: 0.02em;
+}
+
+/* ── MISC ── */
+p { margin-bottom: 0.4rem; }
+ul, ol { padding-left: 1.4rem; }
+li { margin: 0.25rem 0; }
+strong.hl { color: var(--red); }
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+@media (max-width: 768px) {
+  #sidebar { display: none; }
+  .compare-grid, .def-grid, .path-grid, .tnm-grid { grid-template-columns: 1fr; }
+  #main { padding: 1rem 1.2rem 3rem; }
+  .figure-card img { max-height: 260px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <div class="course">Block 5 · Pathology</div>
+    <div class="title">Intro to Neoplasia</div>
+    <div class="prof">Dr. Padmini Holla</div>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">PLOs</div>
+    <a href="#plo1" class="sb-link plo"><span class="sb-badge badge-plo">PLO1</span>Nomenclature</a>
+    <a href="#plo2" class="sb-link plo"><span class="sb-badge badge-plo">PLO2</span>Benign vs Malignant</a>
+    <a href="#plo3" class="sb-link plo"><span class="sb-badge badge-plo">PLO3</span>Key Definitions</a>
+    <a href="#plo4" class="sb-link plo"><span class="sb-badge badge-plo">PLO4</span>Invasion vs Metastasis</a>
+  </div>
+
+  <div class="sb-section">
+    <div class="sb-section-label">LOs</div>
+    <a href="#lo1" class="sb-link lo"><span class="sb-badge badge-lo">LO1</span>Paraneoplastic Syndrome</a>
+    <a href="#lo2" class="sb-link lo"><span class="sb-badge badge-lo">LO2</span>Desmoplasia</a>
+    <a href="#lo3" class="sb-link lo"><span class="sb-badge badge-lo">LO3</span>3 Pathways of Spread</a>
+    <a href="#lo4" class="sb-link lo"><span class="sb-badge badge-lo">LO4</span>Grading vs Staging</a>
+    <a href="#lo5" class="sb-link lo"><span class="sb-badge badge-lo">LO5</span>In-Situ vs Invasive</a>
+    <a href="#lo6" class="sb-link lo"><span class="sb-badge badge-lo">LO6</span>Testing Modalities</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+
+  <!-- Font controls -->
+  <div id="font-controls">
+    <span>TEXT SIZE</span>
+    <button class="fc-btn" onclick="changeFont(-1)">−</button>
+    <button class="fc-btn" onclick="changeFont(1)">+</button>
+  </div>
+
+  <!-- Page header -->
+  <div class="page-header">
+    <h1>Introduction to Neoplasia</h1>
+    <div class="meta">Dr. Padmini Holla · pholla@une.edu · Block 5 Pathology</div>
+    <div class="overview-chips">
+      <span class="ov-chip">Nomenclature</span>
+      <span class="ov-chip">Benign vs Malignant</span>
+      <span class="ov-chip">Anaplasia &amp; Dysplasia</span>
+      <span class="ov-chip">Local Invasion</span>
+      <span class="ov-chip">Metastasis</span>
+      <span class="ov-chip">Paraneoplastic Syndrome</span>
+      <span class="ov-chip">Grading &amp; Staging</span>
+      <span class="ov-chip">Lab Diagnosis</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- FOUNDATIONAL CONCEPTS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="tag tag-plo">FOUNDATION</span>
+    <h2>Fundamental Features of All Neoplasia</h2>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-title">🔬 What is a Neoplasm?</div>
+    <div class="callout-body">
+      <ul>
+        <li>Neoplasm = <strong>genetic disorder caused by DNA mutations</strong></li>
+        <li>Tumors arise from <strong>accumulation of multiple genetic alterations</strong></li>
+        <li>Results in abnormal growth that <strong>persists even after the initiating factor is removed</strong></li>
+        <li>Governed by <em>survival of the fittest</em> — clonal selection of cells with growth advantage</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card benign">
+      <h4>🧩 Parenchyma</h4>
+      <p>The actual <strong>tumor cells</strong> — the neoplastic component</p>
+    </div>
+    <div class="compare-card malignant" style="border-color: var(--blue-border); background: var(--blue-bg);">
+      <h4 style="color: var(--blue);">🕸️ Stroma</h4>
+      <p>Reactive <strong>connective tissue, blood vessels</strong>, etc. that supports the tumor</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PLO 1: NOMENCLATURE -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="plo1" class="section-header">
+    <span class="tag tag-plo">PLO 1</span>
+    <h2>Tumor Nomenclature</h2>
+  </div>
+
+  <div class="callout gold">
+    <div class="callout-title">📌 Core Naming Rule</div>
+    <div class="callout-body">
+      <p>The <strong>primary descriptor</strong> of any tumor is the <strong>cell or tissue of origin</strong>. The suffix <code>-oma</code> is added for all tumors.</p>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Tissue of Origin</th>
+          <th>Benign</th>
+          <th>Malignant</th>
+          <th>Examples</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Epithelial</strong></td>
+          <td>Glandular / secretory</td>
+          <td>Adenoma</td>
+          <td>Adenocarcinoma</td>
+          <td>Colonic adenocarcinoma</td>
+        </tr>
+        <tr>
+          <td><strong>Epithelial</strong></td>
+          <td>Squamous epithelium</td>
+          <td>Papilloma</td>
+          <td>Squamous cell carcinoma</td>
+          <td>Skin SCC</td>
+        </tr>
+        <tr>
+          <td><strong>Mesenchymal</strong></td>
+          <td>Fibrous tissue</td>
+          <td>Fibroma</td>
+          <td>Fibrosarcoma</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Mesenchymal</strong></td>
+          <td>Cartilage</td>
+          <td>Chondroma</td>
+          <td>Chondrosarcoma</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Mesenchymal</strong></td>
+          <td>Fat</td>
+          <td>Lipoma</td>
+          <td>Liposarcoma</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Mesenchymal</strong></td>
+          <td>Bone</td>
+          <td>Osteoma</td>
+          <td>Osteosarcoma</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Mesenchymal</strong></td>
+          <td>Blood vessels</td>
+          <td>Hemangioma</td>
+          <td>Angiosarcoma</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Blood cells</strong></td>
+          <td>Leukocytes</td>
+          <td>—</td>
+          <td>Leukemia / Lymphoma</td>
+          <td>CML, Hodgkin's lymphoma</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout orange">
+    <div class="callout-title">⚠️ Exceptions to the Rule</div>
+    <div class="callout-body">
+      <p>Not everything that ends in <code>-oma</code> is benign! Notable exceptions include:</p>
+      <div class="chip-row">
+        <span class="chip chip-red">Melanoma (malignant)</span>
+        <span class="chip chip-red">Lymphoma (malignant)</span>
+        <span class="chip chip-red">Mesothelioma (malignant)</span>
+        <span class="chip chip-green">Hamartoma (benign)</span>
+        <span class="chip chip-green">Granuloma (inflammatory, not neoplastic)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout teal">
+    <div class="callout-title">🧬 Mixed & Special Tumors</div>
+    <div class="callout-body">
+      <ul>
+        <li><strong>Mixed tumors</strong> — neoplastic cells can differentiate into both epithelial AND mesenchymal (divergent differentiation). E.g., <em>Pleomorphic adenoma</em> (parotid gland)</li>
+        <li><strong>Teratoma</strong> — contains tissue from ≥1 germ cell layers; arise from totipotent germ cells in ovary, testis, or abnormal midline embryonic rests. Can differentiate into any cell type.</li>
+        <li><strong>Hamartoma</strong> — tissue elements <em>normally</em> found at the site, growing in a haphazard manner. Have clonal chromosomal aberrations. Considered benign. Mimics a neoplasm on imaging (e.g., pulmonary "coin lesion").</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="figure-card single">
+    <img src="holla_neoplasia_notes_assets/teratoma_gross_histo.png" alt="Mature cystic teratoma gross specimen with matching histology" loading="lazy"/>
+    <figcaption><strong>Lecture figure:</strong> Mature cystic teratoma shown as a gross specimen with histology, matching the teratoma example in the special tumors section.</figcaption>
+  </figure>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PLO 2: CHARACTERISTICS BENIGN VS MALIGNANT -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="plo2" class="section-header">
+    <span class="tag tag-plo">PLO 2</span>
+    <h2>Characteristics: Benign vs. Malignant Neoplasms</h2>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>🟢 Benign</th>
+          <th>🔴 Malignant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Differentiation</strong></td>
+          <td>Well-differentiated; resembles tissue of origin</td>
+          <td>Well to poorly differentiated; pleomorphic cells; may be anaplastic</td>
+        </tr>
+        <tr>
+          <td><strong>Growth rate</strong></td>
+          <td>Usually slow; mitotic figures <em>rare</em> and normal</td>
+          <td>Slow to rapid; mitotic figures may be abundant &amp; <em>atypical</em></td>
+        </tr>
+        <tr>
+          <td><strong>Necrosis</strong></td>
+          <td>Absent</td>
+          <td>Present — rapidly growing tumors outgrow their vascular supply → coagulative necrosis</td>
+        </tr>
+        <tr>
+          <td><strong>Local invasion</strong></td>
+          <td>Cohesive, well-demarcated, expansile. May be encapsulated. Does NOT invade surrounding tissue.</td>
+          <td>Poorly demarcated, invasive/infiltrative. May have pseudo-capsule if slow-growing.</td>
+        </tr>
+        <tr>
+          <td><strong>Metastasis</strong></td>
+          <td>Absent</td>
+          <td>Present</td>
+        </tr>
+        <tr>
+          <td><strong>Functional</strong></td>
+          <td>Retains functional capability (e.g., endocrine adenomas can secrete hormones)</td>
+          <td>Variable; may lose functional differentiation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout red">
+    <div class="callout-title">🔴 Anaplastic Cytologic Features of Malignancy</div>
+    <div class="callout-body">
+      <ul>
+        <li><strong>Pleomorphism</strong> — variation in cell shape and size</li>
+        <li><strong>Abnormal nuclear morphology</strong> — disproportionate N:C ratio; irregular nuclear borders; hyperchromasia; multiple large nucleoli</li>
+        <li><strong>Atypical/bizarre mitoses</strong> — presence of mitosis alone ≠ malignancy, but <em>atypical mitoses</em> (e.g., tripolar mitosis) = feature of malignancy</li>
+        <li><strong>Loss of polarity</strong> and architectural disarray</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="figure-card single">
+    <img src="holla_neoplasia_notes_assets/atypical_mitoses.png" alt="Malignant tumor slide showing atypical and tripolar mitoses" loading="lazy"/>
+    <figcaption><strong>Lecture figure:</strong> Atypical mitoses, including tripolar mitosis, are a classic cytologic clue that a lesion is malignant rather than simply proliferative.</figcaption>
+  </figure>
+
+  <div class="hy-banner">
+    <div class="icon">💡</div>
+    <p><strong>High-Yield:</strong> <em>Invasiveness</em> and <em>metastasis</em> are the most <strong>reliable</strong> indicators to distinguish benign from malignant tumors — capsule alone does not determine malignancy (lack of capsule ≠ malignant).</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PLO 3: KEY DEFINITIONS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="plo3" class="section-header">
+    <span class="tag tag-plo">PLO 3</span>
+    <h2>Key Definitions</h2>
+  </div>
+
+  <div class="def-grid">
+    <div class="def-card">
+      <div class="term">Neoplasia</div>
+      <p>"New growth." Autonomous growth of tissue that has <strong>escaped normal restraints</strong> on cell proliferation. Persists even after the initiating stimulus is removed.</p>
+    </div>
+    <div class="def-card">
+      <div class="term">Anaplasia</div>
+      <p><strong>Lack of differentiation</strong>. De-differentiated, poorly differentiated cells. Indicates how far a malignant tumor has diverged from its tissue of origin.</p>
+    </div>
+    <div class="def-card">
+      <div class="term">Metaplasia</div>
+      <p>Replacement of one differentiated cell type with <strong>another</strong>. Associated with injury and repair. May undergo malignant transformation if the offending agent persists.<br/><em>Example: Barrett's esophagus</em> — squamous epithelium replaced by intestinal columnar epithelium.</p>
+    </div>
+    <div class="def-card">
+      <div class="term">Dysplasia</div>
+      <p>"Disordered growth." Dysplastic cells exhibit <strong>pleomorphism, increased N:C ratio, hyperchromasia, loss of differentiation,</strong> and architectural disarray. Precursor to malignancy; may be reversible if stimulus removed.</p>
+    </div>
+  </div>
+
+  <div class="callout purple">
+    <div class="callout-title">🧠 Differentiation vs. Anaplasia</div>
+    <div class="callout-body">
+      <p><strong>Differentiation</strong> = the extent to which neoplastic cells <em>resemble</em> their normal parenchymal counterpart (morphologically AND functionally).</p>
+      <p style="margin-top:0.35rem;"><strong>Anaplasia</strong> = the <em>lack</em> of differentiation. The more anaplastic, the less it resembles the cell of origin.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- PLO 4: INVASION VS METASTASIS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="plo4" class="section-header">
+    <span class="tag tag-plo">PLO 4</span>
+    <h2>Local Invasion vs. Metastasis</h2>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card benign">
+      <h4>Local Invasion — Benign Tumors</h4>
+      <ul>
+        <li>Grow as cohesive, <strong>expansile masses</strong></li>
+        <li>Remain <strong>localized</strong> to site of origin</li>
+        <li>Lack capacity to invade or metastasize</li>
+        <li>Grow slowly; may develop a <strong>capsule</strong></li>
+        <li><em>Lack of capsule alone ≠ malignant</em></li>
+      </ul>
+    </div>
+    <div class="compare-card malignant">
+      <h4>Local Invasion — Malignant Tumors</h4>
+      <ul>
+        <li>Poorly demarcated from surrounding tissue</li>
+        <li><strong>Infiltrate</strong> adjacent structures; lack a well-defined plane</li>
+        <li>Slowly-growing malignant tumors may develop a <strong>pseudo-capsule</strong></li>
+        <li>Invasiveness + metastasis = reliable malignancy indicators</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="figure-card single">
+    <img src="holla_neoplasia_notes_assets/local_invasion_schematic.png" alt="Benign versus malignant local invasion schematic" loading="lazy"/>
+    <figcaption><strong>Lecture figure:</strong> Benign tumors stay cohesive and localized, while malignant tumors invade through surrounding tissue and lose a clean boundary.</figcaption>
+  </figure>
+
+  <div class="callout red">
+    <div class="callout-title">🦀 Metastasis — Definition</div>
+    <div class="callout-body">
+      <p>Spread of tumor to sites that are <strong>physically discontinuous</strong> with the primary tumor.</p>
+      <ul>
+        <li>All malignant tumors have the <em>capacity</em> to metastasize, but some <em>rarely</em> do (e.g., basal cell carcinoma of skin, CNS gliomas)</li>
+        <li>Features ↑ likelihood of metastasis: <strong>lack of differentiation, aggressive local invasion, rapid growth, large size</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LO 5: IN-SITU vs INVASIVE (placed early for flow) -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="lo5" class="section-header">
+    <span class="tag tag-lo">LO 5</span>
+    <h3>Carcinoma-in-Situ vs. Invasive Tumor</h3>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card benign" style="border-color: var(--gold-border); background: var(--gold-bg);">
+      <h4 style="color: var(--gold);">Carcinoma-in-Situ (CIS)</h4>
+      <ul>
+        <li>Severe dysplasia involving the <strong>full thickness</strong> of the epithelium</li>
+        <li>Does <strong>NOT penetrate the basement membrane</strong></li>
+        <li>Has all cytologic features of malignancy</li>
+        <li><strong>High probability</strong> of progression to invasive cancer if untreated</li>
+        <li>Common sites: skin, cervix, breast (DCIS), urinary bladder</li>
+        <li>Treatable / potentially curable at this stage</li>
+      </ul>
+    </div>
+    <div class="compare-card malignant">
+      <h4>Invasive Carcinoma</h4>
+      <ul>
+        <li><strong>Penetrates the basement membrane</strong> into surrounding stroma</li>
+        <li>Can access lymphatics and blood vessels → metastasis</li>
+        <li>TNM Stage ≥ T1 by definition</li>
+        <li>Dramatically changes prognosis and treatment</li>
+        <li>Example: DCIS → invasive ductal carcinoma of breast</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hy-banner">
+    <div class="icon">🏥</div>
+    <p><strong>Clinical Ramification:</strong> The basement membrane is the critical barrier. CIS = no lymphovascular access. Once breached → metastatic potential exists. This is why early detection (Pap smear for cervical CIS, mammography for DCIS) is life-saving.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LO 2: DESMOPLASIA -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="lo2" class="section-header">
+    <span class="tag tag-lo">LO 2</span>
+    <h3>Desmoplasia</h3>
+  </div>
+
+  <div class="callout blue">
+    <div class="callout-title">🔵 Definition</div>
+    <div class="callout-body">
+      <p><strong>Desmoplasia</strong> = the induction of <strong>excessive dense fibrous (connective) tissue</strong> by a malignant tumor within and around the tumor stroma.</p>
+      <ul style="margin-top:0.4rem;">
+        <li>Commonly seen in <strong>breast carcinoma</strong> (causes the palpable hard mass) and <strong>pancreatic carcinoma</strong></li>
+        <li>Desmoplastic reaction = sign of <strong>invasive</strong> tumor because it requires tumor-stroma interaction (tumor cells penetrating beyond their normal boundaries, triggering reactive stroma)</li>
+        <li><strong>Non-invasive / in-situ</strong> tumors typically <em>lack</em> a desmoplastic reaction (no stroma to react)</li>
+        <li>Therefore: <em>presence of desmoplasia → invasive tumor; absence → may still be in-situ</em></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LO 3: 3 PATHWAYS OF SPREAD -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="lo3" class="section-header">
+    <span class="tag tag-lo">LO 3</span>
+    <h3>3 Common Pathways of Tumor Spread</h3>
+  </div>
+
+  <div class="path-grid">
+    <div class="path-card" style="border-color: var(--teal-border); background: var(--teal-bg);">
+      <div class="icon">🫁</div>
+      <h4 style="color: var(--teal);">1. Direct Seeding of Body Cavities</h4>
+      <p>Most often the <strong>peritoneal cavity</strong>; also pleural, pericardial. Can cause <strong>malignant effusions</strong>. Classic: <em>ovarian carcinoma → peritoneal seeding / omental implants</em>.</p>
+    </div>
+    <div class="path-card" style="border-color: var(--green-border); background: var(--green-bg);">
+      <div class="icon">🩸</div>
+      <h4 style="color: var(--green);">2. Lymphatic Spread</h4>
+      <p><strong>Most common pathway for carcinomas.</strong> Follows natural lymphatic routes. <strong>Sentinel node</strong> = first regional lymph node receiving lymph from primary tumor → used for prognosis and staging (e.g., breast, melanoma).</p>
+    </div>
+    <div class="path-card" style="border-color: var(--red-border); background: var(--red-bg);">
+      <div class="icon">🔴</div>
+      <h4 style="color: var(--red);">3. Hematogenous Spread</h4>
+      <p><strong>Most common for sarcomas.</strong> Via thin-walled veins. Liver and lung are the most common metastatic sites (portal venous and systemic venous drainage, respectively).</p>
+    </div>
+  </div>
+
+  <div class="callout gold">
+    <div class="callout-title">🗝️ Key Distinctions</div>
+    <div class="callout-body">
+      <ul>
+        <li><strong>Carcinomas</strong> → prefer <em>lymphatic spread</em> first</li>
+        <li><strong>Sarcomas</strong> → prefer <em>hematogenous spread</em></li>
+        <li><strong>Liver</strong> receives blood from portal vein (GI tumors metastasize here) and hepatic artery</li>
+        <li><strong>Lung</strong> receives all systemic venous drainage → any tumor can reach here</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="figure-card single">
+    <img src="holla_neoplasia_notes_assets/metastatic_spread_schematic.png" alt="Malignant tumor spreading through lymphatic and blood vessels to distant sites" loading="lazy"/>
+    <figcaption><strong>Lecture figure:</strong> This spread diagram reinforces the transition from local invasion to true metastasis through lymphatic and hematogenous routes.</figcaption>
+  </figure>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LO 1: PARANEOPLASTIC SYNDROME -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="lo1" class="section-header">
+    <span class="tag tag-lo">LO 1</span>
+    <h3>Paraneoplastic Syndromes</h3>
+  </div>
+
+  <div class="callout purple">
+    <div class="callout-title">📖 Definition</div>
+    <div class="callout-body">
+      <p>Clinical signs and symptoms attributed to underlying malignancy but <strong>NOT due to tumor invasion or metastasis</strong>. Caused by <strong>tumor production of hormones/peptides/immune mediators</strong> that cause metabolic derangements or immune-mediated damage.</p>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <div class="callout-title">🏥 Clinical Importance</div>
+    <div class="callout-body">
+      <ul>
+        <li><strong>Early detection</strong> — paraneoplastic symptoms may be the <em>first</em> sign of malignancy</li>
+        <li>Can cause <strong>life-threatening</strong> symptoms independent of tumor burden</li>
+        <li>Most associated with: <strong>lung, breast, and hematologic</strong> malignancies</li>
+        <li>Affected systems: nervous, endocrine, cardiovascular, skin, hematologic</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Syndrome</th>
+          <th>Mediator</th>
+          <th>Associated Cancer(s)</th>
+          <th>Key Features</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hypercalcemia</strong> <span class="pns-chip">Most Common PNS</span></td>
+          <td>PTHrP (PTH-related protein), TNF, TGF-α, IL-1</td>
+          <td>Lung, breast, kidney, ovaries</td>
+          <td>Weakness/lethargy, N/V, altered mental status, bradycardia, acute renal failure</td>
+        </tr>
+        <tr>
+          <td><strong>Cushing's Syndrome</strong> <span class="pns-chip">Most Common Endocrinopathy</span></td>
+          <td>Ectopic ACTH / pro-opiomelanocortin</td>
+          <td>Small cell lung carcinoma, pancreatic tumors, thymic tumors</td>
+          <td>HTN, weight gain, moon face, buffalo hump, ↓muscle mass, hyperglycemia, poor wound healing, purple striae, depression</td>
+        </tr>
+        <tr>
+          <td><strong>SIADH</strong></td>
+          <td>Ectopic ADH</td>
+          <td>Small cell lung carcinoma</td>
+          <td>Hyponatremia, confusion, seizures</td>
+        </tr>
+        <tr>
+          <td><strong>Neuromyopathic PNS</strong></td>
+          <td>Immune-mediated (antigen mimicry tumor vs. normal tissue → autoimmune damage)</td>
+          <td>Lung, breast</td>
+          <td>Peripheral neuropathy, encephalitis, myasthenia gravis-like</td>
+        </tr>
+        <tr>
+          <td><strong>Cachexia</strong></td>
+          <td>TNF (cachectin), IL-1, IL-6</td>
+          <td>Many (especially advanced cancer)</td>
+          <td>Skeletal muscle loss ± fat loss, anorexia, fatigue, anemia, edema, taste changes; <em>cannot be fully reversed by nutritional support</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout orange">
+    <div class="callout-title">🔬 Hypercalcemia — Two Mechanisms</div>
+    <div class="callout-body">
+      <ol>
+        <li><strong>Osteolytic</strong> bone destruction by cancer (NOT paraneoplastic — direct bone invasion)</li>
+        <li><strong>Humoral</strong> production of PTHrP, TNF, TGF-α, IL-1 → ↑ serum calcium (<em>true paraneoplastic</em>)</li>
+      </ol>
+      <p style="margin-top:0.4rem;"><em>PTHrP</em> is structurally similar to PTH and functions similarly to raise serum Ca²⁺. Normally produced in trace amounts by keratinocytes.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LO 4: GRADING vs STAGING -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="lo4" class="section-header">
+    <span class="tag tag-lo">LO 4</span>
+    <h3>Grading vs. Staging</h3>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-card benign" style="border-color: var(--blue-border); background: var(--blue-bg);">
+      <h4 style="color: var(--blue);">📊 Grading</h4>
+      <ul>
+        <li>Based on <strong>degree of differentiation</strong> of tumor cells (cytologic appearance)</li>
+        <li>Features used: cellular differentiation, mitosis count, necrosis, architectural features (gland formation vs. solid sheets)</li>
+        <li>Scale: typically <strong>Grade 1–3 or 1–4</strong> (higher = less differentiated)</li>
+        <li>Some tumors have unique grading systems (e.g., Gleason for prostate)</li>
+        <li><em>Histologic grade ≠ always correlates with biologic behavior</em></li>
+      </ul>
+    </div>
+    <div class="compare-card malignant" style="border-color: var(--red-border); background: var(--red-bg);">
+      <h4 style="color: var(--red);">📍 Staging</h4>
+      <ul>
+        <li>Based on the <strong>extent / anatomic spread</strong> of the malignancy</li>
+        <li>Factors: primary tumor size/invasion, lymph node involvement, distant metastasis</li>
+        <li><strong>Offers more clinical value</strong> than grading (prognosis, treatment, clinical trials)</li>
+        <li>Most common system: <strong>AJCC TNM</strong></li>
+        <li>Stage 0 (CIS) → Stage IV (distant metastasis)</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure class="figure-card single">
+    <img src="holla_neoplasia_notes_assets/tumor_grade_scale.png" alt="Tumor grade scale from well differentiated to undifferentiated" loading="lazy"/>
+    <figcaption><strong>Lecture figure:</strong> Tumor grading tracks how far cells have moved from well differentiated tissue toward undifferentiated morphology.</figcaption>
+  </figure>
+
+  <div class="tnm-grid">
+    <div class="tnm-card t-card">
+      <h4>T — Tumor</h4>
+      <ul>
+        <li><code>TX</code> — cannot be assessed</li>
+        <li><code>T0</code> — no evidence of primary tumor</li>
+        <li><code>Tis</code> — carcinoma in situ</li>
+        <li><code>T1–T4</code> — ↑ size or depth of invasion</li>
+      </ul>
+    </div>
+    <div class="tnm-card n-card">
+      <h4>N — Nodes</h4>
+      <ul>
+        <li><code>NX</code> — cannot be assessed</li>
+        <li><code>N0</code> — no regional node involvement</li>
+        <li><code>N1–N3</code> — ↑ number of nodes involved</li>
+      </ul>
+    </div>
+    <div class="tnm-card m-card">
+      <h4>M — Metastasis</h4>
+      <ul>
+        <li><code>M0</code> — no distant metastasis</li>
+        <li><code>M1</code> — distant metastasis present</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Stage</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Stage 0</strong></td><td>Carcinoma in situ (Tis, N0, M0)</td></tr>
+        <tr><td><strong>Stage I</strong></td><td>Small, confined to organ (T1, N0, M0)</td></tr>
+        <tr><td><strong>Stage II–III</strong></td><td>Larger size, local invasion, spread to adjacent tissue, ± regional nodes</td></tr>
+        <tr><td><strong>Stage IV</strong></td><td>Distant metastasis (any T, any N, M1)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout gold">
+    <div class="callout-title">📋 Staging Prefixes</div>
+    <div class="callout-body">
+      <ul>
+        <li><code>c</code>TNM — <strong>Clinical staging</strong>: based on exam, imaging, biopsy; done within ~4 months of diagnosis</li>
+        <li><code>p</code>TNM — <strong>Pathologic staging</strong>: based on tissue after surgical excision (more accurate)</li>
+        <li><code>y</code>TNM — post-therapy staging</li>
+        <li><code>r</code>TNM — recurrence after disease-free interval</li>
+      </ul>
+      <p style="margin-top:0.4rem;"><em>Example: Breast cancer stage cT2N1M1</em></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- LO 6: TESTING MODALITIES -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="lo6" class="section-header">
+    <span class="tag tag-lo">LO 6</span>
+    <h3>Laboratory Diagnosis / Testing Modalities</h3>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Modality</th>
+          <th>What It Does</th>
+          <th>Key Uses / Examples</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Histology</strong></td>
+          <td>Microscopic examination of tissue sections</td>
+          <td>Degree of differentiation; depth of invasion. <em>Frozen section</em> = rapid intraoperative diagnosis.</td>
+        </tr>
+        <tr>
+          <td><strong>Cytology</strong></td>
+          <td>Examination of individual cells</td>
+          <td><em>Fine needle aspiration (FNA)</em> — thyroid, breast, salivary glands; <em>Papanicolaou (Pap) test</em> — cervical neoplasia screening, bladder, lung, fluids</td>
+        </tr>
+        <tr>
+          <td><strong>Immunohistochemistry (IHC)</strong></td>
+          <td>Antigen–antibody binding to detect specific cellular antigens</td>
+          <td>Identify origin of metastatic tumors (thyroglobulin = thyroid; PSA = prostate); prognostic/therapeutic (ER/PR in breast cancer; desmin for muscle tumors)</td>
+        </tr>
+        <tr>
+          <td><strong>Flow Cytometry</strong></td>
+          <td>Measures cell surface markers in suspension</td>
+          <td>Diagnosis of leukemia and lymphoma (cell lineage, clonality)</td>
+        </tr>
+        <tr>
+          <td><strong>Tumor Markers</strong></td>
+          <td>Any substance (enzyme, hormone, specific protein) that provides info about presence/absence of malignancy</td>
+          <td>PSA (prostate), CA-125 (ovarian), CEA (colon). <em>Low sensitivity/specificity</em> alone — must use with clinical/radiologic data. Used for surveillance and monitoring therapy.</td>
+        </tr>
+        <tr>
+          <td><strong>Molecular Analysis / Cytogenetics</strong></td>
+          <td>PCR, FISH to detect gene rearrangements/mutations</td>
+          <td>Diagnosis: Philadelphia chromosome (BCR-ABL) in CML. Prognosis: HER-2/neu in breast. Minimal disease detection. Hereditary predisposition: BRCA1/2. Therapy guidance: BCR-ABL → imatinib (Gleevec).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure class="figure-card single">
+    <img src="holla_neoplasia_notes_assets/histology_vs_cytology.png" alt="Histology compared with cytology specimens" loading="lazy"/>
+    <figcaption><strong>Lecture figure:</strong> Histology preserves tissue architecture, while cytology focuses on individual cells, which is why the two modalities answer slightly different diagnostic questions.</figcaption>
+  </figure>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- EPIDEMIOLOGY & HALLMARKS (bonus content) -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header" style="margin-top: 2.5rem;">
+    <span class="tag tag-plo" style="background: var(--teal);">EXTRA</span>
+    <h2>Epidemiology &amp; Hallmarks of Cancer</h2>
+  </div>
+
+  <div class="callout teal">
+    <div class="callout-title">📈 Cancer Incidence</div>
+    <div class="callout-body">
+      <ul>
+        <li>Cancer = <strong>2nd leading cause of death in the US</strong> (after heart disease)</li>
+        <li>Most common in <strong>men</strong>: Prostate, Lung, Colorectal</li>
+        <li>Most common in <strong>women</strong>: Breast, Lung, Colorectal</li>
+        <li>Death rates ↓ due to: ↓ tobacco use, improved screening (mammography, colonoscopy, Pap smear), improved treatment</li>
+        <li>Incidence ↑ with age (somatic mutation accumulation; ↓ immune surveillance)</li>
+        <li>Pediatric tumors more often associated with <em>inherited</em> mutations</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <div class="callout-title">🌿 Environmental &amp; Acquired Risk Factors</div>
+    <div class="callout-body">
+      <div class="chip-row">
+        <span class="chip chip-red">HPV → Cervical/Oropharyngeal</span>
+        <span class="chip chip-red">Hep B/C → HCC</span>
+        <span class="chip chip-red">H. pylori → Gastric</span>
+        <span class="chip chip-orange">Smoking → Lung, Oropharynx, Bladder</span>
+        <span class="chip chip-orange">Alcohol → Oropharynx, Esophagus, HCC</span>
+        <span class="chip chip-gold">Obesity → ↑ Cancer risk generally</span>
+        <span class="chip chip-gold">Low fiber/high fat → Colorectal</span>
+        <span class="chip chip-blue">UV rays → Skin</span>
+        <span class="chip chip-blue">Asbestos → Mesothelioma</span>
+        <span class="chip chip-purple">Estrogen exposure → Endometrial/Breast</span>
+      </div>
+      <p style="margin-top:0.5rem; font-size:0.82rem; color: var(--text3);"><em>Acquired predisposing factors: chronic inflammation (↑ cell replication + ROS DNA damage), precursor lesions (hyperplasia → metaplasia → dysplasia), immunodeficiency (esp. T-cell; ↑ oncogenic virus-related cancers)</em></p>
+    </div>
+  </div>
+
+  <div class="callout purple">
+    <div class="callout-title">🧬 Hallmarks of Cancer</div>
+    <div class="callout-body">
+      <div class="chip-row">
+        <span class="chip chip-red">Self-sufficiency in growth signals</span>
+        <span class="chip chip-red">Insensitivity to growth inhibitors</span>
+        <span class="chip chip-red">Evasion of apoptosis</span>
+        <span class="chip chip-red">Limitless proliferation</span>
+        <span class="chip chip-red">Sustained angiogenesis</span>
+        <span class="chip chip-red">Ability to invade &amp; metastasize</span>
+        <span class="chip chip-red">Evasion of immune destruction</span>
+        <span class="chip chip-red">Altered cellular metabolism</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Effects on host -->
+  <div class="callout orange">
+    <div class="callout-title">💥 Effects of Tumor on Host</div>
+    <div class="callout-body">
+      <ul>
+        <li>Compression, invasion, or <strong>replacement</strong> of healthy tissue</li>
+        <li><strong>Ulceration</strong> of surfaces (bleeding, infection risk)</li>
+        <li><strong>Hormone release</strong> — both endocrine and non-endocrine tumors can produce hormones → paraneoplastic symptoms</li>
+        <li><strong>Cachexia/Wasting</strong> — mediated by TNF-α (cachectin), IL-1, IL-6; cannot be fully reversed by nutrition alone</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<div id="image-lightbox" class="lightbox" aria-hidden="true">
+  <div class="lightbox-inner">
+    <button id="lightbox-close" class="lightbox-close" type="button" aria-label="Close zoomed image">×</button>
+    <img id="lightbox-image" src="" alt=""/>
+    <div class="zoom-hint">Click outside the image or press Esc to close</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var sz = parseInt(localStorage.getItem('nota_font') || '15');
+  document.body.style.fontSize = sz + 'px';
+  window.changeFont = function(d){
+    sz = Math.min(22, Math.max(11, sz + d));
+    document.body.style.fontSize = sz + 'px';
+    localStorage.setItem('nota_font', sz);
+  };
+})();
+
+(function(){
+  var lightbox = document.getElementById('image-lightbox');
+  var lightboxImg = document.getElementById('lightbox-image');
+  var closeBtn = document.getElementById('lightbox-close');
+  var zoomables = document.querySelectorAll('.figure-card img');
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImg.src = '';
+    lightboxImg.alt = '';
+    document.body.style.overflow = '';
+  }
+
+  zoomables.forEach(function(img) {
+    img.addEventListener('click', function() {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt || '';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+  });
+})();
+</script>
+</body>
+</html>
