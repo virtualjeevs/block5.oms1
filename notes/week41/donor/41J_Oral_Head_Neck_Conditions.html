@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>41J — Head & Neck Illness Scripts | UNECOM OCS-1</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f14;
+    --surface: #161820;
+    --card: #1c1e28;
+    --border: #2a2d3e;
+    --accent: #c8a97a;
+    --accent2: #7ab8c8;
+    --accent3: #a87ac8;
+    --red: #e07070;
+    --green: #7ac87a;
+    --text: #e8e4d9;
+    --muted: #8e8a80;
+    --tab-h: 3.2rem;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 2.5rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #161820 60%, #1a1c2a);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(200,169,122,.07), transparent);
+    pointer-events: none;
+  }
+  .exam-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: .25rem .75rem;
+    border-radius: 2px;
+    margin-bottom: .8rem;
+    opacity: .85;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    max-width: 700px;
+  }
+  header p {
+    margin-top: .5rem;
+    color: var(--muted);
+    font-size: .95rem;
+    font-style: italic;
+    max-width: 600px;
+  }
+
+  /* ── Tab nav ── */
+  .tab-nav {
+    display: flex;
+    overflow-x: auto;
+    gap: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    flex: 1;
+    min-width: 140px;
+    height: var(--tab-h);
+    padding: 0 1.2rem;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s, background .2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); background: rgba(255,255,255,.03); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); background: rgba(200,169,122,.05); }
+
+  /* ── Layout ── */
+  .page { display: none; padding: 2rem; max-width: 900px; margin: 0 auto; animation: fadeIn .3s ease; }
+  .page.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Section heading ── */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .4rem;
+    display: block;
+  }
+  h2.topic-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: .3rem;
+  }
+  .intro-text {
+    color: var(--muted);
+    font-style: italic;
+    font-size: .95rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── Cards grid ── */
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+  @media (max-width: 620px) { .cards { grid-template-columns: 1fr; } }
+  .card-full { grid-column: 1 / -1; }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.4rem 1.6rem;
+    position: relative;
+  }
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    border-radius: 6px 6px 0 0;
+  }
+  .card.epi::before { background: var(--accent2); }
+  .card.etio::before { background: var(--accent); }
+  .card.patho::before { background: var(--accent3); }
+  .card.clinical::before { background: var(--green); }
+  .card.dx::before { background: var(--red); }
+  .card.ddx::before { background: var(--muted); }
+  .card.comments::before { background: var(--accent); }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: .9rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .card h3 .dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .card.epi .dot { background: var(--accent2); }
+  .card.etio .dot { background: var(--accent); }
+  .card.patho .dot { background: var(--accent3); }
+  .card.clinical .dot { background: var(--green); }
+  .card.dx .dot { background: var(--red); }
+  .card.ddx .dot { background: var(--muted); }
+  .card.comments .dot { background: var(--accent); }
+
+  .card ul {
+    list-style: none;
+    padding: 0;
+    display: flex; flex-direction: column; gap: .45rem;
+  }
+  .card ul li {
+    padding-left: 1.1rem;
+    position: relative;
+    font-size: .92rem;
+    color: #ccc8be;
+  }
+  .card ul li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--muted);
+    font-size: .8rem;
+  }
+  .card p { font-size: .92rem; color: #ccc8be; }
+
+  strong { color: var(--text); font-weight: 600; }
+  em { color: var(--accent); font-style: normal; }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    padding: .15rem .55rem;
+    border-radius: 3px;
+    margin: .15rem .1rem;
+    vertical-align: middle;
+  }
+  .tag-blue { background: rgba(122,184,200,.15); color: var(--accent2); border: 1px solid rgba(122,184,200,.3); }
+  .tag-gold { background: rgba(200,169,122,.15); color: var(--accent); border: 1px solid rgba(200,169,122,.3); }
+  .tag-purple { background: rgba(168,122,200,.15); color: var(--accent3); border: 1px solid rgba(168,122,200,.3); }
+  .tag-red { background: rgba(224,112,112,.15); color: var(--red); border: 1px solid rgba(224,112,112,.3); }
+  .tag-green { background: rgba(122,200,122,.15); color: var(--green); border: 1px solid rgba(122,200,122,.3); }
+
+  /* ── Footer ── */
+  footer {
+    margin-top: 3rem;
+    padding: 1.2rem 2rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    color: var(--muted);
+    letter-spacing: .08em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="exam-badge">UNECOM · OCS-1 · DOM-511 · Q41J</div>
+  <h1>Head &amp; Neck Illness Scripts</h1>
+  <p>Epidemiology · Clinical Presentation · Pathophysiology — select the condition assigned by the examiner.</p>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="show('diphtheria', this)">Diphtheria</button>
+  <button class="tab-btn" onclick="show('leukoplakia', this)">Oral Leukoplakia</button>
+  <button class="tab-btn" onclick="show('hsv', this)">HSV Gingivostomatitis</button>
+  <button class="tab-btn" onclick="show('tonsillitis', this)">Tonsillitis</button>
+  <button class="tab-btn" onclick="show('cleft', this)">Cleft Palate</button>
+</nav>
+
+
+<!-- ══════════ DIPHTHERIA ══════════ -->
+<div id="diphtheria" class="page visible">
+  <span class="section-label">Illness Script</span>
+  <h2 class="topic-title">Respiratory Diphtheria</h2>
+  <p class="intro-text">An infectious disease caused by toxin-producing strains of the gram-positive bacillus <em>Corynebacterium diphtheriae</em>, leading to characteristic respiratory signs and potentially lethal systemic effects.</p>
+
+  <div class="cards">
+
+    <div class="card epi">
+      <h3><span class="dot"></span> Epidemiology</h3>
+      <ul>
+        <li>Worldwide cases &lt;8,000/year due to vaccination</li>
+        <li>Reemerging due to <strong>declining vaccine coverage</strong></li>
+        <li>Four biotypes: <em>gravis, intermedius, mitis, belfanti</em> — all associated with endemic and epidemic disease</li>
+        <li>Primary transmission: <strong>respiratory secretions</strong> (droplets, fomites, skin lesions)</li>
+        <li>Peak transmission: <strong>winter and spring</strong></li>
+        <li>Incubation: <strong>2–5 days</strong>; can transmit for 2–6 weeks without antibiotics</li>
+        <li>Risk factors: travel to Latin America, Asia, Africa, Middle East; lack of vaccination</li>
+      </ul>
+    </div>
+
+    <div class="card etio">
+      <h3><span class="dot"></span> Etiology</h3>
+      <ul>
+        <li><strong>Aerobic gram-positive rod</strong></li>
+        <li>Humans are the sole reservoir</li>
+        <li>Only <strong>toxin-producing strains</strong> cause disease</li>
+        <li>Toxin gene carried by bacteriophage (β-phage)</li>
+        <li>Non-toxigenic strains cause local but not systemic disease</li>
+      </ul>
+    </div>
+
+    <div class="card patho card-full">
+      <h3><span class="dot"></span> Pathophysiology</h3>
+      <ul>
+        <li>Localized inflammation of the respiratory tract with <strong>local and systemic toxin effects</strong></li>
+        <li>Diphtheria toxin <strong>inactivates Elongation Factor-2 (EF-2)</strong> → blocks protein synthesis → cell death</li>
+        <li>Toxin binds membrane receptors → enters cells → ADP-ribosylates EF-2</li>
+        <li>Local effect: coalescing <strong>pseudomembrane</strong> of fibrin, dead cells, bacteria forms over tonsils/pharynx</li>
+        <li>Massive cervical swelling → <strong>"bull neck"</strong> appearance; respiratory stridor from airway compromise</li>
+        <li>Systemic dissemination → <strong>myocarditis</strong> (arrhythmia, heart block), <strong>neuropathy</strong> (cranial nerve palsies, demyelination), and <strong>renal tubular necrosis</strong></li>
+      </ul>
+    </div>
+
+    <div class="card clinical card-full">
+      <h3><span class="dot"></span> Clinical Presentation</h3>
+      <ul>
+        <li><strong>Early:</strong> Sore throat, malaise, low-grade fever, cervical lymphadenopathy</li>
+        <li><strong>Progresses to:</strong> Gray-white exudates → confluent <em>pseudomembrane</em> that bleeds on removal</li>
+        <li>Massive edema of tonsils, uvula, submandibular and anterior neck → <strong>bull neck</strong></li>
+        <li><strong>Stridor</strong> and hoarseness from laryngeal involvement</li>
+        <li>Cardiac: arrhythmias, heart block (1–2 weeks post infection)</li>
+        <li>Neurologic: palatal palsy (nasal voice, regurgitation), cranial nerve palsies, peripheral neuropathy</li>
+      </ul>
+    </div>
+
+    <div class="card ddx">
+      <h3><span class="dot"></span> Differential Diagnosis</h3>
+      <ul>
+        <li>Infectious mononucleosis</li>
+        <li>Group A streptococcal tonsillo-pharyngitis</li>
+        <li>Epiglottitis</li>
+        <li>Viral pharyngitis</li>
+        <li>Acute necrotizing ulcerative gingivitis</li>
+        <li>Oral candidiasis</li>
+      </ul>
+    </div>
+
+    <div class="card dx">
+      <h3><span class="dot"></span> Diagnosis</h3>
+      <ul>
+        <li><strong>Throat culture</strong> identifying gram-positive rods in <em>"Chinese character"</em> arrangement on Gram stain</li>
+        <li>Loeffler's medium or tellurite agar preferred</li>
+        <li><strong>Toxin testing</strong> (Elek test / PCR) differentiates toxigenic from non-toxigenic strains</li>
+        <li>Clinical diagnosis sufficient for immediate antitoxin treatment — do not wait for confirmation</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════ ORAL LEUKOPLAKIA ══════════ -->
+<div id="leukoplakia" class="page">
+  <span class="section-label">Illness Script</span>
+  <h2 class="topic-title">Oral Leukoplakia</h2>
+  <p class="intro-text">A firmly attached white plaque (hyperkeratotic tissue) of the oral mucosa — generally benign but classified as an <em>Oral Potentially Malignant Disorder (OPMD)</em> with variable risk of squamous cell carcinoma.</p>
+
+  <div class="cards">
+
+    <div class="card epi">
+      <h3><span class="dot"></span> Epidemiology</h3>
+      <ul>
+        <li>Prevalence: <strong>1.5–4.5%</strong> in the general population</li>
+        <li>More common in <strong>males</strong> and those over 40</li>
+        <li>Strongly associated with <strong>tobacco use</strong> (smoked and especially smokeless)</li>
+        <li>Also associated with <strong>alcohol consumption</strong> and <strong>HPV</strong></li>
+        <li>Common (homogeneous) form: 3–15% risk of malignant transformation</li>
+        <li>Proliferative verrucous form: <strong>70–100%</strong> risk of malignancy</li>
+      </ul>
+    </div>
+
+    <div class="card etio">
+      <h3><span class="dot"></span> Etiology &amp; Risk Factors</h3>
+      <ul>
+        <li>WHO definition: <em>"White plaques of questionable risk, having excluded other known diseases that carry no increased risk for cancer"</em></li>
+        <li>Risk factors mirror those for <strong>squamous cell carcinoma</strong></li>
+        <li>Tobacco (especially smokeless), alcohol, trauma, HPV infection</li>
+        <li>Oral Hairy Leukoplakia (separate entity) = EBV in HIV-infected patients — <strong>not premalignant</strong></li>
+      </ul>
+    </div>
+
+    <div class="card patho card-full">
+      <h3><span class="dot"></span> Pathophysiology &amp; Pathology</h3>
+      <ul>
+        <li>Irritation → <strong>hyperkeratosis</strong> (thickening of keratin layer) → white appearance</li>
+        <li>Also involves <strong>parakeratosis, acanthosis</strong> (thickened stratum spinosum), and epithelial atrophy</li>
+        <li>White color = hyperkeratosis of the epithelium (keratin blocks light transmission)</li>
+        <li>Low-grade <strong>dysplasia</strong> may be present</li>
+        <li>Histology: thickened stratified squamous epithelium with <em>orderly cellular arrangement</em>; expanded stratum spinosum</li>
+        <li>Genetic abnormalities found in both SCC and non-dysplastic leukoplakia — molecular changes precede histologic dysplasia</li>
+      </ul>
+    </div>
+
+    <div class="card clinical card-full">
+      <h3><span class="dot"></span> Clinical Presentation</h3>
+      <ul>
+        <li>White patches on oral mucosa <strong>cannot be wiped off with gauze</strong> (distinguishes from thrush)</li>
+        <li><strong>Homogeneous:</strong> Uniformly white, thin, well-defined margins — lower malignant risk</li>
+        <li><strong>Non-homogeneous:</strong> Speckled (erythroleukoplakia), nodular, or verrucous — <em>higher malignant risk</em></li>
+        <li><strong>Oral proliferative verrucous leukoplakia (OPVL):</strong> Rare, multifocal, aggressive — very high malignant potential</li>
+        <li>Generally <strong>asymptomatic</strong>; may occur anywhere in the oral cavity</li>
+        <li>High-risk sites: lateral border of tongue and floor of mouth</li>
+      </ul>
+    </div>
+
+    <div class="card ddx">
+      <h3><span class="dot"></span> Differential Diagnosis</h3>
+      <ul>
+        <li>Frictional keratosis (mechanical irritation)</li>
+        <li>Oral lichen planus</li>
+        <li>Discoid lupus erythematosus</li>
+        <li>Submucous fibrosis</li>
+        <li>Oral candidiasis (thrush — <em>can</em> be wiped off)</li>
+        <li>Hairy leukoplakia (EBV/HIV)</li>
+      </ul>
+    </div>
+
+    <div class="card dx">
+      <h3><span class="dot"></span> Diagnosis</h3>
+      <ul>
+        <li>Clinical: attempt to wipe with gauze; if firmly adherent and unexplained — suspect leukoplakia</li>
+        <li>Eliminate mechanical causes for <strong>6 weeks</strong> observation period</li>
+        <li>Definitive: <strong>Biopsy</strong> with histopathological grading of dysplasia</li>
+        <li>Dysplasia grade = primary predictor of malignant transformation risk</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════ HSV GINGIVOSTOMATITIS ══════════ -->
+<div id="hsv" class="page">
+  <span class="section-label">Illness Script</span>
+  <h2 class="topic-title">HSV Gingivostomatitis</h2>
+  <p class="intro-text">Primary herpes simplex virus (HSV-1) infection of the oral mucosa and gingiva — the most common form of primary HSV in children, presenting as a painful vesiculoulcerative stomatitis with systemic prodrome.</p>
+
+  <div class="cards">
+
+    <div class="card epi">
+      <h3><span class="dot"></span> Epidemiology</h3>
+      <ul>
+        <li>Primary herpetic gingivostomatitis: most common in children aged <strong>6 months – 5 years</strong></li>
+        <li>Second peak: <strong>early 20s</strong></li>
+        <li>~<strong>88% of HSV infections are asymptomatic</strong></li>
+        <li>In adults, primary infection typically presents as <strong>pharyngitis</strong></li>
+        <li>~<strong>90%</strong> of oral cases caused by <strong>HSV-1</strong></li>
+        <li>Lower socioeconomic status → seroconversion earlier in life</li>
+        <li>Worldwide seroprevalence of HSV-1 up to 80% in adults</li>
+      </ul>
+    </div>
+
+    <div class="card etio">
+      <h3><span class="dot"></span> Etiology</h3>
+      <ul>
+        <li><strong>HSV-1</strong>: most common cause of oral herpes</li>
+        <li><strong>HSV-2</strong>: primarily genital but can cause oral disease</li>
+        <li>Transmission: direct contact with oral secretions or lesions</li>
+        <li>Reactivation triggers: trauma, UV light, URTI, pregnancy, menstruation, immunosuppression, temperature extremes, allergies</li>
+      </ul>
+    </div>
+
+    <div class="card patho card-full">
+      <h3><span class="dot"></span> Pathophysiology</h3>
+      <ul>
+        <li>HSV enters through <strong>breaks in mucocutaneous surfaces</strong></li>
+        <li>Infects epithelial cells → causes cell lysis → vesicle formation</li>
+        <li>Retrograde <strong>axonal transport</strong> → virus travels along sensory nerves to <em>trigeminal ganglion</em> (for oral HSV-1)</li>
+        <li>Virus establishes <strong>latency in sensory ganglia</strong> — evades immune surveillance</li>
+        <li>Reactivation: virus travels anterograde back to mucocutaneous surface → recurrent lesions (herpes labialis)</li>
+        <li>Pathology: intraepithelial vesicles filled with clear serous fluid; rupture → shallow red-rimmed ulcers</li>
+        <li>Tzanck smear: <strong>eosinophilic intranuclear inclusions (Cowdry type A)</strong>, multinucleated giant cells</li>
+      </ul>
+    </div>
+
+    <div class="card clinical card-full">
+      <h3><span class="dot"></span> Clinical Presentation</h3>
+      <ul>
+        <li>Incubation: <strong>1–26 days</strong></li>
+        <li><strong>Prodrome (~4 days):</strong> Fever, malaise, decreased oral intake, cervical lymphadenopathy, oral pain</li>
+        <li>Eruption of <strong>microvesicular lesions</strong> throughout the oral cavity → rupture → painful shallow ulcerations</li>
+        <li><strong>Inflamed, friable gingiva</strong> especially around the alveolar rim</li>
+        <li>Fever resolves in 3–5 days; <strong>lesions persist up to 21 days</strong></li>
+        <li><em>Herpetic whitlow</em>: vesicular lesions on fingers (autoinoculation)</li>
+        <li>Rare: HSV-1 spread to CNS → life-threatening <strong>viral meningoencephalitis</strong></li>
+      </ul>
+    </div>
+
+    <div class="card ddx">
+      <h3><span class="dot"></span> Differential Diagnosis</h3>
+      <ul>
+        <li>Aphthous ulcers</li>
+        <li>Recurrent herpes labialis (cold sores)</li>
+        <li>Herpes zoster</li>
+        <li>Epstein-Barr / CMV</li>
+        <li>Enterovirus (hand, foot &amp; mouth — Coxsackievirus A)</li>
+        <li>Rubeola; HIV; oral syphilis</li>
+      </ul>
+    </div>
+
+    <div class="card dx">
+      <h3><span class="dot"></span> Diagnosis</h3>
+      <ul>
+        <li>Primarily a <strong>clinical diagnosis</strong></li>
+        <li><strong>PCR</strong> for HSV DNA (gold standard if lab confirmation needed)</li>
+        <li>Rapid direct immunofluorescence assay (DFA)</li>
+        <li>Serologic tests for IgG and IgM (useful for distinguishing primary vs. recurrent)</li>
+        <li><strong>Tzanck test</strong>: smear of vesicle scraping — shows multinucleated giant cells and intranuclear inclusions</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════ TONSILLITIS ══════════ -->
+<div id="tonsillitis" class="page">
+  <span class="section-label">Illness Script</span>
+  <h2 class="topic-title">Tonsillitis</h2>
+  <p class="intro-text">Inflammation of the palatine tonsils (GALT) due to viral or bacterial infection. The most clinically significant form is Group A beta-hemolytic <em>Streptococcus</em> (GABHS) tonsillitis due to its serious non-suppurative complications.</p>
+
+  <div class="cards">
+
+    <div class="card epi">
+      <h3><span class="dot"></span> Epidemiology</h3>
+      <ul>
+        <li><strong>Acute viral tonsillitis</strong>: peak in children &lt;5 years and young adults</li>
+        <li><strong>Acute bacterial tonsillitis (GABHS)</strong>: peak 5–15 years; rare &lt;2 years</li>
+        <li>Peak seasons: <strong>winter and spring</strong></li>
+        <li>Extremely common — accounts for ~15% of all GP visits in children</li>
+      </ul>
+    </div>
+
+    <div class="card etio">
+      <h3><span class="dot"></span> Etiology</h3>
+      <ul>
+        <li><strong>Viral (most common):</strong> Rhinovirus, RSV, adenovirus, coronavirus; less commonly EBV, CMV, Hep A, rubella, HIV</li>
+        <li><strong>Bacterial:</strong> Group A beta-hemolytic <em>Streptococcus</em> (GABHS / <em>S. pyogenes</em>); also <em>S. aureus</em>, <em>S. pneumoniae</em>, <em>H. influenzae</em></li>
+        <li>Unvaccinated children: <em>Corynebacterium diphtheriae</em></li>
+      </ul>
+    </div>
+
+    <div class="card patho card-full">
+      <h3><span class="dot"></span> Pathophysiology</h3>
+      <ul>
+        <li>Pathogen (viral or bacterial) infects tonsils → <strong>inflammatory response with cytokine upregulation</strong></li>
+        <li><strong>Viral:</strong> virus infiltrates tonsil epithelium → local inflammatory cascade</li>
+        <li><strong>Bacterial (GABHS):</strong> penetrates mucosa → cytokine storm; M-protein of GABHS is key virulence factor (antiphagocytic)</li>
+        <li><strong>Lymphoid hyperplasia</strong> → tonsillar enlargement</li>
+        <li>Desquamated epithelial cells + lymphoid debris collect in crypts → <em>cryptic tonsillitis</em></li>
+        <li>Calcification of crypt debris → <strong>tonsillolith</strong></li>
+      </ul>
+    </div>
+
+    <div class="card clinical card-full">
+      <h3><span class="dot"></span> Clinical Presentation</h3>
+      <ul>
+        <li><strong>Acute bacterial (GABHS):</strong> Sudden onset fever, severe sore throat, dysphagia, pharyngeal/tonsillar erythema &amp; edema, <em>tonsillar exudates</em>, cervical lymphadenitis — <span class="tag tag-gold">no cough</span></li>
+        <li><strong>Acute viral:</strong> Cough, coryza, rhinorrhea, oral ulcers, anterior stomatitis, conjunctivitis, diarrhea — <span class="tag tag-blue">upper respiratory features</span></li>
+        <li><strong>GABHS complications:</strong> Rheumatic fever (2–4 wks), glomerulonephritis (1–2 wks), scarlet fever, PANDAS, septic arthritis, peritonsillar abscess</li>
+      </ul>
+    </div>
+
+    <div class="card ddx">
+      <h3><span class="dot"></span> Differential Diagnosis</h3>
+      <ul>
+        <li>Aphthous stomatitis (ulcers on <em>anterior</em> mucosa; no systemic symptoms)</li>
+        <li>Herpangina (posterior oropharyngeal lesions, Coxsackievirus)</li>
+        <li>Ludwig angina (submandibular space infection)</li>
+        <li>Infectious mononucleosis (EBV; splenomegaly; heterophile Ab+)</li>
+        <li>Peritonsillar abscess</li>
+      </ul>
+    </div>
+
+    <div class="card dx card-full">
+      <h3><span class="dot"></span> Diagnosis — Modified Centor Score</h3>
+      <ul>
+        <li><strong>+1</strong>: Age 3–14 yrs | Tonsillar exudate/swelling | Tender anterior cervical nodes | Temp &gt;38°C (100.4°F) | Absence of cough</li>
+        <li><strong>0</strong>: Age 15–44 yrs | <strong>−1</strong>: Age &gt;44 yrs</li>
+        <li>Score ≤1: <em>No further workup needed</em></li>
+        <li>Score 2–3: <em>RADT ± throat culture</em></li>
+        <li>Score ≥4: <em>Empiric antibiotic therapy</em></li>
+        <li>RADT positive → initiate antibiotics; RADT negative → throat culture to rule out GABHS</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════ CLEFT PALATE ══════════ -->
+<div id="cleft" class="page">
+  <span class="section-label">Illness Script</span>
+  <h2 class="topic-title">Cleft Palate</h2>
+  <p class="intro-text">A congenital craniofacial anomaly resulting from failure of midline fusion of embryonic facial processes during weeks 5–12 of gestation. May occur in isolation or as part of a broader syndrome.</p>
+
+  <div class="cards">
+
+    <div class="card epi">
+      <h3><span class="dot"></span> Epidemiology</h3>
+      <ul>
+        <li><strong>Cleft lip ± palate (CL[P]):</strong> ~1/1,000 live births (most common)</li>
+        <li><strong>Isolated cleft palate (CP):</strong> ~1/2,000 live births</li>
+        <li>Unilateral CL/P more common than bilateral</li>
+        <li><strong>No racial heterogeneity</strong> for isolated CP; CL[P] shows marked racial differences:</li>
+        <li>Asian &amp; Native American: 1:500 | White: 1:1,000 | African descent: 1:1,500–2,000</li>
+        <li>CP more likely to be <strong>syndromic</strong> than CL[P]</li>
+      </ul>
+    </div>
+
+    <div class="card etio">
+      <h3><span class="dot"></span> Etiology &amp; Risk Factors</h3>
+      <ul>
+        <li><strong>Genetic:</strong> Multifactorial inheritance; defects in TGF-β transcription cascades; chromosomal: Trisomy 13 (Patau), Trisomy 18 (Edwards), Pierre Robin Sequence</li>
+        <li><strong>Environmental / Teratogenic:</strong></li>
+        <li>Nicotine and/or alcohol during pregnancy</li>
+        <li>Anti-epileptics: phenytoin, valproate, carbamazepine, phenobarbital</li>
+        <li>Folate antagonists: methotrexate, trimethoprim</li>
+        <li>Excessive Vitamin A intake during pregnancy</li>
+      </ul>
+    </div>
+
+    <div class="card patho card-full">
+      <h3><span class="dot"></span> Pathophysiology — Embryological Basis</h3>
+      <ul>
+        <li>Face forms from fusion of <strong>5 embryonic prominences</strong> (derived from 1st pharyngeal arch &amp; neural crest cells) — weeks 5–12</li>
+        <li><strong>Upper lip:</strong> Maxillary prominences fuse with lateral then medial nasal prominences (week 5) → failure = <em>cleft lip</em></li>
+        <li><strong>Lower lip/mandible:</strong> Fusion of right + left mandibular processes</li>
+        <li><strong>Primary palate:</strong> Fusion of medial nasal prominences → failure = anterior cleft</li>
+        <li><strong>Secondary palate:</strong> Two lateral palatine processes fuse on midline (weeks 8–12) → failure = <em>cleft palate</em></li>
+        <li>Key: secondary palate formation requires palatal shelves to elevate horizontally — tongue descent is critical for this</li>
+      </ul>
+    </div>
+
+    <div class="card clinical card-full">
+      <h3><span class="dot"></span> Clinical Presentation</h3>
+      <ul>
+        <li><strong>Submucosal cleft palate:</strong> Mucosa intact; underlying muscular/bony defect — may present later with speech abnormalities or OME</li>
+        <li><strong>Incomplete cleft palate:</strong> Clefting of secondary palate only</li>
+        <li><strong>Complete cleft palate:</strong> Entire hard palate, soft palate, and uvula; often with cleft lip</li>
+        <li>Clinical features: <em>facial deformities</em>, <em>feeding difficulties</em> (inability to create suction), <em>speech difficulties</em> (hypernasal voice, VPD), <em>dentition defects</em>, <em>conductive hearing loss</em> (Eustachian tube dysfunction → recurrent OME)</li>
+      </ul>
+    </div>
+
+    <div class="card ddx">
+      <h3><span class="dot"></span> Associated Syndromes (DDx)</h3>
+      <ul>
+        <li><strong>Pierre Robin Sequence:</strong> Cleft palate + glossoptosis + mandibular retrognathia</li>
+        <li><strong>Trisomy 13 (Patau):</strong> Microcephaly, cleft lip/palate, microphthamia, polydactyly, cardiac defects</li>
+        <li><strong>Trisomy 18 (Edwards):</strong> Prominent occiput, low-set ears, micrognathia, clenched fists, rocker-bottom feet, cardiac/renal defects</li>
+      </ul>
+    </div>
+
+    <div class="card dx">
+      <h3><span class="dot"></span> Diagnosis</h3>
+      <ul>
+        <li><strong>Prenatal:</strong> Ultrasound detects CL/P after 12 weeks; amniocentesis for karyotyping</li>
+        <li><strong>Postnatal:</strong> Clinical inspection of hard/soft palate; digital palpation for submucosal clefts</li>
+        <li>Later presentation of submucosal: abnormal speech, recurrent OME</li>
+        <li>Management: multidisciplinary team — surgery at 6–12 months, speech therapy, dental/orthodontic care, ENT</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<footer>UNECOM · OCS-1 · DOM-511-01 · 41J Head &amp; Neck Illness Scripts · For Examination Use</footer>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('visible');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
