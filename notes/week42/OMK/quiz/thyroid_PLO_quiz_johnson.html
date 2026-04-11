@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thyroid PLO Quiz · Dr. Johnson · UNECOM</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+
+/* LAUNCH */
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+ radial-gradient(circle at 15% 20%,rgba(62,196,178,.16),transparent 28%),
+ radial-gradient(circle at 82% 20%,rgba(123,94,167,.12),transparent 30%),
+ linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.launch-card{max-width:760px;width:min(100%,760px);background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:36px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:44px;line-height:1.02;color:var(--navy);margin-bottom:8px}
+.launch-card>p{color:var(--slate);font-size:16px;margin-bottom:4px}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 28px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.chip.plo-chip{background:var(--sky-bg);border-color:rgba(74,154,232,.3);color:#2a5a9e}
+.chip.q-chip{background:var(--green-bg);border-color:rgba(45,134,89,.3);color:var(--green)}
+.launch-note{background:var(--amber-bg);border:1px solid rgba(192,123,26,.3);border-radius:12px;padding:14px 18px;font-size:14px;color:#7a4e10;margin-bottom:24px;line-height:1.6}
+.launch-btn{padding:15px 36px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr);font-family:'Nunito',sans-serif}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.plo-row{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:20px}
+.plo-item{padding:10px 14px;border-radius:10px;font-size:13px;border:1px solid var(--rule2);background:var(--white)}
+.plo-item strong{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--teal);margin-bottom:2px}
+
+/* QUIZ OVERLAY */
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%,color-mix(in srgb,var(--teal-glow) 14%,transparent),transparent 22%),
+  radial-gradient(circle at 92% 8%,color-mix(in srgb,var(--plum) 12%,transparent),transparent 20%),
+  linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+
+/* TOP BAR */
+.qt-bar{position:sticky;top:0;z-index:12;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,color-mix(in srgb,var(--navy2) 94%,transparent),color-mix(in srgb,var(--navy) 92%,transparent));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 8px 24px rgba(18,32,60,.14)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:26px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
+.qt-bar h2 span{font-size:14px;font-family:'IBM Plex Mono',monospace;font-weight:400;opacity:.55;margin-left:8px;letter-spacing:.05em}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap}
+.qt-btn{padding:9px 15px;border-radius:12px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.rst,.qt-btn.cls{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.rst:hover,.qt-btn.cls:hover{background:rgba(255,255,255,.15);color:#fff}
+
+/* LAYOUT */
+.qin{max-width:1380px;margin:0 auto;padding:24px 24px 80px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px 22px;align-items:start}
+.q-left{display:grid;gap:16px;align-content:start;align-self:start;position:sticky;top:80px}
+.q-right{min-width:0;display:grid;gap:14px;align-content:start}
+
+/* SCORE PANEL */
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.score-box{position:relative;overflow:hidden;background:rgba(255,255,255,.9);border-radius:20px;padding:16px 12px 12px;text-align:center;box-shadow:0 10px 28px rgba(18,32,60,.07);border:1px solid rgba(18,32,60,.07)}
+.score-box::before{content:'';position:absolute;left:14px;right:14px;top:0;height:3px;border-radius:0 0 999px 999px;background:linear-gradient(90deg,rgba(26,122,109,.2),rgba(62,196,178,.5))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:34px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:6px}
+.score-box.correct .sv{color:var(--green)}
+.score-box.incorrect .sv{color:var(--red)}
+
+/* MODE TOGGLE */
+.mode-toggle{display:flex;gap:6px;padding:7px;border-radius:20px;background:rgba(255,255,255,.8);border:1px solid rgba(18,32,60,.07);box-shadow:0 8px 20px rgba(18,32,60,.06)}
+.mode-btn{flex:1;padding:12px 14px;border-radius:14px;text-align:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .22s}
+.mode-btn:hover{color:var(--navy)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 10px 22px rgba(27,42,74,.16)}
+.mode-btn .mi{display:block;font-size:18px;margin-bottom:3px}
+
+/* TIMER */
+.timer-panel{display:grid;gap:10px}
+.timer-card{position:relative;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:42px 16px 16px;background:rgba(255,255,255,.84);border-radius:20px;border:1px solid rgba(18,32,60,.07);box-shadow:0 10px 28px rgba(18,32,60,.06)}
+.timer-lbl{position:absolute;top:12px;left:14px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800}
+.timer-time{font-family:'IBM Plex Mono',monospace;font-size:36px;font-weight:600;color:var(--navy);min-width:100px;text-align:center;letter-spacing:2px}
+.tbtn{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(27,42,74,.2);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:var(--tr);color:var(--navy);flex-shrink:0}
+.tbtn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* TOOL PANEL */
+.tool-panel{display:flex;flex-wrap:wrap;gap:8px;padding:10px;border-radius:20px;background:rgba(255,255,255,.8);border:1px solid rgba(18,32,60,.07)}
+.q-tool{flex:1 1 0;padding:11px 12px;border-radius:13px;font-size:13px;font-weight:800;border:1.5px solid rgba(18,32,60,.07);background:rgba(255,255,255,.86);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);text-align:center}
+.q-tool:hover{border-color:rgba(26,122,109,.3);color:var(--teal);transform:translateY(-1px)}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.4);color:var(--red)}
+.tool-status{font-size:12px;color:var(--mist);text-align:center;padding:4px 0;font-family:'IBM Plex Mono',monospace}
+
+/* EXAM SUBMIT */
+.exam-submit-row{padding:16px;border-radius:20px;text-align:center;background:rgba(255,255,255,.8);border:1px solid rgba(18,32,60,.07);display:none}
+.exam-submit-row.exam-live{display:block}
+.exam-progress{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mist);margin-bottom:10px}
+.exam-submit-btn{padding:12px 32px;border-radius:14px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 18px rgba(224,122,95,.22)}
+.exam-submit-btn:hover{transform:translateY(-2px)}
+.exam-submit-btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* QUESTION CARD */
+.qcd{background:color-mix(in srgb,var(--white) 94%,var(--warm) 6%);border-radius:26px;overflow:hidden;box-shadow:0 24px 64px rgba(18,32,60,.11);border:1px solid rgba(18,32,60,.07);animation:cardIn .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px) scale(0.99)}to{opacity:1;transform:none}}
+.qpg{height:5px;background:color-mix(in srgb,var(--teal) 10%,transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:26px 30px 22px}
+.qmeta{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.qnum{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;font-weight:700}
+.plo-tag{display:inline-flex;align-items:center;padding:5px 11px;border-radius:999px;background:var(--sky-bg);border:1px solid rgba(74,154,232,.25);font-family:'IBM Plex Mono',monospace;font-size:11px;color:#2a5a9e;font-weight:700;letter-spacing:.06em}
+.qstem{font-family:'Crimson Pro',serif;font-size:23px;line-height:1.38;margin-bottom:20px;font-weight:600;color:var(--ink);letter-spacing:-.12px}
+.stem-hl{background:#FFF8A0;border-radius:2px}
+.stem-st{text-decoration:line-through;opacity:.5}
+.ach{display:grid;gap:9px}
+.ac{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border:1.5px solid rgba(18,32,60,.09);border-radius:16px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb,var(--warm) 76%,var(--white) 24%);position:relative}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 10px 22px rgba(18,32,60,.07)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.ac.hl-applied{background:#FFF8B8!important;border-color:#D3AF2B!important}
+.ac.st-applied{opacity:.45}
+.cl{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:15.5px;line-height:1.48;padding-top:3px;color:var(--ink)}
+.submit-row{margin-top:22px;text-align:center}
+.submit-btn{padding:14px 48px;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 22px rgba(26,122,109,.22);letter-spacing:.3px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(26,122,109,.28)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+
+/* EXPLANATION */
+.exb{margin-top:22px;border-radius:20px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.07);background:#fff}
+.exb.vis{display:block;animation:fi .38s cubic-bezier(.4,0,.2,1)}
+.exs{padding:20px 24px}.exs+.exs{border-top:1px solid rgba(18,32,60,.05)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:7px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:15.5px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:8px;padding:10px 14px;background:rgba(255,255,255,.6);border-radius:12px;font-size:14.5px;line-height:1.65}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12px;display:inline-block;margin-right:2px}
+
+/* NAVIGATION */
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 22px 18px;border-top:1px solid rgba(18,32,60,.07);background:linear-gradient(180deg,color-mix(in srgb,var(--warm) 28%,transparent),color-mix(in srgb,var(--cream) 78%,transparent))}
+.nb{padding:10px 20px;border:1.5px solid rgba(27,42,74,.18);background:#fff;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 6px 16px rgba(18,32,60,.05)}
+.nb:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.nb:disabled{opacity:.3;cursor:not-allowed;transform:none!important}
+.qdots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:11px;height:11px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);flex-shrink:0}
+.qd:hover{border-color:var(--teal)}
+.qd.cur{background:var(--teal);border-color:var(--teal)}
+.qd.acor{background:var(--green);border-color:var(--green)}
+.qd.ainc{background:var(--red);border-color:var(--red)}
+.qd.asel{background:var(--slate);border-color:var(--slate)}
+
+/* RESULTS SCREEN */
+.results-overlay{display:none;position:fixed;inset:0;background:rgba(18,32,60,.72);z-index:300;backdrop-filter:blur(6px);place-items:center;padding:24px}
+.results-overlay.open{display:grid;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.results-card{background:var(--white);border-radius:28px;padding:40px;max-width:600px;width:100%;text-align:center;box-shadow:0 30px 80px rgba(18,32,60,.18)}
+.results-card h2{font-family:'Crimson Pro',serif;font-size:38px;color:var(--navy);margin-bottom:8px}
+.results-card p{color:var(--slate);margin-bottom:24px}
+.results-score{font-family:'Crimson Pro',serif;font-size:72px;font-weight:800;color:var(--teal);line-height:1}
+.results-denom{font-size:28px;color:var(--mist);font-weight:400}
+.results-pct{font-size:16px;color:var(--mist);margin-top:4px;font-family:'IBM Plex Mono',monospace}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0}
+.rbox{padding:16px;border-radius:16px;border:1px solid var(--rule2)}
+.rbox .rv{font-family:'Crimson Pro',serif;font-size:32px;font-weight:800;line-height:1;margin-bottom:4px}
+.rbox .rl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800}
+.rbox.rc{background:var(--green-bg);border-color:rgba(45,134,89,.2)}.rbox.rc .rv{color:var(--green)}
+.rbox.ri{background:var(--red-bg);border-color:rgba(196,64,64,.2)}.rbox.ri .rv{color:var(--red)}
+.rbox.rp{background:var(--sky-bg);border-color:rgba(74,154,232,.2)}.rbox.rp .rv{color:#2a5a9e}
+.results-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.rbtn{padding:13px 28px;border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:var(--tr)}
+.rbtn.primary{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;box-shadow:0 8px 20px rgba(26,122,109,.22)}
+.rbtn.primary:hover{transform:translateY(-2px);box-shadow:0 14px 26px rgba(26,122,109,.28)}
+.rbtn.secondary{background:var(--white);color:var(--navy);border:1.5px solid var(--rule2)}
+.rbtn.secondary:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+@media(max-width:860px){
+  .qin{grid-template-columns:1fr}
+  .q-left{position:static}
+}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap" id="launchScreen">
+  <div class="launch-card">
+    <h1>Thyroid Hormones</h1>
+    <p style="font-size:15px;color:var(--slate);margin-bottom:2px;">Dr. Johnson · UNECOM · Block 5 RAT Prep</p>
+    <div class="launch-meta">
+      <span class="chip plo-chip">📚 PLO 1–4 Only</span>
+      <span class="chip q-chip">✅ 20 Questions</span>
+      <span class="chip" style="background:var(--plum-bg);border-color:rgba(123,94,167,.25);color:#5a3a8a;">Johnson Style</span>
+      <span class="chip" style="background:var(--amber-bg);border-color:rgba(192,123,26,.25);color:#7a4e10;">4-Choice A–D</span>
+    </div>
+    <div class="plo-row">
+      <div class="plo-item"><strong>PLO 1 · Q1–5</strong>Thyroid gland structure, follicular cells, T3 vs T4, C cells, hormone sources</div>
+      <div class="plo-item"><strong>PLO 2 · Q6–10</strong>Biosynthesis: NIS, TPO, pendrin, MIT/DIT coupling, goitrogens</div>
+      <div class="plo-item"><strong>PLO 3 · Q11–15</strong>Binding proteins, T3/T4 half-life, MCT8, nuclear action requirements, PTU vs methimazole</div>
+      <div class="plo-item"><strong>PLO 4 · Q16–20</strong>HPT axis feedback, lab patterns (primary hypo, Graves), starvation, monitoring levothyroxine</div>
+    </div>
+    <div class="launch-note">⚡ <strong>Johnson-style questions:</strong> 4 answer choices (A–D), ALL CAPS pivotal words, paired fill-in-the-blank format, and distractors covering all systematic error types. Equal-length answer choices throughout.</div>
+    <button class="launch-btn" id="openQuiz">Begin Quiz →</button>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo">
+  <div class="qt-bar">
+    <h2>Thyroid PLO Quiz <span>Dr. Johnson · UNECOM</span></h2>
+    <div class="qt-btns">
+      <button class="qt-btn rst" id="resetQuiz">↺ Reset</button>
+      <button class="qt-btn cls" id="closeQuiz">✕ Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <!-- LEFT PANEL -->
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCurrent">1</div><div class="sl">Question</div></div>
+        <div class="score-box correct"><div class="sv" id="svCorrect">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="svIncorrect">0</div><div class="sl">Incorrect</div></div>
+      </div>
+
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mi">🧠</span>Learn</button>
+        <button class="mode-btn" id="modeExam"><span class="mi">📝</span>Exam</button>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Stopwatch</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <button class="tbtn" id="timerStart">▶</button>
+          <button class="tbtn" id="timerPause">⏸</button>
+          <button class="tbtn" id="timerReset">↺</button>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <button class="q-tool" id="toolHighlight">🖊 Highlight</button>
+        <button class="q-tool" id="toolStrike">Strike</button>
+        <button class="q-tool" id="toolReveal">👁 Reveal</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool: none</div>
+
+      <div class="exam-submit-row" id="examSubmitRow">
+        <div class="exam-progress" id="examProgress">0 of 20 answered</div>
+        <button class="exam-submit-btn" id="submitExamBtn" disabled>Submit Exam</button>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qpg"><div class="qpf" id="qpf" style="width:5%"></div></div>
+          <div class="qbd">
+            <div class="qmeta">
+              <div class="qnum" id="qNumBadge">QUESTION 1 OF 20</div>
+              <div class="plo-tag" id="ploBadge">PLO 1</div>
+            </div>
+            <div class="qstem" id="qStem"></div>
+            <div class="ach" id="ach">
+              <div class="ac" data-choice="0"><div class="cl">A</div><div class="ctx" id="ctx0"></div></div>
+              <div class="ac" data-choice="1"><div class="cl">B</div><div class="ctx" id="ctx1"></div></div>
+              <div class="ac" data-choice="2"><div class="cl">C</div><div class="ctx" id="ctx2"></div></div>
+              <div class="ac" data-choice="3"><div class="cl">D</div><div class="ctx" id="ctx3"></div></div>
+            </div>
+            <div class="submit-row">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+            <div class="exb" id="exBlock">
+              <div class="exs exc"><div class="exl">Correct Answer</div><div class="ext" id="expCorrect"></div></div>
+              <div class="exs exe"><div class="exl">Teaching Point</div><div class="ext" id="expTeaching"></div></div>
+              <div class="exs exw"><div class="exl">Why the Others Are Wrong</div><div class="ext" id="expWrong"></div></div>
+            </div>
+          </div>
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Prev</button>
+            <div class="qdots" id="qdots"></div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS OVERLAY -->
+<div class="results-overlay" id="resultsOverlay">
+  <div class="results-card">
+    <h2>Quiz Complete!</h2>
+    <p>Thyroid Hormones · PLO 1–4 · Dr. Johnson Style</p>
+    <div class="results-score" id="rScore">0<span class="results-denom">/20</span></div>
+    <div class="results-pct" id="rPct">0%</div>
+    <div class="results-grid">
+      <div class="rbox rc"><div class="rv" id="rCorrect">0</div><div class="rl">Correct</div></div>
+      <div class="rbox ri"><div class="rv" id="rIncorrect">0</div><div class="rl">Incorrect</div></div>
+      <div class="rbox rp"><div class="rv" id="rPct2">0%</div><div class="rl">Score</div></div>
+    </div>
+    <div class="results-btns">
+      <button class="rbtn primary" id="reviewBtn">Review Answers</button>
+      <button class="rbtn secondary" id="retakeBtn">Retake Quiz</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// QUESTION DATA — 20 questions, PLO 1–4
+// 4 choices each (A–D), Johnson style
+// Correct answer index distributed: A×6, B×5, C×5, D×4
+// ══════════════════════════════════════════════════
+const QUESTIONS = [
+
+  // ─── PLO 1: Structure ─────────────────────────────────────────────────────
+
+  { // Q1 — Colloid / thyroglobulin | correct = B (index 1)
+    plo: "PLO 1",
+    stem: "The lumen of each thyroid follicle is filled with colloid. The PRIMARY macromolecule stored in this colloid — serving as the extracellular scaffold on which thyroid hormones are assembled — is:",
+    choices: [
+      "Thyroxine-binding globulin (TBG) — the primary plasma carrier protein that maintains free thyroid hormone levels within narrow physiologic limits in the bloodstream",
+      "Thyroglobulin — a large iodinated glycoprotein synthesized by follicular cells and stored extracellularly until TSH-driven endocytosis and lysosomal proteolysis release T3 and T4",
+      "Thyroid peroxidase (TPO) — the membrane-bound enzyme that oxidizes iodide and catalyzes both organification and iodotyrosine coupling reactions at the apical surface",
+      "Transthyretin (TTR) — the secondary transport protein that buffers circulating T4 and T3 in the bloodstream alongside TBG and albumin after secretion"
+    ],
+    correct: 1,
+    explanation: "Thyroglobulin (Tg) is the large glycoprotein stored EXTRACELLULARLY in the colloid lumen. It serves as the scaffold on which iodine is incorporated by TPO — forming MIT and DIT, which are then coupled to produce T3 and T4. TSH triggers endocytosis of Tg, lysosomal cleavage, and hormone release into the circulation.",
+    teaching: "Thyroglobulin is unique among hormone precursors because it is stored EXTRACELLULARLY in the colloid — providing weeks of reserve. T3 and T4 remain covalently attached to Tg until demand triggers retrieval. This extracellular storage strategy makes the thyroid highly resistant to short-term iodine fluctuations.",
+    wrongExp: [
+      "TBG (thyroxine-binding globulin) is synthesized in the LIVER and circulates in the bloodstream as a transport carrier — it is not a component of the follicular colloid and plays no role in intrafollicular hormone assembly.",
+      null,
+      "TPO is a membrane-bound ENZYME at the apical surface of follicular cells — it performs oxidation and coupling reactions but does not serve as the structural scaffold for hormone storage. TPO acts on thyroglobulin, not as a storage molecule itself.",
+      "Transthyretin (TTR) is a PLASMA binding protein, not a colloid constituent. It plays a secondary transport role in the bloodstream alongside TBG and albumin and has no involvement in intrafollicular hormone biosynthesis or storage."
+    ]
+  },
+
+  { // Q2 — Parafollicular C cells | correct = A (index 0)
+    plo: "PLO 1",
+    stem: "Which of the following is TRUE regarding parafollicular (C) cells of the thyroid gland?",
+    choices: [
+      "They are located BETWEEN follicles, do not line the colloid lumen, and produce calcitonin rather than T3 or T4 — independent of the HPT axis",
+      "They synthesize thyroglobulin and transport iodide across the apical membrane into the colloid via thyroid peroxidase — the DOMINANT cell type by mass",
+      "They produce T3 and T4 in response to TSH stimulation from the anterior pituitary and represent the MAJORITY of the thyroid gland by cell number",
+      "They express the Na+/I− symporter (NIS) on their basolateral membranes and concentrate iodide for organification into thyroglobulin in the colloid"
+    ],
+    correct: 0,
+    explanation: "Parafollicular (C) cells are interspersed BETWEEN follicles — they have no direct contact with the colloid lumen. Their sole endocrine product is calcitonin, which regulates calcium homeostasis independently of the HPT axis. They play absolutely no role in T3/T4 synthesis or iodide transport.",
+    teaching: "The two cell populations of the thyroid have entirely separate functions: FOLLICULAR cells make T3/T4 (regulated by TSH) while C cells make calcitonin (regulated by serum calcium). This distinction is testable in multiple contexts — C cell tumors (medullary thyroid carcinoma) produce calcitonin, NOT thyroid hormones.",
+    wrongExp: [
+      null,
+      "These functions — thyroglobulin synthesis, iodide transport via TPO, and organification — all belong to FOLLICULAR cells (the epithelial cells lining each follicle), not parafollicular C cells. TPO is not a transporter; it is an enzyme.",
+      "T3 and T4 synthesis in response to TSH is the exclusive function of FOLLICULAR cells. C cells do not express TSH receptors and do not produce thyroid hormones under any circumstances.",
+      "The Na+/I− symporter (NIS) is expressed on the BASOLATERAL membrane of FOLLICULAR cells, not C cells. C cells have no role in iodide transport or the organification cascade that produces T3 and T4."
+    ]
+  },
+
+  { // Q3 — T4 as prohormone | correct = C (index 2)
+    plo: "PLO 1",
+    stem: "A 34-year-old woman has ELEVATED circulating T4 but LOW levels of biologically active thyroid hormone at target tissues. Which of the following BEST explains the INABILITY of T4 to exert full biological activity without peripheral conversion?",
+    choices: [
+      "T4 is produced entirely outside the thyroid gland and requires hepatic recombination before it achieves hormonal signaling at peripheral tissue receptors",
+      "T4 is bound exclusively to albumin in the plasma, which sequesters it from peripheral tissues until active hepatic cleavage exposes the free hormone fraction",
+      "T4 contains four iodine atoms, has low thyroid hormone receptor affinity, and functions as a prohormone until peripheral 5'-deiodinase converts it to the active T3",
+      "T4 has a shorter circulating half-life than T3, limiting the time available for receptor binding and reducing the overall biological signal at peripheral target tissues"
+    ],
+    correct: 2,
+    explanation: "T4 is a PROHORMONE — it has four iodine atoms and binds TR-alpha/TR-beta with very low affinity. Peripheral 5'-monodeiodinase in target tissues removes one iodine atom from the outer ring, converting T4 to T3, which has 3-4x higher receptor affinity and is the biologically dominant form at the nuclear receptor.",
+    teaching: "The concept of T4-as-prohormone explains why levothyroxine (synthetic T4) is the standard replacement therapy: peripheral tissues perform the T4-to-T3 conversion locally via deiodinase, producing T3 on demand. 5'-deiodinase is inhibited by PTU — its unique dual mechanism (also inhibits TPO) makes it especially useful in thyroid storm.",
+    wrongExp: [
+      "T4 is synthesized WITHIN the thyroid gland by follicular cells via the organification and coupling steps mediated by TPO. It is the dominant secreted product of the thyroid gland (80-90% of thyroid secretion is T4). No hepatic recombination step exists in normal physiology.",
+      "While albumin does bind thyroid hormones, TBG (thyroxine-binding globulin) is the PRIMARY carrier for T4 — not albumin exclusively. More importantly, T4's low biological activity is due to its low RECEPTOR AFFINITY, not simply plasma protein binding by any particular carrier.",
+      null,
+      "T4 actually has a LONGER half-life (~7 days) than T3 (~1 day) — not shorter. The low potency of T4 relative to T3 is due to its low thyroid hormone receptor affinity, not limited circulation time. The longer half-life of T4 is clinically advantageous as it allows once-daily dosing with stable plasma levels."
+    ]
+  },
+
+  { // Q4 — T3 sources, paired format | correct = D (index 3)
+    plo: "PLO 1",
+    stem: "Approximately ______ of circulating T3 is derived from peripheral deiodination of T4 in target tissues, while the REMAINING fraction is derived from ______.",
+    choices: [
+      "20%; direct secretion by thyroid follicular cells — making the thyroid gland the PRIMARY and DOMINANT source of circulating T3 by volume",
+      "50%; conversion of inactive reverse T3 (rT3) in the liver — with peripheral deiodination and rT3 conversion each contributing equally to T3 levels",
+      "80%; parafollicular C cell secretion — which directly converts stored T4 to T3 under TSH stimulation in response to low circulating levels",
+      "80%; direct secretion by thyroid follicular cells — making peripheral deiodination of T4 the DOMINANT source and thyroid secretion the MINOR source"
+    ],
+    correct: 3,
+    explanation: "Approximately 80% of circulating T3 is produced by peripheral 5'-deiodination of T4 in liver, kidney, and other target tissues. Only about 20% is directly secreted by thyroid follicular cells. This is why levothyroxine (T4) is effective — target tissues convert it to T3 locally on demand.",
+    teaching: "This 80/20 split is the pharmacological rationale for using T4 rather than T3 as replacement therapy. T4 acts as a prodrug reservoir; tissues self-regulate T3 production via local deiodinase activity. PTU exploits this by blocking both TPO (synthesis) AND 5'-deiodinase (peripheral T3 production) — making it the drug of choice in thyroid storm.",
+    wrongExp: [
+      "The percentages are REVERSED. Direct thyroid secretion accounts for only ~20% of circulating T3. The MAJORITY (~80%) comes from peripheral deiodination of T4 by 5'-deiodinase in liver, kidney, and other target tissues — not from direct thyroid secretion.",
+      "Reverse T3 (rT3) is an INACTIVE metabolite produced by inner-ring deiodination of T4 — it does not contribute to active T3 levels. rT3 accumulates in starvation/illness and is a marker of reduced deiodinase activity, not a source of active T3.",
+      "Parafollicular (C) cells produce CALCITONIN — they have no role in T3 or T4 synthesis, secretion, or conversion. TSH acts on FOLLICULAR cells exclusively. C cells do not respond to TSH and do not process thyroglobulin.",
+      null
+    ]
+  },
+
+  { // Q5 — T3 vs T4 potency | correct = A (index 0)
+    plo: "PLO 1",
+    stem: "Which of the following is TRUE regarding the DIFFERENCE in biological potency between T3 and T4?",
+    choices: [
+      "T3 is 3-4 times more potent than T4 because it binds thyroid hormone receptors (TR-alpha and TR-beta) with much higher affinity than T4 at equivalent concentrations",
+      "T4 is 3-4 times more potent than T3 because four iodine atoms confer greater structural complementarity with the thyroid hormone receptor's ligand-binding domain",
+      "T3 and T4 are equipotent at the nuclear receptor level, but T4 is clinically dominant due to its longer half-life and greater circulating abundance in the plasma",
+      "T3 is more potent than T4 because the thyroid gland directly secretes T3 in greater quantities, making T3 the dominant circulating form by concentration"
+    ],
+    correct: 0,
+    explanation: "T3 binds TR-alpha and TR-beta with 3-4x higher affinity than T4, making it the biologically dominant form at the nuclear receptor. T4 has low receptor affinity and functions primarily as a prohormone, with peripheral deiodinase converting it to T3 at target tissues as needed.",
+    teaching: "T3's higher receptor affinity is the reason T4 functions as a prohormone — the thyroid banks hormone as T4 (7-day half-life, stable reservoir), and peripheral tissues cash it in as T3 (1-day half-life, rapid on/off signaling). This architecture allows both long-term stability and rapid local regulation of gene expression.",
+    wrongExp: [
+      null,
+      "More iodine atoms do NOT confer greater receptor affinity. The structural change from T4 to T3 (removal of one outer-ring iodine by 5'-deiodinase) actually INCREASES affinity for TR-alpha and TR-beta by 3-4 fold. T4 is the WEAKER receptor binder despite having more iodine atoms.",
+      "T3 and T4 are NOT equipotent at the nuclear receptor. T3 binds TR-alpha/TR-beta with 3-4x higher affinity. T4's clinical significance stems from being the prohormone reservoir with a long half-life — not from equal receptor potency with T3.",
+      "The thyroid gland secretes predominantly T4 — approximately 80-90% of thyroid secretion is T4, with only ~20% as T3 directly. T3's greater potency derives entirely from receptor affinity, not from being secreted in greater quantities by the thyroid gland."
+    ]
+  },
+
+  // ─── PLO 2: Biosynthesis ───────────────────────────────────────────────────
+
+  { // Q6 — NIS location and mechanism, paired | correct = B (index 1)
+    plo: "PLO 2",
+    stem: "The Na+/I− symporter (NIS), which CONCENTRATES iodide inside follicular cells, is located on the ______ membrane and couples iodide transport to ______.",
+    choices: [
+      "Apical; inward sodium movement driven by the Na+/K+ ATPase — concentrating iodide from the colloid lumen INTO the follicular cell cytoplasm for recycling",
+      "Basolateral; inward sodium movement driven by the Na+/K+ ATPase — concentrating iodide from the bloodstream INTO the follicular cell against its electrochemical gradient",
+      "Basolateral; passive diffusion of iodide down its own electrochemical gradient — moving iodide from blood into cell without any direct energy expenditure",
+      "Apical; passive diffusion of iodide from the colloid lumen into the cytoplasm — moving iodide against its gradient without energy coupling from sodium"
+    ],
+    correct: 1,
+    explanation: "NIS is located on the BASOLATERAL membrane of follicular cells (blood-facing side). It couples iodide transport to inward sodium flow driven by the Na+/K+ ATPase gradient, making iodide uptake a secondary active transport process. NIS concentrates iodide 20-40 fold above plasma levels.",
+    teaching: "NIS is the rate-limiting step in thyroid hormone biosynthesis and is regulated by TSH (upregulates NIS expression). It is also the pharmacological target for radioiodine (131I) uptake into thyroid tissue for ablation therapy. Excess iodide transiently DOWNREGULATES NIS — the Wolff-Chaikoff effect.",
+    wrongExp: [
+      "NIS is on the BASOLATERAL membrane (blood-facing), not the apical surface. Iodide moves FROM the blood INTO the cell at the basolateral side. The APICAL transporter is PENDRIN, which moves iodide from the cytoplasm INTO the colloid lumen — the reverse direction.",
+      null,
+      "NIS transport is NOT passive — it is SECONDARY ACTIVE transport. The inward sodium concentration gradient (maintained by Na+/K+ ATPase) drives iodide against its own electrochemical gradient into the cell. This requires ongoing energy expenditure via the ATPase pump indirectly.",
+      "Both the location and the mechanism are incorrect. NIS is on the BASOLATERAL membrane and uses ACTIVE secondary transport (sodium cotransport). Passive diffusion would generate insufficient iodide concentration for the 20-40x concentration ratio seen inside follicular cells."
+    ]
+  },
+
+  { // Q7 — TPO dual function | correct = C (index 2)
+    plo: "PLO 2",
+    stem: "Thyroid peroxidase (TPO) is responsible for which of the following steps in thyroid hormone biosynthesis?",
+    choices: [
+      "Basolateral transport of iodide from the bloodstream into follicular cells via secondary active cotransport coupled to inward sodium movement driven by the Na+/K+ ATPase",
+      "Apical transport of iodide from the follicular cell cytoplasm into the colloid lumen — positioning iodide adjacent to thyroglobulin for subsequent organification",
+      "Oxidation of iodide to reactive I0 at the apical surface AND coupling of iodotyrosine residues (DIT+DIT → T4; MIT+DIT → T3) on the thyroglobulin scaffold",
+      "Endocytosis of thyroglobulin from the colloid into the follicular cell and subsequent lysosomal proteolysis to liberate T3 and T4 for secretion into the bloodstream"
+    ],
+    correct: 2,
+    explanation: "TPO performs TWO distinct reactions: (1) oxidation of iodide (I-) to reactive I0 using H2O2 as the oxidant, and (2) coupling — joining MIT and DIT residues on thyroglobulin to form T3 (MIT+DIT) and T4 (DIT+DIT). Both steps occur at the colloid-apical membrane interface.",
+    teaching: "TPO is the critical drug AND disease target in thyroid physiology. Methimazole and PTU both inhibit TPO — blocking both organification and coupling simultaneously. Anti-TPO antibodies are the HALLMARK of Hashimoto thyroiditis (positive in 90-100% of cases). A defect in TPO causes congenital hypothyroidism despite adequate iodide.",
+    wrongExp: [
+      "This describes the Na+/I− symporter (NIS) — a separate membrane transporter on the BASOLATERAL surface. NIS is not TPO. Each protein serves a distinct step in the biosynthesis pipeline, and their substrates and membrane locations differ completely.",
+      "This describes the function of PENDRIN (SLC26A4) — the apical iodide transporter that moves I− from the cytoplasm into the colloid lumen for organification. Pendrin defects cause Pendred syndrome (hypothyroidism + sensorineural deafness), distinct from TPO deficiency.",
+      null,
+      "Endocytosis and lysosomal proteolysis are TSH-stimulated steps mediated by LYSOSOMES — not by TPO. TPO acts at the apical surface in the COLLOID (extracellularly) during synthesis. It does not participate in thyroglobulin retrieval or the proteolytic cleavage that releases mature T3 and T4."
+    ]
+  },
+
+  { // Q8 — Pendrin, paired | correct = A (index 0)
+    plo: "PLO 2",
+    stem: "A patient with a genetic defect in pendrin would have IMPAIRED ______, resulting in a(n) ______ in T3/T4 synthesis.",
+    choices: [
+      "Apical iodide transport from the follicular cell cytoplasm into the colloid lumen; DECREASE in T3/T4 synthesis — because iodide cannot access the thyroglobulin scaffold",
+      "Basolateral iodide uptake from the plasma into the follicular cell via sodium cotransport through NIS; DECREASE in T3/T4 synthesis due to reduced intracellular iodide",
+      "TPO-mediated oxidation and coupling of iodotyrosine residues on the thyroglobulin scaffold in the colloid; DECREASE in T3/T4 synthesis due to failed coupling",
+      "TSH-stimulated endocytosis of thyroglobulin from the colloid back into the follicular cell; INCREASE in T3/T4 availability due to accelerated lysosomal proteolysis"
+    ],
+    correct: 0,
+    explanation: "Pendrin (SLC26A4) is an anion transporter at the APICAL membrane. It exports iodide from the follicular cell cytoplasm INTO the colloid, where it can be oxidized by TPO and incorporated into thyroglobulin. Loss of pendrin traps iodide in the cytoplasm — organification cannot proceed — resulting in decreased T3/T4 synthesis.",
+    teaching: "Pendrin defects cause Pendred syndrome: autosomal recessive hypothyroidism + sensorineural deafness (pendrin is also expressed in the cochlea). This is clinically important because it is one of the most common forms of genetic hearing loss. The key concept: iodide must cross the apical membrane via pendrin BEFORE TPO can act on it.",
+    wrongExp: [
+      null,
+      "This describes the function of NIS (Na+/I- symporter) on the BASOLATERAL membrane. Pendrin is on the APICAL membrane and performs the SECOND step of iodide transport (cytoplasm to colloid). Loss of pendrin does not impair basolateral uptake — iodide still enters the cell, it just cannot exit into the colloid.",
+      "This describes the function of TPO (thyroid peroxidase), a completely separate protein from pendrin. Pendrin is a passive iodide transporter, not an enzyme. It does not catalyze oxidation or coupling — it simply moves iodide across the apical membrane.",
+      "TSH-stimulated endocytosis is mediated by vesicular trafficking machinery, not by pendrin. If endocytosis were impaired, T3/T4 release would DECREASE. A pendrin defect reduces hormone SYNTHESIS (not retrieval), so T3/T4 would decrease — not increase."
+    ]
+  },
+
+  { // Q9 — MIT/DIT coupling | correct = B (index 1)
+    plo: "PLO 2",
+    stem: "Which of the following CORRECTLY pairs the iodotyrosine precursors with the thyroid hormone product generated by the TPO-mediated coupling reaction?",
+    choices: [
+      "MIT + MIT → T3 (triiodothyronine, 3 iodine atoms); DIT + MIT → T4 (thyroxine, 4 iodine atoms) — coupling of monoiodotyrosines generates the triiodinated form",
+      "DIT + DIT → T4 (thyroxine, 4 iodine atoms); MIT + DIT → T3 (triiodothyronine, 3 iodine atoms) — iodine atom count determines the product identity",
+      "MIT + DIT → T4 (thyroxine, 4 iodine atoms); DIT + DIT → T3 (triiodothyronine, 3 iodine atoms) — coupling of three iodinated residues generates thyroxine",
+      "DIT + DIT → T3 (triiodothyronine, 3 iodine atoms); MIT + MIT → T4 (thyroxine, 4 iodine atoms) — two diiodotyrosines are required to produce the triiodinated product"
+    ],
+    correct: 1,
+    explanation: "MIT has 1 iodine; DIT has 2. Coupling: DIT + DIT = 4 iodines = T4 (thyroxine). MIT + DIT = 3 iodines = T3 (triiodothyronine). Both coupling reactions are catalyzed by TPO at the colloid surface. Iodine atom counting is the most reliable way to derive these products.",
+    teaching: "Count the iodines — this is arithmetic, not memorization. MIT = 1 iodine, DIT = 2 iodines. DIT+DIT = 4 = T4. MIT+DIT = 3 = T3. MIT+MIT would give only 2 iodines — not a thyroid hormone product. This logic also explains why iodine deficiency predominantly reduces T4 synthesis (requires 4 iodines) before T3 (requires 3).",
+    wrongExp: [
+      "MIT + MIT would produce only 2 iodine atoms — not enough for T3 (which requires 3). This coupling does not generate a thyroid hormone product. Counting iodine atoms immediately rules out this option: 1+1=2, which is neither T3 nor T4.",
+      null,
+      "MIT + DIT = 1+2 = 3 iodines = T3, NOT T4. And DIT + DIT = 2+2 = 4 iodines = T4, NOT T3. This answer swaps the products. Counting iodine atoms reveals the error instantly: the 3-iodine product is T3 and the 4-iodine product is T4.",
+      "DIT + DIT = 2+2 = 4 iodines = T4, NOT T3. And MIT + MIT = 1+1 = 2 iodines — not a thyroid hormone product at all. Both pairings in this option are factually incorrect. Always count iodine atoms to identify the product."
+    ]
+  },
+
+  { // Q10 — Goitrogens | correct = A (index 0)
+    plo: "PLO 2",
+    stem: "A hypothyroid patient consuming large daily quantities of kale and broccoli develops worsening hypothyroidism and an ELEVATED TSH. Which of the following is MOST likely the mechanism?",
+    choices: [
+      "Goitrogens in cruciferous vegetables interfere with iodide uptake into follicular cells or organification into thyroglobulin, reducing T3/T4 synthesis and driving compensatory TSH elevation",
+      "Cruciferous vegetables contain iodine-chelating compounds that INCREASE urinary iodide excretion, depleting total body iodine below the threshold needed for hormone synthesis",
+      "Dietary fiber in cruciferous vegetables accelerates gastrointestinal transit, impairing levothyroxine absorption from the small intestine in supplement-dependent patients",
+      "Cruciferous vegetables trigger an autoimmune response generating anti-TPO antibodies that destroy thyroid peroxidase and mimic the pathophysiology of Hashimoto thyroiditis"
+    ],
+    correct: 0,
+    explanation: "Goitrogens (found in cruciferous vegetables) interfere with iodide uptake into follicular cells or with TPO-mediated organification. This reduces T3/T4 synthesis, leading to loss of negative feedback and compensatory TSH elevation. The elevated TSH chronically stimulates the gland, which can cause goiter over time.",
+    teaching: "Goitrogens are clinically relevant only in individuals with BORDERLINE thyroid reserve — particularly patients who are already hypothyroid or marginally iodine-deficient. Normal individuals with intact thyroid function can typically consume cruciferous vegetables without clinically significant thyroid suppression.",
+    wrongExp: [
+      null,
+      "Goitrogens do NOT work by increasing urinary iodide excretion or chelating iodine in the bloodstream. They act intracellularly within thyroid follicular cells, interfering with NIS-mediated iodide uptake or TPO-mediated organification — not with iodine excretion from the kidney.",
+      "While drug-food interactions with levothyroxine can occur (e.g., with calcium, iron, or soy products), this is NOT the mechanism by which dietary goitrogens cause hypothyroidism. The question is about the biochemical mechanism of worsening thyroid function, not pharmacokinetic drug interactions.",
+      "Anti-TPO antibody production is the mechanism of HASHIMOTO thyroiditis — an autoimmune disease unrelated to dietary goitrogens. Goitrogens are phytochemicals (e.g., isothiocyanates) that are biochemical enzyme inhibitors, not immunostimulants that trigger autoimmunity."
+    ]
+  },
+
+  // ─── PLO 3: Binding, T3 vs T4, Intracellular Action ──────────────────────
+
+  { // Q11 — Binding proteins | correct = D (index 3)
+    plo: "PLO 3",
+    stem: "Which of the following is TRUE regarding the plasma transport proteins for thyroid hormones?",
+    choices: [
+      "Albumin is the primary high-affinity carrier for T4 and T3, and the BOUND fraction is biologically active because albumin slowly releases hormone at target tissue capillaries",
+      "More than 50% of circulating T4 and T3 exists in the free, unbound form — making it immediately and abundantly available to peripheral tissue receptors without protein dissociation",
+      "Transthyretin (TTR) binds thyroid hormones with HIGHER affinity than TBG, making TTR the dominant determinant of free hormone levels in the systemic circulation",
+      "Thyroxine-binding globulin (TBG) is the PRIMARY carrier, and ONLY the free (unbound) fraction of T3 and T4 is biologically active and capable of entering target cells"
+    ],
+    correct: 3,
+    explanation: "TBG (thyroxine-binding globulin) is the primary plasma carrier — over 99.5% of circulating T4 and T3 is bound to TBG, transthyretin, and albumin. Only the tiny free fraction is biologically active, enters target cells, and exerts effects at the nuclear receptor. Binding proteins maintain a stable reservoir and buffer against acute fluctuations.",
+    teaching: "The clinical trap: measuring TOTAL T4 is misleading when TBG is altered. Pregnancy (high estrogen) increases TBG → total T4 rises, but free T4 and TSH remain normal. Clinical labs measure FREE T4 and TSH — not total T4 — precisely because only the free fraction reflects true hormonal status at target tissues.",
+    wrongExp: [
+      "Albumin is a TERTIARY carrier for thyroid hormones, not the primary one. TBG has the highest affinity and is the primary carrier. More critically, the BOUND fraction is NOT biologically active — only the FREE fraction enters cells and activates receptors. Bound hormone is physiologically inert.",
+      "Over 99.5% of circulating T4 and T3 is BOUND to plasma proteins — NOT more than 50% free. Only a tiny fraction (~0.02% for T3, ~0.03% for T4) is free. This small free fraction is the only biologically active and physiologically regulated portion of circulating thyroid hormone.",
+      "TBG has HIGHER affinity for thyroid hormones than TTR (transthyretin). TTR is the SECONDARY carrier, playing a smaller role in hormone transport. TBG is the dominant determinant of total bound hormone levels and is most responsive to changes in estrogen (elevated in pregnancy, oral contraceptive use).",
+      null
+    ]
+  },
+
+  { // Q12 — T3 vs T4 half-life and receptor affinity, paired | correct = A (index 0)
+    plo: "PLO 3",
+    stem: "Compared to T4, T3 has a ______ half-life and ______ affinity for thyroid hormone receptors (TR-alpha and TR-beta).",
+    choices: [
+      "Shorter (~1 day vs. ~7 days); much higher — T3 acts rapidly and potently at the nuclear receptor, with peripheral deiodination of T4 continuously replenishing it",
+      "Longer (~14 days vs. ~7 days); much higher — T3 has sustained receptor occupancy and prolonged gene expression changes due to an extended circulating half-life",
+      "Shorter (~1 day vs. ~7 days); lower — T3 turns over more rapidly than T4 and is less potent at the nuclear receptor, functioning primarily as a clearance metabolite",
+      "Longer (~14 days vs. ~7 days); lower — making T4 the preferred therapeutic agent because it has sustained receptor binding at lower circulating concentrations"
+    ],
+    correct: 0,
+    explanation: "T3 has a shorter half-life (~1 day) compared to T4 (~7 days) and much higher affinity for TR-alpha and TR-beta (3-4x). This inverse relationship is physiologically elegant: T4 provides a long-lived stable reservoir, while T3 provides rapid and tunable transcriptional signaling at target tissues.",
+    teaching: "The T4-to-T3 system is why levothyroxine given once daily produces stable T3 signaling. T4 (7-day half-life) slowly feeds peripheral deiodinase, which continuously generates T3 (1-day half-life). Missing a single dose barely changes T4 levels. This reservoir effect is lost with T3 supplementation, which causes rapid peaks and troughs.",
+    wrongExp: [
+      null,
+      "T3 has a SHORTER half-life (~1 day) — not longer than T4. T4 has the longer half-life (~7 days), which is why T4 is the reservoir form. The receptor affinity component (higher for T3) is correct in this choice, but the half-life is factually reversed.",
+      "T3 receptor affinity is much HIGHER than T4's — not lower. T3 is the primary mediator of thyroid hormone gene transcription at the nuclear receptor. It is far from a clearance metabolite; it is the biologically dominant active form responsible for virtually all thyroid hormone effects.",
+      "Both components are incorrect. T3 has a SHORTER half-life (~1 day, not ~14 days) and HIGHER receptor affinity than T4 (not lower). T4 is the therapeutic prohormone of choice (levothyroxine) due to its long half-life and stability, but this is not because of higher receptor affinity."
+    ]
+  },
+
+  { // Q13 — MCT8 | correct = B (index 1)
+    plo: "PLO 3",
+    stem: "A 2-year-old male is found to have severe intellectual disability and is subsequently diagnosed with a genetic defect in MCT8. Which of the following BEST explains this clinical finding?",
+    choices: [
+      "MCT8 is a mitochondrial enzyme that converts T4 to T3 via 5'-deiodinase activity; its deficiency prevents active T3 formation specifically within neural tissue, causing CNS hypothyroidism",
+      "MCT8 is a carrier-mediated membrane transporter required for T3 and T4 entry into CNS neurons; its absence prevents thyroid hormone from reaching brain cells during critical developmental windows",
+      "MCT8 is a thyroid hormone receptor cofactor that must heterodimerize with RXR before the T3-TR complex can bind thyroid response elements (TREs) and alter neuronal gene transcription",
+      "MCT8 is the Na+/I− symporter expressed in neural tissue; its deficiency impairs iodide uptake by the developing brain, producing localized CNS iodine deficiency independent of thyroid output"
+    ],
+    correct: 1,
+    explanation: "MCT8 (SLC16A2) is a carrier-mediated membrane transporter essential for T3 and T4 to enter CNS neurons. Without MCT8, thyroid hormone cannot cross into brain cells even when circulating levels are normal. This causes Allan-Herndon-Dudley syndrome: severe X-linked intellectual disability with abnormal thyroid function (low T4, very high T3).",
+    teaching: "MCT8 deficiency illustrates that adequate CIRCULATING thyroid hormone is not sufficient for normal CNS development — intracellular access requires specific transporters. This is distinct from iodine deficiency cretinism (where T3/T4 production itself is impaired). Brain development is absolutely dependent on T3 entry via MCT8 during fetal and early postnatal life.",
+    wrongExp: [
+      "5'-deiodinase is a separate ENZYME from MCT8. Deiodinase converts T4 to T3 INSIDE the cell — after the hormone has already entered via MCT8. If deiodinase were deficient, T3 production would be impaired intracellularly, but the entry mechanism (MCT8) would still be intact.",
+      null,
+      "RXR (Retinoid X Receptor) is the nuclear cofactor that heterodimerizes with TR-alpha/TR-beta inside the nucleus — it is a completely distinct protein from MCT8. MCT8 is a membrane transporter that facilitates hormone ENTRY into the cell, not a transcriptional cofactor that assists in DNA binding.",
+      "NIS (Na+/I− symporter) is expressed in thyroid FOLLICULAR cells to concentrate iodide for hormone biosynthesis. MCT8 is not an iodide transporter — it transports intact thyroid hormone molecules (T3 and T4) across cell membranes into target tissues including brain neurons."
+    ]
+  },
+
+  { // Q14 — Four requirements for T3 nuclear action | correct = C (index 2)
+    plo: "PLO 3",
+    stem: "Which of the following CORRECTLY identifies ALL four requirements for T3 to alter gene transcription at the nuclear level?",
+    choices: [
+      "Availability of T3; thyroxine-binding globulin (TBG) as nuclear chaperone; Retinoid X Receptor (RXR) as cofactor; DNA thyroid response elements (TREs) in target gene promoters",
+      "Availability of T4; thyroid hormone receptors (TR-alpha or TR-beta); Retinoid X Receptor (RXR) as cofactor; DNA cyclic AMP response elements (CREs) in target gene promoters",
+      "Availability of T3; thyroid hormone receptors (TR-alpha or TR-beta); Retinoid X Receptor (RXR) as cofactor; DNA thyroid response elements (TREs) in target gene promoters",
+      "Availability of T3; thyroid hormone receptors (TR-alpha or TR-beta); albumin as nuclear cofactor; DNA cyclic AMP response elements (CREs) in target gene promoters"
+    ],
+    correct: 2,
+    explanation: "All four are required: (1) T3 (the active ligand), (2) thyroid hormone receptors TR-alpha or TR-beta (encoded on chromosomes 17 and 3), (3) Retinoid X Receptor (RXR) as the obligate heterodimerization partner, and (4) thyroid response elements (TREs) in the promoters of target genes. A defect in any one produces resistance to thyroid hormone.",
+    teaching: "Thyroid hormone resistance syndromes (most often TR-beta mutations) cause a clinical phenotype that RESEMBLES hypothyroidism even with normal or elevated T3/T4 — because the receptor itself cannot signal. TSH is often paradoxically elevated (pituitary cannot respond to negative feedback either). This concept is testable as a 'which component is missing' question.",
+    wrongExp: [
+      "TBG (thyroxine-binding globulin) is a PLASMA transport protein — not a nuclear chaperone or transcriptional cofactor. TBG remains in the bloodstream and does not enter the nucleus. The required nuclear cofactor is RXR (Retinoid X Receptor), which dimerizes with TR before binding TREs.",
+      "The transcriptionally active ligand at the nucleus is T3, NOT T4. T4 must be converted to T3 by 5'-deiodinase before it can bind TR with high affinity. Additionally, thyroid hormone receptors bind THYROID response elements (TREs) — not cyclic AMP response elements (CREs), which mediate PKA-dependent signaling downstream of Gs-coupled receptors.",
+      null,
+      "Albumin is a PLASMA transport protein — not a nuclear cofactor. The required nuclear cofactor is RXR (Retinoid X Receptor). Furthermore, thyroid hormones act through thyroid response elements (TREs) in DNA — not cyclic AMP response elements (CREs), which mediate an entirely different second-messenger signaling pathway."
+    ]
+  },
+
+  { // Q15 — PTU vs methimazole in pregnancy | correct = A (index 0)
+    plo: "PLO 3",
+    stem: "Which of the following BEST explains why PTU is preferred over methimazole during the FIRST TRIMESTER of pregnancy in a patient with Graves disease?",
+    choices: [
+      "PTU inhibits both TPO (blocking new hormone synthesis) and peripheral 5'-deiodinase (blocking T4-to-T3 conversion), and has lower teratogenicity than methimazole in the first trimester",
+      "PTU selectively blocks TSH receptors on thyroid follicular cells — preventing TRAb-mediated uncontrolled stimulation while preserving maternal T4 supply for fetal development",
+      "PTU inhibits only TPO at the thyroid gland without crossing the placental barrier, making it the preferred agent because fetal thyroid hormone production cannot be suppressed",
+      "PTU is preferred because it inhibits the Na+/I− symporter in fetal thyroid tissue, limiting excessive iodide accumulation in the developing gland without affecting maternal thyroid function"
+    ],
+    correct: 0,
+    explanation: "PTU is preferred in the first trimester because (1) it has LOWER teratogenicity than methimazole (which is associated with aplasia cutis and choanal atresia) and (2) it has a DUAL mechanism — inhibiting both TPO (blocking synthesis) and peripheral 5'-deiodinase (blocking T4-to-T3 conversion). After the first trimester, methimazole is preferred due to PTU's risk of maternal hepatotoxicity.",
+    teaching: "PTU's 5'-deiodinase inhibition is especially valuable in THYROID STORM, where rapid lowering of active T3 is urgent. Methimazole only inhibits TPO — it has no effect on T4-to-T3 conversion. This makes PTU the superior agent for emergent T3 reduction. In the 2nd and 3rd trimesters, the teratogenic window for methimazole has passed, and hepatotoxicity risk shifts the preference back to methimazole.",
+    wrongExp: [
+      null,
+      "Neither PTU nor methimazole blocks the TSH receptor. That is not their mechanism of action. TRAb (TSH receptor antibodies) are autoimmune immunoglobulins that cannot be directly blocked by thionamide drugs. Both agents act on TPO (and for PTU, also on deiodinase) — not on receptor binding.",
+      "PTU DOES cross the placental barrier — this statement is factually incorrect. Both PTU and methimazole cross the placenta and can suppress fetal thyroid function. The preference for PTU in the first trimester is based on METHIMAZOLE's teratogenicity (not PTU's inability to cross the placenta), and its dual mechanism for rapid hormone level reduction.",
+      "PTU has no known inhibitory effect on the Na+/I− symporter (NIS). Its pharmacological mechanisms are specifically (1) inhibition of TPO at the apical surface and (2) inhibition of 5'-deiodinase in peripheral tissues. NIS inhibition is not part of any thionamide drug's mechanism of action."
+    ]
+  },
+
+  // ─── PLO 4: Regulation ────────────────────────────────────────────────────
+
+  { // Q16 — HPT axis negative feedback, paired | correct = D (index 3)
+    plo: "PLO 4",
+    stem: "When circulating free T3 and T4 levels RISE above normal, the HPT axis responds with a(n) ______ in TRH release from the hypothalamus and a(n) ______ in TSH release from the anterior pituitary.",
+    choices: [
+      "Decrease; increase — elevated T3/T4 suppresses hypothalamic TRH, but paradoxically stimulates anterior pituitary thyrotrophs to increase TSH secretion independently",
+      "Increase; decrease — elevated T3/T4 stimulates additional TRH release from the hypothalamus while simultaneously suppressing pituitary TSH secretion via a direct mechanism",
+      "Increase; increase — the hypothalamus responds to high T3/T4 by releasing more TRH, which then drives further TSH secretion as a positive amplification loop in the axis",
+      "Decrease; decrease — high free T3 and T4 exert negative feedback on BOTH the hypothalamus (↓ TRH) and the anterior pituitary (↓ TSH), restoring hormone levels to set point"
+    ],
+    correct: 3,
+    explanation: "Elevated free T3 and T4 suppress BOTH TRH release from the hypothalamus and TSH release from the anterior pituitary via negative feedback. High T3/T4 reduces TRH gene expression AND directly suppresses pituitary thyrotrophs. TSH suppression is the hallmark lab finding in hyperthyroidism of any cause.",
+    teaching: "TSH is exquisitely sensitive to small changes in free T4 — their relationship is logarithmic. A small rise in free T4 causes a LARGE drop in TSH. This is why TSH is the most sensitive screening test for both hyperthyroidism (suppressed TSH) and primary hypothyroidism (elevated TSH). TSH is the first parameter to change in emerging thyroid disease, before free T4 moves out of range.",
+    wrongExp: [
+      "This correctly identifies that TRH decreases, but erroneously claims TSH paradoxically increases. This violates the logic of negative feedback. If TRH (the upstream stimulus for TSH) DECREASES and high T3/T4 directly suppresses thyrotrophs as well, TSH must also DECREASE — not increase.",
+      "High T3/T4 does NOT stimulate TRH — it SUPPRESSES it. Free T3 inhibits TRH gene transcription in the hypothalamus. A scenario where high T3/T4 stimulates TRH would constitute a positive feedback loop, which does not exist anywhere in the normal HPT axis.",
+      "This describes a positive feedback loop, which does not exist in the HPT axis. High T3/T4 uniformly INHIBITS both TRH (at the hypothalamus) and TSH (at the pituitary) — driving the system back toward the physiologic setpoint. Positive feedback in the axis would cause runaway hormone production.",
+      null
+    ]
+  },
+
+  { // Q17 — Primary hypothyroidism lab pattern | correct = D (index 3)
+    plo: "PLO 4",
+    stem: "A 52-year-old woman presents with fatigue, cold intolerance, and weight gain. Her labs show TSH 18 mIU/L (normal 0.4–4.0) and free T4 0.4 ng/dL (normal 0.8–1.8 ng/dL). Which of the following BEST explains this lab pattern?",
+    choices: [
+      "Secondary hypothyroidism — the anterior pituitary has failed, causing inadequate TSH secretion and secondary reduction in T4 production by an otherwise normal thyroid gland",
+      "Graves disease — TSH receptor antibodies suppress endogenous TSH while directly stimulating excess T4 release, producing paradoxically ELEVATED TSH alongside high free T4",
+      "Central hyperthyroidism — a TSH-secreting pituitary adenoma drives ELEVATED TSH alongside secondary suppression of free T4 by downstream hypothalamic feedback",
+      "Primary hypothyroidism — the thyroid gland has failed, causing loss of negative feedback and compensatory TSH elevation by the intact and responsive anterior pituitary"
+    ],
+    correct: 3,
+    explanation: "The pattern of HIGH TSH + LOW free T4 defines PRIMARY hypothyroidism — the thyroid gland itself has failed. The anterior pituitary senses insufficient negative feedback from T3/T4 and pours out TSH compensatorily. In iodine-sufficient regions, Hashimoto thyroiditis (autoimmune destruction) is the most common cause.",
+    teaching: "Primary hypothyroidism (high TSH + low T4) accounts for 95% of all hypothyroidism. TSH is elevated BEFORE free T4 falls below normal — this is subclinical hypothyroidism (high TSH + normal free T4), where the gland is struggling but still compensating. Treating at this stage prevents progression to overt hypothyroidism and may reduce cardiovascular risk.",
+    wrongExp: [
+      "Secondary (pituitary) hypothyroidism would produce LOW TSH alongside low free T4 — because the pituitary has failed and cannot generate the TSH stimulus. In the presented case, TSH is MARKEDLY ELEVATED (18 mIU/L) — indicating the pituitary is intact and working hard. The problem is at the thyroid level.",
+      "Graves disease causes HYPERTHYROIDISM — high free T4 with a SUPPRESSED TSH (not elevated TSH). In Graves disease, TRAb drives excess T3/T4 production, which then suppresses TSH via negative feedback to near zero. The pattern here (high TSH + low T4) is the OPPOSITE of Graves disease.",
+      "A TSH-secreting pituitary adenoma would produce ELEVATED TSH alongside ELEVATED free T4 — because the ectopic TSH drives the normal thyroid to overproduce. This patient has LOW free T4, which rules out TSH-secreting adenoma. TSH-secreting adenomas are also exceedingly rare (<1% of pituitary adenomas).",
+      null
+    ]
+  },
+
+  { // Q18 — Graves / suppressed TSH mechanism | correct = B (index 1)
+    plo: "PLO 4",
+    stem: "A 28-year-old woman presents with palpitations, weight loss, heat intolerance, and exophthalmos. Labs show TSH <0.01 mIU/L and free T4 of 4.2 ng/dL. Which of the following MOST likely explains the SUPPRESSED TSH?",
+    choices: [
+      "TRAb directly block TSH receptors on anterior pituitary thyrotrophs, physically preventing TSH secretion independently of circulating thyroid hormone feedback levels",
+      "High free T3 and T4 produced by TRAb-driven thyroid overstimulation exert intense negative feedback on the anterior pituitary, suppressing TSH to near zero via normal HPT axis feedback",
+      "Elevated T3 from peripheral deiodination stimulates hypothalamic TRH release, which paradoxically downregulates anterior pituitary thyrotrophs and suppresses TSH output",
+      "The overactive thyroid gland secretes TSH-like peptides that cross-react with pituitary feedback receptors, autonomously suppressing endogenous TSH secretion independent of T3/T4 levels"
+    ],
+    correct: 1,
+    explanation: "In Graves disease, TRAb activates TSH receptors on THYROID follicular cells — causing uncontrolled T3/T4 production. The resulting high free T3/T4 then exerts NORMAL negative feedback on the hypothalamus and anterior pituitary, suppressing TSH to near-undetectable levels. The TSH suppression is a consequence of hyperthyroidism, not its cause.",
+    teaching: "The chain in Graves: TRAb binds thyroid TSH receptor → uncontrolled T3/T4 synthesis → high T3/T4 suppresses TRH and TSH via NORMAL negative feedback → TSH near zero. TRAb acts on the THYROID, not the pituitary. TSH <0.01 mIU/L in a symptomatic patient with high free T4 is virtually diagnostic of primary hyperthyroidism.",
+    wrongExp: [
+      "TRAb acts on TSH receptors located on THYROID FOLLICULAR CELLS — not on pituitary thyrotrophs. The antibody mimics TSH at the thyroid, causing unregulated hormone synthesis. TRAb does not physically block pituitary TSH secretion — TSH is suppressed by the DOWNSTREAM consequence (high T3/T4 negative feedback), not by direct pituitary receptor blockade.",
+      null,
+      "TRH and elevated T3/T4 have OPPOSITE effects on TSH: TRH stimulates TSH secretion, while high T3/T4 suppresses it. High T3 does NOT stimulate TRH release — it actually suppresses hypothalamic TRH gene expression, contributing further to TSH suppression. A paradoxical TRH-mediated TSH suppression does not occur in normal physiology.",
+      "The thyroid gland does not secrete TSH-like peptides. TSH is produced exclusively by THYROTROPHS in the anterior pituitary — no known thyroid-derived peptide cross-reacts with pituitary feedback receptors. The TSH suppression in Graves disease is entirely mediated by normal T3/T4 negative feedback on the hypothalamus and pituitary."
+    ]
+  },
+
+  { // Q19 — Starvation / rT3 | correct = C (index 2)
+    plo: "PLO 4",
+    stem: "A 23-year-old athlete undergoing severe caloric restriction develops LOW T3 and an ELEVATED reverse T3 (rT3). Which of the following is TRUE regarding this pattern?",
+    choices: [
+      "Starvation causes INCREASED T3 secretion by the thyroid gland as a compensatory mechanism to preserve lean muscle mass and prevent protein catabolism during caloric restriction",
+      "Elevated rT3 reflects INCREASED 5'-deiodinase activity converting T4 preferentially to active T3, with rT3 accumulating as an enzymatic byproduct of excess T3 production",
+      "Negative energy balance triggers an adaptive DECREASE in T3 synthesis and a shift toward inactive rT3 production, reducing basal metabolic rate as a caloric conservation mechanism",
+      "The drop in T3 during starvation is IRREVERSIBLE and results in permanent hypothyroidism requiring lifelong levothyroxine replacement therapy after refeeding is initiated"
+    ],
+    correct: 2,
+    explanation: "Starvation causes an adaptive DECREASE in T3 synthesis. Deiodinase activity shifts from outer-ring cleavage (which produces active T3) to inner-ring cleavage (which produces inactive rT3). This lowers BMR and conserves calories — a physiological survival adaptation. T3 and rT3 normalize promptly upon refeeding.",
+    teaching: "Low T3 + elevated rT3 in a starving or critically ill patient does NOT represent true thyroid disease — this is 'euthyroid sick syndrome.' Treating these patients with levothyroxine is NOT indicated and may be harmful. Treat the UNDERLYING ILLNESS, and thyroid labs will normalize. The key distinguishing feature: TSH is usually normal or low-normal in euthyroid sick syndrome, unlike primary hypothyroidism (where TSH is markedly elevated).",
+    wrongExp: [
+      "Starvation causes a DECREASE in T3 synthesis and secretion — not an increase. Increasing T3 would accelerate catabolism and energy expenditure, which is the opposite of an adaptive survival response during caloric restriction. The adaptive response is to LOWER metabolic rate to conserve available energy.",
+      "In starvation, deiodinase activity SHIFTS toward inner-ring deiodination of T4, producing INACTIVE rT3 — not toward outer-ring deiodination that would produce MORE active T3. If outer-ring 5'-deiodinase activity were increased, T3 levels would be HIGH — the opposite of what is observed in starvation.",
+      null,
+      "The starvation-related drop in T3 is COMPLETELY REVERSIBLE upon refeeding. T3 levels normalize promptly as caloric intake is restored and deiodinase activity shifts back from rT3 production to T3 production. No permanent thyroid gland damage occurs from caloric restriction alone."
+    ]
+  },
+
+  { // Q20 — Monitoring levothyroxine dose | correct = C (index 2)
+    plo: "PLO 4",
+    stem: "A patient with Hashimoto thyroiditis is started on levothyroxine (synthetic T4). Which of the following laboratory parameters would you MONITOR to determine that the CORRECT dose has been achieved?",
+    choices: [
+      "Serum free T3 — normalize free T3 levels, as T3 is the biologically active form and most directly reflects whether peripheral tissues are receiving adequate hormone",
+      "Serum total T4 — normalize total T4 concentration, as the administered prohormone should restore the circulating T4 pool to within the established reference range",
+      "Serum TSH — normalize TSH into the physiologic reference range, as TSH reflects the body's integrated assessment of thyroid hormone sufficiency at the pituitary level",
+      "Serum thyroglobulin — normalize thyroglobulin levels, as Hashimoto thyroiditis causes excess thyroglobulin leakage and its normalization confirms adequate hormone replacement"
+    ],
+    correct: 2,
+    explanation: "Serum TSH is the gold-standard monitoring parameter for levothyroxine therapy. TSH integrates the pituitary's response to free T3 AND free T4 simultaneously, using logarithmic sensitivity. A eu-thyroid TSH (0.4-4.0 mIU/L for most adults) confirms appropriate negative feedback is restored. TSH is more stable and clinically reliable than direct T3 or T4 measurements.",
+    teaching: "Levothyroxine is titrated to a TARGET TSH, not to a target T4 or T3. Over-treatment (TSH <0.1) risks atrial fibrillation, osteoporosis, and mood disturbances. Under-treatment (TSH persistently >10) means hypothyroid symptoms will persist. TSH changes BEFORE free T4 moves out of range — making it the earliest and most sensitive marker of both over- and under-treatment.",
+    wrongExp: [
+      "While T3 is the active hormone, free T3 is NOT the monitoring target for levothyroxine therapy because (1) T3 levels fluctuate throughout the day more than TSH, (2) T3 is produced by peripheral conversion in variable amounts across different tissues, and (3) TSH already integrates T3 effects at the pituitary level — making TSH more reliable.",
+      "Total T4 (not free T4) is UNRELIABLE for monitoring because it is profoundly affected by TBG levels — elevated in pregnancy and with estrogen use, reduced in liver disease. Even free T4 is a secondary monitoring target; TSH remains the primary parameter because of its superior sensitivity and stability.",
+      null,
+      "Thyroglobulin (Tg) monitoring is used as a TUMOR MARKER after thyroidectomy for differentiated thyroid cancer — not for routine levothyroxine dose titration in Hashimoto thyroiditis. In Hashimoto thyroiditis, anti-Tg antibodies frequently interfere with the Tg assay, making it additionally unreliable as a monitoring parameter in this specific disease."
+    ]
+  }
+
+];
+
+// ══════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════
+const N = QUESTIONS.length;
+const LETTERS = ["A","B","C","D"];
+let current = 0;
+let userAnswers = new Array(N).fill(null);
+let submitted  = new Array(N).fill(false);
+let quizMode   = "learn";
+let toolMode   = null;
+let timerInt   = null;
+let timerSec   = 0;
+let examFinished = false;
+
+// ══════════════════════════════════════════════════
+// DOM REFS
+// ══════════════════════════════════════════════════
+const launchScreen  = document.getElementById("launchScreen");
+const qo            = document.getElementById("qo");
+const openQuizBtn   = document.getElementById("openQuiz");
+const closeQuizBtn  = document.getElementById("closeQuiz");
+const resetQuizBtn  = document.getElementById("resetQuiz");
+const qpf           = document.getElementById("qpf");
+const qNumBadge     = document.getElementById("qNumBadge");
+const ploBadge      = document.getElementById("ploBadge");
+const qStem         = document.getElementById("qStem");
+const ach           = document.getElementById("ach");
+const choiceEls     = Array.from(document.querySelectorAll(".ac"));
+const submitOne     = document.getElementById("submitOne");
+const exBlock       = document.getElementById("exBlock");
+const expCorrect    = document.getElementById("expCorrect");
+const expTeaching   = document.getElementById("expTeaching");
+const expWrong      = document.getElementById("expWrong");
+const prevBtn       = document.getElementById("prevBtn");
+const nextBtn       = document.getElementById("nextBtn");
+const qdots         = document.getElementById("qdots");
+const svCurrent     = document.getElementById("svCurrent");
+const svCorrect     = document.getElementById("svCorrect");
+const svIncorrect   = document.getElementById("svIncorrect");
+const modeLearn     = document.getElementById("modeLearn");
+const modeExam      = document.getElementById("modeExam");
+const toolHighlight = document.getElementById("toolHighlight");
+const toolStrike    = document.getElementById("toolStrike");
+const toolReveal    = document.getElementById("toolReveal");
+const toolStatus    = document.getElementById("toolStatus");
+const examSubmitRow = document.getElementById("examSubmitRow");
+const examSubmitBtn = document.getElementById("submitExamBtn");
+const examProgress  = document.getElementById("examProgress");
+const timerTime     = document.getElementById("timerTime");
+const resultsOverlay= document.getElementById("resultsOverlay");
+
+// ══════════════════════════════════════════════════
+// BUILD DOTS
+// ══════════════════════════════════════════════════
+function buildDots() {
+  qdots.innerHTML = "";
+  for (let i = 0; i < N; i++) {
+    const d = document.createElement("button");
+    d.className = "qd";
+    d.title = "Q" + (i + 1);
+    d.addEventListener("click", () => { current = i; render(); });
+    qdots.appendChild(d);
+  }
+}
+
+function updateDots() {
+  const dots = qdots.querySelectorAll(".qd");
+  dots.forEach((d, i) => {
+    d.className = "qd";
+    if (i === current) d.classList.add("cur");
+    else if (submitted[i]) {
+      const isCorrect = userAnswers[i] === QUESTIONS[i].correct;
+      d.classList.add(isCorrect ? "acor" : "ainc");
+    } else if (userAnswers[i] !== null) {
+      d.classList.add("asel");
+    }
+  });
+}
+
+// ══════════════════════════════════════════════════
+// SCORE
+// ══════════════════════════════════════════════════
+function updateScore() {
+  let correct = 0, incorrect = 0;
+  for (let i = 0; i < N; i++) {
+    if (submitted[i]) {
+      if (userAnswers[i] === QUESTIONS[i].correct) correct++;
+      else incorrect++;
+    }
+  }
+  svCorrect.textContent   = correct;
+  svIncorrect.textContent = incorrect;
+  svCurrent.textContent   = current + 1;
+}
+
+// ══════════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════════
+function render() {
+  const q = QUESTIONS[current];
+
+  // Progress bar
+  qpf.style.width = ((current + 1) / N * 100) + "%";
+
+  // Meta
+  qNumBadge.textContent = "QUESTION " + (current + 1) + " OF " + N;
+  ploBadge.textContent  = q.plo;
+
+  // Stem
+  qStem.textContent = q.stem;
+
+  // Choices
+  choiceEls.forEach((el, i) => {
+    el.querySelector(".ctx").textContent = q.choices[i];
+    el.className = "ac";
+    el.dataset.choice = i;
+  });
+
+  // Explanation
+  const ca = q.correct;
+  expCorrect.textContent  = LETTERS[ca] + ") " + q.choices[ca] + " — " + q.explanation;
+  expTeaching.textContent = q.teaching;
+
+  // Wrong explanations
+  expWrong.innerHTML = "";
+  q.wrongExp.forEach((exp, i) => {
+    if (exp === null) return;
+    const div = document.createElement("div");
+    div.className = "wce";
+    div.innerHTML = "<strong>" + LETTERS[i] + "</strong> — " + exp;
+    expWrong.appendChild(div);
+  });
+
+  // Restore state
+  const userAns  = userAnswers[current];
+  const wasSubmit = submitted[current];
+
+  exBlock.classList.remove("vis");
+  submitOne.disabled = true;
+
+  if (wasSubmit) {
+    choiceEls[q.correct].classList.add("cor");
+    if (userAns !== null && userAns !== q.correct) {
+      choiceEls[userAns].classList.add("inc");
+    }
+    choiceEls.forEach(el => el.classList.add("dis"));
+    exBlock.classList.add("vis");
+  } else if (userAns !== null) {
+    choiceEls[userAns].classList.add("sel");
+    submitOne.disabled = false;
+  }
+
+  // Nav buttons
+  prevBtn.disabled = (current === 0);
+  nextBtn.disabled = (current === N - 1);
+  nextBtn.textContent = current === N - 1 ? "Finish →" : "Next →";
+
+  // Exam mode progress
+  if (quizMode === "exam") {
+    const answered = userAnswers.filter(a => a !== null).length;
+    examProgress.textContent = answered + " of " + N + " answered";
+    examSubmitBtn.disabled = answered === 0;
+  }
+
+  updateDots();
+  updateScore();
+}
+
+// ══════════════════════════════════════════════════
+// GRADE
+// ══════════════════════════════════════════════════
+function gradeCurrentQuestion() {
+  if (userAnswers[current] === null) return;
+  submitted[current] = true;
+  const q = QUESTIONS[current];
+  choiceEls.forEach(el => el.classList.add("dis"));
+  choiceEls[q.correct].classList.add("cor");
+  if (userAnswers[current] !== q.correct) {
+    choiceEls[userAnswers[current]].classList.add("inc");
+  }
+  exBlock.classList.add("vis");
+  submitOne.disabled = true;
+  updateDots();
+  updateScore();
+}
+
+// ══════════════════════════════════════════════════
+// RESULTS
+// ══════════════════════════════════════════════════
+function showResults() {
+  let correct = 0;
+  for (let i = 0; i < N; i++) {
+    if (submitted[i] && userAnswers[i] === QUESTIONS[i].correct) correct++;
+  }
+  const incorrect = submitted.filter(Boolean).length - correct;
+  const pct = Math.round(correct / N * 100);
+  document.getElementById("rScore").innerHTML = correct + "<span class='results-denom'>/" + N + "</span>";
+  document.getElementById("rPct").textContent = pct + "%";
+  document.getElementById("rCorrect").textContent = correct;
+  document.getElementById("rIncorrect").textContent = incorrect;
+  document.getElementById("rPct2").textContent = pct + "%";
+  resultsOverlay.classList.add("open");
+  examFinished = true;
+}
+
+// ══════════════════════════════════════════════════
+// RESET
+// ══════════════════════════════════════════════════
+function resetAll() {
+  userAnswers = new Array(N).fill(null);
+  submitted   = new Array(N).fill(false);
+  current     = 0;
+  examFinished = false;
+  clearInterval(timerInt); timerInt = null; timerSec = 0;
+  renderTimer();
+  render();
+  examSubmitRow.classList.remove("exam-live");
+  examSubmitBtn.textContent = "Submit Exam";
+  examSubmitBtn.disabled = true;
+}
+
+// ══════════════════════════════════════════════════
+// TOOL MODE
+// ══════════════════════════════════════════════════
+function setToolMode(mode) {
+  toolMode = toolMode === mode ? null : mode;
+  toolHighlight.classList.toggle("active",  toolMode === "highlight");
+  toolHighlight.classList.toggle("hl-tool", toolMode === "highlight");
+  toolStrike.classList.toggle("active",  toolMode === "strike");
+  toolStrike.classList.toggle("st-tool", toolMode === "strike");
+  toolStatus.textContent = toolMode ? ("Tool: " + toolMode) : "Tool: none";
+  qStem.classList.toggle("tool-hover", toolMode !== null);
+}
+
+function applyStemMarkup(type) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+  const range = sel.getRangeAt(0);
+  if (!qStem.contains(range.commonAncestorContainer)) return false;
+  const wrapper = document.createElement("span");
+  wrapper.className = type === "highlight" ? "stem-hl" : "stem-st";
+  try { range.surroundContents(wrapper); }
+  catch(e) { wrapper.appendChild(range.extractContents()); range.insertNode(wrapper); }
+  sel.removeAllRanges();
+  return true;
+}
+
+// ══════════════════════════════════════════════════
+// TIMER
+// ══════════════════════════════════════════════════
+function renderTimer() {
+  const m = String(Math.floor(timerSec / 60)).padStart(2, "0");
+  const s = String(timerSec % 60).padStart(2, "0");
+  timerTime.textContent = m + ":" + s;
+}
+
+// ══════════════════════════════════════════════════
+// EVENT LISTENERS
+// ══════════════════════════════════════════════════
+openQuizBtn.addEventListener("click", () => {
+  launchScreen.style.display = "none";
+  qo.classList.add("open");
+  buildDots();
+  render();
+});
+
+closeQuizBtn.addEventListener("click", () => {
+  qo.classList.add("closing");
+  setTimeout(() => {
+    qo.classList.remove("open", "closing");
+    launchScreen.style.display = "";
+  }, 320);
+});
+
+resetQuizBtn.addEventListener("click", () => {
+  resetAll();
+});
+
+prevBtn.addEventListener("click", () => {
+  if (current > 0) { current--; render(); }
+});
+
+nextBtn.addEventListener("click", () => {
+  if (current < N - 1) {
+    current++;
+    render();
+  } else {
+    // Last question — show results if in exam mode
+    if (quizMode === "exam") {
+      // Grade all unanswered in exam mode before showing
+      showResults();
+    } else {
+      showResults();
+    }
+  }
+});
+
+submitOne.addEventListener("click", () => {
+  gradeCurrentQuestion();
+});
+
+choiceEls.forEach(choice => {
+  choice.addEventListener("click", e => {
+    e.preventDefault();
+
+    if (toolMode === "highlight") {
+      choice.classList.toggle("hl-applied");
+      choice.classList.remove("st-applied");
+      return;
+    }
+    if (toolMode === "strike") {
+      choice.classList.toggle("st-applied");
+      choice.classList.remove("hl-applied");
+      return;
+    }
+
+    if (choice.classList.contains("dis")) return;
+
+    choiceEls.forEach(c => c.classList.remove("sel"));
+    choice.classList.add("sel");
+    userAnswers[current] = parseInt(choice.dataset.choice);
+    submitOne.disabled = false;
+
+    if (quizMode === "exam") {
+      const answered = userAnswers.filter(a => a !== null).length;
+      examProgress.textContent = answered + " of " + N + " answered";
+      examSubmitBtn.disabled = false;
+    }
+    updateDots();
+  });
+});
+
+modeLearn.addEventListener("click", () => {
+  quizMode = "learn";
+  modeLearn.classList.add("active");
+  modeExam.classList.remove("active");
+  examSubmitRow.classList.remove("exam-live");
+});
+
+modeExam.addEventListener("click", () => {
+  quizMode = "exam";
+  modeExam.classList.add("active");
+  modeLearn.classList.remove("active");
+  examSubmitRow.classList.add("exam-live");
+  const answered = userAnswers.filter(a => a !== null).length;
+  examProgress.textContent = answered + " of " + N + " answered";
+  examSubmitBtn.disabled = answered === 0;
+});
+
+toolHighlight.addEventListener("click", () => setToolMode("highlight"));
+toolStrike.addEventListener("click",    () => setToolMode("strike"));
+toolReveal.addEventListener("click",    () => exBlock.classList.toggle("vis"));
+
+qStem.addEventListener("click", e => {
+  if (!toolMode) return;
+  const applied = applyStemMarkup(toolMode);
+  if (!applied) {
+    qStem.classList.toggle(toolMode === "highlight" ? "hl-applied" : "st-applied");
+  }
+  e.preventDefault();
+});
+
+examSubmitBtn.addEventListener("click", () => {
+  if (quizMode !== "exam") return;
+  // Grade all submitted questions, submit remaining
+  showResults();
+});
+
+document.getElementById("reviewBtn").addEventListener("click", () => {
+  resultsOverlay.classList.remove("open");
+  current = 0;
+  render();
+});
+
+document.getElementById("retakeBtn").addEventListener("click", () => {
+  resultsOverlay.classList.remove("open");
+  resetAll();
+});
+
+// Timer controls
+document.getElementById("timerStart").addEventListener("click", () => {
+  if (timerInt) return;
+  timerInt = setInterval(() => { timerSec++; renderTimer(); }, 1000);
+});
+document.getElementById("timerPause").addEventListener("click", () => {
+  clearInterval(timerInt); timerInt = null;
+});
+document.getElementById("timerReset").addEventListener("click", () => {
+  clearInterval(timerInt); timerInt = null; timerSec = 0; renderTimer();
+});
+
+renderTimer();
+</script>
+</body>
+</html>
