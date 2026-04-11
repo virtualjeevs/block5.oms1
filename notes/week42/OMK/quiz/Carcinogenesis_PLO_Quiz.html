@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Carcinogenesis PLO Quiz — Dr. Filippakis · UNE COM</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+
+/* LAUNCH SCREEN */
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+  radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+  radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%)}
+.launch-card{max-width:780px;width:min(100%,780px);background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:40px}
+.launch-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:12px;font-weight:600}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:40px;line-height:1.05;color:var(--navy);margin-bottom:10px}
+.launch-card .launch-sub{color:var(--slate);max-width:60ch;font-size:16px;line-height:1.65;margin-bottom:24px}
+.launch-plos{display:grid;gap:10px;margin-bottom:28px}
+.plo-row{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;border:1px solid var(--rule2);background:rgba(255,255,255,.7)}
+.plo-badge{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;width:56px;height:28px;border-radius:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.plo-badge.p1{background:#FEF5E6;color:#8a5a00;border:1px solid #f5d9a0}
+.plo-badge.p2{background:#E3F5F2;color:#1A5E54;border:1px solid #a8ddd8}
+.plo-badge.p3{background:#F3EEF9;color:#5a3e8a;border:1px solid #c8b8e8}
+.plo-row p{font-size:14px;color:var(--ink2);line-height:1.5;padding-top:2px}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.launch-actions{display:flex;gap:12px;flex-wrap:wrap}
+.launch-btn{padding:15px 32px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr);font-family:'Nunito',sans-serif;letter-spacing:.3px}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+
+/* QUIZ OVERLAY */
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%, rgba(62,196,178,.12), transparent 24%),
+  radial-gradient(circle at 92% 8%, rgba(123,94,167,.10), transparent 22%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+
+/* TOP BAR */
+.qt-bar{position:sticky;top:0;z-index:12;padding:16px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,rgba(18,32,60,.96),rgba(27,42,74,.94));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar-left{display:flex;flex-direction:column;gap:2px}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:26px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
+.qt-plo-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.45);text-transform:uppercase}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.qt-btn{padding:10px 16px;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-1px)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900;box-shadow:0 8px 20px rgba(212,168,67,.24)}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(212,168,67,.28)}
+.fs-ctrl{display:flex;align-items:center;gap:4px}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;white-space:nowrap;margin-right:2px}
+.fs-btn{width:32px;height:32px;border-radius:10px;border:1.5px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center}
+.fs-btn:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal)}
+
+/* QUIZ BODY GRID */
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px 24px;align-items:start}
+.q-left{display:grid;gap:16px;align-content:start;align-self:start;position:sticky;top:88px}
+.q-right{min-width:0;display:grid;gap:16px;align-content:start;align-self:start}
+
+/* SCORE PANEL */
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.score-box{position:relative;overflow:hidden;background:rgba(255,255,255,.88);border-radius:20px;padding:16px 12px 12px;text-align:center;box-shadow:0 14px 34px rgba(18,32,60,.08);border:1px solid rgba(18,32,60,.08);transition:var(--tr)}
+.score-box::before{content:'';position:absolute;left:14px;right:14px;top:0;height:4px;border-radius:0 0 999px 999px;background:linear-gradient(90deg,rgba(26,122,109,.16),rgba(62,196,178,.5));opacity:.75}
+.score-box.correct-box{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(232,245,238,.98))}
+.score-box.correct-box::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect-box{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(253,240,240,.98))}
+.score-box.incorrect-box::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:34px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:6px}
+.score-box.correct-box .sv{color:var(--green)}
+.score-box.incorrect-box .sv{color:var(--red)}
+
+/* SIDE PANELS */
+.side-panel{background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);border-radius:22px;padding:0;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+
+/* MODE TOGGLE */
+.mode-toggle{display:flex;gap:6px;padding:8px;border-radius:22px;animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08)}
+.mode-btn{flex:1;padding:12px 14px;border-radius:16px;text-align:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 10px 22px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:18px;margin-bottom:3px}
+
+/* TIMER */
+.timer-wrap{padding:16px 18px;display:flex;flex-direction:column;gap:12px}
+.timer-label-row{display:flex;align-items:center;justify-content:space-between}
+.timer-section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:700}
+.timer-row{display:flex;align-items:center;gap:10px;margin-top:4px}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:36px;font-weight:600;color:var(--navy);min-width:100px;letter-spacing:2px}
+.tbtn,.cd-pm{width:38px;height:38px;border-radius:50%;border:1.8px solid rgba(27,42,74,.2);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:var(--tr);color:var(--navy);flex-shrink:0;box-shadow:0 4px 12px rgba(18,32,60,.08)}
+.tbtn:hover,.cd-pm:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cd-pm{width:32px;height:32px;font-size:18px;font-weight:800;border-color:rgba(27,42,74,.16)}
+.cd-row{display:flex;align-items:center;gap:8px}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;min-width:30px;text-align:center;color:var(--navy)}
+.cd-unit{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800}
+.cd-go{padding:9px 14px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:var(--tr)}
+.cd-go:hover{background:linear-gradient(135deg,#D86E53,#C95E45)}
+.timer-divider{border:none;border-top:1px solid rgba(18,32,60,.07);margin:4px 0}
+
+/* TOOL PANEL */
+.tool-panel{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);border-radius:22px}
+.q-tool{padding:11px 14px;border-radius:14px;font-size:12px;font-weight:800;border:1.5px solid rgba(18,32,60,.08);background:rgba(255,255,255,.86);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);box-shadow:0 6px 14px rgba(18,32,60,.06);text-align:center}
+.q-tool:hover{border-color:rgba(26,122,109,.32);color:var(--teal);transform:translateY(-1px);background:#fff}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red)}
+.tool-status{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--mist);padding:0 14px 10px;text-align:center}
+.tool-status.active-highlight{color:#8a6a00}
+.tool-status.active-strike{color:var(--red)}
+
+/* EXAM SUBMIT */
+.exam-submit-row{padding:16px;background:rgba(255,255,255,.76);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);border-radius:22px;text-align:center;animation:slideUp .4s .18s cubic-bezier(.4,0,.2,1) both}
+.exam-progress{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mist);margin-bottom:10px}
+.exam-submit-btn{padding:13px 40px;border-radius:16px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 22px rgba(224,122,95,.24)}
+.exam-submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(224,122,95,.32)}
+.exam-submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.exam-submit-row.exam-live{box-shadow:0 0 0 3px rgba(224,122,95,.1),0 14px 34px rgba(18,32,60,.08)}
+.exam-submit-row.exam-done .exam-submit-btn{background:linear-gradient(135deg,var(--green),#3aa56f);box-shadow:0 10px 24px rgba(45,134,89,.24)}
+
+/* QUESTION CARD */
+.qcd{background:rgba(255,255,255,.95);border-radius:26px;overflow:hidden;box-shadow:0 28px 70px rgba(18,32,60,.12);border:1px solid rgba(18,32,60,.08);animation:cardIn .45s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(0.99)}to{opacity:1;transform:none}}
+.qpg{height:5px;background:rgba(26,122,109,.08)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 32px 24px}
+.q-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.qnum{display:inline-flex;align-items:center;padding:5px 11px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;font-weight:700}
+.q-plo-chip{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.q-plo-chip.c1{background:#FEF5E6;color:#8a5a00;border:1px solid #f5d9a0}
+.q-plo-chip.c2{background:#E3F5F2;color:#1A5E54;border:1px solid #a8ddd8}
+.q-plo-chip.c3{background:#F3EEF9;color:#5a3e8a;border:1px solid #c8b8e8}
+.qstem{font-family:'Crimson Pro',serif;font-size:24px;line-height:1.38;margin-bottom:24px;font-weight:600;color:var(--ink);letter-spacing:-.15px;position:relative;border-radius:14px;padding:4px 6px;margin:-4px -6px 24px -6px;transition:var(--tr)}
+.qstem.tool-hover{box-shadow:inset 0 0 0 2px rgba(26,122,109,.16);background:rgba(26,122,109,.04)}
+.qstem.hl-applied{background:linear-gradient(180deg,#FFF4A8,#FFF7C9)!important;box-shadow:inset 0 0 0 2px rgba(212,168,67,.34)}
+.qstem.st-applied .stem-text{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--red);color:#8B2C2C!important}
+.stem-hl{background:#FFF1A6;border-radius:4px;padding:0 .1em}
+.stem-st{text-decoration:line-through;text-decoration-color:var(--red);color:#8B2C2C;text-decoration-thickness:2px}
+
+/* CHOICES */
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border:1.5px solid rgba(18,32,60,.09);border-radius:16px;cursor:pointer;transition:var(--tr);background:rgba(251,248,243,.78);position:relative;box-shadow:0 4px 14px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 10px 22px rgba(18,32,60,.08)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.ac.hl-applied{background:#FFF4A8!important;border-color:#D4A843!important;box-shadow:0 0 0 3px rgba(212,168,67,.18),0 8px 20px rgba(18,32,60,.06)!important}
+.ac.hl-applied .cl{background:#D4A843!important;border-color:#D4A843!important;color:#fff!important}
+.ac.hl-applied .ctx{color:#5c4400!important}
+.ac.st-applied{background:#FFF3F3!important;border-color:rgba(196,64,64,.52)!important;box-shadow:0 0 0 3px rgba(196,64,64,.10),0 8px 20px rgba(18,32,60,.06)!important}
+.ac.st-applied .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ac.st-applied .ctx{color:#8B2C2C!important;text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--red)}
+.cl{width:40px;height:40px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 4px 10px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:16px;line-height:1.5;padding-top:2px;color:var(--ink)}
+
+/* SUBMIT ROW */
+.submit-row{margin-top:22px;text-align:center}
+.submit-btn{padding:14px 52px;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.4px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+
+/* EXPLANATION BOX */
+.exb{margin-top:24px;border-radius:20px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.exs{padding:20px 24px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:16px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:10px;padding:12px 16px;background:rgba(255,255,255,.58);border-radius:12px;font-size:15px;line-height:1.65}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12px}
+
+/* NAV */
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 24px 20px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,rgba(251,248,243,.32),rgba(246,243,236,.82))}
+.nb{padding:11px 22px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 6px 16px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.nb:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.qdots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:14px;height:14px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);box-shadow:0 3px 8px rgba(18,32,60,.04)}
+.qd:hover{transform:scale(1.2)}
+.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,.15)}
+.qd.acor{border-color:var(--green);background:var(--green)}
+.qd.ainc{border-color:var(--red);background:var(--red)}
+.qd.asel{border-color:var(--gold);background:var(--gold)}
+
+/* font size variants */
+#qo[data-fs="sm"] .ctx{font-size:14px}
+#qo[data-fs="sm"] .qstem{font-size:21px}
+#qo[data-fs="md"] .ctx{font-size:16px}
+#qo[data-fs="md"] .qstem{font-size:24px}
+#qo[data-fs="lg"] .ctx{font-size:19px}
+#qo[data-fs="lg"] .qstem{font-size:27px}
+#qo[data-fs="xl"] .ctx{font-size:22px}
+#qo[data-fs="xl"] .qstem{font-size:30px}
+
+/* PRINT */
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,
+body.print-review-active .qo{display:none!important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:940px;margin:0 auto;color:#111;font-family:'Nunito',sans-serif}
+.print-header{margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #ddd}
+.print-header h1{font-family:'Crimson Pro',serif;font-size:32px;color:#12203C;margin-bottom:10px}
+.print-summary{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.print-pill{padding:6px 12px;border:1px solid #ddd;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.print-card{break-inside:avoid;page-break-inside:avoid;border:1px solid #ddd;border-radius:16px;padding:22px;margin:0 0 20px;background:#fff}
+.print-card h2{font-family:'Crimson Pro',serif;font-size:24px;color:#12203C;margin:0 0 8px}
+.print-qtag{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6B7689;margin-bottom:6px}
+.print-stem{font-size:16px;line-height:1.55;margin-bottom:16px;font-family:'Crimson Pro',serif;font-size:20px}
+.print-choices{display:grid;gap:8px;margin-bottom:16px}
+.print-choice{display:flex;gap:12px;border:1px solid #ddd;border-radius:10px;padding:12px;background:#fafafa;align-items:flex-start}
+.print-choice.correct{border-color:#2D8659;background:#E8F5EE}
+.print-choice.incorrect{border-color:#C44040;background:#FDF0F0}
+.print-choice-letter{width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;flex:0 0 30px;font-size:13px}
+.print-choice-copy{flex:1;font-size:15px;line-height:1.5}
+.print-choice-badge{margin-top:6px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.print-explainer{border-radius:10px;padding:14px 16px;margin-top:12px}
+.print-explainer.correct-box{background:#E8F5EE;border-left:4px solid #2D8659}
+.print-explainer.teach-box{background:#E3F5F2;border-left:4px solid #1A7A6D}
+.print-explainer.wrong-box{background:#FDF0F0;border-left:4px solid #C44040}
+.print-label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;color:#555}
+.print-wrong{margin-top:8px;font-size:14px;line-height:1.6}
+
+@media(max-width:920px){.qin{grid-template-columns:1fr;padding:20px 18px 72px}.q-left{position:static}}
+@media(max-width:700px){.qt-bar{padding:14px 16px;flex-direction:column;align-items:flex-start}.qin{padding:16px 14px 64px}.qbd{padding:22px 18px 20px}.qstem{font-size:22px}.ctx{font-size:15px}.qnv{padding:14px 16px 18px;flex-direction:column;align-items:stretch}.nb{width:100%}.qdots{order:3}.launch-card h1{font-size:32px}.launch-card{padding:28px}}
+@media print{body{background:#fff}body:not(.print-review-active) .launch-wrap,body:not(.print-review-active) .qo,body:not(.print-review-active) #printReviewRoot{display:none!important}body.print-review-active .launch-wrap,body.print-review-active .qo{display:none!important}body.print-review-active #printReviewRoot{display:block!important;padding:0;background:#fff}.print-card{border-color:#ccc;box-shadow:none}}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap" id="launchWrap">
+  <div class="launch-card">
+    <div class="launch-eyebrow">UNE COM · Dr. Filippakis</div>
+    <h1>Molecular Mechanisms of Carcinogenesis</h1>
+    <p class="launch-sub">20 high-yield questions built exclusively from Program Learning Objectives (PLOs). Each question uses dual-length distractors — one concise, one elaborated — to sharpen clinical reasoning and test deep conceptual understanding.</p>
+
+    <div class="launch-plos">
+      <div class="plo-row">
+        <span class="plo-badge p1">PLO 1</span>
+        <p>Distinguish between hereditary and sporadic cancer, explain the two-hit hypothesis, and identify clinical features suggesting a hereditary cancer syndrome.</p>
+      </div>
+      <div class="plo-row">
+        <span class="plo-badge p2">PLO 2</span>
+        <p>Describe the function of proto-oncogenes, oncogenes, tumor suppressor genes, and DNA repair genes — including the gatekeeper vs. caretaker distinction.</p>
+      </div>
+      <div class="plo-row">
+        <span class="plo-badge p3">PLO 3</span>
+        <p>Explain the roles of p53 and DNA mismatch repair in maintaining genomic integrity and suppressing carcinogenesis.</p>
+      </div>
+    </div>
+
+    <div class="launch-meta">
+      <span class="chip"><span class="dot"></span>20 Questions</span>
+      <span class="chip"><span class="dot"></span>3 PLOs Covered</span>
+      <span class="chip"><span class="dot"></span>Learn + Exam Modes</span>
+      <span class="chip"><span class="dot"></span>Full Explanations</span>
+      <span class="chip"><span class="dot"></span>Highlight &amp; Strike Tools</span>
+    </div>
+    <div class="launch-actions">
+      <button class="launch-btn" id="openQuiz">Begin Quiz →</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <div class="qt-bar-left">
+      <h2>Carcinogenesis PLO Quiz</h2>
+      <div class="qt-plo-tag" id="qtPloTag">PLO 2 · Question 1 of 12</div>
+    </div>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuiz">🖨 Print</button>
+      <button class="qt-btn reset" id="resetQuiz">↺ Reset</button>
+      <button class="qt-btn close" id="closeQuiz">✕ Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <div class="q-left">
+      <!-- Score -->
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCurrent">1</div><div class="sl">Question</div></div>
+        <div class="score-box correct-box"><div class="sv" id="svCorrect">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect-box"><div class="sv" id="svIncorrect">0</div><div class="sl">Incorrect</div></div>
+      </div>
+
+      <!-- Mode -->
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <!-- Timers -->
+      <div class="side-panel">
+        <div class="timer-wrap">
+          <div class="timer-section-label">Stopwatch</div>
+          <div class="timer-row">
+            <div class="timer-time" id="timerTime">00:00</div>
+            <button class="tbtn" id="timerStart" title="Start">▶</button>
+            <button class="tbtn" id="timerPause" title="Pause">⏸</button>
+            <button class="tbtn" id="timerReset" title="Reset">↺</button>
+          </div>
+          <hr class="timer-divider">
+          <div class="timer-section-label">Countdown</div>
+          <div class="timer-row">
+            <div class="cd-time" id="cdTime">05:00</div>
+            <div class="cd-row">
+              <button class="cd-pm" id="cdMinus">−</button>
+              <div class="cd-val" id="cdVal">5</div>
+              <div class="cd-unit">min</div>
+              <button class="cd-pm" id="cdPlus">+</button>
+              <button class="cd-go" id="cdGo">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="tool-panel">
+        <button class="q-tool" id="toolHighlight">✏️ Highlight</button>
+        <button class="q-tool" id="toolStrike">🚫 Strikeout</button>
+        <button class="q-tool" style="grid-column:1/-1" id="toolReveal">👁 Reveal Explanation</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+
+      <!-- Exam Submit -->
+      <div class="exam-submit-row" id="examSubmitRow">
+        <div class="exam-progress" id="examProgress">0 of 20 answered</div>
+        <button class="exam-submit-btn" id="submitExam" disabled>Submit Exam</button>
+      </div>
+    </div>
+
+    <!-- Question -->
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd" id="questionCard">
+          <div class="qpg"><div class="qpf" id="progressFill" style="width:8.33%"></div></div>
+          <div class="qbd">
+            <div class="q-header">
+              <div class="qnum" id="qNumLabel">Question 1 of 12</div>
+              <div class="q-plo-chip c2" id="qPloChip">PLO 2</div>
+            </div>
+            <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+            <div class="ach" id="choiceContainer"></div>
+            <div class="submit-row">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+            <div class="exb" id="exBlock">
+              <div class="exs exc"><div class="exl">Correct Answer</div><div class="ext" id="exCorrect"></div></div>
+              <div class="exs exe"><div class="exl">Teaching Point</div><div class="ext" id="exTeach"></div></div>
+              <div class="exs exw"><div class="exl">Why the Others Are Wrong</div><div class="ext" id="exWrong"></div></div>
+            </div>
+          </div>
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Previous</button>
+            <div class="qdots" id="dotContainer"></div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// QUESTION DATA
+// ═══════════════════════════════════════════
+const questions = [
+  // ─── PLO 2 Questions ───────────────────────────────────────────────────────
+  {
+    plo: 2,
+    stem: "A researcher discovers a point mutation in codon 12 of the KRAS gene that permanently locks the RAS protein in a GTP-bound conformation, preventing GTPase activity. The downstream MAPK proliferation pathway remains constitutively active even in the complete absence of growth factor stimulation. What class of genetic event does this represent?",
+    choices: [
+      { letter:"A", text:"Loss-of-function mutation in a tumor suppressor gene" },
+      { letter:"B", text:"Gain-of-function mutation that converts a proto-oncogene into a dominant oncogene — a single mutant allele is sufficient to drive constitutive proliferative signaling, analogous to a permanently stuck accelerator pedal" },
+      { letter:"C", text:"Biallelic inactivation of a caretaker gene producing a mutator phenotype" },
+      { letter:"D", text:"Haploinsufficiency of RB1 partially releasing G1/S checkpoint control" }
+    ],
+    correct: 1,
+    explanation: {
+      correct: "The KRAS codon 12 mutation is a classic gain-of-function proto-oncogene mutation. The normal RAS protein cycles between GTP-bound (active) and GDP-bound (inactive) states; loss of GTPase activity traps it in the active state, continuously signaling proliferation. One mutant allele is sufficient — it acts in a dominant fashion.",
+      teaching: "Proto-oncogenes are normal cellular genes encoding growth-promoting proteins (e.g., RAS, EGFR, MYC). A gain-of-function mutation or overexpression converts them into oncogenes. Key feature: DOMINANT — only one mutant allele is needed. This is why oncogenes are almost never inherited: a germline gain-of-function would drive unrestrained embryonic proliferation incompatible with development.",
+      wrong: [
+        { letter:"A", why:"Loss-of-function describes tumor suppressor gene mutations (e.g., RB1, TP53), which require inactivation of both alleles (recessive). KRAS mutations are gain-of-function, not loss-of-function." },
+        { letter:"C", why:"Caretaker gene inactivation (e.g., BRCA1, MLH1) impairs DNA repair and produces a mutator phenotype — a higher rate of acquiring secondary mutations. A locked RAS protein directly activates proliferation signaling, which is a completely different mechanism." },
+        { letter:"D", why:"RB1 haploinsufficiency is a tumor suppressor mechanism involving loss of checkpoint regulation. KRAS mutations constitutively activate a positive growth signal — the opposite scenario." }
+      ]
+    }
+  },
+  {
+    plo: 2,
+    stem: "A medical student is asked to explain the fundamental difference between how oncogenes and tumor suppressor genes contribute to cancer. Which of the following comparisons is MOST accurate regarding allele requirements and germline inheritance patterns?",
+    choices: [
+      { letter:"A", text:"Oncogenes require biallelic loss (recessive) and are commonly inherited because one functional allele prevents embryonic toxicity" },
+      { letter:"B", text:"Both oncogenes and TSGs follow dominant inheritance and both require only one mutant allele — the distinction lies only in the tissues affected" },
+      { letter:"C", text:"Tumor suppressor genes are dominant and require only one mutant allele; oncogenes are recessive and require loss of both alleles before they drive proliferation" },
+      { letter:"D", text:"Oncogenes are dominant (one mutant allele sufficient, gain-of-function); TSGs are recessive (two mutant alleles required, loss-of-function). TSGs are commonly inherited in germline form because carrying one mutant allele does not disrupt embryogenesis; germline oncogene transmission is lethal because constitutive proliferation is incompatible with normal development" }
+    ],
+    correct: 3,
+    explanation: {
+      correct: "This is the core distinction: oncogenes are dominant gain-of-function mutations requiring only one allele; TSGs require loss of both alleles (recessive). Oncogenes are almost never inherited because a germline activating mutation would drive unrestricted proliferation and kill the embryo. TSGs can be inherited because one functional allele is sufficient for normal development.",
+      teaching: "Think of it this way — oncogenes are 'stuck gas pedals': even one stuck is catastrophic if present from conception. TSGs are 'brake lines': cutting one brake line slows the car a little but doesn't cause immediate loss of control, so the fetus develops normally. Only at the somatic second-hit does the second brake fail. This is why BRCA1/2, RB1, TP53 mutations are found in familial cancer syndromes.",
+      wrong: [
+        { letter:"A", why:"This reversal is incorrect. Oncogene mutations are dominant (one allele drives cancer); TSG mutations are recessive (both alleles must be lost). Oncogenes are rarely inherited, not commonly." },
+        { letter:"B", why:"TSGs are not dominant — both alleles must be inactivated for loss of function. This is the Knudson two-hit model." },
+        { letter:"C", why:"This is exactly backward. TSGs are recessive (require two hits); oncogenes are dominant (require only one mutant allele)." }
+      ]
+    }
+  },
+  {
+    plo: 2,
+    stem: "A tumor board is discussing the genetics of a patient's colon cancer. The pathologist notes that the tumor shows biallelic inactivation of the APC gene and a heterozygous mutation in the MLH1 gene with loss of the second allele. The attending explains that APC is a 'gatekeeper' and MLH1 is a 'caretaker.' Which statement MOST accurately distinguishes these roles?",
+    choices: [
+      { letter:"A", text:"Gatekeepers like APC maintain genomic integrity by repairing replication errors; caretakers like MLH1 directly regulate cyclin-CDK complexes at the G1/S checkpoint" },
+      { letter:"B", text:"Caretakers directly catalyze apoptosis in response to DNA strand breaks; gatekeepers promote DNA methylation to silence proto-oncogenes" },
+      { letter:"C", text:"Gatekeepers directly regulate cell cycle progression or apoptosis — their loss immediately releases a proliferative brake. Caretakers preserve genomic integrity by repairing DNA errors — their loss produces a mutator phenotype that accelerates accumulation of all cancer-causing mutations throughout the genome" },
+      { letter:"D", text:"There is no functional difference; both categories act as tumor suppressors requiring biallelic inactivation" }
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Gatekeepers (APC, RB1, TP53) directly control the cell cycle or apoptotic machinery — their loss immediately removes a checkpoint. Caretakers (BRCA1/2, MLH1, MSH2, XPC) maintain DNA fidelity — their loss creates a 'mutator phenotype,' dramatically increasing the rate at which all other cancer mutations accumulate. Caretaker loss doesn't cause cancer directly; it greases the slope toward it.",
+      teaching: "A high-yield clinical correlation: caretaker gene loss explains why hereditary cancer syndromes like Lynch syndrome (MLH1/MSH2) show tumors with microsatellite instability (MSI) and dramatically elevated mutation rates. When MLH1 is lost, every mismatch during DNA replication goes unfixed — the cell becomes a mutation-generating factory. This is why MSI-high tumors often respond to immune checkpoint inhibitors (high neoantigen load).",
+      wrong: [
+        { letter:"A", why:"This reverses the roles. MLH1 (a caretaker) repairs mismatches in replicated DNA — it does not regulate cyclin-CDK complexes. APC (a gatekeeper) controls the Wnt/β-catenin pathway governing cell proliferation decisions." },
+        { letter:"B", why:"Neither function is described correctly here. Caretakers fix DNA replication errors (not catalyze apoptosis); gatekeepers control checkpoints (not methylation)." },
+        { letter:"D", why:"While both require biallelic inactivation, their functional roles are fundamentally different — the question is testing whether you understand the mechanistic distinction, not just that both are TSGs." }
+      ]
+    }
+  },
+  {
+    plo: 2,
+    stem: "A patient with xeroderma pigmentosum (XPC mutation) develops multiple squamous cell carcinomas of the skin by age 15. XPC encodes a DNA nucleotide excision repair protein. A classmate asks: 'If XPC is a tumor suppressor, why don't we call it a gatekeeper like RB1?' What is the BEST response?",
+    choices: [
+      { letter:"A", text:"XPC is not a tumor suppressor — it's a housekeeping gene with no cancer relevance unless the patient is sun-exposed" },
+      { letter:"B", text:"XPC is a caretaker tumor suppressor. Unlike gatekeepers (which directly brake cell division), XPC preserves genomic integrity by excising UV-induced pyrimidine dimers. When XPC is lost, unrepaired DNA damage accumulates rapidly, massively accelerating mutations in oncogenes, TSGs, and everywhere else — hence the extreme cancer predisposition seen in young patients even after modest UV exposure" },
+      { letter:"C", text:"XPC functions identically to RB1: it blocks CDK4 from phosphorylating retinoblastoma protein at the G1/S checkpoint" },
+      { letter:"D", text:"XPC is a proto-oncogene; its loss releases a growth inhibitory signal, promoting proliferation" }
+    ],
+    correct: 1,
+    explanation: {
+      correct: "XPC is a caretaker TSG. Caretakers are a subcategory of tumor suppressor genes that maintain genomic integrity (DNA repair, mismatch correction, nucleotide excision) rather than directly controlling the cell cycle. Loss of XPC means UV photoproducts (pyrimidine dimers) cannot be removed, leading to unchecked replication of damaged DNA and a dramatically elevated mutation rate — explaining the early-onset, multi-focal skin cancers seen in XP patients.",
+      teaching: "Caretaker gene loss = mutator phenotype. The xeroderma pigmentosum disorders are the textbook example of nucleotide excision repair (NER) pathway caretakers. Other caretakers to know: BRCA1/BRCA2 (homologous recombination), MLH1/MSH2 (mismatch repair), and MUTYH (base excision repair). Loss of any of these dramatically accelerates the rate at which cells accumulate the ~6–8 mutations required for full malignant transformation.",
+      wrong: [
+        { letter:"A", why:"XPC loss is highly clinically significant regardless of sun exposure — though UV dramatically accelerates the mutational burden in NER-deficient cells. Without XPC, even basal UV exposure causes irreversible DNA damage." },
+        { letter:"C", why:"RB1 directly blocks E2F-mediated transcription at the G1/S checkpoint — a completely different mechanism. XPC repairs damaged DNA and has no direct role in CDK4 or RB1 phosphorylation." },
+        { letter:"D", why:"XPC is not a proto-oncogene. Loss of a proto-oncogene produces no cancer — they require gain-of-function activation. XPC loss removes protective DNA repair function, which is the hallmark of a tumor suppressor gene (specifically a caretaker)." }
+      ]
+    }
+  },
+
+  // ─── PLO 1 Questions ───────────────────────────────────────────────────────
+  {
+    plo: 1,
+    stem: "A 29-year-old woman is diagnosed with breast cancer. Her mother had ovarian cancer at age 38, and her maternal uncle had breast cancer at age 44. Germline BRCA1 testing returns positive. Which of the following BEST explains why this patient's tumor cells lost BRCA1 function, even though only one allele was mutated in her germline?",
+    choices: [
+      { letter:"A", text:"The inherited mutant BRCA1 allele spontaneously reverts to wild-type in all cells except the tumor" },
+      { letter:"B", text:"Because BRCA1 is an oncogene, a single inherited mutant allele is sufficient to constitutively drive uncontrolled proliferation" },
+      { letter:"C", text:"She inherited one defective BRCA1 allele (the 'first hit') in every somatic cell; the tumor arose after a single somatic event inactivated the remaining wild-type allele (the 'second hit') in a breast epithelial progenitor cell, fulfilling Knudson's two-hit model for tumor suppressor gene inactivation" },
+      { letter:"D", text:"Germline BRCA1 mutations cause epigenetic silencing of the wild-type allele through promoter hypermethylation in all somatic tissues simultaneously at birth" }
+    ],
+    correct: 2,
+    explanation: {
+      correct: "This is the two-hit hypothesis (Knudson, 1971) applied to BRCA1. In hereditary cancer: Hit 1 = germline mutation present in every somatic cell from conception. Hit 2 = somatic inactivation of the remaining wild-type allele (via LOH, point mutation, deletion, or promoter methylation) in one target cell. Because Hit 1 is already present in every cell, only one additional rare somatic event is needed — compared to the two independent somatic events required in sporadic cancer.",
+      teaching: "This explains both why hereditary cancers occur earlier (only one hit needed somatically) and why they present as multifocal/bilateral disease (the first hit is in every cell, so multiple sites can each independently suffer a second hit). Clinical red flags for hereditary BRCA1/2 syndrome: triple-negative breast cancer before 50, bilateral breast cancer, male breast cancer, ovarian cancer, Ashkenazi Jewish heritage, strong family history.",
+      wrong: [
+        { letter:"A", why:"Germline mutations do not revert. The inherited mutation is a fixed alteration transmitted to every somatic daughter cell. Reversion would require a rare corrective mutation and would protect, not promote, cancer development." },
+        { letter:"B", why:"BRCA1 is a tumor suppressor (specifically a caretaker involved in homologous recombination repair), not an oncogene. Oncogenes require gain-of-function; TSGs require loss-of-function of both alleles." },
+        { letter:"D", why:"Epigenetic silencing of the wild-type allele can occur as a somatic 'second hit' in the tumor cell — but it does not happen in all somatic tissues at birth. Each tissue acquires its second hit independently, which is why BRCA1 carriers don't have every cell transformed from birth." }
+      ]
+    }
+  },
+  {
+    plo: 1,
+    stem: "A 5-year-old child is diagnosed with bilateral retinoblastoma. Genetic testing reveals a germline RB1 mutation. Her 8-year-old unaffected sibling has no germline RB1 mutation. Which statement BEST explains the difference in their cancer risk?",
+    choices: [
+      { letter:"A", text:"The affected child carries the germline 'first hit' in every retinal cell and needs only a single somatic second-hit event to completely inactivate RB1 in one cell, making cancer statistically nearly inevitable; the sibling would need two independent rare somatic mutations to occur in the same retinal cell simultaneously — a far less probable event" },
+      { letter:"B", text:"Both children have equivalent lifetime cancer risk because the tumor microenvironment and not genetics determines retinoblastoma penetrance" },
+      { letter:"C", text:"The sibling is paradoxically at greater risk because possessing two wild-type RB1 alleles triggers compensatory overexpression of cyclin D1, overriding checkpoint control" },
+      { letter:"D", text:"The affected child's cancer risk is confined exclusively to the retina because RB1 protein expression is limited to retinal photoreceptor cells only" }
+    ],
+    correct: 0,
+    explanation: {
+      correct: "The germline RB1 mutation is in every somatic cell of the affected child. Each retinal progenitor cell is one spontaneous somatic event away from homozygous inactivation. The sibling, with two intact alleles, would need two independent rare somatic hits in the same cell — an event that is orders of magnitude less probable, explaining the unilateral/late-onset pattern of sporadic retinoblastoma versus the bilateral/early-onset pattern of hereditary retinoblastoma.",
+      teaching: "The two-hit model beautifully explains Knudson's original epidemiological observation: hereditary retinoblastoma presents bilaterally and in infancy (one hit already done; second hit likely happens independently in both eyes); sporadic retinoblastoma presents unilaterally and later in life (both somatic hits must occur in the same cell in one eye). Note: RB1 is actually expressed throughout the body — germline carriers have elevated risk of osteosarcoma and other tumors beyond the retina.",
+      wrong: [
+        { letter:"B", why:"Genetic status is the dominant determinant here. Germline RB1 mutations confer ~90% penetrance for retinoblastoma. The sibling's sporadic risk is <1 in 20,000. Environment matters much less than whether the first hit is already in place." },
+        { letter:"C", why:"This is invented. Two wild-type alleles simply provide two layers of protective braking. There is no mechanism by which intact RB1 causes cyclin D1 overexpression. The logic is exactly backwards." },
+        { letter:"D", why:"RB1 is a ubiquitously expressed tumor suppressor — it regulates the G1/S transition in virtually all dividing cell types. Germline RB1 carriers have increased risk for osteosarcoma, soft tissue sarcomas, and melanoma in addition to retinoblastoma." }
+      ]
+    }
+  },
+  {
+    plo: 1,
+    stem: "A 38-year-old man presents with colorectal cancer. His maternal grandmother, his mother, and two maternal aunts were all diagnosed with colorectal or endometrial cancer before age 50. Germline testing reveals a pathogenic MLH1 variant. Which combination of features MOST strongly supports a hereditary cancer syndrome diagnosis?",
+    choices: [
+      { letter:"A", text:"Young age at diagnosis, multiple affected first- and second-degree relatives across generations, autosomal dominant family pedigree, and a germline mutation in a tumor suppressor (caretaker) gene" },
+      { letter:"B", text:"Detection of KRAS G12D somatic mutation in the tumor biopsy alone" },
+      { letter:"C", text:"Elevated serum CEA level at the time of diagnosis" },
+      { letter:"D", text:"Microsatellite-stable (MSS) tumor phenotype on IHC for MLH1, MSH2, MSH6, and PMS2 proteins" }
+    ],
+    correct: 0,
+    explanation: {
+      correct: "Lynch syndrome (hereditary non-polyposis colorectal cancer, HNPCC) is defined by germline mutations in DNA mismatch repair genes (MLH1, MSH2, MSH6, PMS2). The syndrome follows autosomal dominant inheritance, presents with early-onset colorectal and endometrial cancer, and affects multiple generations. A germline MLH1 pathogenic variant with the described pedigree is diagnostic. Amsterdam II criteria (3-2-1 rule: 3 relatives, 2 generations, 1 before age 50) are fulfilled here.",
+      teaching: "Clinical red flags for Lynch syndrome: colorectal cancer <50 years old, endometrial cancer <50, synchronous/metachronous CRC or Lynch-associated cancers, CRC in ≥2 first-degree relatives, MSI-high tumor on pathology. Lynch syndrome tumors show loss of MMR protein expression on IHC and exhibit microsatellite instability (MSI-H). MSI-H status also predicts response to PD-1 checkpoint inhibition (pembrolizumab).",
+      wrong: [
+        { letter:"B", why:"Somatic KRAS mutations are found in ~40% of all colorectal cancers — they are a sporadic tumor driver, not a hereditary syndrome marker. Somatic mutations in tumor biopsies do not indicate germline hereditary risk." },
+        { letter:"C", why:"CEA is a nonspecific tumor marker used for monitoring treatment response and surveillance in CRC — it has no role in distinguishing hereditary from sporadic disease." },
+        { letter:"D", why:"This is the opposite of what would be expected. Lynch syndrome tumors show LOSS of MMR protein expression on IHC (MLH1, MSH2, MSH6, or PMS2 absent), which corresponds to microsatellite instability. A microsatellite-STABLE (MSS) tumor would argue against Lynch syndrome." }
+      ]
+    }
+  },
+  {
+    plo: 1,
+    stem: "During a genetics lecture, a student asks: 'If oncogenes drive cancer by being too active, why can't parents with activating RAS mutations just pass that mutation to their children as an inherited cancer syndrome?' What is the MOST accurate explanation?",
+    choices: [
+      { letter:"A", text:"RAS oncogene mutations are technically heritable; the reason they aren't found in cancer families is simply that they haven't been looked for carefully enough" },
+      { letter:"B", text:"Germline transmission of an activating oncogene mutation would drive constitutive, unregulated proliferation in every dividing cell from the first embryonic cleavage — this is incompatible with normal organogenesis and embryonic survival, so individuals with such germline mutations are not viable" },
+      { letter:"C", text:"Oncogene mutations are exclusively somatic because retroviruses introduce them after birth, making germline transmission biologically impossible" },
+      { letter:"D", text:"Oncogene mutations produce cancer only in cells already carrying a loss-of-function TSG mutation, so in a germline without TSG mutations, the oncogene has no effect" }
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Germline activating oncogene mutations would constitutively signal every embryonic cell to proliferate. Since proto-oncogenes like RAS regulate fundamental developmental processes, an activating mutation present from conception would produce chaotic, dysregulated embryonic growth — resulting in failure of organogenesis and embryonic or early fetal death. Natural selection eliminates such mutations from the population because carriers cannot survive to reproduce.",
+      teaching: "This is why nearly all hereditary cancer syndromes involve tumor suppressor genes, not oncogenes. One wild-type TSG allele is enough for normal embryonic development — the fetus compensates. But a constitutively active oncogene has no 'wild-type allele' to compensate; every cell already has the brake cut AND the gas stuck simultaneously. RASopathies (Noonan syndrome, Costello syndrome) involve partial gain-of-function mutations — even these cause developmental abnormalities, illustrating the point.",
+      wrong: [
+        { letter:"A", why:"This is factually incorrect. Germline activating RAS mutations are near-universally lethal to embryonic development. They are not found in familial cancer syndromes because of developmental lethality, not a surveillance gap." },
+        { letter:"C", why:"While oncogenic retroviruses are historically important for understanding oncogenes, most human oncogene mutations are point mutations, amplifications, or translocations in somatic cells — not of retroviral origin. And germline transmission would still be lethal regardless of mechanism." },
+        { letter:"D", why:"Oncogenes are dominant — they drive proliferation independent of TSG status. A constitutively active RAS in a germline cell would cause unchecked proliferation even if all TSGs are intact, since it overrides normal growth factor-dependence." }
+      ]
+    }
+  },
+
+  // ─── PLO 3 Questions ───────────────────────────────────────────────────────
+  {
+    plo: 3,
+    stem: "Following exposure to ionizing radiation, a cell detects a double-strand DNA break. Which sequence of molecular events most accurately describes how p53 prevents replication of the damaged DNA?",
+    choices: [
+      { letter:"A", text:"DNA damage → p53 activates VEGF transcription → new blood vessel formation delivers repair enzymes to the nucleus" },
+      { letter:"B", text:"DNA damage → ATM/ATR kinases phosphorylate and stabilize p53 → p53 transcriptionally activates p21 (a CDK inhibitor causing G1 arrest) and/or BAX (a pro-apoptotic protein) → cell division halts or the damaged cell is eliminated before the mutation can be replicated and passed to daughter cells" },
+      { letter:"C", text:"DNA damage → p53 directly dephosphorylates CDK4 → RB1 becomes hypophosphorylated → E2F is released and drives repair gene transcription" },
+      { letter:"D", text:"DNA damage → p53 methylates mutant DNA sequences → epigenetic silencing of the damaged gene prevents expression of the mutant protein" }
+    ],
+    correct: 1,
+    explanation: {
+      correct: "The canonical p53 damage-response pathway: DNA DSB → ATM (or ATR for replication stress) phosphorylates MDM2 (inhibiting p53 degradation) and p53 itself → p53 accumulates and binds target gene promoters → p21 transcription ↑ (p21 inhibits CDK4/6 and CDK2, blocking RB1 phosphorylation, arresting cell at G1/S) → if damage is severe, BAX and PUMA transcription ↑ (mitochondrial apoptosis). This prevents a cell with mutated DNA from completing S phase and passing mutations to daughters.",
+      teaching: "p53 is mutated in >50% of all human cancers — its loss is the most common single cancer mutation. p53's targets encode: (1) cell cycle arrest proteins (p21), (2) apoptosis inducers (BAX, PUMA, NOXA), (3) DNA repair genes (GADD45), and (4) its own negative regulator (MDM2 feedback loop). p53 protein is normally kept at low levels by MDM2-mediated ubiquitination and proteasomal degradation. DNA damage stabilizes p53 by blocking MDM2.",
+      wrong: [
+        { letter:"A", why:"VEGF is a pro-angiogenic factor transcriptionally upregulated by HIF-1α under hypoxia — not a p53 target in the DNA damage response. Angiogenesis has nothing to do with preventing damaged cell replication in this context." },
+        { letter:"C", why:"p53 is a transcription factor, not a kinase or phosphatase. It does not directly dephosphorylate CDK4. Furthermore, releasing E2F would promote rather than halt cell cycle progression — the opposite of the intended effect." },
+        { letter:"D", why:"p53 does not catalyze DNA methylation. While p53 can modulate expression of epigenetic regulators indirectly, DNA methylation of mutant sequences is not a p53 mechanism and would not prevent the cell from dividing." }
+      ]
+    }
+  },
+  {
+    plo: 3,
+    stem: "A 27-year-old woman is diagnosed with osteosarcoma. Germline TP53 testing returns positive. Her medical history reveals her father died of a glioblastoma at age 34, her sister has adrenocortical carcinoma, and her brother was treated for acute lymphocytic leukemia at age 12. What is the unifying diagnosis and its molecular explanation?",
+    choices: [
+      { letter:"A", text:"Li-Fraumeni syndrome" },
+      { letter:"B", text:"Lynch syndrome — the mismatch repair deficiency simultaneously predisposes to brain tumors, sarcomas, and hematologic cancers" },
+      { letter:"C", text:"Li-Fraumeni syndrome — germline TP53 mutation eliminates the universal G1/S and apoptotic checkpoint operative in virtually all dividing cell types, creating a genome-wide susceptibility to malignant transformation that is not restricted to any single tissue; affected families develop sarcomas, brain tumors, leukemias, adrenocortical carcinomas, and breast cancers at strikingly early ages" },
+      { letter:"D", text:"Multiple endocrine neoplasia type 1 (MEN1) — the menin tumor suppressor governs transcription in adrenal, pituitary, and CNS cells simultaneously" }
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Li-Fraumeni syndrome (LFS) is caused by germline TP53 mutations. Because p53 functions as a universal DNA damage checkpoint operating in all dividing cell types, its loss predisposes to a strikingly diverse tumor spectrum: sarcomas (bone and soft tissue), brain tumors, leukemia/lymphoma, adrenocortical carcinoma, breast cancer (SBLA cancers: Sarcoma, Breast, Leukemia, Adrenal). The hallmarks are early age of onset, multiple primary tumors, and autosomal dominant inheritance.",
+      teaching: "LFS should be suspected when you see: sarcoma in a patient <45, with ≥1 first-degree relative with cancer <45, AND another first/second-degree relative with cancer <45 OR sarcoma at any age (Chompret criteria). Germline TP53 testing is indicated. Management includes enhanced surveillance (whole-body MRI, brain MRI, annual colonoscopy, breast MRI) and avoidance of radiation therapy when possible (radiation itself causes DNA damage that p53 would normally suppress).",
+      wrong: [
+        { letter:"A", why:"While 'Li-Fraumeni syndrome' is the correct name, this option lacks any mechanistic explanation — the question asks for 'unifying diagnosis AND molecular explanation.' Option A alone is incomplete for exam credit." },
+        { letter:"B", why:"Lynch syndrome (MLH1/MSH2/MSH6/PMS2 mutations) primarily predisposes to colorectal, endometrial, ovarian, and gastric cancers — not the sarcoma/brain tumor/adrenal/leukemia combination described. Lynch tumors show MSI-high, not the broad-spectrum pattern of LFS." },
+        { letter:"D", why:"MEN1 (menin mutation) causes parathyroid adenomas, pituitary adenomas, and pancreatic neuroendocrine tumors — classically described as 'the three Ps.' It does not cause sarcomas, brain glioblastomas, leukemias, or osteosarcomas." }
+      ]
+    }
+  },
+  {
+    plo: 3,
+    stem: "A colorectal tumor biopsy demonstrates markedly elevated tumor mutation burden (TMB-high: >50 mutations/megabase) and instability at 5 standard microsatellite loci. Immunohistochemistry shows absent MLH1 protein expression. The patient has a germline MLH1 mutation. Which of the following BEST describes the molecular mechanism producing this tumor's hypermutated phenotype?",
+    choices: [
+      { letter:"A", text:"Loss of MLH1 function eliminates DNA mismatch repair, allowing replication errors — especially insertion/deletion loops at repetitive microsatellite sequences — to accumulate uncorrected with each cell division, producing a genome-wide mutator phenotype and MSI-high status" },
+      { letter:"B", text:"MLH1 loss activates the homologous recombination pathway, causing large chromosomal deletions and rearrangements" },
+      { letter:"C", text:"MLH1 encodes a nucleotide excision repair enzyme; its loss permits UV-induced pyrimidine dimers to accumulate, causing the C→T transition signature seen in MSI-high tumors" },
+      { letter:"D", text:"MLH1 loss triggers VEGF-independent angiogenesis, creating a hypoxic tumor microenvironment that increases reactive oxygen species and random base oxidation" }
+    ],
+    correct: 0,
+    explanation: {
+      correct: "MLH1 is a core component of the DNA mismatch repair (MMR) complex (with PMS2 as its heterodimeric partner). During DNA replication, polymerase errors — particularly slippage at short tandem repeat (microsatellite) sequences — normally trigger MMR recognition and correction. When MLH1 is lost, these errors go unfixed. Microsatellite sequences are especially vulnerable because slippage is frequent; their instability produces the MSI-high phenotype. Over many generations, replication errors accumulate in oncogenes, TSGs, and throughout the genome, creating a mutator phenotype.",
+      teaching: "MSI-high tumors are clinically important: (1) They predict response to PD-1 blockade (pembrolizumab) regardless of tumor type — FDA-approved tumor-agnostic biomarker. (2) They can be detected by PCR (MSI testing) or IHC (loss of MLH1, MSH2, MSH6, PMS2 protein). (3) They are the hallmark of Lynch syndrome but also occur in ~15% of sporadic CRC (usually via MLH1 promoter hypermethylation). (4) MLH1 is a caretaker gene — its loss illustrates the mutator phenotype concept.",
+      wrong: [
+        { letter:"B", why:"MLH1 is a mismatch repair protein, not involved in homologous recombination (HR). HR is primarily conducted by BRCA1, BRCA2, and RAD51. MLH1 loss causes small insertion/deletion errors at microsatellites, not chromosomal breaks requiring HR." },
+        { letter:"C", why:"Nucleotide excision repair (NER) addresses bulky DNA adducts including UV pyrimidine dimers — that is the role of XPC, XPA, ERCC proteins in xeroderma pigmentosum. MLH1 specifically corrects base-pairing errors and small indels produced during normal DNA replication." },
+        { letter:"D", why:"This describes a theoretical hypoxia/ROS pathway that has nothing to do with MLH1 function. MLH1 is a nuclear DNA repair protein; it does not regulate angiogenesis or influence tumor oxygenation." }
+      ]
+    }
+  },
+  {
+    plo: 3,
+    stem: "A second-year medical student reads that TP53 is mutated in more than 50% of all human cancers, more than any other gene. She asks: 'What makes p53 so uniquely important that its loss appears in so many different cancer types?' Which answer is MOST complete and accurate?",
+    choices: [
+      { letter:"A", text:"p53 is uniquely important because it is the only protein capable of recognizing double-strand DNA breaks" },
+      { letter:"B", text:"p53 is ubiquitously expressed in all dividing cells and functions as a master integrator of multiple stress signals (DNA damage, hypoxia, oncogene activation, ribonucleotide depletion) — upon activation it orchestrates either cell cycle arrest (via p21), DNA repair (via GADD45), or apoptosis (via BAX/PUMA/NOXA). Its loss creates a cellular state in which damaged or stressed cells no longer have a reliable mechanism to halt division or self-destruct, making p53 loss advantageous for cancer cells in virtually every tissue type at virtually every stage of cancer progression" },
+      { letter:"C", text:"TP53 is the most commonly mutated gene in cancer simply because it is the longest gene in the genome and therefore statistically the most likely to suffer a random mutation" },
+      { letter:"D", text:"p53 loss is common because TP53 is located on chromosome 17p, which undergoes non-disjunction in nearly all cancer types during mitotic division" }
+    ],
+    correct: 1,
+    explanation: {
+      correct: "p53's prevalence in cancer reflects its central, ubiquitous role as a stress sensor and gatekeeper: every dividing cell uses p53 to respond to DNA damage, oncogenic stress, hypoxia, and replication stress. It integrates signals from ATM, ATR, CHK1/CHK2, ARF (p14ARF), and others. Because p53 can halt cancer progression at multiple steps — blocking damaged cell replication, triggering apoptosis, preventing angiogenesis, and suppressing EMT — eliminating it confers a powerful multi-step advantage on any incipient tumor cell in virtually any tissue.",
+      teaching: "p53 is degraded normally by MDM2 (E3 ubiquitin ligase). MDM2 itself is transcriptionally induced by p53 — a negative feedback loop. In ~50% of cancers: TP53 is directly mutated. In many of the remaining cases: MDM2 is amplified (overactive, destroys p53), or p14ARF is deleted (p14ARF normally inhibits MDM2). So p53 pathway disruption is even more prevalent than the mutation rate alone suggests. Reactivating p53 in tumors with MDM2 amplification (via MDM2 inhibitors like nutlin-3) is an active therapeutic target.",
+      wrong: [
+        { letter:"A", why:"The ATM kinase, MRN complex (MRE11-RAD50-NBS1), and Ku70/80 are among the primary sensors of DSBs. p53 is activated downstream of these sensors — it does not directly recognize the break." },
+        { letter:"C", why:"TP53 spans ~20 kb on chromosome 17p — large, but not the longest gene (that distinction belongs to CNTN4 at ~2.3 Mb or RBFOX1 at similar scale). Gene length does not explain mutation frequency; functional selection pressure on p53 loss is the correct explanation." },
+        { letter:"D", why:"While chromosome 17p LOH is indeed common in many cancers (and often includes TP53), non-disjunction of 17p is not universal. The high mutation rate in TP53 itself reflects the selective advantage cancer cells gain from its loss, not merely chromosomal mechanics." }
+      ]
+    }
+  },
+
+  // ─── 8 NEW QUESTIONS ───────────────────────────────────────────────────────
+
+  {
+    plo: 2,
+    stem: "A liposarcoma biopsy from a 52-year-old man demonstrates MDM2 gene amplification confirmed by FISH, yet the TP53 sequence is completely wild-type. The tumor is aggressively growing. How does MDM2 amplification drive malignant transformation even without any TP53 mutation?",
+    choices: [
+      { letter:"A", text:"MDM2 is a transcription factor that directly activates cyclin D1, cyclin E, and cyclin A promoters, bypassing the need for upstream growth factor receptor signaling" },
+      { letter:"B", text:"MDM2 amplification impairs spindle assembly checkpoint function at centromeres, producing aneuploidy" },
+      { letter:"C", text:"MDM2 is an E3 ubiquitin ligase that tags p53 for proteasomal degradation; when amplified, it constitutively destroys p53 protein regardless of DNA damage signals — functionally mimicking TP53 loss-of-function even though the TP53 coding sequence is wild-type, because the protein never accumulates to protective levels" },
+      { letter:"D", text:"Amplified MDM2 sequesters RB1, freeing E2F and constitutively driving S-phase entry" }
+    ],
+    correct: 2,
+    explanation: {
+      correct: "MDM2 is the principal negative regulator of p53: it binds p53's transactivation domain, blocks its transcriptional activity, and acts as an E3 ubiquitin ligase directing p53 to proteasomal degradation. When MDM2 is gene-amplified (as in ~20% of liposarcomas and many other sarcomas), even robust DNA damage signals cannot overcome the massive excess of MDM2 protein. The net result is functional p53 loss — an empty p53 pathway — despite a structurally intact TP53 gene.",
+      teaching: "This is a clinically crucial concept: p53 PATHWAY disruption is more prevalent than TP53 mutation alone. In tumors with wild-type TP53: check for MDM2 amplification (sarcomas), MDM4 overexpression, or p14ARF deletion (p14ARF normally sequesters MDM2 in the nucleolus to protect p53). MDM2 inhibitors (nutlin-3 class, e.g., idasanutlin) exploit this — they block the MDM2–p53 interaction and reactivate p53 in tumors where TP53 is wild-type but MDM2 is amplified.",
+      wrong: [
+        { letter:"A", why:"MDM2 does not transcriptionally activate cyclins. Its primary function is to regulate p53 stability via ubiquitination. CDK4/cyclin D activity is driven by mitogenic signals through RAS/MAPK and PI3K pathways." },
+        { letter:"B", why:"MDM2 has no established role at centromeres or in the spindle assembly checkpoint. Chromosomal instability from MDM2 amplification is an indirect downstream consequence of p53 loss, not a direct MDM2 centromere function." },
+        { letter:"D", why:"MDM2 does interact with RB1 to some degree, but this is not its primary mechanism and does not explain the dominant cancer-driving effect of MDM2 amplification. The core mechanism is p53 degradation." }
+      ]
+    }
+  },
+  {
+    plo: 3,
+    stem: "A 45-year-old woman with a germline BRCA2 mutation develops high-grade serous ovarian cancer. Her oncologist explains that BRCA2-deficient tumors are uniquely sensitive to PARP inhibitors (e.g., olaparib). Which of the following BEST explains both why BRCA2 loss causes cancer and why it creates a therapeutic vulnerability?",
+    choices: [
+      { letter:"A", text:"BRCA2 loads RAD51 onto resected double-strand break ends to enable homologous recombination (HR) repair; its loss forces cells into error-prone NHEJ, accumulating genomic rearrangements. In cancer cells already deficient in HR, PARP inhibition blocks the only remaining single-strand break repair pathway — creating lethal double-strand breaks through a synthetic lethality mechanism that kills HR-deficient tumor cells while sparing HR-proficient normal cells" },
+      { letter:"B", text:"BRCA2 is a methyltransferase that silences retrotransposons; its loss activates LINE-1 elements that mutagenize oncogene promoters. PARP inhibitors reverse this retrotransposon activation" },
+      { letter:"C", text:"BRCA2 directly inhibits the RAS/MAPK pathway; its loss causes constitutive proliferation. PARP inhibitors block RAS-mediated MAPK phosphorylation as a downstream effect" },
+      { letter:"D", text:"BRCA2 loss triggers constitutive interferon-γ signaling that upregulates PD-L1 on tumor cells; PARP inhibitors restore immune surveillance by blocking this pathway" }
+    ],
+    correct: 0,
+    explanation: {
+      correct: "BRCA2 is the mediator of RAD51 loading onto ssDNA at DSB ends — the key step in homologous recombination (HR). BRCA2-deficient cells cannot perform HR and must rely on error-prone NHEJ and single-strand annealing, accumulating the large-scale genomic rearrangements (chromosomal instability) characteristic of BRCA-mutated tumors. PARP1 is essential for repairing single-strand breaks (SSBs); if SSBs are unrepaired (PARP inhibited), they collapse replication forks into DSBs — which BRCA2-deficient cells CANNOT repair by HR — leading to selective tumor cell death. This synthetic lethality is the basis of FDA-approved olaparib, rucaparib, and niraparib.",
+      teaching: "Synthetic lethality is the concept: two gene defects are individually tolerable but lethal in combination. Normal cells: BRCA2 intact → can repair PARP-inhibitor-induced DSBs via HR → survive. BRCA2-deficient tumor cells: cannot repair DSBs → die. The 'BRCAness' phenotype (HR deficiency from any cause — BRCA1, BRCA2, RAD51C/D, PALB2 mutations) predicts PARP inhibitor sensitivity. Genomic scar signatures (HRD score) can identify HR-deficient tumors even without BRCA mutations.",
+      wrong: [
+        { letter:"B", why:"BRCA2 has no methyltransferase or retrotransposon-silencing activity. Its sole established cancer-relevant function is in homologous recombination DSB repair via RAD51 recruitment." },
+        { letter:"C", why:"BRCA2 does not directly inhibit the RAS/MAPK pathway. PARP inhibitors have no known RAS/MAPK mechanism. The BRCA2-cancer connection is exclusively through impaired HR repair." },
+        { letter:"D", why:"While BRCA-mutated tumors do show increased tumor mutational burden (from genomic instability) and may respond to immunotherapy, this is not why PARP inhibitors work. The PARP inhibitor mechanism is DNA repair synthetic lethality, not immune modulation." }
+      ]
+    }
+  },
+  {
+    plo: 2,
+    stem: "In a normally cycling cell, the retinoblastoma protein (pRB) is the master gatekeeper of the G1/S checkpoint. Which of the following MOST accurately describes the normal function of pRB and the consequence of biallelic RB1 loss in cancer cells?",
+    choices: [
+      { letter:"A", text:"pRB promotes S-phase entry by activating CDK4/cyclin D; when RB1 is lost, CDK4 becomes constitutively inactive and cells arrest permanently in G1" },
+      { letter:"B", text:"pRB sequesters MDM2 in the nucleus, stabilizing p53; its loss activates p53 signaling and paradoxically increases apoptosis" },
+      { letter:"C", text:"pRB phosphorylates PCNA to license replication origins; without pRB, replication fires randomly at unlicensed origins" },
+      { letter:"D", text:"In its hypophosphorylated (active) state, pRB binds E2F transcription factors, blocking transcription of S-phase genes (cyclin E, thymidine kinase, DHFR). Mitogenic signals activate CDK4/cyclin D → CDK2/cyclin E, which sequentially phosphorylate pRB, releasing E2F and committing the cell to S phase. When RB1 is biallelically lost, E2F is constitutively free — cells enter S phase continuously without mitogenic input, directly fueling uncontrolled proliferation" }
+    ],
+    correct: 3,
+    explanation: {
+      correct: "pRB is the critical brake at the restriction point (R point) late in G1. In quiescent cells, hypophosphorylated pRB binds E2F1-3, recruiting histone deacetylases to silence S-phase gene promoters. Mitogens → RAS → cyclin D1 induction → CDK4/6 activation → partial pRB phosphorylation → CDK2/cyclin E → complete pRB hyperphosphorylation → E2F release → irreversible S-phase commitment. With RB1 loss: E2F is always free, and the cell is always cycling irrespective of growth signals.",
+      teaching: "The pRB pathway is disrupted in virtually all cancers — either by direct RB1 mutation, CDK4/6 amplification/activation, cyclin D1 overexpression, or loss of CDK inhibitors (p16/CDKN2A). This is why CDK4/6 inhibitors (palbociclib, ribociclib, abemaciclib) work only in cancers with intact pRB — they reinstate the G1 brake by preventing pRB phosphorylation. In RB1-lost cancers, CDK4/6 inhibitors have no target and are ineffective.",
+      wrong: [
+        { letter:"A", why:"This inverts pRB's role. CDK4/cyclin D phosphorylates and inactivates pRB (removes the brake). pRB does not activate CDK4 — it is the substrate, not the activator, of CDK4." },
+        { letter:"B", why:"pRB does not regulate MDM2. These are separate pathways (cell cycle restriction point vs. p53 stability regulation). pRB loss releases E2F; it does not activate p53 or apoptosis." },
+        { letter:"C", why:"PCNA (Proliferating Cell Nuclear Antigen) is a DNA polymerase clamp loaded by RFC at replication forks — its loading is not regulated by pRB phosphorylation. Origin licensing is controlled by MCM helicase loading, which is E2F-regulated but not through a PCNA-pRB interaction." }
+      ]
+    }
+  },
+  {
+    plo: 3,
+    stem: "Approximately 75% of TP53 mutations in human cancers are missense mutations producing a full-length but conformationally abnormal p53 protein, rather than truncating nonsense or frameshift mutations. Which of the following BEST explains why missense mutations in TP53 are so prevalent and may be especially deleterious?",
+    choices: [
+      { letter:"A", text:"Missense mutations are more frequent because the TP53 coding sequence contains more mutational hotspot CpG dinucleotides than any other tumor suppressor gene, making it statistically prone to C→T transitions" },
+      { letter:"B", text:"Many missense p53 mutations produce a dominant-negative effect — the mutant protein retains the ability to tetramerize with wild-type p53 but blocks its transactivation activity, compromising p53 function even before the second allele is lost. Additionally, certain missense mutations confer gain-of-function oncogenic properties: mutant p53 can actively promote invasion, metastasis, and drug resistance — turning the guardian into a driver" },
+      { letter:"C", text:"Truncated p53 proteins are more immunogenic and are rapidly eliminated by cytotoxic T cells before they can confer any proliferative advantage, so truncating mutations are selected against in vivo" },
+      { letter:"D", text:"Truncating mutations invariably trigger nonsense-mediated mRNA decay, making them undetectable by routine sequencing and creating the illusion that missense mutations are more common" }
+    ],
+    correct: 1,
+    explanation: {
+      correct: "The dominance of missense mutations in TP53 reflects two compounding selection advantages: (1) Dominant-negative effect — p53 functions as a tetramer (dimer of dimers). Mutant p53 co-assembles with wild-type p53 subunits encoded by the remaining allele, poisoning the tetramer and crippling p53 function even in heterozygous cells — effectively giving mutant p53 a head start before the second allele is lost. (2) Gain-of-function (GOF) mutations (hotspots R175H, R248W, R273H) confer entirely new oncogenic activities: binding and inactivating p63/p73, promoting VEGF-mediated angiogenesis, enhancing NF-κB signaling, and conferring chemoresistance. These properties make missense mutations more advantageous for the cancer cell than simple p53 null mutations.",
+      teaching: "This explains a key exam fact: TP53 hotspot missense mutations are not random — they cluster at DNA-contact residues (R248, R273) and structural residues (R175, R249, G245, R282). Cancers with GOF TP53 mutations tend to be more aggressive and drug-resistant than those with truncating or null mutations. Therapeutically, restoring wild-type conformation to misfolded mutant p53 (APR-246/eprenetapopt) is under clinical investigation.",
+      wrong: [
+        { letter:"A", why:"While TP53 does contain CpG hotspots contributing to C→T transitions (explaining some hotspot codons), gene length and CpG content alone cannot explain why missense mutations are selected over nonsense mutations. The selection explanation lies in the functional advantages of the dominant-negative and gain-of-function effects." },
+        { letter:"C", why:"There is no established evidence that truncated p53 peptides are efficiently presented by MHC-I and cleared by CTLs at a rate that would create selection pressure against truncating mutations at the population level." },
+        { letter:"D", why:"While NMD does degrade some transcripts with premature stop codons, many truncating TP53 mutations produce stable mRNAs that escape NMD. The prevalence of missense mutations reflects positive selection in cancer cells, not a detection artifact." }
+      ]
+    }
+  },
+  {
+    plo: 1,
+    stem: "A 26-year-old man with familial adenomatous polyposis (FAP) undergoes prophylactic colectomy revealing over 800 polyps. His oncologist explains that each polyp represents an independent clonal expansion. Using the two-hit model, which explanation BEST accounts for why hundreds of polyps form in FAP patients, while sporadic colorectal cancer patients typically develop only one or two tumors over a lifetime?",
+    choices: [
+      { letter:"A", text:"FAP patients carry a germline gain-of-function APC mutation that constitutively activates β-catenin transcription in all colonic cells simultaneously from birth, transforming the entire epithelium at once" },
+      { letter:"B", text:"In FAP, the germline APC mutation is present as 'hit 1' in every colonic epithelial cell — the colon contains ~10 billion epithelial cells renewing constantly. Each cell needs only a single somatic second-hit APC event to fully inactivate both alleles and initiate a polyp. The probability that hundreds of cells independently suffer this one required event over decades is near-certain. In sporadic CRC, both somatic hits must occur independently in the same cell — an event orders of magnitude rarer, typically producing only one tumor" },
+      { letter:"C", text:"APC mutations impair mismatch repair, creating a mutator phenotype in colonic cells that randomly introduces TSG mutations at high frequency throughout the colon" },
+      { letter:"D", text:"FAP patients inherit two already-inactivated APC alleles in every cell, so every single colonic cell is fully transformed at birth without needing any additional somatic event" }
+    ],
+    correct: 1,
+    explanation: {
+      correct: "APC is a gatekeeper TSG — its loss (of both alleles) releases β-catenin from the destruction complex, allowing nuclear translocation and transcription of proliferation genes (MYC, cyclin D1). In FAP: every colonic epithelial cell has hit 1 pre-installed. With a rate of somatic mutation of ~1 per 10^6–10^7 cell divisions per gene, and ~10^10 cell divisions occurring in the colon over a lifetime, hundreds of cells will independently acquire hit 2 — each initiating one polyp clone. In sporadic CRC: two independent hits in the same cell at ~(10^-6)^2 = 10^-12 probability per cell — rare, producing typically 1–2 tumors.",
+      teaching: "This quantitative probabilistic reasoning underlies why hereditary syndromes cause polyposis (hundreds of clones with one hit each) while sporadic cancer is oligoclonal (rare cells achieving two hits). APC is on chromosome 5q21; loss of APC is the initiating mutation in the Fearon-Vogelstein multistep colorectal carcinogenesis model. APC loss → β-catenin nuclear translocation → WNT target gene activation → dysplastic crypt → adenoma → carcinoma progression.",
+      wrong: [
+        { letter:"A", why:"APC is a loss-of-function tumor suppressor, not a gain-of-function oncogene. The inherited mutation inactivates one APC allele — it does not constitutively activate β-catenin. β-catenin activation only occurs after the second allele is also lost." },
+        { letter:"C", why:"APC is a gatekeeper gene (directly regulates Wnt/β-catenin signaling and cell proliferation). It has no role in mismatch repair. Mutator phenotype is the hallmark of caretaker gene loss (MLH1, MSH2), not gatekeeper gene loss." },
+        { letter:"D", why:"FAP is autosomal dominant — patients inherit one mutant APC allele, not two. The second allele is somatically inactivated in each polyp independently. If both alleles were lost at birth, all cells would already be initiated, which would produce a fundamentally different phenotype." }
+      ]
+    }
+  },
+  {
+    plo: 3,
+    stem: "A 38-year-old man with xeroderma pigmentosum (XP) develops a squamous cell carcinoma after minimal sun exposure. His tumor shows predominantly C→T transitions at dipyrimidine sites — the UV mutational signature. Which DNA repair pathway is deficient in XP, and which step of that pathway does XPC specifically catalyze?",
+    choices: [
+      { letter:"A", text:"Nucleotide excision repair (NER) — XPC forms the initial damage recognition complex that senses helix distortion caused by bulky UV photoproducts (cyclobutane pyrimidine dimers, 6-4 photoproducts) and recruits the downstream TFIIH helicase to unwind the damaged duplex before dual incision and oligomer excision" },
+      { letter:"B", text:"Base excision repair (BER) — XPC is the glycosylase that cleaves the N-glycosidic bond between the damaged pyrimidine base and the deoxyribose sugar, generating an abasic site for downstream AP endonuclease processing" },
+      { letter:"C", text:"Mismatch repair (MMR) — XPC recognizes mismatched base pairs created when the replication fork bypasses UV photoproducts using translesion synthesis, initiating strand resection and template-directed resynthesis" },
+      { letter:"D", text:"Homologous recombination (HR) — XPC recruits RAD51 to stalled replication forks caused by UV-induced interstrand crosslinks, enabling fork restart via template switching" }
+    ],
+    correct: 0,
+    explanation: {
+      correct: "Nucleotide excision repair (NER) has two arms: Global Genome NER (GG-NER), initiated by XPC-RAD23B which surveys the entire genome for helix distortion; and Transcription-Coupled NER (TC-NER), initiated by RNA Pol II stalling plus CSB/CSA. After XPC recognition: TFIIH (XPD helicase) unwinds ~30 bp around the lesion → XPA verifies damage and positions the incision complex → XPG cuts 3' and XPF-ERCC1 cuts 5' of the lesion → ~25–30 nt oligomer is excised → DNA Pol δ/ε fills the gap → ligase seals. XP patients (complementation groups XPA through XPG) each lack one component, producing the same UV hypersensitivity phenotype.",
+      teaching: "Know the three major repair pathways tested in medical school: (1) NER — bulky adducts, UV dimers; deficient in XP; (2) MMR — replication base-pairing errors at microsatellites; deficient in Lynch syndrome; (3) HR — DSBs in S/G2 phase; deficient in BRCA1/2 syndrome. BER handles small, non-helix-distorting base damage (oxidized bases, deaminated cytosine). NHEJ handles DSBs throughout the cell cycle but is error-prone. Each pathway's failure produces a characteristic cancer syndrome and mutational signature.",
+      wrong: [
+        { letter:"B", why:"Glycosylases are the initiating enzymes in base excision repair (BER) — e.g., OGG1 removes 8-oxoguanine. XPC is a damage sensor in NER, not a glycosylase. BER handles small lesions that do not significantly distort the helix; UV photoproducts are helix-distorting and require NER." },
+        { letter:"C", why:"Mismatch repair (MLH1, MSH2, MSH6, PMS2) corrects base-pair mismatches and insertion-deletion loops arising during normal DNA replication — not UV photoproducts. MMR proteins do not recognize UV-induced pyrimidine dimers." },
+        { letter:"D", why:"Homologous recombination (BRCA1, BRCA2, RAD51) repairs double-strand breaks and stalled forks, primarily in S and G2 phases. XPC has no established role in HR. UV damage is handled by NER before it can become a DSB at the fork." }
+      ]
+    }
+  },
+  {
+    plo: 2,
+    stem: "A pathology professor asks students to identify which of the following is NOT a recognized mechanism by which a proto-oncogene can be converted into a dominantly acting oncogene. Which answer is correct?",
+    choices: [
+      { letter:"A", text:"Point mutation — e.g., KRAS G12D locks RAS in a constitutively GTP-bound active conformation, continuously signaling the MAPK proliferation cascade" },
+      { letter:"B", text:"Gene amplification — e.g., HER2/ERBB2 amplification in ~20% of breast cancers produces massive receptor tyrosine kinase overexpression that signals constitutively even at low ligand concentrations" },
+      { letter:"C", text:"Chromosomal translocation creating a fusion oncogene — e.g., t(9;22) BCR-ABL in CML produces a constitutively active tyrosine kinase; t(8;14) places MYC under immunoglobulin enhancer control in Burkitt lymphoma" },
+      { letter:"D", text:"Biallelic homozygous deletion of both copies of the proto-oncogene, which removes autoinhibitory intragenic regulatory sequences encoded in the 3' UTR and maximally activates residual kinase activity through derepression of cryptic promoters" }
+    ],
+    correct: 3,
+    explanation: {
+      correct: "Biallelic deletion of a proto-oncogene does not convert it to an oncogene — it simply removes the gene entirely. Proto-oncogenes become oncogenes through gain-of-function mechanisms that create a hyperactive or constitutively active product (one allele is sufficient; the mechanism is dominant). Deletion is a loss-of-function event; proto-oncogenes cannot be 'derepressed' into oncogenic activity by being deleted. The described mechanism of 'removing autoinhibitory sequences by deletion' is fabricated.",
+      teaching: "The three canonical mechanisms of proto-oncogene activation: (1) Point mutation — qualitatively changes protein function (RAS, KIT, BRAF V600E); (2) Gene amplification — quantitative overexpression (HER2, MYC, EGFR, MDM2, CDK4); (3) Chromosomal translocation — either creates a fusion protein with new kinase activity (BCR-ABL, EML4-ALK) or places a proto-oncogene under control of an active enhancer (MYC-IgH). All three are gain-of-function; all require only one mutant allele (dominant). Promoter insertion by retroviral elements is a fourth mechanism relevant to experimental oncology.",
+      wrong: [
+        { letter:"A", why:"Point mutation is the prototypical mechanism — KRAS G12D is found in ~30% of all cancers. RAS codon 12/13/61 mutations impair GTP hydrolysis, trapping RAS in the active state. This is a gain-of-function mechanism requiring only one allele." },
+        { letter:"B", why:"Gene amplification is a recognized and clinically important oncogene activation mechanism. HER2 amplification is directly targetable with trastuzumab, pertuzumab, and T-DM1. MYC amplification is seen in neuroblastoma (MYCN) and many other cancers." },
+        { letter:"C", why:"Chromosomal translocations are a major category of oncogene activation, particularly in hematologic malignancies. BCR-ABL (the Philadelphia chromosome) was the molecular target for the first kinase inhibitor — imatinib — validating targeted therapy. EML4-ALK fusion in lung adenocarcinoma is targeted by ALK inhibitors." }
+      ]
+    }
+  },
+  {
+    plo: 1,
+    stem: "A 44-year-old woman with confirmed Lynch syndrome (germline MSH2 mutation) asks her oncologist: 'If my mismatch repair gene is broken in every single cell of my body, why does cancer mostly develop in my colon and uterus rather than in my brain, bones, or heart?' Which of the following is the MOST scientifically accurate explanation?",
+    choices: [
+      { letter:"A", text:"MSH2 protein is expressed exclusively in colonic and endometrial epithelial cells; it is epigenetically silenced by methylation in all other tissues, making mismatch repair irrelevant outside these organs" },
+      { letter:"B", text:"Colorectal and endometrial epithelia undergo among the highest rates of continuous proliferation in the body, accumulating more DNA replication cycles per lifetime than most other tissues. Each replication event carries the risk of an uncorrected polymerase error in an MMR-deficient cell. Additionally, these tissues face chronic exposure to endogenous mutagens (bile acids, reactive nitrogen species, hormonal cycling) that increase DNA damage load — making somatic inactivation of the second MSH2 allele statistically far more likely here than in post-mitotic or slowly dividing tissues" },
+      { letter:"C", text:"Lynch syndrome affects only tissues that coexpress p53 and MSH2 protein; because p53 is not expressed in cardiac and skeletal muscle, those tissues are protected from MMR-deficient carcinogenesis" },
+      { letter:"D", text:"The germline MSH2 mutation is amplified and selectively expressed only in colonic stem cells through tissue-specific epigenetic activation of the mutant allele, while the mutant allele remains silenced in all other organs" }
+    ],
+    correct: 1,
+    explanation: {
+      correct: "MSH2 is ubiquitously expressed — its loss impairs MMR in every cell. However, carcinogenic risk is not uniform because: (1) Proliferative rate matters enormously — colonic crypts turn over every 3–5 days; the endometrium cycles monthly. More divisions = more replication errors = more chances for a somatic second-hit in the MSH2 allele AND more chances for errors in oncogenes and TSGs in already-MMR-deficient cells. (2) Mucosal environments — bile acids and intestinal metabolites are directly mutagenic and pro-inflammatory. (3) Lynch cancers can occur in other sites (ovary, stomach, ureter, brain — Turcot syndrome) but less frequently because these tissues divide more slowly or face lower mutagen loads.",
+      teaching: "This concept — that tissue-specific cancer risk from a ubiquitous genetic defect reflects tissue-specific proliferative and environmental context — is broadly applicable. BRCA1/2 mutations cause breast/ovarian cancer preferentially because of hormonal exposure and the unique replication stress of breast/ovarian epithelial progenitors during development and cycling. Li-Fraumeni syndrome's sarcoma predilection reflects the high proliferative rate of mesenchymal stem cells. Cancer risk = genetic vulnerability × tissue proliferative demand × local mutagen exposure.",
+      wrong: [
+        { letter:"A", why:"This is factually incorrect. MMR proteins (MLH1, MSH2, MSH6, PMS2) are expressed in virtually all human cell types — they are housekeeping DNA repair proteins required for faithful genome maintenance in any dividing cell. Their expression is not restricted to colonic or endometrial epithelium." },
+        { letter:"C", why:"p53 is also ubiquitously expressed — it is not limited to colon and endometrium. Cardiac and skeletal muscle cells are post-mitotic (rarely divide), which is the actual reason they are protected from cancer in general, not any specific coexpression relationship with MSH2." },
+        { letter:"D", why:"The germline MSH2 mutation is present (and expressed as non-functional protein) in every somatic cell. There is no known tissue-specific amplification or epigenetic silencing of the mutant allele that would create organ-specific expression patterns." }
+      ]
+    }
+  }
+];
+
+// ═══════════════════════════════════════════
+// APP STATE
+// ═══════════════════════════════════════════
+let currentQ = 0;
+let quizMode = 'learn';
+let toolMode = null;
+let examSubmitted = false;
+let answers = new Array(questions.length).fill(null); // null = unanswered, number = chosen index
+let graded = new Array(questions.length).fill(false);
+const letters = ['A','B','C','D','E'];
+
+// ═══════════════════════════════════════════
+// DOM REFS
+// ═══════════════════════════════════════════
+const qo = document.getElementById('qo');
+const openQuizBtn = document.getElementById('openQuiz');
+const closeQuizBtn = document.getElementById('closeQuiz');
+const resetQuizBtn = document.getElementById('resetQuiz');
+const printQuizBtn = document.getElementById('printQuiz');
+const submitOneBtn = document.getElementById('submitOne');
+const submitExamBtn = document.getElementById('submitExam');
+const exBlock = document.getElementById('exBlock');
+const examProgress = document.getElementById('examProgress');
+const examSubmitRow = document.getElementById('examSubmitRow');
+const modeLearnBtn = document.getElementById('modeLearn');
+const modeExamBtn = document.getElementById('modeExam');
+const toolHighlightBtn = document.getElementById('toolHighlight');
+const toolStrikeBtn = document.getElementById('toolStrike');
+const toolRevealBtn = document.getElementById('toolReveal');
+const toolStatusEl = document.getElementById('toolStatus');
+const qStem = document.getElementById('qStem');
+const dotContainer = document.getElementById('dotContainer');
+const progressFill = document.getElementById('progressFill');
+const qNumLabel = document.getElementById('qNumLabel');
+const qPloChip = document.getElementById('qPloChip');
+const qtPloTag = document.getElementById('qtPloTag');
+const choiceContainer = document.getElementById('choiceContainer');
+const exCorrectEl = document.getElementById('exCorrect');
+const exTeachEl = document.getElementById('exTeach');
+const exWrongEl = document.getElementById('exWrong');
+const svCurrent = document.getElementById('svCurrent');
+const svCorrect = document.getElementById('svCorrect');
+const svIncorrect = document.getElementById('svIncorrect');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+// ═══════════════════════════════════════════
+// RENDER QUESTION
+// ═══════════════════════════════════════════
+function renderQuestion(idx) {
+  const q = questions[idx];
+  const N = questions.length;
+
+  // Progress
+  progressFill.style.width = `${((idx + 1) / N) * 100}%`;
+  qNumLabel.textContent = `Question ${idx + 1} of ${N}`;
+  svCurrent.textContent = idx + 1;
+  qtPloTag.textContent = `PLO ${q.plo} · Question ${idx + 1} of ${N}`;
+
+  // PLO chip
+  qPloChip.textContent = `PLO ${q.plo}`;
+  qPloChip.className = `q-plo-chip c${q.plo}`;
+
+  // Stem
+  qStem.innerHTML = `<span class="stem-text">${q.stem}</span>`;
+  qStem.classList.remove('hl-applied','st-applied','tool-hover');
+
+  // Choices
+  choiceContainer.innerHTML = '';
+  q.choices.forEach((ch, i) => {
+    const div = document.createElement('div');
+    div.className = 'ac';
+    div.dataset.choice = i;
+    div.innerHTML = `<div class="cl">${ch.letter}</div><div class="ctx">${ch.text}</div>`;
+    choiceContainer.appendChild(div);
+  });
+
+  // Restore state if already answered
+  const choiceEls = Array.from(choiceContainer.querySelectorAll('.ac'));
+  if (graded[idx]) {
+    choiceEls.forEach(c => c.classList.add('dis'));
+    choiceEls[q.correct].classList.add('cor');
+    const picked = answers[idx];
+    if (picked !== null && picked !== q.correct) {
+      choiceEls[picked].classList.add('inc');
+    }
+    exBlock.classList.add('vis');
+    submitOneBtn.disabled = true;
+    renderExplanation(q);
+  } else {
+    exBlock.classList.remove('vis');
+    submitOneBtn.disabled = (answers[idx] === null);
+    if (answers[idx] !== null) {
+      choiceEls[answers[idx]].classList.add('sel');
+    }
+  }
+
+  // Nav dots
+  renderDots(idx);
+
+  // Nav buttons
+  prevBtn.disabled = (idx === 0);
+  nextBtn.disabled = (idx === N - 1);
+
+  // Scores
+  updateScoreDisplay();
+  updateExamProgress();
+  toolMode = null;
+  updateToolUI();
+}
+
+function renderExplanation(q) {
+  exCorrectEl.innerHTML = `<strong>${letters[q.correct]}</strong> — ${q.explanation.correct}`;
+  exTeachEl.textContent = q.explanation.teaching;
+  exWrongEl.innerHTML = q.explanation.wrong.map(w =>
+    `<div class="wce"><strong>${w.letter}</strong> — ${w.why}</div>`
+  ).join('');
+}
+
+function renderDots(idx) {
+  dotContainer.innerHTML = '';
+  questions.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'qd';
+    d.title = `Question ${i + 1}`;
+    if (i === idx) d.classList.add('cur');
+    else if (graded[i]) {
+      d.classList.add(answers[i] === questions[i].correct ? 'acor' : 'ainc');
+    } else if (answers[i] !== null) {
+      d.classList.add('asel');
+    }
+    d.addEventListener('click', () => { currentQ = i; renderQuestion(i); });
+    dotContainer.appendChild(d);
+  });
+}
+
+// ═══════════════════════════════════════════
+// SCORING
+// ═══════════════════════════════════════════
+function updateScoreDisplay() {
+  const correct = graded.filter((g, i) => g && answers[i] === questions[i].correct).length;
+  const incorrect = graded.filter((g, i) => g && answers[i] !== questions[i].correct).length;
+  svCorrect.textContent = correct;
+  svIncorrect.textContent = incorrect;
+}
+
+function updateExamProgress() {
+  const answered = answers.filter(a => a !== null).length;
+  const N = questions.length;
+  if (quizMode === 'exam') {
+    examProgress.textContent = examSubmitted ? 'Exam submitted ✓' : `${answered} of ${N} answered`;
+  } else {
+    examProgress.textContent = `${answered} of ${N} answered`;
+  }
+  submitExamBtn.disabled = quizMode !== 'exam' || examSubmitted || answered < N;
+  examSubmitRow.classList.toggle('exam-live', quizMode === 'exam' && !examSubmitted);
+  examSubmitRow.classList.toggle('exam-done', examSubmitted);
+  submitExamBtn.textContent = examSubmitted ? 'Exam Submitted ✓' : 'Submit Exam';
+}
+
+// ═══════════════════════════════════════════
+// CHOICE INTERACTION
+// ═══════════════════════════════════════════
+choiceContainer.addEventListener('click', (e) => {
+  const choice = e.target.closest('.ac');
+  if (!choice) return;
+  const choiceIdx = parseInt(choice.dataset.choice);
+
+  if (toolMode === 'highlight') {
+    choice.classList.toggle('hl-applied');
+    choice.classList.remove('st-applied');
+    return;
+  }
+  if (toolMode === 'strike') {
+    choice.classList.toggle('st-applied');
+    choice.classList.remove('hl-applied');
+    return;
+  }
+  if (graded[currentQ]) return;
+  if (choice.classList.contains('dis')) return;
+
+  const choiceEls = Array.from(choiceContainer.querySelectorAll('.ac'));
+  choiceEls.forEach(c => c.classList.remove('sel'));
+  choice.classList.add('sel');
+  answers[currentQ] = choiceIdx;
+  submitOneBtn.disabled = false;
+  updateExamProgress();
+});
+
+// ═══════════════════════════════════════════
+// GRADING
+// ═══════════════════════════════════════════
+function gradeCurrentQuestion() {
+  if (answers[currentQ] === null) return false;
+  if (graded[currentQ]) return false;
+
+  const q = questions[currentQ];
+  const choiceEls = Array.from(choiceContainer.querySelectorAll('.ac'));
+  graded[currentQ] = true;
+
+  choiceEls.forEach(c => c.classList.add('dis'));
+  choiceEls[q.correct].classList.add('cor');
+  if (answers[currentQ] !== q.correct) {
+    choiceEls[answers[currentQ]].classList.add('inc');
+  }
+
+  exBlock.classList.add('vis');
+  renderExplanation(q);
+  submitOneBtn.disabled = true;
+  renderDots(currentQ);
+  updateScoreDisplay();
+  updateExamProgress();
+  return true;
+}
+
+submitOneBtn.addEventListener('click', () => { gradeCurrentQuestion(); });
+
+// ═══════════════════════════════════════════
+// EXAM SUBMIT ALL
+// ═══════════════════════════════════════════
+submitExamBtn.addEventListener('click', () => {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  const answered = answers.filter(a => a !== null).length;
+  if (answered < questions.length) return;
+  examSubmitted = true;
+  // Grade all ungraded
+  const saved = currentQ;
+  questions.forEach((q, i) => {
+    if (!graded[i] && answers[i] !== null) graded[i] = true;
+  });
+  renderQuestion(saved);
+  updateScoreDisplay();
+  updateExamProgress();
+});
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+prevBtn.addEventListener('click', () => {
+  if (currentQ > 0) { currentQ--; renderQuestion(currentQ); }
+});
+nextBtn.addEventListener('click', () => {
+  if (currentQ < questions.length - 1) { currentQ++; renderQuestion(currentQ); }
+});
+
+// ═══════════════════════════════════════════
+// MODE
+// ═══════════════════════════════════════════
+function setMode(mode) {
+  quizMode = mode;
+  modeLearnBtn.classList.toggle('active', mode === 'learn');
+  modeExamBtn.classList.toggle('active', mode === 'exam');
+  updateExamProgress();
+}
+modeLearnBtn.addEventListener('click', () => setMode('learn'));
+modeExamBtn.addEventListener('click', () => setMode('exam'));
+
+// ═══════════════════════════════════════════
+// TOOLS
+// ═══════════════════════════════════════════
+function updateToolUI() {
+  toolHighlightBtn.classList.toggle('active', toolMode === 'highlight');
+  toolHighlightBtn.classList.toggle('hl-tool', toolMode === 'highlight');
+  toolStrikeBtn.classList.toggle('active', toolMode === 'strike');
+  toolStrikeBtn.classList.toggle('st-tool', toolMode === 'strike');
+  if (toolMode === 'highlight') {
+    toolStatusEl.textContent = 'Tool mode: highlight';
+    toolStatusEl.className = 'tool-status active-highlight';
+    qStem.classList.add('tool-hover');
+  } else if (toolMode === 'strike') {
+    toolStatusEl.textContent = 'Tool mode: strikeout';
+    toolStatusEl.className = 'tool-status active-strike';
+    qStem.classList.add('tool-hover');
+  } else {
+    toolStatusEl.textContent = 'Tool mode: none';
+    toolStatusEl.className = 'tool-status';
+    qStem.classList.remove('tool-hover');
+  }
+}
+
+function setToolMode(mode) {
+  toolMode = toolMode === mode ? null : mode;
+  updateToolUI();
+}
+
+toolHighlightBtn.addEventListener('click', () => setToolMode('highlight'));
+toolStrikeBtn.addEventListener('click', () => setToolMode('strike'));
+toolRevealBtn.addEventListener('click', () => { exBlock.classList.toggle('vis'); });
+
+// Stem click for tools
+qStem.addEventListener('click', (e) => {
+  if (!toolMode) return;
+  const sel = window.getSelection();
+  if (sel && !sel.isCollapsed && sel.rangeCount > 0) {
+    const range = sel.getRangeAt(0);
+    if (qStem.contains(range.commonAncestorContainer)) {
+      const wrap = document.createElement('span');
+      wrap.className = toolMode === 'highlight' ? 'stem-hl' : 'stem-st';
+      try { range.surroundContents(wrap); } catch(ex) {
+        const frag = range.extractContents(); wrap.appendChild(frag); range.insertNode(wrap);
+      }
+      sel.removeAllRanges();
+      return;
+    }
+  }
+  if (toolMode === 'highlight') {
+    qStem.classList.toggle('hl-applied'); qStem.classList.remove('st-applied');
+  } else if (toolMode === 'strike') {
+    qStem.classList.toggle('st-applied'); qStem.classList.remove('hl-applied');
+  }
+  e.preventDefault();
+});
+
+// Font size
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => { qo.dataset.fs = btn.dataset.fsBtn; });
+});
+
+// ═══════════════════════════════════════════
+// OPEN / CLOSE / RESET
+// ═══════════════════════════════════════════
+openQuizBtn.addEventListener('click', () => {
+  qo.classList.add('open');
+  renderQuestion(0);
+});
+
+closeQuizBtn.addEventListener('click', () => {
+  qo.classList.add('closing');
+  setTimeout(() => qo.classList.remove('open','closing'), 340);
+});
+
+resetQuizBtn.addEventListener('click', () => {
+  currentQ = 0;
+  answers = new Array(questions.length).fill(null);
+  graded = new Array(questions.length).fill(false);
+  quizMode = 'learn';
+  toolMode = null;
+  examSubmitted = false;
+  modeLearnBtn.classList.add('active');
+  modeExamBtn.classList.remove('active');
+  submitOneBtn.disabled = true;
+  exBlock.classList.remove('vis');
+  renderQuestion(0);
+});
+
+// ═══════════════════════════════════════════
+// TIMERS
+// ═══════════════════════════════════════════
+let timerInt = null, timerSec = 0;
+const timerTimeEl = document.getElementById('timerTime');
+function renderTimer() {
+  const m = String(Math.floor(timerSec/60)).padStart(2,'0');
+  const s = String(timerSec%60).padStart(2,'0');
+  timerTimeEl.textContent = `${m}:${s}`;
+}
+document.getElementById('timerStart').addEventListener('click', () => {
+  if (timerInt) return;
+  timerInt = setInterval(() => { timerSec++; renderTimer(); }, 1000);
+});
+document.getElementById('timerPause').addEventListener('click', () => {
+  clearInterval(timerInt); timerInt = null;
+});
+document.getElementById('timerReset').addEventListener('click', () => {
+  clearInterval(timerInt); timerInt = null; timerSec = 0; renderTimer();
+});
+
+let cdMin = 5, cdInt2 = null, cdSec = 300;
+const cdValEl = document.getElementById('cdVal');
+const cdTimeEl = document.getElementById('cdTime');
+const cdGoBtn = document.getElementById('cdGo');
+function renderCD() {
+  const m = String(Math.floor(cdSec/60)).padStart(2,'0');
+  const s = String(cdSec%60).padStart(2,'0');
+  cdTimeEl.textContent = `${m}:${s}`;
+  cdValEl.textContent = Math.max(1, Math.floor(cdSec/60));
+}
+document.getElementById('cdMinus').addEventListener('click', () => {
+  if (cdInt2) return; cdMin = Math.max(1,cdMin-1); cdSec = cdMin*60; renderCD();
+});
+document.getElementById('cdPlus').addEventListener('click', () => {
+  if (cdInt2) return; cdMin = Math.min(99,cdMin+1); cdSec = cdMin*60; renderCD();
+});
+cdGoBtn.addEventListener('click', () => {
+  if (cdInt2) { clearInterval(cdInt2); cdInt2 = null; cdGoBtn.textContent = 'Start'; return; }
+  cdGoBtn.textContent = 'Pause';
+  cdInt2 = setInterval(() => {
+    if (cdSec <= 0) { clearInterval(cdInt2); cdInt2 = null; cdGoBtn.textContent = 'Start'; return; }
+    cdSec--; renderCD();
+  }, 1000);
+});
+
+// ═══════════════════════════════════════════
+// PRINT REVIEW
+// ═══════════════════════════════════════════
+function escapeHTML(v){
+  return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function buildPrintMarkup() {
+  const correct = graded.filter((g,i) => g && answers[i] === questions[i].correct).length;
+  const incorrect = graded.filter((g,i) => g && answers[i] !== questions[i].correct).length;
+  const answered = answers.filter(a => a !== null).length;
+
+  const cards = questions.map((q, qi) => {
+    const opts = q.choices.map((ch, ci) => {
+      const isCorrect = ci === q.correct;
+      const isPicked = answers[qi] === ci && ci !== q.correct;
+      const cls = ['print-choice', isCorrect ? 'correct' : '', isPicked ? 'incorrect' : ''].filter(Boolean).join(' ');
+      const badge = isCorrect ? 'Correct Answer' : (answers[qi] === ci ? 'Your Choice' : '');
+      return `<div class="${cls}">
+        <div class="print-choice-letter">${ch.letter}</div>
+        <div class="print-choice-copy">
+          <div>${escapeHTML(ch.text)}</div>
+          ${badge ? `<div class="print-choice-badge" style="color:${isCorrect?'#2D8659':answers[qi]===ci?'#C44040':''}">${badge}</div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+
+    const wrongItems = q.explanation.wrong.map(w =>
+      `<div class="print-wrong"><strong>${w.letter}</strong> — ${escapeHTML(w.why)}</div>`
+    ).join('');
+
+    const status = !graded[qi] ? '⬜ Unanswered' : answers[qi] === q.correct ? '✅ Correct' : '❌ Incorrect';
+
+    return `<section class="print-card">
+      <div class="print-qtag">PLO ${q.plo} · ${status}</div>
+      <h2>Question ${qi + 1}</h2>
+      <div class="print-stem">${escapeHTML(q.stem)}</div>
+      <div class="print-choices">${opts}</div>
+      <div class="print-explainer correct-box">
+        <div class="print-label">Correct Answer</div>
+        <div>${letters[q.correct]} — ${escapeHTML(q.explanation.correct)}</div>
+      </div>
+      <div class="print-explainer teach-box">
+        <div class="print-label">Teaching Point</div>
+        <div>${escapeHTML(q.explanation.teaching)}</div>
+      </div>
+      <div class="print-explainer wrong-box">
+        <div class="print-label">Why the Others Are Wrong</div>
+        ${wrongItems}
+      </div>
+    </section>`;
+  }).join('');
+
+  return `<div class="print-shell">
+    <header class="print-header">
+      <h1>Carcinogenesis PLO Quiz — Answer Review</h1>
+      <div style="color:#555;font-size:14px;margin-bottom:6px">UNE COM · Dr. Filippakis · Molecular Mechanisms of Carcinogenesis</div>
+      <div class="print-summary">
+        <span class="print-pill">12 questions</span>
+        <span class="print-pill">${answered} answered</span>
+        <span class="print-pill" style="color:#2D8659">${correct} correct</span>
+        <span class="print-pill" style="color:#C44040">${incorrect} incorrect</span>
+      </div>
+    </header>
+    ${cards}
+  </div>`;
+}
+
+printQuizBtn.addEventListener('click', () => {
+  document.getElementById('printReviewRoot').innerHTML = buildPrintMarkup();
+  document.body.classList.add('print-review-active');
+  setTimeout(() => window.print(), 60);
+});
+window.addEventListener('afterprint', () => document.body.classList.remove('print-review-active'));
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+renderTimer();
+renderCD();
+</script>
+</body>
+</html>

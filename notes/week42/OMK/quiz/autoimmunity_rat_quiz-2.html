@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Autoimmunity RAT — 20-Question MCQ</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;--coral:#E07A5F;--gold:#D4A843;--gold-warm:#E8C76A;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;--red:#C44040;--red-bg:#FDF0F0;
+  --sh:0 1px 4px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.03);
+  --sh2:0 8px 32px rgba(0,0,0,.08);--sh3:0 16px 56px rgba(0,0,0,.11);
+  --tr:.24s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:radial-gradient(circle at 15% 20%,rgba(62,196,178,.15),transparent 28%),radial-gradient(circle at 82% 20%,rgba(123,94,167,.1),transparent 30%),linear-gradient(180deg,var(--warm),var(--cream))}
+.launch-card{max-width:740px;width:100%;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:var(--sh3);padding:40px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:46px;line-height:1;color:var(--navy);font-weight:800;margin-bottom:10px}
+.launch-card h1 em{color:var(--teal);font-style:normal}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--teal);text-transform:uppercase;margin-bottom:12px}
+.launch-meta{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 22px}
+.chip{display:inline-flex;align-items:center;padding:7px 13px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600}
+.chip.t{background:rgba(62,196,178,.09);border-color:rgba(62,196,178,.28);color:var(--teal-deep)}
+.plo-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0 0 28px}
+.plo-row{background:rgba(255,255,255,.6);border:1px solid var(--rule2);border-radius:12px;padding:12px 15px;font-size:14px;color:var(--ink2)}
+.plo-row strong{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:3px}
+.launch-btn{padding:15px 28px;border:none;border-radius:17px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.qo{display:none;position:fixed;inset:0;background:radial-gradient(circle at 10% 0%,rgba(62,196,178,.11),transparent 24%),linear-gradient(180deg,var(--warm),var(--cream));z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .3s forwards}
+@keyframes fi{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+@keyframes fo{to{opacity:0}}
+.qt-bar{position:sticky;top:0;z-index:12;padding:15px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,var(--navy2),var(--navy));border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(16px);box-shadow:0 8px 28px rgba(18,32,60,.15)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:24px;font-weight:700}
+.qt-bar .qtsub{font-size:11px;color:rgba(255,255,255,.45);font-family:'IBM Plex Mono',monospace;margin-top:1px}
+.qt-btns{display:flex;gap:7px}
+.qt-btn{padding:9px 15px;border-radius:12px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;transition:var(--tr);border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.08);color:rgba(255,255,255,.75)}
+.qt-btn:hover{background:rgba(255,255,255,.16);color:#fff}
+.qin{max-width:1320px;margin:0 auto;padding:22px 22px 80px;display:grid;grid-template-columns:330px minmax(0,1fr);gap:16px 20px;align-items:start}
+@media(max-width:820px){.qin{grid-template-columns:1fr}}
+.q-left{display:grid;gap:13px;position:sticky;top:82px;align-content:start}
+.q-right{min-width:0}
+.score-panel{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.score-box{background:rgba(255,255,255,.9);border-radius:18px;padding:15px 11px 11px;text-align:center;box-shadow:var(--sh2);border:1px solid rgba(18,32,60,.06);position:relative;overflow:hidden}
+.score-box::before{content:'';position:absolute;left:12px;right:12px;top:0;height:3px;border-radius:0 0 999px 999px;background:linear-gradient(90deg,rgba(26,122,109,.15),rgba(62,196,178,.45))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:32px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:5px}
+.score-box.cor .sv{color:var(--green)}.score-box.inc .sv{color:var(--red)}
+.mode-toggle{display:flex;gap:5px;padding:6px;border-radius:20px;background:rgba(255,255,255,.82);border:1px solid rgba(18,32,60,.08);box-shadow:var(--sh)}
+.mode-btn{flex:1;padding:11px 14px;border-radius:15px;text-align:center;font-size:13px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .22s}
+.mode-btn:hover{color:var(--navy)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 8px 20px rgba(27,42,74,.17)}
+.mode-icon{display:block;font-size:17px;margin-bottom:2px}
+.prog-card,.dots-card{background:rgba(255,255,255,.8);border:1px solid rgba(18,32,60,.08);border-radius:18px;padding:14px 16px;box-shadow:var(--sh)}
+.blabel{font-size:10.5px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.14em;color:var(--mist);font-weight:700;margin-bottom:8px}
+.prog-bar-wrap{background:rgba(18,32,60,.06);border-radius:999px;height:5px;overflow:hidden}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));border-radius:999px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.prog-text{font-size:13px;color:var(--slate);margin-top:7px;font-weight:700}
+.dots-grid{display:flex;flex-wrap:wrap;gap:5px}
+.qd{width:27px;height:27px;border-radius:7px;border:1.5px solid rgba(18,32,60,.14);background:#fff;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;color:var(--slate);transition:var(--tr);display:flex;align-items:center;justify-content:center}
+.qd:hover{border-color:var(--teal);color:var(--teal)}
+.qd.cur{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:0 3px 10px rgba(27,42,74,.2)}
+.qd.answered{background:rgba(62,196,178,.1);border-color:rgba(62,196,178,.3);color:var(--teal-deep)}
+.qd.cor{background:var(--green-bg);border-color:rgba(45,134,89,.3);color:var(--green)}
+.qd.inc{background:var(--red-bg);border-color:rgba(196,64,64,.3);color:var(--red)}
+.qcd{background:color-mix(in srgb,var(--white) 94%,var(--warm) 6%);border-radius:24px;overflow:hidden;box-shadow:0 20px 56px rgba(18,32,60,.09);border:1px solid rgba(18,32,60,.07)}
+.qcd.anim{animation:cardIn .38s cubic-bezier(.4,0,.2,1)}
+@keyframes cardIn{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:none}}
+.qpg{height:5px;background:rgba(18,32,60,.05)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .45s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:24px 30px 22px}
+.q-meta{display:flex;align-items:center;gap:9px;margin-bottom:13px}
+.qnum{padding:5px 10px;border-radius:999px;background:rgba(18,32,60,.04);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;font-weight:700}
+.plo-tag{padding:5px 10px;border-radius:999px;background:rgba(62,196,178,.1);border:1px solid rgba(62,196,178,.24);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--teal-deep);font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.qstem{font-family:'Crimson Pro',serif;font-size:22px;line-height:1.38;margin-bottom:19px;font-weight:600;color:var(--ink)}
+.ach{display:grid;gap:8px}
+.ac{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border:1.5px solid rgba(18,32,60,.09);border-radius:15px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb,var(--warm) 75%,var(--white) 25%);box-shadow:0 3px 12px rgba(18,32,60,.03)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.38);background:#fff;transform:translateY(-1px);box-shadow:0 8px 20px rgba(18,32,60,.07)}
+.ac.sel{border-color:rgba(26,122,109,.48)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.cl{width:36px;height:36px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 3px 10px rgba(18,32,60,.04)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:15px;line-height:1.48;color:var(--ink)}
+.submit-row{margin-top:20px;display:flex;justify-content:center}
+.submit-btn{padding:13px 50px;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 9px 22px rgba(26,122,109,.22)}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.22;cursor:not-allowed;box-shadow:none;transform:none}
+.exb{margin-top:20px;border-radius:18px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .36s cubic-bezier(.4,0,.2,1)}
+.exs{padding:18px 22px}.exs+.exs{border-top:1px solid rgba(18,32,60,.05)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:7px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:15px;line-height:1.72;color:var(--ink2)}
+.wce{margin-top:8px;padding:10px 13px;background:rgba(255,255,255,.6);border-radius:11px;font-size:14px;line-height:1.62}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:11px}
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 20px 16px;border-top:1px solid rgba(18,32,60,.07)}
+.nb{padding:10px 22px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 5px 14px rgba(18,32,60,.05)}
+.nb:hover:not(:disabled){background:var(--navy);color:#fff;border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb:disabled{opacity:.28;cursor:not-allowed}
+.q-of{font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--mist);font-weight:600}
+.exam-row{margin-top:14px;padding:16px 20px;border-radius:18px;background:rgba(255,255,255,.74);border:1px solid rgba(18,32,60,.08);text-align:center}
+.exam-prog{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mist);margin-bottom:9px}
+.exam-sub-btn{padding:13px 44px;border-radius:16px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 20px rgba(224,122,95,.22)}
+.exam-sub-btn:hover{transform:translateY(-2px)}
+.exam-sub-btn:disabled{opacity:.25;cursor:not-allowed;transform:none}
+.results-card{background:rgba(255,255,255,.92);border-radius:24px;box-shadow:var(--sh3);border:1px solid rgba(18,32,60,.07);padding:34px;text-align:center;animation:cardIn .4s both;margin-top:16px}
+.results-card h2{font-family:'Crimson Pro',serif;font-size:34px;color:var(--navy);margin-bottom:6px}
+.results-pct{font-family:'Crimson Pro',serif;font-size:68px;font-weight:800;line-height:1;margin:10px 0}
+.results-pct.pass{color:var(--green)}.results-pct.fail{color:var(--coral)}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:20px 0}
+.r-stat{background:var(--cream);border-radius:14px;padding:14px;border:1px solid var(--rule2)}
+.r-stat .rv{font-family:'Crimson Pro',serif;font-size:30px;font-weight:800;color:var(--navy)}
+.r-stat .rl{font-size:10.5px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:3px}
+.review-btn{padding:13px 34px;border-radius:15px;background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 9px 22px rgba(27,42,74,.2);margin:4px}
+.review-btn:hover{transform:translateY(-2px)}
+</style>
+</head>
+<body>
+<div class="launch-wrap" id="launchScreen">
+  <div class="launch-card">
+    <div class="eyebrow">Block 5 · Dr. Goode · RAT Prep</div>
+    <h1><em>Autoimmunity</em><br>RAT Quiz</h1>
+    <p style="color:var(--slate);font-size:15.5px;margin-top:8px;max-width:56ch">20 PLO-aligned MCQs, 5 shuffled choices each. Learn mode = immediate feedback. Exam mode = score at the end.</p>
+    <div class="launch-meta">
+      <span class="chip">&#x1F4CB; 20 Questions</span>
+      <span class="chip t">PLO 1 &middot; 2/3 &middot; 4 &middot; 5</span>
+      <span class="chip">5 Choices Each</span>
+      <span class="chip">Shuffled Every Run</span>
+    </div>
+    <div class="plo-grid">
+      <div class="plo-row"><strong>PLO 1 &mdash; 4 Qs</strong>Definitions: tolerogen vs. immunogen, central vs. peripheral, self-tolerance, autoimmunity</div>
+      <div class="plo-row"><strong>PLO 2/3 &mdash; 4 Qs</strong>Central T cell tolerance: positive/negative selection, AIRE, APS-1, death by neglect</div>
+      <div class="plo-row"><strong>PLO 4 &mdash; 5 Qs</strong>Peripheral tolerance: anergy, Tregs, FoxP3/IPEX, CTLA-4, deletion pathways</div>
+      <div class="plo-row"><strong>PLO 5 &mdash; 7 Qs</strong>Hypersensitivity Types II, III, IV and autoimmune diseases</div>
+    </div>
+    <button class="launch-btn" id="openQuiz">Begin Quiz &rarr;</button>
+  </div>
+</div>
+<div class="qo" id="quizOverlay">
+  <div class="qt-bar">
+    <div><h2>Autoimmunity RAT</h2><div class="qtsub" id="barSub">Question 1 of 20</div></div>
+    <div class="qt-btns">
+      <button class="qt-btn" id="resetBtn">&#x21BA; Reset</button>
+      <button class="qt-btn" id="closeBtn">&#x2715; Close</button>
+    </div>
+  </div>
+  <div class="qin">
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCur">1</div><div class="sl">Current</div></div>
+        <div class="score-box cor"><div class="sv" id="svCor">0</div><div class="sl">Correct</div></div>
+        <div class="score-box inc"><div class="sv" id="svInc">0</div><div class="sl">Wrong</div></div>
+      </div>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">&#x1F4D6;</span>Learn</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">&#x1F3AF;</span>Exam</button>
+      </div>
+      <div class="prog-card">
+        <div class="blabel">Progress</div>
+        <div class="prog-bar-wrap"><div class="prog-bar" id="progBar" style="width:5%"></div></div>
+        <div class="prog-text" id="progText">0 of 20 answered</div>
+      </div>
+      <div class="dots-card">
+        <div class="blabel" style="margin-bottom:9px">Question Map</div>
+        <div class="dots-grid" id="dotsGrid"></div>
+      </div>
+    </div>
+    <div class="q-right">
+      <div class="qcd" id="questionCard">
+        <div class="qpg"><div class="qpf" id="qpf" style="width:5%"></div></div>
+        <div class="qbd">
+          <div class="q-meta">
+            <div class="qnum" id="qNum">Q 01 / 20</div>
+            <div class="plo-tag" id="ploTag">PLO 1</div>
+          </div>
+          <div class="qstem" id="qStem"></div>
+          <div class="ach" id="choiceList"></div>
+          <div class="submit-row"><button class="submit-btn" id="submitBtn" disabled>Submit Answer</button></div>
+          <div class="exb" id="exBlock">
+            <div class="exs exc"><div class="exl">&#x2713; Correct Answer</div><div class="ext" id="exCorrect"></div></div>
+            <div class="exs exe"><div class="exl">&#x1F393; Teaching Point</div><div class="ext" id="exTeach"></div></div>
+            <div class="exs exw"><div class="exl">&#x2717; Why the Others Are Wrong</div><div class="ext" id="exWrong"></div></div>
+          </div>
+        </div>
+        <div class="qnv">
+          <button class="nb" id="prevBtn">&larr; Prev</button>
+          <div class="q-of" id="qOf">1 / 20</div>
+          <button class="nb pr" id="nextBtn">Next &rarr;</button>
+        </div>
+      </div>
+      <div class="exam-row" id="examRow" style="display:none">
+        <div class="exam-prog" id="examProg">0 of 20 answered</div>
+        <button class="exam-sub-btn" id="examSubBtn" disabled>Submit Exam</button>
+      </div>
+      <div id="resultsArea"></div>
+    </div>
+  </div>
+</div>
+<script>
+
+const BANK = [
+// ── PLO 1 ─────────────────────────────────────────────────────────
+{plo:"PLO 1",
+stem:"Which property of antigen exposure MOST favors induction of tolerance over an immune response?",
+items:[
+{text:"Subcutaneous or intradermal delivery combined with an adjuvant that activates tissue-resident dendritic cells and promotes their maturation into immunogenic APCs",correct:false,why:"Subcutaneous delivery plus adjuvant activates innate PRRs, promotes DC maturation, and upregulates B7 expression — a classic vaccine strategy that strongly favors immunity, not tolerance."},
+{text:"Presentation by mature dendritic cells expressing high levels of B7-1/B7-2 costimulatory molecules and secreting pro-inflammatory cytokines such as IL-12 and TNF",correct:false,why:"Mature APCs provide both Signal 2 (co-stimulation) and Signal 3 (polarizing cytokines), the combination required for full T cell activation. High B7 expression is the hallmark of the immunogenic, not tolerogenic, APC state."},
+{text:"Prolonged antigen persistence in the absence of co-stimulatory signals, delivered by immature dendritic cells expressing low levels of B7 and few inflammatory cytokines",correct:true,why:""},
+{text:"Short-lived antigen encounter delivered subcutaneously that is rapidly cleared by local macrophages before reaching the draining secondary lymphoid organs",correct:false,why:"Rapid clearance via a peripheral route is characteristic of many vaccine antigens. Prolonged persistence without danger signals — not rapid clearance — is the key driver of tolerance induction."},
+{text:"Antigen delivery that strongly activates TLR signaling, upregulates MHC II expression on APCs, and promotes germinal center formation in secondary lymphoid organs",correct:false,why:"TLR activation and MHC II upregulation are danger-signal-driven hallmarks of APC maturation. This cytokine-rich environment pushes lymphocytes toward activation and robust immunity, not tolerance or anergy."}
+],
+explanation:"Prolonged antigen persistence without co-stimulation — presented by immature (resting) DCs with low B7 — is the defining tolerogenic condition. Signal 1 (TCR ligation) without Signal 2 (CD28\u2013B7) induces anergy or deletion rather than full T cell activation and clonal expansion.",
+teaching:"Tolerogenicity checklist: prolonged persistence + IV/mucosal route + no adjuvant + immature DCs. Flip each factor \u2192 immunogenic. Resting DCs presenting self-antigen without danger signals are the cellular gatekeepers of peripheral tolerance."},
+
+{plo:"PLO 1",
+stem:"Which statement BEST distinguishes central tolerance from peripheral tolerance?",
+items:[
+{text:"Central tolerance targets mature lymphocytes in secondary lymphoid organs, while peripheral tolerance eliminates self-reactive developing lymphocytes in the bone marrow and thymus",correct:false,why:"This is the exact reverse of the correct definitions \u2014 a classic swap distractor. Central tolerance acts on immature lymphocytes in generative (primary) organs; peripheral tolerance handles mature lymphocytes that escaped those organs."},
+{text:"Central tolerance is induced in self-reactive lymphocytes during development within primary generative organs (thymus for T cells; bone marrow for B cells); peripheral tolerance acts on mature lymphocytes that escaped central mechanisms",correct:true,why:""},
+{text:"Central tolerance depends primarily on Treg-mediated suppression of autoreactive T cells in peripheral lymph nodes and secondary lymphoid tissues rather than on deletion in primary lymphoid organs",correct:false,why:"Treg-mediated suppression is itself a peripheral tolerance mechanism. Central tolerance in the thymus and bone marrow operates via clonal deletion, receptor editing, anergy, and Treg generation \u2014 not via Tregs suppressing cells in lymph nodes."},
+{text:"Both central and peripheral tolerance rely on the identical Fas\u2013FasL apoptotic death pathway but act at different stages of lymphocyte development in different anatomical compartments",correct:false,why:"Fas\u2013FasL is primarily a peripheral deletion mechanism for mature T cells (AICD). Central tolerance in the thymus predominantly uses the intrinsic mitochondrial apoptotic pathway during negative selection, not Fas\u2013FasL."},
+{text:"Central tolerance applies only to T cells since B cells are exclusively tolerized by anergy and deletion in peripheral secondary lymphoid organs and germinal center checkpoints",correct:false,why:"B cells undergo robust central tolerance in the bone marrow via receptor editing (primary response to high-avidity BCR), deletion, anergy, and ignorance. B cell central tolerance is not confined to peripheral secondary lymphoid tissues."}
+],
+explanation:"Central tolerance is established in primary generative organs on immature, developing lymphocytes before they mature. Peripheral tolerance acts as a backup on mature lymphocytes that escaped central selection \u2014 together forming overlapping checkpoints against autoreactive clones.",
+teaching:"Two checkpoints: Central = thymus/bone marrow = immature cells eliminated before export. Peripheral = secondary lymphoid tissues = mature escapees restrained by anergy, Tregs, or deletion. Autoimmunity requires failure of multiple overlapping tolerance layers."},
+
+{plo:"PLO 1",
+stem:"A 26-year-old woman develops fatigue, joint pain, a butterfly-shaped facial rash, and proteinuria. Antinuclear antibodies (ANAs) are detected. Which immunologic concept BEST explains the underlying pathogenesis?",
+items:[
+{text:"Complement C4 deficiency prevents opsonization and clearance of apoptotic debris, leading to immune complex accumulation and secondary tissue injury without true failure of lymphocyte self-tolerance",correct:false,why:"C4 deficiency is a genetic predisposing factor for SLE, but the core pathogenic mechanism remains failure of self-tolerance. Autoreactive B and T cells escaped deletion/anergy and are producing antinuclear antibodies \u2014 C4 deficiency alone does not explain ANA production."},
+{text:"A primary B cell immunodeficiency has impaired antibody production and antigen clearance, causing antigen accumulation and secondary bystander tissue inflammation",correct:false,why:"This patient has excessive, not deficient, humoral immunity \u2014 she is generating antinuclear antibodies. Primary immunodeficiency causes failure to respond to foreign antigens, not hyperactive self-directed antibody responses."},
+{text:"Self-reactive lymphocyte clones that escaped immunologic self-tolerance checkpoints are producing pathogenic autoantibodies against nuclear self-antigens",correct:true,why:""},
+{text:"IgE antibodies directed against nuclear antigens are cross-linking Fc\u03b5RI on tissue mast cells, triggering histamine release and initiating the systemic inflammatory cascade",correct:false,why:"IgE-mediated mast cell degranulation causes Type I allergic hypersensitivity (urticaria, anaphylaxis, atopy). SLE is driven by IgG autoantibodies that form immune complexes, not by IgE or mast cell histamine release."},
+{text:"Molecular mimicry between a recent viral infection and nuclear proteins has produced cross-reactive antibodies that will resolve spontaneously once viral clearance is complete",correct:false,why:"Molecular mimicry causes acute pathogen-triggered autoimmune episodes (e.g., rheumatic fever after GAS). Chronic, multisystem ANA-dominated disease with antibodies to dsDNA, histones, and snRNP reflects sustained multi-checkpoint self-tolerance failure, not a self-resolving cross-reactive response."}
+],
+explanation:"SLE is a prototypic autoimmune disease caused by failure of self-tolerance at multiple checkpoints. Autoreactive B cells escaped central tolerance (receptor editing, deletion) and peripheral mechanisms (anergy, Treg suppression) and produce antinuclear antibodies that form pathogenic immune complexes.",
+teaching:"Autoimmunity = failure of self-tolerance. Core equation: Self Antigen Encountered \u2192 Self-Tolerance (normal) OR \u2192 Autoimmunity (failure). SLE is multi-checkpoint failure \u2014 antibodies to dsDNA/histones/snRNP form Type III immune complexes causing glomerulonephritis, vasculitis, and arthritis."},
+
+{plo:"PLO 1",
+stem:"Immunologic self-tolerance is BEST defined as:",
+items:[
+{text:"Clonal expansion of self-antigen-specific lymphocytes upon first encounter with self-antigen, establishing immunological memory for rapid surveillance of host tissues throughout life",correct:false,why:"Clonal expansion and memory formation characterize a productive immune response \u2014 the opposite of tolerance. Self-tolerance actively suppresses or eliminates self-reactive clones rather than expanding and preserving them."},
+{text:"Antigen-specific unresponsiveness established when lymphocytes encounter self-antigen under conditions that promote anergy, deletion, or suppression rather than productive activation",correct:true,why:""},
+{text:"Preferential secretion of secretory IgA at mucosal surfaces to neutralize commensal microorganisms without activating complement-mediated inflammation or causing systemic tissue injury",correct:false,why:"Secretory IgA at mucosal barriers is a component of mucosal immunity. It describes exclusion of external organisms without systemic inflammation \u2014 a different immunologic concept unrelated to the definition of self-tolerance."},
+{text:"Functional T cell exhaustion driven by chronic high-antigen-load infections such as HIV or hepatitis C, producing reduced effector cytokine output and impaired pathogen clearance",correct:false,why:"T cell exhaustion is a dysregulated, dysfunctional state driven by sustained foreign antigen overload during chronic infection. It is mechanistically and conceptually distinct from the actively maintained, developmentally programmed state of self-tolerance."},
+{text:"Affinity maturation of B cells in germinal centers generating high-affinity antibodies directed against self-peptides to enhance immune surveillance of pre-malignant host cells",correct:false,why:"Germinal center affinity maturation against self-peptides would produce high-affinity autoantibodies \u2014 causing rather than preventing autoimmunity. Peripheral B cell tolerance checkpoints exist specifically to eliminate newly autoreactive clones generated by somatic hypermutation."}
+],
+explanation:"Self-tolerance is antigen-specific functional unresponsiveness to self-antigens, actively maintained by central mechanisms (deletion, receptor editing, Treg generation) and peripheral mechanisms (anergy, Treg suppression, deletion). It is not passive ignorance \u2014 it is mechanistically enforced.",
+teaching:"Three key features of tolerance: (1) Antigen-specific \u2014 not global immunosuppression; (2) Actively maintained \u2014 requires ongoing molecular mechanisms; (3) Distinct from ignorance \u2014 cells are rendered specifically unresponsive, not simply unaware of the antigen."},
+
+// ── PLO 2/3 ───────────────────────────────────────────────────────
+{plo:"PLO 2/3",
+stem:"A thymocyte in the thymic cortex expresses a TCR that fails to generate any intracellular signaling upon contact with self-peptide\u2013MHC complexes. What is the MOST likely fate of this thymocyte?",
+items:[
+{text:"Negative selection in the thymic medulla \u2014 absence of signaling is interpreted as high-affinity recognition of self-antigen presented by mTECs, triggering apoptosis or Treg diversion",correct:false,why:"Negative selection targets clones with HIGH-affinity self-antigen recognition. A thymocyte generating zero intracellular signal has completely failed to recognize any MHC molecule \u2014 the opposite of the high-affinity scenario that drives negative selection."},
+{text:"Positive selection in the thymic cortex \u2014 absence of TCR signaling is recognized as low-affinity MHC interaction, providing the requisite survival signal for maturation into a single-positive thymocyte",correct:false,why:"Positive selection requires a measurable low-affinity TCR\u2013MHC interaction that generates a quantifiable survival signal. Complete absence of signaling (no MHC recognition whatsoever) is entirely different from the low-affinity interaction needed for positive selection."},
+{text:"Death by neglect \u2014 absence of any TCR\u2013MHC survival signal condemns this clone to apoptosis, eliminating T cells that could never recognize self-MHC and would be useless in the periphery",correct:true,why:""},
+{text:"Receptor editing \u2014 RAG1 and RAG2 are reactivated in the cortical thymocyte to generate a new TCR with different specificity that can complete positive selection in the thymus",correct:false,why:"RAG-mediated receptor editing is a central B cell tolerance mechanism in the bone marrow, used when high-avidity BCR ligation signals autoreactivity. Thymocytes do not undergo TCR receptor editing; the equivalent T cell outcome for MHC non-recognition is apoptotic death by neglect."},
+{text:"Export to the periphery as a na\u00efve T cell \u2014 because the thymocyte never engaged self-MHC, it escapes all selection checkpoints and exits the thymus without positive or negative selection",correct:false,why:"A thymocyte that receives no TCR\u2013MHC survival signal is not exported to the periphery \u2014 it dies. The default fate without a positive selection survival signal is apoptotic death by neglect, not unchecked thymic exit."}
+],
+explanation:"Death by neglect occurs when a thymocyte\u2019s TCR cannot recognize any MHC molecule, providing zero survival signal. This eliminates clones that would be functionally useless in the periphery (unable to participate in MHC-restricted immune surveillance). It is mechanistically distinct from negative selection by the complete absence \u2014 rather than high-affinity presence \u2014 of TCR signaling.",
+teaching:"Thymic selection 3-outcome rule: No MHC recognition \u2192 death by neglect. Low-affinity self-MHC interaction \u2192 positive selection (survives). High-affinity self-antigen interaction \u2192 negative selection (deletion or Treg). Only the \u2018Goldilocks\u2019 low-affinity thymocyte exits as a na\u00efve T cell."},
+
+{plo:"PLO 2/3",
+stem:"AIRE is expressed in medullary thymic epithelial cells (mTECs). Which statement BEST describes AIRE\u2019s mechanism in establishing central T cell tolerance?",
+items:[
+{text:"AIRE reactivates RAG1 and RAG2 recombinases in developing thymocytes, enabling new rounds of TCR gene rearrangement to reduce the affinity of self-reactive TCRs so they can complete positive selection",correct:false,why:"AIRE is a transcriptional regulator of antigen expression in mTECs \u2014 it does not reactivate recombinases in thymocytes. RAG-mediated TCR editing does not occur in T cells; it is a B cell bone marrow mechanism for BCR diversification."},
+{text:"AIRE promotes FoxP3 expression in high-affinity thymocytes, directly converting self-reactive clones into natural Tregs rather than directing them toward apoptotic clonal deletion",correct:false,why:"AIRE\u2019s primary function is driving ectopic expression of tissue-restricted antigens (TRAs) in mTECs. Some high-affinity interactions with AIRE-presented antigens do lead to Treg conversion, but AIRE\u2019s defined role is TRA expression \u2014 not direct FoxP3 transcriptional induction."},
+{text:"AIRE drives ectopic expression of tissue-restricted peripheral antigens in mTECs, enabling presentation of these antigens to developing T cells so that strongly self-reactive clones are deleted or diverted to Tregs",correct:true,why:""},
+{text:"AIRE upregulates MHC class II and B7-1/B7-2 expression on mTECs to enhance the efficiency of positive selection and ensure a broad TCR repertoire of self-MHC-restricted T cells exits the thymus",correct:false,why:"MHC II upregulation and co-stimulatory molecule expression on APCs are regulated by inflammatory signals and DC maturation states, not by AIRE. AIRE\u2019s specific function is driving ectopic transcription of peripheral tissue antigen genes in mTECs for central tolerance."},
+{text:"AIRE acts exclusively within thymic dendritic cells to transfer serum-borne self-antigens to mTECs via cross-presentation, enabling negative selection of CD8+ thymocytes only",correct:false,why:"While thymic DCs do carry serum-borne antigens and transfer them to mTECs, this describes the antigen delivery mechanism \u2014 not what AIRE does. AIRE is expressed by mTECs and drives de novo transcription of TRA genes; it is not expressed by dendritic cells."}
+],
+explanation:"AIRE is a transcriptional regulator in mTECs that drives ectopic (\u2018out-of-context\u2019) expression of tissue-restricted antigens \u2014 peripheral proteins like insulin, thyroglobulin, and ACTH \u2014 within the thymic medulla. Presenting these antigens to developing T cells allows high-affinity self-reactive clones to be deleted before they exit to the periphery.",
+teaching:"Without AIRE: T cells reactive to parathyroid, adrenal, and islet antigens never encounter those antigens in the thymus \u2192 escape central deletion \u2192 APS-1. AIRE essentially \u2018previews the periphery\u2019 within the thymic medulla. No other cell type achieves this ectopic peripheral antigen expression at comparable scale."},
+
+{plo:"PLO 2/3",
+stem:"A 3-year-old child presents with Candida mucocutaneous infections, hypocalcemia from hypoparathyroidism, and adrenal insufficiency. An older sibling had a similar presentation. Genetic workup confirms an autosomal recessive loss-of-function mutation. Which gene is MOST likely mutated and what is the mechanism?",
+items:[
+{text:"FoxP3 \u2014 loss of this master Treg transcription factor eliminates functional regulatory T cells, causing multisystem peripheral autoimmunity in an X-linked inheritance pattern",correct:false,why:"FoxP3 mutations cause IPEX syndrome (X-linked, not autosomal recessive), which presents with the triad of enteropathy, type 1 diabetes, and eczema \u2014 not hypoparathyroidism, adrenal insufficiency, or mucocutaneous candidiasis as seen here."},
+{text:"CTLA4 \u2014 haploinsufficiency impairs T cell anergy induction and reduces Treg surface CTLA-4 expression, causing broadly heterogeneous systemic inflammatory disease at multiple barrier and endocrine tissues",correct:false,why:"CTLA4 mutations cause a heterogeneous disorder with hypogammaglobulinemia and interstitial lung disease \u2014 not the stereotyped APS-1 triad. CTLA4 haploinsufficiency is also not autosomal recessive."},
+{text:"AIRE \u2014 loss-of-function prevents mTECs from expressing parathyroid, adrenal, and islet tissue-restricted antigens in the thymus, allowing T cells reactive to these organs to escape central deletion",correct:true,why:""},
+{text:"Fas (CD95) \u2014 defective death receptor signaling prevents peripheral apoptosis of self-reactive T and B cells, causing autoimmune lymphoproliferative syndrome with lymphocytosis and splenomegaly",correct:false,why:"Fas mutations cause ALPS (Autoimmune Lymphoproliferative Syndrome) \u2014 characterized by non-malignant lymphoproliferation, splenomegaly, and cytopenias (hemolytic anemia, thrombocytopenia). ALPS does not cause the APS-1 endocrine triad."},
+{text:"IL-2R\u03b1 (CD25) \u2014 defective IL-2 signaling prevents Treg generation and maintenance, causing colitis, hemolytic anemia, and multi-organ autoimmunity affecting gut and hematopoietic lineages",correct:false,why:"IL-2/IL-2R deficiency causes IBD, hemolytic anemia, and systemic autoantibodies in mouse models with human associations in MS and T1D. It does not produce the parathyroid\u2013adrenal\u2013Candida triad that maps to AIRE-dependent tissue-restricted antigens."}
+],
+explanation:"This is Autoimmune Polyendocrine Syndrome Type 1 (APS-1), caused by autosomal recessive AIRE loss-of-function. The specific organs affected (parathyroid, adrenal cortex, and endocrine pancreas) are those whose tissue-restricted antigens are expressed in mTECs in an AIRE-dependent manner. Without AIRE, T cells reactive to these antigens escape deletion.",
+teaching:"APS-1 classic triad: hypoparathyroidism + adrenal insufficiency + mucocutaneous candidiasis. Autosomal recessive + pediatric onset + multi-endocrine = AIRE mutation. The organs affected map precisely to which TRAs depend most on AIRE for thymic expression. Compare to FoxP3/IPEX (X-linked, enteropathy + T1D + eczema) and Fas/ALPS (lymphoproliferation + cytopenias)."},
+
+{plo:"PLO 2/3",
+stem:"Positive selection occurs in the thymic cortex and is required for all mature T cells that exit the thymus. Which event BEST describes positive selection?",
+items:[
+{text:"A thymocyte with no TCR\u2013MHC interaction receives a stromal IL-7 survival signal in the thymic cortex, bypassing TCR-based selection requirements and allowing export as a na\u00efve T cell",correct:false,why:"IL-7 supports thymocyte survival but cannot substitute for TCR\u2013MHC signaling in positive selection. Thymocytes that fail to generate any TCR signal die by neglect; they are not exported to the periphery regardless of cytokine availability."},
+{text:"A thymocyte whose TCR interacts with self-peptide\u2013MHC at low affinity in the thymic cortex receives a survival signal and matures into a single-positive CD4+ or CD8+ T cell capable of self-MHC recognition",correct:true,why:""},
+{text:"A thymocyte whose TCR binds self-peptide\u2013MHC with high affinity in the thymic cortex is selected for survival and exported as an effector T cell prepared to respond to peripheral self-antigens",correct:false,why:"High-affinity self-antigen recognition triggers negative selection (deletion or Treg diversion), not positive selection. Positive selection specifically requires the low-affinity, non-self-destructive interaction \u2014 a classic mechanism-swap distractor."},
+{text:"A mature single-positive thymocyte in the thymic medulla encounters tissue-restricted antigens presented by mTECs and undergoes AIRE-driven FoxP3 induction to become a natural Treg",correct:false,why:"Medullary events where high-affinity TCR engagement with self-antigen leads to FoxP3+ Treg conversion represent one outcome of negative selection, not positive selection. Positive selection occurs in the cortex at low affinity \u2014 the medullary, high-affinity event is categorically different."},
+{text:"A thymocyte in the thymic medulla undergoes clonal expansion after recognizing self-antigen at intermediate affinity on a dendritic cell and is exported as a conventional effector T cell primed against self",correct:false,why:"Medullary intermediate-to-high affinity self-antigen interactions lead to deletion or Treg conversion, not clonal expansion and export as conventional effector cells. Clonal expansion of self-reactive thymocytes would be the definition of central tolerance failure."}
+],
+explanation:"Positive selection in the thymic cortex rescues thymocytes whose TCR interacts with self-peptide\u2013MHC at low affinity, providing a survival signal. These cells mature into single-positive (CD4+ or CD8+) T cells that are self-MHC-restricted \u2014 capable of recognizing foreign peptides only when presented on self-MHC molecules.",
+teaching:"Goldilocks thymic selection: (1) No MHC recognition \u2192 death by neglect (cortex). (2) Low-affinity self-MHC \u2192 positive selection \u2192 survival (cortex). (3) High-affinity self-antigen \u2192 negative selection \u2192 deletion or Treg (medulla). Only the low-affinity window produces the functional, self-tolerant T cell repertoire that exits as na\u00efve T cells."},
+
+// ── PLO 4 ─────────────────────────────────────────────────────────
+{plo:"PLO 4",
+stem:"A mature self-reactive CD4+ T cell encounters its cognate self-antigen on a resting dendritic cell expressing negligible levels of B7-1 and B7-2. IL-2 production fails to occur. Which outcome BEST describes this scenario?",
+items:[
+{text:"Full T cell activation with clonal expansion, because TCR engagement (Signal 1) alone is sufficient to drive IL-2 transcription and downstream effector T cell differentiation",correct:false,why:"Both Signal 1 (TCR ligation) and Signal 2 (CD28\u2013B7 co-stimulation) are required for full T cell activation and productive IL-2 transcription. Signal 1 alone without Signal 2 is the canonical trigger for peripheral T cell anergy induction."},
+{text:"Peripheral deletion via the Fas\u2013FasL extrinsic apoptosis pathway, because a single antigen encounter with a resting APC constitutes sufficient stimulation to trigger activation-induced cell death",correct:false,why:"Fas\u2013FasL-mediated AICD requires repeated high-affinity stimulation over an extended period, not a single encounter with a resting APC. The first encounter without co-stimulation typically induces the anergic state well before deletion mechanisms are engaged."},
+{text:"T cell anergy \u2014 the self-reactive T cell receives Signal 1 (TCR engagement) without Signal 2 (CD28\u2013B7 co-stimulation), resulting in functional unresponsiveness and blocked IL-2 production",correct:true,why:""},
+{text:"Treg-mediated suppression, because resting dendritic cells preferentially activate FoxP3+ regulatory T cells over effector T cells via TGF-\u03b2 and retinoic acid secretion in non-inflamed tissues",correct:false,why:"The question addresses the fate of the self-reactive effector T cell itself \u2014 which becomes anergic when it receives antigen without co-stimulation. Treg activation by resting DCs is a separate event from the fate of the neighboring self-reactive effector T cell."},
+{text:"Rapid conversion to a peripheral Treg via TGF-\u03b2 and retinoic acid signaling in the lymph node, because antigen without strong co-stimulation preferentially induces the pTreg differentiation program",correct:false,why:"Peripheral Treg conversion (pTreg) requires antigen + TGF-\u03b2 + retinoic acid + absent strong innate signals. Simple Signal 1 without co-stimulation in a resting DC context induces anergy first; pTreg conversion is a distinct, more cytokine context-dependent outcome."}
+],
+explanation:"Anergy is induced when a T cell receives Signal 1 (TCR\u2013MHC engagement) without Signal 2 (CD28\u2013B7 co-stimulation). Without B7 ligation, IL-2 transcription is blocked. Ubiquitin ligases (Cbl-b, GRAIL) degrade TCR-associated signaling proteins, locking the cell in a functionally unresponsive state even if co-stimulation is subsequently provided.",
+teaching:"Resting DCs = the cellular mechanism of peripheral anergy induction. They express self-antigen but lack the co-stimulatory ligands upregulated by danger signals. In the absence of infection or tissue damage, self-reactive T cells encounter antigen only on resting APCs \u2192 anergy. This is mechanistically why inflammation is required to break peripheral tolerance and trigger autoimmune flares."},
+
+{plo:"PLO 4",
+stem:"Regulatory T cells (Tregs) maintain peripheral tolerance through multiple distinct mechanisms. Which option BEST represents the complete set of Treg suppressive strategies?",
+items:[
+{text:"Tregs suppress effector T cells primarily by secreting IL-4 and IL-13, which shift immune polarization from pro-inflammatory Th1 toward anti-inflammatory Th2 and limit IFN-\u03b3-mediated tissue damage",correct:false,why:"IL-4 and IL-13 are secreted by Th2 cells, not FoxP3+ Tregs. The primary suppressive cytokines produced by Tregs are IL-10 and TGF-\u03b2. Confusing Th2-polarizing cytokines with Treg suppressive cytokines is a classic distractor."},
+{text:"Tregs suppress effector T cells by removing B7 costimulatory ligands from APCs via CTLA-4 trans-endocytosis, secreting IL-10 and TGF-\u03b2 to directly inhibit effector function, and consuming IL-2 via high CD25 expression",correct:true,why:""},
+{text:"Tregs suppress effector T cells exclusively through Fas\u2013FasL interactions, inducing activation-induced cell death in self-reactive T cells that become reactivated in peripheral lymphoid organs",correct:false,why:"Fas\u2013FasL is a peripheral deletion mechanism for mature T cells, but it is not the primary Treg suppressive strategy. Core Treg mechanisms \u2014 CTLA-4-mediated B7 stripping, IL-10/TGF-\u03b2 secretion, IL-2 consumption \u2014 are all distinct from Fas-mediated cytotoxicity."},
+{text:"Tregs suppress effector T cells by secreting perforin and granzyme B from cytoplasmic granules, directly lysing neighboring autoreactive CD4+ and CD8+ T cells in secondary lymphoid tissues",correct:false,why:"Perforin and granzyme B are the cytolytic machinery of CD8+ CTLs and NK cells. Tregs do not use granule-mediated cytolysis as their primary suppressive mechanism; they operate through cytokines and receptor-mediated co-stimulation blockade, not direct cell killing."},
+{text:"Tregs suppress effector T cells by globally downregulating MHC class II expression on surrounding APCs throughout the lymph node microenvironment, preventing any further antigen presentation",correct:false,why:"Tregs strip B7 (co-stimulatory) ligands from APCs via CTLA-4, but they do not globally downregulate MHC II. Removing MHC II entirely would eliminate all antigen surveillance and adaptive immune responses, which would be pathologically immunosuppressive far beyond physiologic Treg function."}
+],
+explanation:"Tregs use three mechanistically distinct suppressive arms: (1) CTLA-4 strips B7 from APCs via trans-endocytosis, reducing co-stimulatory capacity for neighboring effector T cells; (2) IL-10 and TGF-\u03b2 directly suppress effector T cells and APCs; (3) High surface CD25 (IL-2R\u03b1) consumes local IL-2, depriving effector T cells of a critical proliferation and survival signal.",
+teaching:"FoxP3 simultaneously drives all three Treg arms. Mnemonic: Tregs STEAL (IL-2 via CD25), SABOTAGE (B7 via CTLA-4), and SILENCE (via IL-10/TGF-\u03b2). One FoxP3 loss-of-function mutation abolishes all three arms simultaneously \u2192 IPEX syndrome. This is why IPEX is so severe and multi-systemic."},
+
+{plo:"PLO 4",
+stem:"A male infant presents at age 3 months with intractable diarrhea, eczematous skin lesions, and neonatal type 1 diabetes mellitus. Genetic testing reveals an X-linked loss-of-function mutation. Which gene is MOST likely mutated and what is the mechanism?",
+items:[
+{text:"AIRE \u2014 loss of thymic mTEC tissue-restricted antigen expression allows gut-, skin-, and pancreas-reactive T cells to escape central deletion and target peripheral organs",correct:false,why:"AIRE mutations cause APS-1 (autosomal recessive, not X-linked), presenting with hypoparathyroidism, adrenal insufficiency, and mucocutaneous candidiasis. The X-linked inheritance and neonatal enteropathy/eczema/diabetes triad here are inconsistent with APS-1."},
+{text:"Fas (CD95) \u2014 defective death receptor signaling prevents peripheral apoptosis of self-reactive lymphocytes, causing autoimmune lymphoproliferative syndrome with lymphocytosis and cytopenias",correct:false,why:"Fas mutations cause ALPS, characterized by non-malignant lymphoproliferation, splenomegaly, and autoimmune cytopenias. ALPS does not present as neonatal intractable enteropathy, eczema, and diabetes mellitus."},
+{text:"FoxP3 \u2014 loss of this master Treg transcription factor prevents generation of functional regulatory T cells, allowing unchecked self-reactive T cell activity in gut, skin, and endocrine organs",correct:true,why:""},
+{text:"CTLA4 \u2014 haploinsufficiency impairs T cell anergy induction and reduces Treg surface CTLA-4, causing heterogeneous systemic inflammatory disease with hypogammaglobulinemia and interstitial lung involvement",correct:false,why:"CTLA4 mutations cause a heterogeneous disorder with variable autoimmunity, hypogammaglobulinemia, and interstitial lung disease \u2014 clinically distinct from the stereotyped early-onset IPEX presentation. CTLA4 haploinsufficiency is also not strictly X-linked."},
+{text:"IL-10 \u2014 loss of mucosal immune suppression causes severe early-onset inflammatory bowel disease without the pancreatic \u03b2-cell destruction or eczematous skin lesions seen in this case",correct:false,why:"IL-10 loss-of-function primarily causes very-early-onset IBD confined to the gut. It does not account for the complete multi-organ IPEX triad of enteropathy + type 1 diabetes + eczema, nor does it produce the X-linked inheritance pattern."}
+],
+explanation:"X-linked loss of FoxP3 causes IPEX syndrome (Immune Dysregulation, Polyendocrinopathy, Enteropathy, X-linked). FoxP3 is the master transcription factor for Tregs; without functional Tregs, self-reactive T cells attack gut epithelium (enteropathy), skin (eczema), and pancreatic \u03b2-cells (T1D). The X-linkage explains the male-only severe phenotype.",
+teaching:"IPEX recognition: male infant + early-onset enteropathy + T1D + eczema = FoxP3 mutation. Compare to APS-1 (AIRE, autosomal recessive, older child, hypoparathyroidism + adrenal insufficiency + candidiasis) and ALPS (Fas, lymphoproliferation + cytopenias). Each triad maps mechanistically to its specific tolerance checkpoint gene."},
+
+{plo:"PLO 4",
+stem:"CTLA-4 is constitutively expressed on Tregs and is upregulated on activated effector T cells. Which mechanism BEST explains how CTLA-4 enforces peripheral T cell tolerance?",
+items:[
+{text:"CTLA-4 activates caspase-8 in self-reactive T cells by engaging Fas expressed on neighboring lymphocytes, directing autoreactive cells toward activation-induced cell death in peripheral lymphoid organs",correct:false,why:"CTLA-4 and Fas are structurally and mechanistically unrelated. CTLA-4 is a co-inhibitory receptor that binds B7 ligands; Fas is a death receptor that binds FasL. These two molecules do not interact with each other in any recognized peripheral tolerance pathway."},
+{text:"CTLA-4 directly dephosphorylates ZAP-70 and LAT within the T cell via recruited SHP-2 phosphatases, preventing all downstream TCR signal transduction regardless of co-stimulatory ligand availability on APCs",correct:false,why:"While CTLA-4 can recruit phosphatases that modulate downstream signaling, its primary and dominant peripheral tolerance mechanism is extracellular competition for B7 ligands and trans-endocytotic stripping of B7 from APC surfaces \u2014 not direct ZAP-70 dephosphorylation."},
+{text:"CTLA-4 competes with CD28 for B7-1/B7-2 with 10\u201320-fold higher affinity and strips B7 ligands from APC surfaces via trans-endocytosis, removing the co-stimulatory Signal 2 required for T cell activation",correct:true,why:""},
+{text:"CTLA-4 functions as a high-affinity decoy receptor that sequesters IL-2 in the extracellular space, preventing IL-2 from binding CD25 on effector T cells and blocking their proliferative response to self-antigen",correct:false,why:"IL-2 sequestration is a Treg suppressive mechanism achieved via very high surface CD25 (IL-2R\u03b1) expression \u2014 not a CTLA-4 function. CTLA-4 binds B7 co-stimulatory ligands; it does not bind or sequester cytokines."},
+{text:"CTLA-4 upregulates FasL expression on dendritic cells and macrophages, inducing Fas-dependent apoptosis of autoreactive T cells that engage self-antigen during peripheral antigen presentation",correct:false,why:"CTLA-4 does not induce FasL expression on APCs. This is not a recognized mechanism of CTLA-4-mediated peripheral tolerance. Fas\u2013FasL interactions are a separate, independently regulated peripheral deletion pathway that does not require CTLA-4 signaling."}
+],
+explanation:"CTLA-4 binds B7-1 (CD80) and B7-2 (CD86) with 10\u201320\u00d7 greater affinity than CD28, competitively denying T cells Signal 2. CTLA-4 on Tregs also physically strips B7 from APC surfaces by trans-endocytosis, reducing co-stimulatory capacity for all neighboring T cells. Net result: no co-stimulation \u2192 anergy or suppressed activation.",
+teaching:"Clinical translation: Anti-CTLA-4 antibodies (ipilimumab) block this checkpoint \u2192 enhanced anti-tumor immunity but also immune-related adverse events (colitis, thyroiditis, hepatitis). This pharmacology confirms CTLA-4\u2019s physiologic role as a peripheral tolerance enforcer. CTLA-4 = Signal 2 thief."},
+
+{plo:"PLO 4",
+stem:"A chronically self-antigen-stimulated T cell has progressively lost access to IL-2 and other survival signals. Pro-apoptotic Bcl-2 family members accumulate, the mitochondrial outer membrane becomes permeable, cytochrome c is released, and caspase-9 is activated. Which peripheral deletion pathway does this BEST represent?",
+items:[
+{text:"Extrinsic death receptor pathway \u2014 FasL upregulated on activated T cells binds Fas (CD95) on the self-reactive cell, activates caspase-8, and initiates downstream mitochondrial membrane permeabilization",correct:false,why:"The extrinsic (Fas\u2013FasL) pathway is initiated by FasL\u2013Fas ligation \u2192 caspase-8 activation. The scenario explicitly describes loss of survival signals, Bax/Bak accumulation, cytochrome c release, and caspase-9 activation \u2014 the mechanistic fingerprint of the intrinsic mitochondrial pathway, not the extrinsic pathway."},
+{text:"Intrinsic mitochondrial pathway \u2014 loss of survival signals allows pro-apoptotic Bcl-2 family members (Bax, Bak) to accumulate and permeabilize the outer mitochondrial membrane, releasing cytochrome c and activating caspase-9",correct:true,why:""},
+{text:"Extrinsic perforin-granzyme pathway \u2014 CD8+ CTLs recognize self-reactive T cells via MHC I, form immunological synapses, and deliver granzyme B through perforin pores to directly activate executioner caspases",correct:false,why:"The perforin-granzyme mechanism is how CD8+ CTLs kill target cells \u2014 it is not a mechanism of autonomous self-reactive T cell deletion. The scenario describes a cell dying due to its own internal survival-signal deficiency, not being lysed by an external cytotoxic lymphocyte."},
+{text:"Intrinsic mitochondrial pathway \u2014 excess Bcl-2 and Bcl-XL expression disinhibits Bax and Bak, driving mitochondrial pore formation and cytochrome c release in the self-reactive T cell",correct:false,why:"This has the biology mechanistically reversed: Bcl-2 and Bcl-XL are pro-SURVIVAL proteins that inhibit Bax and Bak. Their excess would prevent, not promote, apoptosis. It is their downregulation (when survival signals wane) that unmasks Bax/Bak and drives mitochondrial permeabilization."},
+{text:"Extrinsic death receptor pathway \u2014 CTLA-4 engagement recruits FADD and procaspase-8 to its cytoplasmic domain, initiating a caspase-8 cascade that ultimately fragments DNA in the self-reactive T cell",correct:false,why:"CTLA-4 does not contain a death domain and does not recruit FADD or signal through caspase-8. CTLA-4 induces anergy via co-stimulation blockade and phosphatase recruitment \u2014 not apoptosis. Caspase-8 activation via death receptors is mediated by Fas, TRAIL-R, and TNF-R, not CTLA-4."}
+],
+explanation:"The intrinsic (mitochondrial) pathway of peripheral deletion is triggered by loss of survival signals (IL-2, IL-15) during chronic self-antigen stimulation. When pro-survival Bcl-2/Bcl-XL levels fall relative to pro-apoptotic Bax/Bak, the mitochondrial outer membrane is permeabilized \u2192 cytochrome c release \u2192 apoptosome \u2192 caspase-9 \u2192 executioner caspases \u2192 DNA fragmentation.",
+teaching:"Two peripheral deletion pathways: Intrinsic = survival signal deprivation \u2192 Bcl-2 family imbalance \u2192 caspase-9. Extrinsic = Fas\u2013FasL interaction \u2192 caspase-8 \u2192 feeds into mitochondrial pathway. Key clue in the stem: loss of IL-2 + cytochrome c release + caspase-9 = intrinsic pathway fingerprint."},
+
+// ── PLO 5 ─────────────────────────────────────────────────────────
+{plo:"PLO 5",
+stem:"A 34-year-old woman presents with heat intolerance, unintentional weight loss, palpitations, and diffuse thyroid enlargement. Labs reveal elevated free T4, suppressed TSH, and IgG antibodies against the TSH receptor acting as receptor agonists. Which mechanism BEST explains her hyperthyroidism?",
+items:[
+{text:"Type III immune complex deposition \u2014 IgG anti-TSHR antibodies form soluble complexes that deposit in thyroid capillaries, activate complement, and cause local inflammation with secondary thyroid hormone release",correct:false,why:"Type III hypersensitivity involves soluble immune complex deposition in vessel walls (as in SLE). Graves\u2019 disease anti-TSHR IgG binds directly to the TSH receptor on follicular cells as a receptor agonist \u2014 these are receptor-binding antibodies, not circulating immune complexes."},
+{text:"Type IV delayed hypersensitivity \u2014 Th1 cells secreting IFN-\u03b3 infiltrate the thyroid gland and activate macrophages to destroy follicular cells, releasing stored thyroid hormone into the systemic circulation",correct:false,why:"Type IV (DTH) cell-mediated mechanisms destroy cells and typically cause hypothyroidism from follicular cell loss, as in Hashimoto\u2019s thyroiditis. Graves\u2019 hyperthyroidism results from antibody-driven receptor stimulation, not T cell-mediated follicular cell destruction."},
+{text:"Type II antibody-mediated receptor dysfunction \u2014 IgG anti-TSHR antibodies stimulate the TSH receptor as agonists, driving constitutive unregulated thyroid hormone synthesis independent of TSH feedback",correct:true,why:""},
+{text:"Type II ADCC \u2014 NK cells recognize IgG-coated thyroid follicular cells via Fc\u03b3RIII and lyse them, releasing preformed thyroid hormone stores and causing sustained thyrotoxicosis",correct:false,why:"ADCC destroys antibody-coated target cells. Follicular cell lysis would deplete hormone-producing capacity and lead to hypothyroidism over time \u2014 the opposite of the persistent, receptor-driven hyperthyroidism characteristic of Graves\u2019 disease."},
+{text:"Type II complement-mediated cytolysis \u2014 IgG anti-thyroid peroxidase antibodies bind follicular cell surfaces, activate the MAC, and paradoxically release thyroid hormone during complement-driven cell destruction",correct:false,why:"Anti-TPO antibodies are associated with Hashimoto\u2019s thyroiditis, which causes hypothyroidism via thyroid cell destruction. Graves\u2019 disease involves anti-TSHR agonist antibodies \u2014 not anti-TPO \u2014 and the mechanism is receptor stimulation rather than complement-mediated cytolysis."}
+],
+explanation:"Graves\u2019 disease is Type II hypersensitivity in which IgG anti-TSHR antibodies act as TSH agonists \u2014 they bind the TSH receptor and constitutively stimulate thyroid hormone synthesis, bypassing normal TSH-mediated feedback regulation. The receptor is stimulated rather than blocked or destroyed.",
+teaching:"Not all Type II reactions destroy cells. Type II outcomes: (1) Complement lysis \u2192 hemolytic anemia, Goodpasture\u2019s; (2) ADCC \u2192 cytopenia; (3) Receptor stimulation \u2192 Graves\u2019 (hyperthyroid); (4) Receptor blockade + complement \u2192 MG (weakness). Same Type II category; three distinct receptor/cell fates. Graves\u2019 = stimulation = agonist antibody."},
+
+{plo:"PLO 5",
+stem:"A 48-year-old woman develops progressive proximal muscle weakness, bilateral ptosis, and diplopia that worsens with repeated muscle use and improves with rest. IgG anti-AChR antibodies are detected. Repetitive nerve stimulation shows a decremental response. Which mechanism BEST explains her weakness?",
+items:[
+{text:"Type III soluble immune complex deposition at the neuromuscular junction activates complement via the alternative pathway, causing endplate edema and impaired acetylcholine vesicle docking at the presynaptic terminal",correct:false,why:"Type III hypersensitivity involves soluble immune complex deposition in vessel walls (as in SLE). Myasthenia gravis is Type II \u2014 IgG binds directly to AChR on the postsynaptic membrane, not as circulating immune complexes depositing at vessel walls near the NMJ."},
+{text:"Type IV CD4+ Th1 cells infiltrate skeletal muscle, release IFN-\u03b3, and activate macrophages to digest acetylcholine receptors at the NMJ, causing progressive postsynaptic membrane destruction",correct:false,why:"Type IV cell-mediated mechanisms are not the primary effector pathway in MG. While CD4+ T cell help is needed for anti-AChR IgG B cell production, the effector mechanism that damages the NMJ is antibody-mediated (Type II), not direct T cell or macrophage cytotoxicity."},
+{text:"Type II IgG anti-AChR antibodies activate complement via the classical pathway (C1 to MAC), destroy postsynaptic membrane morphology at the NMJ, and block receptor function, reducing functional AChR density and causing fatigable weakness",correct:true,why:""},
+{text:"Type I IgE anti-AChR antibodies cross-link Fc\u03b5RI on mast cells at the NMJ, triggering histamine and leukotriene release that depolarizes the end-plate and causes paradoxical muscle hypercontractility",correct:false,why:"Myasthenia gravis is not an IgE-mediated allergic reaction. Type I hypersensitivity causes urticaria, anaphylaxis, and atopy \u2014 not fatigable proximal muscle weakness with decremental EMG response. MG is driven by IgG, not IgE."},
+{text:"Type II IgG antibodies target presynaptic voltage-gated calcium channels, preventing acetylcholine vesicle release and causing proximal weakness that characteristically improves with repeated nerve stimulation",correct:false,why:"This describes Lambert-Eaton myasthenic syndrome (LEMS), not MG. In LEMS, anti-VGCC antibodies impair presynaptic ACh release, producing an incremental (facilitated) EMG response with repetition. MG has a postsynaptic (AChR) defect and shows a decremental response."}
+],
+explanation:"MG is Type II hypersensitivity: IgG anti-AChR antibodies cause (1) classical complement pathway activation \u2192 MAC formation \u2192 morphological destruction of the postsynaptic end-plate; (2) direct receptor blockade. Both mechanisms reduce functional AChR density \u2192 impaired neuromuscular transmission \u2192 fatigable weakness worsening with use.",
+teaching:"Decremental EMG response = postsynaptic (receptor) defect = MG. Incremental (facilitation) = presynaptic (ACh release) defect = LEMS. MG antibodies destroy and block AChR; LEMS antibodies impair presynaptic VGCC and ACh release. Both are Type II. Both improve with acetylcholinesterase inhibitors (pyridostigmine)."},
+
+{plo:"PLO 5",
+stem:"A 24-year-old woman presents with bilateral malar rash, arthralgias, and foamy urine. Kidney biopsy reveals granular IgG deposits along glomerular capillary walls. Which hypersensitivity type and mechanism BEST explains her glomerulonephritis?",
+items:[
+{text:"Type II anti-GBM antibody-mediated cytotoxicity \u2014 IgG antibodies bind type IV collagen directly along the glomerular basement membrane and activate complement, producing linear IgG deposits on immunofluorescence",correct:false,why:"Linear IgG deposits on immunofluorescence indicate direct antibody binding to GBM antigens (type IV collagen) \u2014 this is Goodpasture syndrome, not SLE. SLE produces granular deposits because soluble immune complexes deposit discontinuously throughout glomerular capillaries."},
+{text:"Type IV cell-mediated DTH \u2014 CD8+ CTLs recognize renal tubular antigens on MHC I and directly lyse tubular epithelial cells, producing granulomatous interstitial nephritis on biopsy",correct:false,why:"CD8+ CTL-mediated tubular injury produces granulomatous or interstitial nephritis patterns, not glomerular immune-complex-mediated nephritis. SLE nephritis is characterized by subendothelial and mesangial immune complex deposition with granular IgG on immunofluorescence."},
+{text:"Type III immune complex deposition \u2014 soluble IgG complexes containing nuclear antigens (anti-dsDNA, histones, snRNP) form in the circulation, deposit in glomerular capillaries, activate complement, and cause inflammatory glomerulonephritis",correct:true,why:""},
+{text:"Type II receptor-blocking antibody \u2014 IgG anti-podocyte antibodies bind podocyte surface receptors and disrupt slit diaphragm signaling, causing foot process effacement without complement activation or IgG deposits in capillary walls",correct:false,why:"Podocyte surface antibodies (e.g., anti-PLA2R in membranous nephropathy) cause proteinuria via slit diaphragm disruption and produce subepithelial deposits \u2014 not the granular subendothelial/mesangial pattern of immune complex nephritis characteristic of SLE."},
+{text:"Type I IgE-mediated reaction \u2014 IgE antibodies against nuclear antigens bind mast cells in glomerular tissue and trigger histamine and prostaglandin release, increasing glomerular permeability and causing proteinuria",correct:false,why:"IgE-mediated mast cell degranulation causes immediate allergic reactions (urticaria, anaphylaxis, atopy). It does not produce granular IgG deposits in glomeruli or complement-mediated inflammatory nephritis. Type I hypersensitivity is not a mechanism of SLE nephritis."}
+],
+explanation:"SLE glomerulonephritis is a classic Type III hypersensitivity. Anti-dsDNA and anti-histone IgG form soluble immune complexes in the circulation, deposit in glomerular capillary walls, and activate complement \u2192 neutrophil recruitment \u2192 inflammatory GBM injury and protein leak. The granular (vs. linear) IgG pattern on immunofluorescence is the key distinguishing feature.",
+teaching:"Immunofluorescence pattern distinguishes renal disease type: Granular IgG = Type III (immune complex) = SLE. Linear IgG = Type II (anti-GBM antibody) = Goodpasture\u2019s. Pauci-immune (no staining) = ANCA vasculitis. This 3-way pattern recognition is a classic high-yield RAT and USMLE1 correlation."},
+
+{plo:"PLO 5",
+stem:"Type IV (delayed-type) hypersensitivity peaks at 48\u201372 hours after antigen encounter rather than within minutes or hours. Which explanation BEST accounts for this delayed time course?",
+items:[
+{text:"T cells must first undergo antigen-driven clonal expansion and differentiation from na\u00efve precursors before returning to the antigen site \u2014 a primary response requiring 4\u20137 days of cell division",correct:false,why:"Clonal expansion from na\u00efve T cells takes 4\u20137 days (primary response). DTH at 48\u201372 hours is a secondary recall response involving pre-existing antigen-specific memory T cells that rapidly traffic to the site \u2014 not a primary expansion event."},
+{text:"IgG antibodies in Type IV reactions have a prolonged serum half-life of 48\u201372 hours before being concentrated at the antigen site by Fc receptors on local macrophages, at which point complement-mediated damage begins",correct:false,why:"Type IV DTH is defined by the absence of antibody as the primary effector. Describing IgG pharmacokinetics and Fc receptor concentrating mechanisms applies to humoral (Type II or III) mechanisms \u2014 not cell-mediated DTH."},
+{text:"DTH requires recall of antigen-specific memory CD4+ T cells to the site, local IFN-\u03b3 secretion activating macrophages, and accumulation of activated macrophages and monocytes \u2014 a multi-step cellular process requiring 48\u201372 hours to reach peak inflammatory intensity",correct:true,why:""},
+{text:"Complement activation in Type IV reactions proceeds exclusively via the slower alternative pathway, taking 48\u201372 hours to generate sufficient C3b, C5a, and MAC for visible tissue inflammation and neutrophil recruitment",correct:false,why:"Complement is not the primary effector mechanism of Type IV DTH. DTH damage is T cell- and macrophage-mediated. The 48\u201372 hour delay reflects cellular trafficking and cytokine kinetics, not the intrinsic speed of alternative complement pathway activation."},
+{text:"Mast cells in Type IV reactions must first degranulate and release preformed vasoactive mediators, which then recruit monocytes and macrophages over 48\u201372 hours via prostaglandin and leukotriene gradients",correct:false,why:"Mast cell degranulation via IgE cross-linking is the mechanism of Type I immediate hypersensitivity. Type IV DTH does not require mast cell activation. It is definitionally cell-mediated (T cells and macrophages) without antibody or mast cell involvement."}
+],
+explanation:"Type IV DTH requires a coordinated multi-step cellular cascade: antigen is presented to sensitized memory CD4+ T cells \u2192 IFN-\u03b3 secretion \u2192 macrophage recruitment and classical activation \u2192 cytokine amplification \u2192 peak inflammation at 48\u201372 hours. Each step requires cell trafficking, receptor upregulation, and cytokine production.",
+teaching:"Timing reflects effector mechanism: Type I = preformed mediators (IgE/mast cells) = seconds-minutes. Type II = Ab + complement/ADCC = minutes-hours. Type III = immune complex deposition + complement = hours-days. Type IV = T cell recall + macrophage activation = 48\u201372 hours. Slowest because it requires multiple coordinated cellular steps with no preformed effectors."},
+
+{plo:"PLO 5",
+stem:"A 22-year-old man presents with hemoptysis and hematuria. Serology shows circulating antibodies targeting type IV collagen. Kidney biopsy demonstrates linear IgG deposits along the glomerular basement membrane with complement activation. Which disease and hypersensitivity type is MOST consistent?",
+items:[
+{text:"Systemic lupus erythematosus; Type III hypersensitivity in which soluble anti-dsDNA immune complexes deposit in glomerular capillaries and produce granular (not linear) IgG staining on immunofluorescence",correct:false,why:"SLE does produce glomerulonephritis via immune complex deposition, but the IgG pattern is granular (discontinuous), not linear. The autoantigen in SLE is nuclear material (dsDNA, histones, snRNP) \u2014 not type IV collagen. Linear deposits + anti-collagen IV antibodies = anti-GBM disease."},
+{text:"Goodpasture syndrome; Type II hypersensitivity in which IgG antibodies target type IV collagen in both the glomerular and alveolar basement membranes, activate the classical complement pathway, and cause linear GBM deposits with pulmonary-renal hemorrhagic syndrome",correct:true,why:""},
+{text:"IgA nephropathy; Type II hypersensitivity in which mesangial IgA antibodies bind type IV collagen in the glomerular basement membrane and activate the alternative complement pathway to cause nephritis",correct:false,why:"IgA nephropathy is characterized by mesangial IgA deposits (not linear GBM deposits), is associated with aberrantly glycosylated IgA1, and typically presents with episodic hematuria after mucosal infections. The autoantigen is not type IV collagen, and IgA nephropathy is not classified as Type II hypersensitivity."},
+{text:"Mixed essential cryoglobulinemia; Type III hypersensitivity in which IgG\u2013IgM immune complexes deposit in glomerular capillary walls and cause membranoproliferative glomerulonephritis with systemic vasculitis",correct:false,why:"Cryoglobulinemia is Type III, producing subendothelial immune complex deposits and MPGN pattern on biopsy \u2014 not linear IgG along the GBM. Cryoglobulinemia is associated with hepatitis C; the pathogenic antibody targets the Fc portion of IgG, not type IV collagen."},
+{text:"Rheumatoid arthritis with renal involvement; Type III hypersensitivity in which IgG rheumatoid factor complexes deposit along the glomerular basement membrane causing linear complement-mediated destruction",correct:false,why:"RA renal involvement produces granular deposits from immune complex deposition, not linear GBM staining. Rheumatoid factor targets the Fc portion of IgG \u2014 not type IV collagen. RA does not cause the pulmonary-renal hemorrhagic syndrome seen in this presentation."}
+],
+explanation:"Goodpasture syndrome is Type II hypersensitivity caused by IgG antibodies targeting the NC1 domain of type IV collagen in the GBM and alveolar basement membrane. Linear IgG on immunofluorescence (direct antibody-to-target binding), classical complement activation, and the pulmonary-renal hemorrhagic syndrome are pathognomonic.",
+teaching:"Pulmonary-renal syndrome differential by IF pattern: Linear IgG = Goodpasture (anti-GBM, Type II). Granular IgG = SLE (immune complex, Type III). Pauci-immune (no staining) = ANCA vasculitis (GPA, MPA). All three can cause glomerulonephritis with pulmonary hemorrhage \u2014 the IF pattern is the key distinguishing diagnostic feature."},
+
+{plo:"PLO 5",
+stem:"A 40-year-old woman with a 6-year history of rheumatoid arthritis has high titers of anti-citrullinated protein antibodies (ACPAs). Synovial tissue shows citrullinated arginine residues created by PAD enzymes. Which mechanism BEST explains how citrullinated proteins initiate adaptive autoimmune responses in RA?",
+items:[
+{text:"Citrullinated synovial proteins directly activate the alternative complement pathway on the synovial membrane, recruiting neutrophils and generating MAC without requiring any adaptive immune recognition by T or B cells",correct:false,why:"Citrullination is an enzymatic post-translational modification that changes amino acid chemistry; it does not directly activate complement cascades. Complement activation in RA occurs downstream \u2014 after ACPAs bind citrullinated targets and form immune complexes."},
+{text:"Citrullinated proteins act as danger-associated molecular patterns (DAMPs) engaging TLR4 on synovial macrophages, driving innate inflammatory cascades that directly destroy cartilage independent of T or B cell involvement",correct:false,why:"DAMPs contribute to joint inflammatory amplification, but this addresses innate immune activation rather than the mechanism by which ACPAs develop. The question asks why the adaptive immune system breaks self-tolerance to citrullinated proteins \u2014 the answer is neoantigen generation from post-translational modification."},
+{text:"Post-translational citrullination creates neoantigens \u2014 novel epitopes absent during thymic T cell development \u2014 to which no central tolerance was established, enabling adaptive immune responses against these modified self-proteins",correct:true,why:""},
+{text:"Citrullinated synovial proteins structurally mimic Group A Streptococcal M-protein epitopes via molecular mimicry, causing prior anti-streptococcal antibodies to cross-react with citrullinated joint proteins",correct:false,why:"Molecular mimicry with GAS M-protein is the mechanism of acute rheumatic fever (cardiac and joint disease following streptococcal pharyngitis). RA neoantigens arise from enzymatic modification of self-proteins \u2014 not from structural resemblance to a microbial antigen."},
+{text:"Joint trauma releases normally sequestered citrullinated proteins from immunologically privileged synovial compartments, triggering de novo immune responses analogous to sympathetic ophthalmia following ocular injury",correct:false,why:"Sequestered antigen release requires physical disruption of an immune-privileged barrier (e.g., ocular trauma in sympathetic ophthalmia). Citrullination is an enzymatic process occurring in inflamed tissue \u2014 it generates novel modified epitopes, not released sequestered proteins from privileged sites."}
+],
+explanation:"PAD enzyme-mediated citrullination converts arginine residues to citrulline, fundamentally altering peptide sequences and creating novel epitopes (neoantigens) that did not exist during thymic T cell development. Because these citrullinated epitopes were never presented in the thymus, no negative selection or Treg induction occurred \u2014 central tolerance to these neoantigens was never established.",
+teaching:"Three mechanisms of altered self-antigen display in autoimmunity: (1) Neoantigens \u2014 post-translational modification (citrullination in RA). (2) Cryptic epitopes \u2014 normally hidden epitopes revealed by protein conformational change (e.g., IgG Fc exposed \u2192 rheumatoid factor). (3) Sequestered antigens \u2014 released from immune-privileged sites by trauma (sympathetic ophthalmia)."},
+
+{plo:"PLO 5",
+stem:"Which disease\u2013autoantigen\u2013effector mechanism triad is CORRECTLY matched as a Type IV (cell-mediated, delayed-type hypersensitivity) autoimmune disease?",
+items:[
+{text:"Graves\u2019 disease \u2014 TSH receptor \u2014 IgG anti-TSHR agonist antibodies drive constitutive thyroid hormone synthesis via a Type IV T cell-mediated effector mechanism",correct:false,why:"Graves\u2019 disease is definitionally Type II antibody-mediated hypersensitivity \u2014 IgG anti-TSHR agonist antibodies are the pathogenic effectors. Classifying Graves\u2019 as Type IV contradicts the essential antibody-driven receptor stimulation mechanism."},
+{text:"Goodpasture syndrome \u2014 type IV collagen \u2014 IgG anti-GBM antibodies with classical complement activation causing linear GBM deposits via a Type IV cell-mediated delayed mechanism",correct:false,why:"Goodpasture syndrome is Type II antibody-mediated cytotoxicity \u2014 IgG directly targets type IV collagen and activates complement. It is not a DTH reaction and does not involve T cell-mediated macrophage activation as its primary effector mechanism."},
+{text:"Multiple sclerosis \u2014 myelin basic protein and proteolipid protein \u2014 CD4+ Th1 and CD8+ CTL-mediated demyelination causing progressive brain degeneration and neurological disability",correct:true,why:""},
+{text:"Systemic lupus erythematosus \u2014 dsDNA, histones, and snRNP \u2014 IgG immune complexes depositing in renal glomeruli with complement-mediated inflammatory injury via a Type IV cell-mediated mechanism",correct:false,why:"SLE is Type III immune complex-mediated hypersensitivity. Granular IgG deposits, circulating anti-dsDNA antibodies, complement consumption, and vasculitis all characterize soluble immune complex disease \u2014 not T cell/macrophage-mediated DTH."},
+{text:"Myasthenia gravis \u2014 acetylcholine receptor \u2014 CD4+ Th1 cells secrete IFN-\u03b3, activating macrophages that infiltrate the NMJ and destroy postsynaptic membrane morphology via a Type IV mechanism",correct:false,why:"MG is definitionally Type II antibody-mediated \u2014 IgG anti-AChR activates complement (MAC formation) and blocks receptor function. The fatigable weakness and decremental EMG reflect reduced functional receptor density from antibody-mediated destruction, not macrophage infiltration at the NMJ."}
+],
+explanation:"Multiple sclerosis is a classic Type IV (DTH) autoimmune disease. CD4+ Th1 cells secrete IFN-\u03b3 activating microglia and macrophages that damage the myelin sheath, while CD8+ CTLs directly lyse oligodendrocytes. The autoantigens are myelin basic protein (MBP) and proteolipid protein (PLP) in CNS white matter.",
+teaching:"Type IV autoimmune diseases (T cells do the damage): T1D (\u03b2-cell antigens), MS (myelin proteins), RA (synovial antigens), Hashimoto\u2019s (TPO/thyroglobulin). For RAT: if the primary effector is antibody \u2192 Type II or III; if T cell- and macrophage-based with no required antibody \u2192 Type IV. DTH timing (48\u201372 hr peak) confirms the cell-mediated mechanism."}
+
+]; // end BANK
+
+// ══════════════════════════════════════════
+// QUIZ ENGINE
+// ══════════════════════════════════════════
+const LETTERS = ['A','B','C','D','E'];
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+let questions=[],current=0,answers=[],quizMode='learn',examSubmitted=false,pendingChoice=null;
+
+const launchScreen=document.getElementById('launchScreen');
+const quizOverlay=document.getElementById('quizOverlay');
+const barSub=document.getElementById('barSub');
+const svCur=document.getElementById('svCur'),svCor=document.getElementById('svCor'),svInc=document.getElementById('svInc');
+const modeLearnBtn=document.getElementById('modeLearn'),modeExamBtn=document.getElementById('modeExam');
+const progBar=document.getElementById('progBar'),progText=document.getElementById('progText');
+const dotsGrid=document.getElementById('dotsGrid');
+const qpf=document.getElementById('qpf'),qNum=document.getElementById('qNum'),ploTag=document.getElementById('ploTag');
+const qStem=document.getElementById('qStem'),choiceList=document.getElementById('choiceList');
+const submitBtn=document.getElementById('submitBtn'),exBlock=document.getElementById('exBlock');
+const exCorrect=document.getElementById('exCorrect'),exTeach=document.getElementById('exTeach'),exWrong=document.getElementById('exWrong');
+const prevBtn=document.getElementById('prevBtn'),nextBtn=document.getElementById('nextBtn'),qOf=document.getElementById('qOf');
+const examRow=document.getElementById('examRow'),examProg=document.getElementById('examProg'),examSubBtn=document.getElementById('examSubBtn');
+const resultsArea=document.getElementById('resultsArea');
+
+function initQuiz(){
+  questions=BANK.map(q=>({...q,items:shuffle([...q.items.map(it=>({...it}))])}));
+  shuffle(questions);
+  answers=questions.map(()=>null);
+  current=0; examSubmitted=false; pendingChoice=null;
+  resultsArea.innerHTML=''; examRow.style.display='none';
+  buildDots(); showQuestion(0); updateSidebar();
+}
+
+function buildDots(){
+  dotsGrid.innerHTML='';
+  questions.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='qd'; d.textContent=i+1;
+    d.addEventListener('click',()=>goTo(i));
+    dotsGrid.appendChild(d);
+  });
+}
+
+function updateDots(){
+  dotsGrid.querySelectorAll('.qd').forEach((d,i)=>{
+    d.className='qd';
+    if(i===current) d.classList.add('cur');
+    else if(answers[i]) d.classList.add(answers[i].correct?'ans-cor':'ans-inc');
+  });
+}
+
+function updateSidebar(){
+  const answered=answers.filter(a=>a!==null).length;
+  const correct=answers.filter(a=>a&&a.correct).length;
+  const pct=Math.round((answered/questions.length)*100);
+  svCur.textContent=current+1; svCor.textContent=correct;
+  svInc.textContent=answers.filter(a=>a&&!a.correct).length;
+  progBar.style.width=pct+'%';
+  progText.textContent=`${answered} of ${questions.length} answered`;
+  barSub.textContent=`Question ${current+1} of ${questions.length}`;
+  if(quizMode==='exam'){ examProg.textContent=`${answered} of ${questions.length} answered`; examSubBtn.disabled=answered===0||examSubmitted; }
+  updateDots();
+}
+
+function showQuestion(idx){
+  current=idx;
+  const q=questions[idx], n=idx+1, pct=Math.round((n/questions.length)*100);
+  qpf.style.width=pct+'%';
+  qNum.textContent=`Q ${String(n).padStart(2,'0')} / ${questions.length}`;
+  ploTag.textContent=q.plo; qStem.textContent=q.stem;
+  choiceList.innerHTML='';
+  q.items.forEach((item,i)=>{
+    const div=document.createElement('div');
+    div.className='ac'; div.dataset.idx=i;
+    div.innerHTML=`<div class="cl">${LETTERS[i]}</div><div class="ctx">${item.text}</div>`;
+    div.addEventListener('click',()=>selectChoice(div,i));
+    choiceList.appendChild(div);
+  });
+  submitBtn.disabled=true; pendingChoice=null; exBlock.classList.remove('vis');
+  if(answers[idx]!==null) restoreAnswered(idx);
+  prevBtn.disabled=idx===0; nextBtn.disabled=idx===questions.length-1;
+  qOf.textContent=`${n} / ${questions.length}`;
+  updateSidebar();
+}
+
+function selectChoice(el,idx){
+  if(answers[current]!==null) return;
+  choiceList.querySelectorAll('.ac').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel'); pendingChoice=idx; submitBtn.disabled=false;
+}
+
+function restoreAnswered(idx){
+  const q=questions[idx], ans=answers[idx];
+  const correctIdx=q.items.findIndex(it=>it.correct);
+  const acEls=choiceList.querySelectorAll('.ac');
+  acEls.forEach(c=>c.classList.add('dis'));
+  acEls[correctIdx].classList.add('cor');
+  if(!ans.correct) acEls[ans.selectedIdx].classList.add('inc');
+  else acEls[ans.selectedIdx].classList.add('shc');
+  submitBtn.disabled=true;
+  if(quizMode==='learn'||examSubmitted){ showExplanation(idx); exBlock.classList.add('vis'); }
+}
+
+function showExplanation(idx){
+  const q=questions[idx];
+  const correctIdx=q.items.findIndex(it=>it.correct);
+  exCorrect.textContent=`${LETTERS[correctIdx]}. ${q.items[correctIdx].text} \u2014 ${q.explanation}`;
+  exTeach.textContent=q.teaching;
+  let wrongHtml='';
+  q.items.forEach((item,i)=>{
+    if(!item.correct) wrongHtml+=`<div class="wce"><strong>${LETTERS[i]}</strong> \u2014 ${item.why}</div>`;
+  });
+  exWrong.innerHTML=wrongHtml;
+}
+
+submitBtn.addEventListener('click',()=>{
+  if(pendingChoice===null) return;
+  const q=questions[current];
+  const correctIdx=q.items.findIndex(it=>it.correct);
+  const isCorrect=pendingChoice===correctIdx;
+  answers[current]={selectedIdx:pendingChoice,correct:isCorrect};
+  const acEls=choiceList.querySelectorAll('.ac');
+  acEls.forEach(c=>c.classList.add('dis'));
+  acEls[correctIdx].classList.add(isCorrect?'shc':'cor');
+  if(!isCorrect) acEls[pendingChoice].classList.add('inc');
+  pendingChoice=null; submitBtn.disabled=true;
+  if(quizMode==='learn'){ showExplanation(current); exBlock.classList.add('vis'); }
+  updateSidebar();
+});
+
+prevBtn.addEventListener('click',()=>{ if(current>0) goTo(current-1); });
+nextBtn.addEventListener('click',()=>{ if(current<questions.length-1) goTo(current+1); });
+
+function goTo(idx){ pendingChoice=null; showQuestion(idx); }
+
+modeLearnBtn.addEventListener('click',()=>{
+  quizMode='learn'; modeLearnBtn.classList.add('active'); modeExamBtn.classList.remove('active');
+  examRow.style.display='none';
+  if(answers[current]!==null){ showExplanation(current); exBlock.classList.add('vis'); }
+  updateSidebar();
+});
+
+modeExamBtn.addEventListener('click',()=>{
+  quizMode='exam'; modeExamBtn.classList.add('active'); modeLearnBtn.classList.remove('active');
+  examRow.style.display='block';
+  if(!examSubmitted) exBlock.classList.remove('vis');
+  updateSidebar();
+});
+
+examSubBtn.addEventListener('click',()=>{
+  if(examSubmitted) return;
+  examSubmitted=true; examSubBtn.disabled=true; examSubBtn.textContent='Exam Submitted \u2713';
+  showResults();
+});
+
+function showResults(){
+  const correct=answers.filter(a=>a&&a.correct).length;
+  const answered=answers.filter(a=>a!==null).length;
+  const pct=Math.round((correct/questions.length)*100);
+  const pass=pct>=70;
+  resultsArea.innerHTML=`<div class="results-wrap"><div class="results-card">
+    <h2>Exam Results</h2>
+    <div class="results-pct ${pass?'pass':'fail'}">${pct}%</div>
+    <p style="color:var(--slate);font-size:15px;margin-top:6px">${pass?'Nice work! Review missed questions below.':'Keep at it \u2014 switch to Learn mode and work through each explanation.'}</p>
+    <div class="r-grid">
+      <div class="r-stat"><div class="rv">${correct}</div><div class="rl">Correct</div></div>
+      <div class="r-stat"><div class="rv">${answered-correct}</div><div class="rl">Incorrect</div></div>
+      <div class="r-stat"><div class="rv">${questions.length-answered}</div><div class="rl">Skipped</div></div>
+    </div>
+    <button class="review-btn" id="reviewBtn">Review in Learn Mode</button>
+  </div></div>`;
+  document.getElementById('reviewBtn').addEventListener('click',()=>{
+    quizMode='learn'; modeLearnBtn.classList.add('active'); modeExamBtn.classList.remove('active');
+    examRow.style.display='none'; goTo(0);
+  });
+}
+
+document.getElementById('resetBtn').addEventListener('click',()=>{ quizMode='learn'; modeLearnBtn.classList.add('active'); modeExamBtn.classList.remove('active'); initQuiz(); });
+document.getElementById('openQuiz').addEventListener('click',()=>{ initQuiz(); quizOverlay.classList.add('open'); });
+document.getElementById('closeBtn').addEventListener('click',()=>{ quizOverlay.classList.add('closing'); setTimeout(()=>quizOverlay.classList.remove('open','closing'),300); });
+
+</script>
+</body>
+</html>
+
+const letters = ['A','B','C','D','E'];
+let STATE = {qs:[], cur:0, answers:[], mode:'learn', examDone:false};
+
+function shuffle(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function escHTML(s){
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function initQuiz(){
+  const qs = shuffle(BANK.map(q=>({
+    plo:q.plo, stem:q.stem,
+    items:shuffle([...q.items.map(it=>({...it}))]),
+    explanation:q.explanation, teaching:q.teaching
+  })));
+  STATE = {qs, cur:0, answers:new Array(qs.length).fill(null), mode:STATE.mode, examDone:false};
+  document.getElementById('examSubBtn').disabled = true;
+  document.getElementById('examSubBtn').textContent = 'Submit Exam';
+  document.getElementById('examRow').style.display = STATE.mode==='exam'?'block':'none';
+  document.getElementById('resultsArea').innerHTML = '';
+  renderDots();
+  showQ(0);
+  updateScores();
+  updateProgress();
+}
+
+function showQ(idx){
+  STATE.cur = idx;
+  const q = STATE.qs[idx];
+  const total = STATE.qs.length;
+  const pct = Math.round((idx+1)/total*100);
+  document.getElementById('qpf').style.width = pct+'%';
+  document.getElementById('qNum').textContent = 'Q '+String(idx+1).padStart(2,'0')+' / '+total;
+  document.getElementById('ploTag').textContent = q.plo;
+  document.getElementById('barSub').textContent = 'Question '+(idx+1)+' of '+total;
+  document.getElementById('qOf').textContent = (idx+1)+' / '+total;
+  document.getElementById('svCur').textContent = idx+1;
+  document.getElementById('qStem').textContent = q.stem;
+  const choiceList = document.getElementById('choiceList');
+  choiceList.innerHTML = '';
+  q.items.forEach((item,i)=>{
+    const div = document.createElement('div');
+    div.className = 'ac';
+    div.dataset.i = i;
+    div.innerHTML = '<div class="cl">'+letters[i]+'</div><div class="ctx">'+escHTML(item.text)+'</div>';
+    div.addEventListener('click', ()=>selectChoice(i));
+    choiceList.appendChild(div);
+  });
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn._sel = undefined;
+  submitBtn.disabled = true;
+  const exBlock = document.getElementById('exBlock');
+  exBlock.classList.remove('vis');
+  const ans = STATE.answers[idx];
+  if(ans !== null){
+    const correctIdx = q.items.findIndex(it=>it.correct);
+    const acEls = choiceList.querySelectorAll('.ac');
+    acEls.forEach(el=>el.classList.add('dis'));
+    acEls[correctIdx].classList.add(ans===correctIdx?'shc':'cor');
+    if(ans!==correctIdx) acEls[ans].classList.add('inc');
+    showExplanation(q,correctIdx);
+    if(STATE.mode==='learn'||STATE.examDone) exBlock.classList.add('vis');
+    submitBtn.disabled = false;
+  }
+  renderDots();
+  updateNav();
+  const card = document.getElementById('questionCard');
+  card.classList.remove('anim'); void card.offsetWidth; card.classList.add('anim');
+}
+
+function selectChoice(i){
+  const ans = STATE.answers[STATE.cur];
+  if(ans!==null) return;
+  const acEls = document.querySelectorAll('#choiceList .ac');
+  acEls.forEach(el=>el.classList.remove('sel'));
+  acEls[i].classList.add('sel');
+  const btn = document.getElementById('submitBtn');
+  btn._sel = i; btn.disabled = false;
+}
+
+document.getElementById('submitBtn').addEventListener('click', function(){
+  if(this._sel===undefined&&this._sel!==0) return;
+  gradeQ(STATE.cur, this._sel);
+});
+
+function gradeQ(qIdx, selIdx){
+  if(STATE.answers[qIdx]!==null) return;
+  STATE.answers[qIdx] = selIdx;
+  const q = STATE.qs[qIdx];
+  const correctIdx = q.items.findIndex(it=>it.correct);
+  const acEls = document.querySelectorAll('#choiceList .ac');
+  acEls.forEach(el=>{el.classList.remove('sel');el.classList.add('dis');});
+  acEls[correctIdx].classList.add(selIdx===correctIdx?'shc':'cor');
+  if(selIdx!==correctIdx) acEls[selIdx].classList.add('inc');
+  showExplanation(q,correctIdx);
+  if(STATE.mode==='learn') document.getElementById('exBlock').classList.add('vis');
+  updateScores(); updateProgress(); renderDots(); updateExamButton();
+}
+
+function showExplanation(q, correctIdx){
+  document.getElementById('exCorrect').textContent = letters[correctIdx]+' \u2014 '+q.explanation;
+  document.getElementById('exTeach').textContent = q.teaching;
+  const wrongDiv = document.getElementById('exWrong');
+  wrongDiv.innerHTML = '';
+  q.items.forEach((item,i)=>{
+    if(item.correct) return;
+    const d = document.createElement('div');
+    d.className = 'wce';
+    d.innerHTML = '<strong>'+letters[i]+'</strong> \u2014 '+escHTML(item.why);
+    wrongDiv.appendChild(d);
+  });
+}
+
+function updateScores(){
+  let cor=0,inc=0;
+  STATE.answers.forEach((a,i)=>{
+    if(a===null) return;
+    const c = STATE.qs[i].items.findIndex(it=>it.correct);
+    if(a===c) cor++; else inc++;
+  });
+  document.getElementById('svCor').textContent = cor;
+  document.getElementById('svInc').textContent = inc;
+}
+
+function updateProgress(){
+  const answered = STATE.answers.filter(a=>a!==null).length;
+  const pct = Math.round(answered/STATE.qs.length*100);
+  document.getElementById('progBar').style.width = pct+'%';
+  document.getElementById('progText').textContent = answered+' of '+STATE.qs.length+' answered';
+  document.getElementById('examProg').textContent = answered+' of '+STATE.qs.length+' answered';
+}
+
+function renderDots(){
+  const grid = document.getElementById('dotsGrid');
+  grid.innerHTML = '';
+  STATE.qs.forEach((_,i)=>{
+    const d = document.createElement('button');
+    d.className='qd'; d.textContent=i+1;
+    if(i===STATE.cur) d.classList.add('cur');
+    const a = STATE.answers[i];
+    if(a!==null){
+      if(STATE.mode==='exam'&&!STATE.examDone) d.classList.add('answered');
+      else{ const c=STATE.qs[i].items.findIndex(it=>it.correct); d.classList.add(a===c?'cor':'inc'); }
+    }
+    d.addEventListener('click',()=>showQ(i));
+    grid.appendChild(d);
+  });
+}
+
+function updateNav(){
+  document.getElementById('prevBtn').disabled = STATE.cur===0;
+  document.getElementById('nextBtn').disabled = STATE.cur===STATE.qs.length-1;
+}
+
+function updateExamButton(){
+  const answered = STATE.answers.filter(a=>a!==null).length;
+  document.getElementById('examSubBtn').disabled = answered<STATE.qs.length||STATE.examDone;
+}
+
+function showResults(){
+  let cor=0;
+  STATE.answers.forEach((a,i)=>{ if(a===STATE.qs[i].items.findIndex(it=>it.correct)) cor++; });
+  const pct = Math.round(cor/STATE.qs.length*100);
+  const pass = pct>=70;
+  document.getElementById('resultsArea').innerHTML =
+    '<div class="results-card"><h2>Exam Complete</h2>'
+    +'<div class="results-pct '+(pass?'pass':'fail')+'">'+pct+'%</div>'
+    +'<p style="color:var(--slate);font-size:15px">'+(pass?'Great work — above 70%!':'Below 70%. Review the explanations and retry.')+' Answers revealed.</p>'
+    +'<div class="results-grid">'
+    +'<div class="r-stat"><div class="rv">'+cor+'</div><div class="rl">Correct</div></div>'
+    +'<div class="r-stat"><div class="rv">'+(STATE.qs.length-cor)+'</div><div class="rl">Incorrect</div></div>'
+    +'<div class="r-stat"><div class="rv">'+STATE.qs.length+'</div><div class="rl">Total</div></div>'
+    +'</div>'
+    +'<button class="review-btn" onclick="showQ(0)">&#x1F4CB; Review from Q1</button>'
+    +'<button class="review-btn" onclick="initQuiz()">&#x21BA; Retake Shuffled</button>'
+    +'</div>';
+}
+
+document.getElementById('modeLearn').addEventListener('click',()=>{
+  STATE.mode='learn';
+  document.getElementById('modeLearn').classList.add('active');
+  document.getElementById('modeExam').classList.remove('active');
+  document.getElementById('examRow').style.display='none';
+  if(STATE.answers[STATE.cur]!==null) document.getElementById('exBlock').classList.add('vis');
+});
+
+document.getElementById('modeExam').addEventListener('click',()=>{
+  STATE.mode='exam';
+  document.getElementById('modeExam').classList.add('active');
+  document.getElementById('modeLearn').classList.remove('active');
+  document.getElementById('examRow').style.display='block';
+  if(!STATE.examDone) document.getElementById('exBlock').classList.remove('vis');
+  renderDots(); updateExamButton();
+});
+
+document.getElementById('examSubBtn').addEventListener('click',()=>{
+  if(STATE.examDone) return;
+  STATE.examDone = true;
+  document.getElementById('examSubBtn').textContent = 'Submitted \u2713';
+  document.getElementById('examSubBtn').disabled = true;
+  renderDots();
+  const q = STATE.qs[STATE.cur];
+  const c = q.items.findIndex(it=>it.correct);
+  showExplanation(q,c);
+  document.getElementById('exBlock').classList.add('vis');
+  showResults();
+});
+
+document.getElementById('prevBtn').addEventListener('click',()=>{ if(STATE.cur>0) showQ(STATE.cur-1); });
+document.getElementById('nextBtn').addEventListener('click',()=>{ if(STATE.cur<STATE.qs.length-1) showQ(STATE.cur+1); });
+
+document.getElementById('openQuiz').addEventListener('click',()=>{
+  initQuiz();
+  document.getElementById('quizOverlay').classList.add('open');
+  document.getElementById('launchScreen').style.display='none';
+});
+
+document.getElementById('closeBtn').addEventListener('click',()=>{
+  const qo=document.getElementById('quizOverlay');
+  qo.classList.add('closing');
+  setTimeout(()=>{ qo.classList.remove('open','closing'); document.getElementById('launchScreen').style.display=''; },280);
+});
+
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(confirm('Reset quiz? All progress will be lost.')) initQuiz();
+});
+</script>
+</body>
+</html>
