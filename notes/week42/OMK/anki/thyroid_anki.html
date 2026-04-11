@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thyroid Hormones & Disease — Contextual Anki</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── DESIGN TOKENS ── */
+:root {
+  --bg:#0b0f1a; --surface:#131929; --surface-2:#19223a; --surface-3:#1f2a42; --surface-4:#24314e;
+  --amber:#f6a533; --amber-soft:rgba(246,165,51,.13); --amber-mid:rgba(246,165,51,.25); --amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf; --teal-soft:rgba(45,212,191,.12); --teal-mid:rgba(45,212,191,.22); --teal-dim:rgba(45,212,191,.5);
+  --green:#34d399; --green-soft:rgba(52,211,153,.13); --green-mid:rgba(52,211,153,.22);
+  --red:#f87171; --red-soft:rgba(248,113,113,.12); --red-mid:rgba(248,113,113,.22);
+  --text:#dde5f0; --text-2:#7e90a9; --text-3:#3e5065;
+  --border:#1c2a40; --border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08); --hero-glow-b:rgba(246,165,51,.09);
+  --bg-top:#0b0f1a; --bg-bottom:#0d1321;
+  --map-shadow:0 20px 45px rgba(0,0,0,.22); --panel-shadow:0 22px 48px rgba(0,0,0,.24);
+  --header-shadow:0 22px 50px rgba(0,0,0,.24);
+  --header-a:#0d1525; --header-b:#111b2e;
+  --card-a:#131929; --card-b:#19223a;
+  --card-action-bg:#0f1520;
+  --nav-bg:#19223a; --nav-bg-hover:#24314e; --nav-text:#dde5f0;
+  --showall-bg:rgba(246,165,51,.12); --showall-text:#f6a533;
+  --meta-bg:#0f1520;
+  --table-head-a:#131929; --table-head-b:#19223a;
+}
+html[data-theme="cream"] {
+  --bg:#f4efe4; --surface:#fff8ef; --surface-2:#fdf5ea; --surface-3:#f7f0e4; --surface-4:#ede6d8;
+  --text:#2a2215; --text-2:#6b5c44; --text-3:#a0917c;
+  --border:#e0d6c6; --border-2:#cec4b4;
+  --hero-glow-a:rgba(45,212,191,.06); --hero-glow-b:rgba(246,165,51,.12);
+  --bg-top:#f4efe4; --bg-bottom:#ede6d8;
+  --header-a:#fff8ef; --header-b:#f7f0e4;
+  --card-a:#ffffff; --card-b:#fff8ef;
+  --card-action-bg:#f4efe4;
+  --nav-bg:#ede6d8; --nav-bg-hover:#e0d6c6; --nav-text:#2a2215;
+  --showall-bg:rgba(246,165,51,.14); --showall-text:#b37400;
+  --meta-bg:#f4efe4;
+  --table-head-a:#ede6d8; --table-head-b:#e0d6c6;
+}
+html[data-theme="forest"] {
+  --bg:#081512; --surface:#0f2018; --surface-2:#162b1f; --surface-3:#1c3427; --surface-4:#223d2f;
+  --text:#d0e8d8; --text-2:#6b917a; --text-3:#2d4e38;
+  --border:#1a3326; --border-2:#213d2e;
+  --hero-glow-a:rgba(45,212,100,.07); --hero-glow-b:rgba(246,165,51,.08);
+  --bg-top:#081512; --bg-bottom:#091914;
+  --header-a:#0f2018; --header-b:#162b1f;
+  --card-a:#0f2018; --card-b:#162b1f;
+  --card-action-bg:#0a1910;
+  --nav-bg:#162b1f; --nav-bg-hover:#1c3427; --nav-text:#d0e8d8;
+  --showall-bg:rgba(246,165,51,.11); --showall-text:#f6a533;
+  --meta-bg:#0a1910;
+  --table-head-a:#162b1f; --table-head-b:#1c3427;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:radial-gradient(circle at top left,var(--hero-glow-a),transparent 26rem),
+             radial-gradient(circle at top right,var(--hero-glow-b),transparent 24rem),
+             linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bottom) 100%);
+  background-attachment:fixed;
+  color:var(--text);min-height:100vh;
+}
+/* ── HEADER ── */
+header{
+  background:linear-gradient(135deg,var(--header-a),var(--header-b));
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--header-shadow);
+  padding:1.5rem 2rem 1.25rem;
+}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.eyebrow{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--amber);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem}
+h1{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:600;line-height:1.15;color:var(--text)}
+.sub{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-2);margin-top:.35rem;letter-spacing:.03em}
+.theme-switch{display:flex;gap:.4rem;flex-shrink:0;margin-top:.2rem}
+.theme-btn{font-family:'DM Mono',monospace;font-size:.68rem;padding:.35rem .75rem;border-radius:100px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);cursor:pointer;transition:all .2s}
+.theme-btn.active,.theme-btn:hover{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid)}
+/* ── LEGEND ── */
+.legend{display:flex;gap:1.5rem;padding:.6rem 2rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:.45rem;font-size:.72rem;color:var(--text-2);font-family:'DM Mono',monospace}
+.lswatch{width:.6rem;height:.6rem;border-radius:2px;flex-shrink:0}
+/* ── MAP ── */
+.map-wrap{padding:1.5rem 2rem;overflow-x:auto}
+.map-svg-container{box-shadow:var(--map-shadow);border-radius:10px;overflow:hidden;max-width:800px;margin:0 auto}
+svg text{font-family:'DM Sans',sans-serif}
+.node{cursor:pointer;transition:opacity .25s}
+.node rect{transition:filter .2s,stroke .2s}
+.node:hover rect{filter:brightness(1.15)}
+.c-amber rect{fill:rgba(246,165,51,.13);stroke:rgba(246,165,51,.35);stroke-width:1.2}
+.c-amber .lbl{fill:#f6a533}
+.c-amber .sub-txt{fill:rgba(246,165,51,.6)}
+.c-teal rect{fill:rgba(45,212,191,.10);stroke:rgba(45,212,191,.3);stroke-width:1.2}
+.c-teal .lbl{fill:#2dd4bf}
+.c-teal .sub-txt{fill:rgba(45,212,191,.6)}
+.c-gray rect{fill:rgba(126,144,169,.08);stroke:rgba(126,144,169,.2);stroke-width:1}
+.c-gray .lbl{fill:var(--text)}
+.c-gray .sub-txt{fill:var(--text-2)}
+.conn{stroke:var(--border-2);stroke-width:1;stroke-dasharray:4 3}
+.hint-lbl{fill:var(--text-3);font-size:9px;font-family:'DM Mono',monospace}
+.done-node{opacity:.4}
+.node .dot-row{font-size:7px}
+/* ── PANEL ── */
+.panel-wrap{padding:0 2rem 2rem;max-width:800px;margin:0 auto}
+.panel{background:linear-gradient(135deg,var(--card-a),var(--card-b));border:1px solid var(--border);border-radius:10px;overflow:hidden;box-shadow:var(--panel-shadow);display:none}
+.panel.open{display:block}
+.panel-header{padding:1rem 1.25rem .75rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.75rem}
+.ph-left{display:flex;align-items:center;gap:.6rem}
+.ph-badge{font-family:'DM Mono',monospace;font-size:.68rem;padding:.2rem .55rem;border-radius:4px;font-weight:500}
+.ph-badge.amber{background:var(--amber-soft);color:var(--amber)}
+.ph-badge.teal{background:var(--teal-soft);color:var(--teal)}
+.ph-title{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--text-2)}
+.ph-close{background:none;border:none;color:var(--text-3);font-size:1.1rem;cursor:pointer;line-height:1;padding:.1rem .3rem;border-radius:4px}
+.ph-close:hover{color:var(--text)}
+.card-nav{display:flex;align-items:center;gap:.5rem;padding:.75rem 1.25rem;border-bottom:1px solid var(--border)}
+.nav-btn{background:var(--nav-bg);border:1px solid var(--border);color:var(--nav-text);padding:.35rem .8rem;border-radius:5px;font-family:'DM Mono',monospace;font-size:.72rem;cursor:pointer;transition:background .15s}
+.nav-btn:hover:not(:disabled){background:var(--nav-bg-hover)}
+.nav-btn:disabled{opacity:.35;cursor:default}
+.card-counter{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-2);flex:1;text-align:center}
+.card-body-wrap{padding:1rem 1.25rem}
+.card-title{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-2);margin-bottom:.6rem}
+.card-body{font-size:.95rem;line-height:1.75;color:var(--text)}
+.hint-box{margin-top:.85rem;padding:.6rem .85rem;background:var(--surface-3);border-left:2px solid var(--teal-dim);border-radius:0 5px 5px 0;font-size:.82rem;color:var(--text-2);line-height:1.6}
+.card-actions{padding:.65rem 1.25rem;background:var(--card-action-bg);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
+.meta-pills{display:flex;gap:.35rem;flex-wrap:wrap}
+.meta-pill{font-family:'DM Mono',monospace;font-size:.65rem;padding:.2rem .5rem;border-radius:3px;background:var(--meta-bg);color:var(--text-2);border:1px solid var(--border)}
+.meta-pill.knew{color:var(--green);border-color:var(--green-mid)}
+.meta-pill.needed{color:var(--amber);border-color:var(--amber-mid)}
+.meta-pill.waiting{color:var(--teal);border-color:var(--teal-mid)}
+.action-btns{display:flex;gap:.4rem;flex-wrap:wrap}
+.btn-reveal{font-family:'DM Mono',monospace;font-size:.7rem;padding:.3rem .7rem;border-radius:5px;border:none;cursor:pointer;transition:background .15s;background:var(--teal-soft);color:var(--teal)}
+.btn-reveal:hover:not(:disabled){background:var(--teal-mid)}
+.btn-reveal:disabled{opacity:.35;cursor:default}
+.btn-knew-all{font-family:'DM Mono',monospace;font-size:.7rem;padding:.3rem .7rem;border-radius:5px;border:1px solid var(--amber-mid);cursor:pointer;transition:all .15s;background:var(--showall-bg);color:var(--showall-text)}
+.btn-knew-all:hover:not(:disabled){background:var(--amber-mid)}
+.btn-knew-all:disabled{opacity:.35;cursor:default}
+.btn-reset-card{font-family:'DM Mono',monospace;font-size:.7rem;padding:.3rem .7rem;border-radius:5px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);cursor:pointer}
+.btn-reset-card:hover:not(:disabled){border-color:var(--text-2);color:var(--text)}
+.btn-reset-card:disabled{opacity:.3;cursor:default}
+/* ── OCC (corrected per skill) ── */
+.occ{
+  border: 1px solid transparent;
+  display:inline-block;min-width:3ch;background:var(--text);color:transparent;
+  border:1px solid transparent;border-radius:3px;cursor:pointer;padding:1px 6px;
+  white-space:nowrap;user-select:none;vertical-align:baseline;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.occ:not(.rev):not(.needed-t):not(.unscored):hover{filter:brightness(1.15)}
+.occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed-t{background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.20)}
+.score-row{display:inline-flex;gap:.3rem;margin-left:.35rem;vertical-align:baseline}
+.sbtn{font-family:'DM Mono',monospace;font-size:.62rem;padding:.15rem .45rem;border-radius:3px;border:none;cursor:pointer;line-height:1.4}
+.sbtn-k{background:var(--green-soft);color:var(--green)}
+.sbtn-k:hover{background:var(--green-mid)}
+.sbtn-n{background:var(--amber-soft);color:var(--amber)}
+.sbtn-n:hover{background:var(--amber-mid)}
+.jump-link{font-family:'DM Mono',monospace;font-size:.62rem;margin-left:.3rem;padding:.1rem .35rem;border-radius:3px;background:var(--teal-soft);color:var(--teal);cursor:pointer;border:none;vertical-align:baseline;text-decoration:none;display:inline}
+.jump-link:hover{background:var(--teal-mid)}
+/* ── TABLE QUIZ ── */
+.tblq-note{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.5rem .75rem;background:var(--surface-3);border-radius:6px;margin-bottom:.6rem;flex-wrap:wrap}
+.tblq-copy{font-size:.75rem;color:var(--text-2)}
+.tblq-pill{font-family:'DM Mono',monospace;font-size:.62rem;padding:.15rem .5rem;border-radius:100px;background:var(--teal-soft);color:var(--teal)}
+.tblq-wrap{overflow-x:auto}
+.tblq{width:100%;border-collapse:collapse;font-size:.82rem}
+.tblq thead tr{background:linear-gradient(90deg,var(--table-head-a),var(--table-head-b))}
+.tblq th{padding:.55rem .75rem;text-align:left;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-2);font-weight:500;border-bottom:1px solid var(--border-2)}
+.tblq td{padding:.5rem .75rem;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text)}
+.tblq tr:last-child td{border-bottom:none}
+.tblq td .occ{display:block;text-align:center;white-space:normal;padding:8px 10px;min-width:180px}
+.tblq td .score-row{display:flex;justify-content:center;margin-left:0;margin-top:.3rem}
+/* ── STATS BAR ── */
+.stats-bar{padding:.7rem 2rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;background:var(--card-action-bg)}
+.stat-pill{font-family:'DM Mono',monospace;font-size:.68rem;padding:.25rem .6rem;border-radius:4px;background:var(--meta-bg);color:var(--text-2);border:1px solid var(--border)}
+.stat-pill.s-knew{color:var(--green);border-color:var(--green-mid)}
+.stat-pill.s-need{color:var(--amber);border-color:var(--amber-mid)}
+.stat-pill.s-done{color:var(--teal);border-color:var(--teal-mid)}
+.stats-actions{display:flex;gap:.4rem;margin-left:auto;flex-wrap:wrap}
+.btn-reveal-topic,.btn-reveal-deck,.btn-review,.btn-reset-all{font-family:'DM Mono',monospace;font-size:.68rem;padding:.28rem .65rem;border-radius:4px;border:1px solid var(--border-2);cursor:pointer;transition:all .15s}
+.btn-reveal-topic{background:var(--teal-soft);color:var(--teal);border-color:var(--teal-mid)}
+.btn-reveal-topic:hover:not(:disabled){background:var(--teal-mid)}
+.btn-reveal-topic:disabled{opacity:.35;cursor:default}
+.btn-reveal-deck{background:var(--surface-2);color:var(--text-2)}
+.btn-reveal-deck:hover{background:var(--surface-3);color:var(--text)}
+.btn-review{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid);display:none}
+.btn-review:hover{background:var(--amber-mid)}
+.btn-reset-all{background:transparent;color:var(--text-3)}
+.btn-reset-all:hover{color:var(--red);border-color:var(--red-mid)}
+/* ── REVIEW PANEL ── */
+.review-panel{background:linear-gradient(135deg,var(--card-a),var(--card-b));border:1px solid var(--amber-mid);border-radius:10px;overflow:hidden;box-shadow:var(--panel-shadow);display:none;margin:0 2rem 2rem}
+.review-panel.open{display:block;max-width:800px;margin-left:auto;margin-right:auto}
+.rsub{padding:.6rem 1.25rem;background:var(--amber-soft);border-bottom:1px solid var(--amber-mid);font-family:'DM Mono',monospace;font-size:.7rem;color:var(--amber)}
+.review-body-wrap{padding:1rem 1.25rem}
+.review-nav{display:flex;align-items:center;gap:.5rem;padding:.65rem 1.25rem;border-top:1px solid var(--border);background:var(--card-action-bg)}
+.review-counter{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-2);flex:1;text-align:center}
+.btn-close-review{font-family:'DM Mono',monospace;font-size:.7rem;padding:.3rem .75rem;border-radius:5px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);cursor:pointer;margin-left:auto}
+.btn-close-review:hover{color:var(--text);border-color:var(--text)}
+/* ── PROGRESS DOTS ── */
+.progress-dots{display:flex;gap:2.5px;margin-top:4px;justify-content:center}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--border-2);transition:background .2s}
+.dot.partial{background:var(--amber-dim)}
+.dot.done-dot{background:var(--green)}
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  .card-actions{flex-direction:column;align-items:flex-start}
+  .action-btns{width:100%;justify-content:flex-start}
+  .stats-actions{margin-left:0;width:100%}
+  header{padding:1rem}
+  .map-wrap,.panel-wrap{padding:.75rem}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Endocrinology · Dr. Johnson · UNECOM</div>
+      <h1>Thyroid Hormones &amp; Disease</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Lecture Objectives (LO)</div>
+</div>
+
+<div class="map-wrap">
+  <div class="map-svg-container">
+  <svg id="map" viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;background:var(--surface)">
+    <!-- Connectors PLO→center -->
+    <line class="conn" x1="95"  y1="60"  x2="300" y2="128"/>
+    <line class="conn" x1="265" y1="60"  x2="340" y2="128"/>
+    <line class="conn" x1="455" y1="60"  x2="420" y2="128"/>
+    <line class="conn" x1="625" y1="60"  x2="460" y2="128"/>
+    <!-- Connectors LO→center -->
+    <line class="conn" x1="68"  y1="256" x2="300" y2="168"/>
+    <line class="conn" x1="213" y1="256" x2="340" y2="168"/>
+    <line class="conn" x1="358" y1="256" x2="380" y2="168"/>
+    <line class="conn" x1="503" y1="256" x2="420" y2="168"/>
+    <line class="conn" x1="648" y1="256" x2="460" y2="168"/>
+    <!-- Center node -->
+    <g id="n-center" class="node c-gray">
+      <rect x="210" y="128" width="340" height="40" rx="6"/>
+      <text class="lbl" x="380" y="144" text-anchor="middle" font-size="11" font-weight="600">Thyroid Hormones &amp; Disease</text>
+      <text class="sub-txt" x="380" y="158" text-anchor="middle" font-size="9">Dr. Johnson · Click any node to study</text>
+    </g>
+    <!-- PLO nodes (top row, amber) -->
+    <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+      <rect x="30" y="16" width="130" height="44" rx="6"/>
+      <text class="lbl" x="95" y="33" text-anchor="middle" font-size="10.5" font-weight="600">PLO 1</text>
+      <text class="sub-txt" x="95" y="48" text-anchor="middle" font-size="8.5">Gland Structure</text>
+      <g class="progress-dots" transform="translate(65,56)">
+        <circle id="d-plo1-0" class="dot" cx="0" cy="0" r="2.5"/>
+        <circle id="d-plo1-1" class="dot" cx="7" cy="0" r="2.5"/>
+        <circle id="d-plo1-2" class="dot" cx="14" cy="0" r="2.5"/>
+        <circle id="d-plo1-3" class="dot" cx="21" cy="0" r="2.5"/>
+      </g>
+    </g>
+    <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+      <rect x="200" y="16" width="130" height="44" rx="6"/>
+      <text class="lbl" x="265" y="33" text-anchor="middle" font-size="10.5" font-weight="600">PLO 2</text>
+      <text class="sub-txt" x="265" y="48" text-anchor="middle" font-size="8.5">Biosynthesis &amp; Iodine</text>
+      <g class="progress-dots" transform="translate(225,56)">
+        <circle id="d-plo2-0" class="dot" cx="0" cy="0" r="2.5"/>
+        <circle id="d-plo2-1" class="dot" cx="7" cy="0" r="2.5"/>
+        <circle id="d-plo2-2" class="dot" cx="14" cy="0" r="2.5"/>
+        <circle id="d-plo2-3" class="dot" cx="21" cy="0" r="2.5"/>
+        <circle id="d-plo2-4" class="dot" cx="28" cy="0" r="2.5"/>
+        <circle id="d-plo2-5" class="dot" cx="35" cy="0" r="2.5"/>
+      </g>
+    </g>
+    <g id="n-plo3" class="node c-amber" onclick="selNode('plo3')">
+      <rect x="390" y="16" width="130" height="44" rx="6"/>
+      <text class="lbl" x="455" y="33" text-anchor="middle" font-size="10.5" font-weight="600">PLO 3</text>
+      <text class="sub-txt" x="455" y="48" text-anchor="middle" font-size="8.5">Binding &amp; T3/T4</text>
+      <g class="progress-dots" transform="translate(425,56)">
+        <circle id="d-plo3-0" class="dot" cx="0" cy="0" r="2.5"/>
+        <circle id="d-plo3-1" class="dot" cx="7" cy="0" r="2.5"/>
+        <circle id="d-plo3-2" class="dot" cx="14" cy="0" r="2.5"/>
+        <circle id="d-plo3-3" class="dot" cx="21" cy="0" r="2.5"/>
+        <circle id="d-plo3-4" class="dot" cx="28" cy="0" r="2.5"/>
+      </g>
+    </g>
+    <g id="n-plo4" class="node c-amber" onclick="selNode('plo4')">
+      <rect x="560" y="16" width="130" height="44" rx="6"/>
+      <text class="lbl" x="625" y="33" text-anchor="middle" font-size="10.5" font-weight="600">PLO 4</text>
+      <text class="sub-txt" x="625" y="48" text-anchor="middle" font-size="8.5">Feedback Regulation</text>
+      <g class="progress-dots" transform="translate(590,56)">
+        <circle id="d-plo4-0" class="dot" cx="0" cy="0" r="2.5"/>
+        <circle id="d-plo4-1" class="dot" cx="7" cy="0" r="2.5"/>
+        <circle id="d-plo4-2" class="dot" cx="14" cy="0" r="2.5"/>
+        <circle id="d-plo4-3" class="dot" cx="21" cy="0" r="2.5"/>
+        <circle id="d-plo4-4" class="dot" cx="28" cy="0" r="2.5"/>
+      </g>
+    </g>
+    <!-- LO nodes (bottom row, teal) -->
+    <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+      <rect x="8" y="256" width="120" height="44" rx="6"/>
+      <text class="lbl" x="68" y="273" text-anchor="middle" font-size="10.5" font-weight="600">LO 1</text>
+      <text class="sub-txt" x="68" y="287" text-anchor="middle" font-size="8.2">Thyroid &amp; BMR</text>
+      <g class="progress-dots" transform="translate(40,296)">
+        <circle id="d-lo1-0" class="dot" cx="0" cy="0" r="2.5"/>
+        <circle id="d-lo1-1" class="dot" cx="7" cy="0" r="2.5"/>
+        <circle id="d-lo1-2" class="dot" cx="14" cy="0" r="2.5"/>
+        <circle id="d-lo1-3" class="dot" cx="21" cy="0" r="2.5"/>
+      </g>
+    </g>
+    <g id="n-lo2" class="node c-teal" onclick="selNode('lo2')">
+      <rect x="153" y="256" width="120" height="44" rx="6"/>
+      <text class="lbl" x="213" y="273" text-anchor="middle" font-size="10.5" font-weight="600">LO 2</text>
+      <text class="sub-txt" x="213" y="287" text-anchor="middle" font-size="8.2">Na⁺/K⁺ &amp; Neuromusc.</text>
+      <g class="progress-dots" transform="translate(185,296)">
+        <circle id="d-lo2-0" class="dot" cx="0" cy="0" r="2.5"/>
+        <circle id="d-lo2-1" class="dot" cx="7" cy="0" r="2.5"/>
+        <circle id="d-lo2-2" class="dot" cx="14" cy="0" r="2.5"/>
+        <circle id="d-lo2-3" class="dot" cx="21" cy="0" r="2.5"/>
+        <circle id="d-lo2-4" class="dot" cx="28" cy="0" r="2.5"/>
+      </g>
+    </g>
+    <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+      <rect x="298" y="256" width="120" height="44" rx="6"/>
+      <text class="lbl" x="358" y="273" text-anchor="middle" font-size="10.5" font-weight="600">LO 3</text>
+      <text class="sub-txt" x="358" y="287" text-anchor="middle" font-size="8.2">Graves'/Hashimoto's</text>
+      <g class="progress-dots" transform="translate(326,296)">
+        <circle id="d-lo3-0" class="dot" cx="0" cy="0" r="2.5"/>
+        <circle id="d-lo3-1" class="dot" cx="7" cy="0" r="2.5"/>
+        <circle id="d-lo3-2" class="dot" cx="14" cy="0" r="2.5"/>
+        <circle id="d-lo3-3" class="dot" cx="21" cy="0" r="2.5"/>
+        <circle id="d-lo3-4" class="dot" cx="28" cy="0" r="2.5"/>
+        <circle id="d-lo3-5" class="dot" cx="35" cy="0" r="2.5"/>
+      </g>
+    </g>
+    <g id="n-lo4" class="node c-teal" onclick="selNode('lo4')">
+      <rect x="443" y="256" width="120" height="44" rx="6"/>
+      <text class="lbl" x="503" y="273" text-anchor="middle" font-size="10.5" font-weight="600">LO 4</text>
+      <text class="sub-txt" x="503" y="287" text-anchor="middle" font-size="8.2">Blood Pressure</text>
+      <g class="progress-dots" transform="translate(475,296)">
+        <circle id="d-lo4-0" class="dot" cx="0" cy="0" r="2.5"/>
+        <circle id="d-lo4-1" class="dot" cx="7" cy="0" r="2.5"/>
+        <circle id="d-lo4-2" class="dot" cx="14" cy="0" r="2.5"/>
+        <circle id="d-lo4-3" class="dot" cx="21" cy="0" r="2.5"/>
+      </g>
+    </g>
+    <g id="n-lo5" class="node c-teal" onclick="selNode('lo5')">
+      <rect x="588" y="256" width="120" height="44" rx="6"/>
+      <text class="lbl" x="648" y="273" text-anchor="middle" font-size="10.5" font-weight="600">LO 5</text>
+      <text class="sub-txt" x="648" y="287" text-anchor="middle" font-size="8.2">Treatments</text>
+      <g class="progress-dots" transform="translate(614,296)">
+        <circle id="d-lo5-0" class="dot" cx="0" cy="0" r="2.5"/>
+        <circle id="d-lo5-1" class="dot" cx="7" cy="0" r="2.5"/>
+        <circle id="d-lo5-2" class="dot" cx="14" cy="0" r="2.5"/>
+        <circle id="d-lo5-3" class="dot" cx="21" cy="0" r="2.5"/>
+        <circle id="d-lo5-4" class="dot" cx="28" cy="0" r="2.5"/>
+        <circle id="d-lo5-5" class="dot" cx="35" cy="0" r="2.5"/>
+      </g>
+    </g>
+    <text class="hint-lbl" x="380" y="320" text-anchor="middle">← → navigate cards · Esc close panel</text>
+  </svg>
+  </div>
+</div>
+
+<!-- MAIN CARD PANEL -->
+<div class="panel-wrap">
+<div id="mainPanel" class="panel">
+  <div class="panel-header">
+    <div class="ph-left">
+      <span id="phBadge" class="ph-badge amber">PLO 1</span>
+      <span id="phTitle" class="ph-title">Gland Structure</span>
+    </div>
+    <button class="ph-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="card-nav">
+    <button class="nav-btn" id="btnPrev" onclick="navigate(-1)">← Prev</button>
+    <span class="card-counter" id="cardCounter">1 / 1</span>
+    <button class="nav-btn" id="btnNext" onclick="navigate(1)">Next →</button>
+  </div>
+  <div class="card-body-wrap">
+    <div class="card-title" id="cardTitle"></div>
+    <div class="card-body" id="cardBody"></div>
+    <div class="hint-box" id="hintBox" style="display:none"></div>
+  </div>
+  <div class="card-actions">
+    <div class="meta-pills" id="metaPills"></div>
+    <div class="action-btns">
+      <button class="btn-reveal" id="btnRevealCard" onclick="revealCard()">Reveal this card</button>
+      <button class="btn-knew-all" id="btnKnewAll" onclick="knewAllCurrentCard()" disabled>Knew all</button>
+      <button class="btn-reset-card" id="btnResetCard" onclick="resetCard()" disabled>Reset card</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- REVIEW PANEL -->
+<div id="reviewPanel" class="review-panel">
+  <div class="rsub" id="rsub"></div>
+  <div class="review-body-wrap">
+    <div class="card-title" id="revCardTitle"></div>
+    <div class="card-body" id="revCardBody"></div>
+  </div>
+  <div class="review-nav">
+    <button class="nav-btn" onclick="navReview(-1)">← Prev</button>
+    <span class="review-counter" id="revCounter"></span>
+    <button class="nav-btn" onclick="navReview(1)">Next →</button>
+    <button class="btn-close-review" onclick="closeReview()">Close Review</button>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar" id="statsBar">
+  <span class="stat-pill" id="sp-rev">0 revealed</span>
+  <span class="stat-pill s-knew" id="sp-knew">0 knew</span>
+  <span class="stat-pill s-need" id="sp-need">0 needed</span>
+  <span class="stat-pill s-done" id="sp-done">0 / 9 topics done</span>
+  <div class="stats-actions">
+    <button class="btn-reveal-topic" id="btnRevealTopic" onclick="revealTopic()" disabled>Reveal topic</button>
+    <button class="btn-reveal-deck" onclick="revealDeck()">Reveal deck</button>
+    <button class="btn-review" id="btnReview" onclick="startReview()">Review weak spots (0)</button>
+    <button class="btn-reset-all" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const D = {
+  plo1:{label:'PLO 1',sub:'Thyroid Gland Structure',type:'PLO',cards:[
+    {t:'Gross & Microscopic Anatomy',
+     b:'The thyroid gland is located in the {anterior neck}, straddling the {trachea}. Microscopically, it is composed of spherical {follicles}, each lined by a single layer of {follicular epithelial cells} surrounding a lumen filled with {colloid} — composed mostly of {thyroglobulin}.',
+     h:'The follicular architecture is the functional unit of thyroid hormone synthesis and storage.'},
+    {t:'Cell Types',
+     b:'{Follicular cells} (thyrocytes) line the follicle, synthesize Tg, transport iodide, and produce T3/T4. {Parafollicular C-cells} are interspersed between follicles and produce {calcitonin}.',
+     h:'Almost all thyroid disease involves follicular cells — C-cells are implicated in medullary thyroid carcinoma.'},
+    {t:'T3 and T4 — Overview',
+     b:'Two biologically active thyroid hormones: {T4 (thyroxine)} and {T3 (triiodothyronine)}. T4 is the dominant secreted form and acts primarily as a {prohormone}. T3 is the {biologically active} form with 3–4× greater receptor affinity. Both consist of a {phenyl ring} attached via an ether linkage to a {tyrosine} molecule.',
+     h:'T4 = "Gas in the tank" (reservoir prohormone); T3 = "Gas in the engine" (active metabolic driver).'},
+    {t:'Extracellular Colloid Storage',
+     b:'Thyroid hormone is uniquely stored {extracellularly} in the colloid as {thyroglobulin}, providing a reserve of {weeks}. When demand increases, {TSH} stimulates endocytosis of Tg and rapid release of T3/T4 into the bloodstream. This ensures continuous availability despite interruptions in synthesis.',
+     h:'No other endocrine gland stores hormone outside the cell — this extracellular storage is unique to the thyroid.'}
+  ]},
+  plo2:{label:'PLO 2',sub:'Biosynthesis, Storage & Release',type:'PLO',cards:[
+    {t:'Iodine — Essential and Dietary',
+     b:'Iodine is {absolutely required for life} — without it, T3 and T4 cannot be synthesized. It is an element the body cannot produce and must be obtained through {diet}. Primary dietary sources: {seafood}, {dairy}, and {iodized salt}. The US has iodized salt since the {1920s}. Specialty salts (sea salt, kosher salt) are typically {not iodized}.',
+     h:'Cretinism is the most common preventable cause of intellectual disability worldwide — entirely due to iodine deficiency during pregnancy.'},
+    {t:'Iodide Transport — NIS',
+     b:'Dietary iodine is absorbed as {iodide (I⁻)} and transported into follicular cells by the {Na⁺/I⁻ symporter (NIS)} on the basolateral membrane. This transport is {energy-dependent}, {saturable}, linked to {sodium cotransport}, and requires {oxidative metabolism}. NIS activity is upregulated by {TSH}.',
+     h:'NIS is the target of radioiodine (¹³¹I) therapy — it concentrates radioactive iodine specifically in thyroid tissue, enabling selective ablation.'},
+    {t:'Biosynthesis Steps 1–4',
+     b:'Step 1: {I⁻ trapping} by NIS. Step 2: {Diffusion} of I⁻ to the apical surface. Step 3: Transport into colloid via {pendrin} (genetic defects in pendrin → hypothyroidism). Step 4: {TPO (thyroid peroxidase)} oxidizes I⁻ → I⁰ and incorporates iodine into tyrosine residues on thyroglobulin → forming {MIT} (monoiodotyrosine) and {DIT} (diiodotyrosine).',
+     h:'TPO is the primary target of anti-TPO antibodies in Hashimoto\'s AND of thionamide drugs (methimazole, PTU) used in Graves\' disease.'},
+    {t:'Biosynthesis Steps 5–8',
+     b:'Step 5 (by TPO): Coupling — {DIT + DIT} → T4 (4 iodines); {MIT + DIT} → T3 (3 iodines). Step 6: {Endocytosis} of Tg into follicular cell → fused with {lysosome}. Step 7: {Proteolysis} → T4, T3 released into circulation. Step 8: {Iodotyrosine deiodinase} recycles iodide from unused MIT and DIT.',
+     h:'~80% of circulating T3 comes from peripheral deiodination of T4, not direct thyroid secretion — this is why giving T4 (levothyroxine) alone is sufficient therapy.'},
+    {t:'Goitrogens',
+     b:'Goitrogens impair {iodide uptake} or {incorporation into thyroglobulin}. Common sources: {cruciferous vegetables} (kale, broccoli, cauliflower). Mechanism of goiter formation: ↓T3/T4 → ↓negative feedback → {↑TSH} → thyroid {hyperplasia} → {goiter}. Risk is mainly in individuals {already hypothyroid} consuming large amounts.',
+     h:'A goiter is a visible/palpable sign that the thyroid is being overstimulated by TSH — it can result from iodine deficiency, goitrogens, or autoimmune disease.'},
+    {t:'Iodine Deficiency — Global Impact',
+     b:'Most prevalent in {mountainous regions} (Himalayas, Andes) — soils never covered by ancient seas lack iodine. Consequences: {goiter}, {hypothyroidism}, and {cretinism}. Cretinism results from inadequate T3/T4 during {fetal CNS development} → {intellectual disability} that {cannot be reversed} after birth. It is the most common cause of {preventable intellectual disability} in the world.',
+     h:'Pregnant women require 220 mcg/day iodine (vs 150 mcg/day normally) to support fetal brain development. Cretinism is fully preventable — irreversible once established.'}
+  ]},
+  plo3:{label:'PLO 3',sub:'Binding, Transport & T3 vs. T4',type:'PLO',cards:[
+    {t:'Plasma Binding Proteins',
+     b:'Over {99.5%} of circulating T4 and T3 are protein-bound. The three carriers: {thyroxine-binding globulin (TBG)} (primary), {transthyretin (TTR)}, and {albumin}. Only the {free fraction} is biologically active. Binding proteins maintain free T3/T4 within {narrow limits} while ensuring rapid availability. Normal free T4: {0.8–1.8 ng/dL}.',
+     h:'Always measure FREE T4 (not total T4) for clinical assessment. TBG levels change in pregnancy, liver disease, and with certain drugs — causing total T4 to fluctuate while free T4 remains normal.'},
+    {t:'T3 vs. T4 — Key Differences',
+     b:'T4 has {4} iodine atoms; T3 has {3}. T4 has {low} biological activity (prohormone); T3 has {high} activity. Nuclear receptors bind T3 {much more avidly} than T4. ~{80%} of circulating T3 comes from peripheral T4 deiodination; ~{20%} from direct thyroid secretion. T4 half-life: ~{7 days}; T3 half-life: ~{1 day}.',
+     h:'Because T4 is a long-acting prohormone, levothyroxine (T4) is the drug of choice for hypothyroidism — peripheral tissues convert it to T3 as needed, mimicking normal physiology.'},
+    {t:'Intracellular Entry & Conversion',
+     b:'T4 and T3 enter cells via {diffusion} and {MCT8 transporter} (SLC16A2). The brain absolutely depends on {MCT8} — genetic MCT8 defects → severe intellectual disability (Allan-Herndon-Dudley syndrome). Inside the cytoplasm, {3\'/5\'-monodeiodinase} converts T4 → T3, equalizing cytoplasmic T3 and T4 levels.',
+     h:'MCT8 is essential for T3/T4 to cross the blood-brain barrier. No MCT8 = no thyroid hormone in the developing brain = catastrophic neurodevelopmental consequences.'},
+    {t:'4 Requirements for T3 Nuclear Action',
+     b:'T3 nuclear action depends on: (1) {availability of T3}, (2) {thyroid hormone receptors} (TR-α on chr.17 / TR-β on chr.3), (3) cofactor {RXR (Retinoid X Receptor)}, and (4) {DNA thyroid response elements (TREs)}. The TR–T3–RXR complex binds TREs → alters {gene transcription} → new protein synthesis.',
+     h:'A defect in any of the 4 requirements can cause a hypothyroid-like phenotype even with normal T3 levels — receptor resistance, cofactor deficiency, or abnormal TREs.'},
+    {t:'PTU\'s Dual Mechanism',
+     b:'Propylthiouracil (PTU) inhibits two enzymes: (1) {TPO} — blocking iodide incorporation → ↓T3/T4 synthesis; and (2) {5\'-deiodinase} — blocking peripheral {T4 → T3} conversion. This dual action makes PTU valuable in {thyroid storm} and preferred in the {first trimester of pregnancy} due to lower teratogenicity vs. methimazole.',
+     h:'Methimazole only inhibits TPO. PTU\'s extra block of peripheral T4→T3 conversion provides faster reduction of active hormone — critical in thyroid storm where every minute counts.'}
+  ]},
+  plo4:{label:'PLO 4',sub:'Negative Feedback Regulation',type:'PLO',cards:[
+    {t:'The HPT Axis',
+     b:'Hypothalamic–pituitary–thyroid axis: {Hypothalamus} → {TRH} → {Anterior Pituitary} → {TSH} → {Thyroid Gland} → {T3/T4}. Both TRH and TSH release are {inhibited} by free serum T3 and T4 (negative feedback). TSH secretion is {dependent on TRH} from the hypothalamus.',
+     h:'TSH is the most sensitive and clinically useful marker of thyroid status — it integrates the entire feedback loop and changes before free T4 falls out of range.'},
+    {t:'Interpreting Lab Patterns',
+     b:'Primary hypothyroidism (thyroid failure): {↑ TSH} + {↓ free T4}. Subclinical hypothyroidism: {↑ TSH} + {normal free T4} — most patients {asymptomatic}. Hyperthyroidism (e.g., Graves\'): {↓↓ TSH} (suppressed) + {↑↑ free T4}. 95% of hypothyroidism is {primary} (thyroid gland problem).',
+     h:'Always check TSH first when screening for thyroid disease — it is the most sensitive initial test. A suppressed TSH is the earliest sign of hyperthyroidism.'},
+    {t:'Two Regulatory Mechanisms',
+     b:'Thyroid hormone production is regulated two ways: (1) {TSH-driven} biosynthesis and secretion of T4/T3 from the thyroid gland; (2) {Extrathyroidal conversion} of T4 → T3 in peripheral tissues, modulated by {nutritional}, {hormonal}, and {illness-related} factors.',
+     h:'Serious illness (e.g., sepsis, MI) can dramatically reduce T3 by impairing peripheral conversion — the "sick euthyroid" or "non-thyroidal illness" syndrome. TSH can be paradoxically normal or low.'},
+    {t:'Starvation & Adaptive Changes',
+     b:'Negative energy balance causes adaptive {↓ T3 and T4}. This lowers {BMR} to conserve calories. The most pronounced effect is {↓ T3} with a compensatory rise in {reverse T3 (rT3)} — metabolically {inactive}. Changes reverse promptly upon {refeeding}. Similar changes occur in {wasting diseases}.',
+     h:'This adaptive mechanism explains why survivors of extreme starvation could conserve enough energy to survive — the thyroid acts as a metabolic throttle in times of scarcity.'},
+    {t:'TSH as Therapeutic Target',
+     b:'When treating hypothyroidism with levothyroxine, the clinical goal is to normalize {TSH}, not T3/T4 directly. TSH reflects {integrated pituitary feedback} and is the most sensitive index of eu-thyroid status. Titrate dose until TSH enters the {normal physiologic range}. After radioiodine or thyroid surgery in Graves\', monitor {TSH} in the same way.',
+     h:'Dr. Johnson: "We don\'t look at the T4 level — we look at TSH. When it\'s in the normal range, that patient is eu-thyroid." This applies whether treating Hashimoto\'s, post-ablation Graves\', or iodine deficiency.'}
+  ]},
+  lo1:{label:'LO 1',sub:'Thyroid Hormones & BMR',type:'LO',cards:[
+    {t:'Mechanism of BMR Regulation',
+     b:'T3 increases gene expression of {Na⁺/K⁺ ATPase} in virtually all tissues, driving: ↑ {oxygen consumption}, ↑ {respiration rate}, ↑ {body temperature}, and ↑ {substrate turnover} (carbohydrates, fats, proteins). This is why thyroid hormone is described as {the fuel that runs the metabolic machine}.',
+     h:'Because Na+/K+ ATPase is the molecular mechanism, both the metabolic AND the neuromuscular effects of thyroid hormone share the same molecular root.'},
+    {t:'Hypo vs. Hyper — Metabolic Effects',
+     b:'Hypothyroidism: {↓ BMR} (−40–50%), {unexplained weight gain}, {cold intolerance}, fatigue, slow movement, bradycardia. Hyperthyroidism: {↑ BMR} (up to +30%), {unexplained weight loss}, {heat intolerance}, restlessness, tachycardia, anxiety. BMR change is {proportional to severity} of dysfunction.',
+     h:'Unexplained weight changes are often what brings the patient in — always screen thyroid in unexplained weight gain or loss, especially if accompanied by temperature intolerance.'},
+    {t:'BAT Thermogenesis',
+     b:'{Brown adipose tissue (BAT)} is the major site of {non-shivering, ATP-independent} thermogenesis. Thyroid hormone regulates: (1) BAT sensitivity to {norepinephrine} (sympathetic stimulation); (2) expression of mitochondrial {uncoupling protein (UCP)}, the key driver of BAT heat production. BAT is located in the {neck}, {supraclavicular}, and {paravertebral} regions.',
+     h:'BAT is packed with mitochondria — hence the brown color. Hypothyroid patients have underactive BAT → cold intolerance. Hyperthyroid → overactive BAT → heat intolerance and diaphoresis.'},
+    {t:'Starvation Effect on Thyroid Hormones',
+     b:'During starvation, T3 and T4 levels {decrease} adaptively. The most pronounced effect is {↓ T3} with a reciprocal {↑ rT3} (reverse T3, inactive). This reduces {metabolic rate} to conserve stored energy (fat, protein). Changes reverse with {refeeding}. Similar changes occur in {wasting diseases} and {serious illness}.',
+     h:'The body essentially downregulates its own metabolism to survive. The thyroid acts as a metabolic thermostat that can be turned down in emergencies.'}
+  ]},
+  lo2:{label:'LO 2',sub:'Na⁺/K⁺ ATPase & Neuromuscular Symptoms',type:'LO',cards:[
+    {t:'Na⁺/K⁺ ATPase — Core Mechanism',
+     b:'T3 stimulates transcription of {Na⁺/K⁺ ATPase} subunits in all excitable tissues. This pump maintains resting membrane potential: Na⁺ {high extracellularly}, K⁺ {high intracellularly}. In hypothyroidism: ↓ ATPase → {reduced concentration gradient} → {decreased electrical excitability} in skeletal muscle, smooth muscle, and neural tissue.',
+     h:'The Na+/K+ ATPase is why hypothyroidism affects so many organ systems simultaneously — every excitable cell depends on it for normal function.'},
+    {t:'Skeletal Muscle Effects',
+     b:'Hypothyroidism: ↓ Na⁺/K⁺ ATPase → {hyporeflexia} (classic: {delayed Achilles reflex relaxation}), muscle {weakness}, {cramps}, {stiffness}. Hyperthyroidism (severe): {thyrotoxic myopathy} — excess T3 increases protein {catabolism} in muscle → weakness. Both hypo and hyperthyroidism cause {muscle weakness} via opposite mechanisms.',
+     h:'The "hung-up" delayed Achilles tendon reflex is a classic board and clinical finding in hypothyroidism — the reflex fires normally but takes abnormally long to relax.'},
+    {t:'GI Smooth Muscle & Skin',
+     b:'GI: hypothyroidism → {↓ smooth muscle activity} → {constipation}; hyperthyroidism → ↑ motility → {diarrhea}. Skin: hypothyroidism → {↓ protein synthesis} in epithelial cells → slow cell renewal → {dry, coarse, scaly skin}, {loss of eyebrows}, {puffy facies}. Glycoprotein accumulation in ECF → {non-pitting myxedema}.',
+     h:'Non-pitting myxedema is distinct from the pitting edema of cardiac/hepatic disease. Push on hypothyroid edema and it bounces back immediately — no pit.'},
+    {t:'Sarcopenia Connection',
+     b:'Thyroid hormone levels {decline with age}. This contributes to {sarcopenia} (age-related muscle mass and strength loss) via: ↓ {myogenesis}, altered {fiber type distribution} (T3 promotes {fast-twitch} fibers; deficiency → slower fibers), and reduced {metabolic activity} of muscle. Sarcopenia is {multifactorial} (GH, sex hormones, TH).',
+     h:'Treating subclinical hypothyroidism in older adults may reduce the rate of sarcopenia — TH is one modifiable contributor to age-related muscle loss.'},
+    {t:'Myxedema Coma',
+     b:'Severe hypothyroidism → {↓ mental status}, {hypothermia}, {bradycardia}, multi-organ dysfunction = myxedema coma. Precipitated by stressors: {infection}, {MI}, {cold exposure}, {surgery}. Despite the name, patients typically present with {confusion/obtundation}, not true coma. Medical emergency requiring {IV levothyroxine (T4)}.',
+     h:'Myxedema = Greek for swollen mucus (non-pitting edema). Myxedema COMA is an extreme decompensation where compensatory responses are overwhelmed by a precipitating stressor.'}
+  ]},
+  lo3:{label:'LO 3',sub:'Graves\', Hashimoto\'s & Iodine Deficiency',type:'LO',cards:[
+    {t:'Hashimoto\'s — Pathophysiology',
+     b:'Chronic autoimmune thyroiditis: {autoimmune destruction} of follicular cells via lymphocytic infiltration ({T and B cells}). Causes {gradual thyroid failure} with progressive ↓ T3/T4. Prevalence: ~{10%} of the population; sex ratio {7:1 female predominance}. Histology: {lymphocytic infiltration}, {lymphoid germinal centers}, {follicular destruction}. Most common cause of hypothyroidism in {iodine-sufficient} regions.',
+     h:'The immune system loses self-tolerance to thyroid antigens — TPO and thyroglobulin are the primary targets. This can run in families and is associated with other autoimmune diseases.'},
+    {t:'Hashimoto\'s — Diagnostic Markers',
+     b:'Key antibodies: {anti-TPO Ab} (90–100% positive — most sensitive marker), {anti-thyroglobulin Ab} (80–90% positive). Lab pattern: {↑ TSH} + {↓ free T4}. Anti-TSHR antibodies: only {10–20%} (unlike Graves\'). Note: antibodies can be found at {lower concentrations} in other thyroid diseases and even {healthy individuals}.',
+     h:'High anti-TPO + ↑ TSH + ↓ free T4 = textbook Hashimoto\'s. But antibody titre matters — low levels are found even in healthy people. Treat based on clinical + TSH, not antibody titre alone.'},
+    {t:'Graves\' Disease — Pathophysiology',
+     b:'Most common cause of {hyperthyroidism}. Autoimmune production of {TRAb (TSH receptor antibodies)} that {bind and activate} the TSH receptor → mimics TSH → uncontrolled T3/T4 synthesis and thyroid growth. Three TRAb types: {Stimulating} (dominant, "best fit"), {Blocking} (good fit, weak agonism), {Neutral} (poor fit, weak agonism). Classic triad: {hyperthyroidism}, {diffuse goiter}, {Graves\' orbitopathy}.',
+     h:'Orbitopathy occurs because orbital fibroblasts also express TSH receptors — TRAb stimulates glycosaminoglycan accumulation behind the eyes → exophthalmos.'},
+    {t:'Graves\' Disease — Diagnostic Markers',
+     b:'Hallmark: {↑↑ TRAb (Anti-TSHR antibodies)} (80–95% positive). Lab pattern: {↓↓ TSH} (suppressed) + {↑↑ free T4/T3}. {Graves\' orbitopathy (exophthalmos)} on exam — distinguishes from other causes of hyperthyroidism. Anti-TPO and anti-Tg may also be elevated ({50–80%}) but at lower titres than Hashimoto\'s. Diffuse {goiter} from TRAb stimulation of thyroid growth.',
+     h:'↓ TSH + ↑ T4 + exophthalmos = Graves\' disease until proven otherwise. TRAb is the key differentiating antibody — not seen in other causes of hyperthyroidism.'},
+    {t:'Iodine Deficiency',
+     b:'Mechanism: ↓ dietary iodine → ↓ T3/T4 synthesis → ↓ negative feedback → {↑↑ TSH} → thyroid {hyperplasia} → {goiter}. In fetal development: ↓ T3/T4 → impaired {CNS development} → {cretinism} (irreversible). Diagnostic: {↑ TSH}, {↓ free T4}, prominent {goiter}, {no anti-TPO or anti-Tg antibodies} (not autoimmune), endemic {mountain/inland geography}.',
+     h:'The absence of antibodies distinguishes iodine deficiency from Hashimoto\'s — both cause hypothyroidism but only Hashimoto\'s is autoimmune. Goiter size in iodine deficiency can be massive — sometimes requiring surgery.'},
+    {t:'3-Way Disease Comparison',
+     b:`<div class='tblq-note'><div class='tblq-copy'>Table quiz: row headers stay visible — click each cell to reveal.</div><div class='tblq-actions'><span class='tblq-pill'>Quiz Mode</span></div></div><div class='tblq-wrap'><table class='tblq'><thead><tr><th>Feature</th><th>Hashimoto's</th><th>Graves'</th><th>Iodine Def.</th></tr></thead><tbody><tr><th scope='row'>Thyroid state</th><td>{Hypothyroid}</td><td>{Hyperthyroid}</td><td>{Hypothyroid}</td></tr><tr><th scope='row'>TSH</th><td>{↑↑ elevated}</td><td>{↓↓ suppressed}</td><td>{↑↑ elevated}</td></tr><tr><th scope='row'>Free T4</th><td>{↓ low}</td><td>{↑↑ high}</td><td>{↓ low}</td></tr><tr><th scope='row'>Anti-TPO Ab</th><td>{↑↑↑ 90–100%}</td><td>{↑ 50–80%}</td><td>{Absent}</td></tr><tr><th scope='row'>TRAb (TSHR)</th><td>{Rare 10–20%}</td><td>{↑↑↑ Hallmark 80–95%}</td><td>{Absent}</td></tr><tr><th scope='row'>Unique sign</th><td>{Lymphocytic infiltration}</td><td>{Exophthalmos}</td><td>{Endemic goiter}</td></tr></tbody></table></div>`,
+     h:'TRAb = Graves\' hallmark. Anti-TPO = Hashimoto\'s hallmark. No antibodies = iodine deficiency. This single table captures the key differentiators for all three diseases.'}
+  ]},
+  lo4:{label:'LO 4',sub:'Thyroid Hormone & Blood Pressure',type:'LO',cards:[
+    {t:'Hypothyroidism → Diastolic Hypertension',
+     b:'Despite {bradycardia} and {↓ cardiac output}, hypothyroid patients present with {diastolic hypertension}. Mechanism: ↓ T3 → {↓ NOS (nitric oxide synthase)} in arterial endothelial cells → {↓ nitric oxide} → ↑ vascular smooth muscle tone → {↑ SVR (systemic vascular resistance)}. The {↑ SVR dominates} over ↓ cardiac output → net hypertension.',
+     h:'Paradox: slow heart + low output BUT high BP. The key is that peripheral resistance (SVR) is the dominant determinant of diastolic BP, and it rises dramatically when NO is reduced.'},
+    {t:'Hypothyroidism — Cardiac Specifics',
+     b:'↓ T3 → {↓ β-adrenergic receptor synthesis} → {↓ contractility} + {↓ heart rate} → {bradycardia}. Also: {↓ Na⁺/K⁺ ATPase} in cardiomyocytes contributes to reduced contractility. Clinical signs: {weak apical impulse}, {bradycardia}, {pericardial effusion} (from glycoprotein accumulation). Combined with ↑ SVR → {diastolic hypertension}.',
+     h:'"Hypothyroid heart = tired and stiff" — slow, weak, and working against high resistance. Pericardial effusion can develop from the same ECF glycoprotein accumulation that causes myxedema.'},
+    {t:'Hyperthyroidism → Systolic Hypertension',
+     b:'Hyperthyroid patients present with hypertension driven by: {↑↑ cardiac output} (↑ heart rate + ↑ contractility via ↑ β-adrenergic receptor expression) and {↑ blood volume}. Risk of {atrial fibrillation} and {sinus tachycardia} → stroke risk. The {↑ cardiac output dominates} any peripheral vasodilation → net {systolic hypertension}.',
+     h:'Immediately start atenolol when Graves\' is diagnosed — to control tachycardia and AF before definitive treatment takes effect. AF in hyperthyroidism carries real stroke risk.'},
+    {t:'Bone Effects of Thyroid Hormone',
+     b:'T3 stimulates {bone resorption} via {TR-α receptors} on osteoclasts. In hyperthyroidism: {↑ bone turnover} → {hypercalciuria} → {↑ fracture risk}. Treatment with {antithyroid drugs} reduces fracture risk to near-normal. In hypothyroidism: {↓ bone turnover}. Rare: {Hoffman\'s syndrome} = skeletal muscle hypertrophy with weakness in hypothyroidism.',
+     h:'Hyperthyroid patients — especially post-menopausal women — should be evaluated for bone density. Untreated hyperthyroidism accelerates bone loss and increases fracture risk significantly.'}
+  ]},
+  lo5:{label:'LO 5',sub:'Treatment Strategies',type:'LO',cards:[
+    {t:'Hashimoto\'s — Levothyroxine',
+     b:'Treatment: {Levothyroxine (synthetic T4)} — oral, titrated to normalize {TSH}. T4 acts as a {prohormone} → peripheral deiodination → {T3} (active). ~{80%} of circulating T3 comes from this conversion. Therapy is {lifelong} in most cases. Goals: ameliorate symptoms, normalize {TSH} (eu-thyroid state), reduce goiter (if present), avoid {iatrogenic thyrotoxicosis}.',
+     h:'Monitor TSH, not free T4, when titrating levothyroxine. TSH normalizing = eu-thyroid state confirmed. If TSH remains high, increase dose; if TSH suppressed, decrease dose.'},
+    {t:'Graves\' — Step 1: Beta-Blocker',
+     b:'First-line immediate treatment: {beta-blocker} (preferred: {atenolol 25–50 mg/day}, once-daily dosing). Controls symptoms of {↑ beta-adrenergic tone}: {palpitations}, {tachycardia}, {tremulousness}, {anxiety}, {heat intolerance}. Reduces risk of {atrial fibrillation} and {stroke}. Beta-blocker is {symptom control only} — it does NOT reduce T3/T4 levels.',
+     h:'Think of the beta-blocker as buying time — it makes the patient safe and comfortable while definitive treatment (thionamide, radioiodine, or surgery) is planned and initiated.'},
+    {t:'Graves\' — Thionamides',
+     b:'{Methimazole} (preferred): inhibits {TPO} → blocks iodide incorporation → ↓ T3/T4 synthesis. Advantages: {once-daily dosing}, rapid efficacy, lower side effects. {PTU}: preferred in {first trimester of pregnancy} (lower teratogenicity). PTU also inhibits {5\'-deiodinase} → blocks peripheral {T4 → T3} conversion. Goal: {eu-thyroid state within 3–8 weeks}.',
+     h:'Methimazole is ~10× more potent mg-for-mg than PTU with simpler dosing. Switch from PTU to methimazole after the first trimester. Agranulocytosis is the most dangerous side effect of both — warn patients to report fever/sore throat.'},
+    {t:'Graves\' — Radioiodine & Surgery',
+     b:'{Radioiodine ablation (¹³¹I)}: destroys thyroid tissue → permanent resolution of hyperthyroidism. Disadvantages: {permanent hypothyroidism}, radiation precautions post-treatment, may worsen {orbitopathy}. {Surgery (thyroidectomy)}: rapid, permanent. Risks: {permanent hypothyroidism}, {iatrogenic hypoparathyroidism} (parathyroids in proximity), {recurrent laryngeal nerve damage}, anesthesia risks. Both require lifelong {levothyroxine}.',
+     h:'After either procedure, the patient is permanently hypothyroid and managed exactly like a Hashimoto\'s patient — levothyroxine titrated to normalize TSH. The hyperthyroidism is gone; the management challenge shifts to avoiding under- or over-replacement.'},
+    {t:'Iodine Deficiency — Treatment',
+     b:'Prevention: {universal salt iodization} (KI or CuI). Treatment: {iodine supplementation} ± {levothyroxine} if overt hypothyroidism present. Small goiters may resolve with iodine alone (by reducing {TSH stimulation}). Large goiters may need {surgery}. Cretinism {cannot be reversed} — {prenatal prevention is critical}. Pregnant women need {220 mcg/day} iodine.',
+     h:'Prevention hierarchy: salt iodization → supplement at-risk populations → treat hypothyroidism when it develops → surgery for large goiters. Cretinism is fully preventable but permanently irreversible.'},
+    {t:'Monitoring — Universal Principle',
+     b:'For all thyroid hormone replacement (Hashimoto\'s, post-ablation Graves\', iodine deficiency hypothyroidism): monitor {TSH} as the therapeutic target. {Normal TSH} = eu-thyroid. {↑ TSH} = underdosing. {↓ TSH} = overdosing (iatrogenic thyrotoxicosis). Beware OTC {thyroid supplement} products — may contain active T4 → risk of {iatrogenic hyperthyroidism} in treated patients.',
+     h:'Dr. Johnson: "Always ask your hypothyroid patients if they\'re taking thyroid supplements. They\'re everywhere online. If you don\'t ask, you may spend months chasing TSH levels that are being secretly manipulated by an OTC product."'}
+  ]}
+};
+
+// Cross-node jump links (case-sensitive)
+const LINKS = {
+  'TSH':['plo4','PLO 4','amber'],
+  'TRH':['plo4','PLO 4','amber'],
+  'thyroglobulin':['plo2','PLO 2','amber'],
+  'Thyroglobulin':['plo2','PLO 2','amber'],
+  'thyroglobulin (Tg)':['plo2','PLO 2','amber'],
+  'TPO':['plo2','PLO 2','amber'],
+  'TPO (thyroid peroxidase)':['plo2','PLO 2','amber'],
+  'T4 (thyroxine)':['plo3','PLO 3','amber'],
+  'T3 (triiodothyronine)':['plo3','PLO 3','amber'],
+  'T4 → T3':['plo3','PLO 3','amber'],
+  'T4 → T3 conversion':['plo3','PLO 3','amber'],
+  'levothyroxine':['lo5','LO 5','teal'],
+  'Levothyroxine':['lo5','LO 5','teal'],
+  'levothyroxine (T4)':['lo5','LO 5','teal'],
+  'Na⁺/K⁺ ATPase':['lo2','LO 2','teal'],
+  'anti-TPO Ab':['lo3','LO 3','teal'],
+  'TRAb':['lo3','LO 3','teal'],
+  'TRAb (Anti-TSHR antibodies)':['lo3','LO 3','teal'],
+  'atrial fibrillation':['lo4','LO 4','teal'],
+  'atenolol 25–50 mg/day':['lo5','LO 5','teal'],
+  'beta-blocker':['lo5','LO 5','teal'],
+  'radioiodine':['lo5','LO 5','teal'],
+  'Radioiodine ablation (¹³¹I)':['lo5','LO 5','teal'],
+  'Surgery (thyroidectomy)':['lo5','LO 5','teal'],
+  'Methimazole':['lo5','LO 5','teal'],
+  'PTU':['lo5','LO 5','teal'],
+  'BMR':['lo1','LO 1','teal'],
+  'Brown adipose tissue (BAT)':['lo1','LO 1','teal'],
+  'myxedema coma':['lo2','LO 2','teal'],
+  'IV levothyroxine (T4)':['lo5','LO 5','teal'],
+};
+
+// ── STATE ──
+let cur = null, ci = 0;
+let tr = {}, sc = {};
+let done = new Set();
+let totRev = 0, totKnew = 0, totNeed = 0;
+let revQueue = [], revIdx = 0, revTr = {};
+const PROGRESS_COOKIE = 'contextual_anki_thyroid_v1';
+
+// ── INIT ──
+function initNode(nid) {
+  if (!tr[nid]) {
+    tr[nid] = {};
+    sc[nid] = {};
+    D[nid].cards.forEach((c,ci2) => {
+      tr[nid][ci2] = new Set();
+      sc[nid][ci2] = {};
+    });
+  }
+}
+
+function countTerms(body) {
+  return (body.match(/\{[^}]+\}/g) || []).length;
+}
+
+// ── PARSE BODY ──
+function parseBody(body, nid, cidx, opts = {}) {
+  // If body looks like HTML (table quiz), process occluded terms within it
+  if (body.trim().startsWith('<')) {
+    return body.replace(/\{([^}]+)\}/g, (_, t) => {
+      return renderTerm(t, nid, cidx, opts);
+    });
+  }
+  let i = 0;
+  return body.replace(/\{([^}]+)\}/g, (_, t) => {
+    const idx = i++;
+    return renderTerm(t, nid, cidx, opts, idx);
+  });
+}
+
+let _termIdx = 0;
+function parseBodyWithCounter(body, nid, cidx, opts = {}) {
+  _termIdx = 0;
+  if (body.trim().startsWith('<')) {
+    return body.replace(/\{([^}]+)\}/g, (_, t) => renderTermAt(t, nid, cidx, opts, _termIdx++));
+  }
+  return body.replace(/\{([^}]+)\}/g, (_, t) => renderTermAt(t, nid, cidx, opts, _termIdx++));
+}
+
+function renderTermAt(t, nid, cidx, opts, idx) {
+  const isForReview = opts.forReview;
+  const isTarget = isForReview && opts.targetTermIdx === idx;
+  const revSet = opts.revealedSet || null;
+
+  let revealed, scored;
+  if (isForReview) {
+    revealed = isTarget ? (revTr[nid] && revTr[nid][cidx] && revTr[nid][cidx].has(idx)) : true;
+    scored = null;
+  } else {
+    initNode(nid);
+    revealed = tr[nid][cidx] && tr[nid][cidx].has(idx);
+    scored = sc[nid][cidx] && sc[nid][cidx][idx];
+  }
+
+  if (isForReview && !isTarget) {
+    return `<span style="color:var(--text-2)">${t}</span>`;
+  }
+
+  if (!revealed) {
+    return `<span class="occ" onclick="revealTerm(event,'${nid}',${cidx},${idx})">${t}</span>`;
+  }
+
+  let cls = 'occ ';
+  if (scored === 'knew') cls += 'rev';
+  else if (scored === 'needed') cls += 'needed-t';
+  else cls += 'unscored';
+
+  let extra = '';
+  if (revealed && !scored && !isForReview) {
+    extra += `<span class="score-row">
+      <button class="sbtn sbtn-k" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button>
+      <button class="sbtn sbtn-n" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button>
+    </span>`;
+  }
+  const link = LINKS[t];
+  if (revealed && link && link[0] !== nid && !isForReview) {
+    const [tid, tlbl, tcls] = link;
+    extra += `<button class="jump-link" onclick="event.stopPropagation();selNode('${tid}')" title="Jump to ${tlbl}">→ ${tlbl}</button>`;
+  }
+
+  return `<span class="occ ${cls}">${t}</span>${extra}`;
+}
+
+function renderTerm(t, nid, cidx, opts, idx) {
+  return renderTermAt(t, nid, cidx, opts, idx !== undefined ? idx : _termIdx++);
+}
+
+// ── REVEAL TERM ──
+function revealTerm(e, nid, cidx, tidx) {
+  e.stopPropagation();
+  initNode(nid);
+  if (tr[nid][cidx].has(tidx)) return;
+  tr[nid][cidx].add(tidx);
+  totRev++;
+  updateDots(nid);
+  checkDone(nid);
+  render();
+  updateStats();
+  saveProgress();
+}
+
+// ── SCORE ──
+function scoreIt(e, nid, cidx, tidx, score) {
+  e.stopPropagation();
+  initNode(nid);
+  const prev = sc[nid][cidx][tidx];
+  if (prev) return;
+  sc[nid][cidx][tidx] = score;
+  if (score === 'knew') totKnew++;
+  else totNeed++;
+  render();
+  updateStats();
+  saveProgress();
+}
+
+// ── KNEW ALL ──
+function knewAllCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const card = D[cur].cards[ci];
+  const total = countTerms(card.b);
+  for (let i = 0; i < total; i++) {
+    if (!tr[cur][ci].has(i)) { tr[cur][ci].add(i); totRev++; }
+    const prev = sc[cur][ci][i];
+    if (prev === 'needed') { totNeed--; totKnew++; }
+    else if (!prev) totKnew++;
+    sc[cur][ci][i] = 'knew';
+  }
+  updateDots(cur);
+  checkDone(cur);
+  render();
+  updateStats();
+  saveProgress();
+}
+
+// ── REVEAL CARD ──
+function revealCard() {
+  if (!cur) return;
+  initNode(cur);
+  const card = D[cur].cards[ci];
+  const total = countTerms(card.b);
+  for (let i = 0; i < total; i++) {
+    if (!tr[cur][ci].has(i)) { tr[cur][ci].add(i); totRev++; }
+  }
+  updateDots(cur);
+  checkDone(cur);
+  render();
+  updateStats();
+  saveProgress();
+}
+
+// ── RESET CARD ──
+function resetCard() {
+  if (!cur) return;
+  initNode(cur);
+  const card = D[cur].cards[ci];
+  const total = countTerms(card.b);
+  for (let i = 0; i < total; i++) {
+    if (tr[cur][ci].has(i)) totRev--;
+    const s = sc[cur][ci][i];
+    if (s === 'knew') totKnew--;
+    else if (s === 'needed') totNeed--;
+  }
+  tr[cur][ci] = new Set();
+  sc[cur][ci] = {};
+  done.delete(cur);
+  document.getElementById('n-'+cur).classList.remove('done-node');
+  updateDots(cur);
+  render();
+  updateStats();
+  saveProgress();
+}
+
+// ── REVEAL TOPIC ──
+function revealTopic() {
+  if (!cur) return;
+  initNode(cur);
+  D[cur].cards.forEach((card, cidx2) => {
+    const total = countTerms(card.b);
+    for (let i = 0; i < total; i++) {
+      if (!tr[cur][cidx2].has(i)) { tr[cur][cidx2].add(i); totRev++; }
+    }
+  });
+  updateDots(cur);
+  checkDone(cur);
+  render();
+  updateStats();
+  saveProgress();
+}
+
+// ── REVEAL DECK ──
+function revealDeck() {
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((card, cidx2) => {
+      const total = countTerms(card.b);
+      for (let i = 0; i < total; i++) {
+        if (!tr[nid][cidx2].has(i)) { tr[nid][cidx2].add(i); totRev++; }
+      }
+    });
+    updateDots(nid);
+    checkDone(nid);
+  });
+  render();
+  updateStats();
+  saveProgress();
+}
+
+// ── RESET ALL ──
+function resetAll() {
+  if (!confirm('Reset all progress?')) return;
+  tr = {}; sc = {}; done = new Set();
+  totRev = 0; totKnew = 0; totNeed = 0;
+  Object.keys(D).forEach(nid => {
+    document.getElementById('n-'+nid).classList.remove('done-node');
+    updateDots(nid);
+  });
+  closePanel();
+  closeReview();
+  updateStats();
+  deleteCookie();
+}
+
+// ── NAVIGATION ──
+function navigate(dir) {
+  if (!cur) return;
+  const n = D[cur].cards.length;
+  ci = (ci + dir + n) % n;
+  render();
+}
+
+function selNode(nid) {
+  cur = nid;
+  ci = 0;
+  initNode(nid);
+  const panel = document.getElementById('mainPanel');
+  panel.classList.add('open');
+  const badge = document.getElementById('phBadge');
+  const node = D[nid];
+  badge.textContent = node.label;
+  badge.className = 'ph-badge ' + (node.type === 'PLO' ? 'amber' : 'teal');
+  document.getElementById('phTitle').textContent = node.sub;
+  document.getElementById('btnRevealTopic').disabled = false;
+  render();
+}
+
+function closePanel() {
+  document.getElementById('mainPanel').classList.remove('open');
+  cur = null;
+  document.getElementById('btnRevealTopic').disabled = true;
+}
+
+// ── RENDER ──
+function render() {
+  if (!cur) return;
+  initNode(cur);
+  const node = D[cur];
+  const card = node.cards[ci];
+  const n = node.cards.length;
+  document.getElementById('cardCounter').textContent = `${ci+1} / ${n}`;
+  document.getElementById('btnPrev').disabled = (ci === 0);
+  document.getElementById('btnNext').disabled = (ci === n-1);
+  document.getElementById('cardTitle').textContent = card.t;
+
+  _termIdx = 0;
+  document.getElementById('cardBody').innerHTML = parseBodyWithCounter(card.b, cur, ci);
+
+  const hb = document.getElementById('hintBox');
+  if (card.h) { hb.textContent = card.h; hb.style.display = 'block'; }
+  else hb.style.display = 'none';
+
+  // Card metrics
+  const m = cardMetrics(cur, ci);
+  const pills = document.getElementById('metaPills');
+  let ph = `<span class="meta-pill">${m.revealed}/${m.total} revealed</span>`;
+  if (m.knew > 0) ph += `<span class="meta-pill knew">${m.knew} knew</span>`;
+  if (m.needed > 0) ph += `<span class="meta-pill needed">${m.needed} needed</span>`;
+  if (m.unscored > 0) ph += `<span class="meta-pill waiting">${m.unscored} to score</span>`;
+  pills.innerHTML = ph;
+
+  document.getElementById('btnRevealCard').disabled = (m.total === 0 || m.allRevealed);
+  document.getElementById('btnKnewAll').disabled = !m.allRevealed;
+  document.getElementById('btnResetCard').disabled = (m.revealed === 0 && m.knew === 0 && m.needed === 0);
+}
+
+function cardMetrics(nid, cidx) {
+  initNode(nid);
+  const card = D[nid].cards[cidx];
+  const total = countTerms(card.b);
+  let revealed = 0, knew = 0, needed = 0;
+  for (let i = 0; i < total; i++) {
+    if (tr[nid][cidx].has(i)) {
+      revealed++;
+      const s = sc[nid][cidx][i];
+      if (s === 'knew') knew++;
+      else if (s === 'needed') needed++;
+    }
+  }
+  const unscored = revealed - knew - needed;
+  return {total, revealed, knew, needed, unscored, allRevealed: total > 0 && revealed >= total};
+}
+
+// ── DOTS ──
+function updateDots(nid) {
+  initNode(nid);
+  D[nid].cards.forEach((card, cidx2) => {
+    const total = countTerms(card.b);
+    const rev = tr[nid][cidx2] ? tr[nid][cidx2].size : 0;
+    const dot = document.getElementById('d-'+nid+'-'+cidx2);
+    if (!dot) return;
+    dot.classList.remove('partial','done-dot');
+    if (rev >= total && total > 0) dot.classList.add('done-dot');
+    else if (rev > 0) dot.classList.add('partial');
+  });
+}
+
+function checkDone(nid) {
+  initNode(nid);
+  const allDone = D[nid].cards.every((card, cidx2) => {
+    const total = countTerms(card.b);
+    return total === 0 || (tr[nid][cidx2] && tr[nid][cidx2].size >= total);
+  });
+  if (allDone && !done.has(nid)) {
+    done.add(nid);
+    document.getElementById('n-'+nid).classList.add('done-node');
+  }
+}
+
+// ── STATS ──
+function updateStats() {
+  document.getElementById('sp-rev').textContent = totRev + ' revealed';
+  document.getElementById('sp-knew').textContent = totKnew + ' knew';
+  document.getElementById('sp-need').textContent = totNeed + ' needed';
+  document.getElementById('sp-done').textContent = done.size + ' / ' + Object.keys(D).length + ' topics done';
+  const revBtn = document.getElementById('btnReview');
+  if (totNeed > 0) {
+    revBtn.style.display = 'inline-block';
+    revBtn.textContent = 'Review weak spots (' + totNeed + ')';
+  } else {
+    revBtn.style.display = 'none';
+  }
+}
+
+// ── REVIEW MODE ──
+function buildRevQueue() {
+  revQueue = [];
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((card, cidx2) => {
+      const total = countTerms(card.b);
+      for (let i = 0; i < total; i++) {
+        if (sc[nid] && sc[nid][cidx2] && sc[nid][cidx2][i] === 'needed') {
+          revQueue.push({nid, cidx: cidx2, tidx: i});
+        }
+      }
+    });
+  });
+  // Fisher-Yates shuffle
+  for (let i = revQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [revQueue[i], revQueue[j]] = [revQueue[j], revQueue[i]];
+  }
+  revTr = {};
+}
+
+function startReview() {
+  buildRevQueue();
+  if (!revQueue.length) return;
+  revIdx = 0;
+  closePanel();
+  document.getElementById('reviewPanel').classList.add('open');
+  renderReview();
+}
+
+function renderReview() {
+  if (!revQueue.length) return;
+  const {nid, cidx, tidx} = revQueue[revIdx];
+  const node = D[nid];
+  const card = node.cards[cidx];
+  document.getElementById('revCounter').textContent = `${revIdx+1} / ${revQueue.length}`;
+
+  // Get term text
+  let termText = '';
+  let i = 0;
+  card.b.replace(/\{([^}]+)\}/g, (_, t) => { if (i++ === tidx) termText = t; });
+
+  document.getElementById('rsub').textContent =
+    `${node.label} — ${card.t}  ·  Term to recall: ${termText}`;
+  document.getElementById('revCardTitle').textContent = card.t;
+
+  // init revTr for this nid/cidx
+  if (!revTr[nid]) revTr[nid] = {};
+  if (!revTr[nid][cidx]) revTr[nid][cidx] = new Set();
+
+  _termIdx = 0;
+  document.getElementById('revCardBody').innerHTML =
+    parseBodyWithCounter(card.b, nid, cidx, {
+      forReview: true,
+      targetTermIdx: tidx,
+      revealedSet: revTr[nid][cidx]
+    });
+
+  // Attach click to reveal target term
+  document.querySelectorAll('#revCardBody .occ').forEach(el => {
+    el.onclick = (e) => {
+      e.stopPropagation();
+      if (!revTr[nid][cidx]) revTr[nid][cidx] = new Set();
+      revTr[nid][cidx].add(tidx);
+      renderReview();
+    };
+  });
+}
+
+function navReview(dir) {
+  revIdx = (revIdx + dir + revQueue.length) % revQueue.length;
+  renderReview();
+}
+
+function closeReview() {
+  document.getElementById('reviewPanel').classList.remove('open');
+  revQueue = [];
+}
+
+// ── THEME ──
+function setTheme(theme) {
+  if (theme === 'slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('contextual-anki-theme', theme);
+  document.querySelectorAll('.theme-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.theme === theme);
+  });
+}
+
+// ── KEYBOARD ──
+document.addEventListener('keydown', e => {
+  const revOpen = document.getElementById('reviewPanel').classList.contains('open');
+  const mainOpen = document.getElementById('mainPanel').classList.contains('open');
+  if (e.key === 'Escape') {
+    if (revOpen) closeReview();
+    else if (mainOpen) closePanel();
+  } else if (e.key === 'ArrowRight') {
+    if (revOpen) navReview(1);
+    else if (mainOpen) navigate(1);
+  } else if (e.key === 'ArrowLeft') {
+    if (revOpen) navReview(-1);
+    else if (mainOpen) navigate(-1);
+  }
+});
+
+// ── PROGRESS PERSISTENCE ──
+function saveCookie(val) {
+  const d = new Date();
+  d.setTime(d.getTime() + 180*24*60*60*1000);
+  document.cookie = `${PROGRESS_COOKIE}=${encodeURIComponent(val)};expires=${d.toUTCString()};SameSite=Lax;path=/`;
+}
+function loadCookie() {
+  const m = document.cookie.match(new RegExp('(?:^|; )'+PROGRESS_COOKIE+'=([^;]*)'));
+  return m ? decodeURIComponent(m[1]) : null;
+}
+function deleteCookie() {
+  document.cookie = `${PROGRESS_COOKIE}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;SameSite=Lax;path=/`;
+}
+
+function saveProgress() {
+  const r = {}, s = {};
+  Object.keys(tr).forEach(nid => {
+    r[nid] = Object.values(tr[nid]).map(set => [...set].join('.'));
+    s[nid] = D[nid].cards.map((_, cidx2) => {
+      return Object.entries(sc[nid][cidx2] || {}).map(([k,v]) => k+(v==='knew'?'k':'n')).join('.');
+    });
+  });
+  saveCookie(JSON.stringify({c:cur, i:ci, r, s}));
+}
+
+function loadProgress() {
+  const raw = loadCookie();
+  if (!raw) return;
+  try {
+    const p = JSON.parse(raw);
+    if (p.r) Object.entries(p.r).forEach(([nid, cardArr]) => {
+      initNode(nid);
+      cardArr.forEach((str, cidx2) => {
+        if (str) str.split('.').forEach(idx => { if (idx !== '') tr[nid][cidx2].add(+idx); });
+      });
+    });
+    if (p.s) Object.entries(p.s).forEach(([nid, cardArr]) => {
+      initNode(nid);
+      cardArr.forEach((str, cidx2) => {
+        if (str) str.split('.').forEach(tok => {
+          const m = tok.match(/^(\d+)([kn])$/);
+          if (m) sc[nid][cidx2][+m[1]] = m[2] === 'k' ? 'knew' : 'needed';
+        });
+      });
+    });
+    if (p.c && D[p.c]) { cur = p.c; ci = p.i || 0; }
+  } catch(e) {}
+}
+
+function recalcState() {
+  totRev = 0; totKnew = 0; totNeed = 0;
+  done = new Set();
+  Object.keys(tr).forEach(nid => {
+    D[nid].cards.forEach((card, cidx2) => {
+      const total = countTerms(card.b);
+      if (!tr[nid][cidx2]) return;
+      tr[nid][cidx2].forEach(i => {
+        totRev++;
+        const s = sc[nid] && sc[nid][cidx2] && sc[nid][cidx2][i];
+        if (s === 'knew') totKnew++;
+        else if (s === 'needed') totNeed++;
+      });
+    });
+    checkDone(nid);
+    updateDots(nid);
+  });
+}
+
+function restoreSession() {
+  loadProgress();
+  recalcState();
+  if (cur && D[cur]) selNode(cur);
+  updateStats();
+}
+
+// ── INIT ──
+(function init() {
+  // Deck meta
+  const totalCards = Object.values(D).reduce((n,node) => n + node.cards.length, 0);
+  document.getElementById('deckMeta').textContent =
+    `Active recall map · ${Object.keys(D).length} topics · ${totalCards} cards`;
+
+  // Theme
+  const savedTheme = localStorage.getItem('contextual-anki-theme') || 'slate';
+  setTheme(savedTheme);
+
+  // Restore session
+  restoreSession();
+})();
+</script>
+</body>
+</html>

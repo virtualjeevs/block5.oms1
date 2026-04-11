@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physiology of the Senses – The Eye</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-card: #161b22;
+    --bg-card2: #1a2130;
+    --accent: #c9a84c;
+    --accent-dim: rgba(201,168,76,0.15);
+    --accent2: #5ba4cf;
+    --accent2-dim: rgba(91,164,207,0.12);
+    --green: #56d364;
+    --green-dim: rgba(86,211,100,0.1);
+    --red: #f85149;
+    --red-dim: rgba(248,81,73,0.1);
+    --purple: #bc8cff;
+    --purple-dim: rgba(188,140,255,0.1);
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --border: rgba(201,168,76,0.2);
+    --border-subtle: rgba(255,255,255,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(91,164,207,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 64px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .course-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    opacity: 0.9;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .header h1 span {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .header-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 28px 32px;
+    margin-bottom: 56px;
+  }
+
+  .toc-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 24px;
+  }
+
+  @media (max-width: 600px) { .toc ol { grid-template-columns: 1fr; } }
+
+  .toc ol li {
+    font-size: 14px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .toc ol li a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-family: 'Source Serif 4', serif;
+    font-size: 13.5px;
+  }
+
+  .toc ol li a:hover { color: var(--accent); }
+
+  .toc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 64px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .lo-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 4px 10px;
+    flex-shrink: 0;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.25;
+  }
+
+  .section h2 em { color: var(--accent); font-style: italic; }
+
+  /* Cards and boxes */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: var(--accent2);
+  }
+
+  .card h4 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 16px 0 8px;
+    color: var(--text);
+    letter-spacing: 0.01em;
+  }
+
+  .card p { font-size: 15px; color: var(--text); margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* Key concept highlight */
+  .key-concept {
+    background: var(--accent-dim);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+
+  .key-concept strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Callout boxes */
+  .callout {
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 16px 0;
+    font-size: 14.5px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  .callout.clinical {
+    background: var(--red-dim);
+    border: 1px solid rgba(248,81,73,0.2);
+  }
+
+  .callout.clinical .callout-label { color: var(--red); }
+
+  .callout.note {
+    background: var(--accent2-dim);
+    border: 1px solid rgba(91,164,207,0.2);
+  }
+
+  .callout.note .callout-label { color: var(--accent2); }
+
+  .callout.important {
+    background: var(--purple-dim);
+    border: 1px solid rgba(188,140,255,0.2);
+  }
+
+  .callout.important .callout-label { color: var(--purple); }
+
+  .callout-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .callout-content p { margin-bottom: 6px; }
+  .callout-content p:last-child { margin-bottom: 0; }
+
+  /* Lists */
+  ul.styled, ol.styled {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  ul.styled li {
+    padding: 5px 0 5px 22px;
+    position: relative;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  ul.styled li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  ul.styled li strong { color: var(--accent2); }
+
+  ol.styled { counter-reset: item; }
+  ol.styled li {
+    padding: 5px 0 5px 28px;
+    position: relative;
+    font-size: 15px;
+    color: var(--text);
+    counter-increment: item;
+  }
+  ol.styled li::before {
+    content: counter(item) '.';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    top: 8px;
+  }
+
+  /* Two-column grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* Comparison table */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+    margin: 16px 0;
+  }
+
+  .compare-table th {
+    background: rgba(201,168,76,0.1);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    text-align: left;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .compare-table td {
+    padding: 10px 16px;
+    border: 1px solid var(--border-subtle);
+    color: var(--text);
+    vertical-align: top;
+  }
+
+  .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .compare-table td strong { color: var(--accent2); }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  .flow-step {
+    background: var(--bg-card2);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    padding: 10px 14px;
+    text-align: center;
+    min-width: 120px;
+    flex: 1;
+  }
+
+  .flow-step .step-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .flow-step .step-body {
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .flow-arrow {
+    color: var(--accent);
+    font-size: 20px;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+
+  /* Tag pills */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 100px;
+    margin: 2px;
+    font-weight: 500;
+  }
+
+  .tag-gold { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(201,168,76,0.25); }
+  .tag-blue { background: var(--accent2-dim); color: var(--accent2); border: 1px solid rgba(91,164,207,0.25); }
+  .tag-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(86,211,100,0.25); }
+  .tag-red { background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,81,73,0.25); }
+  .tag-purple { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(188,140,255,0.25); }
+
+  /* Inline highlight */
+  mark {
+    background: rgba(201,168,76,0.2);
+    color: var(--accent);
+    border-radius: 3px;
+    padding: 1px 4px;
+    font-style: normal;
+  }
+
+  /* Section divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 48px 0;
+  }
+
+  /* Phototransduction cascade box */
+  .cascade {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+
+  .cascade-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 14.5px;
+  }
+
+  .cascade-step:last-child { border-bottom: none; }
+
+  .cascade-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    background: rgba(201,168,76,0.15);
+    color: var(--accent);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .cascade-text strong { color: var(--accent2); }
+
+  /* Eye diagram SVG inline */
+  .diagram-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .diagram-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    letter-spacing: 0.08em;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-subtle);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* Scroll animation */
+  .section { animation-delay: calc(var(--i, 0) * 0.05s); }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .container { padding: 32px 20px; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="course-label">Physiology of the Senses · Dr. Ferland</div>
+    <h1>The <span>Eye</span> & Visual System</h1>
+    <div class="header-meta">Learning Objectives Study Notes · Vision Physiology</div>
+  </header>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><span class="toc-num">LO1</span><a href="#lo1">Properties of Light</a></li>
+      <li><span class="toc-num">LO2</span><a href="#lo2">Optical Features of the Eye</a></li>
+      <li><span class="toc-num">LO3</span><a href="#lo3">Image Formation on the Retina</a></li>
+      <li><span class="toc-num">LO4</span><a href="#lo4">Refractive Errors & Corrections</a></li>
+      <li><span class="toc-num">LO5</span><a href="#lo5">Structure of Photoreceptors</a></li>
+      <li><span class="toc-num">LO6</span><a href="#lo6">Retinal Anatomy & Organization</a></li>
+      <li><span class="toc-num">LO7</span><a href="#lo7">Phototransduction Cascade</a></li>
+      <li><span class="toc-num">LO8</span><a href="#lo8">Ganglion Cells & Center/Surround</a></li>
+      <li><span class="toc-num">LO9</span><a href="#lo9">Center/Surround Physiology</a></li>
+    </ol>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LO 1 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="lo1" style="--i:1">
+    <div class="section-header">
+      <div class="lo-badge">LO 1</div>
+      <h2>Properties of <em>Light</em> & Its Interactions</h2>
+    </div>
+
+    <div class="card">
+      <h3>What is Light?</h3>
+      <p>Light is electromagnetic radiation in the <strong>visible spectrum (~380–700 nm)</strong>. It behaves as both a wave and a particle (photon). The eye is sensitive only to this narrow band of the electromagnetic spectrum.</p>
+      <ul class="styled">
+        <li><strong>Wavelength</strong> determines color — short (~420 nm) = violet; long (~700 nm) = red</li>
+        <li><strong>Intensity</strong> (amplitude) determines brightness</li>
+        <li><strong>Photons</strong> are discrete quanta of light energy — a single photon can activate a rod photoreceptor</li>
+      </ul>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Refraction</h3>
+        <p>Light bends when it passes from one medium to another (change in density). The <strong>degree of bending depends on the refractive index</strong> of each medium.</p>
+        <ul class="styled">
+          <li>Most bending: air → cornea interface</li>
+          <li>Additional fine-tuning: lens (adjustable)</li>
+          <li>Measured in <strong>diopters (D)</strong> — reciprocal of focal length in meters</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Reflection & Absorption</h3>
+        <p>Objects reflect certain wavelengths of light to our eyes — this is how we perceive color. The <strong>choroid and RPE absorb stray light</strong> to reduce scatter and improve visual acuity.</p>
+        <ul class="styled">
+          <li><strong>Melanin</strong> in RPE absorbs extraneous photons</li>
+          <li>Reduces internal reflections that would blur the image</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="key-concept">
+      <strong>Key Principle:</strong> The goal of the optical system is to precisely focus a sharp image onto the photoreceptors of the fovea. Any imprecision in refraction results in a refractive error (myopia, hyperopia, etc.).
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LO 2 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="lo2" style="--i:2">
+    <div class="section-header">
+      <div class="lo-badge">LO 2</div>
+      <h2><em>Optical Features</em> of the Eye</h2>
+    </div>
+
+    <div class="card">
+      <h3>Three Tunics (Layers)</h3>
+      <div class="grid-2">
+        <div>
+          <h4>External — Fibrous</h4>
+          <ul class="styled">
+            <li><strong>Sclera</strong> — protective structural shell; maintains eyeball shape</li>
+            <li><strong>Cornea</strong> — transparent, provides ~70% of total refractive power (~43D); fixed curvature; most refraction occurs at the air-corneal interface</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Middle — Uvea (Vascular)</h4>
+          <ul class="styled">
+            <li><strong>Choroid</strong> — vascular; nourishes outer retina via diffusion; melanin reduces scatter</li>
+            <li><strong>Ciliary body</strong> — ciliary processes secrete aqueous humor; ciliary muscles change lens shape</li>
+            <li><strong>Iris</strong> — controls pupil diameter (dilator & constrictor muscles)</li>
+          </ul>
+        </div>
+      </div>
+      <h4>Internal — Retinal</h4>
+      <ul class="styled">
+        <li><strong>Neural retina</strong> — photoreceptors + processing neurons + glia</li>
+        <li><strong>RPE (Retinal Pigment Epithelium)</strong> — single pigmented cell layer; critical support for photoreceptors</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Three Chambers</h3>
+      <table class="compare-table">
+        <thead><tr><th>Chamber</th><th>Location</th><th>Contents</th><th>Clinical Relevance</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Anterior</strong></td><td>Behind cornea, in front of lens</td><td>Aqueous humor</td><td>Site of IOP measurement; glaucoma</td></tr>
+          <tr><td><strong>Posterior</strong></td><td>Between iris and lens</td><td>Aqueous humor (produced here)</td><td>Drainage via Canal of Schlemm</td></tr>
+          <tr><td><strong>Vitreous</strong></td><td>Behind lens, in front of retina</td><td>Gelatinous vitreous humor</td><td>Floaters; shape maintenance</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>The Lens</h3>
+      <p>Transparent, biconvex, elastic — composed mainly of water and soluble proteins (<strong>crystallins α, β, γ</strong> and filensin). Has <mark>no blood supply</mark>; nutrients come from aqueous humor.</p>
+      <ul class="styled">
+        <li>Provides ~30% of refractive power (~20D), but crucially is <strong>adjustable</strong></li>
+        <li><strong>Ciliary muscles contract → zonule fibers relax → lens rounds up → more refractive power</strong> (for near vision)</li>
+        <li>Ciliary muscles controlled by <strong>parasympathetic CN III (Edinger-Westphal nucleus)</strong></li>
+        <li>Glucose is the primary energy source for the lens</li>
+      </ul>
+    </div>
+
+    <div class="callout clinical">
+      <div class="callout-icon">⚕</div>
+      <div class="callout-content">
+        <div class="callout-label">Clinical — Cataracts</div>
+        <p>High blood glucose (diabetes) → sorbitol accumulates in lens → reduces crystallin solubility → lens opacity. Treated by surgical removal and replacement with intraocular prosthetic lens.</p>
+      </div>
+    </div>
+
+    <div class="callout clinical">
+      <div class="callout-icon">⚕</div>
+      <div class="callout-content">
+        <div class="callout-label">Clinical — Glaucoma</div>
+        <p>Impaired drainage of aqueous humor at the Canal of Schlemm → elevated intraocular pressure → compresses retinal blood vessels → retinal neuron damage. <strong>Open-angle (90%)</strong>: painless, gradual peripheral vision loss. <strong>Acute angle-closure</strong>: emergency — blurry vision, eye pain, halos, nausea, rapid vision loss.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LO 3 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="lo3" style="--i:3">
+    <div class="section-header">
+      <div class="lo-badge">LO 3</div>
+      <h2>How an <em>Image is Formed</em> on the Retina</h2>
+    </div>
+
+    <div class="card">
+      <h3>The Optical Path</h3>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="step-title">Step 1</div>
+          <div class="step-body">Light enters through <strong>cornea</strong><br>~70% of refraction here</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-title">Step 2</div>
+          <div class="step-body">Passes through <strong>pupil</strong><br>(iris regulates aperture)</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-title">Step 3</div>
+          <div class="step-body"><strong>Lens</strong> fine-tunes focus via accommodation</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-title">Step 4</div>
+          <div class="step-body">Passes through <strong>vitreous humor</strong></div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-title">Step 5</div>
+          <div class="step-body">Focused on <strong>fovea</strong> (retina)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Image Inversion — Camera Obscura Effect</h3>
+      <p>Because light rays cross at the nodal point of the lens, the image projected onto the retina is <mark>inverted (upside-down) and mirror-reversed</mark> relative to the external world.</p>
+      <ul class="styled">
+        <li>Superior visual field → inferior retina</li>
+        <li>Temporal/nasal fields split at the optic chiasm</li>
+        <li><strong>The brain "corrects" this inversion</strong> during cortical processing</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Accommodation</h3>
+      <p>The process by which the eye adjusts focus for objects at different distances:</p>
+      <ul class="styled">
+        <li><strong>Near vision:</strong> Ciliary muscles CONTRACT → zonule fibers relax → lens becomes more rounded (greater curvature) → increased refractive power</li>
+        <li><strong>Far vision (unaccommodated):</strong> Ciliary muscles relax → zonule fibers taut → lens flattened → less refractive power</li>
+      </ul>
+      <div class="callout note" style="margin-top:14px">
+        <div class="callout-icon">📌</div>
+        <div class="callout-content">
+          <div class="callout-label">Remember</div>
+          <p>The pupil also constricts during near vision (part of the accommodation reflex), which increases depth of field and reduces aberrations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LO 4 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="lo4" style="--i:4">
+    <div class="section-header">
+      <div class="lo-badge">LO 4</div>
+      <h2>Refractive Errors & <em>Corrections</em></h2>
+    </div>
+
+    <div class="card">
+      <h3>Normal Vision — Emmetropia</h3>
+      <p>Parallel rays from a distant object (≥6m) are focused precisely on the retina without any accommodation. The eye's axial length matches its total refractive power.</p>
+    </div>
+
+    <table class="compare-table" style="margin-bottom:20px">
+      <thead>
+        <tr>
+          <th>Condition</th>
+          <th>Defect</th>
+          <th>Problem</th>
+          <th>Correction</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Myopia</strong><br><span class="tag tag-blue">Nearsighted</span></td>
+          <td>Eye too long OR cornea too curved</td>
+          <td>Image focused in front of retina; distant objects blurry</td>
+          <td>Concave (diverging) lens to move focal point back</td>
+        </tr>
+        <tr>
+          <td><strong>Hyperopia</strong><br><span class="tag tag-gold">Farsighted</span></td>
+          <td>Eye too short OR cornea too flat</td>
+          <td>Image focused behind retina; near objects blurry</td>
+          <td>Convex (converging) lens to move focal point forward</td>
+        </tr>
+        <tr>
+          <td><strong>Astigmatism</strong></td>
+          <td>Irregular corneal or lens curvature</td>
+          <td>Different meridians have different focal lengths; blurry at all distances</td>
+          <td>Cylindrical lens to equalize refractive power across meridians</td>
+        </tr>
+        <tr>
+          <td><strong>Presbyopia</strong><br><span class="tag tag-purple">Age-related</span></td>
+          <td>Lens loses elasticity with age</td>
+          <td>Reduced accommodation; difficulty with near vision</td>
+          <td>Reading glasses (convex lens); bifocals; accommodative lens implants</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout note">
+      <div class="callout-icon">💡</div>
+      <div class="callout-content">
+        <div class="callout-label">Clinical Tip</div>
+        <p><strong>LASIK</strong> reshapes the cornea (the primary refractive surface) to permanently correct myopia, hyperopia, and astigmatism. Presbyopia correction requires different approaches since the lens, not the cornea, has lost elasticity.</p>
+      </div>
+    </div>
+
+    <div class="callout clinical">
+      <div class="callout-icon">⚕</div>
+      <div class="callout-content">
+        <div class="callout-label">Clinical — Dry Eye Disease</div>
+        <p>Affects ≥5% of US adults; more common in women and those over 50. Caused by decreased tear production from the lacrimal gland (CN V1) and/or decreased oil secretion from meibomian glands → excess evaporation. Symptoms: redness, burning/itching, gritty sensation.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LO 5 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="lo5" style="--i:5">
+    <div class="section-header">
+      <div class="lo-badge">LO 5</div>
+      <h2>Structure of <em>Photoreceptors</em></h2>
+    </div>
+
+    <div class="card">
+      <h3>Two Types of Photoreceptors</h3>
+      <table class="compare-table">
+        <thead>
+          <tr><th>Feature</th><th>Rods</th><th>Cones</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Number</td><td>~120 million</td><td>~6 million</td></tr>
+          <tr><td>Location</td><td>Peripheral retina (absent at fovea)</td><td>Concentrated at fovea; absent at far periphery</td></tr>
+          <tr><td>Function</td><td>Low-light (scotopic) vision</td><td>Daylight (photopic) vision; color discrimination</td></tr>
+          <tr><td>Sensitivity</td><td><strong>1 photon/mV</strong> — 1000× more sensitive</td><td>~80 photons/mV</td></tr>
+          <tr><td>Photopigment</td><td>Rhodopsin (1 type)</td><td>3 opsins: S (blue ~420nm), M (green ~535nm), L (red ~565nm)</td></tr>
+          <tr><td>Acuity</td><td>Poor (high convergence to ganglion cells)</td><td>High (near 1:1 ratio in fovea)</td></tr>
+          <tr><td>Saturation</td><td>Saturate easily in bright light</td><td>Require large amounts of light to bleach</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Structural Anatomy (Both Types)</h3>
+      <div class="grid-2">
+        <div>
+          <h4>Outer Segment</h4>
+          <ul class="styled">
+            <li>Contains stacked <strong>membranous disks</strong> packed with photopigment molecules</li>
+            <li>In rods: disks are internalized (separate from plasma membrane)</li>
+            <li>In cones: disk membranes are continuous with plasma membrane</li>
+            <li>This is where <strong>phototransduction occurs</strong></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Inner Segment + Synaptic Terminal</h4>
+          <ul class="styled">
+            <li>Inner segment: contains <strong>mitochondria</strong> (high metabolic demand), nucleus, and biosynthetic machinery</li>
+            <li>Connected by a <strong>cilium</strong></li>
+            <li>Synaptic terminal: releases <strong>glutamate</strong> tonically (in dark); hyperpolarization reduces release</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-concept">
+      <strong>Color Vision:</strong> Individual cones cannot detect color by themselves — color vision requires <strong>comparison of signals across the three cone types</strong>. The brain assigns colors based on the relative outputs of S, M, and L cones. This is why wavelength discrimination (not single-cell activity) underlies color perception.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LO 6 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="lo6" style="--i:6">
+    <div class="section-header">
+      <div class="lo-badge">LO 6</div>
+      <h2>Retinal <em>Anatomy</em> & Organization</h2>
+    </div>
+
+    <div class="callout important">
+      <div class="callout-icon">⚠</div>
+      <div class="callout-content">
+        <div class="callout-label">The Great Paradox</div>
+        <p>The retina is organized in an <strong>"inside-out" manner</strong>: light must pass through ganglion cell and bipolar cell layers before reaching the photoreceptors at the back. These inner layers are mostly transparent. The photoreceptors point away from the incoming light (toward the RPE).</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Layers — From Vitreous to Choroid (inner → outer)</h3>
+      <ol class="styled">
+        <li><strong>Nerve fiber layer</strong> — ganglion cell axons coursing to optic disk</li>
+        <li><strong>Ganglion cell layer</strong> — cell bodies of retinal ganglion cells (RGCs); only cells in retina that fire action potentials</li>
+        <li><strong>Inner plexiform layer (IPL)</strong> — synapses between bipolar/amacrine cells and ganglion cells</li>
+        <li><strong>Inner nuclear layer (INL)</strong> — cell bodies of bipolar, horizontal, and amacrine cells</li>
+        <li><strong>Outer plexiform layer (OPL)</strong> — synapses between photoreceptors and bipolar/horizontal cells; <mark>first synaptic layer</mark></li>
+        <li><strong>Outer nuclear layer (ONL)</strong> — photoreceptor cell bodies</li>
+        <li><strong>Photoreceptor outer segments</strong> — rods and cones (where transduction occurs)</li>
+        <li><strong>Retinal Pigment Epithelium (RPE)</strong> — single layer of pigmented support cells</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h3>Five Neural Cell Types</h3>
+      <div class="grid-2">
+        <div>
+          <h4>Vertical Pathway (signal to brain)</h4>
+          <ul class="styled">
+            <li><strong>Photoreceptors</strong> — detect light; graded potentials</li>
+            <li><strong>Bipolar cells</strong> — relay to ganglion cells; graded potentials (on-center or off-center subtypes)</li>
+            <li><strong>Retinal Ganglion Cells (RGCs)</strong> — output neurons; <mark>only cells producing action potentials</mark>; axons form CN II</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Lateral Pathway (contrast enhancement)</h4>
+          <ul class="styled">
+            <li><strong>Horizontal cells</strong> — in INL, processes in OPL; mediate lateral inhibition from photoreceptors</li>
+            <li><strong>Amacrine cells</strong> — in INL, processes in IPL; modulate bipolar-to-ganglion cell transmission</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout note" style="margin-top:14px">
+        <div class="callout-icon">📌</div>
+        <div class="callout-content">
+          <div class="callout-label">Basic 3-Neuron Circuit</div>
+          <p>Photoreceptor → Bipolar Cell → Retinal Ganglion Cell (→ optic nerve → LGN → V1)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Key Retinal Landmarks</h3>
+      <div class="grid-2">
+        <div>
+          <h4>Fovea Centralis</h4>
+          <ul class="styled">
+            <li>Small pit (~300μm) in center of macula lutea</li>
+            <li>Almost entirely cones; <strong>no rods</strong></li>
+            <li>Nearly 1:1 photoreceptor-to-ganglion cell ratio</li>
+            <li>Minimal blood vessels and inner cell layers (pushed aside)</li>
+            <li><strong>Greatest visual acuity</strong> — smallest receptive fields</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Optic Disk (Papilla)</h4>
+          <ul class="styled">
+            <li>Where ganglion cell axons exit as CN II</li>
+            <li><strong>Blind spot</strong> — no photoreceptors at all</li>
+            <li>Also entry/exit point for ophthalmic artery and vein</li>
+            <li>Subarachnoid space is continuous with brain → <mark>window for intracranial pressure</mark> (papilledema)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Glial Support: Müller Cells</h3>
+      <p>The dominant glial cell of the retina. Functions include: <strong>K⁺ regulation</strong>, neurotransmitter reuptake (especially glutamate), debris removal, and mechanical scaffolding of the neural retina.</p>
+    </div>
+
+    <div class="callout clinical">
+      <div class="callout-icon">⚕</div>
+      <div class="callout-content">
+        <div class="callout-label">Clinical — Age-Related Macular Degeneration (ARMD)</div>
+        <p>Leading cause of blindness in those over 50. Begins with accumulation of extracellular debris (<strong>drusen</strong>) between the RPE and choroid capillaries. This leads to excess vascularization (blood leaking under retina) and later atrophy of the RPE and choroid, resulting in <strong>photoreceptor death</strong> and central vision loss.</p>
+      </div>
+    </div>
+
+    <div class="callout clinical">
+      <div class="callout-icon">⚕</div>
+      <div class="callout-content">
+        <div class="callout-label">Clinical — Detached Retina</div>
+        <p>Separation of the neural retina from the RPE. Causes: trauma, vascular disease, metabolic disorders, aging. Impairs vision and threatens viability of the neural retina because the RPE can no longer supply nutrients or phagocytose photoreceptor debris. Medical emergency requiring prompt treatment.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LO 7 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="lo7" style="--i:7">
+    <div class="section-header">
+      <div class="lo-badge">LO 7</div>
+      <h2><em>Phototransduction</em> → Action Potential</h2>
+    </div>
+
+    <div class="card">
+      <h3>The Dark State — "Dark Current"</h3>
+      <p>In the <strong>absence of light</strong>, rod outer segments are in a partially <mark>depolarized state (~−30 to −40 mV)</mark>:</p>
+      <ul class="styled">
+        <li>Guanylate cyclase constitutively produces <strong>cGMP</strong></li>
+        <li>cGMP keeps <strong>cGMP-gated Na⁺ channels open</strong> → steady Na⁺ influx (dark current)</li>
+        <li>Depolarized photoreceptor <strong>continuously releases glutamate</strong> at its synapse</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>The Light State — Phototransduction Cascade</h3>
+      <div class="cascade">
+        <div class="cascade-step">
+          <div class="cascade-num">1</div>
+          <div class="cascade-text"><strong>Photon absorption</strong> by <strong>rhodopsin</strong> (a 7-TM GPCR). The chromophore <strong>11-cis retinal</strong> (derived from Vitamin A) undergoes photoisomerization → <strong>all-trans retinal</strong> (active), changing rhodopsin's conformation to its active form (metarhodopsin II)</div>
+        </div>
+        <div class="cascade-step">
+          <div class="cascade-num">2</div>
+          <div class="cascade-text">Activated rhodopsin activates <strong>transducin</strong> (a G-protein) by exchanging GDP for GTP. One activated rhodopsin can activate ~500 transducin molecules → <mark>massive amplification</mark></div>
+        </div>
+        <div class="cascade-step">
+          <div class="cascade-num">3</div>
+          <div class="cascade-text">GTP-bound transducin activates <strong>phosphodiesterase (PDE)</strong>, which hydrolyzes <strong>cGMP → GMP</strong>. cGMP levels drop rapidly.</div>
+        </div>
+        <div class="cascade-step">
+          <div class="cascade-num">4</div>
+          <div class="cascade-text">Reduced cGMP causes <strong>cGMP-gated Na⁺ channels to close</strong>. Na⁺ influx stops but K⁺ continues to leave → membrane <strong>hyperpolarizes</strong> (to ~−65 mV)</div>
+        </div>
+        <div class="cascade-step">
+          <div class="cascade-num">5</div>
+          <div class="cascade-text"><strong>Hyperpolarized photoreceptor reduces glutamate release</strong> at its synapse onto bipolar cells. This change in synaptic drive is propagated through the retinal circuit to ganglion cells, ultimately generating action potentials that travel via CN II to the brain.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-concept">
+      <strong>Oddity of the Retina:</strong> Light causes <strong>hyperpolarization</strong> (not depolarization) of photoreceptors — opposite to most sensory receptors. Also, photoreceptors are "on" (depolarized, releasing glutamate) in the dark, and "turn off" (hyperpolarize, reduce glutamate release) in the light.
+    </div>
+
+    <div class="card">
+      <h3>Signal Amplification</h3>
+      <ul class="styled">
+        <li>One photon → one rhodopsin activated → ~500 transducin → ~500 PDE → hydrolysis of thousands of cGMP molecules → closure of hundreds of channels</li>
+        <li>Rods can respond to a <strong>single photon</strong></li>
+        <li>In bright light: cGMP drops to zero → all channels close → system <strong>saturated</strong> (no further hyperpolarization possible)</li>
+        <li>Light adaptation: recovery mechanisms (Ca²⁺-mediated feedback on guanylate cyclase, rhodopsin kinase) restore sensitivity in sustained light</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Role of the RPE in Photopigment Regeneration</h3>
+      <ul class="styled">
+        <li>Photoreceptors <strong>cannot re-isomerize</strong> all-trans retinal back to 11-cis retinal</li>
+        <li>All-trans retinal is shuttled to the <strong>RPE</strong>, where re-isomerization occurs</li>
+        <li>11-cis retinal is then recycled back to the photoreceptor outer segments</li>
+        <li>RPE also <strong>phagocytoses</strong> shed outer segment membrane disks (daily renewal essential to prevent photoreceptor death from oxidative damage)</li>
+        <li>Epithelial transport of glucose and Vitamin A from choroid capillaries</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>From Photoreceptor Signal → Action Potential</h3>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="step-title">Photoreceptor</div>
+          <div class="step-body">Graded hyperpolarization; ↓ glutamate release</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-title">Bipolar Cell</div>
+          <div class="step-body">Graded potential (depolarize or hyperpolarize depending on type)</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-title">Ganglion Cell</div>
+          <div class="step-body"><strong>Action potentials!</strong> Only retinal cell to spike</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-title">CN II → LGN → V1</div>
+          <div class="step-body">Visual perception in primary visual cortex</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LO 8 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="lo8" style="--i:8">
+    <div class="section-header">
+      <div class="lo-badge">LO 8</div>
+      <h2>Ganglion Cells & <em>Center/Surround</em> Responses</h2>
+    </div>
+
+    <div class="card">
+      <h3>Retinal Ganglion Cell (RGC) Properties</h3>
+      <ul class="styled">
+        <li><strong>Only cells in the retina that generate action potentials</strong></li>
+        <li>Have a <strong>spontaneous (baseline) firing rate</strong> even in the absence of visual input — any change in firing is a signal to the brain</li>
+        <li>Each RGC responds to light in a specific small region of the visual field = its <strong>receptive field</strong></li>
+        <li>Receptive fields have an antagonistic <strong>center-surround structure</strong></li>
+        <li>Axons of all RGCs form the <strong>optic nerve (CN II)</strong>, exit at the optic disk</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Two Fundamental Types of RGCs</h3>
+      <div class="grid-2">
+        <div style="background:rgba(86,211,100,0.05); border:1px solid rgba(86,211,100,0.15); border-radius:8px; padding:18px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <span class="tag tag-green">ON-Center</span>
+            <span style="font-size:13px;color:var(--text-muted)">OFF-Surround</span>
+          </div>
+          <ul class="styled">
+            <li>Increase firing when <strong>light hits center</strong> of receptive field</li>
+            <li>Decrease firing when light hits surround</li>
+            <li>Best stimulus: bright spot on dark background</li>
+            <li>Driven by <strong>on-center bipolar cells</strong></li>
+          </ul>
+        </div>
+        <div style="background:rgba(248,81,73,0.05); border:1px solid rgba(248,81,73,0.15); border-radius:8px; padding:18px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <span class="tag tag-red">OFF-Center</span>
+            <span style="font-size:13px;color:var(--text-muted)">ON-Surround</span>
+          </div>
+          <ul class="styled">
+            <li>Increase firing when <strong>darkness hits center</strong> (light decrements)</li>
+            <li>Decrease firing when darkness hits surround</li>
+            <li>Best stimulus: dark spot on bright background</li>
+            <li>Driven by <strong>off-center bipolar cells</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>How Bipolar Cells Create ON/OFF Responses</h3>
+      <p>Photoreceptors release <strong>glutamate</strong>. Two types of bipolar cells respond to glutamate differently:</p>
+      <table class="compare-table">
+        <thead><tr><th>Cell Type</th><th>Receptor</th><th>Response to Glutamate</th><th>Response to Light (↓ glut)</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>OFF-center bipolar</strong></td>
+            <td>AMPA/Kainate (ionotropic)</td>
+            <td>Depolarizes (Na⁺ influx)</td>
+            <td>Hyperpolarizes → OFF-center ganglion fires</td>
+          </tr>
+          <tr>
+            <td><strong>ON-center bipolar</strong></td>
+            <td>mGluR6 (metabotropic, Gi-coupled)</td>
+            <td>Hyperpolarizes (cation channel closed)</td>
+            <td>Depolarizes → ON-center ganglion fires</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Retinofugal Projection — From Eye to Brain</h3>
+      <ul class="styled">
+        <li>RGC axons exit at optic disk → form <strong>optic nerve</strong></li>
+        <li>At the <strong>optic chiasm</strong>: nasal fibers from each eye cross to the contralateral side; temporal fibers remain ipsilateral</li>
+        <li>Result: <strong>left visual field → right hemisphere; right visual field → left hemisphere</strong></li>
+        <li>Optic tracts → <strong>Lateral Geniculate Nucleus (LGN)</strong> of thalamus</li>
+        <li>Optic radiations → <strong>Primary Visual Cortex (V1)</strong> in occipital lobe (calcarine sulcus)</li>
+        <li>Brain reconstructs the proper image orientation and combines inputs from both eyes</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- LO 9 -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <section class="section" id="lo9" style="--i:9">
+    <div class="section-header">
+      <div class="lo-badge">LO 9</div>
+      <h2>Physiological Principles of <em>Center/Surround</em></h2>
+    </div>
+
+    <div class="card">
+      <h3>Lateral Inhibition — The Mechanism</h3>
+      <p>Center-surround receptive fields are generated by <strong>lateral inhibition</strong>, largely mediated by <strong>horizontal cells</strong>:</p>
+      <ol class="styled">
+        <li>Light hits <strong>center photoreceptors</strong> → they hyperpolarize → <strong>reduce glutamate release</strong></li>
+        <li>Simultaneously, center photoreceptors were releasing glutamate onto <strong>horizontal cells</strong> in the dark → horizontal cells depolarize</li>
+        <li>Horizontal cells release <strong>GABA</strong> back onto surrounding photoreceptors (and onto bipolar cells), <strong>inhibiting the surround signal</strong></li>
+        <li>Net effect: the center signal is <strong>amplified relative to the surround</strong> → contrast enhancement</li>
+      </ol>
+    </div>
+
+    <div class="key-concept">
+      <strong>Key Insight:</strong> Lateral inhibition sharpens the spatial profile of excitation. It reduces the "spreading" of activation to neighboring neurons and creates a sharp contrast between stimulated and non-stimulated areas — greatly increasing spatial resolution and edge detection.
+    </div>
+
+    <div class="card">
+      <h3>Why Center/Surround Matters — Edge Detection</h3>
+      <ul class="styled">
+        <li>Center-surround ganglion cells are <strong>poor detectors of uniform illumination</strong> (even if very bright)</li>
+        <li>They are <strong>excellent detectors of luminance contrast</strong> — transitions between light and dark (edges)</li>
+        <li>When a light/dark edge falls across the retina, it activates different populations of on-center and off-center cells differentially</li>
+        <li>The retina encodes <strong>differences in luminance, not absolute luminance</strong> — it "emphasizes regions where there are differences in luminance"</li>
+        <li>This is why we can see well across a huge range of background illumination (from dim room to full sunlight)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Response Profile of a Ganglion Cell</h3>
+      <ul class="styled">
+        <li><strong>Small centered spot</strong> (optimally sized for receptive field center) → maximal response</li>
+        <li><strong>Larger spot including surround</strong> → reduced response (surround inhibition cancels center activation)</li>
+        <li><strong>Uniform full-field illumination</strong> → least response; center and surround cancel each other</li>
+        <li><strong>Edge or border</strong> stimulus → differential activity across ON and OFF cell populations → perceived edge</li>
+      </ul>
+      <div class="callout note" style="margin-top:14px">
+        <div class="callout-icon">💡</div>
+        <div class="callout-content">
+          <div class="callout-label">Think About It</div>
+          <p>On-center and off-center ganglion cells have <strong>overlapping receptive fields</strong> across the entire retina — so every point in the visual field is analyzed by both types simultaneously. Information about light increments and decrements is carried separately to the brain via their respective axons.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>From Retina to Perception of Edges</h3>
+      <p>In higher visual cortical areas (beyond V1), orientation-selective neurons respond to the output of many retinal ganglion cells. Each such cortical neuron only captures a <strong>fraction of the information</strong> in a scene, but collectively they reconstruct the full visual image:</p>
+      <ul class="styled">
+        <li>Retinal ganglion cells → detect luminance contrast at many orientations</li>
+        <li>V1 simple cells → detect oriented edges at specific positions</li>
+        <li>V1 complex cells → detect oriented edges regardless of exact position</li>
+        <li>Higher areas → detect shapes, faces, objects, motion</li>
+      </ul>
+      <div class="key-concept" style="margin-top:14px">
+        <strong>The "Neural Image":</strong> What the retinal ganglion cells send to the brain is essentially an <strong>edge-filtered, contrast-enhanced version</strong> of the visual scene — not a photographic copy. The brain then uses this to reconstruct our rich visual experience.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Summary Table — Key "Oddities" of the Retina</h3>
+      <table class="compare-table">
+        <thead><tr><th>Oddity</th><th>What Happens</th><th>Why It Matters</th></tr></thead>
+        <tbody>
+          <tr><td>Inside-out organization</td><td>Light passes through ganglion & bipolar layers before reaching photoreceptors</td><td>Layers are transparent; places RPE adjacent to photoreceptors for critical support</td></tr>
+          <tr><td>Photoreceptors hyperpolarize in light</td><td>Light → hyperpolarization (not depolarization)</td><td>Allows graded signaling across a wide range of intensities</td></tr>
+          <tr><td>Dark current</td><td>Photoreceptors depolarized in dark; tonically releasing glutamate</td><td>Enables detection of any change in illumination; allows both ON and OFF pathways</td></tr>
+          <tr><td>Only ganglion cells fire APs</td><td>Photoreceptors, bipolars, horizontals, amacrines use graded potentials</td><td>Graded potentials preserve analog intensity information within the retina</td></tr>
+          <tr><td>Center-surround receptive fields</td><td>Antagonistic center and surround regions in every ganglion cell</td><td>Provides contrast enhancement and edge detection at the retinal level</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Physiology of the Senses · Dr. Ferland · Study Notes</p>
+    <p style="margin-top:6px; opacity:0.5">Sources: Purves et al., Neuroscience (Sinauer) · Bear et al., Neuroscience (LWW)</p>
+  </footer>
+
+</div>
+
+<script>
+  // Staggered section entrance animation
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  sections.forEach((s, i) => {
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(20px)';
+    s.style.transition = `opacity 0.5s ease ${i * 0.04}s, transform 0.5s ease ${i * 0.04}s`;
+    observer.observe(s);
+  });
+</script>
+
+</body>
+</html>

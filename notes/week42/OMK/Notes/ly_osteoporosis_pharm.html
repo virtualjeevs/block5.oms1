@@ -1,0 +1,2099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pharmacology of Osteoporosis — Dr. Ly</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #181c27;
+  --surface2: #1e2335;
+  --surface3: #252a3d;
+  --border: #2e3450;
+  --text: #e8eaf6;
+  --text-dim: #8892b0;
+  --text-muted: #5a6380;
+
+  --blue: #5c9cf5;
+  --blue-dim: #1a2a4a;
+  --blue-border: #2a4070;
+
+  --teal: #4ecdc4;
+  --teal-dim: #0d2e2c;
+  --teal-border: #1a4a47;
+
+  --amber: #f5a623;
+  --amber-dim: #2e2000;
+  --amber-border: #5a3e00;
+
+  --red: #ff6b6b;
+  --red-dim: #2e0f0f;
+  --red-border: #5a1a1a;
+
+  --purple: #b48ffc;
+  --purple-dim: #1e1430;
+  --purple-border: #3d2460;
+
+  --green: #6bcb77;
+  --green-dim: #0d2510;
+  --green-border: #1a4a20;
+
+  --pink: #f78fb3;
+  --pink-dim: #2e1020;
+  --pink-border: #5a1e35;
+
+  --orange: #ff9a3c;
+  --orange-dim: #2a1500;
+  --orange-border: #5a3000;
+
+  --sidebar-w: 260px;
+  --content-max: 960px;
+  --radius: 10px;
+  --header-h: 60px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+  display: flex;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0;
+  overflow-y: auto;
+  z-index: 100;
+  padding-bottom: 40px;
+  transition: transform .3s ease;
+}
+
+#sidebar-header {
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#sidebar-header .course-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: var(--teal-dim);
+  border: 1px solid var(--teal-border);
+  padding: 2px 8px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+#sidebar-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+#sidebar-header .prof-tag {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.nav-section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 14px 16px 4px;
+}
+
+#sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-left: 3px solid transparent;
+  transition: all .2s;
+  line-height: 1.3;
+}
+
+#sidebar nav a:hover {
+  color: var(--text);
+  background: var(--surface3);
+  border-left-color: var(--blue);
+}
+
+#sidebar nav a.active {
+  color: var(--blue);
+  background: var(--blue-dim);
+  border-left-color: var(--blue);
+}
+
+#sidebar nav a .nav-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--text-muted);
+}
+
+#sidebar nav a.bisphosphonate .nav-dot { background: var(--blue); }
+#sidebar nav a.rankl .nav-dot { background: var(--red); }
+#sidebar nav a.serm .nav-dot { background: var(--pink); }
+#sidebar nav a.tsec .nav-dot { background: var(--purple); }
+#sidebar nav a.calcitonin .nav-dot { background: var(--teal); }
+#sidebar nav a.pth .nav-dot { background: var(--amber); }
+#sidebar nav a.pthrp .nav-dot { background: var(--orange); }
+#sidebar nav a.sclerostin .nav-dot { background: var(--green); }
+#sidebar nav a.supp .nav-dot { background: #a0d8ef; }
+
+/* ── MAIN ── */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+}
+
+/* ── TOP BANNER ── */
+#top-banner {
+  background: linear-gradient(135deg, #0d1b3e 0%, #1a2a5e 50%, #0e2040 100%);
+  padding: 48px 48px 40px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+#top-banner::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(92,156,245,.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+#top-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 30%;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(78,205,196,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.banner-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  background: rgba(78,205,196,.1);
+  border: 1px solid rgba(78,205,196,.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+#top-banner h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+#top-banner .subtitle {
+  color: rgba(255,255,255,.55);
+  font-size: 14px;
+  max-width: 580px;
+}
+
+.drug-class-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.drug-class-pills span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+/* ── CONTENT AREA ── */
+#content {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 40px 40px 80px;
+}
+
+/* ── SECTION HEADERS ── */
+.section-block {
+  margin-bottom: 52px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.section-header-text h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.section-header-text .section-subtitle {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: .05em;
+}
+
+.class-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid;
+  display: inline-block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+/* ── DRUG CARD ── */
+.drug-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.drug-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+
+.drug-card-header:hover { background: var(--surface3); }
+
+.drug-name-group { flex: 1; }
+
+.drug-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.brand-name {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-style: italic;
+  margin-top: 1px;
+}
+
+.route-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 3px 8px;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-dim);
+}
+
+.expand-btn {
+  color: var(--text-muted);
+  font-size: 18px;
+  transition: transform .25s;
+  flex-shrink: 0;
+}
+
+.drug-card.collapsed .expand-btn { transform: rotate(0deg); }
+.drug-card.expanded .expand-btn { transform: rotate(180deg); }
+
+.drug-card-body {
+  padding: 18px;
+  display: none;
+}
+
+.drug-card.expanded .drug-card-body { display: block; }
+
+/* ── CALLOUT BOXES ── */
+.callout {
+  border-radius: 8px;
+  padding: 12px 15px;
+  margin-bottom: 12px;
+  border-left: 4px solid;
+  font-size: 14px;
+}
+
+.callout-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.callout.moa { background: var(--blue-dim); border-color: var(--blue); }
+.callout.moa .callout-title { color: var(--blue); }
+
+.callout.adverse { background: var(--red-dim); border-color: var(--red); }
+.callout.adverse .callout-title { color: var(--red); }
+
+.callout.warning { background: var(--amber-dim); border-color: var(--amber); }
+.callout.warning .callout-title { color: var(--amber); }
+
+.callout.contraind { background: var(--purple-dim); border-color: var(--purple); }
+.callout.contraind .callout-title { color: var(--purple); }
+
+.callout.renal { background: var(--teal-dim); border-color: var(--teal); }
+.callout.renal .callout-title { color: var(--teal); }
+
+.callout.pregnancy { background: var(--pink-dim); border-color: var(--pink); }
+.callout.pregnancy .callout-title { color: var(--pink); }
+
+.callout.interactions { background: var(--orange-dim); border-color: var(--orange); }
+.callout.interactions .callout-title { color: var(--orange); }
+
+.callout.allergy { background: #1a2a10; border-color: var(--green); }
+.callout.allergy .callout-title { color: var(--green); }
+
+.callout.note { background: var(--surface3); border-color: var(--border); }
+.callout.note .callout-title { color: var(--text-dim); }
+
+ul.callout-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+ul.callout-list li {
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+
+ul.callout-list li:last-child { margin-bottom: 0; }
+
+/* ── BBW BADGE ── */
+.bbw-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #3d0000;
+  border: 1px solid #8b0000;
+  color: #ff4444;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+/* ── LO TAG ── */
+.lo-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(92,156,245,.12);
+  border: 1px solid rgba(92,156,245,.25);
+  color: var(--blue);
+  letter-spacing: .08em;
+  display: inline-block;
+  margin: 0 3px 3px 0;
+}
+
+/* ── COMPARISON TABLE ── */
+.comp-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.comp-table th {
+  background: var(--surface2);
+  padding: 10px 12px;
+  text-align: left;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.comp-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:hover td { background: rgba(255,255,255,.02); }
+
+.comp-table .drug-cell {
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.comp-table .check { color: var(--green); font-weight: 700; }
+.comp-table .cross { color: var(--red); font-weight: 700; }
+.comp-table .caution { color: var(--amber); font-weight: 700; }
+
+/* ── KEY CONCEPT BOX ── */
+.key-concept {
+  background: linear-gradient(135deg, #0d1f3d, #162040);
+  border: 1px solid var(--blue-border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.key-concept::before {
+  content: '★';
+  position: absolute;
+  top: 12px; right: 16px;
+  font-size: 18px;
+  color: rgba(92,156,245,.2);
+}
+
+.key-concept .kc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.key-concept p, .key-concept .kc-body {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+/* ── INTRO DEFINITION BLOCK ── */
+.def-block {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  margin-bottom: 28px;
+}
+
+.def-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+.def-block p { font-size: 14.5px; line-height: 1.7; }
+
+/* ── GRID TWO-COL ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 700px) {
+  .two-col { grid-template-columns: 1fr; }
+  #sidebar { transform: translateX(-100%); }
+  #main { margin-left: 0; }
+  #content { padding: 20px; }
+}
+
+/* ── HIGHLIGHT INLINE ── */
+.hl { background: rgba(92,156,245,.15); color: var(--blue); padding: 1px 5px; border-radius: 3px; font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: .9em; }
+.hl-red { background: rgba(255,107,107,.15); color: var(--red); padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+.hl-green { background: rgba(107,203,119,.15); color: var(--green); padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+.hl-amber { background: rgba(245,166,35,.15); color: var(--amber); padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+.hl-purple { background: rgba(180,143,252,.15); color: var(--purple); padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+.hl-teal { background: rgba(78,205,196,.15); color: var(--teal); padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+.hl-pink { background: rgba(247,143,179,.15); color: var(--pink); padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+
+/* ── PATHWAY DIAGRAM ── */
+.pathway-box {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+.pathway-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+/* ── QUICK-REF GRID ── */
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.qr-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+
+.qr-card .qr-class {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.qr-card .qr-drug {
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.qr-card .qr-brand {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+/* ── ANABOLIC vs ANTIRESORPTIVE LEGEND ── */
+.mech-legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.mech-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid;
+}
+
+.mech-tag.antiresorptive { background: var(--blue-dim); border-color: var(--blue); color: var(--blue); }
+.mech-tag.anabolic { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+.mech-tag.dual { background: var(--purple-dim); border-color: var(--purple); color: var(--purple); }
+
+/* ── SCROLL PROGRESS ── */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: var(--sidebar-w);
+  width: calc(100% - var(--sidebar-w));
+  height: 3px;
+  background: transparent;
+  z-index: 200;
+}
+
+#scroll-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--blue));
+  width: 0%;
+  transition: width .1s;
+}
+
+strong { color: var(--text); }
+em { color: var(--text-dim); font-style: italic; }
+
+</style>
+</head>
+<body>
+
+<div id="scroll-progress"><div id="scroll-fill"></div></div>
+
+<!-- ══════════════════ SIDEBAR ══════════════════ -->
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <div class="course-badge">Block 5 · Pharmacology</div>
+    <h1>Osteoporosis<br>Drug Therapy</h1>
+    <div class="prof-tag">Dr. Ly</div>
+  </div>
+
+  <div class="nav-section-label">Overview</div>
+  <nav>
+    <a href="#intro">
+      <span class="nav-dot"></span>Definition &amp; Epidemiology
+    </a>
+    <a href="#overview">
+      <span class="nav-dot"></span>Drug Class Overview
+    </a>
+    <a href="#calcium">
+      <span class="nav-dot supp" style="background:#a0d8ef"></span>Ca²⁺ &amp; Vitamin D
+    </a>
+  </nav>
+
+  <div class="nav-section-label">Antiresorptive Agents</div>
+  <nav>
+    <a href="#bisphosphonates" class="bisphosphonate">
+      <span class="nav-dot"></span>Bisphosphonates
+    </a>
+    <a href="#rankl" class="rankl">
+      <span class="nav-dot"></span>RANK-L Inhibitor
+    </a>
+    <a href="#serm" class="serm">
+      <span class="nav-dot"></span>SERM (EAA)
+    </a>
+    <a href="#tsec" class="tsec">
+      <span class="nav-dot"></span>TSEC
+    </a>
+    <a href="#calcitonin" class="calcitonin">
+      <span class="nav-dot"></span>Calcitonin
+    </a>
+  </nav>
+
+  <div class="nav-section-label">Anabolic Agents</div>
+  <nav>
+    <a href="#pth" class="pth">
+      <span class="nav-dot"></span>PTH 1-34 (Teriparatide)
+    </a>
+    <a href="#pthrp" class="pthrp">
+      <span class="nav-dot"></span>PTHrP Analog
+    </a>
+  </nav>
+
+  <div class="nav-section-label">Dual Mechanism</div>
+  <nav>
+    <a href="#sclerostin" class="sclerostin">
+      <span class="nav-dot"></span>Sclerostin Inhibitor
+    </a>
+  </nav>
+
+  <div class="nav-section-label">Clinical Application</div>
+  <nav>
+    <a href="#decision">
+      <span class="nav-dot" style="background:var(--amber)"></span>Clinical Decision Guide
+    </a>
+    <a href="#compare">
+      <span class="nav-dot" style="background:var(--text-muted)"></span>Master Comparison Table
+    </a>
+  </nav>
+</aside>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<div id="main">
+
+<!-- TOP BANNER -->
+<div id="top-banner">
+  <div class="banner-pill">Dr. Ly · PLO 1 + All LOs</div>
+  <h1>Pharmacology of<br>Osteoporosis</h1>
+  <p class="subtitle">Mechanisms, clinical selection, adverse effects, contraindications, and special populations — organized for Dr. Ly's clinical decision-tree style.</p>
+  <div class="drug-class-pills">
+    <span style="color:var(--blue);border-color:var(--blue-border);background:var(--blue-dim)">Bisphosphonates</span>
+    <span style="color:var(--red);border-color:var(--red-border);background:var(--red-dim)">RANK-L Inhibitor</span>
+    <span style="color:var(--pink);border-color:var(--pink-border);background:var(--pink-dim)">SERM / EAA</span>
+    <span style="color:var(--purple);border-color:var(--purple-border);background:var(--purple-dim)">TSEC</span>
+    <span style="color:var(--teal);border-color:var(--teal-border);background:var(--teal-dim)">Calcitonin</span>
+    <span style="color:var(--amber);border-color:var(--amber-border);background:var(--amber-dim)">PTH 1-34</span>
+    <span style="color:var(--orange);border-color:var(--orange-border);background:var(--orange-dim)">PTHrP Analog</span>
+    <span style="color:var(--green);border-color:var(--green-border);background:var(--green-dim)">Sclerostin Inhibitor</span>
+  </div>
+</div>
+
+<div id="content">
+
+<!-- ══════════ INTRO ══════════ -->
+<div class="section-block" id="intro">
+  <div class="section-header">
+    <div class="section-icon">🦴</div>
+    <div class="section-header-text">
+      <h2 style="color:var(--teal)">Definition &amp; Epidemiology</h2>
+      <div class="section-subtitle">LO: Define osteoporosis · Describe epidemiology &amp; etiology</div>
+    </div>
+  </div>
+
+  <div class="def-block">
+    <h3>What is Osteoporosis?</h3>
+    <p>A <strong>systemic skeletal disease</strong> characterized by <span class="hl-teal">low bone mass</span> and <span class="hl-teal">microarchitectural deterioration</span> of bone tissue, leading to increased bone fragility and susceptibility to fracture.</p>
+    <p style="margin-top:10px"><strong>Diagnosis:</strong> Bone Mineral Density (BMD) T-score ≤ <span class="hl-red">−2.5</span> at the lumbar spine, femoral neck, or total hip (DXA scan). Osteopenia = T-score −1.0 to −2.5.</p>
+  </div>
+
+  <div class="two-col">
+    <div class="callout note">
+      <div class="callout-title">📊 Epidemiology</div>
+      <ul class="callout-list">
+        <li>~10 million Americans affected; 44 million with low BMD</li>
+        <li>Women <strong>4× more</strong> affected than men</li>
+        <li>Most common in <strong>postmenopausal women</strong> (estrogen ↓ → bone resorption ↑)</li>
+        <li>Risk ↑ with age — #1 cause of fractures in elderly</li>
+        <li>Common fracture sites: <strong>vertebra, hip, wrist</strong></li>
+        <li>Hip fractures: 20% 1-year mortality</li>
+      </ul>
+    </div>
+    <div class="callout note">
+      <div class="callout-title">⚙️ Etiology / Risk Factors</div>
+      <ul class="callout-list">
+        <li><strong>Primary:</strong> Postmenopausal (estrogen deficiency), age-related (type II)</li>
+        <li><strong>Secondary:</strong> Glucocorticoid use, hyperthyroidism, hypogonadism, malabsorption, RA, chronic kidney/liver disease</li>
+        <li>Smoking, alcohol, low Ca/Vit D intake</li>
+        <li>Small frame, White/Asian ethnicity</li>
+        <li>Family history of fracture</li>
+        <li>Immobilization</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="key-concept">
+    <div class="kc-label">🔑 Core Pathophysiology</div>
+    <div class="kc-body">
+      Normal bone undergoes constant <strong>remodeling</strong>: osteoclasts resorb bone → osteoblasts form new bone. In osteoporosis, this balance shifts toward <span class="hl-red">resorption &gt; formation</span>. The RANK/RANKL/OPG axis is central: <strong>RANKL</strong> (produced by osteoblasts) binds <strong>RANK</strong> on osteoclast precursors → osteoclast activation. <strong>OPG</strong> acts as a decoy receptor, blocking RANKL. Many drugs target this axis.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ OVERVIEW ══════════ -->
+<div class="section-block" id="overview">
+  <div class="section-header">
+    <div class="section-icon">💊</div>
+    <div class="section-header-text">
+      <h2 style="color:var(--blue)">Drug Class Overview</h2>
+      <div class="section-subtitle">PLO 1 — All pharmacologic classes</div>
+    </div>
+  </div>
+
+  <div class="mech-legend">
+    <span class="mech-tag antiresorptive">↓ Bone Resorption (Antiresorptive)</span>
+    <span class="mech-tag anabolic">↑ Bone Formation (Anabolic)</span>
+    <span class="mech-tag dual">Dual: Formation + Antiresorptive</span>
+  </div>
+
+  <div class="qr-grid">
+    <div class="qr-card" style="border-color:var(--blue-border)">
+      <div class="qr-class" style="color:var(--blue)">Antiresorptive</div>
+      <div class="qr-drug" style="color:var(--blue)">Bisphosphonates</div>
+      <div class="qr-brand">Alendronate · Risedronate<br>Ibandronate · Zoledronic acid</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--red-border)">
+      <div class="qr-class" style="color:var(--red)">Antiresorptive</div>
+      <div class="qr-drug" style="color:var(--red)">RANK-L Inhibitor</div>
+      <div class="qr-brand">Denosumab (Prolia)</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--pink-border)">
+      <div class="qr-class" style="color:var(--pink)">Antiresorptive</div>
+      <div class="qr-drug" style="color:var(--pink)">SERM / EAA</div>
+      <div class="qr-brand">Raloxifene (Evista)</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--purple-border)">
+      <div class="qr-class" style="color:var(--purple)">Antiresorptive</div>
+      <div class="qr-drug" style="color:var(--purple)">TSEC</div>
+      <div class="qr-brand">CE + Bazedoxifene (Duavee)</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--teal-border)">
+      <div class="qr-class" style="color:var(--teal)">Antiresorptive</div>
+      <div class="qr-drug" style="color:var(--teal)">Calcitonin</div>
+      <div class="qr-brand">Salmon Calcitonin (Miacalcin)</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--amber-border)">
+      <div class="qr-class" style="color:var(--amber)">Anabolic</div>
+      <div class="qr-drug" style="color:var(--amber)">PTH 1-34</div>
+      <div class="qr-brand">Teriparatide (Forteo)</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--orange-border)">
+      <div class="qr-class" style="color:var(--orange)">Anabolic</div>
+      <div class="qr-drug" style="color:var(--orange)">PTHrP[1-34] Analog</div>
+      <div class="qr-brand">Abaloparatide (Tymlos)</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--green-border)">
+      <div class="qr-class" style="color:var(--green)">Dual</div>
+      <div class="qr-drug" style="color:var(--green)">Sclerostin Inhibitor</div>
+      <div class="qr-brand">Romosozumab (Evenity)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CALCIUM + VIT D ══════════ -->
+<div class="section-block" id="calcium">
+  <div class="section-header">
+    <div class="section-icon">🥛</div>
+    <div class="section-header-text">
+      <h2 style="color:#a0d8ef">Calcium &amp; Vitamin D Supplementation</h2>
+      <div class="section-subtitle">Foundation of prevention &amp; adjunct to all pharmacotherapy</div>
+    </div>
+  </div>
+
+  <div class="callout moa">
+    <div class="callout-title">⚙️ Why They Matter</div>
+    Calcium is the primary mineral of bone matrix (hydroxyapatite). Vitamin D (specifically <strong>calcitriol / 1,25-OH₂-D₃</strong>) is essential for intestinal Ca²⁺ absorption, renal Ca²⁺ reabsorption, and bone mineralization. Without adequate Ca &amp; D, <em>all</em> pharmacologic agents are less effective.
+  </div>
+
+  <div class="two-col">
+    <div class="drug-card expanded">
+      <div class="drug-card-header" onclick="toggleCard(this)">
+        <div class="drug-name-group">
+          <div class="drug-name">Calcium Carbonate</div>
+          <div class="brand-name">Os-Cal, Tums — take WITH food</div>
+        </div>
+        <div class="expand-btn">▼</div>
+      </div>
+      <div class="drug-card-body">
+        <div class="callout moa">
+          <div class="callout-title">⚙️ Key Point</div>
+          Requires <strong>acidic environment</strong> (gastric acid) for absorption → must be taken <span class="hl-red">with food</span>. Avoid taking with PPIs if possible.
+        </div>
+        <div class="callout note">
+          <div class="callout-title">📋 Dosing</div>
+          Total elemental Ca: <strong>1000 mg/day</strong> (ages 19–50, men 51–70); <strong>1200 mg/day</strong> (women ≥51, men ≥71). Do not exceed 500–600 mg elemental Ca per dose (split doses).
+        </div>
+      </div>
+    </div>
+    <div class="drug-card expanded">
+      <div class="drug-card-header" onclick="toggleCard(this)">
+        <div class="drug-name-group">
+          <div class="drug-name">Calcium Citrate</div>
+          <div class="brand-name">Citracal — take WITHOUT food</div>
+        </div>
+        <div class="expand-btn">▼</div>
+      </div>
+      <div class="drug-card-body">
+        <div class="callout moa">
+          <div class="callout-title">⚙️ Key Point</div>
+          Does <strong>NOT</strong> require acid → can be taken <span class="hl-green">without food</span>. Preferred in patients on PPIs, H2 blockers, achlorhydria, or gastric bypass.
+        </div>
+        <div class="callout note">
+          <div class="callout-title">📋 Dosing</div>
+          Same total elemental Ca targets. Less constipation than carbonate.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="drug-card expanded">
+    <div class="drug-card-header" onclick="toggleCard(this)">
+      <div class="drug-name-group">
+        <div class="drug-name">Vitamin D</div>
+        <div class="brand-name">D3 (Cholecalciferol) preferred &gt; D2 (Ergocalciferol)</div>
+      </div>
+      <div class="route-badge">PO / IM</div>
+      <div class="expand-btn">▼</div>
+    </div>
+    <div class="drug-card-body">
+      <div class="callout moa">
+        <div class="callout-title">⚙️ MOA</div>
+        D3 is converted in liver → <strong>25-OH-D₃</strong> (storage form, measured in labs) → kidney → <strong>1,25-(OH)₂-D₃ (calcitriol)</strong> (active form). Calcitriol binds VDR → ↑ intestinal Ca²⁺ absorption via calbindin, ↑ renal Ca²⁺ reabsorption, promotes bone mineralization, modulates PTH secretion.
+      </div>
+      <div class="two-col">
+        <div class="callout note">
+          <div class="callout-title">📋 Dosing</div>
+          <ul class="callout-list">
+            <li>Prevention/treatment: <strong>800–2000 IU/day</strong></li>
+            <li>Measure serum 25-OH-D; target <strong>≥20 ng/mL</strong> (≥30 ng/mL preferred in osteoporosis)</li>
+            <li>D3 raises 25-OH-D levels more effectively than D2</li>
+          </ul>
+        </div>
+        <div class="callout warning">
+          <div class="callout-title">⚠️ Toxicity (high dose)</div>
+          <ul class="callout-list">
+            <li>Hypercalcemia, hypercalciuria</li>
+            <li>Nephrolithiasis</li>
+            <li>Soft tissue calcification</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout renal">
+        <div class="callout-title">🧪 Lab Monitoring</div>
+        Check <strong>serum 25-OH-D</strong> (not 1,25-OH₂-D₃ for monitoring), serum Ca²⁺, 24-hr urine Ca²⁺. In renal failure (CKD Stage 4–5), use <strong>calcitriol</strong> (active form) since kidneys can't convert 25-OH-D.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- ══════════════════════════════════════
+     BISPHOSPHONATES
+══════════════════════════════════════ -->
+<div class="section-block" id="bisphosphonates">
+  <div class="section-header">
+    <div class="section-icon">💊</div>
+    <div class="section-header-text">
+      <span class="class-label" style="color:var(--blue);border-color:var(--blue-border);background:var(--blue-dim)">Antiresorptive · First-Line</span>
+      <h2 style="color:var(--blue)">Bisphosphonates</h2>
+      <div class="section-subtitle">PLO 1 · Most widely used class for osteoporosis</div>
+    </div>
+  </div>
+
+  <div class="qr-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+    <div class="qr-card" style="border-color:var(--blue-border)">
+      <div class="qr-class" style="color:var(--blue)">Oral Weekly</div>
+      <div class="qr-drug" style="color:var(--blue)">Alendronate</div>
+      <div class="qr-brand">Fosamax<br>70 mg/week PO</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--blue-border)">
+      <div class="qr-class" style="color:var(--blue)">Oral Weekly/Monthly</div>
+      <div class="qr-drug" style="color:var(--blue)">Risedronate</div>
+      <div class="qr-brand">Actonel<br>35 mg/week or 150 mg/month</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--blue-border)">
+      <div class="qr-class" style="color:var(--blue)">Oral Monthly / IV Q3mo</div>
+      <div class="qr-drug" style="color:var(--blue)">Ibandronate</div>
+      <div class="qr-brand">Boniva<br>150 mg/month PO or 3 mg IV q3mo</div>
+    </div>
+    <div class="qr-card" style="border-color:var(--blue-border)">
+      <div class="qr-class" style="color:var(--blue)">IV Annual</div>
+      <div class="qr-drug" style="color:var(--blue)">Zoledronic Acid</div>
+      <div class="qr-brand">Reclast<br>5 mg IV once yearly</div>
+    </div>
+  </div>
+
+  <div class="callout moa">
+    <div class="callout-title">⚙️ Mechanism of Action</div>
+    Bisphosphonates bind avidly to <strong>hydroxyapatite</strong> at sites of active bone remodeling → internalized by <strong>osteoclasts</strong>. Nitrogen-containing bisphosphonates (all of the above) inhibit <span class="hl">farnesyl pyrophosphate synthase (FPPS)</span>, a key enzyme in the <strong>mevalonate/cholesterol pathway</strong> → prevents <strong>prenylation of small GTPases</strong> (Ras, Rho, Rac) → osteoclast <strong>cytoskeletal disruption</strong> and <strong>apoptosis</strong> → ↓ bone resorption. <em>Net result: antiresorptive, preserves bone mass.</em>
+  </div>
+
+  <div class="drug-card expanded">
+    <div class="drug-card-header" onclick="toggleCard(this)">
+      <div class="drug-name-group">
+        <div class="drug-name">Oral Bisphosphonates — Key Prescribing Rules</div>
+        <div class="brand-name">Alendronate · Risedronate · Ibandronate (oral)</div>
+      </div>
+      <div class="expand-btn">▼</div>
+    </div>
+    <div class="drug-card-body">
+      <div class="callout warning">
+        <div class="callout-title">⚠️ Critical Administration Rules</div>
+        <ul class="callout-list">
+          <li>Take on an <strong>empty stomach</strong> first thing in the morning with a <strong>full 8-oz glass of plain water</strong></li>
+          <li>Remain <strong>upright (sitting/standing)</strong> for <span class="hl-red">at least 30 minutes</span> (alendronate/risedronate) or <span class="hl-red">60 minutes</span> (ibandronate)</li>
+          <li>No food, drink, or other medications for ≥30 min after</li>
+          <li>Failure to follow → <strong>esophageal injury</strong></li>
+        </ul>
+      </div>
+
+      <div class="two-col">
+        <div class="callout adverse">
+          <div class="callout-title">⚠️ Adverse Effects</div>
+          <ul class="callout-list">
+            <li><strong>GI:</strong> Esophagitis, esophageal ulceration, dysphagia, abdominal pain (oral)</li>
+            <li><span class="hl-red">Esophageal cancer</span> — rare, long-term concern (alendronate)</li>
+            <li><strong>Osteonecrosis of the Jaw (ONJ)</strong> — rare; risk ↑ with IV, invasive dental procedures, cancer patients</li>
+            <li><strong>Atypical femoral fractures (AFF)</strong> — subtrochanteric/diaphyseal; after prolonged use (>5 yrs); often preceded by thigh/groin pain</li>
+            <li><strong>Musculoskeletal pain</strong> — arthralgia, myalgia, bone pain</li>
+            <li><strong>Hypocalcemia</strong> — must correct before starting</li>
+            <li><strong>Acute phase reaction (IV only):</strong> fever, myalgia, flu-like symptoms within 72h of first IV infusion (zoledronic acid)</li>
+          </ul>
+        </div>
+
+        <div class="callout contraind">
+          <div class="callout-title">🚫 Contraindications</div>
+          <ul class="callout-list">
+            <li><span class="hl-red">Hypocalcemia</span> (must correct first)</li>
+            <li>Abnormalities of esophagus (achalasia, stricture) — oral forms</li>
+            <li>Inability to stand/sit upright for ≥30–60 min — oral forms</li>
+            <li>CrCl <span class="hl-red">&lt; 35 mL/min</span> (most bisphosphonates; zoledronic acid CrCl &lt; 35 mL/min)</li>
+            <li>Hypersensitivity to drug</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="callout renal">
+          <div class="callout-title">🧪 Renal Impairment</div>
+          <ul class="callout-list">
+            <li>Bisphosphonates are <strong>renally cleared</strong></li>
+            <li>Avoid if <strong>CrCl &lt; 35 mL/min</strong> (accumulation → renal toxicity)</li>
+            <li>Zoledronic acid: also avoid CrCl &lt; 35; infuse slowly</li>
+            <li>No hepatic dose adjustment needed</li>
+          </ul>
+        </div>
+        <div class="callout pregnancy">
+          <div class="callout-title">🤰 Pregnancy</div>
+          <ul class="callout-list">
+            <li><strong>Avoid in pregnancy</strong> — may impair fetal bone development (bisphosphonates incorporate into bone long-term)</li>
+            <li>Category C/D; not routinely used in premenopausal women</li>
+            <li>Breastfeeding: not recommended</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout interactions">
+        <div class="callout-title">🔄 Drug Interactions</div>
+        <ul class="callout-list">
+          <li><strong>Ca²⁺, antacids, Fe, Mg supplements:</strong> chelate bisphosphonates → ↓ absorption (oral) — separate by ≥30–60 min</li>
+          <li><strong>NSAIDs:</strong> additive GI irritation</li>
+          <li><strong>Aminoglycosides:</strong> additive risk of hypocalcemia</li>
+        </ul>
+      </div>
+
+      <div class="callout allergy">
+        <div class="callout-title">💉 Allergy / Hypersensitivity</div>
+        Rare hypersensitivity reactions. If oral bisphosphonate not tolerated (GI), switch to IV formulation or different drug class. No cross-reactivity with salmon in bisphosphonates (unlike calcitonin).
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">⚠️ Drug Holidays</div>
+        Consider <strong>bisphosphonate holiday</strong> after 3–5 years (oral) or 3 years (IV zoledronic acid) in patients at lower risk → reduces AFF risk. Reassess BMD and FRAX before continuing.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RANK-L INHIBITOR
+══════════════════════════════════════ -->
+<div class="section-block" id="rankl">
+  <div class="section-header">
+    <div class="section-icon">🧬</div>
+    <div class="section-header-text">
+      <span class="class-label" style="color:var(--red);border-color:var(--red-border);background:var(--red-dim)">Antiresorptive · Monoclonal Antibody</span>
+      <h2 style="color:var(--red)">RANK-L Inhibitor</h2>
+      <div class="section-subtitle">PLO 1 · Denosumab</div>
+    </div>
+  </div>
+
+  <div class="drug-card expanded">
+    <div class="drug-card-header" onclick="toggleCard(this)">
+      <div class="drug-name-group">
+        <div class="drug-name">Denosumab</div>
+        <div class="brand-name">Prolia (osteoporosis 60 mg SQ q6mo) · Xgeva (oncology 120 mg SQ qmo)</div>
+      </div>
+      <div class="route-badge">SQ q6mo</div>
+      <div class="expand-btn">▼</div>
+    </div>
+    <div class="drug-card-body">
+
+      <div class="callout moa">
+        <div class="callout-title">⚙️ Mechanism of Action</div>
+        Fully human <strong>monoclonal IgG2 antibody</strong> that binds to <span class="hl">RANKL (Receptor Activator of Nuclear Factor κB Ligand)</span> → prevents RANKL from binding RANK on osteoclast precursors and mature osteoclasts → ↓ osteoclast <strong>formation, function, and survival</strong> → ↓ bone resorption. Mimics the action of <strong>OPG (osteoprotegerin)</strong>, the endogenous RANKL decoy receptor.
+      </div>
+
+      <div class="key-concept">
+        <div class="kc-label">🔑 Critical Clinical Point — Rebound Effect</div>
+        <div class="kc-body"><span class="hl-red">Do NOT discontinue abruptly.</span> Stopping denosumab causes a <strong>rebound surge in bone resorption</strong> (osteoclast reactivation) → rapid BMD loss and <span class="hl-red">multiple vertebral fractures</span> within 6–12 months. If stopping denosumab, transition to a <strong>bisphosphonate</strong> to prevent rebound.</div>
+      </div>
+
+      <div class="two-col">
+        <div class="callout adverse">
+          <div class="callout-title">⚠️ Adverse Effects</div>
+          <ul class="callout-list">
+            <li><strong>Hypocalcemia</strong> — most serious; ↑ risk in CKD/dialysis patients</li>
+            <li><strong>Serious infections:</strong> cellulitis, UTI, pneumonia (immunomodulatory effects — RANKL expressed on immune cells)</li>
+            <li><strong>ONJ</strong> (osteonecrosis of jaw)</li>
+            <li><strong>Atypical femoral fractures</strong> (long-term)</li>
+            <li><strong>Dermatologic:</strong> eczema, dermatitis, rash, urticaria</li>
+            <li>Back pain, musculoskeletal pain</li>
+            <li>Injection site reactions</li>
+          </ul>
+        </div>
+
+        <div class="callout contraind">
+          <div class="callout-title">🚫 Contraindications</div>
+          <ul class="callout-list">
+            <li><span class="hl-red">Hypocalcemia</span> (correct before starting)</li>
+            <li>Pregnancy (Category X)</li>
+            <li>Hypersensitivity to denosumab</li>
+            <li>Latex allergy (needle cap contains latex in some formulations)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="callout renal">
+          <div class="callout-title">🧪 Renal Impairment</div>
+          <ul class="callout-list">
+            <li>Denosumab is a <strong>monoclonal antibody</strong> → NOT renally cleared → <strong>no dose adjustment needed</strong> based on CrCl</li>
+            <li>However, CKD/dialysis patients have ↑ risk of <span class="hl-red">hypocalcemia</span> — monitor closely</li>
+            <li>Can be used when bisphosphonates are contraindicated (CrCl &lt; 35)</li>
+          </ul>
+        </div>
+
+        <div class="callout pregnancy">
+          <div class="callout-title">🤰 Pregnancy</div>
+          <ul class="callout-list">
+            <li><strong>Category X</strong> — contraindicated in pregnancy</li>
+            <li>RANKL pathway important in fetal development (lymph node formation)</li>
+            <li>Long half-life of monoclonal antibody — counsel on contraception</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout interactions">
+        <div class="callout-title">🔄 Drug Interactions</div>
+        <ul class="callout-list">
+          <li>Agents that ↓ serum Ca²⁺ (loop diuretics, aminoglycosides, calcitonin) → additive hypocalcemia risk</li>
+          <li>Immunosuppressants → additive infection risk</li>
+          <li>Minimal CYP-based interactions (not metabolized by CYP enzymes)</li>
+        </ul>
+      </div>
+
+      <div class="callout allergy">
+        <div class="callout-title">💉 Allergy Considerations</div>
+        <ul class="callout-list">
+          <li>Latex allergy: prefilled syringe needle cap may contain latex — use alternative formulation</li>
+          <li>Hypersensitivity reactions (rare): anaphylaxis, angioedema, urticaria — have epinephrine available</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SERM
+══════════════════════════════════════ -->
+<div class="section-block" id="serm">
+  <div class="section-header">
+    <div class="section-icon">🔬</div>
+    <div class="section-header-text">
+      <span class="class-label" style="color:var(--pink);border-color:var(--pink-border);background:var(--pink-dim)">Antiresorptive · SERM</span>
+      <h2 style="color:var(--pink)">Mixed Estrogen Agonist/Antagonist (EAA) — SERM</h2>
+      <div class="section-subtitle">PLO 1 · Selective Estrogen Receptor Modulator</div>
+    </div>
+  </div>
+
+  <div class="drug-card expanded">
+    <div class="drug-card-header" onclick="toggleCard(this)">
+      <div class="drug-name-group">
+        <div class="drug-name">Raloxifene</div>
+        <div class="brand-name">Evista — 60 mg PO daily</div>
+      </div>
+      <div class="route-badge">PO Daily</div>
+      <div class="expand-btn">▼</div>
+    </div>
+    <div class="drug-card-body">
+
+      <div class="callout moa">
+        <div class="callout-title">⚙️ Mechanism of Action — Tissue Selectivity</div>
+        <p>Raloxifene binds estrogen receptors (ERα, ERβ) but induces a <strong>different receptor conformation</strong> than estradiol, recruiting different coactivators/corepressors in different tissues:</p>
+        <ul class="callout-list" style="margin-top:8px">
+          <li><span class="hl-green">AGONIST at bone:</span> ↓ osteoclast activity → antiresorptive (like estrogen)</li>
+          <li><span class="hl-green">AGONIST at lipids:</span> ↓ LDL cholesterol</li>
+          <li><span class="hl-red">ANTAGONIST at breast:</span> ↓ breast cancer risk (approved for chemoprevention)</li>
+          <li><span class="hl-red">ANTAGONIST at uterus:</span> Does <strong>NOT</strong> stimulate endometrium → no ↑ endometrial cancer risk (unlike estrogen alone)</li>
+          <li><span class="hl-red">ANTAGONIST for vasomotor symptoms:</span> May <strong>worsen</strong> hot flashes</li>
+        </ul>
+      </div>
+
+      <div class="two-col">
+        <div class="callout adverse">
+          <div class="callout-title">⚠️ Adverse Effects</div>
+          <ul class="callout-list">
+            <li><span class="hl-red">VTE (DVT/PE)</span> — significantly ↑ risk; most important side effect</li>
+            <li><strong>Hot flashes / vasomotor symptoms</strong> — worsens these (agonist effect lost at hypothalamus)</li>
+            <li>Leg cramps</li>
+            <li>Edema</li>
+            <li>No endometrial stimulation (advantage over estrogen)</li>
+          </ul>
+        </div>
+
+        <div class="callout contraind">
+          <div class="callout-title">🚫 Contraindications</div>
+          <ul class="callout-list">
+            <li><span class="hl-red">Active or prior VTE</span> (DVT, PE, retinal vein thrombosis)</li>
+            <li>Premenopausal women (not effective; may disturb cycle)</li>
+            <li>Pregnancy and breastfeeding</li>
+            <li>Prolonged immobilization (↑ VTE risk — hold before elective surgery)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="callout renal">
+          <div class="callout-title">🧪 Renal / Hepatic Impairment</div>
+          <ul class="callout-list">
+            <li>Primarily <strong>hepatically metabolized</strong>; use with caution in hepatic impairment</li>
+            <li>Mild renal impairment: no dose adjustment needed</li>
+            <li>Avoid in Child-Pugh C cirrhosis</li>
+          </ul>
+        </div>
+        <div class="callout pregnancy">
+          <div class="callout-title">🤰 Pregnancy</div>
+          <ul class="callout-list">
+            <li><strong>Category X</strong> — teratogenic in animals</li>
+            <li>Contraindicated in premenopausal women, pregnancy, breastfeeding</li>
+            <li>Only for <strong>postmenopausal women</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout interactions">
+        <div class="callout-title">🔄 Drug Interactions</div>
+        <ul class="callout-list">
+          <li><strong>Cholestyramine:</strong> ↓ raloxifene absorption (↓ 60%) — avoid concurrent use</li>
+          <li><strong>Warfarin:</strong> slight ↓ PT — monitor INR</li>
+          <li><strong>Other highly protein-bound drugs:</strong> may compete for albumin binding</li>
+        </ul>
+      </div>
+
+      <div class="callout allergy">
+        <div class="callout-title">💉 Allergy</div>
+        Hypersensitivity to raloxifene. No specific cross-reactivities of clinical significance noted.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TSEC
+══════════════════════════════════════ -->
+<div class="section-block" id="tsec">
+  <div class="section-header">
+    <div class="section-icon">💜</div>
+    <div class="section-header-text">
+      <span class="class-label" style="color:var(--purple);border-color:var(--purple-border);background:var(--purple-dim)">Antiresorptive · TSEC</span>
+      <h2 style="color:var(--purple)">Tissue Selective Estrogen Complex (TSEC)</h2>
+      <div class="section-subtitle">PLO 1 · Conjugated Estrogens + Bazedoxifene</div>
+    </div>
+  </div>
+
+  <div class="drug-card expanded">
+    <div class="drug-card-header" onclick="toggleCard(this)">
+      <div class="drug-name-group">
+        <div class="drug-name">Conjugated Estrogens / Bazedoxifene</div>
+        <div class="brand-name">Duavee (Aprela) — 0.45 mg CE / 20 mg BZA · PO Daily</div>
+      </div>
+      <div class="route-badge">PO Daily</div>
+      <div class="expand-btn">▼</div>
+    </div>
+    <div class="drug-card-body">
+
+      <div class="callout moa">
+        <div class="callout-title">⚙️ Mechanism of Action</div>
+        <p><strong>Combination of:</strong></p>
+        <ul class="callout-list">
+          <li><strong>Conjugated Estrogens (CE):</strong> ER agonist → ↓ bone resorption (antiresorptive) + relieves vasomotor symptoms (hot flashes)</li>
+          <li><strong>Bazedoxifene (BZA):</strong> SERM that acts as an <span class="hl-red">ER antagonist at the uterus</span> → blocks CE-induced endometrial proliferation</li>
+        </ul>
+        <p style="margin-top:8px"><em>Key innovation:</em> BZA replaces progestin as uterine protector → <strong>no progestin needed</strong> (avoids progestin side effects like breast cancer risk ↑, mood changes).</p>
+        <p style="margin-top:6px"><strong>Indicated for:</strong> Postmenopausal women <span class="hl">with a uterus</span> who have vasomotor symptoms AND want bone protection. Not for women who have had hysterectomy (just use estrogen alone).</p>
+      </div>
+
+      <div class="two-col">
+        <div class="callout adverse">
+          <div class="callout-title">⚠️ Adverse Effects</div>
+          <ul class="callout-list">
+            <li><span class="hl-red">VTE</span> (DVT/PE) — estrogen component</li>
+            <li>Nausea, abdominal cramps</li>
+            <li>Muscle spasms</li>
+            <li>Oropharyngeal pain</li>
+            <li>Dizziness</li>
+            <li>No endometrial hyperplasia (BZA protects)</li>
+            <li>Potential CV effects of estrogen (discuss risk/benefit)</li>
+          </ul>
+        </div>
+        <div class="callout contraind">
+          <div class="callout-title">🚫 Contraindications</div>
+          <ul class="callout-list">
+            <li>Undiagnosed abnormal uterine bleeding</li>
+            <li>Active or prior VTE or arterial thromboembolic disease</li>
+            <li>Known/suspected estrogen-dependent malignancy (breast, endometrial cancer)</li>
+            <li>Pregnancy</li>
+            <li>Hepatic impairment</li>
+            <li>Hypersensitivity</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="callout renal">
+          <div class="callout-title">🧪 Renal / Hepatic</div>
+          <ul class="callout-list">
+            <li>Hepatically metabolized — <strong>contraindicated in hepatic impairment</strong></li>
+            <li>Renal impairment: no specific dose adjustments; use caution</li>
+          </ul>
+        </div>
+        <div class="callout pregnancy">
+          <div class="callout-title">🤰 Pregnancy</div>
+          <ul class="callout-list">
+            <li><strong>Category X</strong> — contraindicated</li>
+            <li>For postmenopausal women only</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout interactions">
+        <div class="callout-title">🔄 Drug Interactions</div>
+        <ul class="callout-list">
+          <li><strong>CYP3A4 inducers</strong> (rifampin, phenytoin, carbamazepine): ↓ CE and BZA levels</li>
+          <li><strong>CYP3A4 inhibitors</strong> (ketoconazole, erythromycin): ↑ CE levels</li>
+          <li><strong>Cholestyramine:</strong> ↓ BZA absorption — avoid concurrent use</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CALCITONIN
+══════════════════════════════════════ -->
+<div class="section-block" id="calcitonin">
+  <div class="section-header">
+    <div class="section-icon">🐟</div>
+    <div class="section-header-text">
+      <span class="class-label" style="color:var(--teal);border-color:var(--teal-border);background:var(--teal-dim)">Antiresorptive · Peptide Hormone</span>
+      <h2 style="color:var(--teal)">Calcitonin</h2>
+      <div class="section-subtitle">PLO 1 · Salmon Calcitonin — Miacalcin, Fortical</div>
+    </div>
+  </div>
+
+  <div class="drug-card expanded">
+    <div class="drug-card-header" onclick="toggleCard(this)">
+      <div class="drug-name-group">
+        <div class="drug-name">Salmon Calcitonin</div>
+        <div class="brand-name">Miacalcin, Fortical — 200 IU intranasal daily OR 100 IU SQ/IM</div>
+      </div>
+      <div class="route-badge">Intranasal / SQ / IM</div>
+      <div class="expand-btn">▼</div>
+    </div>
+    <div class="drug-card-body">
+
+      <div class="callout moa">
+        <div class="callout-title">⚙️ Mechanism of Action</div>
+        Synthetic salmon calcitonin (more potent than human calcitonin) binds <strong>calcitonin receptors on osteoclasts</strong> → directly inhibits osteoclast activity (↓ ruffled border, ↓ proton pump activity) → ↓ bone resorption. Also has <strong>analgesic effect</strong> via central ↑ endorphins → useful for pain of acute vertebral compression fractures.
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-title">⚠️ FDA Warning — Malignancy Signal</div>
+        In 2013, FDA raised concerns about <span class="hl-red">possible increased risk of malignancy</span> with long-term calcitonin use. Now considered a <strong>second-line or last-resort</strong> agent. Use only when other agents cannot be used.
+      </div>
+
+      <div class="two-col">
+        <div class="callout adverse">
+          <div class="callout-title">⚠️ Adverse Effects</div>
+          <ul class="callout-list">
+            <li><strong>Intranasal:</strong> Rhinitis, epistaxis, nasal dryness, sinusitis</li>
+            <li><strong>Injectable:</strong> Nausea/vomiting, flushing, local injection site reactions</li>
+            <li>Headache, dizziness</li>
+            <li>Hypocalcemia (mild)</li>
+            <li>Antibody formation → tachyphylaxis (↓ efficacy over time)</li>
+            <li>Possible malignancy risk (FDA warning)</li>
+          </ul>
+        </div>
+        <div class="callout contraind">
+          <div class="callout-title">🚫 Contraindications</div>
+          <ul class="callout-list">
+            <li><span class="hl-red">Allergy to salmon</span> — test dose may be required before first injection</li>
+            <li>Hypersensitivity to calcitonin-salmon</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="callout renal">
+          <div class="callout-title">🧪 Renal / Hepatic</div>
+          <ul class="callout-list">
+            <li>Renally excreted as metabolites</li>
+            <li>Use with caution in renal impairment (no specific dosing guidelines)</li>
+            <li>Hepatic impairment: minimal concern (not hepatically metabolized significantly)</li>
+          </ul>
+        </div>
+        <div class="callout pregnancy">
+          <div class="callout-title">🤰 Pregnancy</div>
+          <ul class="callout-list">
+            <li>Category C — avoid unless clearly necessary</li>
+            <li>Calcitonin may ↓ maternal serum Ca²⁺ → crosses placenta, potential fetal effects</li>
+            <li>Breastfeeding: not recommended (may ↓ milk production)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout allergy">
+        <div class="callout-title">💉 Allergy — CRITICAL</div>
+        <strong>Allergy to salmon is a key contraindication.</strong> Perform skin test before first dose in patients with suspected fish allergy. If skin test positive → do not administer. If positive prior reaction to calcitonin-salmon → contraindicated.
+      </div>
+
+      <div class="callout interactions">
+        <div class="callout-title">🔄 Drug Interactions</div>
+        <ul class="callout-list">
+          <li>Prior bisphosphonate use: ↓ calcitonin receptor sensitivity (possible ↓ effect)</li>
+          <li>Lithium: may ↓ lithium levels (calcitonin may ↑ renal Li clearance)</li>
+          <li>Limited significant interactions overall</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- ══════════════════════════════════════
+     PTH 1-34
+══════════════════════════════════════ -->
+<div class="section-block" id="pth">
+  <div class="section-header">
+    <div class="section-icon">🏗️</div>
+    <div class="section-header-text">
+      <span class="class-label" style="color:var(--amber);border-color:var(--amber-border);background:var(--amber-dim)">Anabolic · PTH Analog</span>
+      <h2 style="color:var(--amber)">Recombinant Human PTH 1-34</h2>
+      <div class="section-subtitle">PLO 1 · Teriparatide (Forteo)</div>
+    </div>
+  </div>
+
+  <div class="key-concept">
+    <div class="kc-label">🔑 Intermittent vs. Continuous PTH — High-Yield</div>
+    <div class="kc-body">
+      <strong>Intermittent PTH (daily SQ injection)</strong> = <span class="hl-green">ANABOLIC</span> — ↑ osteoblast activity &gt; osteoclast activity → net bone formation.<br/>
+      <strong>Continuous PTH</strong> (as in primary hyperparathyroidism) = <span class="hl-red">CATABOLIC</span> → ↑ bone resorption. This distinction is <em>critical</em> for Dr. Ly's clinical case questions.
+    </div>
+  </div>
+
+  <div class="drug-card expanded">
+    <div class="drug-card-header" onclick="toggleCard(this)">
+      <div class="drug-name-group">
+        <div class="drug-name">Teriparatide</div>
+        <div class="brand-name">Forteo — 20 mcg SQ daily · Max 2 years cumulative</div>
+      </div>
+      <div class="route-badge">SQ Daily</div>
+      <div class="expand-btn">▼</div>
+    </div>
+    <div class="drug-card-body">
+
+      <div class="callout moa">
+        <div class="callout-title">⚙️ Mechanism of Action</div>
+        Recombinant human PTH (amino acids 1–34, the biologically active N-terminal fragment). When administered <strong>intermittently</strong>, binds PTH1R (GPCR) on osteoblasts → anabolic signaling (↑ Wnt signaling, ↑ IGF-1) → ↑ osteoblast proliferation, differentiation, and survival → <strong>↑ bone formation</strong>. Also transiently stimulates osteoclasts (RANKL ↑), but net effect is anabolic. Increases both trabecular AND cortical bone.
+      </div>
+
+      <div class="bbw-badge">⚫ BLACK BOX WARNING</div>
+      <div class="callout adverse" style="border-color:#8b0000;background:#2e0000">
+        <div class="callout-title" style="color:#ff4444">☠️ Black Box — Osteosarcoma Risk</div>
+        <ul class="callout-list">
+          <li>Dose- and duration-dependent ↑ osteosarcoma in rats</li>
+          <li>Risk in humans unknown but drug is <strong>contraindicated in patients at ↑ baseline risk for osteosarcoma</strong></li>
+          <li>Do not use &gt; <strong>2 years cumulative</strong> lifetime exposure (combined with abaloparatide)</li>
+        </ul>
+      </div>
+
+      <div class="two-col">
+        <div class="callout adverse">
+          <div class="callout-title">⚠️ Adverse Effects</div>
+          <ul class="callout-list">
+            <li><strong>Orthostatic hypotension</strong> — especially within 4h of injection; sit/lie down after</li>
+            <li>Nausea, vomiting, dizziness</li>
+            <li>Leg cramps</li>
+            <li><strong>Hypercalcemia</strong> (mild, transient)</li>
+            <li><strong>Hypercalciuria</strong> — ↑ nephrolithiasis risk</li>
+            <li>Hyperuricemia</li>
+            <li>Injection site reactions</li>
+          </ul>
+        </div>
+
+        <div class="callout contraind">
+          <div class="callout-title">🚫 Contraindications</div>
+          <ul class="callout-list">
+            <li><strong>Paget's disease of bone</strong></li>
+            <li>Prior <strong>radiation therapy to the skeleton</strong></li>
+            <li>Open epiphyses (children, adolescents)</li>
+            <li>Metabolic bone disease (other than osteoporosis)</li>
+            <li>Pre-existing <strong>hypercalcemia</strong></li>
+            <li>Bone metastases or skeletal malignancy</li>
+            <li>Cumulative &gt; 2 years lifetime use</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="callout renal">
+          <div class="callout-title">🧪 Renal / Hepatic</div>
+          <ul class="callout-list">
+            <li>Hepatically metabolized (peptidase enzymes) + renal excretion of metabolites</li>
+            <li>Mild-to-moderate renal impairment: use with caution (hypercalcemia risk ↑)</li>
+            <li>Severe renal impairment (CrCl &lt; 30): data limited — use caution</li>
+            <li>Active nephrolithiasis: use with caution (↑ hypercalciuria)</li>
+          </ul>
+        </div>
+        <div class="callout pregnancy">
+          <div class="callout-title">🤰 Pregnancy</div>
+          <ul class="callout-list">
+            <li>Category C — use in pregnancy only if clearly needed</li>
+            <li>Not routinely used in premenopausal or pregnant women</li>
+            <li>Breastfeeding: unknown excretion; not recommended</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout interactions">
+        <div class="callout-title">🔄 Drug Interactions</div>
+        <ul class="callout-list">
+          <li><strong>Digitalis/digoxin:</strong> teriparatide-induced hypercalcemia may predispose to digitalis toxicity — monitor closely</li>
+          <li><strong>Concurrent antiresorptives:</strong> Adding teriparatide after antiresorptive therapy is fine; combining simultaneously may blunt anabolic effect of teriparatide (avoid simultaneous use)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PTHrP ANALOG
+══════════════════════════════════════ -->
+<div class="section-block" id="pthrp">
+  <div class="section-header">
+    <div class="section-icon">🔶</div>
+    <div class="section-header-text">
+      <span class="class-label" style="color:var(--orange);border-color:var(--orange-border);background:var(--orange-dim)">Anabolic · PTHrP Analog</span>
+      <h2 style="color:var(--orange)">Human PTHrP[1-34] Analog</h2>
+      <div class="section-subtitle">PLO 1 · Abaloparatide (Tymlos)</div>
+    </div>
+  </div>
+
+  <div class="drug-card expanded">
+    <div class="drug-card-header" onclick="toggleCard(this)">
+      <div class="drug-name-group">
+        <div class="drug-name">Abaloparatide</div>
+        <div class="brand-name">Tymlos — 80 mcg SQ daily · Max 2 years (combined with teriparatide)</div>
+      </div>
+      <div class="route-badge">SQ Daily</div>
+      <div class="expand-btn">▼</div>
+    </div>
+    <div class="drug-card-body">
+
+      <div class="callout moa">
+        <div class="callout-title">⚙️ Mechanism of Action — vs. Teriparatide</div>
+        Synthetic analog of <strong>PTH-related Peptide (PTHrP)</strong> — shares N-terminal homology with PTH. Binds <strong>PTH1R</strong> but <span class="hl-purple">preferentially stabilizes the RG (Gs-coupled) conformation</span> over the R0 (arrestin-recruiting) conformation → more <strong>cAMP-mediated anabolic signaling</strong> with less arrestin signaling → <strong>↑ bone formation</strong> with <span class="hl-green">less hypercalcemia and hypercalciuria</span> than teriparatide.
+        <p style="margin-top:8px">Abaloparatide has a <strong>greater selectivity for anabolic vs. catabolic PTH signaling</strong> compared to teriparatide.</p>
+      </div>
+
+      <div class="bbw-badge">⚫ BLACK BOX WARNING</div>
+      <div class="callout adverse" style="border-color:#8b0000;background:#2e0000">
+        <div class="callout-title" style="color:#ff4444">☠️ Black Box — Osteosarcoma Risk</div>
+        Same BBW as teriparatide. Do not use &gt; 2 years cumulative (combined with teriparatide).
+      </div>
+
+      <div class="two-col">
+        <div class="callout adverse">
+          <div class="callout-title">⚠️ Adverse Effects</div>
+          <ul class="callout-list">
+            <li><strong>Orthostatic hypotension</strong> — monitor after injection</li>
+            <li>Dizziness, nausea, headache</li>
+            <li>Palpitations</li>
+            <li>Hypercalcemia (less than teriparatide)</li>
+            <li>Hypercalciuria (less than teriparatide)</li>
+            <li>Injection site reactions (pain, erythema)</li>
+          </ul>
+        </div>
+
+        <div class="callout contraind">
+          <div class="callout-title">🚫 Contraindications</div>
+          <ul class="callout-list">
+            <li>Same as teriparatide: Paget's disease, prior skeletal radiation, open epiphyses, hypercalcemia, bone mets/malignancy</li>
+            <li>&gt;2 years cumulative use (combined with teriparatide)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="callout renal">
+          <div class="callout-title">🧪 Renal Impairment</div>
+          <ul class="callout-list">
+            <li>Renally excreted; exposure ↑ in renal impairment</li>
+            <li>Avoid in <strong>severe renal impairment (CrCl &lt; 30 mL/min)</strong></li>
+            <li>Mild-moderate: use with caution, monitor Ca²⁺</li>
+          </ul>
+        </div>
+        <div class="callout pregnancy">
+          <div class="callout-title">🤰 Pregnancy</div>
+          <ul class="callout-list">
+            <li>Not recommended in pregnancy or breastfeeding</li>
+            <li>Limited human data; animal studies show fetal effects</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout note">
+        <div class="callout-title">📋 Abaloparatide vs. Teriparatide Summary</div>
+        <div class="comp-table-wrap" style="margin:0">
+          <table class="comp-table">
+            <thead><tr><th>Feature</th><th>Teriparatide</th><th>Abaloparatide</th></tr></thead>
+            <tbody>
+              <tr><td>Source</td><td>Recombinant human PTH 1–34</td><td>PTHrP[1–34] analog (synthetic)</td></tr>
+              <tr><td>Receptor bias</td><td>R0 + RG (both conformations)</td><td>Preferentially RG (Gs/cAMP)</td></tr>
+              <tr><td>Hypercalcemia</td><td class="caution">More common</td><td class="check">Less common</td></tr>
+              <tr><td>Hypercalciuria</td><td class="caution">More common</td><td class="check">Less</td></tr>
+              <tr><td>BBW osteosarcoma</td><td class="cross">Yes</td><td class="cross">Yes</td></tr>
+              <tr><td>Max duration</td><td colspan="2">2 years combined</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCLEROSTIN INHIBITOR
+══════════════════════════════════════ -->
+<div class="section-block" id="sclerostin">
+  <div class="section-header">
+    <div class="section-icon">🟢</div>
+    <div class="section-header-text">
+      <span class="class-label" style="color:var(--green);border-color:var(--green-border);background:var(--green-dim)">Dual Mechanism · Anabolic + Antiresorptive</span>
+      <h2 style="color:var(--green)">Sclerostin Inhibitor</h2>
+      <div class="section-subtitle">PLO 1 · Romosozumab (Evenity)</div>
+    </div>
+  </div>
+
+  <div class="drug-card expanded">
+    <div class="drug-card-header" onclick="toggleCard(this)">
+      <div class="drug-name-group">
+        <div class="drug-name">Romosozumab</div>
+        <div class="brand-name">Evenity — 210 mg SQ monthly × 12 months (two 105 mg injections/month)</div>
+      </div>
+      <div class="route-badge">SQ Monthly × 12 mo</div>
+      <div class="expand-btn">▼</div>
+    </div>
+    <div class="drug-card-body">
+
+      <div class="callout moa">
+        <div class="callout-title">⚙️ Mechanism of Action — Dual Effect</div>
+        Monoclonal antibody targeting <strong>sclerostin</strong>, a glycoprotein produced by <strong>osteocytes</strong> that inhibits Wnt signaling (normally puts the brakes on bone formation). By blocking sclerostin:
+        <ul class="callout-list" style="margin-top:8px">
+          <li><span class="hl-green">↑ Wnt/β-catenin signaling</span> → ↑ osteoblast activity → <strong>↑ bone formation</strong> (anabolic)</li>
+          <li><span class="hl-green">↓ RANKL expression</span> + ↑ OPG → ↓ osteoclast activity → <strong>↓ bone resorption</strong> (antiresorptive)</li>
+        </ul>
+        <p style="margin-top:8px"><strong>Net result: The ONLY agent that simultaneously ↑ bone formation AND ↓ bone resorption.</strong> Produces rapid, large BMD gains early on, then effect wanes (hence 12-month limit).</p>
+      </div>
+
+      <div class="bbw-badge">⚫ BLACK BOX WARNING</div>
+      <div class="callout adverse" style="border-color:#8b0000;background:#2e0000">
+        <div class="callout-title" style="color:#ff4444">☠️ Black Box — Cardiovascular Risk</div>
+        <ul class="callout-list">
+          <li><strong>↑ Risk of MI and stroke</strong></li>
+          <li>Do not initiate in patients who have had a <span class="hl-red">MI or stroke within the past year</span></li>
+          <li>If CV event occurs during treatment → discontinue</li>
+          <li>Weigh CV risk vs. bone benefit before use</li>
+        </ul>
+      </div>
+
+      <div class="two-col">
+        <div class="callout adverse">
+          <div class="callout-title">⚠️ Adverse Effects</div>
+          <ul class="callout-list">
+            <li><strong>Injection site reactions</strong> (most common)</li>
+            <li>Arthralgias, headache</li>
+            <li><strong>Hypocalcemia</strong> — monitor; correct before use</li>
+            <li><strong>ONJ</strong> (rare)</li>
+            <li><strong>Atypical femoral fractures</strong> (rare)</li>
+            <li>CV events (MI, stroke — see BBW)</li>
+          </ul>
+        </div>
+
+        <div class="callout contraind">
+          <div class="callout-title">🚫 Contraindications</div>
+          <ul class="callout-list">
+            <li><span class="hl-red">Hypocalcemia</span> (correct before starting)</li>
+            <li>MI or stroke within the <strong>past year</strong></li>
+            <li>Hypersensitivity to romosozumab</li>
+            <li>Use beyond <strong>12 months</strong> not recommended (diminishing returns)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="callout renal">
+          <div class="callout-title">🧪 Renal / Hepatic</div>
+          <ul class="callout-list">
+            <li>Monoclonal antibody — not renally cleared; <strong>no dose adjustment for renal impairment</strong></li>
+            <li>↑ Hypocalcemia risk in severe CKD — monitor Ca²⁺ closely</li>
+            <li>Hepatic: no specific adjustments</li>
+          </ul>
+        </div>
+        <div class="callout pregnancy">
+          <div class="callout-title">🤰 Pregnancy</div>
+          <ul class="callout-list">
+            <li><strong>Avoid in pregnancy</strong> — animal data show fetal skeletal anomalies</li>
+            <li>Category X equivalent — postmenopausal use only</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout interactions">
+        <div class="callout-title">🔄 Drug Interactions</div>
+        <ul class="callout-list">
+          <li>Agents causing hypocalcemia (loop diuretics, aminoglycosides): additive risk</li>
+          <li>Minimal CYP-based interactions (monoclonal antibody)</li>
+          <li>After completing 12 months → <strong>transition to an antiresorptive agent</strong> (bisphosphonate or denosumab) to maintain gains</li>
+        </ul>
+      </div>
+
+      <div class="callout allergy">
+        <div class="callout-title">💉 Allergy</div>
+        Hypersensitivity reactions (angioedema, erythema multiforme, urticaria) — rare. Discontinue if serious hypersensitivity occurs.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider"/>
+
+<!-- ══════════════════════════════════════
+     CLINICAL DECISION GUIDE
+══════════════════════════════════════ -->
+<div class="section-block" id="decision">
+  <div class="section-header">
+    <div class="section-icon">🧠</div>
+    <div class="section-header-text">
+      <h2 style="color:var(--amber)">Clinical Decision Guide</h2>
+      <div class="section-subtitle">Dr. Ly LO: Select most/least likely drug based on patient constraints</div>
+    </div>
+  </div>
+
+  <!-- ALLERGY DECISION -->
+  <div class="callout allergy" style="margin-bottom:16px">
+    <div class="callout-title">💉 Based on Allergies</div>
+    <ul class="callout-list">
+      <li><strong>Salmon allergy:</strong> Avoid calcitonin → choose bisphosphonate, denosumab, or SERM</li>
+      <li><strong>Latex allergy:</strong> Avoid denosumab prefilled syringe (needle cap) → use alternative</li>
+      <li><strong>GI intolerance (oral bisphosphonate):</strong> Switch to IV zoledronic acid or denosumab</li>
+    </ul>
+  </div>
+
+  <!-- RENAL DECISION -->
+  <div class="callout renal" style="margin-bottom:16px">
+    <div class="callout-title">🧪 Based on Renal Function</div>
+    <ul class="callout-list">
+      <li><strong>CrCl &lt; 35 mL/min:</strong> Avoid bisphosphonates → preferred: <span class="hl-teal">denosumab</span> or <span class="hl-pink">raloxifene</span></li>
+      <li><strong>Dialysis patients:</strong> Use denosumab with very close Ca²⁺ monitoring (high hypocalcemia risk)</li>
+      <li><strong>Abaloparatide:</strong> Avoid if CrCl &lt; 30 mL/min (teriparatide: caution with severe impairment)</li>
+      <li><strong>CKD Stage 4–5:</strong> Use calcitriol (active vitamin D) rather than D3/D2</li>
+    </ul>
+  </div>
+
+  <!-- VTE HISTORY -->
+  <div class="callout warning" style="margin-bottom:16px">
+    <div class="callout-title">⚠️ VTE History / Risk</div>
+    <ul class="callout-list">
+      <li><strong>Active or prior DVT/PE:</strong> Avoid <span class="hl-pink">raloxifene</span> and <span class="hl-purple">TSEC/CE</span> → choose bisphosphonate or denosumab</li>
+      <li>Raloxifene ↑ VTE risk comparably to estrogen</li>
+    </ul>
+  </div>
+
+  <!-- CV RISK -->
+  <div class="callout adverse" style="margin-bottom:16px">
+    <div class="callout-title">❤️ Based on Cardiovascular History</div>
+    <ul class="callout-list">
+      <li><strong>Recent MI or stroke (&lt;1 year):</strong> Avoid <span class="hl-green">romosozumab</span> (BBW)</li>
+      <li><strong>High CV risk patient:</strong> Prefer bisphosphonate or denosumab over romosozumab or TSEC</li>
+    </ul>
+  </div>
+
+  <!-- HOT FLASHES + OSTEOPOROSIS -->
+  <div class="callout note" style="margin-bottom:16px">
+    <div class="callout-title">🌡️ Vasomotor Symptoms + Osteoporosis</div>
+    <ul class="callout-list">
+      <li><strong>Postmenopausal woman WITH uterus + hot flashes + osteoporosis:</strong> Best agent = <span class="hl-purple">TSEC (CE/Bazedoxifene)</span> — treats both vasomotor Sx AND osteoporosis without progestin</li>
+      <li>Raloxifene <em>worsens</em> hot flashes → avoid in this scenario</li>
+      <li>TSEC contraindicated if VTE history or estrogen-sensitive cancer</li>
+    </ul>
+  </div>
+
+  <!-- BREAST CANCER RISK -->
+  <div class="callout note" style="margin-bottom:16px">
+    <div class="callout-title">🩺 Breast Cancer Risk Reduction + Osteoporosis</div>
+    <ul class="callout-list">
+      <li><strong>Postmenopausal woman at high breast cancer risk + osteoporosis:</strong> Consider <span class="hl-pink">raloxifene</span> (FDA-approved for breast cancer chemoprevention AND osteoporosis)</li>
+      <li>No VTE history required; avoids endometrial stimulation</li>
+    </ul>
+  </div>
+
+  <!-- ANABOLIC NEED -->
+  <div class="callout moa" style="margin-bottom:16px">
+    <div class="callout-title">🏗️ Severe Osteoporosis / High Fracture Risk — Anabolic Agents</div>
+    <ul class="callout-list">
+      <li>Severe osteoporosis (T-score ≤ −3.0), prior fragility fractures on antiresorptives, or failure of antiresorptive therapy → consider <span class="hl-amber">teriparatide</span> or <span class="hl">abaloparatide</span></li>
+      <li>Abaloparatide preferred if ↑ risk of hypercalcemia/nephrolithiasis (less hypercalciuric than teriparatide)</li>
+      <li>Follow anabolic therapy with antiresorptive (bisphosphonate) to maintain gains — <em>do not stop with nothing</em></li>
+      <li>After completing romosozumab (12 mo) → must transition to antiresorptive</li>
+    </ul>
+  </div>
+
+  <!-- PREGNANCY SCENARIO -->
+  <div class="callout pregnancy" style="margin-bottom:16px">
+    <div class="callout-title">🤰 Pregnancy Considerations</div>
+    <ul class="callout-list">
+      <li>All major osteoporosis drugs are avoided in pregnancy (Category C–X)</li>
+      <li>Premenopausal women with osteoporosis: optimize <strong>Ca²⁺ + Vitamin D</strong>; consider risks/benefits carefully with specialist</li>
+      <li>Denosumab, SERM, TSEC, teriparatide, abaloparatide, romosozumab: all contraindicated/not recommended in pregnancy</li>
+      <li>Bisphosphonates: Category C/D — avoid if possible; long-term skeletal incorporation is a concern</li>
+    </ul>
+  </div>
+
+  <!-- LAB DATA GUIDE -->
+  <div class="callout note">
+    <div class="callout-title">🔬 Based on Lab Data</div>
+    <ul class="callout-list">
+      <li><strong>Low serum Ca²⁺ (hypocalcemia):</strong> Correct BEFORE starting bisphosphonates, denosumab, or romosozumab (all contraindicated with active hypocalcemia)</li>
+      <li><strong>Low 25-OH-D:</strong> Supplement with Vitamin D; check prior to starting any pharmacotherapy</li>
+      <li><strong>Elevated Ca²⁺ (hypercalcemia):</strong> Contraindicated for teriparatide/abaloparatide; evaluate for primary hyperparathyroidism before initiating PTH analogs</li>
+      <li><strong>Low CrCl (&lt;35):</strong> Avoid bisphosphonates; prefer denosumab</li>
+      <li><strong>Elevated ALP:</strong> May suggest high-turnover state or Paget's — relevant to teriparatide contraindication in Paget's</li>
+      <li><strong>Serum markers of bone turnover</strong> (CTX for resorption, P1NP for formation): guide treatment monitoring</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MASTER COMPARISON TABLE
+══════════════════════════════════════ -->
+<div class="section-block" id="compare">
+  <div class="section-header">
+    <div class="section-icon">📊</div>
+    <div class="section-header-text">
+      <h2 style="color:var(--text)">Master Comparison Table</h2>
+      <div class="section-subtitle">All classes at a glance — built for Dr. Ly's clinical case format</div>
+    </div>
+  </div>
+
+  <div class="comp-table-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Drug (Brand)</th>
+          <th>Class</th>
+          <th>Mechanism</th>
+          <th>Key ADE</th>
+          <th>Key Contraindication</th>
+          <th>Renal</th>
+          <th>Pregnancy</th>
+          <th>BBW?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="drug-cell" style="color:var(--blue)">Alendronate<br><span style="font-weight:400;color:var(--text-dim);font-size:11px">Fosamax</span></td>
+          <td>Bisphosphonate</td>
+          <td>↓ Osteoclast (FPPS inhibition)</td>
+          <td>Esophagitis, ONJ, AFF</td>
+          <td>CrCl &lt;35, esophageal disease</td>
+          <td class="cross">Avoid CrCl &lt;35</td>
+          <td class="caution">Avoid (C/D)</td>
+          <td class="cross">No</td>
+        </tr>
+        <tr>
+          <td class="drug-cell" style="color:var(--blue)">Zoledronic Acid<br><span style="font-weight:400;color:var(--text-dim);font-size:11px">Reclast</span></td>
+          <td>Bisphosphonate (IV)</td>
+          <td>↓ Osteoclast (FPPS inhibition)</td>
+          <td>Acute phase rxn, ONJ, AFF</td>
+          <td>CrCl &lt;35, hypocalcemia</td>
+          <td class="cross">Avoid CrCl &lt;35</td>
+          <td class="caution">Avoid</td>
+          <td class="cross">No</td>
+        </tr>
+        <tr>
+          <td class="drug-cell" style="color:var(--red)">Denosumab<br><span style="font-weight:400;color:var(--text-dim);font-size:11px">Prolia</span></td>
+          <td>RANK-L Inhibitor (mAb)</td>
+          <td>Binds RANKL → ↓ osteoclasts</td>
+          <td>Hypocalcemia, infections, rebound fractures on DC</td>
+          <td>Hypocalcemia, latex allergy (cap)</td>
+          <td class="check">No adjust (not renally cleared)</td>
+          <td class="cross">Contraindicated</td>
+          <td class="cross">No</td>
+        </tr>
+        <tr>
+          <td class="drug-cell" style="color:var(--pink)">Raloxifene<br><span style="font-weight:400;color:var(--text-dim);font-size:11px">Evista</span></td>
+          <td>SERM / EAA</td>
+          <td>ER agonist (bone/lipids), antagonist (breast/uterus)</td>
+          <td>VTE, hot flashes ↑, leg cramps</td>
+          <td>Active/prior VTE, premenopausal</td>
+          <td class="check">Mild: no adjust; hepatic caution</td>
+          <td class="cross">Contraindicated (X)</td>
+          <td class="cross">No</td>
+        </tr>
+        <tr>
+          <td class="drug-cell" style="color:var(--purple)">CE / Bazedoxifene<br><span style="font-weight:400;color:var(--text-dim);font-size:11px">Duavee</span></td>
+          <td>TSEC</td>
+          <td>Estrogen (bone/VMx) + SERM (uterine protection)</td>
+          <td>VTE, nausea, dizziness</td>
+          <td>VTE hx, estrogen-sensitive Ca, hepatic impairment</td>
+          <td class="check">Caution; hepatic CI</td>
+          <td class="cross">Contraindicated (X)</td>
+          <td class="cross">No</td>
+        </tr>
+        <tr>
+          <td class="drug-cell" style="color:var(--teal)">Salmon Calcitonin<br><span style="font-weight:400;color:var(--text-dim);font-size:11px">Miacalcin</span></td>
+          <td>Calcitonin</td>
+          <td>↓ Osteoclast activity; analgesia</td>
+          <td>Rhinitis, nausea, malignancy risk</td>
+          <td>Salmon allergy</td>
+          <td class="caution">Caution in renal impairment</td>
+          <td class="caution">Category C; avoid</td>
+          <td class="cross">No</td>
+        </tr>
+        <tr>
+          <td class="drug-cell" style="color:var(--amber)">Teriparatide<br><span style="font-weight:400;color:var(--text-dim);font-size:11px">Forteo</span></td>
+          <td>PTH 1-34 (rh)</td>
+          <td>Intermittent PTH → ↑ osteoblasts (anabolic)</td>
+          <td>Orthostatic hypotension, hypercalcemia, hypercalciuria</td>
+          <td>Paget's, prior skeletal XRT, open epiphyses, hypercalcemia, bone mets</td>
+          <td class="caution">Caution; avoid severe CKD</td>
+          <td class="caution">Category C</td>
+          <td style="color:var(--red);font-weight:700">Yes (osteosarcoma)</td>
+        </tr>
+        <tr>
+          <td class="drug-cell" style="color:var(--orange)">Abaloparatide<br><span style="font-weight:400;color:var(--text-dim);font-size:11px">Tymlos</span></td>
+          <td>PTHrP[1-34] Analog</td>
+          <td>RG-biased PTH1R agonist → anabolic (less hypercalcemia)</td>
+          <td>Orthostatic hypotension, less hypercalcemia than PTH</td>
+          <td>Same as teriparatide; CrCl &lt;30</td>
+          <td class="cross">Avoid CrCl &lt;30</td>
+          <td class="caution">Avoid</td>
+          <td style="color:var(--red);font-weight:700">Yes (osteosarcoma)</td>
+        </tr>
+        <tr>
+          <td class="drug-cell" style="color:var(--green)">Romosozumab<br><span style="font-weight:400;color:var(--text-dim);font-size:11px">Evenity</span></td>
+          <td>Sclerostin Inhibitor (mAb)</td>
+          <td>Anti-sclerostin → ↑ Wnt → ↑ formation + ↓ resorption</td>
+          <td>Injection site, hypocalcemia, MI/stroke</td>
+          <td>MI/stroke in past year, hypocalcemia</td>
+          <td class="check">No adjust (mAb); CKD: monitor Ca²⁺</td>
+          <td class="cross">Avoid</td>
+          <td style="color:var(--red);font-weight:700">Yes (CV risk)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout note">
+    <div class="callout-title">💡 Quick LO Cheatsheet — "Select Most/Least Likely"</div>
+    <ul class="callout-list">
+      <li><strong>Can't take oral meds / poor GI tolerability:</strong> → Zoledronic acid (IV annual) or Denosumab (SQ q6mo)</li>
+      <li><strong>CrCl &lt;35:</strong> → Denosumab (most likely), avoid bisphosphonates (least likely)</li>
+      <li><strong>Salmon allergy:</strong> → Avoid calcitonin (least likely)</li>
+      <li><strong>Recent MI/stroke:</strong> → Avoid romosozumab (least likely)</li>
+      <li><strong>VTE history:</strong> → Avoid raloxifene and estrogen/TSEC (least likely)</li>
+      <li><strong>Hot flashes + uterus + osteoporosis:</strong> → TSEC/Duavee (most likely); avoid raloxifene</li>
+      <li><strong>Paget's disease + osteoporosis:</strong> → Avoid teriparatide/abaloparatide (least likely)</li>
+      <li><strong>Severe osteoporosis / on antiresorptive but still fracturing:</strong> → Teriparatide or abaloparatide (most likely)</li>
+      <li><strong>Risk of hypercalcemia / nephrolithiasis + needs anabolic:</strong> → Abaloparatide &gt; teriparatide</li>
+      <li><strong>Breast cancer risk reduction + osteoporosis:</strong> → Raloxifene (most likely)</li>
+      <li><strong>Hypocalcemia present:</strong> → Correct Ca²⁺ first; all agents (bisphosphonates, denosumab, romosozumab) contraindicated</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /#content -->
+</div><!-- /#main -->
+
+<script>
+// Toggle drug card expand/collapse
+function toggleCard(header) {
+  const card = header.closest('.drug-card');
+  if (card.classList.contains('expanded')) {
+    card.classList.remove('expanded');
+    card.classList.add('collapsed');
+  } else {
+    card.classList.remove('collapsed');
+    card.classList.add('expanded');
+  }
+}
+
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+  document.getElementById('scroll-fill').style.width = pct + '%';
+});
+
+// Sidebar active link highlighting
+const sections = document.querySelectorAll('.section-block[id]');
+const navLinks = document.querySelectorAll('#sidebar nav a');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + entry.target.id) {
+          link.classList.add('active');
+        }
+      });
+    }
+  });
+}, { rootMargin: '-20% 0% -70% 0%', threshold: 0 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
