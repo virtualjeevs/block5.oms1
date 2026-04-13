@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Neoplasia Quiz — Dr. Holla | 25 MCQs</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+ radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+ radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+ linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%)}
+.launch-card{max-width:760px;width:min(100%,760px);background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:40px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:42px;line-height:1.02;color:var(--navy);margin-bottom:8px}
+.launch-card p{color:var(--slate);max-width:62ch;margin-bottom:6px}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 28px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600}
+.chip.red-chip{background:#FDF0F0;border-color:rgba(196,64,64,.22);color:var(--red)}
+.chip.teal-chip{background:var(--teal-light);border-color:rgba(26,122,109,.22);color:var(--teal-deep)}
+.launch-btn{padding:16px 32px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr);letter-spacing:.3px}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.lo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 24px}
+.lo-tag{background:var(--white);border:1px solid var(--rule2);border-radius:10px;padding:8px 12px;font-size:12px;color:var(--ink2)}
+.lo-tag strong{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal-deep);display:block;margin-bottom:2px}
+
+/* Quiz overlay */
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--teal-glow) 18%, transparent), transparent 24%),
+  radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--plum) 16%, transparent), transparent 22%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+.qt-bar{position:sticky;top:0;z-index:12;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,color-mix(in srgb, var(--navy2) 94%, transparent),color-mix(in srgb, var(--navy) 92%, transparent));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:26px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
+.qt-subtitle{font-size:11px;opacity:.6;font-family:'IBM Plex Mono',monospace;letter-spacing:.5px;margin-top:2px}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.qt-btn{padding:10px 16px;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-1px)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900;box-shadow:0 8px 20px rgba(212,168,67,.24)}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(212,168,67,.28)}
+.fs-ctrl{display:flex;align-items:center;gap:4px}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:rgba(255,255,255,.55);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.fs-btn{width:30px;height:30px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;cursor:pointer;transition:var(--tr);color:rgba(255,255,255,.7);display:flex;align-items:center;justify-content:center}
+.fs-btn:hover{background:rgba(255,255,255,.16);color:#fff}
+
+/* Layout */
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:340px minmax(0,1fr);gap:18px 24px;align-items:start}
+.q-left{display:grid;gap:16px;align-content:start;align-self:start;position:sticky;top:90px}
+.q-right{min-width:0;display:grid;gap:16px;align-content:start}
+#qA{min-width:0;align-self:start}
+
+/* Score panel */
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.score-box{position:relative;overflow:hidden;background:rgba(255,255,255,.88);border-radius:20px;padding:16px 12px 12px;text-align:center;box-shadow:0 14px 34px rgba(18,32,60,.08);border:1px solid rgba(18,32,60,.08);transition:var(--tr)}
+.score-box::before{content:'';position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 999px 999px;background:linear-gradient(90deg, rgba(26,122,109,.16), rgba(62,196,178,.5));opacity:.75}
+.score-box.correct{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(232,245,238,.98))}
+.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(253,240,240,.98))}
+.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:34px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:6px}
+.score-box.correct .sv{color:var(--green)}.score-box.incorrect .sv{color:var(--red)}
+
+/* Mode toggle */
+.mode-toggle{display:flex;gap:8px;padding:8px;border-radius:22px;background:rgba(255,255,255,.76);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{flex:1;padding:12px 14px;border-radius:16px;text-align:center;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 12px 24px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:18px;margin-bottom:3px}
+
+/* Timer */
+.timer-panel{display:grid;gap:12px;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.timer-card,.cd-card{position:relative;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:42px 16px 16px;background:rgba(255,255,255,.84);border-radius:22px;border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);transition:var(--tr)}
+.timer-lbl{position:absolute;top:14px;left:14px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;padding:5px 8px;border-radius:999px;background:rgba(18,32,60,.04)}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;color:var(--navy);letter-spacing:2px;flex:1;min-width:80px}
+.tbtn,.cd-pm,.cd-go{border:1.5px solid rgba(18,32,60,.14);background:#fff;border-radius:10px;padding:7px 10px;font-size:13px;cursor:pointer;transition:var(--tr);color:var(--ink2);font-weight:700}
+.tbtn:hover,.cd-pm:hover,.cd-go:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal)}
+.cd-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;color:var(--navy);min-width:24px;text-align:center}
+.cd-unit{font-size:11px;color:var(--mist);font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+.cd-go{background:linear-gradient(135deg,var(--teal-light),#c8eee9);border-color:rgba(26,122,109,.2);color:var(--teal-deep);font-weight:800;padding:7px 14px}
+
+/* Tool panel */
+.tool-panel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:14px;background:rgba(255,255,255,.76);border-radius:22px;border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);animation:slideUp .4s .12s cubic-bezier(.4,0,.2,1) both}
+.q-tool{padding:10px 8px;border:1.5px solid rgba(18,32,60,.1);background:#fff;border-radius:14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;cursor:pointer;color:var(--ink2);transition:var(--tr);text-align:center}
+.q-tool:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal-deep)}
+.q-tool.active{background:linear-gradient(135deg,var(--navy),#2A3562);border-color:transparent;color:#fff;box-shadow:0 8px 18px rgba(27,42,74,.18)}
+.q-tool.hl-tool.active{background:linear-gradient(135deg,#8a6a00,var(--gold));box-shadow:0 8px 18px rgba(212,168,67,.26)}
+.q-tool.st-tool.active{background:linear-gradient(135deg,var(--red),#a33030);box-shadow:0 8px 18px rgba(196,64,64,.22)}
+.tool-status{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mist);padding:0 4px;text-align:center}
+.tool-status.active-highlight{color:#8a6a00}.tool-status.active-strike{color:var(--red)}
+
+/* Exam submit */
+.exam-submit-row{padding:16px;background:rgba(255,255,255,.76);border-radius:22px;border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);text-align:center;animation:slideUp .4s .16s cubic-bezier(.4,0,.2,1) both}
+.exam-progress{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--mist);margin-bottom:10px;font-weight:700}
+.exam-submit-btn{width:100%;padding:13px;border-radius:16px;background:linear-gradient(135deg,var(--coral),#c06040);color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(224,122,95,.24);letter-spacing:.3px}
+.exam-submit-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 14px 28px rgba(224,122,95,.30)}
+.exam-submit-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
+.exam-submit-row.exam-done .exam-submit-btn{background:linear-gradient(135deg,var(--green),#3aa56f);box-shadow:0 10px 24px rgba(45,134,89,.24)}
+
+/* Question card */
+.qcd{background:rgba(255,255,255,.92);border-radius:24px;border:1px solid rgba(18,32,60,.08);box-shadow:var(--sh2);overflow:hidden}
+.qpg{height:5px;background:color-mix(in srgb, var(--teal) 10%, transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 32px 24px}
+.qnum{display:inline-flex;align-items:center;padding:5px 10px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.qlo-tag{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-left:8px;vertical-align:middle}
+.qlo-tag.plo{background:rgba(196,64,64,.1);color:var(--red)}
+.qlo-tag.lo{background:rgba(26,122,109,.1);color:var(--teal-deep)}
+.qstem{font-family:'Crimson Pro',serif;font-size:24px;line-height:1.38;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.1px;position:relative;border-radius:14px;padding:4px 6px;margin-left:-6px;margin-right:-6px;transition:var(--tr)}
+.qstem.tool-hover{box-shadow:inset 0 0 0 2px rgba(26,122,109,.16);background:rgba(26,122,109,.04)}
+.qstem.hl-applied{background:linear-gradient(180deg,#FFF4A8,#FFF7C9)!important;box-shadow:inset 0 0 0 2px rgba(212,168,67,.34)}
+.qstem.st-applied{background:linear-gradient(180deg,#FFF3F3,#FFF8F8)!important;box-shadow:inset 0 0 0 2px rgba(196,64,64,.22)}
+.qstem.st-applied .stem-text,.qstem .stem-st{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--red);color:#8B2C2C!important}
+.qstem .stem-hl{background:#FFF1A6;border-radius:5px;padding:0 .1em;box-shadow:0 0 0 1px rgba(212,168,67,.18)}
+
+/* Answer choices */
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;border:1.5px solid rgba(18,32,60,.09);border-radius:16px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb, var(--warm) 78%, var(--white) 22%);position:relative;box-shadow:0 4px 14px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 10px 22px rgba(18,32,60,.08)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.ac.hl-applied{background:#FFF4A8!important;border-color:#D4A843!important;box-shadow:0 0 0 3px rgba(212,168,67,.18),0 10px 22px rgba(18,32,60,.06)!important}
+.ac.hl-applied .cl{background:#D4A843!important;border-color:#D4A843!important;color:#fff!important}
+.ac.hl-applied .ctx{color:#5c4400!important}
+.ac.st-applied{background:#FFF3F3!important;border-color:rgba(196,64,64,.52)!important;box-shadow:0 0 0 3px rgba(196,64,64,.10),0 10px 22px rgba(18,32,60,.06)!important}
+.ac.st-applied .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ac.st-applied .ctx{color:#8B2C2C!important;text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--red)}
+.cl{width:40px;height:40px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 4px 12px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:16px;line-height:1.48;padding-top:2px;color:var(--ink)}
+
+/* Submit button */
+.submit-row{margin-top:22px;text-align:center}
+.submit-btn{padding:14px 52px;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.3px}
+.submit-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+
+/* Explanation */
+.exb{margin-top:24px;border-radius:20px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.exs{padding:20px 24px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:15px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:9px;padding:11px 14px;background:rgba(255,255,255,.58);border-radius:12px;font-size:14px;line-height:1.65}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12px}
+
+/* Navigation */
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 22px 18px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,color-mix(in srgb, var(--warm) 32%, transparent),color-mix(in srgb, var(--cream) 82%, transparent))}
+.nb{padding:11px 22px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 6px 16px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.qdots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;flex:1;max-width:360px}
+.qd{width:13px;height:13px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);box-shadow:0 3px 8px rgba(18,32,60,.04);position:relative}
+.qd:hover{transform:scale(1.22)}
+.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,0.14)}
+.qd.acor{border-color:var(--green);background:var(--green)}
+.qd.ainc{border-color:var(--red);background:var(--red)}
+.qd.asel{border-color:var(--gold);background:var(--gold)}
+
+/* Font size */
+#qo[data-fs="sm"] .ctx{font-size:13px} #qo[data-fs="sm"] .qstem{font-size:20px}
+#qo[data-fs="md"] .ctx{font-size:16px} #qo[data-fs="md"] .qstem{font-size:24px}
+#qo[data-fs="lg"] .ctx{font-size:19px} #qo[data-fs="lg"] .qstem{font-size:27px}
+#qo[data-fs="xl"] .ctx{font-size:22px} #qo[data-fs="xl"] .qstem{font-size:30px}
+
+/* Results modal */
+.results-overlay{display:none;position:fixed;inset:0;background:rgba(18,32,60,.6);z-index:300;align-items:center;justify-content:center;padding:24px}
+.results-overlay.open{display:flex;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.results-card{max-width:560px;width:100%;background:#fff;border-radius:28px;padding:36px;box-shadow:0 32px 80px rgba(18,32,60,.22);text-align:center}
+.results-card h2{font-family:'Crimson Pro',serif;font-size:38px;color:var(--navy);margin-bottom:8px}
+.results-pct{font-family:'Crimson Pro',serif;font-size:72px;font-weight:800;line-height:1;margin:16px 0 8px}
+.results-label{font-size:13px;color:var(--slate);font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:24px}
+.results-meta{display:flex;justify-content:center;gap:20px;margin-bottom:28px}
+.results-stat{text-align:center}
+.results-stat .rv{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;line-height:1}
+.results-stat .rl{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800;margin-top:4px}
+.results-stat.rs-cor .rv{color:var(--green)} .results-stat.rs-inc .rv{color:var(--red)}
+.results-close{padding:14px 36px;border-radius:16px;background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;font-weight:900;font-size:15px;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(27,42,74,.22)}
+.results-close:hover{transform:translateY(-2px)}
+.pass-badge{display:inline-block;padding:6px 18px;border-radius:999px;font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}
+.pass-badge.pass{background:var(--green-bg);color:var(--green);border:1px solid rgba(45,134,89,.22)}
+.pass-badge.fail{background:var(--red-bg);color:var(--red);border:1px solid rgba(196,64,64,.22)}
+
+/* Print */
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,body.print-review-active .qo,body.print-review-active .results-overlay{display:none!important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:980px;margin:0 auto;color:#111;font-family:'Nunito',sans-serif}
+.print-header{margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #ddd}
+.print-header h1{font-family:'Crimson Pro',serif;font-size:32px;color:#12203C;margin-bottom:10px}
+.print-summary{display:flex;gap:10px;flex-wrap:wrap}
+.print-pill{padding:6px 10px;border:1px solid #ddd;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.print-card{break-inside:avoid;page-break-inside:avoid;border:1px solid #ddd;border-radius:16px;padding:20px;margin:0 0 18px;background:#fff}
+.print-card h2{font-family:'Crimson Pro',serif;font-size:24px;color:#12203C;margin:0 0 6px}
+.print-qtag{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6B7689;margin-bottom:8px}
+.print-stem{font-size:17px;line-height:1.55;margin-bottom:14px;font-family:'Crimson Pro',serif}
+.print-choices{display:grid;gap:8px;margin-bottom:14px}
+.print-choice{display:flex;gap:10px;border:1px solid #ddd;border-radius:10px;padding:10px;background:#fafafa}
+.print-choice.correct{border-color:#2D8659;background:#E8F5EE}
+.print-choice.incorrect{border-color:#C44040;background:#FDF0F0}
+.print-choice-letter{width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:13px;flex:0 0 30px}
+.print-choice-copy{flex:1;font-size:15px;line-height:1.5}
+.print-choice-badge{margin-top:4px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.print-explainer{border-radius:10px;padding:12px 14px;margin-top:10px;font-size:14px;line-height:1.65}
+.print-explainer.correct-box{background:#E8F5EE;border-left:4px solid #2D8659}
+.print-explainer.teach-box{background:#E3F5F2;border-left:4px solid #1A7A6D}
+.print-explainer.wrong-box{background:#FDF0F0;border-left:4px solid #C44040}
+.print-label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;color:#444}
+.print-wrong{margin-top:7px;font-size:14px}
+@media print{
+  body{background:#fff}
+  .print-card{box-shadow:none}
+  body.print-review-active #printReviewRoot{display:block!important;padding:0}
+}
+
+/* Responsive */
+@media(max-width:960px){.qin{grid-template-columns:1fr;padding:20px 16px 64px}.q-left{position:static}.score-panel{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:680px){.qt-bar{flex-direction:column;align-items:flex-start;padding:14px 16px}.qt-bar h2{font-size:22px}.qbd{padding:20px 16px 18px}.qstem{font-size:21px}.ctx{font-size:15px}.qnv{flex-direction:column;align-items:stretch;padding:14px 16px 16px}.qdots{order:3}.nb{width:100%;text-align:center}}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Introduction to Neoplasia</h1>
+    <p style="font-size:15px;margin-bottom:4px;"><strong>Dr. Padmini Holla</strong> · Block 5 Pathology</p>
+    <p style="font-size:14px;">25 multiple-choice questions covering all Program Learning Outcomes (PLOs) and Learning Objectives (LOs) from the neoplasia lecture.</p>
+    <div class="lo-grid">
+      <div class="lo-tag"><strong>PLO 1</strong>Tumor Nomenclature</div>
+      <div class="lo-tag"><strong>PLO 2</strong>Benign vs. Malignant Features</div>
+      <div class="lo-tag"><strong>PLO 3</strong>Key Definitions</div>
+      <div class="lo-tag"><strong>PLO 4</strong>Local Invasion vs. Metastasis</div>
+      <div class="lo-tag"><strong>LO 1</strong>Paraneoplastic Syndromes</div>
+      <div class="lo-tag"><strong>LO 2</strong>Desmoplasia</div>
+      <div class="lo-tag"><strong>LO 3</strong>3 Pathways of Spread</div>
+      <div class="lo-tag"><strong>LO 4</strong>Grading vs. Staging</div>
+      <div class="lo-tag"><strong>LO 5</strong>In-Situ vs. Invasive</div>
+      <div class="lo-tag"><strong>LO 6</strong>Testing Modalities</div>
+    </div>
+    <div class="launch-meta">
+      <span class="chip">25 Questions</span>
+      <span class="chip teal-chip">Learn Mode</span>
+      <span class="chip teal-chip">Exam Mode</span>
+      <span class="chip">Timer + Countdown</span>
+      <span class="chip">Highlight &amp; Strike Tools</span>
+      <span class="chip red-chip">Instant Explanations</span>
+    </div>
+    <button class="launch-btn" id="openQuiz">🧠 Start Quiz</button>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <div>
+      <h2>Neoplasia — Dr. Holla</h2>
+      <div class="qt-subtitle">BLOCK 5 PATHOLOGY · 25 MCQs</div>
+    </div>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A−</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuiz">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <!-- LEFT PANEL -->
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCurrent">1</div><div class="sl">Question</div></div>
+        <div class="score-box correct"><div class="sv" id="svCorrect">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="svIncorrect">0</div><div class="sl">Incorrect</div></div>
+      </div>
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Timer (Count Up)</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <button class="tbtn" id="timerStart">▶</button>
+          <button class="tbtn" id="timerPause">⏸</button>
+          <button class="tbtn" id="timerReset">↺</button>
+        </div>
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">25:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">25</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+            <button class="cd-go" id="cdGo">Start</button>
+          </div>
+        </div>
+      </div>
+      <div class="tool-panel">
+        <button class="q-tool" id="toolHighlight">✏️ Highlight</button>
+        <button class="q-tool" id="toolStrike">✂️ Strike</button>
+        <button class="q-tool" id="toolReveal">👁 Reveal</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+      <div class="exam-submit-row">
+        <div class="exam-progress" id="examProgress">0 of 25 answered</div>
+        <button class="exam-submit-btn" id="submitExam" disabled>Submit Exam</button>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL (Question) -->
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qpg"><div class="qpf" id="progressBar" style="width:4%"></div></div>
+          <div class="qbd">
+            <div class="qnum" id="qNum">Question 1 of 25</div>
+            <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+            <div class="ach" id="choiceContainer"></div>
+            <div class="submit-row">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+            <div class="exb" id="exBlock">
+              <div class="exs exc"><div class="exl">✅ Correct Answer</div><div class="ext" id="exCorrect"></div></div>
+              <div class="exs exe"><div class="exl">💡 Teaching Point</div><div class="ext" id="exTeach"></div></div>
+              <div class="exs exw"><div class="exl">❌ Why the Others Are Wrong</div><div class="ext" id="exWrong"></div></div>
+            </div>
+          </div>
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Prev</button>
+            <div class="qdots" id="dotContainer"></div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS MODAL -->
+<div class="results-overlay" id="resultsOverlay">
+  <div class="results-card">
+    <div class="pass-badge" id="passBadge">—</div>
+    <h2>Quiz Complete!</h2>
+    <div class="results-pct" id="resultsPct">—</div>
+    <div class="results-label">Score</div>
+    <div class="results-meta">
+      <div class="results-stat rs-cor"><div class="rv" id="resCor">0</div><div class="rl">Correct</div></div>
+      <div class="results-stat"><div class="rv" style="color:var(--slate)" id="resTotal">25</div><div class="rl">Total</div></div>
+      <div class="results-stat rs-inc"><div class="rv" id="resInc">0</div><div class="rl">Incorrect</div></div>
+    </div>
+    <button class="results-close" id="resultsClose">Review Answers</button>
+  </div>
+</div>
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+// ─── QUESTION DATA ───────────────────────────────────────────────────────────
+const QUESTIONS = [
+  // ── PLO 1: NOMENCLATURE ──────────────────────────────────────────────────
+  {
+    lo: 'PLO 1', loType: 'plo',
+    stem: 'A benign tumor arising from glandular or secretory epithelium is correctly named:',
+    choices: ['Adenocarcinoma','Papilloma','Adenoma','Fibroma','Lipoma'],
+    correct: 2,
+    exCorrect: 'Adenoma (C) — benign tumors of glandular/secretory epithelium are named with the prefix "adeno-" plus the suffix "-oma." This is in contrast to adenocarcinoma, which is the malignant counterpart.',
+    exTeach: 'Naming rule: tissue/cell of origin + "-oma" for benign tumors. Epithelial: glandular → Adenoma | Squamous → Papilloma. Mesenchymal: Fat → Lipoma | Fibrous tissue → Fibroma.',
+    exWrong: [
+      'A — Adenocarcinoma is the MALIGNANT glandular tumor (carcinoma = malignant epithelial).',
+      'B — Papilloma arises from squamous (not glandular) epithelium.',
+      'D — Fibroma is a benign MESENCHYMAL tumor of fibrous tissue.',
+      'E — Lipoma is a benign MESENCHYMAL tumor of fat tissue.'
+    ]
+  },
+  {
+    lo: 'PLO 1', loType: 'plo',
+    stem: 'Which of the following tumors is MALIGNANT despite having a name that ends in "-oma"?',
+    choices: ['Fibroma','Lipoma','Osteoma','Melanoma','Chondroma'],
+    correct: 3,
+    exCorrect: 'Melanoma (D) — a highly aggressive malignant tumor of melanocytes despite the "-oma" suffix, which normally implies a benign tumor.',
+    exTeach: 'Critical exceptions to the "-oma = benign" rule: Melanoma (malignant), Lymphoma (malignant), Mesothelioma (malignant). Also note: Granuloma ends in -oma but is inflammatory, NOT neoplastic at all.',
+    exWrong: [
+      'A — Fibroma = benign mesenchymal tumor of fibrous tissue.',
+      'B — Lipoma = benign mesenchymal tumor of adipose tissue.',
+      'C — Osteoma = benign tumor of bone.',
+      'E — Chondroma = benign tumor of cartilage.'
+    ]
+  },
+  {
+    lo: 'PLO 1', loType: 'plo',
+    stem: 'A parotid gland mass in a 38-year-old woman is resected. Histology shows neoplastic cells differentiating into BOTH epithelial and cartilaginous (mesenchymal) components within the same tumor. This is best classified as:',
+    choices: ['Teratoma','Hamartoma','Fibroadenoma','Pleomorphic adenoma (mixed tumor)','Chondrosarcoma'],
+    correct: 3,
+    exCorrect: 'Pleomorphic adenoma (D) — the classic mixed tumor of the parotid gland, in which a single neoplastic clone differentiates into both epithelial AND mesenchymal elements (divergent differentiation).',
+    exTeach: 'Mixed tumor = divergent differentiation (epithelial + mesenchymal from ONE clone). Teratoma = tissue from ≥1 germ layers (totipotent germ cells). Hamartoma = normal tissue elements of the site, haphazardly arranged (not truly neoplastic in the traditional sense, but may have clonal chromosomal changes).',
+    exWrong: [
+      'A — Teratoma arises from totipotent germ cells (ovary, testis) and can produce any cell type from any germ layer.',
+      'B — Hamartoma is a focal disorganized proliferation of tissue elements NORMALLY found at that site (e.g., pulmonary hamartoma).',
+      'C — Fibroadenoma occurs in the breast; it has both fibrous stroma and epithelial elements but arises from a different mechanism.',
+      'E — Chondrosarcoma is a malignant cartilaginous tumor with no epithelial component.'
+    ]
+  },
+  // ── PLO 2: BENIGN VS MALIGNANT ────────────────────────────────────────────
+  {
+    lo: 'PLO 2', loType: 'plo',
+    stem: 'Which of the following is the MOST reliable criterion for definitively distinguishing a malignant neoplasm from a benign one?',
+    choices: ['Presence of any mitotic figures','Large tumor size','Rapid growth rate','Ability to invade and metastasize','Lack of a fibrous capsule'],
+    correct: 3,
+    exCorrect: 'Ability to invade and metastasize (D) — invasiveness and metastasis are the most reliable indicators to distinguish benign from malignant tumors.',
+    exTeach: 'Capsule alone does NOT determine malignancy: lack of capsule ≠ malignant; slowly growing malignant tumors can have a pseudo-capsule. Mitotic figures are present in normal healing tissue. Rapid growth is common in malignancy but not exclusive.',
+    exWrong: [
+      'A — Mitotic figures are present in normal proliferating tissue; ATYPICAL mitoses are the feature of malignancy.',
+      'B — Size alone is not diagnostic; benign tumors (e.g., uterine leiomyomas) can be very large.',
+      'C — Some malignant tumors (e.g., basal cell carcinoma) grow slowly.',
+      'E — Lack of capsule is not reliable; some benign tumors are unencapsulated and some malignant ones have a pseudo-capsule.'
+    ]
+  },
+  {
+    lo: 'PLO 2', loType: 'plo',
+    stem: 'A pathologist examining a biopsy finds a cell dividing with three spindle poles (tripolar mitosis). This finding is MOST consistent with:',
+    choices: ['Normal cellular turnover','Reactive hyperplasia','Benign lipoma','Malignancy','Granulomatous inflammation'],
+    correct: 3,
+    exCorrect: 'Malignancy (D) — atypical/bizarre mitoses, including tripolar and multipolar mitoses, are cytologic features of malignancy, not merely increased cellular proliferation.',
+    exTeach: 'Presence of mitoses alone ≠ malignancy (they occur in healing wounds, regenerating tissue). ATYPICAL mitoses (tripolar, ring forms) = hallmark feature of malignant cells.',
+    exWrong: [
+      'A — Normal mitosis has two poles; tripolar mitosis is abnormal.',
+      'B — Reactive hyperplasia has increased but normal mitoses.',
+      'C — Benign lipoma is a well-differentiated, slow-growing tumor with very rare normal mitoses.',
+      'E — Granulomatous inflammation involves macrophages and giant cells, not atypical mitoses.'
+    ]
+  },
+  {
+    lo: 'PLO 2', loType: 'plo',
+    stem: 'Which of the following features is characteristically ABSENT in benign neoplasms?',
+    choices: ['Well-differentiated cells','Slow growth rate','Hormone secretion by the tumor','Capsule formation','Metastasis'],
+    correct: 4,
+    exCorrect: 'Metastasis (E) — benign tumors do NOT metastasize; they grow as cohesive, localized, expansile masses and lack the capacity to invade or spread to distant sites.',
+    exTeach: 'Benign endocrine adenomas CAN secrete hormones (e.g., parathyroid adenoma causing hypercalcemia). Slow growth and capsule formation are common in benign tumors but not universal. Metastasis is the exclusive hallmark of malignancy.',
+    exWrong: [
+      'A — Well-differentiated histology is the hallmark of benign tumors.',
+      'B — Slow growth is typical of benign tumors.',
+      'C — Benign endocrine adenomas frequently retain hormonal secretory function.',
+      'D — Capsule formation is common in many benign tumors.'
+    ]
+  },
+  {
+    lo: 'PLO 2', loType: 'plo',
+    stem: 'A tumor biopsy shows marked variation in cell shape and size, disproportionate nuclear-to-cytoplasmic ratio, irregular nuclear borders, hyperchromasia, and prominent nucleoli. This constellation of findings is best termed:',
+    choices: ['Well-differentiated','Dysplastic but pre-malignant','Metaplastic','Anaplastic','Hyperplastic'],
+    correct: 3,
+    exCorrect: 'Anaplastic (D) — anaplasia refers to lack of differentiation; the cytologic features described are the classic anaplastic features of malignancy: pleomorphism, abnormal nuclear morphology, and loss of polarity.',
+    exTeach: 'Key anaplastic features: (1) Pleomorphism — variation in cell/nucleus size and shape; (2) Abnormal nuclear morphology — high N:C ratio, irregular borders, hyperchromasia, multiple large nucleoli; (3) Atypical mitoses; (4) Loss of polarity/architectural disarray.',
+    exWrong: [
+      'A — Well-differentiated tumors closely resemble normal tissue; these features suggest the opposite.',
+      'B — Dysplasia is a precursor lesion; anaplasia describes malignant cells with complete loss of differentiation.',
+      'C — Metaplasia is replacement of one cell type by another — a reversible adaptive change.',
+      'E — Hyperplasia is increased cell NUMBER with normal architecture; it is reversible.'
+    ]
+  },
+  // ── PLO 3: KEY DEFINITIONS ────────────────────────────────────────────────
+  {
+    lo: 'PLO 3', loType: 'plo',
+    stem: "A patient with chronic GERD develops Barrett's esophagus, in which the normal stratified squamous epithelium of the distal esophagus is replaced by intestinal-type columnar epithelium. This process is best classified as:",
+    choices: ['Anaplasia','Hyperplasia','Metaplasia','Dysplasia','Neoplasia'],
+    correct: 2,
+    exCorrect: "Metaplasia (C) — the replacement of one differentiated cell type by another (here, squamous → columnar intestinal epithelium). Barrett's esophagus is the classic example.",
+    exTeach: 'Metaplasia is a reversible adaptive response to chronic injury. The new cell type is more resistant to the offending stimulus. If the offending agent persists, metaplasia → dysplasia → carcinoma (Barrett\'s can progress to esophageal adenocarcinoma).',
+    exWrong: [
+      'A — Anaplasia = loss of differentiation in a malignant tumor; not an adaptive response.',
+      'B — Hyperplasia = increased cell NUMBER of normal cells; architecture is preserved.',
+      'D — Dysplasia = disordered growth with pleomorphism and architectural disarray; it can follow metaplasia.',
+      'E — Neoplasia = autonomous growth; Barrett\'s itself is a metaplastic, not neoplastic, change.'
+    ]
+  },
+  {
+    lo: 'PLO 3', loType: 'plo',
+    stem: '"Disordered growth" characterized by cellular pleomorphism, increased nuclear-to-cytoplasmic ratio, hyperchromasia, loss of differentiation, and architectural disarray — which is potentially reversible if the stimulus is removed — best describes:',
+    choices: ['Anaplasia','Neoplasia','Metaplasia','Dysplasia','Regeneration'],
+    correct: 3,
+    exCorrect: 'Dysplasia (D) — disordered growth; a potentially reversible precursor to malignancy. Dysplastic cells show pleomorphism, increased N:C ratio, hyperchromasia, and architectural disarray.',
+    exTeach: 'Dysplasia is a continuum: mild → moderate → severe/full-thickness (= carcinoma-in-situ). Unlike anaplasia, dysplasia can be reversible if the offending stimulus is removed (e.g., removing HPV-associated cervical dysplasia risk factors).',
+    exWrong: [
+      'A — Anaplasia is the maximal loss of differentiation in an ESTABLISHED malignant tumor; it is not reversible.',
+      'B — Neoplasia is autonomous cell growth driven by mutations; it is not reversible.',
+      'C — Metaplasia is replacement of one cell type by another; cells remain normally differentiated.',
+      'E — Regeneration involves proliferation of normally differentiated cells to restore tissue.'
+    ]
+  },
+  {
+    lo: 'PLO 3', loType: 'plo',
+    stem: 'Which statement most accurately defines neoplasia?',
+    choices: [
+      'A reversible cellular adaptation to sustained physical or chemical injury',
+      'Replacement of one differentiated cell type with a more stress-resistant type',
+      'Autonomous cellular proliferation driven by DNA mutations that persists even after the initiating stimulus is removed',
+      'An accumulation of normal tissue elements growing in a haphazard pattern at their native site',
+      'Inflammatory tissue remodeling in response to chronic infection'
+    ],
+    correct: 2,
+    exCorrect: 'Autonomous cellular proliferation driven by DNA mutations that persists even after the initiating stimulus is removed (C) — this captures the essence of neoplasia: genetic-level autonomy from normal growth controls.',
+    exTeach: 'Neoplasms arise from accumulated multiple genetic alterations. The autonomous growth persists even after the initiating carcinogen is removed. This is governed by clonal selection of cells with survival/growth advantage ("survival of the fittest").',
+    exWrong: [
+      'A — Describes metaplasia or other reversible adaptations.',
+      'B — Describes metaplasia (e.g., squamous → columnar in Barrett\'s).',
+      'D — Describes a hamartoma (normal tissue elements, haphazard arrangement).',
+      'E — Describes chronic inflammation/granuloma formation, not neoplasia.'
+    ]
+  },
+  // ── PLO 4: LOCAL INVASION VS METASTASIS ──────────────────────────────────
+  {
+    lo: 'PLO 4', loType: 'plo',
+    stem: 'A slowly growing malignant tumor is palpated as a well-defined, apparently encapsulated mass. Pathologic examination reveals a false capsule formed by compressed surrounding tissue. The clinician is tempted to call it benign. Which statement BEST explains this situation?',
+    choices: [
+      'Presence of a capsule confirms the tumor is benign',
+      'Slowly growing malignant tumors can compress adjacent tissue to form a pseudo-capsule, but they remain malignant',
+      'Encapsulation eliminates the risk of metastasis',
+      'Pseudo-capsule formation indicates the tumor is de-differentiating',
+      'Only carcinomas form pseudo-capsules, never sarcomas'
+    ],
+    correct: 1,
+    exCorrect: 'Slowly growing malignant tumors can compress adjacent tissue to form a pseudo-capsule, but they remain malignant (B) — this is a critical distinction. Pseudo-capsule ≠ true capsule; there is no clean surgical plane.',
+    exTeach: 'KEY HIGH-YIELD: Lack of capsule ≠ malignant. Presence of capsule ≠ benign. The only reliable indicators of malignancy are invasiveness and metastatic potential. A pseudo-capsule means surgical "shelling out" will leave residual tumor.',
+    exWrong: [
+      'A — Capsule does NOT confirm benignity; slowly growing malignant tumors can have pseudo-capsules.',
+      'C — Encapsulation does not protect against metastasis in a malignant tumor.',
+      'D — Pseudo-capsule is from host tissue compression, not de-differentiation.',
+      'E — Both carcinomas and sarcomas can form pseudo-capsules.'
+    ]
+  },
+  {
+    lo: 'PLO 4', loType: 'plo',
+    stem: 'Which malignant tumor is notable for being locally DESTRUCTIVE but RARELY metastasizing?',
+    choices: ['Osteosarcoma','Small cell lung carcinoma','Basal cell carcinoma of the skin','Hepatocellular carcinoma','Angiosarcoma'],
+    correct: 2,
+    exCorrect: 'Basal cell carcinoma of the skin (C) — along with CNS gliomas, basal cell carcinoma is the classic example of a malignant tumor that invades locally but rarely metastasizes.',
+    exTeach: 'ALL malignant tumors have the CAPACITY to metastasize, but some rarely do. Features that INCREASE metastatic likelihood: lack of differentiation, aggressive local invasion, rapid growth, large size. BCC grows slowly, is often well-confined locally, but IS malignant.',
+    exWrong: [
+      'A — Osteosarcoma frequently metastasizes (predominantly hematogenous, to lungs).',
+      'B — Small cell lung carcinoma is highly aggressive with early widespread metastasis.',
+      'D — HCC has high rates of vascular invasion and metastasis.',
+      'E — Angiosarcoma is highly aggressive and metastasizes early.'
+    ]
+  },
+  {
+    lo: 'PLO 4', loType: 'plo',
+    stem: 'By definition, metastasis is the spread of a tumor to sites that are:',
+    choices: [
+      'Adjacent to the primary tumor via direct extension through fascia',
+      'Within the same lymph node basin as the primary tumor',
+      'Within the same organ as the primary tumor',
+      'Physically discontinuous from the primary tumor',
+      'Connected to the primary by lymphatic channels'
+    ],
+    correct: 3,
+    exCorrect: 'Physically discontinuous from the primary tumor (D) — metastasis means tumor cells have spread to a site that has NO direct connection to the primary tumor. This is what distinguishes it from local invasion.',
+    exTeach: 'Local invasion = tumor cells infiltrating ADJACENT structures (still physically continuous). Metastasis = tumor cells establishing a secondary deposit at a distant, physically separate site. Only malignant tumors metastasize — this is the most reliable indicator of malignancy.',
+    exWrong: [
+      'A — Direct extension through fascia = local invasion, not metastasis.',
+      'B — Regional lymph node involvement with NO skip lesions may be considered early spread, but true metastasis includes distant/discontinuous sites.',
+      'C — Intrahepatic spread within the same organ is still a form of discontinuous seeding but not the definitional feature.',
+      'E — Lymphatic spread to regional nodes is the route, not the definition of metastasis.'
+    ]
+  },
+  // ── LO 1: PARANEOPLASTIC SYNDROMES ───────────────────────────────────────
+  {
+    lo: 'LO 1', loType: 'lo',
+    stem: 'A 63-year-old male smoker presents with central obesity, moon facies, proximal muscle weakness, hypertension, and fasting hyperglycemia. CT of the chest reveals a 3 cm hilar mass with mediastinal adenopathy. Which ectopic mediator is MOST likely responsible for this clinical picture?',
+    choices: ['PTHrP (PTH-related protein)','ADH (antidiuretic hormone)','ACTH (adrenocorticotropic hormone)','Insulin-like growth factor','Erythropoietin'],
+    correct: 2,
+    exCorrect: 'Ectopic ACTH (C) — small cell lung carcinoma (SCLC) is the most common source of ectopic ACTH, causing Cushing\'s syndrome: the most common endocrinopathy in paraneoplastic syndromes.',
+    exTeach: 'Ectopic ACTH → Cushing\'s syndrome features: HTN, weight gain, moon face, buffalo hump, ↓ muscle mass, hyperglycemia, purple striae, depression, poor wound healing. Remember: SCLC is the classic cancer for both ectopic ACTH AND ectopic ADH (SIADH).',
+    exWrong: [
+      'A — PTHrP causes paraneoplastic hypercalcemia, not Cushing\'s features.',
+      'B — Ectopic ADH from SCLC causes SIADH (hyponatremia, confusion, seizures) — not this picture.',
+      'D — IGF secretion is not a classic paraneoplastic cause of Cushing\'s.',
+      'E — Erythropoietin excess causes polycythemia; associated with renal cell carcinoma, not Cushing\'s.'
+    ]
+  },
+  {
+    lo: 'LO 1', loType: 'lo',
+    stem: 'Which of the following is the MOST COMMON paraneoplastic syndrome overall?',
+    choices: ['SIADH','Cushing\'s syndrome (ectopic ACTH)','Neuromyopathy','Hypercalcemia','Cachexia'],
+    correct: 3,
+    exCorrect: 'Hypercalcemia (D) — paraneoplastic hypercalcemia is the most common paraneoplastic syndrome, mediated by PTHrP, TNF, TGF-α, and IL-1.',
+    exTeach: 'Paraneoplastic hypercalcemia is associated with lung, breast, kidney, and ovarian cancers. Two mechanisms: (1) Humoral — PTHrP (true PNS); (2) Osteolytic — direct bone destruction by metastases (NOT a true paraneoplastic syndrome).',
+    exWrong: [
+      'A — SIADH is associated with SCLC; causes hyponatremia — not the most common PNS.',
+      'B — Ectopic ACTH causing Cushing\'s is the most common endocrinopathy PNS, but not most common overall.',
+      'C — Neuromyopathy is a PNS but is much less common than hypercalcemia.',
+      'E — Cachexia is widespread and important but is technically an effect of the tumor on the host rather than the most classic "paraneoplastic syndrome."'
+    ]
+  },
+  {
+    lo: 'LO 1', loType: 'lo',
+    stem: 'A patient with advanced metastatic cancer develops severe progressive muscle wasting, anorexia, and fatigue that cannot be fully reversed even with aggressive nutritional supplementation. Which mediators are MOST prominently responsible for this syndrome?',
+    choices: [
+      'IL-4 and IL-10',
+      'Interferon-γ and IL-12',
+      'TNF-α (cachectin), IL-1, and IL-6',
+      'IL-2 and IL-17',
+      'TGF-β and VEGF'
+    ],
+    correct: 2,
+    exCorrect: 'TNF-α (cachectin), IL-1, and IL-6 (C) — cancer cachexia is primarily mediated by these cytokines. The key clinical feature is that it CANNOT be fully reversed by nutritional support alone.',
+    exTeach: 'Cachexia hallmarks: skeletal muscle + fat loss, anorexia, fatigue, anemia, edema, taste changes. TNF-α was originally named "cachectin" because of this role. The inability to reverse it with nutrition distinguishes cancer cachexia from simple starvation.',
+    exWrong: [
+      'A — IL-4 and IL-10 are anti-inflammatory cytokines; not mediators of cachexia.',
+      'B — IFN-γ and IL-12 drive Th1 immune responses; not the primary cachexia mediators.',
+      'D — IL-2 is a T-cell growth factor; IL-17 drives neutrophilic inflammation — neither drives cachexia.',
+      'E — TGF-β is involved in fibrosis and immune suppression; VEGF drives angiogenesis — not cachexia mediators.'
+    ]
+  },
+  // ── LO 2: DESMOPLASIA ────────────────────────────────────────────────────
+  {
+    lo: 'LO 2', loType: 'lo',
+    stem: 'Desmoplasia, commonly observed in breast and pancreatic carcinomas, is best defined as:',
+    choices: [
+      'Necrosis resulting from a malignant tumor outgrowing its blood supply',
+      'Induction of excessive dense fibrous (connective) tissue in the tumor stroma by a malignant tumor',
+      'Replacement of normal epithelium by mesenchymal cells within the tumor',
+      'A benign reactive proliferation of connective tissue unrelated to invasion',
+      'Loss of differentiation in the parenchymal component of a tumor'
+    ],
+    correct: 1,
+    exCorrect: 'Induction of excessive dense fibrous (connective) tissue in the tumor stroma by a malignant tumor (B) — this is the definition of desmoplasia. In breast carcinoma, it produces the characteristic hard/firm palpable mass.',
+    exTeach: 'Desmoplasia = tumor-induced excessive stromal fibrosis. Classic examples: breast carcinoma (firm mass on exam) and pancreatic carcinoma (dense stromal reaction that contributes to duct obstruction and poor drug penetration). Requires tumor-stroma interaction → implies invasiveness.',
+    exWrong: [
+      'A — Coagulative necrosis from outgrowing blood supply occurs in malignant tumors, but this is not desmoplasia.',
+      'C — Replacement of epithelium by mesenchymal cells = metaplasia, not desmoplasia.',
+      'D — Reactive connective tissue proliferation unrelated to invasion ≠ desmoplasia by definition.',
+      'E — Loss of differentiation = anaplasia; desmoplasia is a stromal, not parenchymal, phenomenon.'
+    ]
+  },
+  {
+    lo: 'LO 2', loType: 'lo',
+    stem: 'A breast core biopsy shows an infiltrating carcinoma with a prominent desmoplastic stromal reaction. This finding MOST strongly suggests the tumor is:',
+    choices: ['Carcinoma in situ (DCIS)','Invasive','A benign fibroadenoma','Low-grade only','Non-metastatic'],
+    correct: 1,
+    exCorrect: 'Invasive (B) — desmoplasia requires active tumor-stroma interaction, which occurs when tumor cells breach the basement membrane and penetrate the surrounding stroma. Non-invasive (in-situ) tumors lack a desmoplastic reaction.',
+    exTeach: 'Clinical rule: Presence of desmoplasia → invasive tumor. Absence of desmoplasia → may still be in-situ (but absence alone cannot confirm CIS). DCIS (ductal carcinoma in-situ) confined to ducts has no desmoplastic reaction; once it breaches the basement membrane → invasive ductal carcinoma → desmoplastic stroma develops.',
+    exWrong: [
+      'A — DCIS is confined to ducts and does NOT produce a desmoplastic reaction because tumor cells have not interacted with stroma.',
+      'C — Fibroadenoma is a benign biphasic tumor with fibrous stroma but not a desmoplastic reaction to malignant invasion.',
+      'D — Desmoplasia indicates invasiveness, which is independent of tumor grade.',
+      'E — Desmoplasia indicates invasiveness but does NOT confirm or exclude metastasis.'
+    ]
+  },
+  // ── LO 3: PATHWAYS OF SPREAD ─────────────────────────────────────────────
+  {
+    lo: 'LO 3', loType: 'lo',
+    stem: 'A 57-year-old woman with ovarian carcinoma develops progressive abdominal distension. CT reveals innumerable tumor implants studding the peritoneal surfaces, omentum, and bowel serosa. Which pathway of metastatic spread does this best represent?',
+    choices: ['Hematogenous spread via the portal vein','Lymphatic spread to regional nodes','Direct seeding of the peritoneal cavity','Perineural invasion','Transcoelomic spread via retroperitoneal lymphatics'],
+    correct: 2,
+    exCorrect: 'Direct seeding of body cavities (C) — ovarian carcinoma classically spreads by direct seeding of the peritoneal cavity, producing implants on the peritoneal surfaces, omentum ("omental cake"), and bowel serosa, and often causes malignant ascites.',
+    exTeach: 'Direct seeding most often involves the peritoneal cavity but can also affect pleural and pericardial spaces (→ malignant effusions). Other examples: colon cancer seeding the peritoneum (peritoneal carcinomatosis). This is different from hematogenous or lymphatic spread.',
+    exWrong: [
+      'A — Hematogenous spread via portal vein would produce liver metastases, not peritoneal implants.',
+      'B — Lymphatic spread produces regional lymph node involvement; omental/peritoneal implants suggest seeding.',
+      'D — Perineural invasion is local tumor spread along nerves, not peritoneal seeding.',
+      'E — Retroperitoneal lymphatics can be involved, but the pattern described is peritoneal seeding.'
+    ]
+  },
+  {
+    lo: 'LO 3', loType: 'lo',
+    stem: 'Which of the following statements about metastatic spread pathways is CORRECT?',
+    choices: [
+      'Carcinomas predominantly prefer hematogenous spread as their initial route',
+      'Sarcomas preferentially spread via the lymphatic system',
+      'The sentinel node is the LAST node in a lymphatic chain to receive tumor cells',
+      'Lymphatic spread is the most common pathway for carcinomas, while hematogenous spread predominates for sarcomas',
+      'The liver is primarily seeded through the systemic venous (caval) circulation'
+    ],
+    correct: 3,
+    exCorrect: 'Lymphatic spread is the most common pathway for carcinomas, while hematogenous spread predominates for sarcomas (D) — this is the classic distinction in tumor spread patterns.',
+    exTeach: 'KEY DISTINCTION: Carcinomas → lymphatic first. Sarcomas → hematogenous first (via thin-walled veins). Sentinel node = FIRST regional lymph node receiving drainage from primary → used for staging in breast cancer and melanoma. Liver: seeded by portal venous drainage (GI tumors). Lung: seeded by ALL systemic venous drainage (any tumor can reach here).',
+    exWrong: [
+      'A — Carcinomas prefer LYMPHATIC spread first; hematogenous comes later.',
+      'B — Sarcomas prefer HEMATOGENOUS spread; not lymphatic.',
+      'C — Sentinel node is the FIRST (not last) regional node receiving lymph from the tumor — hence its use in staging.',
+      'E — Liver is seeded primarily through the PORTAL vein (from GI tract tumors), not the systemic caval circulation.'
+    ]
+  },
+  // ── LO 4: GRADING VS STAGING ─────────────────────────────────────────────
+  {
+    lo: 'LO 4', loType: 'lo',
+    stem: 'A urologist assigns a Gleason score to a prostate cancer biopsy. This score is based PRIMARILY on:',
+    choices: [
+      'Presence of regional lymph node involvement',
+      'Tumor size on MRI',
+      'Degree of glandular differentiation and architectural pattern of the tumor',
+      'Presence of distant metastases',
+      'Duration of pre-operative PSA elevation'
+    ],
+    correct: 2,
+    exCorrect: 'Degree of glandular differentiation and architectural pattern (C) — the Gleason score is a histologic GRADING system based on the degree of differentiation. Grade reflects the cytologic/architectural appearance of the tumor cells.',
+    exTeach: 'Grading = degree of differentiation (cytologic features, mitosis count, necrosis, architecture). Scale typically Grade 1–4 (higher = less differentiated). Gleason score is prostate-specific. Important caveat: histologic grade does NOT always correlate with biologic behavior. STAGING (extent of spread) offers more clinical value for prognosis and treatment.',
+    exWrong: [
+      'A — Lymph node involvement = part of STAGING (N component of TNM), not grading.',
+      'B — Tumor size on imaging = part of STAGING (T component of TNM), not grading.',
+      'D — Distant metastases = M component of TNM STAGING, not grading.',
+      'E — Duration of PSA elevation is a clinical parameter; not part of pathologic grading.'
+    ]
+  },
+  {
+    lo: 'LO 4', loType: 'lo',
+    stem: "A breast cancer patient is staged as cT2N1M1 according to the AJCC TNM system. The 'M1' component signifies:",
+    choices: [
+      'Tumor measuring more than 2 cm in greatest dimension',
+      'One regional lymph node is involved',
+      'The tumor is moderately differentiated (Grade 2)',
+      'Distant metastasis is present — Stage IV disease',
+      'The staging was performed after neoadjuvant therapy'
+    ],
+    correct: 3,
+    exCorrect: 'Distant metastasis is present — Stage IV disease (D). In TNM, M0 = no distant metastasis; M1 = distant metastasis present, which automatically places the patient in Stage IV regardless of T and N.',
+    exTeach: 'TNM Components: T (1–4 = ↑ size/invasion), N (0–3 = ↑ regional nodes), M (0 or 1). Staging prefixes: c = clinical (exam/imaging, within ~4 months of diagnosis); p = pathologic (post-surgical tissue, more accurate); y = post-therapy; r = recurrence. Staging offers more clinical value than grading.',
+    exWrong: [
+      'A — Tumor size > 2 cm describes T2; the "c" prefix means clinical staging.',
+      'B — One regional node would be N1, not M1.',
+      'C — Tumor grade is NOT part of TNM staging.',
+      'E — Post-therapy staging uses the "y" prefix (ycTNM or ypTNM), not M1.'
+    ]
+  },
+  // ── LO 5: IN-SITU VS INVASIVE ────────────────────────────────────────────
+  {
+    lo: 'LO 5', loType: 'lo',
+    stem: 'Carcinoma-in-situ (CIS) is best characterized by which of the following?',
+    choices: [
+      'Full-thickness epithelial dysplasia that has already penetrated the basement membrane',
+      'Partial-thickness dysplasia of the superficial epithelial layers only',
+      'Complete absence of cytologic features of malignancy',
+      'Full-thickness epithelial dysplasia with all cytologic features of malignancy, but WITHOUT penetration of the basement membrane',
+      'TNM Stage T1 by AJCC definition'
+    ],
+    correct: 3,
+    exCorrect: 'Full-thickness epithelial dysplasia with all cytologic features of malignancy, but WITHOUT penetration of the basement membrane (D) — CIS has the cytology of malignancy but the basement membrane is intact, so there is no lymphovascular access and no metastatic potential yet.',
+    exTeach: 'The basement membrane is the CRITICAL BARRIER. CIS = no lymphovascular access = no metastatic potential. Once breached → invasive carcinoma → metastatic potential exists. Common sites: cervix, breast (DCIS), skin, bladder. Stage 0 = Tis (tumor in situ) in TNM. Early detection (Pap smear for cervical CIS, mammography for DCIS) is life-saving.',
+    exWrong: [
+      'A — If the basement membrane is penetrated, it is INVASIVE carcinoma, not CIS.',
+      'B — Partial-thickness dysplasia = mild/moderate dysplasia; CIS requires FULL-thickness involvement.',
+      'C — CIS has ALL cytologic features of malignancy; absence of malignant cytology would describe normal or mildly dysplastic tissue.',
+      'E — Tis (carcinoma in situ) = Stage 0, NOT T1. T1 implies some degree of invasion.'
+    ]
+  },
+  {
+    lo: 'LO 5', loType: 'lo',
+    stem: 'A Pap smear reveals full-thickness dysplasia of the cervical epithelium with all cytologic features of malignancy but no evidence of basement membrane invasion. What is the MOST important clinical implication of this finding?',
+    choices: [
+      'This is a benign condition that requires only annual cytology surveillance',
+      'This lesion has likely already metastasized to regional lymph nodes',
+      'The lesion will spontaneously resolve without intervention',
+      'Without treatment, this lesion has a high probability of progressing to invasive carcinoma',
+      'Colposcopy and biopsy are unnecessary since the basement membrane is intact'
+    ],
+    correct: 3,
+    exCorrect: 'Without treatment, this lesion has a high probability of progressing to invasive carcinoma (D) — cervical CIS (also called CIN III or high-grade squamous intraepithelial lesion) will progress to invasive squamous cell carcinoma if untreated. Early detection and treatment is why Pap smears save lives.',
+    exTeach: 'CIS = precursor stage that is TREATABLE. Once basement membrane is breached → invasive carcinoma → metastatic potential → dramatically worse prognosis. The window of CIS (intact basement membrane) allows curative local treatment. This is the clinical rationale for cervical cancer screening programs.',
+    exWrong: [
+      'A — Full-thickness dysplasia (CIS) with malignant cytology is NOT benign and requires intervention.',
+      'B — CIS has NOT penetrated the basement membrane; metastasis is not yet possible.',
+      'C — Without treatment, CIS has a HIGH probability of progressing; it will NOT spontaneously resolve reliably.',
+      'E — Colposcopy and biopsy ARE indicated for full-thickness dysplasia/CIS to confirm diagnosis and guide treatment.'
+    ]
+  },
+  // ── LO 6: TESTING MODALITIES ─────────────────────────────────────────────
+  {
+    lo: 'LO 6', loType: 'lo',
+    stem: "A 70-year-old man presents with a lytic bone lesion in the lumbar vertebra. Biopsy shows metastatic adenocarcinoma of unknown primary origin. The oncologist orders a panel of immunohistochemical stains. IHC is MOST useful in this scenario for:",
+    choices: [
+      'Determining the histologic grade of the tumor cells',
+      'Detecting chromosomal translocations for targeted therapy selection',
+      'Diagnosing leukemia by measuring cell surface markers in suspension',
+      'Assessing the depth of invasion into the bone cortex',
+      'Identifying the likely tissue of origin of the metastatic tumor'
+    ],
+    correct: 4,
+    exCorrect: 'Identifying the likely tissue of origin (E) — IHC uses antigen-antibody binding to detect tumor-specific antigens. For metastases of unknown primary: thyroglobulin → thyroid origin; PSA → prostate origin; ER/PR → breast origin; desmin → muscle origin.',
+    exTeach: 'IHC applications: (1) Identify origin of metastatic tumors (unknown primary); (2) Prognostic/therapeutic markers — ER/PR in breast cancer, HER-2/neu amplification; (3) Tumor typing (e.g., desmin for muscle tumors). Other modalities: Flow cytometry = leukemia/lymphoma (cell surface markers in suspension). Molecular analysis (PCR/FISH) = chromosomal translocations (e.g., BCR-ABL in CML). Tumor markers (CEA, PSA, CA-125) = low specificity alone; used for surveillance.',
+    exWrong: [
+      'A — Histologic grade is assessed by morphology (differentiation, mitoses, architecture) on H&E, not primarily IHC.',
+      'B — Chromosomal translocations are detected by FISH or PCR (molecular analysis), not IHC.',
+      'C — Cell surface markers in SUSPENSION for leukemia/lymphoma diagnosis = FLOW CYTOMETRY, not IHC.',
+      'D — Depth of bone cortex invasion is assessed radiologically (CT/MRI) and by standard histology, not IHC.'
+    ]
+  }
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+const N = QUESTIONS.length;
+let currentQ = 0;
+let quizMode = 'learn';
+let toolMode = null;
+let examSubmitted = false;
+const state = Array.from({length: N}, () => ({ selected: null, graded: false }));
+const LETTERS = ['A','B','C','D','E'];
+
+// ─── DOM REFS ─────────────────────────────────────────────────────────────────
+const qo = document.getElementById('qo');
+const qStem = document.getElementById('qStem');
+const choiceContainer = document.getElementById('choiceContainer');
+const qNum = document.getElementById('qNum');
+const submitOne = document.getElementById('submitOne');
+const exBlock = document.getElementById('exBlock');
+const exCorrect = document.getElementById('exCorrect');
+const exTeach = document.getElementById('exTeach');
+const exWrong = document.getElementById('exWrong');
+const progressBar = document.getElementById('progressBar');
+const dotContainer = document.getElementById('dotContainer');
+const svCurrent = document.getElementById('svCurrent');
+const svCorrect = document.getElementById('svCorrect');
+const svIncorrect = document.getElementById('svIncorrect');
+const examProgress = document.getElementById('examProgress');
+const submitExamBtn = document.getElementById('submitExam');
+const resultsOverlay = document.getElementById('resultsOverlay');
+const toolStatus = document.getElementById('toolStatus');
+const modeLearn = document.getElementById('modeLearn');
+const modeExam = document.getElementById('modeExam');
+const toolHighlight = document.getElementById('toolHighlight');
+const toolStrike = document.getElementById('toolStrike');
+const toolReveal = document.getElementById('toolReveal');
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function escapeHTML(v){ return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+function countAnswered(){ return state.filter(s=>s.selected!==null).length; }
+function countCorrect(){ return state.filter((s,i)=>s.graded && s.selected===QUESTIONS[i].correct).length; }
+function countIncorrect(){ return state.filter((s,i)=>s.graded && s.selected!==null && s.selected!==QUESTIONS[i].correct).length; }
+
+// ─── RENDER QUESTION ─────────────────────────────────────────────────────────
+function renderQuestion(idx){
+  const q = QUESTIONS[idx];
+  const s = state[idx];
+
+  // Metadata
+  qNum.innerHTML = `Question ${idx+1} of ${N} <span class="qlo-tag ${q.loType}">${q.lo}</span>`;
+  qStem.innerHTML = `<span class="stem-text">${escapeHTML(q.stem)}</span>`;
+  qStem.className = 'qstem';
+  progressBar.style.width = `${((idx+1)/N*100).toFixed(1)}%`;
+  svCurrent.textContent = idx+1;
+
+  // Choices
+  choiceContainer.innerHTML = '';
+  q.choices.forEach((text, ci) => {
+    const div = document.createElement('div');
+    div.className = 'ac';
+    div.dataset.choice = ci;
+    div.innerHTML = `<div class="cl">${LETTERS[ci]}</div><div class="ctx">${escapeHTML(text)}</div>`;
+    choiceContainer.appendChild(div);
+  });
+
+  // Restore state
+  if(s.graded){
+    const choiceEls = choiceContainer.querySelectorAll('.ac');
+    choiceEls.forEach(c=>c.classList.add('dis'));
+    choiceEls[q.correct].classList.add('cor');
+    if(s.selected !== null && s.selected !== q.correct){
+      choiceEls[s.selected].classList.add('inc');
+    } else if(s.selected === q.correct){
+      choiceEls[s.selected].classList.add('cor');
+    }
+    // Explanation
+    exCorrect.textContent = q.exCorrect;
+    exTeach.textContent = q.exTeach;
+    exWrong.innerHTML = q.exWrong.map(w=>`<div class="wce"><strong>${escapeHTML(w[0])}</strong>${escapeHTML(w.slice(2))}</div>`).join('');
+    exBlock.classList.add('vis');
+    submitOne.disabled = true;
+    submitOne.textContent = 'Submitted';
+  } else {
+    if(s.selected !== null){
+      const choiceEls = choiceContainer.querySelectorAll('.ac');
+      choiceEls[s.selected].classList.add('sel');
+    }
+    exBlock.classList.remove('vis');
+    submitOne.disabled = s.selected === null;
+    submitOne.textContent = 'Submit Answer';
+  }
+
+  // Attach choice listeners
+  choiceContainer.querySelectorAll('.ac').forEach(el => {
+    el.addEventListener('click', onChoiceClick);
+  });
+
+  // Score display
+  updateScoreDisplay();
+  renderDots();
+  updateExamProgress();
+  updateToolUI();
+}
+
+function onChoiceClick(e){
+  const el = e.currentTarget;
+  const idx = currentQ;
+  const s = state[idx];
+
+  if(toolMode === 'highlight'){
+    el.classList.toggle('hl-applied');
+    el.classList.remove('st-applied');
+    return;
+  }
+  if(toolMode === 'strike'){
+    el.classList.toggle('st-applied');
+    el.classList.remove('hl-applied');
+    return;
+  }
+  if(el.classList.contains('dis')) return;
+  if(s.graded) return;
+
+  // Deselect all
+  choiceContainer.querySelectorAll('.ac').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  s.selected = parseInt(el.dataset.choice);
+  submitOne.disabled = false;
+  updateExamProgress();
+  updateExamButton();
+  renderDots();
+}
+
+// ─── SUBMIT ANSWER ────────────────────────────────────────────────────────────
+function submitAnswer(){
+  const idx = currentQ;
+  const s = state[idx];
+  const q = QUESTIONS[idx];
+  if(s.selected === null || s.graded) return;
+
+  s.graded = true;
+  const choiceEls = choiceContainer.querySelectorAll('.ac');
+  choiceEls.forEach(c=>c.classList.add('dis'));
+  choiceEls[q.correct].classList.add('cor');
+  if(s.selected !== q.correct){
+    choiceEls[s.selected].classList.add('inc');
+  }
+
+  // Build explanation
+  exCorrect.textContent = q.exCorrect;
+  exTeach.textContent = q.exTeach;
+  exWrong.innerHTML = q.exWrong.map(w=>`<div class="wce"><strong>${escapeHTML(w[0])}</strong>${escapeHTML(w.slice(2))}</div>`).join('');
+  exBlock.classList.add('vis');
+  submitOne.disabled = true;
+  submitOne.textContent = 'Submitted';
+
+  updateScoreDisplay();
+  renderDots();
+  updateExamButton();
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────────
+function goTo(idx){
+  if(idx < 0 || idx >= N) return;
+  currentQ = idx;
+  toolMode = null;
+  renderQuestion(idx);
+}
+
+document.getElementById('prevBtn').addEventListener('click', ()=>goTo(currentQ-1));
+document.getElementById('nextBtn').addEventListener('click', ()=>goTo(currentQ+1));
+
+// ─── DOTS ────────────────────────────────────────────────────────────────────
+function renderDots(){
+  dotContainer.innerHTML = '';
+  QUESTIONS.forEach((_,i)=>{
+    const d = document.createElement('button');
+    d.className = 'qd';
+    d.title = `Question ${i+1}`;
+    const s = state[i];
+    if(i === currentQ) d.classList.add('cur');
+    else if(s.graded){
+      d.classList.add(s.selected === QUESTIONS[i].correct ? 'acor' : 'ainc');
+    } else if(s.selected !== null){
+      d.classList.add('asel');
+    }
+    d.addEventListener('click', ()=>goTo(i));
+    dotContainer.appendChild(d);
+  });
+}
+
+// ─── SCORE ───────────────────────────────────────────────────────────────────
+function updateScoreDisplay(){
+  svCorrect.textContent = countCorrect();
+  svIncorrect.textContent = countIncorrect();
+}
+
+// ─── EXAM PROGRESS ───────────────────────────────────────────────────────────
+function updateExamProgress(){
+  const answered = countAnswered();
+  if(quizMode === 'exam' && !examSubmitted){
+    examProgress.textContent = `${answered} of ${N} answered`;
+  } else if(examSubmitted){
+    examProgress.textContent = 'Exam submitted ✓';
+  } else {
+    examProgress.textContent = `${answered} of ${N} answered`;
+  }
+}
+
+function updateExamButton(){
+  const answered = countAnswered();
+  submitExamBtn.disabled = quizMode !== 'exam' || examSubmitted || answered === 0;
+}
+
+// ─── MODE ────────────────────────────────────────────────────────────────────
+function setMode(mode){
+  quizMode = mode;
+  modeLearn.classList.toggle('active', mode==='learn');
+  modeExam.classList.toggle('active', mode==='exam');
+  updateExamProgress();
+  updateExamButton();
+}
+modeLearn.addEventListener('click', ()=>setMode('learn'));
+modeExam.addEventListener('click', ()=>setMode('exam'));
+
+// ─── EXAM SUBMIT ─────────────────────────────────────────────────────────────
+submitExamBtn.addEventListener('click', ()=>{
+  if(quizMode !== 'exam' || examSubmitted) return;
+  // Grade all unanswered questions as skipped (no penalty, just mark graded)
+  state.forEach((s,i)=>{ if(s.selected!==null && !s.graded) s.graded = true; });
+  examSubmitted = true;
+  updateExamProgress();
+  updateExamButton();
+  updateScoreDisplay();
+  renderDots();
+  showResults();
+});
+
+// ─── RESULTS ─────────────────────────────────────────────────────────────────
+function showResults(){
+  const cor = countCorrect();
+  const inc = countIncorrect();
+  const pct = Math.round(cor/N*100);
+  document.getElementById('resultsPct').textContent = pct + '%';
+  document.getElementById('resCor').textContent = cor;
+  document.getElementById('resInc').textContent = inc;
+  document.getElementById('resTotal').textContent = N;
+  const badge = document.getElementById('passBadge');
+  if(pct >= 70){ badge.textContent = '🎉 Pass'; badge.className = 'pass-badge pass'; }
+  else { badge.textContent = '📚 Keep Studying'; badge.className = 'pass-badge fail'; }
+  resultsOverlay.classList.add('open');
+}
+document.getElementById('resultsClose').addEventListener('click', ()=>{
+  resultsOverlay.classList.remove('open');
+});
+
+// ─── TOOLS ───────────────────────────────────────────────────────────────────
+function setToolMode(mode){
+  toolMode = toolMode === mode ? null : mode;
+  updateToolUI();
+}
+function updateToolUI(){
+  toolHighlight.classList.toggle('active', toolMode==='highlight');
+  toolHighlight.classList.toggle('hl-tool', toolMode==='highlight');
+  toolStrike.classList.toggle('active', toolMode==='strike');
+  toolStrike.classList.toggle('st-tool', toolMode==='strike');
+  if(toolMode==='highlight'){ toolStatus.textContent='Tool mode: highlight'; toolStatus.className='tool-status active-highlight'; qStem.classList.add('tool-hover'); }
+  else if(toolMode==='strike'){ toolStatus.textContent='Tool mode: strikeout'; toolStatus.className='tool-status active-strike'; qStem.classList.add('tool-hover'); }
+  else { toolStatus.textContent='Tool mode: none'; toolStatus.className='tool-status'; qStem.classList.remove('tool-hover'); }
+}
+function applyStemMarkup(type){
+  const sel = window.getSelection();
+  if(!sel || sel.rangeCount===0 || sel.isCollapsed) return false;
+  const range = sel.getRangeAt(0);
+  if(!qStem.contains(range.commonAncestorContainer)) return false;
+  const wrapper = document.createElement('span');
+  wrapper.className = type==='highlight' ? 'stem-hl' : 'stem-st';
+  try{ range.surroundContents(wrapper); } catch(e){ const f=range.extractContents(); wrapper.appendChild(f); range.insertNode(wrapper); }
+  sel.removeAllRanges();
+  return true;
+}
+function toggleWholeStem(type){
+  if(type==='highlight'){ qStem.classList.toggle('hl-applied'); qStem.classList.remove('st-applied'); }
+  else { qStem.classList.toggle('st-applied'); qStem.classList.remove('hl-applied'); }
+}
+toolHighlight.addEventListener('click', ()=>setToolMode('highlight'));
+toolStrike.addEventListener('click', ()=>setToolMode('strike'));
+toolReveal.addEventListener('click', ()=>exBlock.classList.toggle('vis'));
+qStem.addEventListener('click', e=>{ if(!toolMode) return; if(!applyStemMarkup(toolMode)) toggleWholeStem(toolMode); e.preventDefault(); });
+qStem.addEventListener('mouseup', ()=>{ if(toolMode) qStem.classList.add('tool-hover'); });
+
+// ─── SUBMIT ONE ──────────────────────────────────────────────────────────────
+submitOne.addEventListener('click', submitAnswer);
+
+// ─── OPEN/CLOSE/RESET ────────────────────────────────────────────────────────
+document.getElementById('openQuiz').addEventListener('click', ()=>{ qo.classList.add('open'); goTo(0); });
+document.getElementById('closeQuiz').addEventListener('click', ()=>{ qo.classList.add('closing'); setTimeout(()=>qo.classList.remove('open','closing'), 320); });
+document.getElementById('resetQuiz').addEventListener('click', ()=>{
+  if(!confirm('Reset all answers and start over?')) return;
+  state.forEach(s=>{ s.selected=null; s.graded=false; });
+  examSubmitted = false;
+  quizMode = 'learn';
+  modeLearn.classList.add('active'); modeExam.classList.remove('active');
+  resultsOverlay.classList.remove('open');
+  goTo(0);
+});
+
+// ─── FONT SIZE ───────────────────────────────────────────────────────────────
+document.querySelectorAll('[data-fs-btn]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{ qo.dataset.fs = btn.dataset.fsBtn; });
+});
+
+// ─── PRINT ───────────────────────────────────────────────────────────────────
+document.getElementById('printQuiz').addEventListener('click', ()=>{
+  const root = document.getElementById('printReviewRoot');
+  const cor = countCorrect();
+  const inc = countIncorrect();
+  const answered = countAnswered();
+  const cards = QUESTIONS.map((q,i)=>{
+    const s = state[i];
+    const opts = q.choices.map((ch,ci)=>{
+      const isCorrect = ci===q.correct;
+      const isWrong = s.graded && s.selected===ci && ci!==q.correct;
+      const cls = ['print-choice', isCorrect?'correct':'', isWrong?'incorrect':''].filter(Boolean).join(' ');
+      const badge = isCorrect ? 'Correct Answer' : (s.selected===ci ? 'Your Choice' : '');
+      return `<div class="${cls}"><div class="print-choice-letter">${LETTERS[ci]}</div><div class="print-choice-copy">${escapeHTML(ch)}${badge?`<div class="print-choice-badge">${badge}</div>`:''}</div></div>`;
+    }).join('');
+    const wrongHtml = q.exWrong.map(w=>`<div class="print-wrong">${escapeHTML(w)}</div>`).join('');
+    return `<div class="print-card"><div class="print-qtag">${q.lo} — Question ${i+1} of ${N}</div><h2>Q${i+1}</h2><div class="print-stem">${escapeHTML(q.stem)}</div><div class="print-choices">${opts}</div><div class="print-explainer correct-box"><div class="print-label">Correct Answer</div><div>${escapeHTML(q.exCorrect)}</div></div><div class="print-explainer teach-box"><div class="print-label">Teaching Point</div><div>${escapeHTML(q.exTeach)}</div></div><div class="print-explainer wrong-box"><div class="print-label">Why the Others Are Wrong</div>${wrongHtml}</div></div>`;
+  }).join('');
+  root.innerHTML = `<div class="print-shell"><header class="print-header"><h1>Neoplasia Quiz — Dr. Holla | Answer Review</h1><p style="font-size:13px;color:#666;margin-bottom:10px">Block 5 Pathology · 25 MCQs covering PLOs 1–4 and LOs 1–6</p><div class="print-summary"><span class="print-pill">${N} Questions</span><span class="print-pill">${answered} Answered</span><span class="print-pill" style="color:#2D8659">${cor} Correct</span><span class="print-pill" style="color:#C44040">${inc} Incorrect</span><span class="print-pill">${Math.round(cor/N*100)}%</span></div></header>${cards}</div>`;
+  document.body.classList.add('print-review-active');
+  setTimeout(()=>window.print(), 60);
+});
+window.addEventListener('afterprint', ()=>document.body.classList.remove('print-review-active'));
+
+// ─── TIMERS ──────────────────────────────────────────────────────────────────
+let timerInt=null, timerSec=0;
+const timerTime = document.getElementById('timerTime');
+function renderTimer(){ timerTime.textContent=`${String(Math.floor(timerSec/60)).padStart(2,'0')}:${String(timerSec%60).padStart(2,'0')}`; }
+document.getElementById('timerStart').addEventListener('click', ()=>{ if(!timerInt) timerInt=setInterval(()=>{ timerSec++; renderTimer(); },1000); });
+document.getElementById('timerPause').addEventListener('click', ()=>{ clearInterval(timerInt); timerInt=null; });
+document.getElementById('timerReset').addEventListener('click', ()=>{ clearInterval(timerInt); timerInt=null; timerSec=0; renderTimer(); });
+
+let cdMinutes=25, cdInt=null, cdSec=cdMinutes*60;
+const cdVal=document.getElementById('cdVal'), cdTime=document.getElementById('cdTime'), cdGo=document.getElementById('cdGo');
+function renderCd(){ cdTime.textContent=`${String(Math.floor(cdSec/60)).padStart(2,'0')}:${String(cdSec%60).padStart(2,'0')}`; cdVal.textContent=String(Math.max(1,Math.floor((cdSec+59)/60)||0)); }
+document.getElementById('cdMinus').addEventListener('click', ()=>{ if(!cdInt){ cdMinutes=Math.max(1,cdMinutes-1); cdSec=cdMinutes*60; renderCd(); }});
+document.getElementById('cdPlus').addEventListener('click', ()=>{ if(!cdInt){ cdMinutes=Math.min(99,cdMinutes+1); cdSec=cdMinutes*60; renderCd(); }});
+cdGo.addEventListener('click', ()=>{
+  if(cdInt){ clearInterval(cdInt); cdInt=null; cdGo.textContent='Start'; return; }
+  cdGo.textContent='Pause';
+  cdInt=setInterval(()=>{ if(cdSec<=0){ clearInterval(cdInt); cdInt=null; cdGo.textContent='Start'; return; } cdSec--; renderCd(); },1000);
+});
+
+renderTimer(); renderCd();
+updateToolUI(); updateExamButton();
+</script>
+</body>
+</html>
