@@ -3357,6 +3357,80 @@ function setupEasterEggs(){
   }
   document.addEventListener('keydown',handleEasterEggKeydown,true);
 }
+var SECRET_SHORTCUTS=[
+  {key:'flappy',aliases:['flappybird','bird'],icon:'🐤',title:'Flappy Bird',description:'Opens the local Flappy Bird game.'},
+  {key:'minecraft',aliases:[],icon:'⛏️',title:'Minecraft Mode',description:'Launches the Minecraft study page in a popup.'},
+  {key:'quack',aliases:[],icon:'🦆',title:'Quack Mode',description:'Duck-themed modal with the embedded anthem.'},
+  {key:'pika',aliases:[],icon:'⚡',title:'Pika Mode',description:'Launches the CSS Pokemon Game Boy.'},
+  {key:'cat',aliases:['kitten'],icon:'🐱',title:'Nyan Mode',description:'Opens Nyan Cat in a separate window.'},
+  {key:'hvla',aliases:[],icon:'⚡',title:'HVLA Mode',description:'Shows the embedded HVLA Google Drive preview.'},
+  {key:'loglady',aliases:[],icon:'🪵',title:'Log Lady Mode',description:'Opens the Twin Peaks themed easter egg.'},
+  {key:'willard',aliases:[],icon:'🎓',title:'Willard Portal',description:'Redirects to the Willard anatomy resource site.'},
+  {key:'barrel',aliases:[],icon:'🌀',title:'Barrel Roll',description:'Spins the whole page for a quick surprise.'}
+];
+function renderSecretsList(){
+  var list=document.getElementById('secretsList');
+  if(!list)return;
+  var html='';
+  SECRET_SHORTCUTS.forEach(function(item){
+    html+='<div class="secret-item">'+
+      '<div class="secret-item-icon">'+item.icon+'</div>'+
+      '<div>'+
+        '<div class="secret-item-title">'+item.title+'</div>'+
+        '<div class="secret-item-meta">'+
+          '<span class="secret-chip">'+item.key+'</span>'+
+          (item.aliases&&item.aliases.length?'<span class="secret-alias">also: '+item.aliases.join(', ')+'</span>':'')+
+        '</div>'+
+        '<div class="secret-item-desc">'+item.description+'</div>'+
+      '</div>'+
+      '<button class="secret-launch" type="button" onclick="launchSecretCommand(\''+item.key+'\')">Launch</button>'+
+    '</div>';
+  });
+  list.innerHTML=html;
+}
+function openSecretsModal(){
+  var modal=document.getElementById('secretsModal');
+  var fab=document.getElementById('secretsFab');
+  if(!modal)return;
+  renderSecretsList();
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  if(fab)fab.setAttribute('aria-expanded','true');
+}
+function closeSecretsModal(){
+  var modal=document.getElementById('secretsModal');
+  var fab=document.getElementById('secretsFab');
+  if(modal){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+  }
+  if(fab)fab.setAttribute('aria-expanded','false');
+}
+function setupSecretsModal(){
+  var modal=document.getElementById('secretsModal');
+  var closeBtn=document.getElementById('secretsClose');
+  if(closeBtn)closeBtn.addEventListener('click',closeSecretsModal);
+  if(modal){
+    modal.addEventListener('click',function(ev){
+      if(ev.target===modal)closeSecretsModal();
+    });
+  }
+  renderSecretsList();
+}
+function launchSecretCommand(keyword){
+  closeSecretsModal();
+  switch(String(keyword||'').toLowerCase()){
+    case 'flappy': triggerFlappyEgg(); break;
+    case 'minecraft': triggerMinecraftEgg(); break;
+    case 'quack': triggerQuackEgg(); break;
+    case 'pika': triggerPikaEgg(); break;
+    case 'cat': triggerNyanEgg(); break;
+    case 'hvla': triggerHvlaEgg(); break;
+    case 'loglady': triggerLogLadyEgg(); break;
+    case 'willard': triggerWillardEgg(); break;
+    case 'barrel': triggerBarrelRoll(); break;
+  }
+}
 function isTypingContext(target){
   return !!(target&&(target.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/i.test(target.tagName)));
 }
@@ -3392,6 +3466,7 @@ function launchEasterEgg(config){
 }
 function handleEasterEggKeydown(ev){
   if(ev.key==='Escape'){
+    closeSecretsModal();
     closeEasterEgg();
     closeMediaModal();
     return;
