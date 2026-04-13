@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="slate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eye &amp; Visual System — Contextual Anki</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* === TOKENS === */
+:root {
+  --amber: #f59e0b;
+  --amber-soft: rgba(245,158,11,.15);
+  --teal: #14b8a6;
+  --teal-soft: rgba(20,184,166,.15);
+  --green: #34d399;
+  --green-soft: rgba(52,211,153,.12);
+  --red: #f87171;
+  --text-2: #64748b;
+  --header-shadow: 0 22px 50px rgba(0,0,0,.24);
+}
+
+html[data-theme="slate"] {
+  --bg-top:#0f172a; --bg-bottom:#0a0f1e; --text:#e2e8f0; --text-muted:#94a3b8;
+  --surface:#1e293b; --border:rgba(255,255,255,.07);
+  --hero-glow-a:rgba(20,184,166,.06); --hero-glow-b:rgba(245,158,11,.05);
+  --header-a:#0e1f35; --header-b:#091528;
+  --card-a:#1a2a3a; --card-b:#152030;
+  --card-action-bg:rgba(255,255,255,.03);
+  --nav-bg:rgba(255,255,255,.06); --nav-bg-hover:rgba(255,255,255,.12); --nav-text:#94a3b8;
+  --showall-bg:rgba(20,184,166,.12); --showall-text:#14b8a6;
+  --meta-bg:rgba(255,255,255,.06);
+}
+html[data-theme="cream"] {
+  --bg-top:#faf8f3; --bg-bottom:#f0ece1; --text:#2d2a22; --text-muted:#7a7668;
+  --surface:#ffffff; --border:rgba(0,0,0,.07);
+  --hero-glow-a:rgba(20,184,166,.05); --hero-glow-b:rgba(245,158,11,.06);
+  --header-a:#fffdf7; --header-b:#f5f0e4;
+  --card-a:#ffffff; --card-b:#f9f6ef;
+  --card-action-bg:rgba(0,0,0,.02);
+  --nav-bg:rgba(0,0,0,.05); --nav-bg-hover:rgba(0,0,0,.10); --nav-text:#7a7668;
+  --showall-bg:rgba(20,184,166,.10); --showall-text:#0d9488;
+  --meta-bg:rgba(0,0,0,.05);
+}
+html[data-theme="forest"] {
+  --bg-top:#0a1a14; --bg-bottom:#060e0a; --text:#d1fae5; --text-muted:#6ee7b7;
+  --surface:#0f2a1a; --border:rgba(52,211,153,.08);
+  --hero-glow-a:rgba(52,211,153,.08); --hero-glow-b:rgba(245,158,11,.04);
+  --header-a:#0d2015; --header-b:#08140d;
+  --card-a:#102214; --card-b:#0c1c10;
+  --card-action-bg:rgba(52,211,153,.04);
+  --nav-bg:rgba(52,211,153,.08); --nav-bg-hover:rgba(52,211,153,.16); --nav-text:#6ee7b7;
+  --showall-bg:rgba(245,158,11,.12); --showall-text:#f59e0b;
+  --meta-bg:rgba(52,211,153,.08);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'DM Sans',sans-serif; font-size:15px; color:var(--text); min-height:100vh;
+  background:
+    radial-gradient(circle at top left, var(--hero-glow-a), transparent 26rem),
+    radial-gradient(circle at top right, var(--hero-glow-b), transparent 24rem),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,var(--header-a),var(--header-b));
+  box-shadow:var(--header-shadow); padding:32px 28px 28px;
+  border-bottom:1px solid var(--border);
+}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;max-width:1000px;margin:0 auto;flex-wrap:wrap}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;opacity:.85}
+h1{font-family:'Crimson Pro',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;color:var(--text);line-height:1.15;margin-bottom:6px}
+#deckMeta{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);letter-spacing:.04em}
+.theme-switch{display:flex;gap:6px;flex-shrink:0;margin-top:4px}
+.theme-btn{font-family:'DM Mono',monospace;font-size:11px;padding:4px 12px;border-radius:4px;border:1px solid var(--border);background:var(--nav-bg);color:var(--text-muted);cursor:pointer;transition:all .15s;letter-spacing:.05em}
+.theme-btn.active,.theme-btn:hover{background:var(--teal-soft);color:var(--teal);border-color:rgba(20,184,166,.3)}
+
+/* LEGEND */
+.legend{display:flex;gap:20px;justify-content:center;padding:14px 24px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:.05em;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:7px}
+.lswatch{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+/* MAP */
+.map-wrap{padding:20px 16px 8px;max-width:860px;margin:0 auto}
+svg.concept-map{width:100%;height:auto;overflow:visible}
+.node{cursor:pointer;transition:opacity .2s}
+.node:hover rect{filter:brightness(1.12)}
+.node rect{rx:7;ry:7;stroke-width:1.5;transition:filter .15s}
+.node text{font-family:'DM Mono',monospace;pointer-events:none}
+.c-teal rect{fill:var(--teal-soft);stroke:var(--teal)}
+.c-teal .node-label{fill:var(--teal);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.c-teal .node-sub{fill:var(--text);font-size:9px}
+.c-amber rect{fill:var(--amber-soft);stroke:var(--amber)}
+.c-amber .node-label{fill:var(--amber);font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.c-amber .node-sub{fill:var(--text);font-size:9px}
+.c-gray rect{fill:rgba(148,163,184,.08);stroke:rgba(148,163,184,.3)}
+.c-gray .node-label{fill:var(--text-muted);font-size:11px;font-weight:500;letter-spacing:.06em}
+.c-gray .node-sub{fill:var(--text-muted);font-size:9px}
+.conn{stroke:var(--border);stroke-width:1.2;stroke-dasharray:4 3}
+.hint-lbl{font-family:'DM Mono',monospace;font-size:9px;fill:var(--text-muted);letter-spacing:.05em;opacity:.6}
+.node-prog{font-family:'DM Mono',monospace;font-size:9px;fill:var(--teal);opacity:0;transition:opacity .2s}
+.node-prog.vis{opacity:1}
+.done-node{opacity:.45}
+
+/* PANEL */
+.panel,.review-panel{
+  max-width:760px;margin:16px auto;
+  background:linear-gradient(160deg,var(--card-a),var(--card-b));
+  border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,0,0,.2)
+}
+.panel.hidden,.review-panel.hidden{display:none}
+.panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;background:linear-gradient(90deg,var(--header-a),var(--header-b));
+  border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap
+}
+.panel-title{font-family:'Crimson Pro',serif;font-size:1.2rem;font-weight:600;color:var(--text)}
+.panel-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:4px;background:var(--teal-soft);color:var(--teal);border:1px solid rgba(20,184,166,.25)}
+.close-btn{font-family:'DM Mono',monospace;font-size:18px;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:2px 8px;border-radius:4px;transition:all .15s;margin-left:auto}
+.close-btn:hover{background:rgba(248,113,113,.15);color:var(--red)}
+.panel-actions{display:flex;gap:8px;padding:10px 20px;background:var(--card-action-bg);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.panel-actions button{font-family:'DM Mono',monospace;font-size:11px;padding:5px 12px;border-radius:5px;border:1px solid var(--border);background:var(--nav-bg);color:var(--nav-text);cursor:pointer;transition:all .15s;letter-spacing:.04em}
+.panel-actions button:hover:not(:disabled){background:var(--nav-bg-hover);color:var(--text)}
+.panel-actions button:disabled{opacity:.35;cursor:default}
+.btn-amber{background:var(--amber-soft)!important;color:var(--amber)!important;border-color:rgba(245,158,11,.25)!important}
+.card-wrap{padding:20px;min-height:240px}
+.card-eyebrow{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+.card-title{font-family:'DM Mono',monospace;font-size:12px;color:var(--teal);margin-bottom:14px;letter-spacing:.06em}
+.card-body{font-size:15px;line-height:1.85;color:var(--text)}
+.card-hint{margin-top:14px;padding:10px 14px;background:var(--amber-soft);border-left:3px solid var(--amber);border-radius:4px;font-size:13px;color:var(--text-muted)}
+.card-hint-label{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:4px}
+.card-metrics{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.met{font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:100px;background:var(--meta-bg);color:var(--text-muted)}
+.met.green{background:var(--green-soft);color:var(--green)}
+.met.amber{background:var(--amber-soft);color:var(--amber)}
+.met.red{background:rgba(248,113,113,.12);color:var(--red)}
+.card-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--border)}
+.nav-btn{font-family:'DM Mono',monospace;font-size:12px;padding:6px 16px;border-radius:6px;border:1px solid var(--border);background:var(--nav-bg);color:var(--nav-text);cursor:pointer;transition:all .15s}
+.nav-btn:hover:not(:disabled){background:var(--nav-bg-hover);color:var(--text)}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.card-counter{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted)}
+.prog-dots{display:flex;gap:3px;margin-top:8px;flex-wrap:wrap}
+.prog-dot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background .2s}
+.prog-dot.partial{background:var(--amber)}
+.prog-dot.done{background:var(--green)}
+
+/* OCCLUSION */
+.occ{
+  display:inline-block;min-width:3ch;
+  background:var(--text);color:transparent;
+  border:1px solid transparent;border-radius:3px;
+  cursor:pointer;padding:1px 6px;
+  white-space:nowrap;user-select:none;
+  vertical-align:baseline;
+  transition:background .15s,color .15s,border-color .15s
+}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
+.occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed{background:rgba(248,113,113,.12);color:var(--red);cursor:default;border-color:rgba(248,113,113,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green);border-color:rgba(52,211,153,.18);cursor:default}
+.occ.dim{color:var(--text-2);background:transparent;border-color:transparent;cursor:default}
+
+/* SCORE BUTTONS */
+.score-btns{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+.sbtn{font-family:'DM Mono',monospace;font-size:10px;padding:1px 7px;border-radius:4px;cursor:pointer;border:1px solid;transition:all .12s}
+.sbtn-k{background:var(--green-soft);color:var(--green);border-color:rgba(52,211,153,.3)}
+.sbtn-k:hover{background:rgba(52,211,153,.25)}
+.sbtn-n{background:rgba(248,113,113,.12);color:var(--red);border-color:rgba(248,113,113,.3)}
+.sbtn-n:hover{background:rgba(248,113,113,.25)}
+
+/* JUMP LINKS */
+.jlink{font-family:'DM Mono',monospace;font-size:10px;padding:1px 7px;border-radius:4px;cursor:pointer;border:1px solid;margin-left:5px;vertical-align:middle;transition:all .12s;text-decoration:none;display:inline-block}
+.jlink.teal{background:var(--teal-soft);color:var(--teal);border-color:rgba(20,184,166,.3)}
+.jlink.teal:hover{background:rgba(20,184,166,.25)}
+.jlink.amber{background:var(--amber-soft);color:var(--amber);border-color:rgba(245,158,11,.3)}
+.jlink.amber:hover{background:rgba(245,158,11,.25)}
+
+/* STATS BAR */
+.stats-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:14px 20px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);letter-spacing:.04em;max-width:760px;margin:0 auto 8px}
+.stat-pill{padding:4px 12px;border-radius:100px;background:var(--meta-bg);border:none;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted)}
+.stat-pill.green{background:var(--green-soft);color:var(--green)}
+.stat-pill.red{background:rgba(248,113,113,.12);color:var(--red)}
+.stat-pill.clickable{cursor:pointer;background:rgba(245,158,11,.10);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.stat-pill.clickable:hover{background:rgba(245,158,11,.2)}
+
+/* REVIEW PANEL */
+.rsub{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);padding:8px 20px;background:var(--card-action-bg);border-bottom:1px solid var(--border);letter-spacing:.04em}
+.review-actions{display:flex;gap:10px;padding:12px 20px;border-top:1px solid var(--border);justify-content:flex-end;flex-wrap:wrap}
+
+/* RESET */
+.reset-bar{display:flex;justify-content:center;padding:8px 20px 28px}
+.reset-all-btn{font-family:'DM Mono',monospace;font-size:11px;padding:6px 18px;border-radius:6px;border:1px solid rgba(248,113,113,.25);background:rgba(248,113,113,.06);color:var(--red);cursor:pointer;transition:all .15s}
+.reset-all-btn:hover{background:rgba(248,113,113,.15)}
+
+@media(max-width:720px){.panel-actions{flex-direction:column}.review-actions{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Block 5 · Physiology of the Senses · Dr. Ferland</div>
+      <h1>Eye &amp; Visual System</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Learning Objectives (LO)</div>
+</div>
+
+<div class="map-wrap">
+  <svg class="concept-map" viewBox="0 0 780 330" xmlns="http://www.w3.org/2000/svg">
+    <!-- Connectors -->
+    <line class="conn" x1="97"  y1="64" x2="380" y2="138"/>
+    <line class="conn" x1="267" y1="64" x2="380" y2="138"/>
+    <line class="conn" x1="437" y1="64" x2="380" y2="138"/>
+    <line class="conn" x1="607" y1="64" x2="380" y2="138"/>
+    <line class="conn" x1="82"  y1="256" x2="380" y2="182"/>
+    <line class="conn" x1="222" y1="256" x2="380" y2="182"/>
+    <line class="conn" x1="362" y1="256" x2="380" y2="182"/>
+    <line class="conn" x1="502" y1="256" x2="380" y2="182"/>
+    <line class="conn" x1="642" y1="256" x2="380" y2="182"/>
+
+    <!-- Center node -->
+    <g class="node c-gray" style="cursor:default">
+      <rect x="195" y="138" width="370" height="44"/>
+      <text class="node-label" x="380" y="157" text-anchor="middle">Eye &amp; Visual System</text>
+      <text class="node-sub"   x="380" y="172" text-anchor="middle">Physiology of the Senses · LOs 1–9</text>
+    </g>
+
+    <!-- Top row -->
+    <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+      <rect x="22"  y="14" width="150" height="50"/>
+      <text class="node-label" x="97"  y="34" text-anchor="middle">LO 1</text>
+      <text class="node-sub"   x="97"  y="50" text-anchor="middle">Properties of Light</text>
+      <text id="prog-lo1" class="node-prog" x="97"  y="71" text-anchor="middle"></text>
+    </g>
+    <g id="n-lo2" class="node c-teal" onclick="selNode('lo2')">
+      <rect x="192" y="14" width="150" height="50"/>
+      <text class="node-label" x="267" y="34" text-anchor="middle">LO 2</text>
+      <text class="node-sub"   x="267" y="50" text-anchor="middle">Optical Features</text>
+      <text id="prog-lo2" class="node-prog" x="267" y="71" text-anchor="middle"></text>
+    </g>
+    <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+      <rect x="362" y="14" width="150" height="50"/>
+      <text class="node-label" x="437" y="34" text-anchor="middle">LO 3</text>
+      <text class="node-sub"   x="437" y="50" text-anchor="middle">Image Formation</text>
+      <text id="prog-lo3" class="node-prog" x="437" y="71" text-anchor="middle"></text>
+    </g>
+    <g id="n-lo4" class="node c-teal" onclick="selNode('lo4')">
+      <rect x="532" y="14" width="150" height="50"/>
+      <text class="node-label" x="607" y="34" text-anchor="middle">LO 4</text>
+      <text class="node-sub"   x="607" y="50" text-anchor="middle">Refractive Errors</text>
+      <text id="prog-lo4" class="node-prog" x="607" y="71" text-anchor="middle"></text>
+    </g>
+
+    <!-- Bottom row -->
+    <g id="n-lo5" class="node c-teal" onclick="selNode('lo5')">
+      <rect x="18"  y="256" width="128" height="50"/>
+      <text class="node-label" x="82"  y="276" text-anchor="middle">LO 5</text>
+      <text class="node-sub"   x="82"  y="292" text-anchor="middle">Photoreceptors</text>
+      <text id="prog-lo5" class="node-prog" x="82"  y="315" text-anchor="middle"></text>
+    </g>
+    <g id="n-lo6" class="node c-teal" onclick="selNode('lo6')">
+      <rect x="158" y="256" width="128" height="50"/>
+      <text class="node-label" x="222" y="276" text-anchor="middle">LO 6</text>
+      <text class="node-sub"   x="222" y="292" text-anchor="middle">Retinal Anatomy</text>
+      <text id="prog-lo6" class="node-prog" x="222" y="315" text-anchor="middle"></text>
+    </g>
+    <g id="n-lo7" class="node c-teal" onclick="selNode('lo7')">
+      <rect x="298" y="256" width="128" height="50"/>
+      <text class="node-label" x="362" y="276" text-anchor="middle">LO 7</text>
+      <text class="node-sub"   x="362" y="292" text-anchor="middle">Phototransduction</text>
+      <text id="prog-lo7" class="node-prog" x="362" y="315" text-anchor="middle"></text>
+    </g>
+    <g id="n-lo8" class="node c-teal" onclick="selNode('lo8')">
+      <rect x="438" y="256" width="128" height="50"/>
+      <text class="node-label" x="502" y="276" text-anchor="middle">LO 8</text>
+      <text class="node-sub"   x="502" y="292" text-anchor="middle">Ganglion Cells</text>
+      <text id="prog-lo8" class="node-prog" x="502" y="315" text-anchor="middle"></text>
+    </g>
+    <g id="n-lo9" class="node c-teal" onclick="selNode('lo9')">
+      <rect x="578" y="256" width="128" height="50"/>
+      <text class="node-label" x="642" y="276" text-anchor="middle">LO 9</text>
+      <text class="node-sub"   x="642" y="292" text-anchor="middle">Center/Surround</text>
+      <text id="prog-lo9" class="node-prog" x="642" y="315" text-anchor="middle"></text>
+    </g>
+
+    <text class="hint-lbl" x="390" y="323" text-anchor="middle">click node to open · &#8592; &#8594; navigate cards · Esc close</text>
+  </svg>
+</div>
+
+<!-- Main panel -->
+<div id="panel" class="panel hidden">
+  <div class="panel-header">
+    <span class="panel-badge" id="panel-badge"></span>
+    <span class="panel-title" id="panel-title"></span>
+    <button class="close-btn" onclick="selNode(cur)">&#x2715;</button>
+  </div>
+  <div class="panel-actions">
+    <button onclick="revealCard()">Reveal this card</button>
+    <button onclick="revealTopic()">Reveal topic</button>
+    <button onclick="revealAll()">Reveal deck</button>
+    <button id="btn-knew-all" class="btn-amber" onclick="knewAllCurrentCard()" disabled>Knew all &#10003;</button>
+    <button onclick="resetCard(cur, ci)">Reset card</button>
+  </div>
+  <div class="card-wrap" id="card-wrap"></div>
+  <div class="card-nav">
+    <button class="nav-btn" id="btn-prev" onclick="prevCard()">&#8592; Prev</button>
+    <span class="card-counter" id="card-counter"></span>
+    <button class="nav-btn" id="btn-next" onclick="nextCard()">Next &#8594;</button>
+  </div>
+</div>
+
+<!-- Review panel -->
+<div id="review-panel" class="review-panel hidden">
+  <div class="panel-header">
+    <span class="panel-badge" style="background:rgba(245,158,11,.15);color:var(--amber);border-color:rgba(245,158,11,.25)">Review Mode</span>
+    <span class="panel-title">Spaced Repetition</span>
+    <button class="close-btn" onclick="closeReview()">&#x2715;</button>
+  </div>
+  <div class="rsub" id="rsub"></div>
+  <div class="card-wrap" id="rev-card-wrap"></div>
+  <div class="review-actions">
+    <button class="nav-btn" id="rev-knew" onclick="scoreReview('knew')">&#10003; Knew it</button>
+    <button class="nav-btn" id="rev-need" onclick="scoreReview('needed')" style="background:rgba(248,113,113,.12);color:var(--red);border-color:rgba(248,113,113,.25)">&#10007; Needed help</button>
+    <button class="nav-btn" onclick="closeReview()">Close review</button>
+  </div>
+</div>
+
+<!-- Stats bar -->
+<div class="stats-bar">
+  <span class="stat-pill"       id="stat-rev">Revealed: 0</span>
+  <span class="stat-pill green" id="stat-knew">Knew: 0</span>
+  <span class="stat-pill red"   id="stat-need">Needed: 0</span>
+  <span class="stat-pill"       id="stat-done">Done: 0 / 9</span>
+  <button class="stat-pill clickable" onclick="startReview()">&#9733; Review weak spots</button>
+</div>
+<div class="reset-bar">
+  <button class="reset-all-btn" onclick="resetAll()">Reset all progress</button>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const DECK_ID = 'eye-phys-v1';
+
+const D = {
+  lo1: {
+    label: 'LO 1', sub: 'Properties of Light', type: 'LO',
+    cards: [
+      {
+        t: 'Visible Spectrum & Photons',
+        b: 'Light is {electromagnetic radiation} detectable by the eye in the visible spectrum (~{380\u2013700 nm}). {Wavelength} determines color (short ~420 nm = violet; long ~700 nm = red); {intensity (amplitude)} determines brightness. A single {photon} can activate a rod photoreceptor.',
+        h: 'Light behaves as both a wave and a particle. The visible spectrum is a narrow band of the full electromagnetic spectrum.'
+      },
+      {
+        t: 'Refraction',
+        b: 'Refraction: light bends when passing from one medium to another due to change in {refractive index}. Measured in {diopters (D)} = reciprocal of {focal length in meters}. Greatest bending occurs at the {air \u2192 cornea interface}. Cornea provides ~{43D} (fixed); lens adds ~{20D} (adjustable).',
+        h: 'A 2D lens focuses parallel light at 0.5 m. Total ocular power \u224863D; the cornea contributes ~70% of that.'
+      },
+      {
+        t: 'Reflection & Absorption',
+        b: 'Objects {reflect} certain wavelengths to our eyes \u2014 the basis of {color perception}. The {choroid and RPE} absorb stray photons via {melanin} to reduce internal scatter and improve visual acuity.',
+        h: 'Melanin in the RPE absorbs extraneous photons and prevents internal reflections that would blur the retinal image.'
+      },
+      {
+        t: 'The Optical Goal',
+        b: 'The goal of the optical system is to precisely focus a {sharp image} onto the {photoreceptors of the fovea}. Any imprecision in refraction results in a {refractive error} (myopia, hyperopia, astigmatism, or presbyopia).',
+        h: 'The fovea is the region of greatest visual acuity: densely packed cones, minimal inner layers, and near 1:1 photoreceptor-to-ganglion cell ratio.'
+      }
+    ]
+  },
+  lo2: {
+    label: 'LO 2', sub: 'Optical Features of the Eye', type: 'LO',
+    cards: [
+      {
+        t: 'Three Tunics',
+        b: 'Outer (fibrous): {sclera} (protective structural shell) + {cornea} (transparent; ~70% of refraction; fixed curvature). Middle (uvea/vascular): {choroid} (vascular; nourishes outer retina via diffusion), {ciliary body} (secretes aqueous humor; ciliary muscles adjust lens), {iris} (controls pupil diameter). Inner: {neural retina} + {RPE} (retinal pigment epithelium; single pigmented support layer).',
+        h: 'Uvea = choroid + ciliary body + iris. All are vascular and pigmented. Most refraction happens at the air\u2013cornea interface, not at the lens.'
+      },
+      {
+        t: 'Three Chambers',
+        b: '{Anterior chamber}: behind cornea, in front of iris; contains {aqueous humor}; site of {IOP measurement}. {Posterior chamber}: between iris and lens; aqueous humor {produced here by ciliary processes}. {Vitreous chamber}: behind lens; contains {gelatinous vitreous humor} (maintains shape, supports retina). Aqueous drains via {Canal of Schlemm}.',
+        h: 'Elevated IOP (glaucoma) = impaired Canal of Schlemm drainage \u2192 compresses retinal blood vessels \u2192 retinal neuron damage.'
+      },
+      {
+        t: 'The Lens',
+        b: 'The lens is {transparent, biconvex, and elastic}, composed mainly of {crystallins (\u03b1, \u03b2, \u03b3)}, and has {no blood supply} (nutrients from aqueous humor). It provides ~{30%} of refractive power (~{20D}) and is crucially {adjustable}. Ciliary muscle {contraction} \u2192 zonule fibers {relax} \u2192 lens {rounds up} \u2192 {more refractive power} (near vision). Controlled by {parasympathetic CN III} (Edinger-Westphal nucleus).',
+        h: 'Mnemonic: Contract ciliary = Relax zonules = Round lens = near vision. Ciliary muscles and zonules work in opposition.'
+      },
+      {
+        t: 'Cataracts & Glaucoma',
+        b: 'Cataracts: high blood glucose \u2192 {sorbitol accumulates} in lens \u2192 reduces {crystallin solubility} \u2192 {lens opacity}; treatment = surgical lens replacement. Glaucoma: impaired drainage via {Canal of Schlemm} \u2192 {elevated IOP} \u2192 retinal neuron damage. Open-angle (90%): {painless, gradual peripheral vision loss}. Acute angle-closure: {emergency \u2014 blurry vision, eye pain, halos, nausea}.',
+        h: 'Open-angle glaucoma is insidious; most damage is done before symptoms appear. Tonometry screens IOP. Both types ultimately kill RGCs.'
+      }
+    ]
+  },
+  lo3: {
+    label: 'LO 3', sub: 'Image Formation', type: 'LO',
+    cards: [
+      {
+        t: 'The Optical Path',
+        b: 'Light path: {cornea} (~70% of refraction; air\u2192cornea interface) \u2192 {pupil} (iris regulates aperture) \u2192 {lens} (accommodation fine-tunes focus) \u2192 {vitreous humor} \u2192 focused on the {fovea}.',
+        h: 'The major refractive event is at the air-cornea interface because of the large difference in refractive index. The lens merely fine-tunes.'
+      },
+      {
+        t: 'Image Inversion',
+        b: 'Light rays cross at the {nodal point} of the lens, so the retinal image is {inverted (upside-down) and mirror-reversed} relative to the external world. Superior visual field \u2192 {inferior retina}. {The brain corrects this inversion} during cortical processing. Temporal/nasal fields split at the {optic chiasm}.',
+        h: 'The retinal image is like a camera obscura: upside-down and left-right reversed. The visual cortex reinverts it during processing.'
+      },
+      {
+        t: 'Accommodation',
+        b: 'Near vision: ciliary muscles {CONTRACT} \u2192 zonule fibers {relax} \u2192 lens becomes more {rounded (greater curvature)} \u2192 {increased refractive power}. Far vision: ciliary muscles {relax} \u2192 zonule fibers {taut} \u2192 lens {flattened} \u2192 less power. The {pupil also constricts} during near vision \u2192 increases {depth of field} and reduces aberrations.',
+        h: 'Full near-vision reflex = accommodation + convergence + pupil constriction. All three together.'
+      }
+    ]
+  },
+  lo4: {
+    label: 'LO 4', sub: 'Refractive Errors', type: 'LO',
+    cards: [
+      {
+        t: 'Emmetropia & Myopia',
+        b: '{Emmetropia}: normal vision; parallel rays from \u22656 m focused precisely on retina {without accommodation}. {Myopia} (nearsighted): eye too {long} OR cornea too {curved} \u2192 image focused {in front of retina}; distant objects blurry; correction = {concave (diverging)} lens.',
+        h: 'Myopia correction uses negative diopter (diverging) lenses to shift the focal point backward onto the retina.'
+      },
+      {
+        t: 'Hyperopia & Astigmatism',
+        b: '{Hyperopia} (farsighted): eye too {short} OR cornea too {flat} \u2192 image focused {behind retina}; near objects blurry; correction = {convex (converging)} lens. {Astigmatism}: {irregular corneal/lens curvature} \u2192 different meridians have different focal lengths \u2192 blurry at {all distances}; correction = {cylindrical lens}.',
+        h: 'Hyperopic patients recruit accommodation to compensate \u2014 they work harder to see near AND far. Astigmatism cannot be corrected by spherical lenses.'
+      },
+      {
+        t: 'Presbyopia & LASIK',
+        b: '{Presbyopia}: lens loses {elasticity} with age \u2192 reduced {accommodation} \u2192 near vision difficulty; correction = {reading glasses (convex)} or bifocals. {LASIK} permanently reshapes the {cornea} to correct myopia/hyperopia/astigmatism. LASIK {cannot} fix presbyopia because the problem is {lens elasticity loss}, not corneal shape.',
+        h: 'Dry Eye: decreased lacrimal gland (CN V1) secretion \u2192 redness, burning, gritty sensation. Affects \u22655% of US adults; more common in women and those over 50.'
+      }
+    ]
+  },
+  lo5: {
+    label: 'LO 5', sub: 'Photoreceptor Structure', type: 'LO',
+    cards: [
+      {
+        t: 'Rods vs Cones \u2014 Comparison',
+        b: 'Rods (~{120 million}): in {peripheral retina}, absent at fovea; {scotopic (low-light)} vision; photopigment = {rhodopsin} (1 type); threshold = {1 photon}; {poor} acuity (high convergence to ganglion cells). Cones (~{6 million}): concentrated at {fovea}; {photopic + color} vision; 3 opsins: {S (~420 nm, blue)}, {M (~535 nm, green)}, {L (~565 nm, red)}; {high} acuity (near 1:1 ratio).',
+        h: 'Rods saturate in bright light; cones require many photons to bleach. This is why color vision fails in dim light (scotopic = rod-only vision).'
+      },
+      {
+        t: 'Photoreceptor Structure',
+        b: 'Outer segment: stacked {membranous disks} packed with {photopigment}; site of {phototransduction}. Rod disks are {internalized (separate from plasma membrane)}; cone disks are {continuous with plasma membrane}. Inner segment: contains {mitochondria} + biosynthetic machinery; connected to outer segment by a {cilium}. Synaptic terminal: tonically releases {glutamate} in dark; hyperpolarization {reduces glutamate release}.',
+        h: 'Outer segment disks are shed and renewed daily; old disks are phagocytosed by the RPE. Without this daily renewal, photoreceptors die from oxidative damage.'
+      },
+      {
+        t: 'Color Vision Principle',
+        b: 'Individual cones {cannot detect color alone}. Color vision requires {comparison of signals across the three cone types (S, M, L)}. The brain assigns color based on the {relative outputs} of the three cones. {Wavelength discrimination}, not single-cell activity, underlies color perception.',
+        h: 'Color blindness = deficiency or absence of one cone type, disrupting the comparative signal. Most common: red-green (L or M cone defect).'
+      },
+      {
+        t: 'Acuity & Convergence',
+        b: 'Rods have {poor} acuity because of {high convergence} (many rods \u2192 few ganglion cells). Foveal cones have {high} acuity because of {near 1:1 photoreceptor-to-ganglion cell ratio}. Rods are {~1000\u00d7} more sensitive than cones. In bright light, rods {saturate} (all channels closed); cones {require large photon flux} to bleach.',
+        h: 'High convergence = sensitivity gain, acuity loss. Low convergence (foveal cones) = acuity gain, sensitivity loss. Classic sensitivity-acuity tradeoff.'
+      }
+    ]
+  },
+  lo6: {
+    label: 'LO 6', sub: 'Retinal Anatomy', type: 'LO',
+    cards: [
+      {
+        t: 'The Inside-Out Retina',
+        b: 'The retina is organized {inside-out}: light must pass through {ganglion cell and bipolar cell layers} before reaching {photoreceptors at the back}. Photoreceptors {point away} from incoming light (toward the {RPE}). Inner layers are {mostly transparent}, preserving image quality. This places the RPE {adjacent to photoreceptors} for critical metabolic support.',
+        h: 'The inside-out arrangement is the first retinal "paradox." The others: photoreceptors hyperpolarize in light, and are tonically depolarized in the dark.'
+      },
+      {
+        t: 'Retinal Layers (inner \u2192 outer)',
+        b: 'From vitreous to choroid: {nerve fiber layer} \u2192 {ganglion cell layer} \u2192 {inner plexiform layer (IPL)} (2nd synapse: bipolar/amacrine \u2194 ganglion) \u2192 {inner nuclear layer (INL)} (bipolar, horizontal, amacrine bodies) \u2192 {outer plexiform layer (OPL)} (1st synapse: photoreceptors \u2194 bipolars/horizontals) \u2192 {outer nuclear layer (ONL)} (photoreceptor bodies) \u2192 {photoreceptor outer segments} \u2192 {RPE}.',
+        h: 'OPL = first synaptic layer. IPL = second synaptic layer. The INL is the "lateral layer": horizontal and amacrine cells live here.'
+      },
+      {
+        t: 'Five Neural Cell Types',
+        b: 'Vertical pathway (signal to brain): {photoreceptors} \u2192 {bipolar cells} \u2192 {retinal ganglion cells (RGCs)} \u2014 only cells producing {action potentials}; axons form {CN II}. Lateral pathway (contrast enhancement): {horizontal cells} \u2014 in INL, processes in OPL; mediate lateral inhibition from photoreceptors; {amacrine cells} \u2014 in INL, processes in IPL; modulate bipolar\u2192ganglion transmission.',
+        h: 'Basic 3-neuron retinal circuit: photoreceptor \u2192 bipolar \u2192 RGC. Horizontal and amacrine cells provide lateral modulation of this vertical stream.'
+      },
+      {
+        t: 'Landmarks, Glia & Pathology',
+        b: 'Fovea: ~{300 \u03bcm} pit; almost entirely {cones, no rods}; {near 1:1} photoreceptor:ganglion ratio; {greatest visual acuity}. Optic disk: RGC axons exit as {CN II}; {no photoreceptors} \u2014 the blind spot; subarachnoid space is continuous with brain \u2192 {papilledema} signals \u2191ICP. ARMD: {drusen} accumulation between RPE and choroid \u2192 {photoreceptor death} \u2192 {central vision loss}.',
+        h: 'M\u00fcller cells: dominant retinal glia. Functions: K\u207a regulation, glutamate reuptake, mechanical scaffolding. Detached retina = emergency: neural retina separated from RPE \u2192 photoreceptors lose nutrient supply.'
+      }
+    ]
+  },
+  lo7: {
+    label: 'LO 7', sub: 'Phototransduction', type: 'LO',
+    cards: [
+      {
+        t: 'Dark State & Dark Current',
+        b: 'In darkness: guanylate cyclase constitutively produces {cGMP}, which keeps {cGMP-gated Na\u207a channels open} \u2192 steady {Na\u207a influx (dark current)}. Resting Vm \u2248 {-30 to -40 mV} (partially depolarized). Depolarized photoreceptor {continuously releases glutamate} at its synapse onto bipolar cells.',
+        h: 'The dark current is a tonic Na\u207a influx. Any stimulus that reduces cGMP will close channels \u2192 hyperpolarization \u2192 less glutamate release.'
+      },
+      {
+        t: 'Phototransduction Cascade: Steps 1\u20133',
+        b: 'Step 1: photon absorbed by {rhodopsin} (7-TM GPCR); chromophore {11-cis retinal} (from {Vitamin A}) photoisomerizes \u2192 {all-trans retinal} \u2192 active metarhodopsin II. Step 2: activated rhodopsin activates {transducin} (G-protein; GDP\u2192{GTP}); 1 rhodopsin \u2192 ~{500 transducin} = amplification. Step 3: transducin activates {phosphodiesterase (PDE)} \u2192 hydrolyzes {cGMP \u2192 GMP} \u2192 cGMP levels drop rapidly.',
+        h: '11-cis \u2192 all-trans photoisomerization is the PRIMARY photochemical event. It changes rhodopsin\'s conformation (to metarhodopsin II), enabling G-protein coupling.'
+      },
+      {
+        t: 'Phototransduction Cascade: Steps 4\u20135 + Key Oddity',
+        b: 'Step 4: \u2193cGMP \u2192 {cGMP-gated Na\u207a channels close} \u2192 Na\u207a influx stops, K\u207a still exits \u2192 membrane {hyperpolarizes} to ~{-65 mV}. Step 5: {hyperpolarized photoreceptor reduces glutamate release} \u2192 change in bipolar drive \u2192 ganglion cells generate {action potentials} \u2192 exit via {CN II}. Key oddity: light causes {hyperpolarization}, not depolarization \u2014 opposite to most sensory receptors.',
+        h: 'Photoreceptors are "on" (depolarized, releasing glutamate) in the DARK. Light turns them "off" (hyperpolarization, less glutamate). This is inverted from all other sensory cells.'
+      },
+      {
+        t: 'Amplification & RPE Role',
+        b: 'Amplification: 1 photon \u2192 1 {rhodopsin} \u2192 ~{500 transducin} \u2192 ~{500 PDE} \u2192 thousands of cGMP hydrolyzed \u2192 hundreds of channels closed. Rods can respond to a {single photon}. Photoreceptors {cannot} re-isomerize all-trans retinal; it is shuttled to the {RPE} for reconversion to {11-cis retinal}. RPE also {phagocytoses} shed outer segment disks daily.',
+        h: 'In bright light: cGMP \u2192 0, all channels close \u2192 saturation (no further hyperpolarization). Light adaptation: Ca\u00b2\u207a-mediated feedback on guanylate cyclase restores sensitivity during sustained illumination.'
+      }
+    ]
+  },
+  lo8: {
+    label: 'LO 8', sub: 'Ganglion Cells', type: 'LO',
+    cards: [
+      {
+        t: 'RGC Properties',
+        b: 'Retinal ganglion cells (RGCs): {only cells in the retina that generate action potentials}. Have a {spontaneous (baseline) firing rate} even without visual input \u2014 any change in firing is a signal to the brain. Each RGC responds to a specific region of the visual field = its {receptive field}. Receptive fields have antagonistic {center-surround structure}. All RGC axons form the {optic nerve (CN II)}, exiting at the {optic disk}.',
+        h: 'All other retinal cells (photoreceptors, bipolars, horizontals, amacrines) use graded potentials. RGCs must use APs because the optic nerve is a long-distance line; graded potentials decay over distance.'
+      },
+      {
+        t: 'ON-Center vs OFF-Center RGCs',
+        b: '{ON-center} RGCs: {increase firing} when light hits the receptive field center; {decrease} when light hits surround; best stimulus = {bright spot on dark background}; driven by {on-center bipolar cells}. {OFF-center} RGCs: {increase firing} when {darkness hits center} (light decrements); best stimulus = {dark spot on bright background}; driven by {off-center bipolar cells}.',
+        h: 'ON and OFF RGC receptive fields overlap across the entire retina, so every point is analyzed by both types simultaneously. The brain receives separate parallel streams for light increments and decrements.'
+      },
+      {
+        t: 'Bipolar Cell Receptor Mechanisms',
+        b: 'Photoreceptors release {glutamate}. OFF-center bipolar: {AMPA/Kainate (ionotropic)} receptor \u2192 glutamate causes {depolarization (Na\u207a influx)}; in light (\u2193 glutamate) \u2192 {hyperpolarizes} \u2192 OFF-center ganglion fires. ON-center bipolar: {mGluR6 (metabotropic, Gi-coupled)} \u2192 glutamate causes {hyperpolarization (cation channel closed)}; in light (\u2193 glutamate) \u2192 {depolarizes} \u2192 ON-center ganglion fires.',
+        h: 'mGluR6 is sign-inverting: glutamate CLOSES cation channels. Remove glutamate (in light) \u2192 channels OPEN \u2192 ON bipolar depolarizes. This is the origin of the ON/OFF split in the visual system.'
+      },
+      {
+        t: 'Retinofugal Projection',
+        b: 'RGC axons \u2192 {optic nerve} \u2192 at the {optic chiasm}: {nasal fibers} cross to contralateral side; {temporal fibers} remain ipsilateral. Result: {left visual field \u2192 right hemisphere; right visual field \u2192 left hemisphere}. Optic tracts \u2192 {Lateral Geniculate Nucleus (LGN)} of thalamus \u2192 optic radiations \u2192 {Primary Visual Cortex (V1)} in {occipital lobe (calcarine sulcus)}.',
+        h: 'Lesion at different points \u2192 characteristic field defects: monocular blindness (before chiasm), bitemporal hemianopia (at chiasm), homonymous hemianopia (optic tract/radiation/V1).'
+      }
+    ]
+  },
+  lo9: {
+    label: 'LO 9', sub: 'Center/Surround Physiology', type: 'LO',
+    cards: [
+      {
+        t: 'Lateral Inhibition Mechanism',
+        b: 'Center-surround receptive fields arise from {lateral inhibition}, primarily mediated by {horizontal cells}. (1) Light hits center photoreceptors \u2192 hyperpolarize \u2192 {\u2193 glutamate release}. (2) In dark, center photoreceptors had driven {horizontal cells} via glutamate. (3) Horizontal cells release {GABA} back onto surround photoreceptors/bipolars \u2192 {inhibits surround signal}. (4) Net effect: {center signal amplified relative to surround} \u2192 {contrast enhancement}.',
+        h: 'Lateral inhibition sharpens the spatial profile of excitation \u2014 reduces "spread" of activation to neighboring neurons and creates sharp contrast between stimulated and non-stimulated areas.'
+      },
+      {
+        t: 'Edge Detection & What the Retina Encodes',
+        b: 'Center-surround ganglion cells are {poor detectors of uniform illumination}. They are {excellent detectors of luminance contrast} (light-dark transitions = edges). The retina encodes {differences in luminance, not absolute luminance}. When an edge crosses the retina, it {differentially activates} ON-center and OFF-center populations. This allows good vision across a {huge range of background illumination}.',
+        h: 'The retina is a "change detector." This explains Mach bands: the perceptual illusion of exaggerated brightness/darkness at a light-dark boundary \u2014 a direct consequence of lateral inhibition.'
+      },
+      {
+        t: 'Ganglion Cell Response Profile',
+        b: 'Small centered spot (optimal size) \u2192 {maximal response}. Larger spot including surround \u2192 {reduced response} (surround inhibition cancels center activation). Uniform full-field illumination \u2192 {least response} (center and surround cancel each other). Edge/border stimulus \u2192 {differential activity across ON and OFF populations} \u2192 perceived edge.',
+        h: 'The optimal stimulus size matches the receptive field center exactly. Enlarging the spot beyond the center REDUCES firing because it activates the inhibitory surround. Counter-intuitive but fundamental.'
+      },
+      {
+        t: 'From Retina to Visual Perception',
+        b: 'Retinal ganglion cells \u2192 detect {luminance contrast at all orientations}. V1 {simple cells} \u2192 detect {oriented edges} at specific positions. V1 {complex cells} \u2192 detect oriented edges {regardless of exact position}. Higher cortical areas \u2192 detect {shapes, faces, objects, motion}. The neural image sent to the brain is an {edge-filtered, contrast-enhanced} version of the scene \u2014 not a photographic copy.',
+        h: 'Each cortical neuron captures only a fraction of the scene; collectively they reconstruct full visual experience. This hierarchical, edge-based encoding is a core principle of sensory neuroscience.'
+      }
+    ]
+  }
+};
+
+// Cross-node jump links (case-sensitive)
+const LINKS = {
+  'rhodopsin':        ['lo5', 'LO 5', 'teal'],
+  'RPE':              ['lo6', 'LO 6', 'teal'],
+  'horizontal cells': ['lo6', 'LO 6', 'teal'],
+  'action potentials':['lo8', 'LO 8', 'teal'],
+  'CN II':            ['lo8', 'LO 8', 'teal'],
+  'accommodation':    ['lo3', 'LO 3', 'teal']
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let cur = null, ci = 0;
+let tr = {}, sc = {};
+let done = new Set();
+let totRev = 0, totKnew = 0, totNeed = 0;
+let revQueue = [], revIdx = 0, revTr = {};
+
+// ============================================================
+// HELPERS
+// ============================================================
+function initNode(id) {
+  if (!tr[id]) { tr[id] = {}; sc[id] = {}; }
+}
+
+function countTerms(body) {
+  return (body.match(/\{[^}]+\}/g) || []).length;
+}
+
+function totalTerms() {
+  return Object.values(D).reduce((n, node) => n + node.cards.reduce((m, c) => m + countTerms(c.b), 0), 0);
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function recalcState() {
+  totRev = 0; totKnew = 0; totNeed = 0;
+  done = new Set();
+  Object.keys(D).forEach(function(nid) {
+    if (!tr[nid]) return;
+    var allRev = true;
+    D[nid].cards.forEach(function(card, cidx) {
+      var n = countTerms(card.b);
+      var revSet = tr[nid][cidx] || new Set();
+      var scMap  = sc[nid][cidx] || {};
+      totRev += revSet.size;
+      revSet.forEach(function(tidx) {
+        if (scMap[tidx] === 'knew')   totKnew++;
+        else if (scMap[tidx] === 'needed') totNeed++;
+      });
+      if (revSet.size < n) allRev = false;
+    });
+    if (allRev && D[nid].cards.length > 0) done.add(nid);
+  });
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('stat-rev').textContent  = 'Revealed: ' + totRev;
+  document.getElementById('stat-knew').textContent = 'Knew: ' + totKnew;
+  document.getElementById('stat-need').textContent = 'Needed: ' + totNeed;
+  document.getElementById('stat-done').textContent = 'Done: ' + done.size + ' / ' + Object.keys(D).length;
+  Object.keys(D).forEach(function(nid) {
+    var el = document.getElementById('n-' + nid);
+    if (el) { done.has(nid) ? el.classList.add('done-node') : el.classList.remove('done-node'); }
+    updateNodeProg(nid);
+  });
+}
+
+function updateNodeProg(nid) {
+  initNode(nid);
+  var rev = 0, total = 0;
+  D[nid].cards.forEach(function(card, cidx) {
+    total += countTerms(card.b);
+    rev   += (tr[nid][cidx] || new Set()).size;
+  });
+  var el = document.getElementById('prog-' + nid);
+  if (!el) return;
+  if (rev === 0) { el.classList.remove('vis'); return; }
+  el.classList.add('vis');
+  el.textContent = rev + '/' + total;
+}
+
+// ============================================================
+// PARSE BODY
+// ============================================================
+function parseBody(body, nid, cidx, opts) {
+  opts = opts || {};
+  var i = 0;
+  return body.replace(/\{([^}]+)\}/g, function(_, t) {
+    var idx = i++;
+    var revSet = (tr[nid] && tr[nid][cidx]) ? tr[nid][cidx] : new Set();
+    var scMap  = (sc[nid] && sc[nid][cidx]) ? sc[nid][cidx] : {};
+    var revealed = revSet.has(idx);
+    var scored   = scMap[idx] !== undefined;
+    var tSafe    = escHtml(t);
+    var nidQ     = escHtml(nid);
+
+    if (opts.forReview) {
+      if (idx === opts.targetTermIdx) {
+        var revd = opts.revealedSet && opts.revealedSet.has(idx);
+        if (revd) return '<span class="occ unscored">' + tSafe + '</span>';
+        return '<span class="occ" onclick="revealReviewTarget(event,' + idx + ')">' + tSafe + '</span>';
+      }
+      return '<span style="color:var(--text-2)">' + tSafe + '</span>';
+    }
+
+    if (!revealed) {
+      return '<span class="occ" onclick="revealTerm(event,\'' + nidQ + '\',' + cidx + ',' + idx + ')">' + tSafe + '</span>';
+    }
+
+    // Revealed
+    var cls = 'occ';
+    if (scored) cls += scMap[idx] === 'knew' ? ' rev' : ' needed';
+    else cls += ' unscored';
+
+    var html = '<span class="' + cls + '">' + tSafe + '</span>';
+
+    // Score buttons for revealed-but-unscored
+    if (!scored) {
+      html += '<span class="score-btns">';
+      html += '<button class="sbtn sbtn-k" onclick="scoreIt(event,\'' + nidQ + '\',' + cidx + ',' + idx + ',\'knew\')">&#10003; knew</button>';
+      html += '<button class="sbtn sbtn-n" onclick="scoreIt(event,\'' + nidQ + '\',' + cidx + ',' + idx + ',\'needed\')">&#10007; needed</button>';
+      html += '</span>';
+    }
+
+    // Jump link
+    var link = LINKS[t];
+    if (link && link[0] !== nid) {
+      html += '<a class="jlink ' + link[2] + '" onclick="selNode(\'' + link[0] + '\')">\u2192 ' + escHtml(link[1]) + '</a>';
+    }
+
+    return html;
+  });
+}
+
+// ============================================================
+// REVEAL / SCORE ACTIONS
+// ============================================================
+function revealTerm(e, nid, cidx, tidx) {
+  e.stopPropagation();
+  initNode(nid);
+  if (!tr[nid][cidx]) tr[nid][cidx] = new Set();
+  if (!tr[nid][cidx].has(tidx)) { tr[nid][cidx].add(tidx); totRev++; }
+  render(); updateStats(); saveProgress();
+}
+
+function scoreIt(e, nid, cidx, tidx, score) {
+  e.stopPropagation();
+  initNode(nid);
+  if (!sc[nid][cidx]) sc[nid][cidx] = {};
+  var prev = sc[nid][cidx][tidx];
+  if (prev === score) return;
+  if (prev === 'knew')   totKnew--;
+  if (prev === 'needed') totNeed--;
+  sc[nid][cidx][tidx] = score;
+  if (score === 'knew') totKnew++;
+  else totNeed++;
+  checkNodeDone(nid);
+  render(); updateStats(); saveProgress();
+}
+
+function checkNodeDone(nid) {
+  var allRev = true;
+  D[nid].cards.forEach(function(card, cidx) {
+    var n = countTerms(card.b);
+    var rs = tr[nid][cidx] || new Set();
+    if (rs.size < n) allRev = false;
+  });
+  if (allRev) done.add(nid); else done.delete(nid);
+}
+
+function knewAllCurrentCard() {
+  if (!cur) return;
+  var card = D[cur].cards[ci];
+  var n = countTerms(card.b);
+  initNode(cur);
+  if (!tr[cur][ci]) tr[cur][ci] = new Set();
+  if (!sc[cur][ci]) sc[cur][ci] = {};
+  for (var i = 0; i < n; i++) {
+    if (!tr[cur][ci].has(i)) { tr[cur][ci].add(i); totRev++; }
+    var prev = sc[cur][ci][i];
+    if (prev === 'knew') continue;
+    if (prev === 'needed') totNeed--;
+    sc[cur][ci][i] = 'knew';
+    totKnew++;
+  }
+  checkNodeDone(cur);
+  render(); updateStats(); saveProgress();
+}
+
+function resetCard(nid, cidx) {
+  if (!tr[nid] || !tr[nid][cidx]) return;
+  var revSet = tr[nid][cidx];
+  var scMap  = sc[nid][cidx] || {};
+  totRev -= revSet.size;
+  revSet.forEach(function(tidx) {
+    if (scMap[tidx] === 'knew')   totKnew--;
+    if (scMap[tidx] === 'needed') totNeed--;
+  });
+  tr[nid][cidx] = new Set();
+  sc[nid][cidx] = {};
+  done.delete(nid);
+  render(); updateStats(); saveProgress();
+}
+
+function revealCard() {
+  if (!cur) return;
+  var n = countTerms(D[cur].cards[ci].b);
+  initNode(cur);
+  if (!tr[cur][ci]) tr[cur][ci] = new Set();
+  for (var i = 0; i < n; i++) {
+    if (!tr[cur][ci].has(i)) { tr[cur][ci].add(i); totRev++; }
+  }
+  render(); updateNodeProg(cur); updateStats(); saveProgress();
+}
+
+function revealTopic() {
+  if (!cur) return;
+  initNode(cur);
+  D[cur].cards.forEach(function(card, cidx) {
+    var n = countTerms(card.b);
+    if (!tr[cur][cidx]) tr[cur][cidx] = new Set();
+    for (var i = 0; i < n; i++) {
+      if (!tr[cur][cidx].has(i)) { tr[cur][cidx].add(i); totRev++; }
+    }
+  });
+  render(); updateNodeProg(cur); updateStats(); saveProgress();
+}
+
+function revealAll() {
+  Object.keys(D).forEach(function(nid) {
+    initNode(nid);
+    D[nid].cards.forEach(function(card, cidx) {
+      var n = countTerms(card.b);
+      if (!tr[nid][cidx]) tr[nid][cidx] = new Set();
+      for (var i = 0; i < n; i++) {
+        if (!tr[nid][cidx].has(i)) { tr[nid][cidx].add(i); totRev++; }
+      }
+    });
+  });
+  if (cur) render();
+  updateStats(); saveProgress();
+}
+
+// ============================================================
+// NODE SELECTION & RENDER
+// ============================================================
+function selNode(id) {
+  if (cur === id) {
+    cur = null;
+    document.getElementById('panel').classList.add('hidden');
+    return;
+  }
+  cur = id; ci = 0;
+  initNode(id);
+  document.getElementById('panel').classList.remove('hidden');
+  document.getElementById('panel-badge').textContent = D[id].label;
+  document.getElementById('panel-title').textContent = D[id].sub;
+  render();
+}
+
+function render() {
+  if (!cur) return;
+  var cards = D[cur].cards;
+  var card  = cards[ci];
+  initNode(cur);
+
+  document.getElementById('card-counter').textContent = (ci + 1) + ' / ' + cards.length;
+  document.getElementById('btn-prev').disabled = ci === 0;
+  document.getElementById('btn-next').disabled = ci === cards.length - 1;
+
+  var n      = countTerms(card.b);
+  var revSet = tr[cur][ci] || new Set();
+  var allRev = revSet.size === n && n > 0;
+  document.getElementById('btn-knew-all').disabled = !allRev;
+
+  var scMap   = sc[cur][ci] || {};
+  var revd    = revSet.size;
+  var knew    = 0, needed = 0;
+  revSet.forEach(function(i) {
+    if (scMap[i] === 'knew')   knew++;
+    else if (scMap[i] === 'needed') needed++;
+  });
+  var unscored = revd - knew - needed;
+
+  var html = '';
+  html += '<div class="card-eyebrow">' + escHtml(D[cur].label) + ' \u00b7 Card ' + (ci+1) + ' of ' + cards.length + '</div>';
+  html += '<div class="card-title">'  + escHtml(card.t) + '</div>';
+  html += '<div class="card-body">'   + parseBody(card.b, cur, ci, {}) + '</div>';
+  if (card.h) {
+    html += '<div class="card-hint"><div class="card-hint-label">Context</div>' + escHtml(card.h) + '</div>';
+  }
+  html += '<div class="card-metrics">';
+  html += '<span class="met">Revealed: ' + revd + '/' + n + '</span>';
+  if (knew)    html += '<span class="met green">Knew: '    + knew    + '</span>';
+  if (needed)  html += '<span class="met red">Needed: '   + needed  + '</span>';
+  if (unscored)html += '<span class="met amber">Unscored: '+ unscored+'</span>';
+  html += '</div>';
+  html += '<div class="prog-dots">';
+  for (var i = 0; i < n; i++) {
+    var dc = 'prog-dot';
+    if (revSet.has(i)) {
+      if (scMap[i] === 'knew')   dc += ' done';
+      else if (scMap[i] === 'needed') dc += ' partial';
+      else dc += ' partial';
+    }
+    html += '<span class="' + dc + '"></span>';
+  }
+  html += '</div>';
+
+  document.getElementById('card-wrap').innerHTML = html;
+  updateNodeProg(cur);
+}
+
+function prevCard() { if (ci > 0) { ci--; render(); } }
+function nextCard() { if (cur && ci < D[cur].cards.length - 1) { ci++; render(); } }
+
+// ============================================================
+// REVIEW MODE
+// ============================================================
+function startReview() {
+  revQueue = [];
+  Object.keys(D).forEach(function(nid) {
+    D[nid].cards.forEach(function(card, cidx) {
+      var n      = countTerms(card.b);
+      var revSet = (tr[nid] && tr[nid][cidx]) ? tr[nid][cidx] : new Set();
+      var scMap  = (sc[nid] && sc[nid][cidx]) ? sc[nid][cidx] : {};
+      for (var tidx = 0; tidx < n; tidx++) {
+        if (revSet.has(tidx) && scMap[tidx] === 'needed') {
+          revQueue.push({ nid: nid, cidx: cidx, tidx: tidx });
+        }
+      }
+    });
+  });
+  if (revQueue.length === 0) {
+    alert('No weak spots yet! Score some terms as \u201c\u2717 needed\u201d first.');
+    return;
+  }
+  // Fisher-Yates shuffle
+  for (var i = revQueue.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = revQueue[i]; revQueue[i] = revQueue[j]; revQueue[j] = tmp;
+  }
+  revIdx = 0; revTr = {};
+  document.getElementById('panel').classList.add('hidden');
+  document.getElementById('review-panel').classList.remove('hidden');
+  renderReview();
+}
+
+function renderReview() {
+  if (revIdx >= revQueue.length) {
+    document.getElementById('rev-card-wrap').innerHTML =
+      '<p style="padding:24px;color:var(--green);font-family:\'DM Mono\',monospace;font-size:13px">\u2713 All ' + revQueue.length + ' weak spots reviewed! Great work.</p>';
+    document.getElementById('rsub').textContent = 'Queue complete.';
+    document.getElementById('rev-knew').disabled = true;
+    document.getElementById('rev-need').disabled = true;
+    return;
+  }
+  var item = revQueue[revIdx];
+  var nid = item.nid, cidx = item.cidx, tidx = item.tidx;
+  var card = D[nid].cards[cidx];
+  var node = D[nid];
+  var revdSet = revTr[revIdx] || new Set();
+
+  document.getElementById('rsub').textContent =
+    node.label + ' \u00b7 ' + card.t + ' \u00b7 Item ' + (revIdx+1) + ' of ' + revQueue.length;
+
+  var html = '';
+  html += '<div class="card-eyebrow">' + escHtml(node.label) + ' \u2014 ' + escHtml(node.sub) + '</div>';
+  html += '<div class="card-title">'  + escHtml(card.t) + '</div>';
+  html += '<div class="card-body">'   + parseBody(card.b, nid, cidx, {
+    forReview: true, targetTermIdx: tidx, revealedSet: revdSet
+  }) + '</div>';
+  if (card.h) {
+    html += '<div class="card-hint"><div class="card-hint-label">Context</div>' + escHtml(card.h) + '</div>';
+  }
+
+  document.getElementById('rev-card-wrap').innerHTML = html;
+  document.getElementById('rev-knew').disabled = false;
+  document.getElementById('rev-need').disabled = false;
+}
+
+function revealReviewTarget(e, idx) {
+  e.stopPropagation();
+  if (!revTr[revIdx]) revTr[revIdx] = new Set();
+  revTr[revIdx].add(idx);
+  renderReview();
+}
+
+function scoreReview(score) {
+  if (revIdx >= revQueue.length) return;
+  var item = revQueue[revIdx];
+  var nid = item.nid, cidx = item.cidx, tidx = item.tidx;
+  initNode(nid);
+  if (!sc[nid][cidx]) sc[nid][cidx] = {};
+  var prev = sc[nid][cidx][tidx];
+  if (prev === 'knew')   totKnew--;
+  if (prev === 'needed') totNeed--;
+  sc[nid][cidx][tidx] = score;
+  if (score === 'knew') totKnew++; else totNeed++;
+  checkNodeDone(nid);
+  updateStats(); saveProgress();
+  revIdx++;
+  renderReview();
+}
+
+function closeReview() {
+  document.getElementById('review-panel').classList.add('hidden');
+  if (cur) render();
+}
+
+// ============================================================
+// COOKIE PERSISTENCE
+// ============================================================
+function saveProgress() {
+  var payload = { tr: {}, sc: {} };
+  Object.keys(tr).forEach(function(nid) {
+    payload.tr[nid] = {};
+    Object.keys(tr[nid]).forEach(function(ci) {
+      payload.tr[nid][ci] = Array.from(tr[nid][ci]);
+    });
+  });
+  payload.sc = sc;
+  var exp = new Date(Date.now() + 180*24*60*60*1000).toUTCString();
+  try {
+    document.cookie = DECK_ID + '=' + encodeURIComponent(JSON.stringify(payload)) +
+      '; expires=' + exp + '; SameSite=Lax; path=/';
+  } catch(e) {}
+}
+
+function loadProgress() {
+  var m = document.cookie.match(new RegExp('(?:^|; )' + DECK_ID + '=([^;]*)'));
+  if (!m) return;
+  try {
+    var p = JSON.parse(decodeURIComponent(m[1]));
+    Object.keys(p.tr || {}).forEach(function(nid) {
+      if (!D[nid]) return;
+      initNode(nid);
+      Object.keys(p.tr[nid]).forEach(function(ci) {
+        tr[nid][ci] = new Set(p.tr[nid][ci]);
+      });
+    });
+    Object.keys(p.sc || {}).forEach(function(nid) {
+      if (!D[nid]) return;
+      initNode(nid);
+      Object.keys(p.sc[nid]).forEach(function(ci) {
+        sc[nid][ci] = p.sc[nid][ci];
+      });
+    });
+  } catch(e) {}
+}
+
+function restoreSession() {
+  loadProgress();
+  recalcState();
+}
+
+// ============================================================
+// RESET ALL
+// ============================================================
+function resetAll() {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  tr = {}; sc = {}; done = new Set();
+  totRev = 0; totKnew = 0; totNeed = 0;
+  document.cookie = DECK_ID + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax; path=/';
+  if (cur) render();
+  updateStats();
+}
+
+// ============================================================
+// THEMES
+// ============================================================
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem('eyephys-theme', t); } catch(e) {}
+  document.querySelectorAll('.theme-btn').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.theme === t);
+  });
+}
+
+// ============================================================
+// KEYBOARD
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  var revOpen = !document.getElementById('review-panel').classList.contains('hidden');
+  if (revOpen) {
+    if (e.key === 'Escape') closeReview();
+    return;
+  }
+  if (e.key === 'ArrowLeft')  prevCard();
+  else if (e.key === 'ArrowRight') nextCard();
+  else if (e.key === 'Escape' && cur) selNode(cur);
+});
+
+// ============================================================
+// INIT
+// ============================================================
+(function init() {
+  var saved = null;
+  try { saved = localStorage.getItem('eyephys-theme'); } catch(e) {}
+  if (saved) setTheme(saved);
+
+  var nNodes = Object.keys(D).length;
+  var nCards = Object.values(D).reduce(function(n, node) { return n + node.cards.length; }, 0);
+  document.getElementById('deckMeta').textContent =
+    'Active recall map \u00b7 ' + nNodes + ' topics \u00b7 ' + nCards + ' cards';
+
+  restoreSession();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="slate">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autoimmunity — Block 5 Active Recall Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── DESIGN TOKENS ─── */
+:root {
+  --amber: #f59e0b; --amber-soft: rgba(245,158,11,.15);
+  --teal: #2dd4bf; --teal-soft: rgba(45,212,191,.13);
+  --gray-node: #94a3b8;
+  --green: #34d399; --green-soft: rgba(52,211,153,.15);
+  --red: #f87171; --red-soft: rgba(248,113,113,.13);
+  --hero-glow-a: rgba(245,158,11,.08);
+  --hero-glow-b: rgba(45,212,191,.06);
+  --font-serif: 'Crimson Pro', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', 'JetBrains Mono', monospace;
+  --radius: 10px;
+  --header-shadow: 0 22px 50px rgba(0,0,0,.24);
+}
+html[data-theme="slate"] {
+  --bg-top: #0d1520; --bg-bottom: #111827;
+  --surface: #1e2a3a; --surface2: #243040;
+  --border: #2e3f52; --border2: #3a4f65;
+  --text: #e2e8f0; --text-2: #94a3b8; --text-3: #64748b;
+  --header-a: #0d1520; --header-b: #162030;
+  --card-a: #1e2a3a; --card-b: #243040;
+  --card-action-bg: #1a2535;
+  --nav-bg: #243040; --nav-bg-hover: #2e3f52; --nav-text: #94a3b8;
+  --showall-bg: rgba(245,158,11,.12); --showall-text: #f59e0b;
+  --meta-bg: #1a2535;
+  --table-head-a: #1e2a3a; --table-head-b: #243040;
+}
+html[data-theme="cream"] {
+  --bg-top: #faf7f2; --bg-bottom: #f5f0e8;
+  --surface: #fff; --surface2: #faf7f2;
+  --border: #e5ddd0; --border2: #d6cfc4;
+  --text: #2d2a25; --text-2: #6b6560; --text-3: #9c9590;
+  --header-a: #faf7f2; --header-b: #f0ece4;
+  --card-a: #fff; --card-b: #faf7f2;
+  --card-action-bg: #f5f0e8;
+  --nav-bg: #f0ece4; --nav-bg-hover: #e8e2d8; --nav-text: #6b6560;
+  --showall-bg: rgba(245,158,11,.1); --showall-text: #b45309;
+  --meta-bg: #f0ece4;
+  --table-head-a: #f5f0e8; --table-head-b: #ede8e0;
+  --hero-glow-a: rgba(245,158,11,.06); --hero-glow-b: rgba(45,212,191,.04);
+}
+html[data-theme="forest"] {
+  --bg-top: #0b1a10; --bg-bottom: #0f2015;
+  --surface: #162310; --surface2: #1c2c16;
+  --border: #253d1c; --border2: #2e4a22;
+  --text: #d8ecd0; --text-2: #7da870; --text-3: #557850;
+  --header-a: #0b1a10; --header-b: #122015;
+  --card-a: #162310; --card-b: #1c2c16;
+  --card-action-bg: #122015;
+  --nav-bg: #1c2c16; --nav-bg-hover: #253d1c; --nav-text: #7da870;
+  --showall-bg: rgba(245,158,11,.1); --showall-text: #d97706;
+  --meta-bg: #122015;
+  --table-head-a: #162310; --table-head-b: #1c2c16;
+  --hero-glow-a: rgba(52,211,153,.07); --hero-glow-b: rgba(45,212,191,.05);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, var(--hero-glow-a), transparent 26rem),
+    radial-gradient(circle at top right, var(--hero-glow-b), transparent 24rem),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  min-height: 100vh;
+  transition: background .3s, color .3s;
+}
+
+/* ─── HEADER ─── */
+header {
+  background: linear-gradient(135deg, var(--header-a) 0%, var(--header-b) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 2.8rem 2rem 2rem;
+  box-shadow: var(--header-shadow);
+}
+.hero-top { max-width: 960px; margin: 0 auto; display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+.eyebrow { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); margin-bottom: .4rem; }
+h1 { font-family: var(--font-serif); font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 700; color: var(--text); line-height: 1.1; }
+.sub { font-family: var(--font-mono); font-size: .72rem; color: var(--text-2); margin-top: .5rem; letter-spacing: .04em; }
+.theme-switch { display: flex; gap: .4rem; flex-shrink: 0; margin-top: .2rem; }
+.theme-btn { font-family: var(--font-mono); font-size: .68rem; padding: .3rem .75rem; border-radius: 999px; border: 1px solid var(--border2); background: var(--surface); color: var(--text-2); cursor: pointer; letter-spacing: .05em; transition: all .15s; }
+.theme-btn:hover { color: var(--text); border-color: var(--amber); }
+.theme-btn.active { background: var(--amber); color: #000; border-color: var(--amber); font-weight: 600; }
+
+/* ─── LEGEND ─── */
+.legend { max-width: 960px; margin: 1rem auto .3rem; padding: 0 1rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: .45rem; font-family: var(--font-mono); font-size: .68rem; color: var(--text-2); letter-spacing: .05em; }
+.lswatch { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+/* ─── MAP ─── */
+.map-wrap { max-width: 960px; margin: 0 auto; padding: 0 1rem; }
+svg.mindmap { width: 100%; border-radius: 12px; overflow: visible; }
+.node { cursor: pointer; transition: opacity .2s; }
+.node rect { rx: 8; ry: 8; stroke-width: 1.5; transition: filter .15s, stroke .15s; }
+.node:hover rect { filter: brightness(1.12); }
+.node.selected rect { filter: brightness(1.2); stroke-width: 2.5; }
+.node.done-node { opacity: .45; }
+.c-amber rect { fill: rgba(245,158,11,.13); stroke: rgba(245,158,11,.5); }
+.c-teal  rect { fill: rgba(45,212,191,.11); stroke: rgba(45,212,191,.45); }
+.c-gray  rect { fill: rgba(148,163,184,.08); stroke: rgba(148,163,184,.35); }
+.c-amber.selected rect { stroke: #f59e0b; }
+.c-teal.selected  rect { stroke: #2dd4bf; }
+.nodelbl { font-family: var(--font-mono); font-size: 10px; font-weight: 500; fill: var(--text); pointer-events: none; }
+.nodesub { font-family: var(--font-sans); font-size: 9px; fill: var(--text-2); pointer-events: none; }
+.badge-dot { font-family: var(--font-mono); font-size: 8px; pointer-events: none; }
+.conn { stroke: var(--border2); stroke-width: 1.2; opacity: .6; }
+.hint-lbl { font-family: var(--font-mono); font-size: 8px; fill: var(--text-3); }
+.prog-dot { transition: fill .2s; }
+
+/* ─── PANEL ─── */
+.panel-wrap { max-width: 960px; margin: 1.2rem auto 0; padding: 0 1rem 4rem; }
+#panel { display: none; border-radius: 14px; border: 1px solid var(--border); background: linear-gradient(160deg, var(--card-a) 0%, var(--card-b) 100%); overflow: hidden; }
+.panel-header { padding: 1.1rem 1.4rem .8rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; background: linear-gradient(135deg, var(--header-a), var(--header-b)); }
+.panel-title { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; color: var(--text); }
+.panel-meta { font-family: var(--font-mono); font-size: .67rem; color: var(--text-2); letter-spacing: .05em; }
+.panel-close { background: none; border: none; color: var(--text-3); cursor: pointer; font-size: 1.1rem; padding: .2rem; border-radius: 6px; transition: color .15s; }
+.panel-close:hover { color: var(--text); }
+
+/* Card body */
+.card-body { padding: 1.2rem 1.4rem; }
+.card-title { font-family: var(--font-mono); font-size: .72rem; color: var(--amber); letter-spacing: .07em; text-transform: uppercase; margin-bottom: .6rem; }
+.card-text { font-size: .93rem; line-height: 1.75; color: var(--text); }
+.card-hint { margin-top: .7rem; padding: .6rem .9rem; background: var(--surface2); border-left: 3px solid var(--teal); border-radius: 0 6px 6px 0; font-size: .82rem; color: var(--text-2); }
+.card-metrics { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .85rem; }
+.cpill { font-family: var(--font-mono); font-size: .65rem; padding: .2rem .6rem; border-radius: 999px; background: var(--meta-bg); color: var(--text-2); border: 1px solid var(--border); letter-spacing: .04em; }
+.cpill.p-rev  { color: var(--amber); border-color: rgba(245,158,11,.3); }
+.cpill.p-knew { color: var(--green); border-color: rgba(52,211,153,.3); }
+.cpill.p-need { color: var(--red);   border-color: rgba(248,113,113,.3); }
+
+/* Occlusion */
+.occ {
+  display: inline-block;
+  min-width: 3ch;
+  background: var(--text);
+  color: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 1px 6px;
+  white-space: nowrap;
+  user-select: none;
+  vertical-align: baseline;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.occ:not(.rev):not(.needed):not(.unscored):hover { filter: brightness(1.15); }
+.occ.rev      { background: var(--green-soft); color: var(--green);  cursor: default; border-color: rgba(52,211,153,.25); }
+.occ.needed   { background: var(--red-soft);   color: var(--red);    cursor: default; border-color: rgba(248,113,113,.25); }
+.occ.unscored { background: var(--green-soft); color: var(--green);  cursor: default; border-color: rgba(52,211,153,.2); }
+.score-btns   { display: inline-flex; gap: .3rem; margin-left: .45rem; vertical-align: baseline; }
+.sb { font-family: var(--font-mono); font-size: .62rem; padding: .15rem .5rem; border-radius: 4px; cursor: pointer; border: 1px solid; transition: all .1s; }
+.sb-k { background: var(--green-soft); color: var(--green); border-color: rgba(52,211,153,.4); }
+.sb-n { background: var(--red-soft);   color: var(--red);   border-color: rgba(248,113,113,.4); }
+.sb-k:hover { background: var(--green); color: #fff; }
+.sb-n:hover { background: var(--red); color: #fff; }
+.jump-link { font-family: var(--font-mono); font-size: .62rem; margin-left: .4rem; color: var(--amber); cursor: pointer; border-bottom: 1px dotted var(--amber); vertical-align: baseline; }
+.jump-link:hover { opacity: .75; }
+
+/* Table quiz */
+.tblq { width: 100%; border-collapse: collapse; margin-top: .5rem; font-size: .82rem; }
+.tblq th { padding: .5rem .7rem; text-align: left; font-family: var(--font-mono); font-size: .67rem; letter-spacing: .05em; color: var(--text-2); background: linear-gradient(90deg, var(--table-head-a), var(--table-head-b)); border-bottom: 1px solid var(--border); }
+.tblq td { padding: .45rem .7rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.tblq tr:last-child td { border-bottom: none; }
+.tblq td .occ { display: block; text-align: center; white-space: normal; padding: 8px 10px; min-width: 160px; }
+
+/* Actions */
+.card-actions { display: flex; gap: .5rem; flex-wrap: wrap; padding: .75rem 1.4rem; background: var(--card-action-bg); border-top: 1px solid var(--border); }
+.btn { font-family: var(--font-mono); font-size: .67rem; padding: .38rem .85rem; border-radius: 6px; cursor: pointer; letter-spacing: .04em; border: 1px solid; transition: all .15s; white-space: nowrap; }
+.btn-reveal { background: var(--showall-bg); color: var(--showall-text); border-color: rgba(245,158,11,.3); }
+.btn-reveal:hover:not(:disabled) { background: rgba(245,158,11,.25); }
+.btn-knew { background: var(--green-soft); color: var(--green); border-color: rgba(52,211,153,.35); }
+.btn-knew:hover:not(:disabled) { background: rgba(52,211,153,.25); }
+.btn-ghost { background: transparent; color: var(--text-2); border-color: var(--border2); }
+.btn-ghost:hover { color: var(--text); border-color: var(--text-2); }
+.btn:disabled { opacity: .35; cursor: default; }
+.spacer { flex: 1; }
+.nav-btns { display: flex; gap: .35rem; }
+.nbtn { font-family: var(--font-mono); font-size: .72rem; padding: .3rem .7rem; border-radius: 6px; cursor: pointer; background: var(--nav-bg); color: var(--nav-text); border: 1px solid var(--border); transition: all .15s; }
+.nbtn:hover:not(:disabled) { background: var(--nav-bg-hover); color: var(--text); }
+.nbtn:disabled { opacity: .35; cursor: default; }
+
+/* Nav row */
+.nav-row { display: flex; align-items: center; justify-content: space-between; padding: .5rem 1.4rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: .5rem; }
+.card-counter { font-family: var(--font-mono); font-size: .67rem; color: var(--text-3); }
+.dot-row { display: flex; gap: 5px; }
+.pdot { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); cursor: pointer; transition: background .2s; flex-shrink: 0; }
+.pdot.partial { background: var(--amber); opacity: .55; }
+.pdot.done    { background: var(--green); }
+
+/* Stats bar */
+#stats { max-width: 960px; margin: .6rem auto 0; padding: 0 1rem; display: flex; gap: .5rem; flex-wrap: wrap; }
+.stat-pill { font-family: var(--font-mono); font-size: .65rem; padding: .2rem .65rem; border-radius: 999px; background: var(--meta-bg); border: 1px solid var(--border); color: var(--text-2); letter-spacing: .04em; }
+.stat-pill.sp-k { color: var(--green); border-color: rgba(52,211,153,.3); }
+.stat-pill.sp-n { color: var(--red);   border-color: rgba(248,113,113,.3); }
+.sp-actions { display: flex; gap: .4rem; margin-left: auto; }
+
+/* Review panel */
+#review-panel { display: none; max-width: 960px; margin: 1rem auto 0; padding: 0 1rem 4rem; }
+.rp-inner { border-radius: 14px; border: 1px solid var(--border); background: linear-gradient(160deg, var(--card-a), var(--card-b)); overflow: hidden; }
+.rp-header { padding: 1rem 1.4rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, var(--header-a), var(--header-b)); }
+.rp-title { font-family: var(--font-serif); font-size: 1rem; font-weight: 600; color: var(--text); }
+.rp-sub { font-family: var(--font-mono); font-size: .65rem; color: var(--text-2); margin-top: .2rem; }
+.rsub { font-family: var(--font-mono); font-size: .67rem; color: var(--text-2); padding: .5rem 1.4rem; border-bottom: 1px solid var(--border); background: var(--surface2); letter-spacing: .03em; }
+
+@media (max-width: 720px) {
+  .card-actions { flex-direction: column; }
+  .card-actions .btn { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Block 5 · Dr. Diana Goode</div>
+      <h1>Auto&shy;immunity</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Lecture Objectives (LO)</div>
+</div>
+
+<div class="map-wrap">
+<svg class="mindmap" viewBox="0 0 820 325" xmlns="http://www.w3.org/2000/svg">
+  <!-- connectors PLO top → center -->
+  <line class="conn" x1="100" y1="84" x2="310" y2="150"/>
+  <line class="conn" x1="270" y1="84" x2="360" y2="150"/>
+  <line class="conn" x1="450" y1="84" x2="460" y2="150"/>
+  <line class="conn" x1="620" y1="84" x2="510" y2="150"/>
+  <!-- connectors LO bottom → center -->
+  <line class="conn" x1="100" y1="244" x2="310" y2="178"/>
+  <line class="conn" x1="270" y1="244" x2="360" y2="178"/>
+  <line class="conn" x1="450" y1="244" x2="460" y2="178"/>
+  <line class="conn" x1="620" y1="244" x2="510" y2="178"/>
+
+  <!-- Center node -->
+  <g id="n-center" class="node c-gray" onclick="selNode('center')">
+    <rect x="230" y="140" width="360" height="48" rx="10"/>
+    <text class="nodelbl" x="410" y="161" text-anchor="middle">AUTOIMMUNITY</text>
+    <text class="nodesub" x="410" y="176" text-anchor="middle">Tolerance · Hypersensitivity · Genetics</text>
+  </g>
+
+  <!-- PLO nodes — top row -->
+  <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+    <rect x="15" y="16" width="170" height="68" rx="8"/>
+    <text class="nodelbl" x="25" y="37" fill="#f59e0b">PLO 1</text>
+    <text class="nodesub" x="25" y="52">Core Definitions</text>
+    <text class="nodesub" x="25" y="66">Immunologic Tolerance</text>
+    <text class="badge-dot" x="162" y="37" fill="#f59e0b" id="dot-plo1">●</text>
+  </g>
+  <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+    <rect x="195" y="16" width="160" height="68" rx="8"/>
+    <text class="nodelbl" x="205" y="37" fill="#f59e0b">PLO 2</text>
+    <text class="nodesub" x="205" y="52">Central T Cell</text>
+    <text class="nodesub" x="205" y="66">Tolerance + AIRE</text>
+    <text class="badge-dot" x="342" y="37" fill="#f59e0b" id="dot-plo2">●</text>
+  </g>
+  <g id="n-plo3" class="node c-amber" onclick="selNode('plo3')">
+    <rect x="365" y="16" width="170" height="68" rx="8"/>
+    <text class="nodelbl" x="375" y="37" fill="#f59e0b">PLO 3</text>
+    <text class="nodesub" x="375" y="52">Peripheral T Cell</text>
+    <text class="nodesub" x="375" y="66">Tolerance</text>
+    <text class="badge-dot" x="522" y="37" fill="#f59e0b" id="dot-plo3">●</text>
+  </g>
+  <g id="n-plo4" class="node c-amber" onclick="selNode('plo4')">
+    <rect x="545" y="16" width="170" height="68" rx="8"/>
+    <text class="nodelbl" x="555" y="37" fill="#f59e0b">PLO 4</text>
+    <text class="nodesub" x="555" y="52">Hypersensitivity</text>
+    <text class="nodesub" x="555" y="66">Types II · III · IV</text>
+    <text class="badge-dot" x="702" y="37" fill="#f59e0b" id="dot-plo4">●</text>
+  </g>
+
+  <!-- LO nodes — bottom row -->
+  <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+    <rect x="15" y="244" width="170" height="68" rx="8"/>
+    <text class="nodelbl" x="25" y="265" fill="#2dd4bf">LO 1</text>
+    <text class="nodesub" x="25" y="280">B Cell Tolerance</text>
+    <text class="nodesub" x="25" y="294">Central & Peripheral</text>
+    <text class="badge-dot" x="162" y="265" fill="#2dd4bf" id="dot-lo1">●</text>
+  </g>
+  <g id="n-lo2" class="node c-teal" onclick="selNode('lo2')">
+    <rect x="195" y="244" width="160" height="68" rx="8"/>
+    <text class="nodelbl" x="205" y="265" fill="#2dd4bf">LO 2</text>
+    <text class="nodesub" x="205" y="280">Regulatory T Cells</text>
+    <text class="nodesub" x="205" y="294">(Tregs)</text>
+    <text class="badge-dot" x="342" y="265" fill="#2dd4bf" id="dot-lo2">●</text>
+  </g>
+  <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+    <rect x="365" y="244" width="170" height="68" rx="8"/>
+    <text class="nodelbl" x="375" y="265" fill="#2dd4bf">LO 3</text>
+    <text class="nodesub" x="375" y="280">Triggers & Altered</text>
+    <text class="nodesub" x="375" y="294">Self-Antigens</text>
+    <text class="badge-dot" x="522" y="265" fill="#2dd4bf" id="dot-lo3">●</text>
+  </g>
+  <g id="n-lo4" class="node c-teal" onclick="selNode('lo4')">
+    <rect x="545" y="244" width="170" height="68" rx="8"/>
+    <text class="nodelbl" x="555" y="265" fill="#2dd4bf">LO 4</text>
+    <text class="nodesub" x="555" y="280">Genetics of</text>
+    <text class="nodesub" x="555" y="294">Autoimmunity</text>
+    <text class="badge-dot" x="702" y="265" fill="#2dd4bf" id="dot-lo4">●</text>
+  </g>
+
+  <text class="hint-lbl" x="410" y="315" text-anchor="middle">← → navigate cards · click node to open · Esc close</text>
+</svg>
+</div>
+
+<div id="stats"></div>
+
+<!-- Main panel -->
+<div class="panel-wrap">
+<div id="panel">
+  <div class="panel-header">
+    <div>
+      <div class="panel-title" id="panel-title"></div>
+      <div class="panel-meta" id="panel-meta"></div>
+    </div>
+    <button class="panel-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="nav-row">
+    <span class="card-counter" id="card-counter"></span>
+    <div class="dot-row" id="dot-row"></div>
+    <div class="nav-btns">
+      <button class="nbtn" id="btn-prev" onclick="navigate(-1)">← Prev</button>
+      <button class="nbtn" id="btn-next" onclick="navigate(1)">Next →</button>
+    </div>
+  </div>
+  <div class="card-body" id="card-body"></div>
+  <div class="card-actions">
+    <button class="btn btn-reveal" id="btn-reveal-card" onclick="revealCard()">Reveal this card</button>
+    <button class="btn btn-knew"  id="btn-knew-all"  onclick="knewAllCurrentCard()" disabled>✓ Knew all</button>
+    <button class="btn btn-ghost" onclick="resetCard()">Reset card</button>
+    <div class="spacer"></div>
+    <button class="btn btn-reveal" onclick="revealTopic()">Reveal topic</button>
+    <button class="btn btn-reveal" onclick="revealDeck()">Reveal deck</button>
+  </div>
+</div>
+</div>
+
+<!-- Review panel -->
+<div id="review-panel">
+  <div class="rp-inner">
+    <div class="rp-header">
+      <div>
+        <div class="rp-title">🔁 Spaced Repetition Review</div>
+        <div class="rp-sub" id="rp-sub"></div>
+      </div>
+      <button class="panel-close" onclick="closeReview()">✕</button>
+    </div>
+    <div class="rsub" id="rsub"></div>
+    <div class="card-body" id="rev-body"></div>
+    <div class="card-actions">
+      <button class="btn btn-reveal" onclick="revealRevCard()">Reveal target</button>
+      <div class="spacer"></div>
+      <div class="nav-btns">
+        <button class="nbtn" id="rbtn-prev" onclick="revNav(-1)">← Prev</button>
+        <button class="nbtn" id="rbtn-next" onclick="revNav(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════ */
+const D = {
+  plo1: {
+    label: 'PLO 1', sub: 'Immunologic Tolerance — Core Definitions', type: 'PLO',
+    cards: [
+      {
+        t: 'Immunogen vs. Tolerogen',
+        b: 'An {immunogen} induces an immune response. A {tolerogen} induces functional unresponsiveness. Whether an antigen is one or the other depends on {conditions of exposure} — signal strength and co-signaling molecules.',
+        h: 'The same antigen can be immunogenic or tolerogenic depending on context.'
+      },
+      {
+        t: 'Self-Tolerance & Autoimmunity',
+        b: '{Self-tolerance} = the immune system\'s ability to avoid attacking its own tissues. {Autoimmunity} = the failure of self-tolerance: the immune system reacts against self-tissues. Autoimmunity affects {5–8%} of the US population.',
+      },
+      {
+        t: 'Two Locations of Tolerance Induction',
+        b: '{Central tolerance}: induced in self-reactive lymphocytes in generative lymphoid organs — {thymus} for T cells, {bone marrow} for B cells — during development. {Peripheral tolerance}: induced in mature lymphocytes that escape central deletion, in peripheral tissues and secondary lymphoid organs.',
+      }
+    ]
+  },
+  plo2: {
+    label: 'PLO 2', sub: 'Central T Cell Tolerance', type: 'PLO',
+    cards: [
+      {
+        t: 'Thymic Selection Overview',
+        b: 'Central T cell tolerance is induced during maturation in the {thymus}. Thymocytes with {strong affinity} for self antigen either {die} or become {Tregs}. Outcome depends on affinity, APC type, and cytokine availability.',
+      },
+      {
+        t: 'Positive vs. Negative Selection',
+        b: '{Positive selection} — cortex; low-affinity TCR–MHC → cell survives as SP thymocyte → ensures MHC recognition. {Negative selection} — medulla; high-affinity TCR–self-antigen → {deletion} or {Treg development} → eliminates self-reactive clones. {Death by neglect} — cortex; no MHC recognition → cell dies.',
+      },
+      {
+        t: 'AIRE — Function & APS-1',
+        b: 'AIRE is a {transcriptional regulator} expressed by {mTECs} in the thymic medulla. It drives ectopic expression of {tissue-restricted antigens (TRAs)}, enabling central tolerance to peripheral tissues. Loss-of-function mutation → {APS-1}: antibody- and lymphocyte-mediated injury to {parathyroids, adrenals, and pancreatic islets}.',
+      },
+      {
+        t: 'Antigen-Presenting Cells in the Thymus',
+        b: '{mTECs} express TRAs via {macroautophagy}, controlled by AIRE; present on MHC I and II. {Dendritic cells} carry endogenous and serum-borne self-antigens, transfer antigen to mTECs, and present on MHC I and II.',
+      }
+    ]
+  },
+  plo3: {
+    label: 'PLO 3', sub: 'Peripheral T Cell Tolerance', type: 'PLO',
+    cards: [
+      {
+        t: 'Three Peripheral T Cell Mechanisms',
+        b: 'Peripheral tolerance acts on {mature lymphocytes} that escaped central deletion. Three mechanisms: (1) {Anergy}, (2) {Suppression by Tregs}, (3) {Deletion}.',
+      },
+      {
+        t: 'Anergy — Three Induction Mechanisms',
+        b: 'Anergy = functional unresponsiveness in a live T cell. Induced by: (1) {Signal 1 without co-stimulation} — TCR engaged but B7–CD28 absent → ↓ IL-2; (2) {TCR signal transduction blocked} by ubiquitin ligases (Cbl-b, GRAIL); (3) engagement of {inhibitory receptors} (e.g., CTLA-4).',
+        h: 'Anergic cells survive days–weeks, then die or convert into Tregs.'
+      },
+      {
+        t: 'CTLA-4 — Inhibitory Receptor',
+        b: 'CTLA-4 binds {B7 (CD80/86)} — same ligand as CD28. Has {10–20×} higher affinity for B7 than CD28. Competitively inhibits CD28 → {removes B7 from APC surface} → lack of co-stimulation → T cell unresponsiveness. Expressed highly by both {activated T cells} and Tregs.',
+      },
+      {
+        t: 'Peripheral Deletion — Two Apoptotic Pathways',
+        b: '{Mitochondrial (intrinsic)}: deficiency of survival signals; regulated by {Bcl-2 family} (Bcl-2/Bcl-XL inhibit; Bax/Bak promote); executes via {caspase-9}. {Death receptor (extrinsic)}: {Fas–FasL (CD95)} interaction; executes via {caspase-8}, which feeds into the mitochondrial pathway.',
+      }
+    ]
+  },
+  plo4: {
+    label: 'PLO 4', sub: 'Hypersensitivity Types II–IV', type: 'PLO',
+    cards: [
+      {
+        t: 'Type II — Antibody-Mediated',
+        b: 'Mediated by {IgM, IgG + complement}. Antigen is {cell-surface or matrix-bound}. Mechanisms: (a) {Ab + complement → MAC formation → cell lysis} or opsonization → phagocytosis; (b) {ADCC} — IgG-coated cells killed by NK cells via FcγRIII; (c) {receptor dysfunction} — Ab blocks or stimulates receptor without destroying the cell.',
+        h: 'Timing: minutes–hours.'
+      },
+      {
+        t: 'Type II Disease Examples',
+        b: 'Autoimmune hemolytic anemia → {Rh/I antigen} → RBC destruction. Goodpasture\'s → {type IV collagen (GBM)} → glomerulonephritis + pulmonary hemorrhage. Graves\' disease → {TSH receptor} → hyperthyroidism (TSHRAb acts as TSH agonist). Myasthenia gravis → {AChR} → progressive weakness (receptor blockade + complement at NMJ). Pemphigus vulgaris → {epidermal cadherin} → blistering.',
+      },
+      {
+        t: 'Type III — Immune Complex–Mediated',
+        b: 'Mediated by {soluble immune complexes} (mostly IgG). Antigen is {soluble} (not cell-bound). Complexes deposit in tissues → activate {complement} → inflammation. Timing: {hours–days}. Key disease: {SLE} — autoantigens: DNA, histones, ribosomes, snRNP, scRNP → glomerulonephritis, vasculitis, arthritis.',
+      },
+      {
+        t: 'Type IV — DTH (Cell-Mediated)',
+        b: 'Mediated by {T cells, monocytes, macrophages} — no antibody required. Peaks {48–72 hours} after antigen exposure. Mechanism 1: {CD4+ Th1} → IFN-γ → macrophage activation + tissue damage. Mechanism 2: {CD8+ CTLs} → direct lysis via perforin/granzyme.',
+        h: 'DTH examples: contact dermatitis, PPD skin test, TB granuloma, graft rejection.'
+      },
+      {
+        t: 'Type IV Disease Examples',
+        b: 'T1D → {pancreatic β-cell antigens} → β-cell destruction → insulin deficiency. MS → {myelin basic protein, proteolipid protein} → brain degeneration, paralysis. RA → {unknown synovial joint antigen} → joint inflammation and destruction. Hashimoto\'s thyroiditis → {TPO, thyroglobulin (Tg), TSHR} → thyroid cell destruction → hypothyroidism.',
+      }
+    ]
+  },
+  lo1: {
+    label: 'LO 1', sub: 'B Cell Tolerance — Central & Peripheral', type: 'LO',
+    cards: [
+      {
+        t: 'Central B Cell Tolerance (Bone Marrow)',
+        b: 'Central tolerance occurs on {immature B cells} in the bone marrow. High-avidity BCR (strong cross-linking): first-line → {receptor editing} (RAG1/RAG2 reactivated → new VJ recombination in Ig-κ → new specificity). If editing fails → {deletion} (apoptosis). Low-avidity BCR: → {anergy} (soluble Ag) or {ignorance} (non-crosslinking Ag).',
+      },
+      {
+        t: 'Peripheral B Cell Tolerance',
+        b: 'Mature B cells encountering self-antigen without T cell help are rendered unresponsive or die. {Anergy}: BCR ligation only (Signal 1); inhibitory receptors {FcγRIIB} and {PD-1} raise activation threshold. {Deletion}: high-avidity BCR binding → apoptosis. Peripheral tolerance also catches autoreactive clones from {somatic hypermutation} in germinal centers.',
+      },
+      {
+        t: 'T Cell vs. B Cell Tolerance Side-by-Side',
+        b: 'Generative organ: T cells → {thymus}; B cells → {bone marrow}. First-line central (high affinity): T → {negative selection}; B → {receptor editing}. Alternative central (high affinity): T → {Treg development}; B → {deletion}. Peripheral anergy: T → {no Signal 2 + CTLA-4}; B → {Signal 1 only + FcγRIIB/PD-1}. Unique feature: T cells use {AIRE} for TRA expression; B cells face risk from {somatic hypermutation} generating new autoreactive BCRs.',
+      }
+    ]
+  },
+  lo2: {
+    label: 'LO 2', sub: 'Regulatory T Cells (Tregs)', type: 'LO',
+    cards: [
+      {
+        t: 'Treg Types — nTregs vs. pTregs',
+        b: '{nTregs} (natural/thymic): origin = thymus; specificity = primarily self antigens; require high-affinity self-antigen + {IL-2/IL-15}. {pTregs} (peripheral): origin = naïve CD4 T cells; specificity = self or foreign; require antigen + {IL-2, TGF-β, retinoic acid} + absence of strong innate response.',
+      },
+      {
+        t: 'Treg Markers & Key Mutations',
+        b: 'All Tregs: CD4+, high {CD25} (IL-2Rα — IL-2 essential for growth/survival/function), transcription factor {FoxP3} (master regulator), high surface {CTLA-4}. {FoxP3 mutation} → IPEX: Immune Dysregulation, Polyendocrinopathy, Enteropathy, X-linked. {IL-2/IL-2R deficiency} → autoimmunity (IBD, hemolytic anemia, autoantibodies) — corrected by restoring Tregs.',
+      },
+      {
+        t: 'Treg Mechanisms of Suppression',
+        b: '(1) {CTLA-4} removes B7 from APCs → reduces co-stimulatory capacity for effector T cells. (2) {IL-2 consumption} — high CD25 outcompetes effector T cells for IL-2 → deprives survival/proliferation signal. (3) Secretion of {IL-10} — inhibits macrophages, DCs, MHC II + costimulator expression. (4) Secretion of {TGF-β} — inhibits T cell proliferation, macrophage activation; stimulates IgA; promotes tissue repair.',
+      }
+    ]
+  },
+  lo3: {
+    label: 'LO 3', sub: 'Triggers & Altered Self-Antigens', type: 'LO',
+    cards: [
+      {
+        t: 'Tolerogenicity vs. Immunogenicity — Factors',
+        b: '{Tolerogenic}: prolonged antigen persistence; intravenous/mucosal route; present in generative organs; {immature DCs} (low costimulators). {Immunogenic}: short-lived antigen; subcutaneous/intradermal route; antigen absent from generative organs; {mature DCs} (high costimulators + cytokines); antigen + {adjuvants}.',
+      },
+      {
+        t: 'Altered Self-Antigen Mechanisms',
+        b: '{Neoantigens}: post-translational modifications (e.g., {citrullination} via PAD enzymes in RA) → new epitopes the immune system was never tolerized to. {Cryptic epitopes}: normally hidden epitopes exposed upon antigen processing or conformational change (e.g., IgG Fc carbohydrate → rheumatoid factor). {Sequestered antigens}: from immunologically privileged sites (brain, eye, testis) — {trauma} → antigen release → immune activation.',
+        h: 'Classic example: sympathetic ophthalmia — unilateral eye trauma → bilateral autoimmunity.'
+      },
+      {
+        t: 'Bystander Activation',
+        b: 'Infection → APC activation → upregulation of {co-stimulators} → activation of {anergic self-reactive T cells} present in the same tissue. The T cells are {not specific} for the pathogen — they simply receive the previously missing Signal 2.',
+      },
+      {
+        t: 'Molecular Mimicry & Epitope Spreading',
+        b: '{Molecular mimicry}: microbial antigen structurally resembles {self-antigen} → immune response cross-reacts with self tissue. Classic example: {GAS (Group A Strep)} → acute rheumatic fever → anti-streptococcal Abs cross-react with {myocardial proteins} → arthritis, myocarditis, heart valve scarring. {Epitope spreading}: initial tissue injury exposes cryptic self-antigens → activates additional clones → disease becomes {chronic and self-perpetuating}.',
+      }
+    ]
+  },
+  lo4: {
+    label: 'LO 4', sub: 'Genetics of Autoimmunity', type: 'LO',
+    cards: [
+      {
+        t: 'Polygenic Nature & HLA Associations',
+        b: 'Autoimmune diseases are largely {polygenic} — individuals inherit multiple polymorphisms that interact with environmental triggers. Strongest associations are with {MHC/HLA genes}. Ankylosing Spondylitis → {HLA-B*27} → OR {100–200}. T1D (heterozygotes) → {DRB1*0301/0401} → OR 35. RA (2 SE alleles) → OR 12. MS → {DRB1*1501} → OR 3. SLE → {DRB1*0301} → OR 2.',
+        h: 'A particular HLA gene is not by itself the cause — it is one of many contributing factors. Associations may also reflect linkage with other co-inherited alleles.'
+      },
+      {
+        t: 'Key Gene Mutations & Diseases',
+        b: '{AIRE} → failure of central T cell tolerance → APS-1 (parathyroids, adrenals, islets). {FoxP3} → no functional Tregs → IPEX syndrome. {CTLA4} → defective anergy + impaired Treg function → systemic inflammatory disease, T1D, RA. {Fas/FasL} → defective peripheral deletion → ALPS. {IL-10/IL-10R} → defective mucosal immune control → severe IBD. {C4 (complement)} → defective immune complex clearance, failure of B cell tolerance → SLE.',
+      },
+      {
+        t: 'Defective Self-Tolerance Mechanisms',
+        b: 'Four categories of immunologic abnormalities leading to autoimmunity: (1) Defect in {deletion in generative lymphoid organs} (central tolerance failure). (2) Defect in {deletion of mature self-reactive lymphocytes} (peripheral). (3) Defect in {number or function of Tregs}. (4) Inadequate function of {inhibitory receptors} (e.g., CTLA-4, PD-1).',
+      }
+    ]
+  }
+};
+
+/* Cross-node jump links */
+const LINKS = {
+  'AIRE':              ['plo2', 'PLO 2', 'amber'],
+  'APS-1':             ['plo2', 'PLO 2', 'amber'],
+  'mTECs':             ['plo2', 'PLO 2', 'amber'],
+  'CTLA-4':            ['plo3', 'PLO 3', 'amber'],
+  'Tregs':             ['lo2',  'LO 2',  'teal'],
+  'Treg development':  ['lo2',  'LO 2',  'teal'],
+  'FoxP3':             ['lo2',  'LO 2',  'teal'],
+  'IL-2':              ['lo2',  'LO 2',  'teal'],
+  'IL-2/IL-15':        ['lo2',  'LO 2',  'teal'],
+  'Fas–FasL (CD95)':   ['plo3', 'PLO 3', 'amber'],
+  'receptor editing':  ['lo1',  'LO 1',  'teal'],
+  'somatic hypermutation': ['lo1', 'LO 1', 'teal'],
+  'SLE':               ['plo4', 'PLO 4', 'amber'],
+  'Graves\' disease':  ['plo4', 'PLO 4', 'amber'],
+  'bystander activation': ['lo3', 'LO 3', 'teal'],
+  'molecular mimicry': ['lo3', 'LO 3', 'teal'],
+  'citrullination':    ['lo3',  'LO 3',  'teal'],
+};
+
+/* ══════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════ */
+let cur = null, ci = 0;
+let tr = {}, sc = {};
+let done = new Set();
+let totRev = 0, totKnew = 0, totNeed = 0;
+let revQueue = [], revIdx = 0, revTr = {};
+
+function initNode(nid) {
+  if (!tr[nid]) { tr[nid] = {}; sc[nid] = {}; }
+  const n = D[nid];
+  for (let i = 0; i < n.cards.length; i++) {
+    if (!tr[nid][i]) { tr[nid][i] = new Set(); sc[nid][i] = {}; }
+  }
+}
+
+function countTerms(body) { return (body.match(/\{[^}]+\}/g) || []).length; }
+
+function recalcState() {
+  totRev = 0; totKnew = 0; totNeed = 0;
+  done.clear();
+  for (const nid of Object.keys(D)) {
+    if (!tr[nid]) continue;
+    let allRev = true;
+    for (let ci2 = 0; ci2 < D[nid].cards.length; ci2++) {
+      const total = countTerms(D[nid].cards[ci2].b);
+      const revd  = tr[nid][ci2] ? tr[nid][ci2].size : 0;
+      if (revd < total) allRev = false;
+      totRev += revd;
+      for (const v of Object.values(sc[nid][ci2] || {})) {
+        if (v === 'knew') totKnew++;
+        else if (v === 'needed') totNeed++;
+      }
+    }
+    if (allRev) done.add(nid);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════════════════ */
+function parseBody(body, nid, cidx, opts = {}) {
+  let i = 0;
+  return body.replace(/\{([^}]+)\}/g, (_, t) => {
+    const idx = i++;
+    const revealed = opts.forReview
+      ? (opts.revealedSet && opts.revealedSet.has(idx))
+      : (tr[nid] && tr[nid][cidx] && tr[nid][cidx].has(idx));
+    const scored = opts.forReview ? false : (sc[nid] && sc[nid][cidx] && sc[nid][cidx][idx]);
+
+    if (opts.forReview) {
+      const isTarget = (idx === opts.targetTermIdx);
+      if (isTarget) {
+        const cls = revealed ? (opts.revealedSet.has(idx) ? 'unscored' : '') : '';
+        return `<span class="occ${cls ? ' '+cls : ''}" onclick="revealRevTerm(${idx})">${t}</span>`;
+      } else {
+        return `<span style="color:var(--text-2)">${t}</span>`;
+      }
+    }
+
+    if (!revealed) {
+      return `<span class="occ" onclick="revealTerm(event,'${nid}',${cidx},${idx})">${t}</span>`;
+    }
+
+    let cls = 'occ unscored';
+    if (scored === 'knew') cls = 'occ rev';
+    else if (scored === 'needed') cls = 'occ needed';
+
+    let extra = '';
+    if (revealed && !scored) {
+      extra += `<span class="score-btns"><button class="sb sb-k" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button><button class="sb sb-n" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button></span>`;
+    }
+    const link = LINKS[t];
+    if (revealed && link && link[0] !== nid) {
+      extra += `<span class="jump-link" onclick="selNode('${link[0]}')" title="Go to ${link[1]}">→ ${link[1]}</span>`;
+    }
+
+    return `<span class="${cls}">${t}</span>${extra}`;
+  });
+}
+
+function render() {
+  if (!cur) return;
+  initNode(cur);
+  const node = D[cur];
+  const card = node.cards[ci];
+  const totalCards = node.cards.length;
+  const totalTerms = countTerms(card.b);
+  const revd = tr[cur][ci].size;
+
+  document.getElementById('panel-title').textContent = `${node.label} — ${node.sub}`;
+  document.getElementById('panel-meta').textContent = `${node.type} · Card ${ci+1} of ${totalCards} · ${revd}/${totalTerms} terms revealed`;
+  document.getElementById('card-counter').textContent = `Card ${ci+1} / ${totalCards}`;
+
+  // dots
+  const dotRow = document.getElementById('dot-row');
+  dotRow.innerHTML = '';
+  for (let k = 0; k < totalCards; k++) {
+    const dot = document.createElement('div');
+    dot.className = 'pdot';
+    const t2 = countTerms(node.cards[k].b);
+    const r2 = tr[cur][k] ? tr[cur][k].size : 0;
+    if (r2 >= t2) dot.classList.add('done');
+    else if (r2 > 0) dot.classList.add('partial');
+    dot.onclick = () => { ci = k; render(); };
+    dotRow.appendChild(dot);
+  }
+
+  // card body
+  let html = `<div class="card-title">${card.t}</div>`;
+  html += `<div class="card-text">${parseBody(card.b, cur, ci)}</div>`;
+  if (card.h) html += `<div class="card-hint">💡 ${card.h}</div>`;
+
+  // metrics
+  let knew = 0, needed = 0, waitScore = 0;
+  for (let t2 = 0; t2 < totalTerms; t2++) {
+    if (tr[cur][ci].has(t2)) {
+      const s = sc[cur][ci][t2];
+      if (s === 'knew') knew++;
+      else if (s === 'needed') needed++;
+      else waitScore++;
+    }
+  }
+  html += `<div class="card-metrics">
+    <span class="cpill p-rev">revealed ${revd}/${totalTerms}</span>
+    ${knew ? `<span class="cpill p-knew">✓ knew ${knew}</span>` : ''}
+    ${needed ? `<span class="cpill p-need">✗ needed ${needed}</span>` : ''}
+    ${waitScore ? `<span class="cpill">scoring ${waitScore}</span>` : ''}
+  </div>`;
+
+  document.getElementById('card-body').innerHTML = html;
+
+  // buttons
+  const allRevealed = revd >= totalTerms;
+  document.getElementById('btn-reveal-card').disabled = allRevealed;
+  document.getElementById('btn-knew-all').disabled = !allRevealed;
+
+  // nav
+  document.getElementById('btn-prev').disabled = ci === 0;
+  document.getElementById('btn-next').disabled = ci === totalCards - 1;
+
+  updateMap();
+  renderStats();
+  saveProgress();
+}
+
+function renderStats() {
+  recalcState();
+  const totalTermsAll = Object.values(D).reduce((n, node) => n + node.cards.reduce((m, c) => m + countTerms(c.b), 0), 0);
+  const pct = Math.round(totRev / totalTermsAll * 100);
+  const hasNeeded = Object.keys(D).some(nid => {
+    if (!sc[nid]) return false;
+    return Object.values(sc[nid]).some(card => Object.values(card).includes('needed'));
+  });
+  document.getElementById('stats').innerHTML = `
+    <span class="stat-pill">revealed ${totRev}/${totalTermsAll} (${pct}%)</span>
+    <span class="stat-pill sp-k">✓ knew ${totKnew}</span>
+    <span class="stat-pill sp-n">✗ needed ${totNeed}</span>
+    <span class="stat-pill">done ${done.size}/${Object.keys(D).length} nodes</span>
+    <div class="sp-actions">
+      ${hasNeeded ? `<button class="btn btn-reveal" style="font-size:.62rem;padding:.2rem .7rem" onclick="startReview()">🔁 Review weak spots</button>` : ''}
+      <button class="btn btn-ghost" style="font-size:.62rem;padding:.2rem .7rem" onclick="resetAll()">Reset all</button>
+    </div>
+  `;
+}
+
+function updateMap() {
+  for (const nid of Object.keys(D)) {
+    const el = document.getElementById('n-' + nid);
+    if (!el) continue;
+    el.classList.toggle('done-node', done.has(nid));
+    el.classList.toggle('selected', nid === cur);
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   INTERACTIONS
+══════════════════════════════════════════════════════ */
+function selNode(nid) {
+  if (nid === 'center') { closePanel(); return; }
+  cur = nid; ci = 0;
+  initNode(nid);
+  document.getElementById('panel').style.display = 'block';
+  document.getElementById('panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  render();
+}
+
+function closePanel() {
+  cur = null;
+  document.getElementById('panel').style.display = 'none';
+  updateMap();
+  renderStats();
+}
+
+function navigate(dir) {
+  const len = D[cur].cards.length;
+  ci = Math.max(0, Math.min(len - 1, ci + dir));
+  render();
+}
+
+function revealTerm(e, nid, cidx, tidx) {
+  e.stopPropagation();
+  initNode(nid);
+  if (!tr[nid][cidx].has(tidx)) {
+    tr[nid][cidx].add(tidx);
+    totRev++;
+  }
+  recalcState();
+  render();
+}
+
+function scoreIt(e, nid, cidx, tidx, score) {
+  e.stopPropagation();
+  const prev = sc[nid][cidx][tidx];
+  if (prev === 'knew') { totKnew--; }
+  else if (prev === 'needed') { totNeed--; }
+  sc[nid][cidx][tidx] = score;
+  if (score === 'knew') totKnew++;
+  else totNeed++;
+  recalcState();
+  render();
+}
+
+function revealCard() {
+  if (!cur) return;
+  initNode(cur);
+  const total = countTerms(D[cur].cards[ci].b);
+  for (let i = 0; i < total; i++) {
+    if (!tr[cur][ci].has(i)) { tr[cur][ci].add(i); totRev++; }
+  }
+  recalcState();
+  render();
+}
+
+function knewAllCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const total = countTerms(D[cur].cards[ci].b);
+  for (let i = 0; i < total; i++) {
+    const prev = sc[cur][ci][i];
+    if (prev === 'knew') continue;
+    if (prev === 'needed') totNeed--;
+    sc[cur][ci][i] = 'knew';
+    totKnew++;
+  }
+  recalcState();
+  render();
+}
+
+function resetCard() {
+  if (!cur) return;
+  initNode(cur);
+  const total = countTerms(D[cur].cards[ci].b);
+  for (let i = 0; i < total; i++) {
+    if (tr[cur][ci].has(i)) { tr[cur][ci].delete(i); totRev--; }
+    const prev = sc[cur][ci][i];
+    if (prev === 'knew') totKnew--;
+    else if (prev === 'needed') totNeed--;
+    delete sc[cur][ci][i];
+  }
+  recalcState();
+  render();
+}
+
+function revealTopic() {
+  if (!cur) return;
+  for (let k = 0; k < D[cur].cards.length; k++) {
+    initNode(cur);
+    const total = countTerms(D[cur].cards[k].b);
+    for (let i = 0; i < total; i++) {
+      if (!tr[cur][k].has(i)) { tr[cur][k].add(i); totRev++; }
+    }
+  }
+  recalcState();
+  render();
+}
+
+function revealDeck() {
+  for (const nid of Object.keys(D)) {
+    initNode(nid);
+    for (let k = 0; k < D[nid].cards.length; k++) {
+      const total = countTerms(D[nid].cards[k].b);
+      for (let i = 0; i < total; i++) {
+        if (!tr[nid][k].has(i)) { tr[nid][k].add(i); totRev++; }
+      }
+    }
+  }
+  recalcState();
+  if (cur) render();
+  else renderStats();
+}
+
+function resetAll() {
+  tr = {}; sc = {}; totRev = 0; totKnew = 0; totNeed = 0; done.clear();
+  for (const nid of Object.keys(D)) initNode(nid);
+  closePanel();
+  closeReview();
+  renderStats();
+  eraseCookie();
+}
+
+/* ══════════════════════════════════════════════════════
+   REVIEW MODE
+══════════════════════════════════════════════════════ */
+function startReview() {
+  revQueue = [];
+  for (const nid of Object.keys(D)) {
+    if (!sc[nid]) continue;
+    for (let cidx = 0; cidx < D[nid].cards.length; cidx++) {
+      if (!sc[nid][cidx]) continue;
+      for (const [tidxStr, score] of Object.entries(sc[nid][cidx])) {
+        if (score === 'needed') {
+          revQueue.push({ nid, cidx, tidx: parseInt(tidxStr) });
+        }
+      }
+    }
+  }
+  if (!revQueue.length) { alert('No weak spots yet — score some terms first!'); return; }
+  revQueue = revQueue.sort(() => Math.random() - .5);
+  revIdx = 0; revTr = {};
+  document.getElementById('review-panel').style.display = 'block';
+  document.getElementById('review-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  renderReview();
+}
+
+function closeReview() {
+  document.getElementById('review-panel').style.display = 'none';
+  revQueue = []; revIdx = 0; revTr = {};
+}
+
+function renderReview() {
+  if (!revQueue.length) return;
+  const item = revQueue[revIdx];
+  const node = D[item.nid];
+  const card = node.cards[item.cidx];
+
+  document.getElementById('rp-sub').textContent = `Term ${revIdx + 1} of ${revQueue.length} · ${node.label} — ${node.sub}`;
+  document.getElementById('rsub').textContent = `Card: ${card.t} · Target term: #${item.tidx + 1}`;
+
+  if (!revTr[revIdx]) revTr[revIdx] = new Set();
+
+  const html = `<div class="card-title">${card.t}</div>
+    <div class="card-text">${parseBody(card.b, item.nid, item.cidx, {
+      forReview: true,
+      targetTermIdx: item.tidx,
+      revealedSet: revTr[revIdx]
+    })}</div>`;
+
+  document.getElementById('rev-body').innerHTML = html;
+  document.getElementById('rbtn-prev').disabled = revIdx === 0;
+  document.getElementById('rbtn-next').disabled = revIdx === revQueue.length - 1;
+}
+
+function revealRevTerm(tidx) {
+  if (!revTr[revIdx]) revTr[revIdx] = new Set();
+  revTr[revIdx].add(tidx);
+  renderReview();
+}
+
+function revealRevCard() {
+  if (!revQueue.length) return;
+  const item = revQueue[revIdx];
+  if (!revTr[revIdx]) revTr[revIdx] = new Set();
+  revTr[revIdx].add(item.tidx);
+  renderReview();
+}
+
+function revNav(dir) {
+  revIdx = Math.max(0, Math.min(revQueue.length - 1, revIdx + dir));
+  renderReview();
+}
+
+/* ══════════════════════════════════════════════════════
+   THEME
+══════════════════════════════════════════════════════ */
+function setTheme(t) {
+  document.documentElement.dataset.theme = t;
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === t));
+  try { localStorage.setItem('ai_theme', t); } catch(e) {}
+}
+
+/* ══════════════════════════════════════════════════════
+   KEYBOARD
+══════════════════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if (revQueue.length && document.getElementById('review-panel').style.display !== 'none') {
+    if (e.key === 'ArrowLeft')  revNav(-1);
+    if (e.key === 'ArrowRight') revNav(1);
+    if (e.key === 'Escape')     closeReview();
+    return;
+  }
+  if (cur) {
+    if (e.key === 'ArrowLeft')  navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+    if (e.key === 'Escape')     closePanel();
+  }
+});
+
+/* ══════════════════════════════════════════════════════
+   PERSISTENCE (cookie)
+══════════════════════════════════════════════════════ */
+function saveProgress() {
+  try {
+    const payload = { tr: {}, sc: {} };
+    for (const nid of Object.keys(D)) {
+      if (!tr[nid]) continue;
+      payload.tr[nid] = {};
+      payload.sc[nid] = {};
+      for (let ci2 = 0; ci2 < D[nid].cards.length; ci2++) {
+        payload.tr[nid][ci2] = tr[nid][ci2] ? [...tr[nid][ci2]] : [];
+        payload.sc[nid][ci2] = sc[nid] && sc[nid][ci2] ? sc[nid][ci2] : {};
+      }
+    }
+    const exp = new Date(Date.now() + 180*86400000).toUTCString();
+    document.cookie = `ai_prog=${encodeURIComponent(JSON.stringify(payload))};expires=${exp};SameSite=Lax;path=/`;
+  } catch(e) {}
+}
+
+function loadProgress() {
+  try {
+    const m = document.cookie.match(/ai_prog=([^;]+)/);
+    if (!m) return;
+    const payload = JSON.parse(decodeURIComponent(m[1]));
+    for (const nid of Object.keys(D)) {
+      if (!payload.tr[nid]) continue;
+      tr[nid] = {}; sc[nid] = {};
+      for (let ci2 = 0; ci2 < D[nid].cards.length; ci2++) {
+        tr[nid][ci2] = new Set(payload.tr[nid][ci2] || []);
+        sc[nid][ci2] = payload.sc[nid][ci2] || {};
+      }
+    }
+  } catch(e) {}
+}
+
+function eraseCookie() {
+  document.cookie = 'ai_prog=;expires=Thu, 01 Jan 1970 00:00:00 GMT;SameSite=Lax;path=/';
+}
+
+function restoreSession() {
+  for (const nid of Object.keys(D)) initNode(nid);
+  loadProgress();
+  recalcState();
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+(function init() {
+  try {
+    const saved = localStorage.getItem('ai_theme');
+    if (saved) setTheme(saved);
+  } catch(e) {}
+
+  restoreSession();
+
+  const totalCards = Object.values(D).reduce((n, node) => n + node.cards.length, 0);
+  document.getElementById('deckMeta').textContent =
+    `Active recall map · ${Object.keys(D).length} topics · ${totalCards} cards`;
+
+  renderStats();
+})();
+</script>
+</body>
+</html>
