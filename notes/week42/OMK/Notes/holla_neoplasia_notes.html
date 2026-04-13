@@ -375,6 +375,81 @@ code { font-family: var(--mono); font-size: 0.82em; background: var(--surface2);
   letter-spacing: 0.02em;
 }
 
+/* ── TABLE QUIZZES ── */
+.quiz-table-wrap {
+  margin: 1rem 0 1.25rem;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 8px 22px rgba(30, 26, 20, 0.05);
+}
+.quiz-table-title {
+  padding: 0.8rem 1rem;
+  background: linear-gradient(90deg, var(--blue-bg), var(--teal-bg));
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.quiz-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.quiz-table th {
+  background: var(--surface2);
+}
+.quiz-table td {
+  vertical-align: middle;
+}
+.quiz-prompt {
+  font-weight: 700;
+  color: var(--text);
+}
+.quiz-answer {
+  display: none;
+  margin-top: 0.45rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  background: var(--green-bg);
+  border: 1px solid var(--green-border);
+  color: var(--text);
+}
+.quiz-answer.show {
+  display: block;
+}
+.quiz-answer strong {
+  color: var(--green);
+}
+.quiz-reveal {
+  padding: 0.55rem 0.9rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--blue-border);
+  background: var(--blue-bg);
+  color: var(--blue);
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s, border-color 0.15s;
+}
+.quiz-reveal:hover {
+  background: #dfeafb;
+  transform: translateY(-1px);
+}
+.quiz-reveal.done {
+  background: var(--green-bg);
+  border-color: var(--green-border);
+  color: var(--green);
+}
+.quiz-tip {
+  font-size: 0.8rem;
+  color: var(--text3);
+  margin-top: -0.15rem;
+  margin-bottom: 0.7rem;
+}
+
 /* ── MISC ── */
 p { margin-bottom: 0.4rem; }
 ul, ol { padding-left: 1.4rem; }
@@ -1152,6 +1227,111 @@ strong.hl { color: var(--red); }
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TABLE QUIZZES -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-header" style="margin-top: 2.5rem;">
+    <span class="tag tag-lo" style="background: var(--purple);">QUIZ</span>
+    <h2>Table Quizzes</h2>
+  </div>
+
+  <p class="quiz-tip">Use these as quick recall drills. Try to answer from memory before revealing the right column.</p>
+
+  <div class="quiz-table-wrap">
+    <div class="quiz-table-title">Quiz 1 · Naming and Core Definitions</div>
+    <table class="quiz-table">
+      <thead>
+        <tr>
+          <th style="width: 58%;">Prompt</th>
+          <th style="width: 18%;">Reveal</th>
+          <th style="width: 24%;">Answer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="quiz-prompt">What is the main naming principle for tumors?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Cell or tissue of origin</strong> is the primary descriptor; <code>-oma</code> is added for tumors.</div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">Benign gland-forming epithelial tumor?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Adenoma</strong></div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">Malignant gland-forming epithelial tumor?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Adenocarcinoma</strong></div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">Malignant mesenchymal tumors usually end in what suffix?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong><code>-sarcoma</code></strong></div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">Name two important malignant exceptions to the usual benign-sounding <code>-oma</code> rule.</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Melanoma, lymphoma, mesothelioma</strong> are classic exceptions.</div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">What is the difference between parenchyma and stroma?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Parenchyma</strong> = tumor cells; <strong>stroma</strong> = supportive connective tissue, vessels, and surrounding framework.</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="quiz-table-wrap">
+    <div class="quiz-table-title">Quiz 2 · Invasion, Spread, and Diagnosis</div>
+    <table class="quiz-table">
+      <thead>
+        <tr>
+          <th style="width: 58%;">Prompt</th>
+          <th style="width: 18%;">Reveal</th>
+          <th style="width: 24%;">Answer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="quiz-prompt">What is the single most reliable feature that distinguishes benign from malignant neoplasms?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Metastasis</strong></div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">What must a carcinoma breach to become invasive?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>The basement membrane</strong></div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">What are the three major pathways of tumor spread?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Seeding of body cavities, lymphatic spread, and hematogenous spread</strong></div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">Which route is classically favored by carcinomas?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Lymphatic spread</strong></div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">Which route is classically favored by sarcomas?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Hematogenous spread</strong></div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">What is the difference between grading and staging?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Grade</strong> = degree of differentiation/aggressiveness; <strong>stage</strong> = extent of spread, often by TNM.</div></td>
+        </tr>
+        <tr>
+          <td class="quiz-prompt">Which diagnostic modality preserves tissue architecture: histology or cytology?</td>
+          <td><button class="quiz-reveal" type="button">Show answer</button></td>
+          <td><div class="quiz-answer"><strong>Histology</strong></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </main>
 
 <div id="image-lightbox" class="lightbox" aria-hidden="true">
@@ -1203,6 +1383,19 @@ strong.hl { color: var(--red); }
   });
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+  });
+})();
+
+(function(){
+  var revealButtons = document.querySelectorAll('.quiz-reveal');
+  revealButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var answer = btn.closest('tr').querySelector('.quiz-answer');
+      var isOpen = answer.classList.contains('show');
+      answer.classList.toggle('show');
+      btn.classList.toggle('done', !isOpen);
+      btn.textContent = isOpen ? 'Show answer' : 'Hide answer';
+    });
   });
 })();
 </script>
