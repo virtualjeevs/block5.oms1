@@ -3383,6 +3383,11 @@ function handleEasterEggKeydown(ev){
     triggerMinecraftEgg();
     return;
   }
+  if(EASTER_EGG_BUFFER.endsWith('flappy')){
+    EASTER_EGG_BUFFER='';
+    triggerFlappyEgg();
+    return;
+  }
   if(EASTER_EGG_BUFFER.endsWith('pika')){
     EASTER_EGG_BUFFER='';
     triggerPikaEgg();
@@ -3546,6 +3551,24 @@ function triggerMinecraftEgg(){
     linkHref:minecraftUrl,
     note:popup
       ? 'Type minecraft again anytime you want to launch it.'
+      : 'Popups can be blocked in some browsers until you allow them for this site.'
+  });
+}
+
+function triggerFlappyEgg(){
+  var flappyUrl='Games/flappy _bird/index.html';
+  var popup=openEggPopup(flappyUrl,'flappy_mode',1100,820);
+  launchEasterEgg({
+    icon:'🐤',
+    title:'FLAPPY MODE',
+    toastLabel:'Secret unlocked • flappy',
+    body:popup
+      ? 'Flappy Bird is now open in its own window. Try not to hit the pipes.'
+      : 'Your browser blocked the popup, so use the button below to open Flappy Bird manually.',
+    linkLabel:'Open Flappy Bird',
+    linkHref:flappyUrl,
+    note:popup
+      ? 'Type flappy again anytime you want to launch it.'
       : 'Popups can be blocked in some browsers until you allow them for this site.'
   });
 }
