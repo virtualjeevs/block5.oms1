@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Physiology of the Senses – The Eye</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  (function() {
+    const savedTheme = localStorage.getItem('eye-physiology-theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+</script>
 <style>
   :root {
     --bg: #0d1117;
@@ -24,6 +30,98 @@
     --text-muted: #8b949e;
     --border: rgba(201,168,76,0.2);
     --border-subtle: rgba(255,255,255,0.06);
+    --texture-a: rgba(201,168,76,0.04);
+    --texture-b: rgba(91,164,207,0.04);
+    --table-stripe: rgba(255,255,255,0.02);
+    --switcher-bg: rgba(22,27,34,0.86);
+    --switcher-border: rgba(255,255,255,0.08);
+    --switcher-shadow: 0 12px 36px rgba(0,0,0,0.24);
+    --button-bg: rgba(255,255,255,0.03);
+    --button-hover: rgba(255,255,255,0.07);
+  }
+
+  :root[data-theme="cream"] {
+    --bg: #f7efe1;
+    --bg-card: #fffaf2;
+    --bg-card2: #f3eadc;
+    --accent: #a56a2a;
+    --accent-dim: rgba(165,106,42,0.13);
+    --accent2: #2f6f8f;
+    --accent2-dim: rgba(47,111,143,0.12);
+    --green: #2f7a52;
+    --green-dim: rgba(47,122,82,0.1);
+    --red: #b84d40;
+    --red-dim: rgba(184,77,64,0.1);
+    --purple: #7a5aa6;
+    --purple-dim: rgba(122,90,166,0.1);
+    --text: #2f241b;
+    --text-muted: #776758;
+    --border: rgba(165,106,42,0.2);
+    --border-subtle: rgba(47,36,27,0.08);
+    --texture-a: rgba(165,106,42,0.06);
+    --texture-b: rgba(47,111,143,0.05);
+    --table-stripe: rgba(47,36,27,0.03);
+    --switcher-bg: rgba(255,250,242,0.9);
+    --switcher-border: rgba(47,36,27,0.08);
+    --switcher-shadow: 0 10px 30px rgba(95,66,36,0.12);
+    --button-bg: rgba(47,36,27,0.03);
+    --button-hover: rgba(47,36,27,0.07);
+  }
+
+  :root[data-theme="ocean"] {
+    --bg: #0f1722;
+    --bg-card: #142131;
+    --bg-card2: #193047;
+    --accent: #7dd3c7;
+    --accent-dim: rgba(125,211,199,0.13);
+    --accent2: #7ab8ff;
+    --accent2-dim: rgba(122,184,255,0.12);
+    --green: #6ed6a3;
+    --green-dim: rgba(110,214,163,0.1);
+    --red: #ff7d78;
+    --red-dim: rgba(255,125,120,0.1);
+    --purple: #b79cff;
+    --purple-dim: rgba(183,156,255,0.1);
+    --text: #e8f4fb;
+    --text-muted: #9ab2c6;
+    --border: rgba(125,211,199,0.18);
+    --border-subtle: rgba(255,255,255,0.07);
+    --texture-a: rgba(125,211,199,0.06);
+    --texture-b: rgba(122,184,255,0.06);
+    --table-stripe: rgba(255,255,255,0.025);
+    --switcher-bg: rgba(20,33,49,0.88);
+    --switcher-border: rgba(255,255,255,0.08);
+    --switcher-shadow: 0 12px 34px rgba(0,16,34,0.3);
+    --button-bg: rgba(255,255,255,0.035);
+    --button-hover: rgba(255,255,255,0.085);
+  }
+
+  :root[data-theme="forest"] {
+    --bg: #101712;
+    --bg-card: #17211a;
+    --bg-card2: #1d2b22;
+    --accent: #d6b76b;
+    --accent-dim: rgba(214,183,107,0.13);
+    --accent2: #7bc89a;
+    --accent2-dim: rgba(123,200,154,0.12);
+    --green: #8dd89b;
+    --green-dim: rgba(141,216,155,0.1);
+    --red: #ee8675;
+    --red-dim: rgba(238,134,117,0.1);
+    --purple: #b49be3;
+    --purple-dim: rgba(180,155,227,0.1);
+    --text: #edf5ee;
+    --text-muted: #98ab9d;
+    --border: rgba(214,183,107,0.18);
+    --border-subtle: rgba(255,255,255,0.065);
+    --texture-a: rgba(214,183,107,0.05);
+    --texture-b: rgba(123,200,154,0.05);
+    --table-stripe: rgba(255,255,255,0.022);
+    --switcher-bg: rgba(23,33,26,0.88);
+    --switcher-border: rgba(255,255,255,0.08);
+    --switcher-shadow: 0 12px 34px rgba(0,0,0,0.28);
+    --button-bg: rgba(255,255,255,0.03);
+    --button-hover: rgba(255,255,255,0.08);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,6 +133,7 @@
     font-size: 16px;
     line-height: 1.75;
     min-height: 100vh;
+    transition: background 0.25s ease, color 0.25s ease;
   }
 
   /* Background texture */
@@ -43,16 +142,70 @@
     position: fixed;
     inset: 0;
     background: 
-      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.04) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 80%, rgba(91,164,207,0.04) 0%, transparent 60%);
+      radial-gradient(ellipse at 20% 20%, var(--texture-a) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, var(--texture-b) 0%, transparent 60%);
     pointer-events: none;
     z-index: 0;
+  }
+
+  .theme-switcher {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 20;
+    background: var(--switcher-bg);
+    border: 1px solid var(--switcher-border);
+    border-radius: 14px;
+    padding: 12px;
+    backdrop-filter: blur(14px);
+    box-shadow: var(--switcher-shadow);
+    width: min(320px, calc(100vw - 24px));
+  }
+
+  .theme-switcher-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .theme-switcher-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .theme-btn {
+    border: 1px solid var(--border-subtle);
+    background: var(--button-bg);
+    color: var(--text-muted);
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .theme-btn:hover {
+    background: var(--button-hover);
+    color: var(--text);
+    transform: translateY(-1px);
+  }
+
+  .theme-btn.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-color: var(--border);
   }
 
   .container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 48px 32px;
+    padding: 96px 32px 48px;
     position: relative;
     z-index: 1;
   }
@@ -380,7 +533,7 @@
     vertical-align: top;
   }
 
-  .compare-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .compare-table tr:nth-child(even) td { background: var(--table-stripe); }
   .compare-table td strong { color: var(--accent2); }
 
   /* Flow diagram */
@@ -532,9 +685,15 @@
 
   /* Responsive */
   @media (max-width: 640px) {
-    .container { padding: 32px 20px; }
+    .container { padding: 120px 20px 32px; }
     .flow { flex-direction: column; }
     .flow-arrow { transform: rotate(90deg); }
+    .theme-switcher {
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      width: auto;
+    }
   }
 
   /* Figure / image blocks from textbook */
@@ -553,6 +712,7 @@
     border-radius: 4px;
     display: block;
     margin: 0 auto;
+    cursor: zoom-in;
   }
   .figure-caption {
     font-family: 'JetBrains Mono', monospace;
@@ -571,9 +731,84 @@
   }
   @media (max-width: 640px) { .figure-row { grid-template-columns: 1fr; } }
 
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    background: rgba(8, 10, 14, 0.84);
+    backdrop-filter: blur(8px);
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox-inner {
+    width: min(1100px, 100%);
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: calc(100vh - 140px);
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 22px 60px rgba(0,0,0,0.45);
+    background: var(--bg-card);
+  }
+
+  .lightbox-caption {
+    width: min(920px, 100%);
+    color: #f5f7fa;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    text-align: left;
+    background: rgba(0,0,0,0.26);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(0,0,0,0.32);
+    color: #fff;
+    border-radius: 999px;
+    width: 42px;
+    height: 42px;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .lightbox-close:hover {
+    background: rgba(255,255,255,0.12);
+  }
+
 </style>
 </head>
 <body>
+
+<div class="theme-switcher" aria-label="Theme switcher">
+  <div class="theme-switcher-label">Theme Palette</div>
+  <div class="theme-switcher-buttons">
+    <button type="button" class="theme-btn" data-theme="midnight">Midnight</button>
+    <button type="button" class="theme-btn" data-theme="cream">Cream</button>
+    <button type="button" class="theme-btn" data-theme="ocean">Ocean</button>
+    <button type="button" class="theme-btn" data-theme="forest">Forest</button>
+  </div>
+</div>
 
 <div class="container">
 
@@ -1439,7 +1674,40 @@
 
 </div>
 
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close image zoom">×</button>
+  <div class="lightbox-inner">
+    <img id="lightbox-image" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
 <script>
+  const themeButtons = document.querySelectorAll('.theme-btn');
+  const THEME_KEY = 'eye-physiology-theme';
+
+  function applyTheme(theme) {
+    if (!theme || theme === 'midnight') {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem(THEME_KEY, 'midnight');
+    } else {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem(THEME_KEY, theme);
+    }
+
+    themeButtons.forEach((button) => {
+      const isActive = button.dataset.theme === (theme || 'midnight');
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+  }
+
+  const initialTheme = document.documentElement.getAttribute('data-theme') || 'midnight';
+  applyTheme(initialTheme);
+  themeButtons.forEach((button) => {
+    button.addEventListener('click', () => applyTheme(button.dataset.theme));
+  });
+
   // Staggered section entrance animation
   const sections = document.querySelectorAll('.section');
   const observer = new IntersectionObserver((entries) => {
@@ -1457,6 +1725,41 @@
     s.style.transform = 'translateY(20px)';
     s.style.transition = `opacity 0.5s ease ${i * 0.04}s, transform 0.5s ease ${i * 0.04}s`;
     observer.observe(s);
+  });
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const figureImages = document.querySelectorAll('.figure img');
+
+  function openLightbox(image) {
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt || 'Expanded figure';
+    const caption = image.closest('.figure')?.querySelector('.figure-caption')?.textContent?.trim() || image.alt || '';
+    lightboxCaption.textContent = caption;
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImage.src = '';
+    document.body.style.overflow = '';
+  }
+
+  figureImages.forEach((image) => {
+    image.addEventListener('click', () => openLightbox(image));
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
   });
 </script>
 
