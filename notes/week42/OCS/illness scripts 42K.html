@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ocular Pathology — Illness Scripts</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+[data-theme="dark"] {
+  --bg:           #0d1b2a;
+  --bg-mid:       #1a2e42;
+  --bg-card:      rgba(255,255,255,0.04);
+  --bg-hover:     rgba(255,255,255,0.07);
+  --border:       rgba(255,255,255,0.09);
+  --border-strong:rgba(255,255,255,0.18);
+  --text:         #dce8f0;
+  --text-dim:     #8aabbd;
+  --text-faint:   #4d6a7a;
+  --accent:       #2ec4b6;
+  --accent-faint: rgba(46,196,182,0.10);
+  --conj:   #e05c5c; --conj-f:  rgba(224,92,92,0.12);
+  --amd:    #f4c542; --amd-f:   rgba(244,197,66,0.10);
+  --glau:   #52c77d; --glau-f:  rgba(82,199,125,0.10);
+  --cat:    #5ba4ff; --cat-f:   rgba(91,164,255,0.12);
+  --purple: #b07aff; --purple-f:rgba(176,122,255,0.12);
+  --orange: #f4924a; --orange-f:rgba(244,146,74,0.12);
+  --shadow: 0 2px 14px rgba(0,0,0,0.45);
+}
+[data-theme="cream"] {
+  --bg:           #faf5eb;
+  --bg-mid:       #ede5cf;
+  --bg-card:      rgba(0,0,0,0.04);
+  --bg-hover:     rgba(0,0,0,0.07);
+  --border:       rgba(0,0,0,0.11);
+  --border-strong:rgba(0,0,0,0.22);
+  --text:         #2a1a08;
+  --text-dim:     #6b5040;
+  --text-faint:   #a08060;
+  --accent:       #2a8a7f;
+  --accent-faint: rgba(42,138,127,0.10);
+  --conj:   #b8302a; --conj-f:  rgba(184,48,42,0.09);
+  --amd:    #a86e00; --amd-f:   rgba(168,110,0,0.09);
+  --glau:   #1a7a45; --glau-f:  rgba(26,122,69,0.09);
+  --cat:    #1452a0; --cat-f:   rgba(20,82,160,0.09);
+  --purple: #6230a0; --purple-f:rgba(98,48,160,0.09);
+  --orange: #b84800; --orange-f:rgba(184,72,0,0.09);
+  --shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+[data-theme="slate"] {
+  --bg:           #1e2430;
+  --bg-mid:       #252e40;
+  --bg-card:      rgba(255,255,255,0.05);
+  --bg-hover:     rgba(255,255,255,0.09);
+  --border:       rgba(255,255,255,0.10);
+  --border-strong:rgba(255,255,255,0.20);
+  --text:         #c5d8ec;
+  --text-dim:     #7890a8;
+  --text-faint:   #48607a;
+  --accent:       #7eb8f7;
+  --accent-faint: rgba(126,184,247,0.10);
+  --conj:   #f07575; --conj-f:  rgba(240,117,117,0.12);
+  --amd:    #efc055; --amd-f:   rgba(239,192,85,0.10);
+  --glau:   #60cc82; --glau-f:  rgba(96,204,130,0.10);
+  --cat:    #80b8f8; --cat-f:   rgba(128,184,248,0.12);
+  --purple: #c090ff; --purple-f:rgba(192,144,255,0.12);
+  --orange: #f4a860; --orange-f:rgba(244,168,96,0.12);
+  --shadow: 0 2px 18px rgba(0,0,0,0.55);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:15px;line-height:1.7;min-height:100vh;transition:background .25s,color .25s}
+
+.site-header{background:var(--bg-mid);border-bottom:2px solid var(--accent);padding:14px 26px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow)}
+.site-header .icon{font-size:24px}
+.site-header h1{font-family:'Crimson Pro',serif;font-size:1.35rem;font-weight:700;color:var(--accent)}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.sub{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--text-dim)}
+
+.theme-switcher{display:flex;gap:4px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:3px}
+.theme-btn{width:20px;height:20px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .15s,border-color .15s;font-size:0}
+.theme-btn:hover{transform:scale(1.15)}
+.theme-btn.active{border-color:var(--accent)}
+.t-dark{background:#0d1b2a}.t-cream{background:#faf5eb}.t-slate{background:#1e2430}
+
+.tab-nav{display:flex;gap:3px;padding:12px 26px 0;border-bottom:2px solid var(--border);background:var(--bg-mid);overflow-x:auto}
+.tab-btn{font-family:'Nunito',sans-serif;font-size:0.76rem;font-weight:800;padding:7px 15px;border:none;background:transparent;color:var(--text-dim);cursor:pointer;border-radius:6px 6px 0 0;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.04em;text-transform:uppercase}
+.tab-btn:hover{color:var(--text);background:var(--bg-hover)}
+.tab-btn.active{background:var(--bg-hover)}
+.tab-btn.conj.active{color:var(--conj);border-bottom-color:var(--conj)}
+.tab-btn.amd.active{color:var(--amd);border-bottom-color:var(--amd)}
+.tab-btn.glau.active{color:var(--glau);border-bottom-color:var(--glau)}
+.tab-btn.cat.active{color:var(--cat);border-bottom-color:var(--cat)}
+
+.panel{display:none;padding:26px 26px 60px;max-width:960px;margin:0 auto}
+.panel.active{display:block;animation:fadeIn .22s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+.condition-title{display:flex;align-items:flex-end;gap:12px;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.condition-title .emoji{font-size:2.2rem}
+.condition-title h2{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+
+.section-head{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;margin:24px 0 9px;display:flex;align-items:center;gap:8px}
+.section-head::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.callout{border-left:3px solid;padding:10px 14px;border-radius:0 8px 8px 0;margin:7px 0;font-size:.89rem;background:var(--bg-card)}
+.callout.epi{border-color:var(--accent);background:var(--accent-faint)}
+.callout.path{border-color:var(--purple);background:var(--purple-f)}
+.callout.clin{border-color:var(--orange);background:var(--orange-f)}
+.callout.warn{border-color:var(--conj);background:var(--conj-f)}
+.callout.tip{border-color:var(--glau);background:var(--glau-f)}
+.callout.gold{border-color:var(--amd);background:var(--amd-f)}
+.callout-title{font-family:'IBM Plex Mono',monospace;font-size:.64rem;font-weight:500;letter-spacing:.10em;text-transform:uppercase;margin-bottom:5px;opacity:.65}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:9px 0}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:9px 0}
+@media(max-width:640px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+.mini-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px 13px;font-size:.86rem}
+.mini-card .mc-title{font-family:'IBM Plex Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.10em;margin-bottom:5px;opacity:.60}
+
+table{width:100%;border-collapse:collapse;font-size:.86rem;margin:11px 0}
+th{font-family:'IBM Plex Mono',monospace;font-size:.63rem;text-transform:uppercase;letter-spacing:.08em;padding:7px 11px;text-align:left;border-bottom:2px solid var(--border-strong);color:var(--text-dim);background:var(--bg-card)}
+td{padding:7px 11px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:hover td{background:var(--bg-hover)}
+
+.pill{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.64rem;padding:2px 7px;border-radius:10px;font-weight:500;margin:2px 2px 2px 0}
+.pill-accent{background:var(--accent-faint);color:var(--accent);border:1px solid var(--accent)}
+.pill-conj{background:var(--conj-f);color:var(--conj);border:1px solid var(--conj)}
+.pill-amd{background:var(--amd-f);color:var(--amd);border:1px solid var(--amd)}
+.pill-glau{background:var(--glau-f);color:var(--glau);border:1px solid var(--glau)}
+.pill-cat{background:var(--cat-f);color:var(--cat);border:1px solid var(--cat)}
+.pill-purple{background:var(--purple-f);color:var(--purple);border:1px solid var(--purple)}
+.pill-orange{background:var(--orange-f);color:var(--orange);border:1px solid var(--orange)}
+
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-size:.78rem;margin:5px 0;font-family:'IBM Plex Mono',monospace}
+.chain-step{background:var(--bg-hover);border:1px solid var(--border);border-radius:4px;padding:3px 8px}
+.chain-arrow{color:var(--accent);font-size:.95rem}
+
+/* MCQ */
+.mcq-section{margin-top:10px;border-top:2px dashed var(--border);padding-top:20px}
+.mcq-section-title{font-family:'Crimson Pro',serif;font-size:1.25rem;font-weight:700;margin-bottom:14px}
+
+.mcq-card{background:var(--bg-card);border:1.5px solid var(--border);border-radius:10px;padding:16px 18px;margin:12px 0;transition:border-color .2s}
+.mcq-card.correct-answered{border-color:var(--glau)}
+.mcq-card.wrong-answered{border-color:var(--conj)}
+
+.mcq-stem{font-family:'Crimson Pro',serif;font-size:1.05rem;line-height:1.55;margin-bottom:13px;font-weight:600}
+.mcq-stem .q-num{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--text-dim);display:block;margin-bottom:4px;letter-spacing:.08em;text-transform:uppercase}
+
+.mcq-options{display:flex;flex-direction:column;gap:7px}
+.mcq-option{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:7px;border:1.5px solid var(--border);cursor:pointer;background:var(--bg);transition:all .15s;font-size:.88rem;line-height:1.4;text-align:left;width:100%;color:var(--text);font-family:'Nunito',sans-serif}
+.mcq-option:hover:not(:disabled){border-color:var(--accent);background:var(--accent-faint)}
+.opt-letter{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:500;min-width:20px;height:20px;border-radius:4px;background:var(--bg-hover);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-top:1px;flex-shrink:0}
+.mcq-option.correct{border-color:var(--glau)!important;background:var(--glau-f)!important}
+.mcq-option.incorrect{border-color:var(--conj)!important;background:var(--conj-f)!important}
+.mcq-option.correct .opt-letter{background:var(--glau);color:#fff;border-color:var(--glau)}
+.mcq-option.incorrect .opt-letter{background:var(--conj);color:#fff;border-color:var(--conj)}
+.mcq-option:disabled{cursor:default}
+
+.mcq-explanation{display:none;margin-top:11px;padding:11px 13px;border-radius:7px;border:1px solid var(--border);background:var(--bg-card);font-size:.86rem}
+.mcq-explanation.show{display:block;animation:fadeIn .2s ease}
+.exp-row{margin:5px 0;display:flex;gap:9px;align-items:flex-start;font-size:.86rem}
+.exp-letter{font-family:'IBM Plex Mono',monospace;font-size:.68rem;min-width:22px;font-weight:600;margin-top:2px;flex-shrink:0}
+.exp-row.correct-exp .exp-letter{color:var(--glau)}
+.exp-row.wrong-exp .exp-letter{color:var(--conj)}
+.exp-text{line-height:1.5}
+
+.mcq-reset{font-family:'IBM Plex Mono',monospace;font-size:.66rem;background:transparent;border:1px solid var(--border);border-radius:5px;color:var(--text-dim);padding:4px 10px;cursor:pointer;margin-top:11px;transition:all .15s}
+.mcq-reset:hover{border-color:var(--accent);color:var(--accent)}
+
+strong{font-weight:800}
+em{font-style:italic;opacity:.85}
+ul{padding-left:1.2em;margin:4px 0}
+li{margin:3px 0}
+p{margin:5px 0}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <span class="icon">👁️</span>
+  <h1>Ocular Pathology — Illness Scripts</h1>
+  <div class="header-right">
+    <span class="sub">OCS Week 40 · LO 42K</span>
+    <div class="theme-switcher">
+      <button class="theme-btn t-dark  active" onclick="setTheme('dark')"  title="Dark"></button>
+      <button class="theme-btn t-cream"        onclick="setTheme('cream')" title="Cream"></button>
+      <button class="theme-btn t-slate"        onclick="setTheme('slate')" title="Slate"></button>
+    </div>
+  </div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn conj active" onclick="showTab('conj')">🔴 Conjunctivitis</button>
+  <button class="tab-btn amd"         onclick="showTab('amd')">🟡 Macular Degen.</button>
+  <button class="tab-btn glau"        onclick="showTab('glau')">🟢 Glaucoma</button>
+  <button class="tab-btn cat"         onclick="showTab('cat')">🔵 Cataract</button>
+</nav>
+
+<!-- CONJUNCTIVITIS -->
+<div id="panel-conj" class="panel active">
+  <div class="condition-title">
+    <span class="emoji">🔴</span>
+    <div>
+      <div style="margin-bottom:4px"><span class="pill pill-accent">Most Common Red Eye</span><span class="pill pill-conj">Viral / Bacterial / Allergic</span></div>
+      <h2 style="color:var(--conj)">Conjunctivitis</h2>
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--accent)">Epidemiology</div>
+  <div class="callout epi">
+    <div class="callout-title">Key Stats</div>
+    <ul>
+      <li><strong>Most common cause of red eye</strong> in primary care; affects all ages</li>
+      <li>~<strong>6 million cases/year</strong> in the US</li>
+      <li>Viral etiology predominates <em>regardless of age</em>; bacterial more common in <strong>children</strong></li>
+    </ul>
+  </div>
+
+  <div class="section-head" style="color:var(--purple)">Pathophysiology</div>
+  <div class="grid-3">
+    <div class="mini-card" style="border-top:2px solid var(--cat)">
+      <div class="mc-title">🦠 Viral</div>
+      <strong>Adenovirus</strong> most common. Follicular conjunctivitis — gray-white, round-oval elevations 0.5–1.5 mm on tarsal conjunctiva
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--conj)">
+      <div class="mc-title">🦠 Bacterial</div>
+      <em>S. pneumo, H. flu, N. gonorrhoeae, C. trachomatis</em><br><br>
+      <span class="pill pill-conj">GC → perforation</span><br>
+      <span class="pill pill-conj">Trachoma → pannus + cicatrization</span>
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--orange)">
+      <div class="mc-title">🌿 Allergic</div>
+      Mast cell / IgE-mediated → Chemosis · Lid edema (blepharitis) · Conjunctival papillary reaction
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--orange)">Clinical Presentation</div>
+  <div class="callout clin">
+    <div class="callout-title">General — All Types</div>
+    <ul>
+      <li>Pain: <strong>MINIMAL</strong> — key distinguisher from serious pathology</li>
+      <li>Visual acuity: <strong>near-normal</strong></li>
+      <li>Watery discharge · photophobia · mild foreign-body sensation</li>
+    </ul>
+  </div>
+  <div class="grid-3">
+    <div class="mini-card" style="border-top:2px solid var(--cat)">
+      <div class="mc-title">Viral</div>
+      Watery / <strong>mucoserous</strong> discharge<br>Burning, sandy, gritty<br>Often starts one eye
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--conj)">
+      <div class="mc-title">Bacterial</div>
+      <strong>Mucopurulent</strong> discharge<br>Morning crusting<br><em>Pus = bacterial</em>
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--orange)">
+      <div class="mc-title">Allergic</div>
+      <strong>Itching</strong> dominant symptom<br>Redness + epiphora<br>Bilateral, seasonal
+    </div>
+  </div>
+  <div class="callout warn" style="margin-top:11px">
+    <div class="callout-title">⚠️ Red Flags → Ophthalmology Referral</div>
+    Photophobia + headache + nausea + severe foreign-body sensation = refer <strong>immediately</strong>
+  </div>
+
+  <div class="section-head" style="color:var(--cat)">Illness Script — Exam Findings</div>
+  <table>
+    <tr><th>Finding</th><th>Detail</th></tr>
+    <tr><td>Conjunctival injection</td><td><strong>Diffuse</strong> redness (not focal)</td></tr>
+    <tr><td>Visual acuity</td><td>Relatively normal</td></tr>
+    <tr><td>Discharge character</td><td>Watery (viral/allergic) vs. <strong>mucopurulent</strong> (bacterial)</td></tr>
+    <tr><td>Cultures / stains</td><td>NOT required initially; required if <strong>GC suspected</strong></td></tr>
+    <tr><td>Acute vs. chronic</td><td>Acute = within 3–4 weeks; Chronic = &gt;4 weeks</td></tr>
+  </table>
+
+  <div class="mcq-section">
+    <div class="mcq-section-title">🧠 Practice Questions — Conjunctivitis</div>
+    <div id="mcq-conj"></div>
+  </div>
+</div>
+
+<!-- AMD -->
+<div id="panel-amd" class="panel">
+  <div class="condition-title">
+    <span class="emoji">🟡</span>
+    <div>
+      <div style="margin-bottom:4px"><span class="pill pill-amd">#1 Blindness &gt;65 Developed World</span><span class="pill pill-orange">Dry &amp; Wet Forms</span></div>
+      <h2 style="color:var(--amd)">Age-Related Macular Degeneration</h2>
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--accent)">Epidemiology</div>
+  <div class="grid-2">
+    <div class="callout epi">
+      <div class="callout-title">Population</div>
+      <ul>
+        <li><strong>Leading cause of blindness in &gt;65</strong> in developed countries</li>
+        <li>Female &gt; Male; White &gt; other ethnicities</li>
+        <li>Prevalence: <strong>0.2%</strong> (55–64) → <strong>13.1%</strong> (&gt;84)</li>
+      </ul>
+    </div>
+    <div class="callout gold">
+      <div class="callout-title">Risk Factors</div>
+      <ul>
+        <li>Advanced age · family history · genetics (complement pathway, 52 variants at 34 loci)</li>
+        <li>Smoking · obesity · cardiovascular disease</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--purple)">Pathophysiology</div>
+  <div class="callout path">
+    <div class="callout-title">Four Drivers of AMD</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
+      <span class="pill pill-purple">1. Lipofuscinogenesis</span>
+      <span class="pill pill-purple">2. Drusogenesis</span>
+      <span class="pill pill-purple">3. Inflammation</span>
+      <span class="pill pill-purple">4. Neovascularization</span>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-top:10px">
+    <div class="mini-card" style="border-top:2px solid var(--amd)">
+      <div class="mc-title">☀️ Dry AMD (Atrophic)</div>
+      <div class="chain"><span class="chain-step">Drusen (lipids + vitronectin)</span><span class="chain-arrow">→</span><span class="chain-step">RPE / Bruch's membrane</span><span class="chain-arrow">→</span><span class="chain-step">Slow RPE atrophy</span></div>
+      <p style="font-size:.82rem;margin-top:5px">Progression over <strong>decades</strong></p>
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--conj)">
+      <div class="mc-title">💧 Wet AMD (Neovascular)</div>
+      <div class="chain"><span class="chain-step"><strong>VEGFA</strong>↑</span><span class="chain-arrow">→</span><span class="chain-step">Choroidal NV</span><span class="chain-arrow">→</span><span class="chain-step">Fluid/blood leakage</span><span class="chain-arrow">→</span><span class="chain-step">Macular elevation / RPE detachment</span></div>
+      <p style="font-size:.82rem;margin-top:5px">Weeks–months; usually <strong>one eye first</strong></p>
+    </div>
+  </div>
+  <div class="callout path" style="margin-top:10px">
+    <div class="callout-title">Pathology Progression</div>
+    <div class="grid-2" style="margin:0">
+      <div><p><strong>Early:</strong></p><ul style="font-size:.84rem"><li>Drusen displacing Bruch's membrane</li><li>Microglial infiltration (inflammation)</li></ul></div>
+      <div><p><strong>Late:</strong></p><ul style="font-size:.84rem"><li>Bruch's membrane severely disrupted</li><li>RPE + photoreceptor atrophy &amp; loss</li><li>Angiogenesis + edema in choroidal vasculature</li></ul></div>
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--orange)">Clinical Presentation</div>
+  <div class="callout clin">
+    <div class="callout-title">Key Features</div>
+    <ul>
+      <li><strong>Painless</strong> central/pericentral visual impairment; difficulty adapting to lighting</li>
+      <li><strong>Metamorphopsia</strong> — straight lines appear wavy (test with Amsler grid)</li>
+      <li><strong>Scotoma</strong> — central blind spot</li>
+      <li>Dry: slow over decades · Wet: weeks–months, one eye first</li>
+    </ul>
+  </div>
+
+  <div class="section-head" style="color:var(--cat)">Illness Script — Exam Findings</div>
+  <table>
+    <tr><th>Test</th><th>Dry AMD</th><th>Wet AMD</th></tr>
+    <tr><td><strong>Amsler Grid</strong></td><td colspan="2">Metamorphopsia (wavy lines); scotomas</td></tr>
+    <tr><td><strong>Fundoscopy</strong></td><td>Drusen; RPE atrophy</td><td>Grayish-green discoloration; serous detachment; subretinal hemorrhage/exudate; fibrous disciform scars</td></tr>
+    <tr><td><strong>OCT</strong></td><td colspan="2">Histological-grade in-vivo retinal imaging; gold standard non-invasive detection</td></tr>
+  </table>
+  <div class="callout tip">
+    <div class="callout-title">🥦 Pearl</div>
+    Diet rich in antioxidants (esp. spinach &amp; kale) reduces AMD risk
+  </div>
+
+  <div class="mcq-section">
+    <div class="mcq-section-title">🧠 Practice Questions — Macular Degeneration</div>
+    <div id="mcq-amd"></div>
+  </div>
+</div>
+
+<!-- GLAUCOMA -->
+<div id="panel-glau" class="panel">
+  <div class="condition-title">
+    <span class="emoji">🟢</span>
+    <div>
+      <div style="margin-bottom:4px"><span class="pill pill-glau">#2 Blindness in US</span><span class="pill pill-accent">Open-Angle</span><span class="pill pill-orange">Angle-Closure</span></div>
+      <h2 style="color:var(--glau)">Glaucoma</h2>
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--accent)">Epidemiology</div>
+  <div class="callout epi">
+    <div class="callout-title">Key Stats</div>
+    <ul>
+      <li><strong>2nd leading cause of blindness</strong> in US (after AMD); #1 globally after cataracts</li>
+      <li>2.3–3 million US; 80 million worldwide; ~10% impairment, ~5% blindness</li>
+      <li>Mean age of onset: <strong>60</strong>; Open-angle &gt; Angle-closure in prevalence</li>
+    </ul>
+  </div>
+  <div class="grid-2" style="margin-top:10px">
+    <div class="mini-card" style="border-top:2px solid var(--glau)">
+      <div class="mc-title">Open-Angle Risk Factors</div>
+      Age &gt;40 · <strong>African descent</strong> · Diabetes · Myopia · Family history
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--orange)">
+      <div class="mc-title">Angle-Closure Risk Factors</div>
+      <strong>Asian descent</strong> · Mydriasis · Anatomically narrow iridocorneal angle
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--purple)">Pathophysiology</div>
+  <div class="callout path">
+    <div class="callout-title">Aqueous Humor Flow — Normal</div>
+    <div class="chain" style="margin-top:5px">
+      <span class="chain-step">Ciliary body</span><span class="chain-arrow">→</span>
+      <span class="chain-step">Post. chamber</span><span class="chain-arrow">→</span>
+      <span class="chain-step">Pupil</span><span class="chain-arrow">→</span>
+      <span class="chain-step">Ant. chamber</span><span class="chain-arrow">→</span>
+      <span class="chain-step">Trabecular meshwork</span><span class="chain-arrow">→</span>
+      <span class="chain-step">Venous drainage</span>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-top:10px">
+    <div class="mini-card" style="border-top:2px solid var(--glau)">
+      <div class="mc-title">Open-Angle</div>
+      <div class="chain"><span class="chain-step">Trabecular clogging / ↓drainage</span><span class="chain-arrow">→</span><span class="chain-step">↑IOP (gradual)</span><span class="chain-arrow">→</span><span class="chain-step">Optic nerve ischemia</span><span class="chain-arrow">→</span><span class="chain-step">Progressive vision loss</span></div>
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--orange)">
+      <div class="mc-title">Angle-Closure</div>
+      <div class="chain"><span class="chain-step">Iridocorneal blockage</span><span class="chain-arrow">→</span><span class="chain-step">↓AH outflow</span><span class="chain-arrow">→</span><span class="chain-step">↑↑IOP</span></div>
+      <p style="font-size:.81rem;margin-top:5px"><strong>Primary:</strong> narrow angle anatomy · <strong>Secondary:</strong> acquired obstruction</p>
+    </div>
+  </div>
+  <div class="callout path" style="margin-top:10px">
+    <div class="callout-title">Pathology — What Glaucoma Destroys</div>
+    <ul style="font-size:.87rem">
+      <li>Rim loss + cup enlargement → <strong>↑cup-to-disc ratio</strong></li>
+      <li>Loss of <strong>retinal ganglion cell axons</strong> in the optic nerve</li>
+      <li>Apoptosis via compression at <strong>lamina cribrosa</strong></li>
+      <li>Loss of cell mass in <strong>lateral geniculate nucleus</strong> (thalamus)</li>
+    </ul>
+  </div>
+
+  <div class="section-head" style="color:var(--orange)">Clinical Presentation</div>
+  <div class="grid-2">
+    <div class="callout clin">
+      <div class="callout-title">Open-Angle (Insidious)</div>
+      <ul>
+        <li>Initially <strong>asymptomatic</strong></li>
+        <li>Mild HA, impaired dark adaptation</li>
+        <li>Bilateral, progressive <strong>peripheral → central</strong> VF loss</li>
+        <li><strong>Arcuate scotoma</strong> from blind spot</li>
+        <li>Vision loss typically <strong>permanent</strong></li>
+      </ul>
+    </div>
+    <div>
+      <div class="callout warn" style="margin-bottom:8px">
+        <div class="callout-title">⚡ Angle-Closure Acute — EMERGENCY</div>
+        <ul>
+          <li>Sudden, <strong>unilateral</strong>, severely painful red eye</li>
+          <li>Frontal HA · N/V · blurred vision · halos</li>
+          <li><strong>Corneal clouding</strong></li>
+          <li><strong>Mid-dilated, irregular, unreactive pupil</strong></li>
+        </ul>
+      </div>
+      <div class="callout clin">
+        <div class="callout-title">Angle-Closure Chronic</div>
+        Asymptomatic early → progressive peripheral VF loss
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--cat)">Illness Script — Exam Findings</div>
+  <table>
+    <tr><th>Test</th><th>Open-Angle</th><th>Angle-Closure</th></tr>
+    <tr><td><strong>Tonometry</strong></td><td>Possibly elevated (~40%); normal 10–21 mmHg</td><td><strong>IOP &gt;21 mmHg</strong></td></tr>
+    <tr><td><strong>Gonioscopy / Slit lamp</strong></td><td>Normal anterior chamber angle</td><td><strong>Narrowed iridocorneal angle</strong></td></tr>
+    <tr><td><strong>Fundoscopy</strong></td><td>Optic disc <strong>cupping &amp; pallor</strong>; disc hemorrhage</td><td>Edema; microhemorrhages of optic disc</td></tr>
+    <tr><td><strong>Visual fields</strong></td><td>Peripheral loss → arcuate scotoma</td><td>Peripheral loss; central sparing</td></tr>
+    <tr><td><strong>Cup-to-disc ratio</strong></td><td colspan="2"><span class="pill pill-conj">&gt;0.6 = suspicious for glaucoma</span></td></tr>
+  </table>
+  <div class="callout tip">
+    <div class="callout-title">🔍 Pearl</div>
+    Glaucoma is undetected in <strong>9/10</strong> affected people; undiagnosed in <strong>50%</strong> in undeveloped countries
+  </div>
+
+  <div class="mcq-section">
+    <div class="mcq-section-title">🧠 Practice Questions — Glaucoma</div>
+    <div id="mcq-glau"></div>
+  </div>
+</div>
+
+<!-- CATARACT -->
+<div id="panel-cat" class="panel">
+  <div class="condition-title">
+    <span class="emoji">🔵</span>
+    <div>
+      <div style="margin-bottom:4px"><span class="pill pill-cat">Lens Opacity</span><span class="pill pill-glau">Surgically Correctable</span><span class="pill pill-purple">Age-Related</span></div>
+      <h2 style="color:var(--cat)">Cataract</h2>
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--accent)">Epidemiology</div>
+  <div class="callout epi">
+    <div class="callout-title">Key Stats</div>
+    <ul>
+      <li>Common cause of <strong>blindness worldwide</strong>: 12.7% (N. America) → 42% (SE Asia)</li>
+      <li>Typically age &gt;60; <strong>Women &gt; Men</strong> (1.3:1); White &gt; African American &gt; Hispanic</li>
+      <li>Risk factors: age · smoking · alcohol · sunlight · malnutrition · DM · HIV/AIDS · <strong>systemic corticosteroids</strong></li>
+    </ul>
+  </div>
+
+  <div class="section-head" style="color:var(--purple)">Pathophysiology</div>
+  <div class="callout path">
+    <div class="callout-title">Core Mechanism</div>
+    <p>Lens transparency = orderly cell arrangement + <strong>crystallin proteins</strong>. Unlike other epithelia, <strong>the lens cannot shed nonviable cells</strong> — they compress toward center and progressively lose transparency.</p>
+  </div>
+  <div class="grid-2" style="margin-top:10px">
+    <div class="mini-card" style="border-top:2px solid var(--cat)">
+      <div class="mc-title">Age-Related</div>
+      Degenerative cell changes + <strong>photo-oxidative insult</strong><br>
+      <span style="font-size:.81rem;color:var(--text-dim)">Env. stressors → ↑oxidative toxins, ↓antioxidants</span>
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--purple)">
+      <div class="mc-title">Non-Age-Related</div>
+      Trauma · Uveitis / Scleritis · Radiation · Metabolic disease · Topical corticosteroids · Anticholinesterases
+    </div>
+  </div>
+  <div class="callout path" style="margin-top:10px">
+    <div class="callout-title">Mechanisms by Cataract Type</div>
+    <table style="margin:0">
+      <tr><th>Type</th><th>Mechanism</th></tr>
+      <tr><td>Congenital</td><td>Disturbances in lens growth</td></tr>
+      <tr><td>Posterior subcapsular</td><td>Fibrous metaplasia of lens epithelium</td></tr>
+      <tr><td>Cortical</td><td>Cortical hydration between lens fibers</td></tr>
+      <tr><td>Nuclear</td><td>Pigment deposition (urochrome)</td></tr>
+    </table>
+  </div>
+
+  <div class="section-head" style="color:var(--orange)">Clinical Presentation</div>
+  <div class="callout clin">
+    <div class="callout-title">Symptoms</div>
+    <ul>
+      <li><strong>Painless</strong>, progressive, bilateral vision decline</li>
+      <li>Difficulty with <strong>night driving</strong> — glare from headlights · colored halos</li>
+      <li>Fading/yellowing of objects; difficulty reading signs</li>
+      <li><strong>Myopic shift</strong> — early sign before opacity causes vision loss (↑refractive power of cataractous lens)</li>
+    </ul>
+  </div>
+
+  <div class="section-head" style="color:var(--cat)">Classification</div>
+  <div class="grid-3">
+    <div class="mini-card" style="border-top:2px solid var(--amd)">
+      <div class="mc-title">By Maturity</div>
+      <span class="pill pill-glau">Immature</span> Red reflex present<br><br>
+      <span class="pill pill-orange">Mature</span> Red reflex <strong>absent</strong>; VA ≤ 20/400<br><br>
+      <span class="pill pill-conj">Hypermature</span> Cortex liquefied → <strong>2° glaucoma</strong>
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--cat)">
+      <div class="mc-title">Nuclear</div>
+      Dark brown/black lens · Iris shadow on PE · Dull colors and whites
+    </div>
+    <div class="mini-card" style="border-top:2px solid var(--cat)">
+      <div class="mc-title">Cortical &amp; PSC</div>
+      <strong>Cortical:</strong> wedge-shaped peripheral opacities; less vision-impacting<br><br>
+      <strong>PSC:</strong> posterior subcapsular → <strong>disabling glare</strong>
+    </div>
+  </div>
+
+  <div class="section-head" style="color:var(--cat)">Illness Script — Exam Findings</div>
+  <table>
+    <tr><th>Finding</th><th>Detail</th></tr>
+    <tr><td><strong>Red reflex</strong></td><td>Absent / opacified in mature or hypermature cataract</td></tr>
+    <tr><td><strong>Slit lamp</strong></td><td>Lens opacity (nuclear, cortical, or posterior subcapsular)</td></tr>
+    <tr><td><strong>Iris shadow</strong></td><td>Present in nuclear cataract</td></tr>
+    <tr><td><strong>Dilated fundus exam</strong></td><td>Rule out other pathology; view may be obscured</td></tr>
+    <tr><td><strong>VA</strong></td><td>Progressively declining; ≤20/400 in mature; glare worst in PSC type</td></tr>
+    <tr><td><strong>Surgery trigger</strong></td><td>When cataract interferes with ADLs; outcome generally <strong>restorative</strong></td></tr>
+  </table>
+  <div class="callout warn">
+    <div class="callout-title">⚠️ Key Complication</div>
+    Mature and hypermature cataracts can cause <strong>secondary glaucoma</strong>
+  </div>
+
+  <div class="mcq-section">
+    <div class="mcq-section-title">🧠 Practice Questions — Cataract</div>
+    <div id="mcq-cat"></div>
+  </div>
+</div>
+
+<script>
+/* THEME */
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.t-'+t).classList.add('active');
+  localStorage.setItem('ocular-theme',t);
+}
+(function(){const t=localStorage.getItem('ocular-theme');if(t)setTheme(t);})();
+
+/* TABS */
+function showTab(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  document.querySelector('.tab-btn.'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* MCQ */
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function renderMCQs(cid,qs){
+  const el=document.getElementById(cid);
+  el.innerHTML='';
+  qs.forEach((q,qi)=>{
+    const letters=['A','B','C','D'];
+    const correct=q.options.find(o=>o.correct);
+    const wrong=shuffle(q.options.filter(o=>!o.correct));
+    // Place correct at index 1 (mid-pack)
+    const ordered=[wrong[0],correct,wrong[1],wrong[2]];
+
+    const card=document.createElement('div');
+    card.className='mcq-card';
+    card.id='qc-'+cid+'-'+qi;
+
+    card.innerHTML=`
+      <div class="mcq-stem"><span class="q-num">Question ${qi+1}</span>${q.stem}</div>
+      <div class="mcq-options" id="opts-${cid}-${qi}">
+        ${ordered.map((o,i)=>`
+          <button class="mcq-option" onclick="handleAnswer('${cid}',${qi},${o.correct},this)" data-correct="${o.correct}">
+            <span class="opt-letter">${letters[i]}</span><span>${o.text}</span>
+          </button>`).join('')}
+      </div>
+      <div class="mcq-explanation" id="exp-${cid}-${qi}">
+        ${ordered.map((o,i)=>`
+          <div class="exp-row ${o.correct?'correct-exp':'wrong-exp'}">
+            <span class="exp-letter">${letters[i]}${o.correct?' ✓':' ✗'}</span>
+            <span class="exp-text">${o.exp}</span>
+          </div>`).join('')}
+      </div>
+      <button class="mcq-reset" onclick="resetQ('${cid}',${qi})">↺ Reset</button>`;
+    el.appendChild(card);
+  });
+}
+
+function handleAnswer(cid,qi,isCorrect,btn){
+  const opts=document.getElementById('opts-'+cid+'-'+qi);
+  const exp=document.getElementById('exp-'+cid+'-'+qi);
+  const card=document.getElementById('qc-'+cid+'-'+qi);
+  opts.querySelectorAll('.mcq-option').forEach(b=>{
+    b.disabled=true;
+    if(b.dataset.correct==='true') b.classList.add('correct');
+  });
+  if(!isCorrect) btn.classList.add('incorrect');
+  card.classList.add(isCorrect?'correct-answered':'wrong-answered');
+  exp.classList.add('show');
+}
+
+function resetQ(cid,qi){
+  const card=document.getElementById('qc-'+cid+'-'+qi);
+  const exp=document.getElementById('exp-'+cid+'-'+qi);
+  card.classList.remove('correct-answered','wrong-answered');
+  exp.classList.remove('show');
+  document.getElementById('opts-'+cid+'-'+qi).querySelectorAll('.mcq-option').forEach(b=>{
+    b.disabled=false; b.classList.remove('correct','incorrect');
+  });
+}
+
+/* QUESTION BANK */
+const CONJ_QS=[
+  {stem:`A 9-year-old boy presents with 2 days of bilateral eye redness and thick yellow-green discharge that crusts his eyelids shut each morning. Visual acuity is 20/30. Which finding BEST distinguishes his presentation from viral conjunctivitis?`,
+   options:[
+    {text:`Bilateral simultaneous involvement of both eyes`,correct:false,exp:`Incorrect. Both viral and bacterial conjunctivitis can be bilateral. Viral conjunctivitis often starts in one eye and spreads to the second, but bilaterality alone does not distinguish the two.`},
+    {text:`Mucopurulent discharge with thick yellow-green character`,correct:true,exp:`Correct! Bacterial conjunctivitis characteristically produces thick, mucopurulent (pus-containing) discharge from neutrophilic infiltration. Viral conjunctivitis produces watery or mucoserous discharge. The character of the discharge is the key distinguishing feature.`},
+    {text:`Morning crusting of the eyelids that resolves through the day`,correct:false,exp:`Incorrect. Morning crusting can occur in both bacterial and viral conjunctivitis. While crusting is more prominent in bacterial disease, it does not reliably distinguish the two without knowing the discharge character.`},
+    {text:`Mildly reduced visual acuity at 20/30 bilaterally`,correct:false,exp:`Incorrect. Near-normal or mildly reduced visual acuity is a general feature of all forms of conjunctivitis. It does not help differentiate bacterial from viral etiology.`},
+  ]},
+  {stem:`A 28-year-old contact lens wearer presents with 3 days of unilateral redness, watery discharge, and a burning, gritty sensation. Slit lamp shows follicular changes on the inferior tarsal conjunctiva with no corneal involvement. Which pathogen is MOST likely responsible?`,
+   options:[
+    {text:`Streptococcus pneumoniae causing mucopurulent bacterial conjunctivitis`,correct:false,exp:`Incorrect. S. pneumoniae causes bacterial conjunctivitis with mucopurulent — not watery — discharge and no follicular response. This patient's watery discharge and follicular pattern argue against a bacterial cause.`},
+    {text:`Adenovirus causing follicular viral conjunctivitis`,correct:true,exp:`Correct! Adenovirus is the most common cause of infectious conjunctivitis. It specifically produces follicular conjunctivitis — gray-white, round-to-oval elevations on the tarsal conjunctiva. Watery or mucoserous discharge with a burning, gritty sensation in a unilateral presentation is the classic adenoviral picture.`},
+    {text:`Neisseria gonorrhoeae causing hyperacute purulent conjunctivitis`,correct:false,exp:`Incorrect. GC conjunctivitis presents with copious, profuse purulent discharge and is a vision-threatening emergency (risk of corneal perforation). The watery discharge with follicles described here is not consistent with GC infection.`},
+    {text:`Chlamydia trachomatis causing chronic inclusion conjunctivitis`,correct:false,exp:`Incorrect. While C. trachomatis does cause follicular conjunctivitis, it typically runs a more chronic course with tarsal scarring (cicatrization) and pannus formation over time. An acute, unilateral, gritty presentation in a contact lens wearer points more strongly to adenovirus.`},
+  ]},
+  {stem:`A patient being treated for conjunctivitis develops severe photophobia, a frontal headache, and nausea over 24 hours. Visual acuity has mildly worsened. What is the MOST appropriate next step?`,
+   options:[
+    {text:`Escalate to a broad-spectrum topical antibiotic and reassess in 5 days`,correct:false,exp:`Incorrect. Antibiotic escalation is inappropriate here. Photophobia, headache, and nausea with worsening vision are red flag symptoms suggesting intraocular pathology (iritis, acute angle-closure glaucoma) — not treatment failure of surface infection.`},
+    {text:`Obtain conjunctival cultures and Gram stain to guide therapy`,correct:false,exp:`Incorrect. Cultures are only indicated when gonococcal infection is suspected. These systemic red flag symptoms cannot wait for culture results and indicate a need for urgent referral, not laboratory workup.`},
+    {text:`Refer immediately to ophthalmology for urgent evaluation`,correct:true,exp:`Correct! Per the illness script, photophobia + headache + nausea + severe foreign-body sensation are red flags requiring immediate ophthalmology consultation. These findings raise concern for iritis, acute angle-closure glaucoma, or corneal pathology — all serious diagnoses requiring specialist evaluation.`},
+    {text:`Reassure the patient that mild photophobia is expected in viral conjunctivitis`,correct:false,exp:`Incorrect. While mild photophobia can occur in viral conjunctivitis, the combination of severe photophobia, frontal headache, nausea, and worsening vision is a danger pattern. Dismissing these as expected conjunctivitis symptoms risks missing a sight-threatening emergency.`},
+  ]},
+];
+
+const AMD_QS=[
+  {stem:`A 74-year-old woman reports that the horizontal lines on her window blinds appear wavy and she has a gray smudge in the center of her right visual field. The eye is painless and white. Which diagnostic test is MOST directly indicated to evaluate her chief complaint?`,
+   options:[
+    {text:`Gonioscopy to assess the iridocorneal angle and trabecular drainage`,correct:false,exp:`Incorrect. Gonioscopy evaluates the drainage angle for glaucoma workup. This patient has central visual distortion and a scotoma — posterior segment findings pointing to macular disease, not glaucoma.`},
+    {text:`Amsler grid testing to detect and characterize metamorphopsia`,correct:true,exp:`Correct! The Amsler grid is the first-line bedside tool specifically designed to detect metamorphopsia (wavy/distorted lines) and scotomas — the cardinal symptoms of macular pathology such as AMD. It directly tests the functional consequence of macular disease.`},
+    {text:`Tonometry to measure bilateral intraocular pressure`,correct:false,exp:`Incorrect. Tonometry measures IOP for glaucoma screening. This patient has central visual distortion and a scotoma — IOP measurement does not evaluate macular pathology.`},
+    {text:`Slit lamp examination of the anterior chamber and lens`,correct:false,exp:`Incorrect. Slit lamp anterior segment examination evaluates the cornea, lens, and iris. AMD affects the posterior segment (macula); anterior segment exam will not reveal drusen, RPE atrophy, or subretinal hemorrhage.`},
+  ]},
+  {stem:`A 70-year-old man with known dry AMD develops sudden worsening of central vision in his right eye over 3 weeks. Fundoscopy reveals grayish-green retinal discoloration and subretinal hemorrhage. Which molecular mediator is the PRIMARY driver of this disease conversion?`,
+   options:[
+    {text:`Tumor necrosis factor-alpha (TNF-α) activating retinal microglia`,correct:false,exp:`Incorrect. TNF-α contributes to systemic inflammation and plays a supporting role in AMD pathogenesis, but it is not the primary driver of choroidal neovascularization. Anti-TNF therapy is not used in wet AMD.`},
+    {text:`Vascular endothelial growth factor A (VEGFA) driving choroidal neovascularization`,correct:true,exp:`Correct! VEGFA is the key driver of choroidal neovascularization (CNV) in wet AMD. New vessels grow between the RPE and Bruch's membrane, leaking serous fluid and blood — producing the grayish-green discoloration and subretinal hemorrhage seen here. Anti-VEGF injections are the cornerstone of wet AMD treatment.`},
+    {text:`Complement factor H (CFH) variants disrupting the complement cascade`,correct:false,exp:`Incorrect. CFH variants are among the strongest genetic risk factors for AMD and contribute to drusen formation and chronic inflammation — but they are background risk factors, not the acute molecular driver of neovascular conversion. VEGFA is.`},
+    {text:`Interleukin-6 (IL-6) promoting retinal pigment epithelial apoptosis`,correct:false,exp:`Incorrect. IL-6 contributes to inflammatory signaling in AMD but is not the primary mediator of choroidal neovascularization. The acute conversion from dry to wet AMD with subretinal hemorrhage is VEGFA-driven.`},
+  ]},
+  {stem:`Which fundoscopic finding is MOST characteristic of early dry AMD, distinguishing it from wet AMD and other retinal pathology?`,
+   options:[
+    {text:`Subretinal hemorrhage with adjacent fibrous disciform scarring at the macula`,correct:false,exp:`Incorrect. Subretinal hemorrhage and fibrous disciform scars are hallmarks of wet (neovascular) AMD, reflecting active choroidal neovascularization with leakage and fibrosis. These are late-stage wet AMD findings.`},
+    {text:`Grayish-green retinal discoloration with serous retinal pigment epithelium detachment`,correct:false,exp:`Incorrect. Grayish-green discoloration and serous RPE detachment reflect choroidal neovascularization leakage — hallmarks of wet AMD, not dry AMD.`},
+    {text:`Drusen deposits with retinal pigment epithelium atrophy at the macula`,correct:true,exp:`Correct! Drusen (yellowish-white deposits of lipids, vitronectin, and other proteins accumulating in and around Bruch's membrane) with accompanying RPE atrophy at the macula are the defining fundoscopic findings of dry AMD. They represent early-to-intermediate atrophic changes before progression to geographic atrophy or wet conversion.`},
+    {text:`Neovascular fronds growing between the RPE and Bruch's membrane`,correct:false,exp:`Incorrect. Choroidal neovascular fronds between the RPE and Bruch's membrane define wet AMD. Dry AMD is an atrophic, not exudative, process without new vessel formation.`},
+  ]},
+];
+
+const GLAU_QS=[
+  {stem:`A 60-year-old African American man with type 2 diabetes presents for a routine eye exam. He has no visual symptoms. Fundoscopy reveals a cup-to-disc ratio of 0.72 bilaterally. Tonometry shows IOP of 24 mmHg. Which finding would MOST strongly support a diagnosis of open-angle glaucoma?`,
+   options:[
+    {text:`Narrowed iridocorneal angle on gonioscopy bilaterally`,correct:false,exp:`Incorrect. A narrowed iridocorneal angle defines angle-closure glaucoma, not open-angle. In open-angle glaucoma, gonioscopy reveals a normal or open angle — the obstruction is at the level of the trabecular meshwork itself, not the angle geometry.`},
+    {text:`Mid-dilated, irregular, non-reactive pupil on penlight examination`,correct:false,exp:`Incorrect. A mid-dilated, irregular, non-reactive pupil is a hallmark of acute angle-closure glaucoma — reflecting iris ischemia from acutely elevated IOP. It is not a finding in open-angle glaucoma, which progresses insidiously.`},
+    {text:`Peripheral visual field defects with arcuate scotoma on perimetry`,correct:true,exp:`Correct! Progressive peripheral visual field loss — ultimately forming an arcuate (arch-shaped) scotoma originating from the blind spot — is the functional hallmark of open-angle glaucoma. Combined with a cup-to-disc ratio >0.6 and borderline-elevated IOP in a high-risk patient (African descent, DM, age >40), peripheral VF defects on perimetry confirm the diagnosis.`},
+    {text:`Corneal clouding with reduced visual acuity on slit lamp examination`,correct:false,exp:`Incorrect. Corneal clouding results from acutely elevated IOP causing endothelial decompensation in angle-closure glaucoma. Open-angle glaucoma does not cause acute IOP spikes sufficient to cloud the cornea; it progresses too gradually.`},
+  ]},
+  {stem:`A 47-year-old woman of Asian descent presents to the ED with sudden right eye pain, ipsilateral frontal headache, nausea, and blurred vision with halos. The right eye is red, the cornea is hazy, and the pupil is mid-dilated and unreactive. Tonometry: IOP 44 mmHg. Which mechanism BEST explains her elevated IOP?`,
+   options:[
+    {text:`Gradual clogging of the trabecular meshwork reducing aqueous outflow over years`,correct:false,exp:`Incorrect. Gradual trabecular clogging is the mechanism of open-angle glaucoma — insidious, bilateral, and asymptomatic early on. This patient has a dramatic acute unilateral presentation, which is inconsistent with the slowly progressive open-angle mechanism.`},
+    {text:`Mechanical blockage of the trabecular meshwork from narrowing of the iridocorneal angle`,correct:true,exp:`Correct! Acute primary angle-closure glaucoma occurs when the iris physically occludes the trabecular meshwork by closing the iridocorneal angle — dramatically blocking aqueous outflow. Asian descent predisposes to anatomically narrower angles. The resulting acute IOP spike explains her pain, corneal haze (endothelial decompensation), mid-dilated unreactive pupil (iris ischemia), halos (corneal edema scattering light), and systemic vagal response (nausea).`},
+    {text:`Choroidal neovascularization compressing the aqueous drainage pathway`,correct:false,exp:`Incorrect. Choroidal neovascularization is the mechanism of wet AMD and causes central painless vision loss with subretinal hemorrhage. Neovascular glaucoma (rubeosis iridis) is a distinct entity and would not present this acutely in a middle-aged woman with no history of retinal disease.`},
+    {text:`Ischemic optic neuropathy from hypoperfusion reducing intraocular compliance`,correct:false,exp:`Incorrect. Ischemic optic neuropathy causes sudden painless vision loss from optic nerve infarction. It does not cause elevated IOP, corneal clouding, or a mid-dilated fixed pupil. Optic nerve ischemia is a consequence of sustained elevated IOP in glaucoma, not its cause.`},
+  ]},
+  {stem:`In glaucomatous optic neuropathy, what is the PRIMARY site of retinal ganglion cell axon damage, and what is the ultimate cellular fate of the ganglion cells?`,
+   options:[
+    {text:`Damage at the lateral geniculate nucleus via retrograde degeneration and Wallerian demyelination`,correct:false,exp:`Incorrect. LGN cell loss does occur in glaucoma, but this is a downstream consequence of primary damage occurring earlier in the visual pathway. Wallerian degeneration refers to anterograde axonal breakdown distal to an injury — not the primary mechanism of ganglion cell loss in glaucoma.`},
+    {text:`Damage at the lamina cribrosa where axons enter the optic disc, leading to ganglion cell apoptosis`,correct:true,exp:`Correct! The lamina cribrosa — the connective tissue sieve where retinal ganglion cell axons exit the eye to form the optic nerve — is the primary site of compression in glaucoma. Elevated IOP compresses axons here, blocking retrograde transport of neurotrophic factors. This triggers apoptosis of the retinal ganglion cells in the retina, causing the irreversible progressive vision loss characteristic of glaucoma. The resulting rim loss and cup enlargement increase the cup-to-disc ratio.`},
+    {text:`Damage at the choroidal vasculature from neovascularization compressing the nerve fiber layer`,correct:false,exp:`Incorrect. Choroidal neovascularization compressing the nerve fiber layer is a mechanism of wet AMD, not glaucoma. Glaucoma involves compression of retinal ganglion cell axons at the optic disc level, not choroidal invasion.`},
+    {text:`Damage at the photoreceptor layer from drusen infiltrating the outer retina`,correct:false,exp:`Incorrect. Photoreceptor damage and drusen in the outer retina are features of AMD pathology. Glaucoma selectively targets retinal ganglion cells and their axons — the photoreceptor layer is spared until very late in the disease course.`},
+  ]},
+];
+
+const CAT_QS=[
+  {stem:`A 67-year-old woman reports painless, progressive bilateral vision decline over 2 years. She cannot drive at night due to severe glare from headlights and struggles to read road signs. On exam, the red reflex is absent bilaterally and visual acuity is 20/400 OU. What is the MOST accurate classification of her cataracts?`,
+   options:[
+    {text:`Immature cataracts — lens partially transparent with a present but diminished red reflex`,correct:false,exp:`Incorrect. An immature cataract still allows visualization of the retina and a present (though possibly reduced) red reflex. This patient has a completely absent red reflex and VA of 20/400, placing her beyond the immature stage.`},
+    {text:`Mature cataracts — complete lens opacity with absent red reflex and VA at or below 20/400`,correct:true,exp:`Correct! A mature cataract is defined by complete lens opacity — the red reflex is lost and visual acuity is 20/400 or worse. The painless progressive bilateral decline, night-driving difficulty, colored halos, and absent red reflex with severely reduced VA all confirm the mature classification.`},
+    {text:`Hypermature cataracts — liquefied lens cortex with risk of secondary phacolytic glaucoma`,correct:false,exp:`Incorrect. Hypermature cataracts have progressed beyond the mature stage with liquefaction of the lens cortex. While possible, the clinical description here is most consistent with mature cataracts; hypermature cataracts would typically also show signs of lens-induced uveitis or secondary glaucoma.`},
+    {text:`Posterior subcapsular cataracts — opacity near the posterior capsule causing maximal glare`,correct:false,exp:`Incorrect. Posterior subcapsular cataracts (PSC) cause disabling glare and are classified by location, not maturity. PSC typically does not cause complete loss of the red reflex or reduce VA to 20/400 alone. The absent red reflex and severely reduced VA here indicate a mature cataract by the maturity-based classification.`},
+  ]},
+  {stem:`A 63-year-old man with long-standing type 2 diabetes and chronic systemic corticosteroid use for rheumatoid arthritis notes that his optometrist documented increasing myopia over the past two years before any visible lens opacity was apparent. What mechanism BEST explains this early change?`,
+   options:[
+    {text:`Posterior lens subluxation from zonular fiber laxity shifting the focal point anteriorly`,correct:false,exp:`Incorrect. Posterior lens subluxation/dislocation is associated with zonulopathies (Marfan syndrome, trauma) and would cause irregular astigmatism and monocular diplopia — not a simple progressive myopic shift in a patient with diabetes and steroid exposure.`},
+    {text:`Increased refractive power of the developing cataractous lens producing a myopic shift`,correct:true,exp:`Correct! As the lens nucleus becomes denser in early nuclear cataract formation, its refractive index increases — bending light more strongly and effectively making the patient more nearsighted (myopic shift). This is often the earliest functional sign of nuclear cataract, preceding visible opacity. Some patients experience "second sight" — temporary ability to read without glasses — before vision deteriorates.`},
+    {text:`Corneal endothelial edema from elevated IOP reducing the precision of light refraction`,correct:false,exp:`Incorrect. Corneal edema from elevated IOP (as in acute angle-closure glaucoma) causes blurred vision and halos — not a selective myopic shift. There is no mention of elevated IOP, eye pain, or red eye in this patient.`},
+    {text:`Drusen accumulation beneath the retinal pigment epithelium elevating the macula anteriorly`,correct:false,exp:`Incorrect. Drusen elevating the macula is a mechanism of AMD, causing central painless vision loss, metamorphopsia, and scotoma — not a myopic refractive shift. AMD and cataracts are distinct conditions affecting different ocular structures.`},
+  ]},
+  {stem:`Slit lamp examination of a 59-year-old woman reveals opacities at the peripheral lens with a wedge-shaped pattern, while the central lens appears relatively clear. She reports mildly blurred vision but continues to work without difficulty. Which cataract subtype BEST matches this description?`,
+   options:[
+    {text:`Nuclear cataract — dense brown central lens with urochrome pigment and iris shadow on exam`,correct:false,exp:`Incorrect. Nuclear cataracts involve the central lens nucleus, appearing as a dark brown or black lens with iris shadow on PE, causing dull color perception and early myopic shift. This patient's peripheral wedge-shaped opacities with a clear central lens are not consistent with nuclear cataracts.`},
+    {text:`Posterior subcapsular cataract — posterior pole opacity causing maximal glare disability`,correct:false,exp:`Incorrect. Posterior subcapsular cataracts are located at the posterior pole of the lens and are the most symptomatic type for glare — especially with bright lights and near reading. They do not present as peripheral wedge-shaped opacities.`},
+    {text:`Cortical cataract — peripheral wedge-shaped opacities with relatively preserved central vision`,correct:true,exp:`Correct! Cortical cataracts arise from hydration between the cortical lens fibers and characteristically appear as wedge-shaped (spoke-like) peripheral opacities, often with clear areas between them (incipient cortical cataract). Central vision is relatively preserved early on, explaining why this patient remains functional. This matches the description exactly.`},
+    {text:`Hypermature cataract — liquefied cortex with absent red reflex and secondary glaucoma risk`,correct:false,exp:`Incorrect. A hypermature cataract has progressed to complete cortical liquefaction with an absent red reflex and risk of phacolytic glaucoma. This patient has mildly reduced vision, visible lens structure on slit lamp, and functioning vision — consistent with an incipient cortical cataract, far from the hypermature stage.`},
+  ]},
+];
+
+renderMCQs('mcq-conj',CONJ_QS);
+renderMCQs('mcq-amd', AMD_QS);
+renderMCQs('mcq-glau',GLAU_QS);
+renderMCQs('mcq-cat', CAT_QS);
+</script>
+</body>
+</html>
