@@ -688,8 +688,10 @@ body:not(.auth-locked) .secrets-fab{background:rgba(255,255,255,.92);color:var(-
 .secrets-card::-webkit-scrollbar-track{background:rgba(255,255,255,.06);border-radius:999px}
 .secrets-card::-webkit-scrollbar-thumb{background:linear-gradient(180deg, rgba(98,220,209,.92), rgba(62,196,178,.78));border-radius:999px;border:2px solid rgba(7,15,27,.92)}
 .secrets-card::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg, rgba(123,238,228,.96), rgba(74,214,194,.84))}
-.secrets-close{position:absolute;top:16px;right:16px;width:42px;height:42px;border:none;border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:24px;line-height:1;cursor:pointer;transition:transform .2s ease, background .2s ease}
-.secrets-close:hover{transform:scale(1.06);background:rgba(255,255,255,.14)}
+.secrets-close{position:sticky;top:12px;float:right;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 14px;border:none;border-radius:999px;background:rgba(7,15,27,.88);color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.02em;line-height:1;cursor:pointer;transition:transform .2s ease, background .2s ease, box-shadow .2s ease;border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 28px rgba(0,0,0,.28);z-index:3}
+.secrets-close:hover{transform:translateY(-1px);background:rgba(21,35,57,.96);box-shadow:0 16px 34px rgba(0,0,0,.34)}
+.secrets-close-x{font-size:18px;line-height:1;opacity:.92}
+.secrets-close-label{line-height:1}
 .secrets-kicker{position:relative;z-index:1;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:10px}
 .secrets-title{position:relative;z-index:1;font-family:'Crimson Pro',serif;font-size:38px;line-height:1;color:#fff;margin:0 0 10px}
 .secrets-body{position:relative;z-index:1;font-size:16px;line-height:1.7;color:rgba(255,255,255,.78);margin:0 0 22px}
@@ -931,7 +933,10 @@ body:not(.auth-locked) .secrets-fab{background:rgba(255,255,255,.92);color:var(-
 <div class="secrets-modal" id="secretsModal" aria-hidden="true">
   <div class="secrets-shell">
     <div class="secrets-card">
-      <button class="secrets-close" id="secretsClose" type="button" aria-label="Close secrets">×</button>
+      <button class="secrets-close" id="secretsClose" type="button" aria-label="Close secrets">
+        <span class="secrets-close-x">×</span>
+        <span class="secrets-close-label">Close</span>
+      </button>
       <div class="secrets-kicker">Hidden modes</div>
       <h3 class="secrets-title">Secrets</h3>
       <p class="secrets-body">Type the keyword anywhere on the page, or launch one directly from here.</p>
