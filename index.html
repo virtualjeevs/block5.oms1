@@ -680,7 +680,7 @@ body:not(.auth-locked) .secrets-fab{background:rgba(255,255,255,.92);color:var(-
 
 .secrets-modal{position:fixed;inset:0;z-index:11950;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,11,20,.72);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .28s ease}
 .secrets-modal.open{display:flex;opacity:1;pointer-events:auto}
-.secrets-shell{width:min(760px,92vw);transform:translateY(20px) scale(.98);transition:transform .3s ease}
+.secrets-shell{width:min(980px,94vw);transform:translateY(20px) scale(.98);transition:transform .3s ease}
 .secrets-modal.open .secrets-shell{transform:translateY(0) scale(1)}
 .secrets-card{position:relative;overflow:hidden;padding:28px;border-radius:28px;background:linear-gradient(180deg, rgba(11,22,38,.96), rgba(7,15,27,.96));border:1px solid rgba(255,255,255,.08);box-shadow:0 28px 80px rgba(0,0,0,.34)}
 .secrets-card::before{content:'';position:absolute;inset:-22% auto auto -8%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, rgba(212,168,67,.18), rgba(212,168,67,0) 72%);pointer-events:none}
@@ -689,15 +689,23 @@ body:not(.auth-locked) .secrets-fab{background:rgba(255,255,255,.92);color:var(-
 .secrets-kicker{position:relative;z-index:1;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:10px}
 .secrets-title{position:relative;z-index:1;font-family:'Crimson Pro',serif;font-size:38px;line-height:1;color:#fff;margin:0 0 10px}
 .secrets-body{position:relative;z-index:1;font-size:16px;line-height:1.7;color:rgba(255,255,255,.78);margin:0 0 22px}
-.secrets-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:12px}
-.secret-item{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:16px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04)}
+.secrets-sections{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:18px}
+.secret-group{padding:18px;border-radius:22px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+.secret-group-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.secret-group-title-wrap{min-width:0}
+.secret-group-kicker{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.48);margin-bottom:6px}
+.secret-group-title{font-family:'Crimson Pro',serif;font-size:26px;line-height:1;color:#fff;margin:0 0 4px}
+.secret-group-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.62)}
+.secret-group-badge{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:42px;padding:0 12px;border-radius:14px;background:rgba(255,255,255,.08);font-size:20px}
+.secret-group-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.secret-item{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:flex-start;padding:16px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);height:100%}
 .secret-item-icon{display:grid;place-items:center;width:46px;height:46px;border-radius:16px;background:rgba(255,255,255,.08);font-size:24px}
 .secret-item-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:4px}
 .secret-item-meta{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:6px}
 .secret-chip{display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;background:rgba(62,196,178,.14);border:1px solid rgba(62,196,178,.32);color:#bff5ed;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.04em}
 .secret-alias{font-size:11px;color:rgba(255,255,255,.56);font-family:'IBM Plex Mono',monospace}
 .secret-item-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.7)}
-.secret-launch{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border:none;border-radius:14px;background:linear-gradient(135deg, var(--teal-glow), var(--teal));color:var(--navy2);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;box-shadow:0 16px 34px rgba(62,196,178,.24)}
+.secret-launch{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 14px;margin-top:12px;border:none;border-radius:14px;background:linear-gradient(135deg, var(--teal-glow), var(--teal));color:var(--navy2);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;box-shadow:0 16px 34px rgba(62,196,178,.24)}
 .secret-launch:hover{transform:translateY(-1px)}
 .secrets-note{position:relative;z-index:1;margin-top:16px;font-size:13px;color:rgba(255,255,255,.56)}
 @media(max-width:640px){
@@ -707,6 +715,8 @@ body:not(.auth-locked) .secrets-fab{background:rgba(255,255,255,.92);color:var(-
   .easter-egg-title{font-size:32px}
   .secrets-card{padding:24px 20px 20px}
   .secrets-title{font-size:32px}
+  .secret-group-head{flex-direction:column}
+  .secret-group-grid{grid-template-columns:1fr}
   .secret-item{grid-template-columns:1fr;align-items:flex-start}
   .secret-launch{width:100%}
 }
@@ -921,7 +931,7 @@ body:not(.auth-locked) .secrets-fab{background:rgba(255,255,255,.92);color:var(-
       <div class="secrets-kicker">Hidden modes</div>
       <h3 class="secrets-title">Secrets</h3>
       <p class="secrets-body">Type the keyword anywhere on the page, or launch one directly from here.</p>
-      <div class="secrets-grid" id="secretsList"></div>
+      <div class="secrets-sections" id="secretsList"></div>
       <div class="secrets-note">The typed easter eggs still work exactly the same way. This just makes them easier to discover.</div>
     </div>
   </div>
@@ -3357,34 +3367,55 @@ function setupEasterEggs(){
   }
   document.addEventListener('keydown',handleEasterEggKeydown,true);
 }
+var SECRET_GROUPS=[
+  {key:'games',icon:'🎮',title:'Games',description:'Playable secrets and game-like modes.'},
+  {key:'media',icon:'🎧',title:'Media',description:'Embedded songs, previews, and themed popups.'},
+  {key:'misc',icon:'✨',title:'Wildcards',description:'Useful redirects and pure chaos.'}
+];
 var SECRET_SHORTCUTS=[
-  {key:'flappy',aliases:['flappybird','bird'],icon:'🐤',title:'Flappy Bird',description:'Opens the local Flappy Bird game.'},
-  {key:'minecraft',aliases:[],icon:'⛏️',title:'Minecraft Mode',description:'Launches the Minecraft study page in a popup.'},
-  {key:'quack',aliases:[],icon:'🦆',title:'Quack Mode',description:'Duck-themed modal with the embedded anthem.'},
-  {key:'pika',aliases:[],icon:'⚡',title:'Pika Mode',description:'Launches the CSS Pokemon Game Boy.'},
-  {key:'cat',aliases:['kitten'],icon:'🐱',title:'Nyan Mode',description:'Opens Nyan Cat in a separate window.'},
-  {key:'hvla',aliases:[],icon:'⚡',title:'HVLA Mode',description:'Shows the embedded HVLA Google Drive preview.'},
-  {key:'loglady',aliases:[],icon:'🪵',title:'Log Lady Mode',description:'Opens the Twin Peaks themed easter egg.'},
-  {key:'willard',aliases:[],icon:'🎓',title:'Willard Portal',description:'Redirects to the Willard anatomy resource site.'},
-  {key:'barrel',aliases:[],icon:'🌀',title:'Barrel Roll',description:'Spins the whole page for a quick surprise.'}
+  {group:'games',key:'flappy',aliases:['flappybird','bird'],icon:'🐤',title:'Flappy Bird',description:'Opens the local Flappy Bird game.'},
+  {group:'games',key:'dino',aliases:['dinosaur'],icon:'🦖',title:'Dino Runner 3D',description:'Launches the 3D dinosaur runner in a popup.'},
+  {group:'games',key:'minecraft',aliases:[],icon:'⛏️',title:'Minecraft Mode',description:'Launches the Minecraft study page in a popup.'},
+  {group:'games',key:'pika',aliases:[],icon:'⚡',title:'Pika Mode',description:'Launches the CSS Pokemon Game Boy.'},
+  {group:'games',key:'cat',aliases:['kitten'],icon:'🐱',title:'Nyan Mode',description:'Opens Nyan Cat in a separate window.'},
+  {group:'media',key:'quack',aliases:[],icon:'🦆',title:'Quack Mode',description:'Duck-themed modal with the embedded anthem.'},
+  {group:'media',key:'hvla',aliases:[],icon:'⚡',title:'HVLA Mode',description:'Shows the embedded HVLA Google Drive preview.'},
+  {group:'media',key:'loglady',aliases:[],icon:'🪵',title:'Log Lady Mode',description:'Opens the Twin Peaks themed easter egg.'},
+  {group:'misc',key:'willard',aliases:[],icon:'🎓',title:'Willard Portal',description:'Redirects to the Willard anatomy resource site.'},
+  {group:'misc',key:'barrel',aliases:[],icon:'🌀',title:'Barrel Roll',description:'Spins the whole page for a quick surprise.'}
 ];
 function renderSecretsList(){
   var list=document.getElementById('secretsList');
   if(!list)return;
   var html='';
-  SECRET_SHORTCUTS.forEach(function(item){
-    html+='<div class="secret-item">'+
-      '<div class="secret-item-icon">'+item.icon+'</div>'+
-      '<div>'+
-        '<div class="secret-item-title">'+item.title+'</div>'+
-        '<div class="secret-item-meta">'+
-          '<span class="secret-chip">'+item.key+'</span>'+
-          (item.aliases&&item.aliases.length?'<span class="secret-alias">also: '+item.aliases.join(', ')+'</span>':'')+
+  SECRET_GROUPS.forEach(function(group){
+    var items=SECRET_SHORTCUTS.filter(function(item){return item.group===group.key;});
+    if(!items.length)return;
+    html+='<section class="secret-group">'+
+      '<div class="secret-group-head">'+
+        '<div class="secret-group-title-wrap">'+
+          '<div class="secret-group-kicker">Category</div>'+
+          '<h4 class="secret-group-title">'+group.title+'</h4>'+
+          '<div class="secret-group-desc">'+group.description+'</div>'+
         '</div>'+
-        '<div class="secret-item-desc">'+item.description+'</div>'+
+        '<div class="secret-group-badge">'+group.icon+'</div>'+
       '</div>'+
-      '<button class="secret-launch" type="button" onclick="launchSecretCommand(\''+item.key+'\')">Launch</button>'+
-    '</div>';
+      '<div class="secret-group-grid">';
+    items.forEach(function(item){
+      html+='<div class="secret-item">'+
+        '<div class="secret-item-icon">'+item.icon+'</div>'+
+        '<div>'+
+          '<div class="secret-item-title">'+item.title+'</div>'+
+          '<div class="secret-item-meta">'+
+            '<span class="secret-chip">'+item.key+'</span>'+
+            (item.aliases&&item.aliases.length?'<span class="secret-alias">also: '+item.aliases.join(', ')+'</span>':'')+
+          '</div>'+
+          '<div class="secret-item-desc">'+item.description+'</div>'+
+          '<button class="secret-launch" type="button" onclick="launchSecretCommand(\''+item.key+'\')">Launch</button>'+
+        '</div>'+
+      '</div>';
+    });
+    html+='</div></section>';
   });
   list.innerHTML=html;
 }
@@ -3421,6 +3452,7 @@ function launchSecretCommand(keyword){
   closeSecretsModal();
   switch(String(keyword||'').toLowerCase()){
     case 'flappy': triggerFlappyEgg(); break;
+    case 'dino': triggerDinoEgg(); break;
     case 'minecraft': triggerMinecraftEgg(); break;
     case 'quack': triggerQuackEgg(); break;
     case 'pika': triggerPikaEgg(); break;
@@ -3511,6 +3543,16 @@ function handleEasterEggKeydown(ev){
   if(EASTER_EGG_BUFFER.endsWith('flappy')){
     EASTER_EGG_BUFFER='';
     triggerFlappyEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('dino')){
+    EASTER_EGG_BUFFER='';
+    triggerDinoEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('dinosaur')){
+    EASTER_EGG_BUFFER='';
+    triggerDinoEgg();
     return;
   }
   if(EASTER_EGG_BUFFER.endsWith('flappybird')){
@@ -3704,6 +3746,24 @@ function triggerFlappyEgg(){
     linkHref:flappyUrl,
     note:popup
       ? 'Type flappy again anytime you want to launch it.'
+      : 'Popups can be blocked in some browsers until you allow them for this site.'
+  });
+}
+
+function triggerDinoEgg(){
+  var dinoUrl='https://elgoog.im/dinosaur-game/3d/';
+  var popup=openEggPopup(dinoUrl,'dino_mode',1180,860);
+  launchEasterEgg({
+    icon:'🦖',
+    title:'DINO MODE',
+    toastLabel:'Secret unlocked • dino',
+    body:popup
+      ? 'The 3D dinosaur runner is open in its own window. Time to dodge some cacti.'
+      : 'Your browser blocked the popup, so use the button below to open the 3D dinosaur runner manually.',
+    linkLabel:'Open Dino Runner 3D',
+    linkHref:dinoUrl,
+    note:popup
+      ? 'Type dino or dinosaur again anytime you want to launch it.'
       : 'Popups can be blocked in some browsers until you allow them for this site.'
   });
 }
