@@ -605,6 +605,10 @@ body:not(.auth-locked) .app-admin-btn{display:none}
 .admin-note{font-size:13px;color:rgba(255,255,255,.54);margin-top:16px;line-height:1.6}
 
 .theme-dock{position:fixed;right:18px;bottom:18px;z-index:570;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.secrets-fab{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 14px;border-radius:14px;border:none;cursor:pointer;transition:var(--tr);box-shadow:0 8px 24px rgba(0,0,0,.14);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.02em}
+.secrets-fab:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.18)}
+.secrets-fab-icon{font-size:16px;line-height:1}
+.secrets-fab-label{line-height:1}
 .theme-fab{width:46px;height:46px;border-radius:14px;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;transition:var(--tr);box-shadow:0 8px 24px rgba(0,0,0,.14);flex-shrink:0}
 .theme-fab:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.18)}
 .theme-fab-bar{width:18px;height:2.5px;border-radius:2px;transition:var(--tr)}
@@ -627,11 +631,13 @@ body:not(.auth-locked) .theme-fab-bar{background:var(--navy)}
 .theme-option-meta{font-size:11px;color:var(--slate);line-height:1.2}
 .theme-panel-foot{margin-top:12px;font-size:11px;line-height:1.5;color:var(--mist)}
 body.auth-locked .theme-fab,body.auth-locked .theme-panel{background:rgba(12,24,40,.82);color:#fff;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(18px)}
+body.auth-locked .secrets-fab{background:rgba(12,24,40,.82);color:#fff;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(18px)}
 body.auth-locked .theme-panel-sub,body.auth-locked .theme-option-meta,body.auth-locked .theme-panel-foot{color:rgba(255,255,255,.62)}
 body.auth-locked .theme-option{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1);color:#fff}
 body.auth-locked .theme-option:hover{border-color:rgba(62,196,178,.68);background:rgba(255,255,255,.09)}
 body.auth-locked .theme-option.active{background:rgba(62,196,178,.16);border-color:rgba(62,196,178,.72);box-shadow:0 0 0 3px rgba(62,196,178,.12)}
 body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background:rgba(255,255,255,.92);color:var(--ink);border:1px solid rgba(18,32,60,.08);backdrop-filter:blur(16px)}
+body:not(.auth-locked) .secrets-fab{background:rgba(255,255,255,.92);color:var(--ink);border:1px solid rgba(18,32,60,.08);backdrop-filter:blur(16px)}
 @keyframes themePanelIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
 @media(max-width:768px){
   .top-admin-btn,.app-admin-btn{top:14px;right:14px}
@@ -671,11 +677,38 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
 .secret-toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
 .secret-toast-badge{display:grid;place-items:center;width:28px;height:28px;border-radius:999px;background:linear-gradient(135deg,var(--teal-glow),var(--teal));color:var(--navy2);font-size:16px;box-shadow:0 8px 22px rgba(62,196,178,.28)}
 .secret-toast-text{font-size:13px;text-transform:uppercase}
+
+.secrets-modal{position:fixed;inset:0;z-index:11950;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,11,20,.72);backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .28s ease}
+.secrets-modal.open{display:flex;opacity:1;pointer-events:auto}
+.secrets-shell{width:min(760px,92vw);transform:translateY(20px) scale(.98);transition:transform .3s ease}
+.secrets-modal.open .secrets-shell{transform:translateY(0) scale(1)}
+.secrets-card{position:relative;overflow:hidden;padding:28px;border-radius:28px;background:linear-gradient(180deg, rgba(11,22,38,.96), rgba(7,15,27,.96));border:1px solid rgba(255,255,255,.08);box-shadow:0 28px 80px rgba(0,0,0,.34)}
+.secrets-card::before{content:'';position:absolute;inset:-22% auto auto -8%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, rgba(212,168,67,.18), rgba(212,168,67,0) 72%);pointer-events:none}
+.secrets-close{position:absolute;top:16px;right:16px;width:42px;height:42px;border:none;border-radius:999px;background:rgba(255,255,255,.08);color:#fff;font-size:24px;line-height:1;cursor:pointer;transition:transform .2s ease, background .2s ease}
+.secrets-close:hover{transform:scale(1.06);background:rgba(255,255,255,.14)}
+.secrets-kicker{position:relative;z-index:1;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.62);margin-bottom:10px}
+.secrets-title{position:relative;z-index:1;font-family:'Crimson Pro',serif;font-size:38px;line-height:1;color:#fff;margin:0 0 10px}
+.secrets-body{position:relative;z-index:1;font-size:16px;line-height:1.7;color:rgba(255,255,255,.78);margin:0 0 22px}
+.secrets-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:12px}
+.secret-item{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:16px 18px;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04)}
+.secret-item-icon{display:grid;place-items:center;width:46px;height:46px;border-radius:16px;background:rgba(255,255,255,.08);font-size:24px}
+.secret-item-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:4px}
+.secret-item-meta{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:6px}
+.secret-chip{display:inline-flex;align-items:center;min-height:24px;padding:0 10px;border-radius:999px;background:rgba(62,196,178,.14);border:1px solid rgba(62,196,178,.32);color:#bff5ed;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.04em}
+.secret-alias{font-size:11px;color:rgba(255,255,255,.56);font-family:'IBM Plex Mono',monospace}
+.secret-item-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.7)}
+.secret-launch{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 16px;border:none;border-radius:14px;background:linear-gradient(135deg, var(--teal-glow), var(--teal));color:var(--navy2);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease;box-shadow:0 16px 34px rgba(62,196,178,.24)}
+.secret-launch:hover{transform:translateY(-1px)}
+.secrets-note{position:relative;z-index:1;margin-top:16px;font-size:13px;color:rgba(255,255,255,.56)}
 @media(max-width:640px){
   .easter-egg-card{padding:24px 20px 20px}
   .easter-egg-top{grid-template-columns:1fr;gap:14px}
   .easter-egg-icon{width:58px;height:58px;border-radius:18px;font-size:30px}
   .easter-egg-title{font-size:32px}
+  .secrets-card{padding:24px 20px 20px}
+  .secrets-title{font-size:32px}
+  .secret-item{grid-template-columns:1fr;align-items:flex-start}
+  .secret-launch{width:100%}
 }
 
 
@@ -815,6 +848,10 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
 </div>
 <div class="theme-dock" id="themeDock">
   <div class="theme-panel" id="themePanel" aria-hidden="true"></div>
+  <button class="secrets-fab" id="secretsFab" type="button" aria-haspopup="dialog" aria-controls="secretsModal" aria-expanded="false" onclick="openSecretsModal()">
+    <span class="secrets-fab-icon">✨</span>
+    <span class="secrets-fab-label">Secrets</span>
+  </button>
   <button class="theme-fab" id="themeFab" type="button" aria-expanded="false" aria-controls="themePanel" onclick="toggleThemePanel()">
     <span class="theme-fab-bar"></span>
     <span class="theme-fab-bar"></span>
@@ -875,6 +912,19 @@ body:not(.auth-locked) .theme-fab,body:not(.auth-locked) .theme-panel{background
 <div class="secret-toast" id="secretToast" aria-hidden="true">
   <span class="secret-toast-badge">✨</span>
   <span class="secret-toast-text">Secret unlocked</span>
+</div>
+
+<div class="secrets-modal" id="secretsModal" aria-hidden="true">
+  <div class="secrets-shell">
+    <div class="secrets-card">
+      <button class="secrets-close" id="secretsClose" type="button" aria-label="Close secrets">×</button>
+      <div class="secrets-kicker">Hidden modes</div>
+      <h3 class="secrets-title">Secrets</h3>
+      <p class="secrets-body">Type the keyword anywhere on the page, or launch one directly from here.</p>
+      <div class="secrets-grid" id="secretsList"></div>
+      <div class="secrets-note">The typed easter eggs still work exactly the same way. This just makes them easier to discover.</div>
+    </div>
+  </div>
 </div>
 
 <div class="easter-egg-modal" id="easterEggModal" aria-hidden="true">
