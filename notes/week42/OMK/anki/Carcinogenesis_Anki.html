@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carcinogenesis — Active Recall Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── DESIGN TOKENS ─────────────────────────────────── */
+:root {
+  --bg:#0b0f1a; --surface:#131929; --surface-2:#19223a; --surface-3:#1f2a42; --surface-4:#24314e;
+  --amber:#f6a533; --amber-soft:rgba(246,165,51,.13); --amber-mid:rgba(246,165,51,.25); --amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf; --teal-soft:rgba(45,212,191,.12); --teal-mid:rgba(45,212,191,.22); --teal-dim:rgba(45,212,191,.5);
+  --green:#34d399; --green-soft:rgba(52,211,153,.13); --green-mid:rgba(52,211,153,.22);
+  --red:#f87171; --red-soft:rgba(248,113,113,.12); --red-mid:rgba(248,113,113,.22);
+  --text:#dde5f0; --text-2:#7e90a9; --text-3:#3e5065;
+  --border:#1c2a40; --border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08); --hero-glow-b:rgba(246,165,51,.09);
+  --bg-top:#0b0f1a; --bg-bottom:#0d1321;
+  --map-shadow:0 20px 45px rgba(0,0,0,.22); --panel-shadow:0 22px 48px rgba(0,0,0,.24);
+  --header-shadow:0 22px 50px rgba(0,0,0,.24);
+  --header-a:#0e1526; --header-b:#111a2e;
+  --card-a:#131929; --card-b:#161e30;
+  --card-action-bg:#0f1623;
+  --nav-bg:#1c2a40; --nav-bg-hover:#243348; --nav-text:#dde5f0;
+  --showall-bg:rgba(45,212,191,.12); --showall-text:#2dd4bf;
+  --meta-bg:#19223a;
+  --table-head-a:#0f1a2c; --table-head-b:#152236;
+}
+html[data-theme="cream"] {
+  --bg:#f4efe4; --surface:#ede7da; --surface-2:#e5ddd0; --surface-3:#dbd2c5; --surface-4:#d0c8b8;
+  --amber:#c47a0a; --amber-soft:rgba(196,122,10,.12); --amber-mid:rgba(196,122,10,.22); --amber-dim:rgba(196,122,10,.5);
+  --teal:#0e7a6e; --teal-soft:rgba(14,122,110,.11); --teal-mid:rgba(14,122,110,.2); --teal-dim:rgba(14,122,110,.45);
+  --green:#1a7a52; --green-soft:rgba(26,122,82,.12); --green-mid:rgba(26,122,82,.22);
+  --red:#b03030; --red-soft:rgba(176,48,48,.1); --red-mid:rgba(176,48,48,.2);
+  --text:#1c1810; --text-2:#5a5040; --text-3:#9a8a70;
+  --border:#ccc4b4; --border-2:#b8b0a0;
+  --hero-glow-a:rgba(14,122,110,.08); --hero-glow-b:rgba(196,122,10,.09);
+  --bg-top:#f4efe4; --bg-bottom:#ede7da;
+  --header-a:#ede7da; --header-b:#e5ddd0;
+  --card-a:#ede7da; --card-b:#e5ddd0;
+  --card-action-bg:#dbd2c5;
+  --nav-bg:#dbd2c5; --nav-bg-hover:#d0c8b8; --nav-text:#1c1810;
+  --showall-bg:rgba(14,122,110,.1); --showall-text:#0e7a6e;
+  --meta-bg:#e5ddd0;
+  --table-head-a:#2a2218; --table-head-b:#382e22;
+}
+html[data-theme="forest"] {
+  --bg:#081512; --surface:#0e1f1a; --surface-2:#132820; --surface-3:#183128; --surface-4:#1e3a30;
+  --amber:#e8b84b; --amber-soft:rgba(232,184,75,.12); --amber-mid:rgba(232,184,75,.24); --amber-dim:rgba(232,184,75,.5);
+  --teal:#3dba7a; --teal-soft:rgba(61,186,122,.11); --teal-mid:rgba(61,186,122,.2); --teal-dim:rgba(61,186,122,.45);
+  --green:#4fd38a; --green-soft:rgba(79,211,138,.12); --green-mid:rgba(79,211,138,.22);
+  --red:#e05252; --red-soft:rgba(224,82,82,.1); --red-mid:rgba(224,82,82,.2);
+  --text:#c8ded2; --text-2:#6a8c78; --text-3:#2e4a38;
+  --border:#1a3028; --border-2:#223c30;
+  --hero-glow-a:rgba(61,186,122,.07); --hero-glow-b:rgba(232,184,75,.08);
+  --bg-top:#081512; --bg-bottom:#0b1a16;
+  --header-a:#0b1a16; --header-b:#0e1f1a;
+  --card-a:#0e1f1a; --card-b:#132820;
+  --card-action-bg:#0b1915;
+  --nav-bg:#1a3028; --nav-bg-hover:#223c30; --nav-text:#c8ded2;
+  --showall-bg:rgba(61,186,122,.1); --showall-text:#3dba7a;
+  --meta-bg:#132820;
+  --table-head-a:#0d1e18; --table-head-b:#122618;
+}
+
+/* ── BASE ────────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text);
+  min-height:100vh; line-height:1.6; font-size:15px;
+  background:radial-gradient(circle at top left,var(--hero-glow-a),transparent 26rem),
+             radial-gradient(circle at top right,var(--hero-glow-b),transparent 24rem),
+             linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bottom) 100%);
+}
+
+/* ── HEADER ─────────────────────────────────────────── */
+header{
+  background:linear-gradient(135deg,var(--header-a),var(--header-b));
+  border-bottom:1px solid var(--border); padding:28px 32px 22px;
+  box-shadow:var(--header-shadow); position:relative;
+}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2.5px;color:var(--teal);text-transform:uppercase;margin-bottom:6px}
+h1{font-family:'Crimson Pro',serif;font-size:2rem;font-weight:700;color:var(--text);margin-bottom:4px}
+#deckMeta{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-2);letter-spacing:.5px}
+.theme-switch{display:flex;gap:6px;flex-shrink:0;margin-top:4px}
+.theme-btn{
+  font-family:'DM Mono',monospace;font-size:11px;padding:5px 12px;border-radius:20px;
+  border:1px solid var(--border-2);background:transparent;color:var(--text-2);cursor:pointer;
+  transition:all .2s;letter-spacing:.5px
+}
+.theme-btn:hover{border-color:var(--amber);color:var(--amber)}
+.theme-btn.active{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+
+/* ── LEGEND ─────────────────────────────────────────── */
+.legend{display:flex;gap:20px;justify-content:center;padding:12px 0 0;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.5px}
+.lswatch{width:12px;height:12px;border-radius:3px}
+
+/* ── MAP CONTAINER ──────────────────────────────────── */
+.map-wrap{max-width:880px;margin:18px auto 0;padding:0 16px}
+.map-svg-box{
+  background:linear-gradient(135deg,var(--surface),var(--surface-2));
+  border:1px solid var(--border); border-radius:14px;
+  box-shadow:var(--map-shadow); overflow:hidden
+}
+.map-svg-box svg{display:block;width:100%}
+svg .conn{stroke:var(--border-2);stroke-width:1.5;stroke-dasharray:4 3;opacity:.7}
+svg .node{cursor:pointer;transition:filter .15s}
+svg .node:hover rect{filter:brightness(1.15)}
+svg .node rect{rx:10;ry:10;stroke-width:1.5;transition:stroke .2s}
+svg .node text{font-family:'DM Mono',monospace;pointer-events:none}
+svg .node.c-amber rect{fill:var(--amber-soft);stroke:var(--amber-dim)}
+svg .node.c-amber .nlabel{fill:var(--amber);font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+svg .node.c-amber .nsub{fill:var(--text-2);font-size:9px}
+svg .node.c-teal rect{fill:var(--teal-soft);stroke:var(--teal-dim)}
+svg .node.c-teal .nlabel{fill:var(--teal);font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+svg .node.c-teal .nsub{fill:var(--text-2);font-size:9px}
+svg .node.c-gray rect{fill:var(--surface-3);stroke:var(--border-2)}
+svg .node.c-gray .nlabel{fill:var(--text);font-size:10px;font-weight:500;letter-spacing:.5px}
+svg .node.c-gray .nsub{fill:var(--text-2);font-size:8px}
+svg .node.done-node{opacity:.42}
+svg .hint-lbl{font-family:'DM Mono',monospace;font-size:8.5px;fill:var(--text-3);text-anchor:middle}
+svg .pdots{transition:opacity .3s}
+svg .pdot{transition:fill .3s}
+
+/* ── CARD PANEL ─────────────────────────────────────── */
+.card-panel{
+  display:none; max-width:880px; margin:18px auto 0; padding:0 16px;
+  animation:slideIn .22s ease
+}
+@keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card-panel.open{display:block}
+.panel-box{
+  background:linear-gradient(135deg,var(--card-a),var(--card-b));
+  border:1px solid var(--border); border-radius:14px;
+  box-shadow:var(--panel-shadow); overflow:hidden
+}
+.panel-header{
+  background:linear-gradient(135deg,var(--header-a),var(--header-b));
+  padding:16px 20px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap
+}
+.ph-left{display:flex;align-items:center;gap:10px}
+.node-badge{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;font-weight:600;
+  padding:3px 10px;border-radius:12px;text-transform:uppercase
+}
+.badge-amber{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber-mid)}
+.badge-teal{background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid)}
+.node-title{font-family:'Crimson Pro',serif;font-size:1.1rem;color:var(--text)}
+.panel-close{
+  background:transparent;border:1px solid var(--border-2);color:var(--text-2);
+  padding:5px 12px;border-radius:8px;cursor:pointer;font-size:13px;
+  transition:all .2s;font-family:'DM Mono',monospace
+}
+.panel-close:hover{border-color:var(--red);color:var(--red)}
+
+/* card nav */
+.card-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:8px;border-bottom:1px solid var(--border)}
+.nav-btn{
+  background:var(--nav-bg);color:var(--nav-text);border:none;padding:7px 16px;border-radius:8px;
+  cursor:pointer;font-family:'DM Mono',monospace;font-size:12px;transition:background .15s;
+}
+.nav-btn:hover{background:var(--nav-bg-hover)}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.card-counter{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);display:flex;align-items:center;gap:8px}
+.progress-dots{display:flex;gap:4px;flex-wrap:wrap;max-width:200px;justify-content:center}
+.pdot-ui{width:7px;height:7px;border-radius:50%;background:var(--surface-3);transition:background .25s}
+.pdot-ui.partial{background:var(--amber)}
+.pdot-ui.done{background:var(--green)}
+
+/* card body */
+.card-body{padding:22px 24px;min-height:120px}
+.card-title{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-2);letter-spacing:.5px;margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:8px}
+.card-text{font-size:15px;color:var(--text);line-height:1.75}
+.card-hint{
+  font-size:12.5px;color:var(--teal);background:var(--teal-soft);
+  border-left:3px solid var(--teal-mid);border-radius:0 6px 6px 0;
+  padding:8px 12px;margin-top:16px;font-style:italic
+}
+
+/* occlusion */
+.occ{
+  display:inline-block; min-width:3ch; background:var(--text); color:transparent;
+  border:1px solid transparent; border-radius:3px; cursor:pointer;
+  padding:1px 6px; white-space:nowrap; user-select:none;
+  vertical-align:baseline; transition:background .15s,color .15s,border-color .15s
+}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
+.occ.rev     {background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed  {background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.20)}
+.score-row{display:inline-flex;align-items:center;gap:4px;margin:0 3px;vertical-align:baseline}
+.score-btn{
+  font-family:'DM Mono',monospace;font-size:10px;padding:2px 7px;border-radius:4px;
+  border:none;cursor:pointer;transition:opacity .15s
+}
+.score-btn.knew{background:var(--green-mid);color:var(--green)}
+.score-btn.need{background:var(--amber-mid);color:var(--amber)}
+.score-btn:hover{opacity:.8}
+.jump-link{
+  font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:4px;
+  cursor:pointer;margin-left:3px;text-decoration:none;transition:opacity .15s;
+  border:1px solid; display:inline-block; vertical-align:baseline
+}
+.jl-amber{color:var(--amber);border-color:var(--amber-mid);background:var(--amber-soft)}
+.jl-teal {color:var(--teal) ;border-color:var(--teal-mid) ;background:var(--teal-soft)}
+.jump-link:hover{opacity:.75}
+
+/* table quiz */
+.tblq-note{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:var(--surface-3);border-radius:6px;padding:8px 12px;margin-bottom:10px;flex-wrap:wrap}
+.tblq-copy{font-size:12px;color:var(--text-2)}
+.tblq-actions{display:flex;gap:6px}
+.tblq-btn{
+  font-family:'DM Mono',monospace;font-size:10px;padding:4px 10px;border-radius:6px;
+  border:1px solid var(--border-2);background:transparent;color:var(--text-2);cursor:pointer
+}
+.tblq-btn:hover{border-color:var(--teal);color:var(--teal)}
+.tblq-pill{font-family:'DM Mono',monospace;font-size:9px;padding:3px 8px;border-radius:10px;background:var(--teal-soft);color:var(--teal);letter-spacing:.5px}
+.tblq-wrap{overflow-x:auto}
+table.tblq{width:100%;border-collapse:collapse;font-size:13px}
+table.tblq th{
+  background:linear-gradient(135deg,var(--table-head-a),var(--table-head-b));
+  color:var(--amber);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;
+  padding:9px 12px;text-align:left;text-transform:uppercase
+}
+table.tblq th[scope="row"]{color:var(--text);font-size:12px;text-transform:none;letter-spacing:0;font-weight:600;background:var(--surface-3)}
+table.tblq td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+table.tblq tr:last-child td{border-bottom:none}
+table.tblq td .occ{display:block;text-align:center;white-space:normal;padding:8px 10px;min-width:120px}
+table.tblq .score-row{display:flex;justify-content:center;margin:4px 0 0}
+
+/* card actions */
+.card-actions{
+  background:var(--card-action-bg);border-top:1px solid var(--border);
+  padding:10px 18px;display:flex;align-items:center;justify-content:space-between;
+  gap:8px;flex-wrap:wrap
+}
+.ca-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ca-pill{
+  font-family:'DM Mono',monospace;font-size:10px;padding:3px 8px;border-radius:8px;
+  background:var(--meta-bg);color:var(--text-2)
+}
+.ca-pill.green{color:var(--green)}
+.ca-pill.amber{color:var(--amber)}
+.ca-pill.red  {color:var(--red)}
+.ca-btns{display:flex;gap:6px;flex-wrap:wrap}
+.ca-btn{
+  font-family:'DM Mono',monospace;font-size:11px;padding:5px 12px;border-radius:8px;
+  border:none;cursor:pointer;transition:opacity .15s
+}
+.ca-btn:disabled{opacity:.3;cursor:default}
+.ca-btn.reveal{background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid)}
+.ca-btn.knew-all{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber-mid)}
+.ca-btn.reset-card{background:transparent;color:var(--text-2);border:1px solid var(--border-2)}
+.ca-btn:not(:disabled):hover{opacity:.75}
+
+/* ── STATS BAR ──────────────────────────────────────── */
+.stats-bar{
+  max-width:880px;margin:14px auto;padding:0 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap
+}
+.stat-pills{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.stat-pill{font-family:'DM Mono',monospace;font-size:11px;padding:4px 10px;border-radius:10px;background:var(--surface);color:var(--text-2);border:1px solid var(--border)}
+.stat-pill.green{color:var(--green);border-color:var(--green-mid)}
+.stat-pill.amber{color:var(--amber);border-color:var(--amber-mid)}
+.stat-pill.red  {color:var(--red)  ;border-color:var(--red-mid)}
+.stats-actions{display:flex;gap:6px;flex-wrap:wrap}
+.sa-btn{
+  font-family:'DM Mono',monospace;font-size:11px;padding:5px 12px;border-radius:8px;
+  cursor:pointer;transition:opacity .15s;border:1px solid
+}
+.sa-btn.showall{background:var(--showall-bg);color:var(--showall-text);border-color:var(--teal-mid)}
+.sa-btn.review-btn{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid);display:none}
+.sa-btn.reset-all{background:transparent;color:var(--text-2);border-color:var(--border-2)}
+.sa-btn:hover{opacity:.75}
+
+/* ── REVIEW PANEL ───────────────────────────────────── */
+.review-panel{
+  display:none;max-width:880px;margin:14px auto 0;padding:0 16px
+}
+.review-panel.open{display:block;animation:slideIn .2s ease}
+.rev-box{background:linear-gradient(135deg,var(--card-a),var(--card-b));border:1px solid var(--amber-mid);border-radius:14px;overflow:hidden;box-shadow:var(--panel-shadow)}
+.rev-header{background:linear-gradient(135deg,var(--header-a),var(--header-b));padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.rev-title{font-family:'Crimson Pro',serif;font-size:1.1rem;color:var(--amber)}
+.rev-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-2);margin-top:3px}
+.rsub{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);padding:8px 20px 0;letter-spacing:.4px}
+.rsub span{color:var(--amber)}
+.rev-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 20px;border-bottom:1px solid var(--border);gap:8px}
+.rev-counter{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2)}
+.rev-body{padding:20px 24px;min-height:100px}
+.dim-term{color:var(--text-3)}
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:720px){
+  .card-actions,.ca-btns,.ca-meta,.stats-actions,.stat-pills{flex-direction:column;align-items:flex-start}
+  h1{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Dr. Filippakis · UNE College of Osteopathic Medicine</div>
+      <h1>Molecular Mechanisms of Carcinogenesis</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Lecture Objectives (LO)</div>
+</div>
+
+<!-- MAP -->
+<div class="map-wrap">
+  <div class="map-svg-box">
+    <svg viewBox="0 0 820 330" xmlns="http://www.w3.org/2000/svg">
+      <!-- connectors: top PLOs to center -->
+      <line class="conn" x1="124" y1="84" x2="410" y2="128"/>
+      <line class="conn" x1="410" y1="84" x2="410" y2="128"/>
+      <line class="conn" x1="696" y1="84" x2="410" y2="128"/>
+      <!-- connectors: center to bottom LOs -->
+      <line class="conn" x1="75"  y1="256" x2="410" y2="178"/>
+      <line class="conn" x1="225" y1="256" x2="410" y2="178"/>
+      <line class="conn" x1="375" y1="256" x2="410" y2="178"/>
+      <line class="conn" x1="525" y1="256" x2="410" y2="178"/>
+      <line class="conn" x1="675" y1="256" x2="410" y2="178"/>
+
+      <!-- PLO nodes (amber, top) -->
+      <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+        <rect x="50" y="16" width="148" height="68"/>
+        <text class="nlabel" x="124" y="38" text-anchor="middle">PLO 1</text>
+        <text class="nsub"   x="124" y="54" text-anchor="middle">p53 &amp; DNA</text>
+        <text class="nsub"   x="124" y="66" text-anchor="middle">Damage Response</text>
+        <g class="pdots" id="pd-plo1" transform="translate(94,78)"></g>
+      </g>
+      <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+        <rect x="336" y="16" width="148" height="68"/>
+        <text class="nlabel" x="410" y="38" text-anchor="middle">PLO 2</text>
+        <text class="nsub"   x="410" y="54" text-anchor="middle">Gene Classes</text>
+        <text class="nsub"   x="410" y="66" text-anchor="middle">Onco / TSG / Repair</text>
+        <g class="pdots" id="pd-plo2" transform="translate(380,78)"></g>
+      </g>
+      <g id="n-plo3" class="node c-amber" onclick="selNode('plo3')">
+        <rect x="622" y="16" width="148" height="68"/>
+        <text class="nlabel" x="696" y="38" text-anchor="middle">PLO 3</text>
+        <text class="nsub"   x="696" y="54" text-anchor="middle">Inherited vs.</text>
+        <text class="nsub"   x="696" y="66" text-anchor="middle">Sporadic Cancer</text>
+        <g class="pdots" id="pd-plo3" transform="translate(666,78)"></g>
+      </g>
+
+      <!-- Center node (gray) -->
+      <g class="node c-gray" style="cursor:default">
+        <rect x="200" y="128" width="420" height="50"/>
+        <text class="nlabel" x="410" y="148" text-anchor="middle">Molecular Mechanisms of Carcinogenesis</text>
+        <text class="nsub"   x="410" y="162" text-anchor="middle">3 PLOs · 5 LOs · Dr. Filippakis</text>
+      </g>
+
+      <!-- LO nodes (teal, bottom) -->
+      <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+        <rect x="10" y="192" width="130" height="64"/>
+        <text class="nlabel" x="75" y="213" text-anchor="middle">LO 1</text>
+        <text class="nsub"   x="75" y="228" text-anchor="middle">Multistep</text>
+        <text class="nsub"   x="75" y="240" text-anchor="middle">Model</text>
+        <g class="pdots" id="pd-lo1" transform="translate(55,252)"></g>
+      </g>
+      <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+        <rect x="160" y="192" width="130" height="64"/>
+        <text class="nlabel" x="225" y="213" text-anchor="middle">LO 3</text>
+        <text class="nsub"   x="225" y="228" text-anchor="middle">Two-Hit</text>
+        <text class="nsub"   x="225" y="240" text-anchor="middle">Hypothesis</text>
+        <g class="pdots" id="pd-lo3" transform="translate(205,252)"></g>
+      </g>
+      <g id="n-lo4" class="node c-teal" onclick="selNode('lo4')">
+        <rect x="310" y="192" width="130" height="64"/>
+        <text class="nlabel" x="375" y="213" text-anchor="middle">LO 4</text>
+        <text class="nsub"   x="375" y="228" text-anchor="middle">Hallmarks</text>
+        <text class="nsub"   x="375" y="240" text-anchor="middle">of Cancer</text>
+        <g class="pdots" id="pd-lo4" transform="translate(355,252)"></g>
+      </g>
+      <g id="n-lo5" class="node c-teal" onclick="selNode('lo5')">
+        <rect x="460" y="192" width="130" height="64"/>
+        <text class="nlabel" x="525" y="213" text-anchor="middle">LO 5</text>
+        <text class="nsub"   x="525" y="228" text-anchor="middle">Cytogenetic</text>
+        <text class="nsub"   x="525" y="240" text-anchor="middle">Technologies</text>
+        <g class="pdots" id="pd-lo5" transform="translate(505,252)"></g>
+      </g>
+      <g id="n-lo6" class="node c-teal" onclick="selNode('lo6')">
+        <rect x="610" y="192" width="130" height="64"/>
+        <text class="nlabel" x="675" y="213" text-anchor="middle">LO 6</text>
+        <text class="nsub"   x="675" y="228" text-anchor="middle">Personalized</text>
+        <text class="nsub"   x="675" y="240" text-anchor="middle">Medicine</text>
+        <g class="pdots" id="pd-lo6" transform="translate(655,252)"></g>
+      </g>
+
+      <text class="hint-lbl" x="410" y="320">← → navigate · click node to open · Esc to close</text>
+    </svg>
+  </div>
+</div>
+
+<!-- CARD PANEL -->
+<div class="card-panel" id="cardPanel">
+  <div class="panel-box">
+    <div class="panel-header">
+      <div class="ph-left">
+        <span class="node-badge" id="panelBadge"></span>
+        <span class="node-title" id="panelTitle"></span>
+      </div>
+      <button class="panel-close" onclick="closePanel()">✕ Close</button>
+    </div>
+    <div class="card-nav">
+      <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">← Prev</button>
+      <div class="card-counter">
+        <span id="cardCounterLabel"></span>
+        <div class="progress-dots" id="progressDots"></div>
+      </div>
+      <button class="nav-btn" id="nextBtn" onclick="navigate(1)">Next →</button>
+    </div>
+    <div class="card-body">
+      <div class="card-title" id="cardTitle"></div>
+      <div class="card-text" id="cardBody"></div>
+      <div class="card-hint" id="cardHint" style="display:none"></div>
+    </div>
+    <div class="card-actions" id="cardActions"></div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar" id="statsBar">
+  <div class="stat-pills" id="statPills"></div>
+  <div class="stats-actions">
+    <button class="sa-btn showall" onclick="revealCurrentNode()">Reveal topic</button>
+    <button class="sa-btn showall" onclick="revealDeck()">Reveal deck</button>
+    <button class="sa-btn review-btn" id="reviewBtn" onclick="startReview()"></button>
+    <button class="sa-btn reset-all" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+
+<!-- REVIEW PANEL -->
+<div class="review-panel" id="reviewPanel">
+  <div class="rev-box">
+    <div class="rev-header">
+      <div>
+        <div class="rev-title">🔁 Spaced Repetition Review</div>
+        <div class="rev-sub">Only the target term is hidden. Others are dimmed for context.</div>
+      </div>
+      <button class="panel-close" onclick="closeReview()">✕ Close</button>
+    </div>
+    <div class="rsub" id="rSub"></div>
+    <div class="rev-nav">
+      <button class="nav-btn" id="revPrevBtn" onclick="revNavigate(-1)">← Prev</button>
+      <span class="rev-counter" id="revCounter"></span>
+      <button class="nav-btn" id="revNextBtn" onclick="revNavigate(1)">Next →</button>
+    </div>
+    <div class="rev-body" id="revBody"></div>
+  </div>
+</div>
+
+<div style="height:40px"></div>
+
+<script>
+/* ───────────────────────────────────────────────────
+   DATA
+─────────────────────────────────────────────────── */
+const D = {
+  plo1: {
+    label:'PLO 1', sub:'p53 — Guardian of the Genome', type:'PLO',
+    cards:[
+      {
+        t:'p53 Activation Pathway',
+        b:'p53 is encoded by {TP53} and regulates hundreds of downstream genes. It is activated by DNA strand breaks, UV damage, hypoxia, and oncogene activation. Stress signals trigger {ATM/ATR} kinases, which phosphorylate p53 and prevent its degradation by {MDM2} — allowing p53 protein to accumulate in the nucleus.',
+        h:'Mutated in >50% of all human tumors — the most important tumor suppressor in cancer'
+      },
+      {
+        t:'p53 — Cell Cycle Arrest',
+        b:'Once activated, p53 induces {p21 (CDKN1A)}, a universal CDK inhibitor. p21 inhibits {CDK–Cyclin complexes}, blocking both the {G1/S} and {G2/M} transitions. This arrests the cell cycle and creates a window for DNA repair before replication resumes.',
+        h:'p21 is sometimes called a "universal braking signal" — it inhibits nearly all CDK–Cyclin pairs'
+      },
+      {
+        t:'p53 — Repair vs. Apoptosis Decision',
+        b:'If DNA is repairable, p53 upregulates {GADD45} and other repair genes — the cell cycle restart. If damage is {irreparable}, p53 activates pro-apoptotic genes {BAX}, PUMA, and NOXA → {intrinsic apoptotic pathway} → mitochondrial outer membrane permeabilization → cytochrome c → caspase cascade → cell death.',
+        h:'Without p53, cells skip arrest, bypass repair, and evade apoptosis — accelerating accumulation of all other cancer-driving mutations'
+      },
+      {
+        t:'Li-Fraumeni Syndrome',
+        b:'Germline inheritance of one mutant {TP53} allele causes {Li-Fraumeni syndrome}. Every cell starts with one defective copy — only one somatic hit needed. This confers a {25×} increased cancer risk by age 50. Tumors include sarcomas, brain tumors, breast cancer, and leukemia. This is classified as a {dominantly inherited} cancer predisposition.',
+        h:'Elephant fun fact: elephants have ≥20 copies (40 alleles) of TP53, making them extraordinarily cancer-resistant'
+      }
+    ]
+  },
+
+  plo2: {
+    label:'PLO 2', sub:'Gene Classes in Cancer', type:'PLO',
+    cards:[
+      {
+        t:'Proto-Oncogenes → Oncogenes',
+        b:'A {proto-oncogene} is a normal gene involved in regulating cell growth (e.g., RAS, EGFR). Via {gain-of-function} mutation or overexpression, it becomes an {oncogene} — continuously sending "grow!" signals without external stimulus. Only {1} mutant allele is needed (dominant). They are {rarely} inherited because doing so would drive unrestricted embryonic proliferation.',
+        h:'Functions include: growth factors, receptors, signal transducers, transcription factors, positive cell-cycle regulators'
+      },
+      {
+        t:'Tumor Suppressor Genes (TSGs)',
+        b:'{Tumor suppressor genes (TSGs)} apply the brakes on cell proliferation — a network of checkpoints including cell cycle inhibitors, DNA repair genes, apoptosis inducers, and transcription factors. Mutation type: {loss-of-function} (generally recessive). {Both} alleles must be inactivated (two hits required). They are {commonly} inherited. Examples: RB1, p53, APC, BRCA1/2.',
+        h:'Analogy: oncogene = stuck gas pedal; TSG = cut brake line'
+      },
+      {
+        t:'DNA Repair Genes — Caretakers',
+        b:'DNA repair genes are a subset of TSGs called {caretakers}. They maintain genomic integrity. When mutated, damaged DNA is no longer fixed → mutations accumulate faster → {mutator phenotype} → accelerated multi-step carcinogenesis. Examples: {BRCA1/2} (breast/ovarian cancer), MLH1/MSH2 ({Lynch syndrome}, mismatch repair).',
+        h:'Compare to "gatekeepers" (RB1, p53, APC) which directly regulate the cell cycle'
+      },
+      {
+        t:'Oncogene vs. TSG — Comparison Table',
+        b:`<div class="tblq-note"><div class="tblq-copy">Table quiz: Feature column stays visible; each cell can be revealed individually.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode</span></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Feature</th><th>Oncogene</th><th>Tumor Suppressor Gene</th></tr></thead><tbody><tr><th scope="row">Normal name</th><td>{proto-oncogene}</td><td>{tumor suppressor gene}</td></tr><tr><th scope="row">Mutation type</th><td>{gain-of-function}</td><td>{loss-of-function}</td></tr><tr><th scope="row">Alleles needed</th><td>{1 (dominant)}</td><td>{2 (recessive)}</td></tr><tr><th scope="row">Effect on growth</th><td>{↑ Accelerates}</td><td>{↓ Removes brake}</td></tr><tr><th scope="row">Inherited?</th><td>{Rarely}</td><td>{Commonly}</td></tr><tr><th scope="row">Examples</th><td>{RAS, EGFR, BCL-2}</td><td>{RB1, TP53, APC, BRCA1}</td></tr></tbody></table></div>`,
+        h:'The gas-pedal vs. brake-line analogy: you need both failure modes for uncontrolled speed (malignancy)'
+      }
+    ]
+  },
+
+  plo3: {
+    label:'PLO 3', sub:'Inherited, Familial & Sporadic Cancers', type:'PLO',
+    cards:[
+      {
+        t:'Three Categories of Cancer Risk',
+        b:'{Hereditary} (inherited) cancer: germline TSG mutation passed parent → child; every cell already has the first hit → earlier onset, higher risk, may be bilateral. {Familial} cancer: clusters in families more than expected, due to TSG mutations OR shared environment/lifestyle. {Sporadic} cancer: no family history; both hits acquired somatically over a lifetime — accounts for {90–95%} of all cancers.',
+        h:'Only 5–10% of all cancers stem from truly inherited germline mutations'
+      },
+      {
+        t:'Why TSGs — Not Oncogenes — Are Inherited',
+        b:'Inheriting an {oncogene} would drive unrestricted embryonic proliferation → incompatible with normal development → {lethal}. Inheriting one mutant {TSG} allele has no effect during development (the other allele compensates) — so the mutation is transmitted. This is why nearly all hereditary cancer syndromes involve {TSG} mutations, not oncogenes.',
+        h:'Classic example: RB1 germline mutation → retinoblastoma; BRCA1/2 germline mutation → hereditary breast/ovarian cancer'
+      },
+      {
+        t:'Gatekeepers vs. Caretakers',
+        b:'{Gatekeepers} directly regulate the cell cycle — loss removes checkpoint control. Examples: RB1 (retinoblastoma), TP53, APC (colon cancer), TSC2. {Caretakers} maintain genomic integrity — loss causes {mutator phenotype} → faster accumulation of all mutations. Examples: {BRCA1/2}, MLH1/MSH2 (Lynch syndrome), XPC (Xeroderma pigmentosum).',
+        h:'Caretaker loss is an accelerator of carcinogenesis — not a direct driver but speeds up accumulation of driver mutations'
+      },
+      {
+        t:'Clinical Red Flags — Hereditary Cancer',
+        b:'Suspect a hereditary cancer syndrome when a patient presents with: {multiple} primary tumors, {bilateral} tumors (e.g., bilateral retinoblastoma), cancer at an {unusually young age}, or multiple {affected family members}. Management: genetic counseling + germline testing — findings affect surveillance for the {entire family}.',
+        h:'Genetic testing findings can enable prophylactic interventions (e.g., risk-reducing mastectomy in BRCA1/2 carriers)'
+      }
+    ]
+  },
+
+  lo1: {
+    label:'LO 1', sub:'The Multistep Model of Carcinogenesis', type:'LO',
+    cards:[
+      {
+        t:'Core Concept — Multistep Carcinogenesis',
+        b:'Cancer does not arise from a single mutation. It requires the sequential accumulation of {6–8} driver mutations over time, beginning in a {single precursor cell} that undergoes {clonal expansion}. Each additional mutation confers a selective growth advantage and moves the cell closer to malignancy.',
+        h:'This explains why cancer incidence rises sharply with age — longer time = more accumulated hits'
+      },
+      {
+        t:'Clonal Expansion & Tumor Heterogeneity',
+        b:'A tumor begins from one precursor cell. As daughter cells replicate, they independently acquire different additional mutations, creating a {heterogeneous} tumor mass with multiple {subclones}. The stepwise order: oncogene activation → clonal expansion → further driver mutations (disable TSGs, enable apoptosis evasion) → invasive malignancy.',
+        h:'Clinical implication: tumor heterogeneity is why single chemotherapy agents often fail'
+      },
+      {
+        t:'Chemotherapy Resistance — Multistep Model',
+        b:'Chemotherapy eliminates {susceptible} subclones. Resistant subclones with different mutations {survive, expand, and repopulate} the tumor — often more aggressively. This is a direct consequence of the multistep model and {tumor heterogeneity}. Targeting multiple pathways simultaneously helps overcome this problem.',
+        h:'Imatinib resistance in CML (ABL kinase mutations) is a classic example of resistant subclone expansion'
+      }
+    ]
+  },
+
+  lo3: {
+    label:'LO 3', sub:'Two-Hit Hypothesis — Knudson', type:'LO',
+    cards:[
+      {
+        t:'Knudson\'s Two-Hit Hypothesis',
+        b:'Proposed by {Alfred Knudson} (1971) to explain why TSGs require {both} alleles to be inactivated. In hereditary cancer: the {first hit} is a germline mutation present in every cell; only one additional somatic hit is needed → earlier onset, higher probability. In sporadic cancer: {two independent} somatic events are required in the same cell → later onset, lower probability.',
+        h:'Knudson derived this from statistical analysis of retinoblastoma age-of-onset distributions'
+      },
+      {
+        t:'Retinoblastoma — Classic Two-Hit Example',
+        b:'Retinoblastoma is the most common childhood eye cancer. {Hereditary} form (40%): bilateral, younger onset; germline {RB1} mutation means every retinal cell is one somatic hit away from cancer. {Sporadic} form (60%): unilateral, older onset; two independent somatic hits required in a single cell. RB1 normally sequesters {E2F}; loss of both alleles → unchecked {G1 entry} → uncontrolled proliferation.',
+        h:'E2F is a transcription factor that activates genes needed for G1→S transition — "the go signal" for cell division'
+      }
+    ]
+  },
+
+  lo4: {
+    label:'LO 4', sub:'Six Hallmarks of Cancer', type:'LO',
+    cards:[
+      {
+        t:'Hallmarks 1–3: Growth & Survival',
+        b:'1. {Self-sufficiency in growth signals}: autocrine loops, constitutively active receptors, locked-on {RAS} mutations (15–20% of tumors), fusion oncoproteins. 2. {Insensitivity to growth-inhibitory signals}: loss of RB1 releases E2F; loss of p53 removes DNA damage checkpoint. 3. {Evasion of apoptosis}: {BCL-2} overexpression in B-cell lymphomas — cells survive despite damage.',
+        h:'BCL-2 is translocated to an immunoglobulin promoter in follicular lymphoma: t(14;18)'
+      },
+      {
+        t:'Hallmarks 4–6: Immortality & Invasion',
+        b:'4. {Limitless replicative potential}: {telomerase} upregulated in 85–95% of cancers → maintains telomere length → replicative immortality. 5. {Sustained angiogenesis}: tumors >1–2 mm secrete {VEGF}/bFGF → new blood vessels. Anti-VEGF therapy (bevacizumab) targets this. 6. {Invasion & metastasis}: MMPs degrade ECM → intravasation into blood/lymph → circulation → extravasation → distant colonization.',
+        h:'Without hallmark 5, tumors become hypoxic and necrotic at >2 mm — angiogenesis is required for tumor growth beyond microscopic size'
+      },
+      {
+        t:'BCR-ABL / Philadelphia Chromosome',
+        b:'Translocation {t(9;22)} fuses the BCR gene with {ABL} → constitutively active {tyrosine kinase} → CML and ALL. {Imatinib (Gleevec)} specifically inhibits the ABL kinase domain — the first "magic bullet" targeted cancer therapy and prototype of personalized oncology. Resistance arises from ABL kinase domain mutations (e.g., T315I).',
+        h:'BCR-ABL is an example of self-sufficiency in growth signals (Hallmark 1) — the kinase fires continuously without ligand'
+      }
+    ]
+  },
+
+  lo5: {
+    label:'LO 5', sub:'Cytogenetic & DNA Technologies', type:'LO',
+    cards:[
+      {
+        t:'Karyotyping',
+        b:'{Karyotyping} requires living, dividing cells arrested at {metaphase} when chromosomes are most condensed. It reveals: aneuploidy, large deletions, duplications, and translocations. Resolution: ~{5–10 Mb} — it {cannot} detect point mutations or small indels. Used to identify: monosomy 7 (AML), trisomy 8 (AML), del(17p) TP53 loss, t(9;22) Philadelphia chromosome.',
+        h:'Colchicine/colcemid is used to arrest cells at metaphase by disrupting spindle formation'
+      },
+      {
+        t:'FISH & Spectral Karyotyping (SKY)',
+        b:'{FISH} uses fluorescent probes to target individual loci — e.g., {HER2} amplification in breast cancer, {BCR-ABL} fusion in CML. Each probe hybridizes to its complementary sequence. {Spectral karyotyping (SKY)} paints each chromosome a distinct color → translocations appear as {color-mixed} chromosomes. Both can be used on non-dividing cells.',
+        h:'FISH can identify amplifications (multiple signals), deletions (absent signal), and fusions (overlapping signals)'
+      },
+      {
+        t:'NGS Sequencing & Gene Expression Analysis',
+        b:'{Next-generation sequencing (NGS)} identifies point mutations, indels, copy number changes, and gene fusions. Used for lung cancer molecular panels ({EGFR, KRAS, ALK, ROS1, RET}). {Gene expression analysis (RNA)} measures transcript levels — used in the {MammaPrint} 70-gene assay for breast cancer. Protein analysis (IHC, Western blot, ELISA) confirms protein presence and activity.',
+        h:'Knowing the specific mutation drives targeted therapy selection — the genotype determines the drug'
+      }
+    ]
+  },
+
+  lo6: {
+    label:'LO 6', sub:'Genotype-Guided Personalized Treatment', type:'LO',
+    cards:[
+      {
+        t:'Targeted Therapy — Match Mutation to Drug',
+        b:'EGFR-mutant NSCLC (exon 19 deletion or L858R): {EGFR TKIs} (erlotinib, gefitinib, {osimertinib}). ALK rearrangements: {ALK inhibitors} (crizotinib, alectinib). BCR-ABL translocation (CML): {Imatinib (Gleevec)}. Core principle: each driver mutation profile requires its {matched} inhibitor — using the wrong drug is ineffective regardless of tumor type.',
+        h:'EGFR TKIs are ineffective in KRAS-mutant tumors — always genotype before prescribing targeted therapy'
+      },
+      {
+        t:'MammaPrint 70-Gene Assay',
+        b:'{MammaPrint} provides {genomic risk} information based on a 70-gene expression profile of the tumor, which is separate from {clinical risk} (tumor size/grade, lymph node status, age). In the MINDACT trial, patients with high clinical risk but {low genomic risk} achieved {94.7%} metastasis-free survival at 5 years without chemotherapy — vs. only 1.5 percentage points better with chemo. ~{25%} of patients were spared unnecessary chemotherapy.',
+        h:'MammaPrint answers: "Does this tumor\'s gene expression say it will metastasize?" — clinical staging cannot answer this question'
+      }
+    ]
+  }
+};
+
+/* Cross-node jump links */
+const LINKS = {
+  'TP53':                ['plo1','PLO 1','amber'],
+  'Li-Fraumeni syndrome':['plo3','PLO 3','amber'],
+  'ATM/ATR':             ['plo1','PLO 1','amber'],
+  'mutator phenotype':   ['plo2','PLO 2','amber'],
+  'BRCA1/2':             ['plo3','PLO 3','amber'],
+  'E2F':                 ['lo3', 'LO 3', 'teal'],
+  'RB1':                 ['lo3', 'LO 3', 'teal'],
+  'BCR-ABL':             ['lo6', 'LO 6', 'teal'],
+  'Imatinib (Gleevec)':  ['lo6', 'LO 6', 'teal'],
+  'MammaPrint':          ['lo6', 'LO 6', 'teal'],
+  'EGFR TKIs':           ['lo6', 'LO 6', 'teal'],
+  'telomerase':          ['lo4', 'LO 4', 'teal'],
+  'VEGF':                ['lo4', 'LO 4', 'teal'],
+};
+
+/* ── STATE ───────────────────────────────────────── */
+const COOKIE = 'carc_anki_v1';
+let cur = null, ci = 0;
+let tr = {}, sc = {};
+let done = new Set();
+let totRev = 0, totKnew = 0, totNeed = 0;
+let revQueue = [], revIdx = 0, revTr = {};
+
+/* ── HELPERS ─────────────────────────────────────── */
+function initNode(nid) {
+  if (!tr[nid]) { tr[nid] = {}; sc[nid] = {}; }
+  D[nid].cards.forEach((_,i) => {
+    if (!tr[nid][i]) { tr[nid][i] = new Set(); sc[nid][i] = {}; }
+  });
+}
+
+function countTerms(body) {
+  return (body.match(/\{[^}]+\}/g)||[]).length;
+}
+
+function nodeTerms(nid) {
+  let t=0; D[nid].cards.forEach(c=>t+=countTerms(c.b)); return t;
+}
+
+function cardMetrics(nid, cidx) {
+  const body = D[nid].cards[cidx].b;
+  const total = countTerms(body);
+  const revSet = tr[nid]&&tr[nid][cidx] ? tr[nid][cidx] : new Set();
+  const scObj  = sc[nid]&&sc[nid][cidx] ? sc[nid][cidx] : {};
+  let revealed=0, knew=0, needed=0, unscored=0;
+  revSet.forEach(i => {
+    revealed++;
+    if (scObj[i]==='knew') knew++;
+    else if (scObj[i]==='needed') needed++;
+    else unscored++;
+  });
+  return {total, revealed, knew, needed, unscored, allRevealed: revealed===total && total>0};
+}
+
+function isNodeDone(nid) {
+  if (!tr[nid]) return false;
+  return D[nid].cards.every((_,i) => {
+    const t = countTerms(D[nid].cards[i].b);
+    return t===0 || (tr[nid][i] && tr[nid][i].size === t);
+  });
+}
+
+function recalcState() {
+  totRev=0; totKnew=0; totNeed=0; done.clear();
+  Object.keys(D).forEach(nid => {
+    if (!tr[nid]) return;
+    D[nid].cards.forEach((_,ci2) => {
+      if (!tr[nid][ci2]) return;
+      tr[nid][ci2].forEach(ti => {
+        totRev++;
+        const s = sc[nid]&&sc[nid][ci2]&&sc[nid][ci2][ti];
+        if (s==='knew') totKnew++;
+        else if (s==='needed') totNeed++;
+      });
+    });
+    if (isNodeDone(nid)) done.add(nid);
+  });
+  Object.keys(D).forEach(nid => {
+    const el = document.getElementById('n-'+nid);
+    if (el) el.classList.toggle('done-node', done.has(nid));
+  });
+  renderDots();
+  updateStats();
+}
+
+/* ── OCCLUSION RENDER ────────────────────────────── */
+function parseBody(body, nid, cidx, opts={}) {
+  let i = 0;
+  return body.replace(/\{([^}]+)\}/g, (_,t) => {
+    const idx = i++;
+    if (opts.forReview) {
+      const isTarget = idx === opts.targetTermIdx;
+      const alreadyRev = opts.revealedSet && opts.revealedSet.has(idx);
+      if (!isTarget) return `<span class="dim-term">${t}</span>`;
+      if (alreadyRev) return `<span class="occ unscored">${t}</span>`;
+      return `<span class="occ" onclick="revealReviewTerm(${idx})">${t}</span>`;
+    }
+    initNode(nid);
+    const revSet = tr[nid][cidx];
+    const scObj  = sc[nid][cidx];
+    const revealed = revSet.has(idx);
+    const scored   = scObj[idx] !== undefined;
+    let cls = 'occ';
+    if (revealed) cls += scored ? (scObj[idx]==='knew'?' rev':' needed') : ' unscored';
+
+    const scoreBtns = (revealed && !scored)
+      ? `<span class="score-row">
+          <button class="score-btn knew" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button>
+          <button class="score-btn need" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button>
+         </span>`
+      : '';
+    const link = LINKS[t];
+    const jumpLink = (revealed && link && link[0]!==nid)
+      ? `<a class="jump-link jl-${link[2]}" onclick="selNode('${link[0]}')" title="Go to ${link[1]}">→ ${link[1]}</a>`
+      : '';
+
+    const onclick = revealed ? '' : `onclick="revealTerm('${nid}',${cidx},${idx})"`;
+    return `<span class="${cls}" ${onclick}>${t}</span>${scoreBtns}${jumpLink}`;
+  });
+}
+
+/* ── TERM SCORING ────────────────────────────────── */
+function revealTerm(nid, cidx, tidx) {
+  initNode(nid);
+  tr[nid][cidx].add(tidx);
+  totRev++;
+  saveProgress(); render(); recalcState();
+}
+
+function scoreIt(e, nid, cidx, tidx, score) {
+  e.stopPropagation();
+  initNode(nid);
+  const prev = sc[nid][cidx][tidx];
+  if (prev) {
+    if (prev==='knew') totKnew--;
+    else if (prev==='needed') totNeed--;
+  }
+  sc[nid][cidx][tidx] = score;
+  if (score==='knew') totKnew++;
+  else totNeed++;
+  if (isNodeDone(nid)) done.add(nid);
+  saveProgress(); render(); recalcState();
+}
+
+function knewAllCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const body = D[cur].cards[ci].b;
+  let i=0;
+  (body.match(/\{[^}]+\}/g)||[]).forEach(()=>{
+    const prev = sc[cur][ci][i];
+    tr[cur][ci].add(i);
+    if (!tr[cur][ci].has(i)) totRev++;
+    if (prev==='knew') {}
+    else if (prev==='needed') { totNeed--; totKnew++; }
+    else { totRev += tr[cur][ci].has(i) ? 0 : 1; totKnew++; }
+    // simpler recalc
+    sc[cur][ci][i] = 'knew';
+    i++;
+  });
+  recalcState(); saveProgress(); render();
+}
+
+function resetCard() {
+  if (!cur) return;
+  initNode(cur);
+  tr[cur][ci].forEach(ti=>{
+    const s = sc[cur][ci][ti];
+    totRev--;
+    if (s==='knew') totKnew--;
+    else if (s==='needed') totNeed--;
+  });
+  tr[cur][ci] = new Set();
+  sc[cur][ci] = {};
+  done.delete(cur);
+  saveProgress(); render(); recalcState();
+}
+
+/* ── CARD ACTIONS RENDER ─────────────────────────── */
+function renderCardActions() {
+  if (!cur) return;
+  const m = cardMetrics(cur, ci);
+  const actEl = document.getElementById('cardActions');
+  actEl.innerHTML = `
+    <div class="ca-meta">
+      <span class="ca-pill">${m.revealed}/${m.total} revealed</span>
+      ${m.knew>0?`<span class="ca-pill green">✓ ${m.knew} knew</span>`:''}
+      ${m.needed>0?`<span class="ca-pill amber">✗ ${m.needed} needed</span>`:''}
+      ${m.unscored>0?`<span class="ca-pill">⏳ ${m.unscored} to score</span>`:''}
+    </div>
+    <div class="ca-btns">
+      <button class="ca-btn reveal" onclick="revealCurrentCard()" ${m.allRevealed||m.total===0?'disabled':''}>Reveal this card</button>
+      <button class="ca-btn knew-all" onclick="knewAllCurrentCard()" ${!m.allRevealed?'disabled':''}>Knew all</button>
+      <button class="ca-btn reset-card" onclick="resetCard()" ${m.revealed===0?'disabled':''}>Reset card</button>
+    </div>`;
+}
+
+/* ── MAIN RENDER ─────────────────────────────────── */
+function render() {
+  if (!cur) return;
+  const node = D[cur];
+  const card = node.cards[ci];
+
+  // panel header
+  const badgeEl = document.getElementById('panelBadge');
+  badgeEl.textContent = node.label;
+  badgeEl.className = 'node-badge ' + (node.type==='PLO' ? 'badge-amber' : 'badge-teal');
+  document.getElementById('panelTitle').textContent = node.sub;
+
+  // nav
+  document.getElementById('prevBtn').disabled = ci===0;
+  document.getElementById('nextBtn').disabled = ci===node.cards.length-1;
+  document.getElementById('cardCounterLabel').textContent = `Card ${ci+1} / ${node.cards.length}`;
+
+  // progress dots
+  const pd = document.getElementById('progressDots');
+  pd.innerHTML = node.cards.map((_,i2)=>{
+    const m2 = cardMetrics(cur,i2);
+    let cls = 'pdot-ui';
+    if (m2.allRevealed) cls+=' done';
+    else if (m2.revealed>0) cls+=' partial';
+    return `<span class="${cls}" style="cursor:pointer" onclick="ci=${i2};render()"></span>`;
+  }).join('');
+
+  // card
+  document.getElementById('cardTitle').textContent = card.t;
+  document.getElementById('cardBody').innerHTML = parseBody(card.b, cur, ci);
+  const hintEl = document.getElementById('cardHint');
+  if (card.h) { hintEl.textContent = card.h; hintEl.style.display='block'; }
+  else hintEl.style.display='none';
+
+  renderCardActions();
+}
+
+/* ── NODE SELECTION ──────────────────────────────── */
+function selNode(nid) {
+  cur = nid; ci = 0;
+  initNode(nid);
+  document.getElementById('cardPanel').classList.add('open');
+  document.getElementById('cardPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+  render(); recalcState();
+}
+
+function closePanel() {
+  document.getElementById('cardPanel').classList.remove('open');
+  cur = null;
+  recalcState();
+}
+
+function navigate(dir) {
+  if (!cur) return;
+  const newCi = ci + dir;
+  if (newCi<0 || newCi>=D[cur].cards.length) return;
+  ci = newCi; render();
+}
+
+/* ── REVEAL HELPERS ──────────────────────────────── */
+function revealCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const body = D[cur].cards[ci].b;
+  let i=0;
+  (body.match(/\{[^}]+\}/g)||[]).forEach(()=>{
+    if (!tr[cur][ci].has(i)) { tr[cur][ci].add(i); totRev++; }
+    i++;
+  });
+  saveProgress(); render(); recalcState();
+}
+
+function revealCurrentNode() {
+  if (!cur) return;
+  initNode(cur);
+  D[cur].cards.forEach((_,ci2) => {
+    const body = D[cur].cards[ci2].b; let i=0;
+    (body.match(/\{[^}]+\}/g)||[]).forEach(()=>{
+      if (!tr[cur][ci2].has(i)) { tr[cur][ci2].add(i); totRev++; }
+      i++;
+    });
+  });
+  saveProgress(); render(); recalcState();
+}
+
+function revealDeck() {
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((_,ci2) => {
+      const body = D[nid].cards[ci2].b; let i=0;
+      (body.match(/\{[^}]+\}/g)||[]).forEach(()=>{
+        if (!tr[nid][ci2].has(i)) { tr[nid][ci2].add(i); totRev++; }
+        i++;
+      });
+    });
+  });
+  saveProgress(); if(cur) render(); recalcState();
+}
+
+function resetAll() {
+  tr={}; sc={}; done.clear(); totRev=0; totKnew=0; totNeed=0;
+  Object.keys(D).forEach(nid=>{ document.getElementById('n-'+nid)?.classList.remove('done-node'); });
+  saveProgress(); if(cur) { initNode(cur); render(); }
+  recalcState(); deleteCookie();
+}
+
+/* ── PROGRESS DOTS (SVG) ─────────────────────────── */
+function renderDots() {
+  Object.keys(D).forEach(nid => {
+    const g = document.getElementById('pd-'+nid);
+    if (!g) return;
+    const n = D[nid].cards.length;
+    g.innerHTML = '';
+    for (let i=0;i<n;i++){
+      const m = cardMetrics(nid,i);
+      let fill = 'var(--surface-3)';
+      if (m.allRevealed) fill='var(--green)';
+      else if (m.revealed>0) fill='var(--amber)';
+      const cx = i*10;
+      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx',cx); c.setAttribute('cy','3');
+      c.setAttribute('r','3'); c.setAttribute('fill',fill);
+      g.appendChild(c);
+    }
+  });
+}
+
+/* ── STATS BAR ───────────────────────────────────── */
+function updateStats() {
+  const allTerms = Object.values(D).reduce((s,n)=>s+n.cards.reduce((ss,c)=>ss+countTerms(c.b),0),0);
+  const doneN = done.size; const totalN = Object.keys(D).length;
+  document.getElementById('statPills').innerHTML = `
+    <span class="stat-pill">${totRev}/${allTerms} revealed</span>
+    ${totKnew>0?`<span class="stat-pill green">✓ ${totKnew} knew</span>`:''}
+    ${totNeed>0?`<span class="stat-pill amber">✗ ${totNeed} needed</span>`:''}
+    <span class="stat-pill">${doneN}/${totalN} topics done</span>`;
+  const rb = document.getElementById('reviewBtn');
+  if (totNeed>0) { rb.style.display=''; rb.textContent=`Review weak spots (${totNeed})`; }
+  else rb.style.display='none';
+}
+
+/* ── REVIEW MODE ─────────────────────────────────── */
+function startReview() {
+  revQueue = [];
+  Object.keys(D).forEach(nid=>{
+    D[nid].cards.forEach((card,ci2)=>{
+      if (!sc[nid]||!sc[nid][ci2]) return;
+      let i=0;
+      (card.b.match(/\{[^}]+\}/g)||[]).forEach(()=>{
+        if (sc[nid][ci2][i]==='needed') revQueue.push({nid,ci:ci2,ti:i});
+        i++;
+      });
+    });
+  });
+  // Fisher-Yates shuffle
+  for (let i=revQueue.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [revQueue[i],revQueue[j]]=[revQueue[j],revQueue[i]];
+  }
+  revIdx=0; revTr={};
+  document.getElementById('reviewPanel').classList.add('open');
+  document.getElementById('cardPanel').classList.remove('open');
+  renderReview();
+}
+
+function renderReview() {
+  if (!revQueue.length) return;
+  const item = revQueue[revIdx];
+  const card = D[item.nid].cards[item.ci];
+  const key = `${item.nid}.${item.ci}`;
+  if (!revTr[key]) revTr[key] = new Set();
+  const terms = (card.b.match(/\{[^}]+\}/g)||[]);
+  const term = terms[item.ti]?.replace(/[{}]/g,'') || '';
+
+  document.getElementById('rSub').innerHTML =
+    `${D[item.nid].label} — ${card.t} · Term to recall: <span>${term}</span>`;
+  document.getElementById('revCounter').textContent = `${revIdx+1} / ${revQueue.length}`;
+  document.getElementById('revPrevBtn').disabled = revIdx===0;
+  document.getElementById('revNextBtn').disabled = revIdx===revQueue.length-1;
+
+  const html = parseBody(card.b, item.nid, item.ci, {
+    forReview:true, targetTermIdx:item.ti, revealedSet:revTr[key]
+  });
+  document.getElementById('revBody').innerHTML = `<div class="card-text">${html}</div>`;
+}
+
+function revealReviewTerm(idx) {
+  const item = revQueue[revIdx];
+  const key = `${item.nid}.${item.ci}`;
+  if (!revTr[key]) revTr[key]=new Set();
+  revTr[key].add(idx);
+  renderReview();
+}
+
+function revNavigate(dir) {
+  const newIdx = revIdx+dir;
+  if (newIdx<0||newIdx>=revQueue.length) return;
+  revIdx=newIdx; renderReview();
+}
+
+function closeReview() {
+  document.getElementById('reviewPanel').classList.remove('open');
+  revQueue=[]; revIdx=0; revTr={};
+}
+
+/* ── COOKIE PERSISTENCE ──────────────────────────── */
+function saveProgress() {
+  const r={}, s={};
+  Object.keys(tr).forEach(nid=>{
+    r[nid]=[]; s[nid]=[];
+    Object.keys(tr[nid]).forEach(ci2=>{
+      r[nid][ci2]=[...tr[nid][ci2]].join('.');
+      const scArr=[];
+      Object.keys(sc[nid][ci2]||{}).forEach(ti=>{
+        scArr.push(sc[nid][ci2][ti]==='knew'?`${ti}k`:`${ti}n`);
+      });
+      s[nid][ci2]=scArr.join('.');
+    });
+  });
+  const payload = JSON.stringify({c:cur,i:ci,r,s});
+  document.cookie=`${COOKIE}=${encodeURIComponent(payload)};max-age=${180*86400};SameSite=Lax;path=/`;
+}
+
+function loadProgress() {
+  const match = document.cookie.match(new RegExp(`${COOKIE}=([^;]+)`));
+  if (!match) return;
+  try {
+    const p = JSON.parse(decodeURIComponent(match[1]));
+    if (p.r) Object.keys(p.r).forEach(nid=>{
+      initNode(nid);
+      (p.r[nid]||[]).forEach((idxStr,ci2)=>{
+        if (idxStr) idxStr.split('.').forEach(i=>i!==''&&tr[nid][ci2].add(+i));
+      });
+    });
+    if (p.s) Object.keys(p.s).forEach(nid=>{
+      (p.s[nid]||[]).forEach((scStr,ci2)=>{
+        if (scStr) scStr.split('.').filter(Boolean).forEach(tok=>{
+          const ti=+tok.slice(0,-1), v=tok.slice(-1);
+          sc[nid][ci2][ti]= v==='k'?'knew':'needed';
+        });
+      });
+    });
+    if (p.c && D[p.c]) { cur=p.c; ci=p.i||0; }
+  } catch(e){}
+}
+
+function deleteCookie() {
+  document.cookie=`${COOKIE}=;max-age=0;path=/`;
+}
+
+function restoreSession() {
+  loadProgress(); recalcState();
+  if (cur) { initNode(cur); document.getElementById('cardPanel').classList.add('open'); render(); }
+}
+
+/* ── THEME ───────────────────────────────────────── */
+function setTheme(t) {
+  if (t==='slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('carc-anki-theme',t);
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.theme===t));
+}
+
+/* ── KEYBOARD ────────────────────────────────────── */
+document.addEventListener('keydown',e=>{
+  if (e.key==='Escape') {
+    if (document.getElementById('reviewPanel').classList.contains('open')) closeReview();
+    else closePanel();
+  }
+  if (document.getElementById('reviewPanel').classList.contains('open')) {
+    if (e.key==='ArrowRight') revNavigate(1);
+    if (e.key==='ArrowLeft') revNavigate(-1);
+    return;
+  }
+  if (cur) {
+    if (e.key==='ArrowRight') navigate(1);
+    if (e.key==='ArrowLeft') navigate(-1);
+  }
+});
+
+/* ── INIT ────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded',()=>{
+  const savedTheme = localStorage.getItem('carc-anki-theme')||'slate';
+  setTheme(savedTheme);
+  document.getElementById('deckMeta').textContent =
+    `Active recall map · ${Object.keys(D).length} topics · ${Object.values(D).reduce((n,node)=>n+node.cards.length,0)} cards`;
+  restoreSession();
+  renderDots();
+  updateStats();
+});
+</script>
+</body>
+</html>

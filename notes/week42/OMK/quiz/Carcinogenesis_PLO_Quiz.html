@@ -822,6 +822,43 @@ const questions = [
 ];
 
 // ═══════════════════════════════════════════
+// SHUFFLE CHOICES (so correct answer isn't always the longest)
+// ═══════════════════════════════════════════
+(function shuffleAllChoices() {
+  questions.forEach(q => {
+    // Remember which choice text is correct before shuffling
+    const correctText = q.choices[q.correct].text;
+    // Also remember the wrong explanations keyed by their original choice text
+    // Map: choiceText -> why string (for the 3 wrong choices)
+    const whyByText = {};
+    q.choices.forEach((ch, i) => {
+      if (i !== q.correct) {
+        const wrongEntry = q.explanation.wrong.find(w => w.letter === ch.letter);
+        if (wrongEntry) whyByText[ch.text] = wrongEntry.why;
+      }
+    });
+
+    // Fisher-Yates shuffle
+    for (let i = q.choices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [q.choices[i], q.choices[j]] = [q.choices[j], q.choices[i]];
+    }
+
+    // Reassign letters after shuffle
+    const LETTERS = ['A','B','C','D','E'];
+    q.choices.forEach((ch, i) => { ch.letter = LETTERS[i]; });
+
+    // Update correct index
+    q.correct = q.choices.findIndex(ch => ch.text === correctText);
+
+    // Rebuild wrong[] with updated letters, preserving the why text
+    q.explanation.wrong = q.choices
+      .filter(ch => ch.text !== correctText)
+      .map(ch => ({ letter: ch.letter, why: whyByText[ch.text] || '' }));
+  });
+})();
+
+// ═══════════════════════════════════════════
 // APP STATE
 // ═══════════════════════════════════════════
 let currentQ = 0;
