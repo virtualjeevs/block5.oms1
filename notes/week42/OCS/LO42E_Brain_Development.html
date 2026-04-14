@@ -152,6 +152,10 @@ body {
 .flow-note { font-size:12px; color:var(--ink-muted); font-style:italic; }
 
 /* ── FIGURES ── */
+.figure-panel { margin: 18px 0; background: white; border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+.figure-panel svg { width: 100%; height: auto; display: block; }
+.figure-panel figcaption { margin-top: 10px; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.figure-panel .fig-num { margin-bottom: 4px; }
 .fig-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; margin:20px 0; }
 .fig-thumb { border-radius:8px; overflow:hidden; cursor:pointer; background:var(--cream-mid); border:1px solid var(--border); transition:transform .2s, box-shadow .2s; }
 .fig-thumb:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.12); }
@@ -333,6 +337,78 @@ strong { color:var(--ink); }
 
   <h2 class="section-h2 reveal">What the Tube Walls Become</h2>
   <p class="reveal">Even early on, the neural tube walls are not uniform. There is an <strong>alar plate</strong> (dorsal) and a <strong>basal plate</strong> (ventral), separated by the sulcus limitans.</p>
+  <figure class="figure-panel reveal" aria-labelledby="tube-wall-figure-caption">
+    <svg viewBox="0 0 900 360" role="img" aria-label="Stages showing how neural tube walls differentiate into alar and basal plates">
+      <defs>
+        <style>
+          .tube-base{fill:#f6e7b0;stroke:#7b6446;stroke-width:3;}
+          .tube-line{fill:none;stroke:#7b6446;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+          .label{font: 26px Nunito, sans-serif; fill:#1f1a14;}
+          .small{font: 22px Nunito, sans-serif; fill:#1f1a14;}
+          .panel{font: 30px IBM Plex Mono, monospace; fill:#1f1a14;}
+          .alar{fill:#e7a190;stroke:#7b6446;stroke-width:2.5;}
+          .basal{fill:#88a7d8;stroke:#7b6446;stroke-width:2.5;}
+          .signal{font: 20px IBM Plex Mono, monospace; fill:#7b6446;}
+        </style>
+      </defs>
+      <text x="20" y="34" class="panel">A</text>
+      <path class="tube-base" d="M120 55 C80 58, 58 100, 62 170 C66 250, 96 300, 150 310 C204 300, 234 250, 238 170 C242 100, 220 58, 180 55 Z"/>
+      <path class="tube-line" d="M150 92 C125 95, 114 130, 116 174 C118 220, 131 252, 150 268 C169 252, 182 220, 184 174 C186 130, 175 95, 150 92 Z"/>
+      <line class="tube-line" x1="20" y1="134" x2="108" y2="134"/>
+      <text x="28" y="126" class="label">Lumen</text>
+      <line class="tube-line" x1="30" y1="170" x2="106" y2="170"/>
+      <text x="14" y="165" class="label">Ependyma</text>
+      <line class="tube-line" x1="16" y1="214" x2="102" y2="214"/>
+      <text x="8" y="208" class="label">Mantle layer</text>
+      <text x="346" y="34" class="panel">B</text>
+      <path class="tube-base" d="M448 56 C392 60, 356 108, 360 188 C364 262, 402 312, 450 318 C498 312, 536 262, 540 188 C544 108, 508 60, 452 56 Z"/>
+      <path class="alar" d="M408 116 C420 84, 452 74, 476 88 C495 98, 503 128, 490 151 C478 170, 444 176, 422 164 C405 155, 399 134, 408 116 Z"/>
+      <path class="alar" d="M492 116 C480 84, 448 74, 424 88 C405 98, 397 128, 410 151 C422 170, 456 176, 478 164 C495 155, 501 134, 492 116 Z" transform="translate(56 0) scale(-1 1) translate(-56 0)" opacity="0"/>
+      <path class="alar" d="M492 116 C504 84, 536 74, 560 88 C579 98, 587 128, 574 151 C562 170, 528 176, 506 164 C489 155, 483 134, 492 116 Z"/>
+      <path class="basal" d="M402 214 C412 188, 438 178, 462 184 C487 191, 502 220, 494 246 C486 271, 454 284, 426 275 C402 268, 392 240, 402 214 Z"/>
+      <path class="basal" d="M498 214 C508 188, 534 178, 558 184 C583 191, 598 220, 590 246 C582 271, 550 284, 522 275 C498 268, 488 240, 498 214 Z"/>
+      <path class="tube-line" d="M451 78 C438 96, 436 116, 446 128"/>
+      <path class="tube-line" d="M449 78 C462 96, 464 116, 454 128"/>
+      <path class="tube-line" d="M449 296 C438 279, 437 259, 446 246"/>
+      <path class="tube-line" d="M451 296 C462 279, 463 259, 454 246"/>
+      <path class="tube-line" d="M451 126 L451 246"/>
+      <text x="420" y="68" class="small">Roof plate</text>
+      <line class="tube-line" x1="458" y1="74" x2="458" y2="86"/>
+      <text x="420" y="344" class="small">Floor plate</text>
+      <line class="tube-line" x1="458" y1="300" x2="458" y2="320"/>
+      <text x="390" y="98" class="signal">BMP</text>
+      <text x="492" y="98" class="signal">BMP</text>
+      <text x="394" y="284" class="signal">SHH</text>
+      <text x="494" y="284" class="signal">SHH</text>
+      <text x="690" y="34" class="panel">C</text>
+      <path class="tube-base" d="M700 58 C638 62, 602 108, 606 194 C610 284, 658 328, 750 334 C842 328, 890 284, 894 194 C898 108, 862 62, 800 58 Z"/>
+      <path class="tube-line" d="M750 60 L750 333"/>
+      <path class="tube-line" d="M686 62 C674 110, 680 144, 708 166"/>
+      <path class="tube-line" d="M814 62 C826 110, 820 144, 792 166"/>
+      <path class="alar" d="M662 96 C698 82, 736 86, 750 124 L750 186 C725 192, 697 188, 676 173 C654 157, 644 119, 662 96 Z"/>
+      <path class="alar" d="M838 96 C802 82, 764 86, 750 124 L750 186 C775 192, 803 188, 824 173 C846 157, 856 119, 838 96 Z"/>
+      <path class="basal" d="M642 194 C668 178, 712 180, 750 204 L750 300 C712 304, 675 294, 653 270 C631 245, 623 208, 642 194 Z"/>
+      <path class="basal" d="M858 194 C832 178, 788 180, 750 204 L750 300 C788 304, 825 294, 847 270 C869 245, 877 208, 858 194 Z"/>
+      <path class="tube-base" d="M726 302 C736 286, 748 280, 750 280 C752 280, 764 286, 774 302 C766 318, 758 326, 750 326 C742 326, 734 318, 726 302 Z"/>
+      <text x="582" y="64" class="small">Alar plate</text>
+      <text x="626" y="90" class="small">(sensory)</text>
+      <line class="tube-line" x1="694" y1="94" x2="714" y2="118"/>
+      <line class="tube-line" x1="806" y1="94" x2="786" y2="118"/>
+      <text x="586" y="226" class="small">Sulcus</text>
+      <text x="586" y="252" class="small">limitans</text>
+      <line class="tube-line" x1="678" y1="236" x2="706" y2="220"/>
+      <line class="tube-line" x1="678" y1="244" x2="706" y2="230"/>
+      <text x="800" y="280" class="small">Basal plate</text>
+      <text x="826" y="306" class="small">(motor)</text>
+      <line class="tube-line" x1="812" y1="248" x2="792" y2="236"/>
+      <text x="698" y="356" class="small">Ventral fissure</text>
+      <line class="tube-line" x1="750" y1="330" x2="750" y2="342"/>
+    </svg>
+    <figcaption id="tube-wall-figure-caption">
+      <span class="fig-num">FIGURE</span>
+      Neural tube wall patterning: the dorsal <strong>alar plate</strong> becomes sensory, the ventral <strong>basal plate</strong> becomes motor, and the <strong>sulcus limitans</strong> marks their boundary. Roof plate BMP signaling helps specify dorsal identities, while floor plate SHH signaling helps specify ventral identities.
+    </figcaption>
+  </figure>
   <div class="flow-row reveal"><span class="flow-node coral">Alar plate (dorsal)</span><span class="flow-arrow">→</span><span class="flow-node">Sensory nuclei</span><span class="flow-note">(afferent — receives input)</span></div>
   <div class="flow-row reveal"><span class="flow-node teal">Basal plate (ventral)</span><span class="flow-arrow">→</span><span class="flow-node">Motor nuclei</span><span class="flow-note">(efferent — sends output)</span></div>
   <div class="flow-row reveal"><span class="flow-node gold">Sulcus limitans</span><span class="flow-note">— groove dividing alar from basal plate; visible in spinal cord and hindbrain</span></div>
@@ -362,6 +438,102 @@ strong { color:var(--ink); }
     <div class="sign-item"><span class="sign-icon">🔵</span><span class="sign-label">Most Posterior</span><span class="sign-text">Rhombencephalon</span><span class="sign-detail"><strong>Hindbrain.</strong> Internally segmented into <em>rhombomeres</em> (Rh.1–7), each associated with specific cranial nerves.</span></div>
   </div>
 
+  <figure class="figure-panel reveal" aria-labelledby="primary-vesicle-figure-caption">
+    <svg viewBox="0 0 920 500" role="img" aria-label="Primary vesicles, secondary vesicles, and the developing neural tube map">
+      <defs>
+        <style>
+          .pv-label{font: 18px IBM Plex Mono, monospace; fill:#fdf6ec;}
+          .label{font: 28px Nunito, sans-serif; fill:#1f1a14;}
+          .small{font: 20px Nunito, sans-serif; fill:#1f1a14;}
+          .tiny{font: 16px IBM Plex Mono, monospace; fill:#5c5042;}
+          .guide{fill:none;stroke:#7b6446;stroke-width:3;stroke-dasharray:10 8;}
+          .outline{fill:none;stroke:#4f4438;stroke-width:4;}
+          .arrow{stroke:#8a7868;stroke-width:3;fill:none;marker-end:url(#arrowhead);}
+        </style>
+        <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 z" fill="#8a7868"/>
+        </marker>
+      </defs>
+      <rect x="10" y="44" width="38" height="148" rx="10" fill="#1f1a14"/>
+      <text x="30" y="120" class="pv-label" text-anchor="middle" transform="rotate(-90 30 120)">Primary vesicles</text>
+      <rect x="10" y="204" width="38" height="128" rx="10" fill="#1f1a14"/>
+      <text x="30" y="268" class="pv-label" text-anchor="middle" transform="rotate(-90 30 268)">Secondary vesicles</text>
+      <rect x="10" y="350" width="38" height="132" rx="10" fill="#1f1a14"/>
+      <text x="30" y="416" class="pv-label" text-anchor="middle" transform="rotate(-90 30 416)">Neuroectoderm</text>
+
+      <path d="M80 88 C92 55, 158 44, 258 48 C320 50, 352 64, 366 100 C372 138, 348 174, 304 186 C232 204, 132 190, 92 168 C64 152, 60 114, 80 88 Z" fill="#ff8d8d" stroke="#4f4438" stroke-width="4"/>
+      <path d="M358 70 C390 38, 456 42, 488 84 C512 116, 508 168, 468 194 C430 220, 376 198, 364 150 C356 120, 348 94, 358 70 Z" fill="#6ddc67" stroke="#4f4438" stroke-width="4"/>
+      <path d="M492 72 C526 46, 616 46, 708 72 C792 94, 824 154, 804 210 C784 264, 710 284, 624 274 C558 268, 516 246, 484 218 C436 176, 444 108, 492 72 Z" fill="#bfd0da" stroke="#4f4438" stroke-width="4"/>
+      <path d="M782 184 C838 168, 890 170, 908 186 C922 198, 918 228, 898 238 C868 254, 794 254, 742 244 C704 238, 704 194, 782 184 Z" fill="#fff48c" stroke="#4f4438" stroke-width="4"/>
+      <text x="170" y="118" class="label" text-anchor="middle">Prosencephalic</text>
+      <text x="170" y="152" class="label" text-anchor="middle">vesicle</text>
+      <text x="430" y="112" class="label" text-anchor="middle">Mesencephalic</text>
+      <text x="430" y="146" class="label" text-anchor="middle">vesicle</text>
+      <text x="612" y="136" class="label" text-anchor="middle">Rhombencephalic</text>
+      <text x="612" y="170" class="label" text-anchor="middle">vesicle</text>
+      <text x="830" y="232" class="small" text-anchor="middle">Spinal cord</text>
+
+      <path d="M84 262 C96 224, 152 210, 208 216 C252 220, 274 252, 270 288 C266 326, 236 356, 188 366 C140 374, 100 364, 80 338 C62 314, 64 286, 84 262 Z" fill="#ff3636" stroke="#4f4438" stroke-width="4"/>
+      <path d="M166 300 C154 262, 168 230, 202 214 C234 198, 268 212, 278 246 C288 280, 274 316, 238 334 C204 350, 176 336, 166 300 Z" fill="#7d59d8" stroke="#4f4438" stroke-width="4"/>
+      <path d="M244 238 C260 212, 292 202, 334 208 C370 214, 390 242, 386 276 C382 304, 360 330, 328 336 C288 344, 254 322, 244 286 C240 270, 238 252, 244 238 Z" fill="#9ce97e" stroke="#4f4438" stroke-width="4"/>
+      <path d="M390 248 C422 216, 518 204, 652 216 C740 224, 804 262, 818 304 C830 344, 808 390, 758 406 C682 430, 548 428, 458 410 C382 396, 350 352, 356 306 C360 282, 370 266, 390 248 Z" fill="#bfd0da" stroke="#4f4438" stroke-width="4"/>
+      <path d="M748 350 C804 332, 866 334, 894 350 C914 362, 910 396, 884 408 C852 424, 770 426, 718 418 C684 412, 676 372, 748 350 Z" fill="#fff48c" stroke="#4f4438" stroke-width="4"/>
+      <path class="arrow" d="M176 194 C182 216, 182 230, 176 242"/>
+      <path class="arrow" d="M420 196 C396 214, 338 222, 306 224"/>
+      <text x="132" y="292" class="label">Secondary</text>
+      <text x="136" y="326" class="label">prosenc.</text>
+      <text x="216" y="294" class="small">Dien.</text>
+      <text x="304" y="270" class="small">Mes.</text>
+      <text x="560" y="326" class="label">Rhomb.</text>
+      <text x="816" y="392" class="small">Spinal cord</text>
+
+      <path d="M78 412 C92 366, 134 342, 196 338 C246 336, 282 352, 290 390 C298 426, 288 468, 248 486 C184 514, 102 506, 76 470 C64 454, 62 430, 78 412 Z" fill="#ff3636" stroke="#3b3750" stroke-width="4"/>
+      <path d="M64 408 C58 372, 86 340, 134 328 C168 318, 220 324, 262 338" class="outline"/>
+      <path d="M262 338 C324 316, 406 304, 492 304 C592 304, 702 326, 814 378 C864 400, 902 432, 912 466" class="outline"/>
+      <path d="M882 356 C914 370, 918 412, 902 466" class="outline"/>
+      <path d="M290 394 C302 360, 340 328, 398 312 C470 292, 566 290, 640 304" class="guide"/>
+      <path d="M344 360 C370 338, 404 326, 448 320" class="guide"/>
+      <path d="M418 360 C434 334, 456 320, 492 312" class="guide"/>
+      <path d="M506 358 C516 330, 536 314, 566 306" class="guide"/>
+      <path d="M562 366 C576 336, 602 318, 634 310" class="guide"/>
+      <path d="M638 382 C650 350, 684 332, 724 326" class="guide"/>
+      <path d="M718 404 C736 370, 776 354, 828 356" class="guide"/>
+      <text x="148" y="432" class="label" text-anchor="middle">Telencephalo</text>
+      <text x="152" y="470" class="small" text-anchor="middle">n</text>
+      <text x="240" y="478" class="label" text-anchor="middle">Hypothalamus</text>
+      <text x="392" y="358" class="tiny">dp2</text>
+      <text x="446" y="348" class="tiny">dp1</text>
+      <text x="534" y="334" class="tiny">mp1</text>
+      <text x="590" y="342" class="tiny">mp2</text>
+      <text x="592" y="386" class="tiny">is</text>
+      <text x="844" y="332" class="small" transform="rotate(-90 844 332)">Hox genes</text>
+      <text x="120" y="324" class="tiny" transform="rotate(-28 120 324)">otx2</text>
+      <text x="200" y="500" class="tiny">Eye</text>
+      <text x="300" y="492" class="tiny">PPit</text>
+      <text x="730" y="384" class="small">CB</text>
+      <text x="642" y="444" class="tiny">r6</text>
+      <text x="672" y="440" class="tiny">r7</text>
+      <text x="706" y="432" class="tiny">r8</text>
+      <text x="744" y="424" class="tiny">r9</text>
+      <text x="784" y="416" class="tiny">r10</text>
+      <text x="534" y="418" class="tiny">r1</text>
+      <text x="546" y="440" class="tiny">r2</text>
+      <text x="524" y="458" class="tiny">r3</text>
+      <text x="544" y="478" class="tiny">r4</text>
+      <text x="574" y="486" class="tiny">r5</text>
+      <text x="736" y="402" class="small">Neck</text>
+      <text x="788" y="394" class="small">Upper limb</text>
+      <text x="836" y="388" class="small">Pregangl.</text>
+      <text x="880" y="390" class="small">Sympath.</text>
+      <text x="906" y="410" class="small" transform="rotate(-90 906 410)">Preganglionic</text>
+      <text x="912" y="486" class="small">Tail</text>
+    </svg>
+    <figcaption id="primary-vesicle-figure-caption">
+      <span class="fig-num">FIGURE</span>
+      Overview map from <strong>3 primary vesicles</strong> to early <strong>secondary vesicles</strong> and caudal neural tube patterning. It reinforces that only the cranial neural tube balloons into named brain vesicles, while the caudal portion continues as spinal cord.
+    </figcaption>
+  </figure>
+
   <div class="mnemonic reveal">
     <div class="mnemonic-title">📝 Mnemonic — 3 Primary Vesicles (anterior → posterior)</div>
     <strong>"Pros Make Rhymes"</strong> → <strong>Pro</strong>sencephalon · <strong>M</strong>esencephalon · <strong>Rh</strong>ombencephalon<br>
@@ -370,6 +542,98 @@ strong { color:var(--ink); }
 
   <h2 class="section-h2 reveal">What Are Rhombomeres?</h2>
   <p class="reveal">The rhombencephalon isn't a smooth balloon — it's internally segmented into <strong>rhombomeres (Rh.1–7)</strong>, each expressing specific Hox genes. This matters because cranial nerve motor nuclei arise from specific rhombomeres, and neural crest cells from each rhombomere migrate into specific pharyngeal arches (e.g., CN V from Rh.2–3; CN VII/VIII from Rh.4; CN IX from Rh.5–6).</p>
+
+  <figure class="figure-panel reveal" aria-labelledby="rhombomere-figure-caption">
+    <svg viewBox="0 0 760 560" role="img" aria-label="Rhombomeres mapped to cranial nerve ganglia, motor nuclei, and pharyngeal arches">
+      <defs>
+        <style>
+          .label{font: 24px Nunito, sans-serif; fill:#1f1a14;}
+          .small{font: 18px Nunito, sans-serif; fill:#1f1a14;}
+          .tiny{font: 16px IBM Plex Mono, monospace; fill:#5c5042;}
+          .line{fill:none;stroke:#6d5d49;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+        </style>
+      </defs>
+      <rect x="370" y="20" width="36" height="510" rx="8" fill="#e9e1d1"/>
+      <path d="M268 38 C334 18, 398 16, 466 30 C554 48, 628 98, 684 172" class="line" stroke-dasharray="8 8"/>
+      <text x="535" y="44" class="label">Rhombencephalon</text>
+
+      <path d="M140 110 C178 84, 218 86, 254 104 C286 120, 304 146, 310 176 C316 206, 310 236, 286 256 C262 276, 218 282, 178 262 C142 244, 122 214, 118 180 C114 150, 118 126, 140 110 Z" fill="#89c7e5" stroke="#4f4438" stroke-width="4"/>
+      <path d="M146 272 C176 246, 220 248, 252 266 C286 286, 302 318, 298 350 C294 384, 272 414, 238 430 C200 446, 156 442, 126 420 C98 398, 90 366, 96 334 C102 306, 118 286, 146 272 Z" fill="#89c7e5" stroke="#4f4438" stroke-width="4"/>
+      <path d="M174 438 C204 420, 240 420, 268 434 C292 446, 306 470, 306 502 C306 530, 278 544, 242 542 C194 540, 146 522, 124 490 C106 464, 124 448, 174 438 Z" fill="#89c7e5" stroke="#4f4438" stroke-width="4"/>
+      <path d="M246 196 C284 186, 322 190, 350 214" class="line"/>
+      <path d="M234 340 C286 340, 324 340, 352 344" class="line"/>
+      <path d="M246 486 C290 478, 326 468, 352 456" class="line"/>
+      <path d="M188 94 C172 62, 150 42, 120 28" class="line"/>
+      <text x="52" y="114" class="label">Ganglion V</text>
+      <text x="48" y="304" class="label">Ganglion VII</text>
+      <text x="56" y="340" class="label">Ganglion VIII</text>
+      <text x="18" y="422" class="label">Optic vesicle</text>
+      <text x="70" y="478" class="label">Ganglion IX</text>
+      <text x="64" y="536" class="label">Ganglion X</text>
+      <text x="116" y="554" class="label">Floor plate</text>
+
+      <text x="286" y="138" class="tiny">r1</text>
+      <text x="286" y="174" class="tiny">r2</text>
+      <text x="286" y="214" class="tiny">r3</text>
+      <text x="286" y="254" class="tiny">r4</text>
+      <text x="286" y="294" class="tiny">r5</text>
+      <text x="286" y="334" class="tiny">r6</text>
+      <text x="286" y="374" class="tiny">r7</text>
+      <text x="286" y="414" class="tiny">r8</text>
+      <line x1="276" y1="128" x2="324" y2="128" class="line"/>
+      <line x1="276" y1="168" x2="324" y2="168" class="line"/>
+      <line x1="276" y1="208" x2="324" y2="208" class="line"/>
+      <line x1="276" y1="248" x2="324" y2="248" class="line"/>
+      <line x1="276" y1="288" x2="324" y2="288" class="line"/>
+      <line x1="276" y1="328" x2="324" y2="328" class="line"/>
+      <line x1="276" y1="368" x2="324" y2="368" class="line"/>
+      <line x1="276" y1="408" x2="324" y2="408" class="line"/>
+
+      <path d="M520 90 C574 118, 620 158, 648 212" class="line" stroke="#648b6a"/>
+      <path d="M524 182 C572 206, 614 242, 640 292" class="line" stroke="#648b6a"/>
+      <path d="M528 282 C574 304, 612 336, 634 384" class="line" stroke="#648b6a"/>
+      <path d="M532 388 C572 408, 606 438, 626 478" class="line" stroke="#648b6a"/>
+      <text x="560" y="170" class="small" transform="rotate(18 560 170)">Arch 1</text>
+      <text x="566" y="262" class="small" transform="rotate(18 566 262)">Arch 2</text>
+      <text x="572" y="354" class="small" transform="rotate(16 572 354)">Arch 3</text>
+      <text x="578" y="452" class="small" transform="rotate(16 578 452)">Arch 4</text>
+
+      <g fill="#f2d3d1" stroke="#7b6446" stroke-width="2.5">
+        <ellipse cx="492" cy="160" rx="26" ry="18"/>
+        <ellipse cx="490" cy="252" rx="26" ry="18"/>
+        <ellipse cx="488" cy="346" rx="26" ry="18"/>
+        <ellipse cx="486" cy="438" rx="26" ry="18"/>
+      </g>
+      <g class="line" stroke="#c57e72">
+        <path d="M430 148 C456 138, 468 142, 484 156"/>
+        <path d="M430 160 C452 152, 466 156, 482 170"/>
+        <path d="M430 172 C452 166, 466 170, 480 182"/>
+        <path d="M430 242 C456 234, 468 238, 484 252"/>
+        <path d="M430 254 C452 246, 466 250, 482 264"/>
+        <path d="M430 336 C456 328, 468 332, 484 346"/>
+        <path d="M430 348 C452 340, 466 344, 482 358"/>
+        <path d="M430 430 C456 422, 468 426, 484 440"/>
+      </g>
+      <text x="620" y="122" class="label">Motor IV</text>
+      <text x="620" y="154" class="label">Motor V</text>
+      <text x="618" y="260" class="label">Motor VII</text>
+      <text x="616" y="294" class="label">Motor VI</text>
+      <text x="616" y="386" class="label">Motor IX</text>
+      <text x="610" y="476" class="label">Motor X, XI</text>
+      <text x="642" y="544" class="label">Motor XII</text>
+      <line x1="578" y1="116" x2="514" y2="150" class="line"/>
+      <line x1="576" y1="148" x2="516" y2="162" class="line"/>
+      <line x1="578" y1="256" x2="514" y2="248" class="line"/>
+      <line x1="574" y1="288" x2="514" y2="260" class="line"/>
+      <line x1="576" y1="382" x2="512" y2="342" class="line"/>
+      <line x1="598" y1="472" x2="510" y2="438" class="line"/>
+      <line x1="628" y1="536" x2="440" y2="486" class="line"/>
+    </svg>
+    <figcaption id="rhombomere-figure-caption">
+      <span class="fig-num">FIGURE</span>
+      Rhombomeres help organize both <strong>cranial nerve motor nuclei</strong> and <strong>pharyngeal arch relationships</strong>. This is the developmental logic behind why hindbrain segmentation shows up later as patterned cranial nerve anatomy.
+    </figcaption>
+  </figure>
 
   <div class="fig-grid reveal">
     <div class="fig-thumb" onclick="openLB(1)"><img id="i1" src="" alt=""><div class="fig-caption"><span class="fig-num">FIGURE 2</span><span class="fig-text">Day 29–30: primary vesicles visible; rhombomeres labeled</span></div></div>
