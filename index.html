@@ -1931,7 +1931,8 @@ OCS:{fullName:"Osteopathic Clinical Skills",
     {title:"LO 42E — Brain Development",file:"notes/week42/OCS/LO42E_Brain_Development.html",icon:"🧠",group:"Donor"},
     {title:"LO 42F/G/H — Meninges & Brain",file:"notes/week42/OCS/LO42FGH_Meninges_Brain.html",icon:"🫀",group:"Donor"},
     {title:"42K — Illness Scripts",file:"notes/week42/OCS/illness scripts 42K.html",icon:"🩺",group:"Donor"},
-    {title:"Clinical Ophthalmology Notes",file:"notes/OCS/Clinical_Ophthalmology_Notes.html",icon:"👓",group:"CS"}
+    {title:"Clinical Ophthalmology Notes",file:"notes/OCS/Clinical_Ophthalmology_Notes.html",icon:"👓",group:"CS",allowedUsers:["jmehta@une.edu","smukherjee@une.edu","rwolfe4@une.edu","deverly@une.edu"]},
+    {title:"Week 42 HEENT 1 Eye Notes",file:"notes/OCS/Week42_HEENT1_Eye_Notes.html",icon:"👁️",group:"CS",allowedUsers:["jmehta@une.edu","smukherjee@une.edu","rwolfe4@une.edu","deverly@une.edu"]}
   ],quizzes:[],assessments:[]},
   6:{label:"Week 6",weekNum:43,notes:[],quizzes:[],assessments:[]},
   7:{label:"Week 7",weekNum:44,notes:[],quizzes:[],assessments:[]}}}
@@ -3387,6 +3388,7 @@ var SECRET_SHORTCUTS=[
   {group:'games',key:'flappy',aliases:['flappybird','bird'],icon:'🐤',title:'Flappy Bird',description:'Opens the local Flappy Bird game.'},
   {group:'games',key:'dino',aliases:['dinosaur'],icon:'🦖',title:'Dino Runner 3D',description:'Launches the 3D dinosaur runner in a popup.'},
   {group:'games',key:'minecraft',aliases:[],icon:'⛏️',title:'Minecraft Mode',description:'Launches the Minecraft study page in a popup.'},
+  {group:'games',key:'fnaf',aliases:['freddy'],icon:'🐻',title:'FNAF Mode',description:'Launches the FNAF web game in a popup.'},
   {group:'games',key:'pika',aliases:[],icon:'⚡',title:'Pika Mode',description:'Launches the CSS Pokemon Game Boy.'},
   {group:'games',key:'cat',aliases:['kitten'],icon:'🐱',title:'Nyan Mode',description:'Opens Nyan Cat in a separate window.'},
   {group:'media',key:'quack',aliases:[],icon:'🦆',title:'Quack Mode',description:'Duck-themed modal with the embedded anthem.'},
@@ -3465,6 +3467,7 @@ function launchSecretCommand(keyword){
     case 'flappy': triggerFlappyEgg(); break;
     case 'dino': triggerDinoEgg(); break;
     case 'minecraft': triggerMinecraftEgg(); break;
+    case 'fnaf': triggerFnafEgg(); break;
     case 'quack': triggerQuackEgg(); break;
     case 'pika': triggerPikaEgg(); break;
     case 'cat': triggerNyanEgg(); break;
@@ -3549,6 +3552,16 @@ function handleEasterEggKeydown(ev){
   if(EASTER_EGG_BUFFER.endsWith('minecraft')){
     EASTER_EGG_BUFFER='';
     triggerMinecraftEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('freddy')){
+    EASTER_EGG_BUFFER='';
+    triggerFnafEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('fnaf')){
+    EASTER_EGG_BUFFER='';
+    triggerFnafEgg();
     return;
   }
   if(EASTER_EGG_BUFFER.endsWith('flappy')){
@@ -3739,6 +3752,24 @@ function triggerMinecraftEgg(){
     linkHref:minecraftUrl,
     note:popup
       ? 'Type minecraft again anytime you want to launch it.'
+      : 'Popups can be blocked in some browsers until you allow them for this site.'
+  });
+}
+
+function triggerFnafEgg(){
+  var fnafUrl='https://fngames.io/fnaf.embed';
+  var popup=openEggPopup(fnafUrl,'fnaf_mode',1240,860);
+  launchEasterEgg({
+    icon:'🐻',
+    title:'FNAF MODE',
+    toastLabel:'Secret unlocked • fnaf',
+    body:popup
+      ? 'FNAF is now open in its own window. Hope you like jump scares.'
+      : 'Your browser blocked the popup, so use the button below to open FNAF manually.',
+    linkLabel:'Open FNAF',
+    linkHref:fnafUrl,
+    note:popup
+      ? 'Type fnaf or freddy again anytime you want to launch it.'
       : 'Popups can be blocked in some browsers until you allow them for this site.'
   });
 }
