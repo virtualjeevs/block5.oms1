@@ -3471,6 +3471,7 @@ var SECRET_SHORTCUTS=[
   {group:'games',key:'minecraft',aliases:[],icon:'⛏️',title:'Minecraft Mode',description:'Launches the Minecraft study page in a popup.'},
   {group:'games',key:'fnaf',aliases:['freddy'],icon:'🐻',title:'FNAF Mode',description:'Launches the FNAF web game in a popup.'},
   {group:'games',key:'pika',aliases:[],icon:'⚡',title:'Pika Mode',description:'Launches the CSS Pokemon Game Boy.'},
+  {group:'games',key:'yellow',aliases:['pokemonyellow'],icon:'🟡',title:'Pokemon Yellow',description:'Launches Pokemon Yellow in a popup.'},
   {group:'games',key:'cat',aliases:['kitten'],icon:'🐱',title:'Nyan Mode',description:'Opens Nyan Cat in a separate window.'},
   {group:'media',key:'quack',aliases:[],icon:'🦆',title:'Quack Mode',description:'Duck-themed modal with the embedded anthem.'},
   {group:'media',key:'hvla',aliases:[],icon:'⚡',title:'HVLA Mode',description:'Shows the embedded HVLA Google Drive preview.'},
@@ -3551,6 +3552,7 @@ function launchSecretCommand(keyword){
     case 'fnaf': triggerFnafEgg(); break;
     case 'quack': triggerQuackEgg(); break;
     case 'pika': triggerPikaEgg(); break;
+    case 'yellow': triggerPokemonYellowEgg(); break;
     case 'cat': triggerNyanEgg(); break;
     case 'hvla': triggerHvlaEgg(); break;
     case 'loglady': triggerLogLadyEgg(); break;
@@ -3673,6 +3675,16 @@ function handleEasterEggKeydown(ev){
   if(EASTER_EGG_BUFFER.endsWith('pika')){
     EASTER_EGG_BUFFER='';
     triggerPikaEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('pokemonyellow')){
+    EASTER_EGG_BUFFER='';
+    triggerPokemonYellowEgg();
+    return;
+  }
+  if(EASTER_EGG_BUFFER.endsWith('yellow')){
+    EASTER_EGG_BUFFER='';
+    triggerPokemonYellowEgg();
     return;
   }
   if(EASTER_EGG_BUFFER.endsWith('cat')){
@@ -3905,6 +3917,24 @@ function triggerPikaEgg(){
     linkHref:pikaUrl,
     note:popup
       ? 'Type pika again anytime you want to launch it.'
+      : 'Popups can be blocked in some browsers until you allow them for this site.'
+  });
+}
+
+function triggerPokemonYellowEgg(){
+  var yellowUrl='https://gbapokemon.com/play/pokemon-yellow/';
+  var popup=openEggPopup(yellowUrl,'pokemon_yellow_mode',1180,860);
+  launchEasterEgg({
+    icon:'🟡',
+    title:'POKEMON YELLOW',
+    toastLabel:'Secret unlocked • yellow',
+    body:popup
+      ? 'Pokemon Yellow is open in its own window. Pikachu is waiting.'
+      : 'Your browser blocked the popup, so use the button below to open Pokemon Yellow manually.',
+    linkLabel:'Open Pokemon Yellow',
+    linkHref:yellowUrl,
+    note:popup
+      ? 'Type yellow or pokemonyellow again anytime you want to launch it.'
       : 'Popups can be blocked in some browsers until you allow them for this site.'
   });
 }
