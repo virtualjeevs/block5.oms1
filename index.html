@@ -482,10 +482,20 @@ body.auth-locked .sb-tog{
   width:min(100%,520px);max-width:520px;min-height:300px;justify-content:flex-end;align-items:flex-end;
   gap:0;overflow:hidden;padding:10px 0 0;
 }
+.auth-special-frame[data-special="chair-rise"]{
+  width:min(100%,760px);max-width:760px;min-height:430px;justify-content:flex-end;align-items:center;
+  gap:0;overflow:hidden;padding:0;
+  animation:chairBlastoffShake .48s cubic-bezier(.2,.9,.2,1) .92s both;
+}
 .auth-special-frame[data-special="david-rise"]::before,.auth-special-frame[data-special="rachael-rise"]::before{
   content:'';position:absolute;left:8%;right:8%;bottom:12px;height:54px;border-radius:999px;
   background:radial-gradient(circle, rgba(255,255,255,.18) 0%, rgba(255,255,255,.1) 34%, rgba(255,255,255,0) 74%);
   filter:blur(7px);opacity:0;animation:davidShadowIn .6s ease .55s forwards;
+}
+.auth-special-frame[data-special="chair-rise"]::before{
+  content:'';position:absolute;left:14%;right:14%;bottom:18px;height:72px;border-radius:999px;
+  background:radial-gradient(circle, rgba(255,255,255,.2) 0%, rgba(255,255,255,.11) 35%, rgba(255,255,255,0) 76%);
+  filter:blur(8px);opacity:0;animation:davidShadowIn .72s ease .7s forwards;
 }
 .auth-special-frame[data-special="david-rise"] .auth-special-img,.auth-special-frame[data-special="rachael-rise"] .auth-special-img{
   width:min(100%,500px);max-height:none;object-fit:contain;border-radius:0;box-shadow:none;
@@ -494,9 +504,21 @@ body.auth-locked .sb-tog{
   transform-origin:center bottom;opacity:0;
   animation:davidRise 1.35s cubic-bezier(.16,.9,.16,1.08) .08s forwards,davidHover 3.8s ease-in-out 1.5s infinite;
 }
+.auth-special-frame[data-special="chair-rise"] .auth-special-img{
+  width:min(100%,740px);max-height:none;object-fit:contain;border-radius:0;box-shadow:none;
+  filter:drop-shadow(0 30px 64px rgba(0,0,0,.42));
+  transform:translate3d(0,460px,0) scale(.56) rotate(-12deg);
+  transform-origin:center bottom;opacity:0;
+  animation:chairRise 1.9s cubic-bezier(.12,.9,.16,1.08) .06s forwards,chairFloat 4.2s ease-in-out 2s infinite;
+}
 .auth-special-frame[data-special="david-rise"] .auth-special-caption,.auth-special-frame[data-special="rachael-rise"] .auth-special-caption{
   max-width:420px;margin-top:-6px;opacity:0;transform:translateY(16px);
   animation:davidCaptionIn .58s ease .98s forwards;
+}
+.auth-special-frame[data-special="chair-rise"] .auth-special-caption{
+  max-width:520px;margin-top:-20px;opacity:0;transform:translateY(26px) scale(.82);
+  text-transform:uppercase;letter-spacing:1.6px;text-shadow:0 8px 24px rgba(0,0,0,.28);
+  animation:chairTrailerCaption .72s cubic-bezier(.16,.9,.16,1.08) 1.2s forwards;
 }
 .auth-login-quote{margin-top:20px;padding:16px 18px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);max-width:560px}
 .auth-login-quote-label{font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.52);font-weight:800;margin-bottom:8px}
@@ -518,6 +540,31 @@ body.auth-locked .sb-tog{
 @keyframes davidHover{
   0%,100%{transform:translate3d(0,0,0) scale(1) rotate(0deg)}
   50%{transform:translate3d(-10px,-14px,0) scale(1.015) rotate(-1.5deg)}
+}
+@keyframes chairRise{
+  0%{opacity:0;transform:translate3d(0,460px,0) scale(.56) rotate(-12deg)}
+  32%{opacity:1;transform:translate3d(18px,120px,0) scale(.84) rotate(10deg)}
+  54%{opacity:1;transform:translate3d(-28px,-165px,0) scale(1.34) rotate(-7deg)}
+  72%{opacity:1;transform:translate3d(14px,-122px,0) scale(1.24) rotate(4.8deg)}
+  86%{opacity:1;transform:translate3d(-8px,-148px,0) scale(1.29) rotate(-2.4deg)}
+  100%{opacity:1;transform:translate3d(0,-140px,0) scale(1.27) rotate(0deg)}
+}
+@keyframes chairFloat{
+  0%,100%{transform:translate3d(0,-140px,0) scale(1.27) rotate(0deg)}
+  50%{transform:translate3d(-10px,-154px,0) scale(1.285) rotate(-1.4deg)}
+}
+@keyframes chairBlastoffShake{
+  0%{transform:translate3d(0,0,0)}
+  18%{transform:translate3d(-12px,6px,0)}
+  36%{transform:translate3d(10px,-5px,0)}
+  54%{transform:translate3d(-8px,4px,0)}
+  72%{transform:translate3d(6px,-3px,0)}
+  100%{transform:translate3d(0,0,0)}
+}
+@keyframes chairTrailerCaption{
+  0%{opacity:0;transform:translateY(26px) scale(.82);letter-spacing:8px;filter:blur(6px)}
+  62%{opacity:1;transform:translateY(-6px) scale(1.08);letter-spacing:2.4px;filter:blur(0)}
+  100%{opacity:1;transform:translateY(0) scale(1);letter-spacing:1.6px;filter:blur(0)}
 }
 @keyframes davidCaptionIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes davidShadowIn{from{opacity:0;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
@@ -2600,8 +2647,8 @@ var AUTH_SPECIAL_WELCOMES={
     src:'assets/david-login-rise.jpg',
     alt:'David rising up with a laptop',
     caption:'<strong>David mode activated.</strong> He has risen to claim the study hub.',
-    variant:'david-rise',
-    unlockDelay:4700
+    variant:'chair-rise',
+    unlockDelay:5600
   },
   'oriveravazquez@une.edu':{
     srcs:[
@@ -2610,10 +2657,22 @@ var AUTH_SPECIAL_WELCOMES={
     ]
   },
   'rwolfe4@une.edu':{
-    src:'https://media.tenor.com/NESZUSrsmOYAAAAM/fenrir-god-of-war.gif',
-    alt:'Fenrir animation',
-    caption:'<strong>Rachael mode activated.</strong> Fenrir has risen to escort you into Block 5.',
-    variant:'rachael-rise',
+    srcs:[
+      {
+        src:'https://media.tenor.com/NESZUSrsmOYAAAAM/fenrir-god-of-war.gif',
+        alt:'Fenrir animation',
+        caption:'<strong>Rachael mode activated.</strong> Fenrir has risen to escort you into Block 5.',
+        variant:'rachael-rise',
+        unlockDelay:5000
+      },
+      {
+        src:'assets/david-login-rise.jpg',
+        alt:'Rachael special rising welcome image',
+        caption:'<strong>Rachael mode activated.</strong> Alternate entrance unlocked.',
+        variant:'chair-rise',
+        unlockDelay:5600
+      }
+    ],
     unlockDelay:5000
   },
   'ssalhi@une.edu':{
@@ -3240,6 +3299,9 @@ function renderSpecialWelcome(user){
     return null;
   }
   var chosen=special;
+  if(special.srcs&&special.srcs.length){
+    chosen=Object.assign({},special,special.srcs[Math.floor(Math.random()*special.srcs.length)]);
+  }
   if(frame)frame.setAttribute('data-special',chosen.variant||'');
   if(image){
     image.src=chosen.src;
