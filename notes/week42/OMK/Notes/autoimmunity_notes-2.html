@@ -333,6 +333,108 @@
     width: 100%;
     display: block;
     filter: brightness(0.97) contrast(1.03);
+    cursor: zoom-in;
+  }
+
+  .img-zoom-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(20, 14, 8, 0.82);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1000;
+  }
+  .img-zoom-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .img-zoom-modal img {
+    max-width: min(96vw, 1200px);
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+    background: #fffaf2;
+  }
+  .img-zoom-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: 1px solid rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border-radius: 999px;
+    padding: 0.45rem 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .img-zoom-close:hover {
+    background: rgba(255,255,255,0.18);
+  }
+
+  /* ── EXPANDABLE FYI ── */
+  .fyi-note {
+    margin: 0.9rem 0 1rem;
+    border: 1px solid rgba(47,105,135,0.22);
+    border-radius: 8px;
+    background: rgba(47,105,135,0.05);
+    overflow: hidden;
+  }
+  .fyi-note summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0.8rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.73rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .fyi-note summary::-webkit-details-marker { display: none; }
+  .fyi-note summary::before {
+    content: '▸';
+    display: inline-block;
+    margin-right: 0.55rem;
+    transition: transform 0.18s ease;
+  }
+  .fyi-note[open] summary::before {
+    transform: rotate(90deg);
+  }
+  .fyi-note .fyi-body {
+    padding: 0 1rem 1rem;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .fyi-note .fyi-body p:last-child,
+  .fyi-note .fyi-body ul:last-child {
+    margin-bottom: 0;
+  }
+  .table-quiz {
+    margin-top: 0.75rem;
+    background: rgba(77,120,80,0.05);
+    border-color: rgba(77,120,80,0.22);
+  }
+  .table-quiz summary {
+    color: var(--accent3);
+  }
+  .table-quiz .fyi-body ol {
+    padding-left: 1.1rem;
+    margin-top: 0.35rem;
+  }
+  .table-quiz .fyi-body li {
+    margin-bottom: 0.45rem;
   }
 </style>
 </head>
@@ -458,6 +560,15 @@
       </tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: thymic selection</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>Which selection happens in the cortex and requires low-affinity TCR-MHC binding?</strong> Positive selection.</li>
+        <li><strong>What usually happens to a thymocyte that binds self antigen with high affinity in the medulla?</strong> Deletion by apoptosis, although some CD4 cells can become Tregs.</li>
+      </ol>
+    </div>
+  </details>
 
   <figure class="slide-fig"><img src="autoimmunity_notes-2_assets/autoimmunity_figure_01.jpg" alt="Thymic selection — cortex positive selection, medulla negative selection" loading="lazy"></figure><div class="callout">
     <strong>Key distinction:</strong> Negative selection = <mark>deletion</mark>. Some high-affinity self-reactive CD4 T cells are <em>not</em> deleted but instead differentiate into Tregs. The outcome depends on: <strong>(1) affinity of antigen recognition</strong>, (2) types of APCs presenting antigen, (3) availability of cytokines.
@@ -567,6 +678,15 @@
       </tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: Treg generation</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>Which Tregs are generated in the thymus and are mainly specific for self antigens?</strong> nTregs.</li>
+        <li><strong>What cytokines are especially important for pTreg generation?</strong> IL-2 and TGF-β, with retinoic acid helping in the right setting.</li>
+      </ol>
+    </div>
+  </details>
 
   <div class="card green">
     <strong>Treg Markers</strong>
@@ -581,6 +701,21 @@
   <div class="callout warn">
     <strong>FoxP3 Mutations → IPEX Syndrome:</strong> Immune Dysregulation, Polyendocrinopathy, Enteropathy, X-linked. Loss of functional Tregs → multisystem autoimmune disease. X-linked because FoxP3 is on the X chromosome.
   </div>
+
+  <details class="fyi-note">
+    <summary>FYI: plain-English explanation of IPEX terms</summary>
+    <div class="fyi-body">
+      <p><strong>Big idea:</strong> <strong>FoxP3</strong> is the master gene that lets <strong>Tregs</strong> work properly. If FoxP3 is mutated, the immune system loses an important "brake," so it starts attacking the body's own tissues.</p>
+      <ul style="padding-left:1.1rem;margin-top:0.5rem;">
+        <li><strong>Immune dysregulation</strong> = the immune system is poorly controlled and attacks the wrong targets.</li>
+        <li><strong>Polyendocrinopathy</strong> = autoimmune disease affecting <em>multiple hormone-producing glands</em>.</li>
+        <li><strong>Enteropathy</strong> = disease of the intestines, often causing severe diarrhea.</li>
+        <li><strong>X-linked</strong> = the gene is on the <strong>X chromosome</strong>, so boys are often affected more severely.</li>
+        <li><strong>Loss of functional Tregs</strong> = the regulatory T cells cannot properly suppress self-reactive immune responses.</li>
+      </ul>
+      <p><strong>Shortcut to remember it:</strong> <mark>FoxP3 mutation → broken Tregs → loss of immune "brakes" → widespread autoimmunity.</mark></p>
+    </div>
+  </details>
 
   <div class="callout">
     <strong>IL-2 / IL-2R Deficiency:</strong> Animals deficient in IL-2 or its receptor develop autoimmunity (IBD, autoimmune hemolytic anemia, multiple autoantibodies). Disease can be corrected by restoring Tregs — confirming Tregs as key checkpoint.
@@ -641,6 +776,15 @@
       </tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: peripheral deletion</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>Which caspase is classically associated with the intrinsic mitochondrial pathway?</strong> Caspase-9.</li>
+        <li><strong>What receptor-ligand pair drives the extrinsic pathway here?</strong> Fas with FasL.</li>
+      </ol>
+    </div>
+  </details>
 </section>
 
 <!-- ══════════════════════════════════════════════════ -->
@@ -683,6 +827,15 @@
       </tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: central B cell tolerance</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>What is the most common first response of a high-avidity immature B cell to self antigen?</strong> Receptor editing.</li>
+        <li><strong>What low-avidity outcome is associated with soluble self antigen?</strong> Anergy.</li>
+      </ol>
+    </div>
+  </details>
 
   <h3>Peripheral B Cell Tolerance</h3>
   <p>Mature B cells encountering self-antigen in peripheral tissues without T cell help are rendered unresponsive or die. Peripheral tolerance also eliminates autoreactive clones generated by <strong>somatic hypermutation in germinal centers</strong>.</p>
@@ -747,6 +900,15 @@
       </tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: T cell vs B cell tolerance</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>What unique central tolerance mechanism is especially important for B cells but not T cells?</strong> Receptor editing.</li>
+        <li><strong>What unique thymic feature helps T cells become tolerant to peripheral tissue antigens?</strong> AIRE-driven TRA expression.</li>
+      </ol>
+    </div>
+  </details>
 </section>
 
 <!-- ══════════════════════════════════════════════════ -->
@@ -790,6 +952,15 @@
       </tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: tolerogenic vs immunogenic signals</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>Does antigen without adjuvant usually favor immunity or tolerance?</strong> Tolerance.</li>
+        <li><strong>Which APC state is more tolerogenic: mature or immature DCs?</strong> Immature resting DCs.</li>
+      </ol>
+    </div>
+  </details>
 
   <h3>Immunologic Abnormalities Leading to Autoimmunity</h3>
 
@@ -858,6 +1029,15 @@
       <tr><td>SLE</td><td>DRB1*0301</td><td>2</td></tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: HLA associations</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>Which disease in this table has the strongest HLA association?</strong> Ankylosing spondylitis with B*27.</li>
+        <li><strong>Which autoimmune disease here is linked to DRB1 shared epitope alleles?</strong> Rheumatoid arthritis.</li>
+      </ol>
+    </div>
+  </details>
   <div class="callout">
     <strong>Important caveat:</strong> A particular HLA gene is <em>not by itself the cause</em> of autoimmunity — it is one of many contributing factors. Associations may also reflect linkage with other alleles inherited together.
   </div>
@@ -915,6 +1095,15 @@
       </tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: single-gene mutations</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>Which mutation causes failure of central T cell tolerance in the thymus?</strong> AIRE mutation.</li>
+        <li><strong>Which mutation causes defective Treg function and leads to IPEX syndrome?</strong> FoxP3 mutation.</li>
+      </ol>
+    </div>
+  </details>
 </section>
 
 <!-- ══════════════════════════════════════════════════ -->
@@ -964,6 +1153,15 @@
       <tr><td>Hashimoto's disease (Type II component)</td><td>TPO, thyroglobulin, TSHR</td><td>Thyroid cell destruction</td></tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: Type II autoimmune diseases</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>Which Type II disease in this table is caused by antibody stimulation rather than destruction?</strong> Graves' disease.</li>
+        <li><strong>Which disease targets the acetylcholine receptor at the NMJ?</strong> Myasthenia gravis.</li>
+      </ol>
+    </div>
+  </details>
 
   <div class="callout tip">
     <strong>MG — Complement at the NMJ:</strong> IgG binds AChR → C1 complex activates complement cascade → MAC (C5b–C9) formation → destruction of postsynaptic muscle membrane morphology → impaired neuromuscular transmission → progressive proximal muscle weakness.
@@ -980,6 +1178,15 @@
       <tr><td>Mixed essential cryoglobulinemia</td><td>Rheumatoid factor IgG complexes (± Hep C antigens)</td><td>Systemic vasculitis</td></tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: Type III diseases</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>What is the key immunologic problem in Type III hypersensitivity?</strong> Deposition of soluble immune complexes in tissues.</li>
+        <li><strong>Which classic systemic autoimmune disease in this table is Type III?</strong> SLE.</li>
+      </ol>
+    </div>
+  </details>
 
   <!-- TYPE IV -->
   <h3>Type IV — Cell-Mediated (Delayed-Type Hypersensitivity, DTH)</h3>
@@ -1010,6 +1217,15 @@
       <tr><td><strong>Hashimoto's thyroiditis</strong></td><td>TPO, thyroglobulin (Tg), TSHR</td><td>Thyroid cell destruction → hypothyroidism</td></tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: Type IV diseases</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>Which cells are the main effectors in Type IV hypersensitivity?</strong> T cells and macrophages.</li>
+        <li><strong>Which disease here is caused by destruction of pancreatic beta cells?</strong> Type 1 diabetes.</li>
+      </ol>
+    </div>
+  </details>
 
   <h3>Comparison: Types II, III, IV</h3>
   <div class="table-wrap">
@@ -1022,6 +1238,15 @@
       <tr><td>Key diseases</td><td>Graves', MG, Goodpasture's, hemolytic anemia</td><td>SLE, cryoglobulinemia</td><td>T1D, MS, RA, Hashimoto's</td></tr>
     </table>
   </div>
+  <details class="fyi-note table-quiz">
+    <summary>Table quiz: compare Types II, III, and IV</summary>
+    <div class="fyi-body">
+      <ol>
+        <li><strong>Which hypersensitivity type is delayed for 48–72 hours?</strong> Type IV.</li>
+        <li><strong>Which type is driven by soluble immune complexes rather than cell-surface antigen or T cells?</strong> Type III.</li>
+      </ol>
+    </div>
+  </details>
 </section>
 
 <!-- ══════════════════════════════════════════════════ -->
@@ -1063,6 +1288,15 @@
         </tr>
       </table>
     </div>
+    <details class="fyi-note table-quiz">
+      <summary>Table quiz: master tolerance summary</summary>
+      <div class="fyi-body">
+        <ol>
+          <li><strong>What is the key peripheral suppressive mechanism for T cells?</strong> Tregs using IL-10, TGF-β, and B7 removal.</li>
+          <li><strong>Which central B cell mechanism comes before deletion when self-reactivity is high?</strong> Receptor editing.</li>
+        </ol>
+      </div>
+    </details>
   </div>
 
   <div class="card gold" style="margin-top:1.2rem">
@@ -1095,5 +1329,43 @@
 </section>
 
 </main>
+<div class="img-zoom-modal" id="imgZoomModal" aria-hidden="true">
+  <button class="img-zoom-close" id="imgZoomClose" type="button">Close</button>
+  <img id="imgZoomTarget" alt="">
+</div>
+<script>
+  (function () {
+    var modal = document.getElementById('imgZoomModal');
+    var modalImg = document.getElementById('imgZoomTarget');
+    var closeBtn = document.getElementById('imgZoomClose');
+    var figures = document.querySelectorAll('.slide-fig img');
+
+    function closeZoom() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      modalImg.removeAttribute('src');
+      modalImg.alt = '';
+      document.body.style.overflow = '';
+    }
+
+    figures.forEach(function (img) {
+      img.addEventListener('click', function () {
+        modalImg.src = img.currentSrc || img.src;
+        modalImg.alt = img.alt || 'Zoomed figure';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    closeBtn.addEventListener('click', closeZoom);
+    modal.addEventListener('click', function (event) {
+      if (event.target === modal) closeZoom();
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && modal.classList.contains('open')) closeZoom();
+    });
+  }());
+</script>
 </body>
 </html>
