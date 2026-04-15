@@ -421,20 +421,68 @@
   .fyi-note .fyi-body ul:last-child {
     margin-bottom: 0;
   }
-  .table-quiz {
-    margin-top: 0.75rem;
-    background: rgba(77,120,80,0.05);
-    border-color: rgba(77,120,80,0.22);
+  .table-quiz-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.55rem;
+    margin-bottom: 1rem;
   }
-  .table-quiz summary {
+  .table-quiz-toggle {
+    border: 1px solid rgba(77,120,80,0.28);
+    background: rgba(77,120,80,0.08);
     color: var(--accent3);
+    border-radius: 999px;
+    padding: 0.45rem 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
   }
-  .table-quiz .fyi-body ol {
-    padding-left: 1.1rem;
-    margin-top: 0.35rem;
+  .table-quiz-toggle:hover {
+    background: rgba(77,120,80,0.14);
   }
-  .table-quiz .fyi-body li {
-    margin-bottom: 0.45rem;
+  .table-wrap table.is-quiz-mode .quiz-target {
+    position: relative;
+    color: transparent !important;
+    text-shadow: none !important;
+    user-select: none;
+    cursor: pointer;
+  }
+  .table-wrap table.is-quiz-mode .quiz-target * {
+    color: transparent !important;
+  }
+  .table-wrap table.is-quiz-mode .quiz-target::after {
+    content: 'Click to reveal';
+    position: absolute;
+    inset: 0.18rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.25rem;
+    border-radius: 4px;
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(47,105,135,0.08),
+      rgba(47,105,135,0.08) 8px,
+      rgba(179,90,60,0.08) 8px,
+      rgba(179,90,60,0.08) 16px
+    );
+    color: var(--muted) !important;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.64rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .table-wrap table.is-quiz-mode .quiz-target.revealed,
+  .table-wrap table.is-quiz-mode .quiz-target.revealed * {
+    color: inherit !important;
+    user-select: text;
+  }
+  .table-wrap table.is-quiz-mode .quiz-target.revealed::after {
+    display: none;
   }
 </style>
 </head>
@@ -560,15 +608,6 @@
       </tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: thymic selection</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>Which selection happens in the cortex and requires low-affinity TCR-MHC binding?</strong> Positive selection.</li>
-        <li><strong>What usually happens to a thymocyte that binds self antigen with high affinity in the medulla?</strong> Deletion by apoptosis, although some CD4 cells can become Tregs.</li>
-      </ol>
-    </div>
-  </details>
 
   <figure class="slide-fig"><img src="autoimmunity_notes-2_assets/autoimmunity_figure_01.jpg" alt="Thymic selection — cortex positive selection, medulla negative selection" loading="lazy"></figure><div class="callout">
     <strong>Key distinction:</strong> Negative selection = <mark>deletion</mark>. Some high-affinity self-reactive CD4 T cells are <em>not</em> deleted but instead differentiate into Tregs. The outcome depends on: <strong>(1) affinity of antigen recognition</strong>, (2) types of APCs presenting antigen, (3) availability of cytokines.
@@ -678,15 +717,6 @@
       </tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: Treg generation</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>Which Tregs are generated in the thymus and are mainly specific for self antigens?</strong> nTregs.</li>
-        <li><strong>What cytokines are especially important for pTreg generation?</strong> IL-2 and TGF-β, with retinoic acid helping in the right setting.</li>
-      </ol>
-    </div>
-  </details>
 
   <div class="card green">
     <strong>Treg Markers</strong>
@@ -776,15 +806,6 @@
       </tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: peripheral deletion</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>Which caspase is classically associated with the intrinsic mitochondrial pathway?</strong> Caspase-9.</li>
-        <li><strong>What receptor-ligand pair drives the extrinsic pathway here?</strong> Fas with FasL.</li>
-      </ol>
-    </div>
-  </details>
 </section>
 
 <!-- ══════════════════════════════════════════════════ -->
@@ -827,15 +848,6 @@
       </tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: central B cell tolerance</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>What is the most common first response of a high-avidity immature B cell to self antigen?</strong> Receptor editing.</li>
-        <li><strong>What low-avidity outcome is associated with soluble self antigen?</strong> Anergy.</li>
-      </ol>
-    </div>
-  </details>
 
   <h3>Peripheral B Cell Tolerance</h3>
   <p>Mature B cells encountering self-antigen in peripheral tissues without T cell help are rendered unresponsive or die. Peripheral tolerance also eliminates autoreactive clones generated by <strong>somatic hypermutation in germinal centers</strong>.</p>
@@ -900,15 +912,6 @@
       </tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: T cell vs B cell tolerance</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>What unique central tolerance mechanism is especially important for B cells but not T cells?</strong> Receptor editing.</li>
-        <li><strong>What unique thymic feature helps T cells become tolerant to peripheral tissue antigens?</strong> AIRE-driven TRA expression.</li>
-      </ol>
-    </div>
-  </details>
 </section>
 
 <!-- ══════════════════════════════════════════════════ -->
@@ -952,15 +955,6 @@
       </tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: tolerogenic vs immunogenic signals</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>Does antigen without adjuvant usually favor immunity or tolerance?</strong> Tolerance.</li>
-        <li><strong>Which APC state is more tolerogenic: mature or immature DCs?</strong> Immature resting DCs.</li>
-      </ol>
-    </div>
-  </details>
 
   <h3>Immunologic Abnormalities Leading to Autoimmunity</h3>
 
@@ -1029,15 +1023,6 @@
       <tr><td>SLE</td><td>DRB1*0301</td><td>2</td></tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: HLA associations</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>Which disease in this table has the strongest HLA association?</strong> Ankylosing spondylitis with B*27.</li>
-        <li><strong>Which autoimmune disease here is linked to DRB1 shared epitope alleles?</strong> Rheumatoid arthritis.</li>
-      </ol>
-    </div>
-  </details>
   <div class="callout">
     <strong>Important caveat:</strong> A particular HLA gene is <em>not by itself the cause</em> of autoimmunity — it is one of many contributing factors. Associations may also reflect linkage with other alleles inherited together.
   </div>
@@ -1095,15 +1080,6 @@
       </tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: single-gene mutations</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>Which mutation causes failure of central T cell tolerance in the thymus?</strong> AIRE mutation.</li>
-        <li><strong>Which mutation causes defective Treg function and leads to IPEX syndrome?</strong> FoxP3 mutation.</li>
-      </ol>
-    </div>
-  </details>
 </section>
 
 <!-- ══════════════════════════════════════════════════ -->
@@ -1153,15 +1129,6 @@
       <tr><td>Hashimoto's disease (Type II component)</td><td>TPO, thyroglobulin, TSHR</td><td>Thyroid cell destruction</td></tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: Type II autoimmune diseases</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>Which Type II disease in this table is caused by antibody stimulation rather than destruction?</strong> Graves' disease.</li>
-        <li><strong>Which disease targets the acetylcholine receptor at the NMJ?</strong> Myasthenia gravis.</li>
-      </ol>
-    </div>
-  </details>
 
   <div class="callout tip">
     <strong>MG — Complement at the NMJ:</strong> IgG binds AChR → C1 complex activates complement cascade → MAC (C5b–C9) formation → destruction of postsynaptic muscle membrane morphology → impaired neuromuscular transmission → progressive proximal muscle weakness.
@@ -1178,15 +1145,6 @@
       <tr><td>Mixed essential cryoglobulinemia</td><td>Rheumatoid factor IgG complexes (± Hep C antigens)</td><td>Systemic vasculitis</td></tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: Type III diseases</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>What is the key immunologic problem in Type III hypersensitivity?</strong> Deposition of soluble immune complexes in tissues.</li>
-        <li><strong>Which classic systemic autoimmune disease in this table is Type III?</strong> SLE.</li>
-      </ol>
-    </div>
-  </details>
 
   <!-- TYPE IV -->
   <h3>Type IV — Cell-Mediated (Delayed-Type Hypersensitivity, DTH)</h3>
@@ -1217,15 +1175,6 @@
       <tr><td><strong>Hashimoto's thyroiditis</strong></td><td>TPO, thyroglobulin (Tg), TSHR</td><td>Thyroid cell destruction → hypothyroidism</td></tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: Type IV diseases</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>Which cells are the main effectors in Type IV hypersensitivity?</strong> T cells and macrophages.</li>
-        <li><strong>Which disease here is caused by destruction of pancreatic beta cells?</strong> Type 1 diabetes.</li>
-      </ol>
-    </div>
-  </details>
 
   <h3>Comparison: Types II, III, IV</h3>
   <div class="table-wrap">
@@ -1238,15 +1187,6 @@
       <tr><td>Key diseases</td><td>Graves', MG, Goodpasture's, hemolytic anemia</td><td>SLE, cryoglobulinemia</td><td>T1D, MS, RA, Hashimoto's</td></tr>
     </table>
   </div>
-  <details class="fyi-note table-quiz">
-    <summary>Table quiz: compare Types II, III, and IV</summary>
-    <div class="fyi-body">
-      <ol>
-        <li><strong>Which hypersensitivity type is delayed for 48–72 hours?</strong> Type IV.</li>
-        <li><strong>Which type is driven by soluble immune complexes rather than cell-surface antigen or T cells?</strong> Type III.</li>
-      </ol>
-    </div>
-  </details>
 </section>
 
 <!-- ══════════════════════════════════════════════════ -->
@@ -1288,15 +1228,6 @@
         </tr>
       </table>
     </div>
-    <details class="fyi-note table-quiz">
-      <summary>Table quiz: master tolerance summary</summary>
-      <div class="fyi-body">
-        <ol>
-          <li><strong>What is the key peripheral suppressive mechanism for T cells?</strong> Tregs using IL-10, TGF-β, and B7 removal.</li>
-          <li><strong>Which central B cell mechanism comes before deletion when self-reactivity is high?</strong> Receptor editing.</li>
-        </ol>
-      </div>
-    </details>
   </div>
 
   <div class="card gold" style="margin-top:1.2rem">
@@ -1364,6 +1295,45 @@
     });
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && modal.classList.contains('open')) closeZoom();
+    });
+
+    document.querySelectorAll('.table-wrap table').forEach(function (table) {
+      var rows = Array.prototype.slice.call(table.rows || []);
+      if (!rows.length) return;
+
+      rows.forEach(function (row) {
+        Array.prototype.slice.call(row.cells || []).forEach(function (cell, index) {
+          if (index > 0) cell.classList.add('quiz-target');
+        });
+      });
+
+      var controls = document.createElement('div');
+      controls.className = 'table-quiz-controls';
+
+      var toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'table-quiz-toggle';
+      toggle.textContent = 'Start table quiz';
+
+      toggle.addEventListener('click', function () {
+        var quizMode = !table.classList.contains('is-quiz-mode');
+        table.classList.toggle('is-quiz-mode', quizMode);
+        toggle.textContent = quizMode ? 'Show answers' : 'Start table quiz';
+        table.querySelectorAll('.quiz-target').forEach(function (cell) {
+          cell.classList.toggle('revealed', !quizMode);
+        });
+      });
+
+      table.querySelectorAll('.quiz-target').forEach(function (cell) {
+        cell.classList.add('revealed');
+        cell.addEventListener('click', function () {
+          if (!table.classList.contains('is-quiz-mode')) return;
+          cell.classList.add('revealed');
+        });
+      });
+
+      controls.appendChild(toggle);
+      table.parentNode.insertAdjacentElement('afterend', controls);
     });
   }());
 </script>
