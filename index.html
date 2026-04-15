@@ -1940,6 +1940,7 @@ OCS:{fullName:"Osteopathic Clinical Skills",
 
 
 /* ═══ ENGINE ═══ */
+var HUB_LAST_VIEW_KEY='une_study_hub_last_view_v1';
 var CC='OMK',CW=3,CV='notes',EW={};
 var AQ=null,CQ=0,AQS={},NC=0,NI=0;
 var TI=null,TS=0,TR=false;
@@ -1995,6 +1996,56 @@ document.addEventListener('mouseup',function(){
   sel.removeAllRanges();
 })}
 
+function readLastHubView(){
+  var raw=safeStorageRead(HUB_LAST_VIEW_KEY);
+  if(!raw)return null;
+  try{
+    var parsed=JSON.parse(raw);
+    if(!parsed||typeof parsed!=='object')return null;
+    return parsed;
+  }catch(err){
+    return null;
+  }
+}
+function isValidCategory(category){
+  return !!(category&&DATA&&DATA[category]&&DATA[category].weeks);
+}
+function isValidWeek(category,week){
+  return isValidCategory(category)&&Object.prototype.hasOwnProperty.call(DATA[category].weeks,String(week));
+}
+function isValidView(category,week,view){
+  if(!isValidWeek(category,week)||!view)return false;
+  if(/^(overview|notes|quizzes|assess|anki)$/.test(view))return true;
+  if(/^pt\d+$/.test(view)){
+    var ptIndex=Number(String(view).slice(2));
+    var owner=findWeekForPt(ptIndex);
+    return owner===Number(week);
+  }
+  return false;
+}
+function persistLastHubView(){
+  if(!isValidWeek(CC,CW))return;
+  var view=CV;
+  if(!isValidView(CC,CW,view))view='overview';
+  safeStorageWrite(HUB_LAST_VIEW_KEY,JSON.stringify({
+    category:CC,
+    week:Number(CW),
+    view:view
+  }));
+}
+function restoreLastHubView(){
+  var saved=readLastHubView();
+  if(!saved)return;
+  var category=isValidCategory(saved.category)?saved.category:'OMK';
+  var week=isValidWeek(category,saved.week)?Number(saved.week):1;
+  var view=isValidView(category,week,saved.view)?saved.view:'overview';
+  CC=category;
+  CW=week;
+  CV=view;
+  EW={};
+  EW[week]=true;
+}
+
 function canViewItem(item){
   if(!item||!item.allowedUsers||!item.allowedUsers.length)return true;
   var email=AUTH_STATE&&AUTH_STATE.user?normEmail(AUTH_STATE.user.email):'';
@@ -2021,10 +2072,10 @@ document.getElementById('sb').innerHTML=h;var newList=document.querySelector('#s
 function syncSB(){var sb=document.getElementById('sb');if(!sb||!sb.querySelector('.sb-list')){rSB();return}var weeks=sb.querySelectorAll('.wk');for(var i=0;i<weeks.length;i++){var wkEl=weeks[i],wkNum=+wkEl.getAttribute('data-week');wkEl.classList.toggle('on',wkNum===CW);wkEl.classList.toggle('ex',!!EW[wkNum]);}
 var items=sb.querySelectorAll('.si');for(var j=0;j<items.length;j++){var item=items[j],itemWeek=+item.getAttribute('data-week'),itemView=item.getAttribute('data-view');item.classList.toggle('on',itemWeek===CW&&itemView===CV);}}
 
-function swC(c){CC=c;CW=1;CV='overview';EW={1:true};rSB();rMN();document.querySelector('.sb').classList.remove('mo')}
-function swW(w){w=+w;if(CW===w){var isOpen=!!EW[w];EW={};if(!isOpen)EW[w]=true}else{CW=w;CV='overview';EW={};EW[w]=true}syncSB();rMN();document.querySelector('.sb').classList.remove('mo')}
-function go(w,v){CW=+w;CV=v;EW={};EW[w]=true;syncSB();rMN();document.querySelector('.sb').classList.remove('mo')}
-function goPT(i){var owner=findWeekForPt(i);if(owner){CW=owner;EW={};EW[owner]=true}CV='pt'+i;syncSB();rMNpt(i);document.querySelector('.sb').classList.remove('mo')}
+function swC(c){CC=c;CW=1;CV='overview';EW={1:true};persistLastHubView();rSB();rMN();document.querySelector('.sb').classList.remove('mo')}
+function swW(w){w=+w;if(CW===w){var isOpen=!!EW[w];EW={};if(!isOpen)EW[w]=true}else{CW=w;CV='overview';EW={};EW[w]=true}persistLastHubView();syncSB();rMN();document.querySelector('.sb').classList.remove('mo')}
+function go(w,v){CW=+w;CV=v;EW={};EW[w]=true;persistLastHubView();syncSB();rMN();document.querySelector('.sb').classList.remove('mo')}
+function goPT(i){var owner=findWeekForPt(i);if(owner){CW=owner;EW={};EW[owner]=true}CV='pt'+i;persistLastHubView();syncSB();rMNpt(i);document.querySelector('.sb').classList.remove('mo')}
 
 function rMN(){var wk=DATA[CC].weeks[CW],cn=DATA[CC].fullName,vn=CV==='overview'?'Overview':CV==='assess'?DATA[CC].assessFull:CV==='anki'?'Anki Decks':CV.charAt(0).toUpperCase()+CV.slice(1);
 var helper=(CC==='OCS'&&CV==='overview')?'<div class="hd-hint">type willard to be directed to his site</div>':'';
@@ -3840,6 +3891,44 @@ function triggerWillardEgg(){
   },260);
 }
 
+var INACTIVITY_REFRESH_MS=7*60*1000;
+var inactivityRefreshTimer=null;
+var lastActivityAt=Date.now();
+function refreshAfterInactivity(){
+  try{
+    window.location.reload();
+  }catch(err){
+    window.location.href=window.location.href;
+  }
+}
+function resetInactivityRefreshTimer(){
+  lastActivityAt=Date.now();
+  if(inactivityRefreshTimer)clearTimeout(inactivityRefreshTimer);
+  inactivityRefreshTimer=setTimeout(refreshAfterInactivity,INACTIVITY_REFRESH_MS);
+}
+function setupInactivityRefresh(){
+  ['mousemove','mousedown','keydown','scroll','touchstart','click'].forEach(function(eventName){
+    document.addEventListener(eventName,resetInactivityRefreshTimer,{passive:true});
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible'){
+      if(Date.now()-lastActivityAt>=INACTIVITY_REFRESH_MS){
+        refreshAfterInactivity();
+        return;
+      }
+      resetInactivityRefreshTimer();
+    }
+  });
+  window.addEventListener('focus',function(){
+    if(Date.now()-lastActivityAt>=INACTIVITY_REFRESH_MS){
+      refreshAfterInactivity();
+      return;
+    }
+    resetInactivityRefreshTimer();
+  });
+  resetInactivityRefreshTimer();
+}
+
 
 /* ── Auth clock ── */
 function tickAuthClock(){
@@ -3864,13 +3953,16 @@ applyDynamicTheme(new Date());
 scheduleThemeRefresh();
 setDynamicFavicon();
 setDynamicTitle();
+restoreLastHubView();
 init();
+persistLastHubView();
 setupAuth();
 setupAdmin();
 syncAdminControls();
 setupEasterEggs();
 setupSecretsModal();
 setupMediaModal();
+setupInactivityRefresh();
 document.addEventListener('click',function(ev){
   var dock=document.getElementById('themeDock');
   if(dock&&!dock.contains(ev.target))closeThemePanel();
