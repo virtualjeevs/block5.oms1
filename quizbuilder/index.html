@@ -381,11 +381,44 @@ function parseRaw(raw){
   if(m){try{return JSON.parse(m[0]);}catch(e){}}
   return null;
 }
+function shuffle(arr){
+  var out=arr.slice();
+  for(var i=out.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var tmp=out[i];
+    out[i]=out[j];
+    out[j]=tmp;
+  }
+  return out;
+}
 function normQ(q){
   if(!q.stem||!Array.isArray(q.choices)||q.choices.length<2)return null;
-  var nq={stem:String(q.stem),choices:q.choices.map(String),correct:typeof q.correct==='number'?q.correct:(parseInt(q.correct)||0),explanation:String(q.explanation||''),wrongExplanations:{},eli5:String(q.eli5||'')};
-  while(nq.choices.length<5)nq.choices.push('');
-  if(q.wrongExplanations&&typeof q.wrongExplanations==='object'){Object.keys(q.wrongExplanations).forEach(function(k){var n=parseInt(k);if(!isNaN(n))nq.wrongExplanations[String(n)]=String(q.wrongExplanations[k]);});}
+  var rawChoices=q.choices.map(String);
+  while(rawChoices.length<5)rawChoices.push('');
+  var rawCorrect=typeof q.correct==='number'?q.correct:(parseInt(q.correct)||0);
+  if(rawCorrect<0||rawCorrect>=rawChoices.length)rawCorrect=0;
+
+  var choiceMeta=rawChoices.map(function(choiceText,idx){
+    var wrongText='';
+    if(idx!==rawCorrect&&q.wrongExplanations&&typeof q.wrongExplanations==='object'&&q.wrongExplanations[String(idx)]){
+      wrongText=String(q.wrongExplanations[String(idx)]);
+    }
+    return {
+      text:choiceText,
+      isCorrect:idx===rawCorrect,
+      wrongExplanation:wrongText
+    };
+  });
+
+  var realChoices=choiceMeta.filter(function(choice){return choice.text.trim();});
+  var blankChoices=choiceMeta.filter(function(choice){return !choice.text.trim();});
+  var shuffledChoices=shuffle(realChoices).concat(blankChoices);
+  var nq={stem:String(q.stem),choices:[],correct:0,explanation:String(q.explanation||''),wrongExplanations:{},eli5:String(q.eli5||'')};
+  shuffledChoices.forEach(function(choice,idx){
+    nq.choices.push(choice.text);
+    if(choice.isCorrect)nq.correct=idx;
+    else if(choice.wrongExplanation)nq.wrongExplanations[String(idx)]=choice.wrongExplanation;
+  });
   return nq;
 }
 
