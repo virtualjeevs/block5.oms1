@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tumor Immunology — Active Recall Map | Dr. Goode Block 5</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ====================== CSS DESIGN TOKENS ====================== */
+:root {
+  --bg:#0b0f1a; --surface:#131929; --surface-2:#19223a; --surface-3:#1f2a42; --surface-4:#24314e;
+  --amber:#f6a533; --amber-soft:rgba(246,165,51,.13); --amber-mid:rgba(246,165,51,.25); --amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf; --teal-soft:rgba(45,212,191,.12); --teal-mid:rgba(45,212,191,.22); --teal-dim:rgba(45,212,191,.5);
+  --green:#34d399; --green-soft:rgba(52,211,153,.13); --green-mid:rgba(52,211,153,.22);
+  --red:#f87171; --red-soft:rgba(248,113,113,.12); --red-mid:rgba(248,113,113,.22);
+  --text:#dde5f0; --text-2:#7e90a9; --text-3:#3e5065;
+  --border:#1c2a40; --border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08); --hero-glow-b:rgba(246,165,51,.09);
+  --bg-top:#0b0f1a; --bg-bottom:#0d1321;
+  --map-shadow:0 20px 45px rgba(0,0,0,.22);
+  --panel-shadow:0 22px 48px rgba(0,0,0,.24);
+  --header-a:#131929; --header-b:#0f1726;
+  --card-a:#131929; --card-b:#111626;
+  --card-action-bg:#0f1726;
+  --nav-bg:#1c2a40; --nav-bg-hover:#243348; --nav-text:#7e90a9;
+  --showall-bg:rgba(45,212,191,.1); --showall-text:#2dd4bf;
+  --meta-bg:#1c2a40;
+  --table-head-a:#1f2a42; --table-head-b:#19223a;
+}
+[data-theme="cream"] {
+  --bg:#f4efe4; --surface:#ffffff; --surface-2:#f9f5ec; --surface-3:#f0eadb; --surface-4:#e8e0cd;
+  --text:#2a2014; --text-2:#7a6e5e; --text-3:#b0a690;
+  --border:#ddd5c4; --border-2:#ccc3b0;
+  --bg-top:#f4efe4; --bg-bottom:#ede7d8;
+  --map-shadow:0 20px 45px rgba(0,0,0,.08);
+  --panel-shadow:0 22px 48px rgba(0,0,0,.09);
+  --header-a:#ffffff; --header-b:#f7f2e8;
+  --card-a:#ffffff; --card-b:#f9f5ee;
+  --card-action-bg:#f3eddf;
+  --nav-bg:#ede7d8; --nav-bg-hover:#e4dcc8; --nav-text:#7a6e5e;
+  --showall-bg:rgba(45,212,191,.1); --showall-text:#1a8f7e;
+  --meta-bg:#ede7d8;
+  --table-head-a:#f3ede1; --table-head-b:#ece4d4;
+  --amber:#c47a00; --amber-soft:rgba(196,122,0,.12); --amber-mid:rgba(196,122,0,.25); --amber-dim:rgba(196,122,0,.5);
+  --teal:#1a8f7e; --teal-soft:rgba(26,143,126,.11); --teal-mid:rgba(26,143,126,.22); --teal-dim:rgba(26,143,126,.5);
+  --green:#1c7a46; --green-soft:rgba(28,122,70,.11); --green-mid:rgba(28,122,70,.22);
+  --red:#c44040; --red-soft:rgba(196,64,64,.1); --red-mid:rgba(196,64,64,.22);
+  --surface-4:#e8e0cd;
+}
+[data-theme="forest"] {
+  --bg:#081512; --surface:#0f211b; --surface-2:#142a22; --surface-3:#1a342a; --surface-4:#1f3d32;
+  --text:#c8ddd5; --text-2:#6e9585; --text-3:#3a5e4e;
+  --border:#1a3028; --border-2:#1f3a30;
+  --bg-top:#081512; --bg-bottom:#0a1a14;
+  --map-shadow:0 20px 45px rgba(0,0,0,.30);
+  --panel-shadow:0 22px 48px rgba(0,0,0,.32);
+  --header-a:#0f211b; --header-b:#0c1b16;
+  --card-a:#0f211b; --card-b:#0d1e18;
+  --card-action-bg:#0c1b16;
+  --nav-bg:#1a3028; --nav-bg-hover:#1f3a30; --nav-text:#6e9585;
+  --showall-bg:rgba(45,212,191,.09); --showall-text:#2dd4bf;
+  --meta-bg:#1a3028;
+  --table-head-a:#1a342a; --table-head-b:#142a22;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;
+  background:radial-gradient(circle at top left,var(--hero-glow-a),transparent 26rem),
+    radial-gradient(circle at top right,var(--hero-glow-b),transparent 24rem),
+    linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bottom) 100%);
+  background-attachment:fixed;}
+
+/* ====================== HEADER ====================== */
+header{max-width:900px;margin:0 auto;padding:40px 24px 0}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-2);margin-bottom:10px}
+h1{font-family:'Crimson Pro',serif;font-size:46px;font-weight:700;line-height:1.05;color:var(--text);margin-bottom:8px}
+.sub{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-2);letter-spacing:.5px}
+.theme-switch{display:flex;gap:6px;flex-shrink:0;padding-top:4px}
+.theme-btn{padding:8px 16px;border-radius:20px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;transition:all .2s}
+.theme-btn:hover{color:var(--text);border-color:var(--text-3)}
+.theme-btn.active{background:var(--surface-2);color:var(--text);border-color:var(--border-2)}
+
+/* ====================== LEGEND ====================== */
+.legend{max-width:900px;margin:24px auto 0;padding:0 24px;display:flex;gap:24px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.5px}
+.lswatch{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+/* ====================== MAP ====================== */
+.map-wrap{max-width:900px;margin:20px auto 0;padding:0 24px}
+.map-svg{width:100%;height:auto;filter:drop-shadow(0 12px 32px rgba(0,0,0,.22))}
+.node{cursor:pointer}
+.node rect{transition:opacity .3s}
+.c-amber rect{fill:var(--surface-3);stroke:var(--amber-dim);stroke-width:1.5;rx:10}
+.c-amber .n-label{fill:var(--amber);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1px}
+.c-amber .n-sub{fill:var(--text-2);font-family:'DM Sans',sans-serif;font-size:11px}
+.c-teal rect{fill:var(--surface-3);stroke:var(--teal-dim);stroke-width:1.5;rx:10}
+.c-teal .n-label{fill:var(--teal);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1px}
+.c-teal .n-sub{fill:var(--text-2);font-family:'DM Sans',sans-serif;font-size:11px}
+.c-gray rect{fill:var(--surface-2);stroke:var(--border-2);stroke-width:1.5;pointer-events:none}
+.c-gray .n-label{fill:var(--text-2);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px}
+.c-gray .n-sub{fill:var(--text-3);font-family:'DM Sans',sans-serif;font-size:10px}
+.conn{stroke:var(--border-2);stroke-width:1.5}
+.hint-lbl{fill:var(--text-3);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.5px;text-anchor:middle}
+.node:hover rect{opacity:.82}
+.done-node{opacity:.42}
+
+/* ====================== STATS BAR ====================== */
+.stats-bar{max-width:900px;margin:20px auto 0;padding:0 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.stat-pill{padding:6px 12px;border-radius:20px;background:var(--meta-bg);border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.3px}
+.stat-pill.s-knew{color:var(--green);border-color:var(--green-mid);background:var(--green-soft)}
+.stat-pill.s-need{color:var(--amber);border-color:var(--amber-mid);background:var(--amber-soft)}
+.stats-actions{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.sa-btn{padding:7px 14px;border-radius:16px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.sa-btn:hover{color:var(--text);border-color:var(--text-3);background:var(--surface-2)}
+.sa-btn.primary{background:var(--showall-bg);color:var(--showall-text);border-color:var(--teal-mid)}
+.sa-btn.primary:hover{background:var(--teal-mid)}
+.sa-btn.review-btn{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid);display:none}
+.sa-btn.review-btn.visible{display:inline-flex}
+.sa-btn:disabled{opacity:.3;cursor:not-allowed}
+
+/* ====================== PANELS ====================== */
+.panel-wrap{max-width:900px;margin:20px auto 60px;padding:0 24px}
+.panel{border-radius:16px;border:1px solid var(--border-2);background:linear-gradient(160deg,var(--card-a),var(--card-b));box-shadow:var(--panel-shadow);overflow:hidden;animation:panelIn .3s cubic-bezier(.4,0,.2,1)}
+@keyframes panelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.panel-header{padding:20px 24px 16px;background:linear-gradient(135deg,var(--header-a),var(--header-b));border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.ph-left{display:flex;flex-direction:column;gap:4px}
+.ph-badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:20px;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;width:fit-content}
+.ph-badge.amber{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber-mid)}
+.ph-badge.teal{background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid)}
+.ph-title{font-family:'Crimson Pro',serif;font-size:22px;font-weight:600;color:var(--text);line-height:1.2}
+.ph-actions{display:flex;gap:8px;align-items:center}
+.ph-btn{padding:8px 14px;border-radius:12px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s}
+.ph-btn:hover{color:var(--text);background:var(--surface-2)}
+.ph-close{width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--text-2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.ph-close:hover{color:var(--red);border-color:var(--red-mid);background:var(--red-soft)}
+.progress-dots{display:flex;gap:6px;flex-wrap:wrap;padding:12px 24px;border-bottom:1px solid var(--border)}
+.pdot{width:11px;height:11px;border-radius:50%;background:var(--surface-4);cursor:pointer;transition:all .2s;flex-shrink:0}
+.pdot.cur{background:var(--amber);transform:scale(1.3)}
+.pdot.partial{background:var(--amber-dim)}
+.pdot.done-dot{background:var(--green)}
+.card-area{padding:24px}
+.card-title{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--text-2);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.card-body{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.85;color:var(--text)}
+.card-hint{margin-top:16px;padding:12px 16px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);font-size:13px;color:var(--text-2);line-height:1.65}
+
+/* ====================== OCCLUSION (corrected per skill spec) ====================== */
+.occ{
+  display:inline-block;
+  min-width:3ch;
+  background:var(--text);
+  color:transparent;
+  border:1px solid transparent;          /* reserve border space — prevents layout shift */
+  border-radius:3px;
+  cursor:pointer;
+  padding:1px 6px;
+  white-space:nowrap;
+  user-select:none;
+  vertical-align:baseline;
+  transition:background .15s,color .15s,border-color .15s;  /* border-color included */
+}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15);opacity:1}
+.occ.rev     {background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed  {background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.20)}
+/* Table cell override */
+.tblq td .occ{display:block;text-align:center;white-space:normal;padding:10px 12px;min-width:180px}
+.tblq td .score-row{display:flex;justify-content:center;margin:4px 0 0}
+
+/* ====================== SCORE BUTTONS ====================== */
+.score-row{display:inline-flex;gap:4px;align-items:center;vertical-align:middle;margin-left:4px}
+.sc-btn{padding:2px 8px;border-radius:6px;border:1px solid;font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;transition:all .15s}
+.sc-btn.knew{color:var(--green);border-color:var(--green-mid);background:var(--green-soft)}
+.sc-btn.knew:hover{background:var(--green-mid)}
+.sc-btn.need{color:var(--amber);border-color:var(--amber-mid);background:var(--amber-soft)}
+.sc-btn.need:hover{background:var(--amber-mid)}
+
+/* ====================== JUMP LINKS ====================== */
+.jump-link{display:inline-flex;align-items:center;gap:3px;padding:1px 7px;border-radius:6px;background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid);font-family:'DM Mono',monospace;font-size:10px;cursor:pointer;margin-left:5px;vertical-align:middle;transition:background .15s}
+.jump-link:hover{background:var(--teal-mid)}
+.jump-link.amber{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid)}
+.jump-link.amber:hover{background:var(--amber-mid)}
+
+/* ====================== CARD ACTIONS ====================== */
+.card-actions{padding:14px 24px;background:var(--card-action-bg);border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ca-pills{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.ca-pill{padding:4px 9px;border-radius:10px;font-family:'DM Mono',monospace;font-size:10px;background:var(--meta-bg);border:1px solid var(--border);color:var(--text-2);letter-spacing:.3px}
+.ca-pill.p-knew{color:var(--green);border-color:var(--green-mid);background:var(--green-soft)}
+.ca-pill.p-need{color:var(--amber);border-color:var(--amber-mid);background:var(--amber-soft)}
+.ca-btns{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ca-btn{padding:7px 13px;border-radius:10px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s}
+.ca-btn:hover:not(:disabled){color:var(--text);background:var(--surface-2)}
+.ca-btn:disabled{opacity:.3;cursor:not-allowed}
+.ca-btn.primary{background:var(--teal-soft);color:var(--teal);border-color:var(--teal-mid)}
+.ca-btn.primary:hover:not(:disabled){background:var(--teal-mid)}
+.ca-btn.gold{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid)}
+.ca-btn.gold:hover:not(:disabled){background:var(--amber-mid)}
+
+/* ====================== NAVIGATION ====================== */
+.panel-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:var(--nav-bg);border-top:1px solid var(--border)}
+.nav-btn{padding:9px 18px;border-radius:12px;border:1px solid var(--border-2);background:transparent;color:var(--nav-text);font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;transition:all .2s}
+.nav-btn:hover:not(:disabled){color:var(--text);background:var(--nav-bg-hover)}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.nav-pos{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-2)}
+
+/* ====================== REVIEW PANEL ====================== */
+.rev-panel{border-color:var(--amber-mid)}
+.rev-header{padding:16px 24px;background:linear-gradient(135deg,var(--header-a),var(--header-b));border-bottom:1px solid var(--amber-mid);display:flex;align-items:center;gap:16px}
+.rev-title{flex:1;font-family:'Crimson Pro',serif;font-size:20px;color:var(--text);padding-left:8px}
+.rsub-bar{padding:10px 24px;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.3px}
+.rsub-term{color:var(--amber);font-weight:600}
+.rev-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;background:var(--nav-bg);border-top:1px solid var(--border)}
+.rev-exit{padding:7px 14px;border-radius:12px;border:1px solid var(--amber-mid);background:var(--amber-soft);color:var(--amber);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s}
+.rev-exit:hover{background:var(--amber-mid)}
+
+/* ====================== TABLE QUIZ ====================== */
+.tblq-note{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:8px;background:var(--teal-soft);border:1px solid var(--teal-mid);margin-bottom:14px;flex-wrap:wrap}
+.tblq-copy{font-size:13px;color:var(--teal);flex:1}
+.tblq-actions{display:none}
+.tblq-btn{padding:4px 10px;border-radius:6px;border:1px solid var(--teal-mid);background:transparent;color:var(--teal);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer}
+.tblq-wrap{overflow-x:auto}
+.tblq{width:100%;border-collapse:collapse;font-size:14px}
+.tblq thead th{background:linear-gradient(135deg,var(--table-head-a),var(--table-head-b));padding:10px 14px;text-align:left;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.5px;border-bottom:1px solid var(--border-2)}
+.tblq td,.tblq th[scope="row"]{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tblq th[scope="row"]{font-family:'DM Mono',monospace;font-size:12px;color:var(--amber);font-weight:600;white-space:nowrap}
+
+/* ====================== RESPONSIVE ====================== */
+@media(max-width:720px){
+  h1{font-size:34px}
+  .hero-top{flex-direction:column}
+  .stats-bar{gap:8px}
+  .stats-actions{margin-left:0}
+  .panel-header{flex-direction:column;align-items:flex-start}
+  .card-actions{flex-direction:column;align-items:flex-start}
+  .ca-btns{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Block 5 · Dr. Goode · Tumor Immunology</div>
+      <h1>Tumor Immunology</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== LEGEND ==================== -->
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Lecture Objectives (LO)</div>
+</div>
+
+<!-- ==================== SVG MAP ==================== -->
+<div class="map-wrap">
+  <svg class="map-svg" viewBox="0 0 680 325" xmlns="http://www.w3.org/2000/svg">
+    <!-- Connectors: x1 = center-x of each node -->
+    <!-- PLO1 center-x=140, PLO2 center-x=340, PLO3 center-x=540 -->
+    <!-- Center rect: x=175, w=330 → center-x=340; top y=122, bottom y=186 -->
+    <line class="conn" x1="140" y1="92" x2="340" y2="122"/>
+    <line class="conn" x1="340" y1="92" x2="340" y2="122"/>
+    <line class="conn" x1="540" y1="92" x2="340" y2="122"/>
+    <line class="conn" x1="140" y1="232" x2="340" y2="186"/>
+    <line class="conn" x1="340" y1="232" x2="340" y2="186"/>
+    <line class="conn" x1="540" y1="232" x2="340" y2="186"/>
+
+    <!-- PLO Nodes — top row, y=12, h=80 -->
+    <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+      <rect x="60" y="12" width="160" height="80" rx="10"/>
+      <text class="n-label" x="140" y="40" text-anchor="middle">PLO 1</text>
+      <text class="n-sub" x="140" y="58" text-anchor="middle">Immune</text>
+      <text class="n-sub" x="140" y="74" text-anchor="middle">Surveillance</text>
+      <circle id="dot-plo1" cx="210" cy="22" r="5" fill="var(--surface-4)"/>
+    </g>
+
+    <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+      <rect x="260" y="12" width="160" height="80" rx="10"/>
+      <text class="n-label" x="340" y="40" text-anchor="middle">PLO 2</text>
+      <text class="n-sub" x="340" y="58" text-anchor="middle">Tumor</text>
+      <text class="n-sub" x="340" y="74" text-anchor="middle">Antigens</text>
+      <circle id="dot-plo2" cx="410" cy="22" r="5" fill="var(--surface-4)"/>
+    </g>
+
+    <g id="n-plo3" class="node c-amber" onclick="selNode('plo3')">
+      <rect x="460" y="12" width="160" height="80" rx="10"/>
+      <text class="n-label" x="540" y="40" text-anchor="middle">PLO 3</text>
+      <text class="n-sub" x="540" y="58" text-anchor="middle">CTLs &amp;</text>
+      <text class="n-sub" x="540" y="74" text-anchor="middle">NK Cells</text>
+      <circle id="dot-plo3" cx="610" cy="22" r="5" fill="var(--surface-4)"/>
+    </g>
+
+    <!-- Center thread node -->
+    <g class="c-gray">
+      <rect x="175" y="122" width="330" height="64" rx="12"/>
+      <text class="n-label" x="340" y="147" text-anchor="middle">TUMOR IMMUNOLOGY</text>
+      <text class="n-sub" x="340" y="167" text-anchor="middle">Dr. Goode · Block 5</text>
+    </g>
+
+    <!-- LO Nodes — bottom row, y=232, h=80 -->
+    <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+      <rect x="60" y="232" width="160" height="80" rx="10"/>
+      <text class="n-label" x="140" y="260" text-anchor="middle">LO A</text>
+      <text class="n-sub" x="140" y="278" text-anchor="middle">Surveillance</text>
+      <text class="n-sub" x="140" y="294" text-anchor="middle">Evidence</text>
+      <circle id="dot-lo1" cx="210" cy="242" r="5" fill="var(--surface-4)"/>
+    </g>
+
+    <g id="n-lo2" class="node c-teal" onclick="selNode('lo2')">
+      <rect x="260" y="232" width="160" height="80" rx="10"/>
+      <text class="n-label" x="340" y="260" text-anchor="middle">LO B</text>
+      <text class="n-sub" x="340" y="278" text-anchor="middle">Antigen</text>
+      <text class="n-sub" x="340" y="294" text-anchor="middle">Classification</text>
+      <circle id="dot-lo2" cx="410" cy="242" r="5" fill="var(--surface-4)"/>
+    </g>
+
+    <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+      <rect x="460" y="232" width="160" height="80" rx="10"/>
+      <text class="n-label" x="540" y="260" text-anchor="middle">LO C</text>
+      <text class="n-sub" x="540" y="278" text-anchor="middle">Immune</text>
+      <text class="n-sub" x="540" y="294" text-anchor="middle">Evasion</text>
+      <circle id="dot-lo3" cx="610" cy="242" r="5" fill="var(--surface-4)"/>
+    </g>
+
+    <text class="hint-lbl" x="340" y="320">Click a node to study · ← → navigate cards · Esc close panel</text>
+  </svg>
+</div>
+
+<!-- ==================== STATS BAR ==================== -->
+<div class="stats-bar">
+  <div class="stat-pill" id="st-rev">0 revealed</div>
+  <div class="stat-pill s-knew" id="st-knew">0 knew</div>
+  <div class="stat-pill s-need" id="st-need">0 needed</div>
+  <div class="stat-pill" id="st-done">0 / 6 topics done</div>
+  <div class="stats-actions">
+    <button class="sa-btn review-btn" id="revBtn" onclick="startReview()">Review weak spots (0)</button>
+    <button class="sa-btn primary" id="revealTopicBtn" onclick="revealCurrentTopic()" disabled>Reveal topic</button>
+    <button class="sa-btn primary" onclick="revealDeck()">Reveal deck</button>
+    <button class="sa-btn" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+
+<!-- ==================== MAIN PANEL ==================== -->
+<div class="panel-wrap">
+  <div id="mainPanel" class="panel" style="display:none">
+    <div class="panel-header">
+      <div class="ph-left">
+        <div class="ph-badge amber" id="phBadge">PLO 1</div>
+        <div class="ph-title" id="phTitle">Immune Surveillance</div>
+      </div>
+      <div class="ph-actions">
+        <button class="ph-btn" onclick="revealCurrentTopic()">Reveal topic</button>
+        <button class="ph-close" onclick="closePanel()">✕</button>
+      </div>
+    </div>
+    <div class="progress-dots" id="progressDots"></div>
+    <div class="card-area">
+      <div class="card-title" id="cardTitle"></div>
+      <div class="card-body" id="cardBody"></div>
+      <div class="card-hint" id="cardHint" style="display:none"></div>
+    </div>
+    <div class="card-actions">
+      <div class="ca-pills" id="caPills"></div>
+      <div class="ca-btns">
+        <button class="ca-btn primary" id="revealCardBtn" onclick="revealCard()">Reveal this card</button>
+        <button class="ca-btn gold" id="knewAllBtn" onclick="knewAllCurrentCard()" disabled>Knew all</button>
+        <button class="ca-btn" id="resetCardBtn" onclick="resetCard()" disabled>Reset this card</button>
+      </div>
+    </div>
+    <div class="panel-nav">
+      <button class="nav-btn" id="prevBtn" onclick="navCard(-1)">← Prev</button>
+      <span class="nav-pos" id="navPos"></span>
+      <button class="nav-btn" id="nextBtn" onclick="navCard(1)">Next →</button>
+    </div>
+  </div>
+
+  <!-- ==================== REVIEW PANEL ==================== -->
+  <div id="revPanel" class="panel rev-panel" style="display:none">
+    <div class="rev-header">
+      <div class="ph-badge amber">Review Mode</div>
+      <span class="rev-title">Weak Spot Recall</span>
+      <button class="rev-exit" onclick="exitReview()">Exit Review</button>
+    </div>
+    <div class="rsub-bar" id="rSubBar"></div>
+    <div class="card-area">
+      <div class="card-title" id="revCardTitle"></div>
+      <div class="card-body" id="revCardBody"></div>
+      <div class="card-hint" id="revCardHint" style="display:none"></div>
+    </div>
+    <div class="rev-nav">
+      <button class="nav-btn" id="revPrev" onclick="navReview(-1)">← Prev</button>
+      <span class="nav-pos" id="revPos"></span>
+      <button class="nav-btn" id="revNext" onclick="navReview(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================================================================
+//  DATA — verbatim from Dr. Goode's teaching points (tumor_plo_quiz.html)
+// ================================================================
+const D = {
+  plo1: {
+    label: 'PLO 1', sub: 'Immune Surveillance', type: 'PLO',
+    cards: [
+      {
+        t: "Burnet's Immune Surveillance Hypothesis",
+        b: "The physiologic function of the immune system is to {recognize and destroy clones of transformed cells} before they grow into tumors, and to {kill tumors after they are formed}. This continuous patrolling — not reactive — defines {immune surveillance}.",
+        h: "Coined by Macfarlane Burnet. All of cancer immunology flows from this concept: if surveillance is intact, transformed cells are cleared; if it fails, tumors develop."
+      },
+      {
+        t: "Three Core Effectors in Tumor Immune Surveillance",
+        b: "{NK cells} provide innate cytotoxicity via {missing-self recognition} — they kill when MHC I inhibitory signals are absent. {Dendritic cells} are phagocytic sentinels that sample the environment, process tumor antigens, and bridge {innate detection} to {adaptive killing}. {CD8+ CTLs} are the dominant adaptive killers, primed by DC cross-presentation.",
+        h: "DCs detect and present; CTLs execute adaptive killing; NK cells provide innate backup when CTL recognition fails."
+      },
+      {
+        t: "Dendritic Cell Function in Activating Anti-Tumor Immunity",
+        b: "DCs ingest tumor cells and debris, upregulate costimulatory molecules ({B7 / CD80 / CD86}), and migrate to {draining lymph nodes}. There they activate {naïve CD8+ T cells} via {cross-presentation on MHC I} and {naïve CD4+ T cells} via canonical {MHC II} presentation. Without DC priming, naïve tumor-specific T cells remain {unactivated}.",
+        h: "Tumor cells often express antigen but lack B7 costimulators — so CTL priming depends entirely on DCs picking up shed antigen and carrying it to the node."
+      }
+    ]
+  },
+  plo2: {
+    label: 'PLO 2', sub: 'Tumor Antigens', type: 'PLO',
+    cards: [
+      {
+        t: "Neoantigens — No Central Tolerance, Patient-Specific",
+        b: "Neoantigens arise from {individual somatic mutations} generating novel peptide sequences not present in the germline. Central tolerance: {NONE} — the thymus never encountered the mutant sequence. Prevalence across patients: {low / patient-specific}. Efficacy of {checkpoint inhibitors} correlates with {tumor mutational burden (TMB)}: more mutations = more neoantigens = stronger baseline CTL response to unleash.",
+        h: "Because no T cells were deleted, the full naïve repertoire is available. This makes neoantigens the most immunogenic class of tumor antigen and the basis for personalized neoantigen vaccines."
+      },
+      {
+        t: "Cancer/Testes Antigens — Mechanism of Low Central Tolerance",
+        b: "Cancer/testes antigens (e.g., {MAGE family}) are normal germline-encoded genes expressed only in {spermatocytes} and {trophoblasts}. Both cell types {lack MHC I expression}. Because thymic negative selection requires {MHC I-peptide presentation}, T cells reactive to these antigens {escape deletion}. Tumors re-express them via {epigenetic demethylation}.",
+        h: "High prevalence across patients (shared across tumor types) makes them potential shared vaccine targets — unlike neoantigens which are unique to each patient."
+      },
+      {
+        t: "Oncoviral Antigens vs. Overexpressed Normal Proteins",
+        b: "{Oncoviral antigens} (HPV E6/E7, EBV EBNA, HBV surface Ag) are {foreign viral proteins} — central tolerance: {NONE}. Tumor specificity: {ideal}. Only virally-transformed cells express viral oncoproteins. {Overexpressed proteins} (HER2/neu, tyrosinase) have {high central tolerance}: they are expressed at low levels in normal tissues, and reactive T cells are {deleted during thymic development}.",
+        h: "HPV vaccination prevents cervical cancer by blocking viral antigen expression before transformation. HER2/neu treatment relies on monoclonal antibodies (trastuzumab) not CTLs, precisely because central tolerance depleted the CTL pool."
+      }
+    ]
+  },
+  plo3: {
+    label: 'PLO 3', sub: 'CTLs & NK Cells', type: 'PLO',
+    cards: [
+      {
+        t: "CTL Effector Killing Mechanisms",
+        b: "CTLs use two killing pathways, both requiring {TCR–MHC I} engagement for specificity. (1) {Perforin + Granzyme B}: perforin forms pores; granzyme B enters the cell and activates {caspases} → apoptosis. (2) {Fas–FasL}: CTL surface FasL binds tumor Fas receptor → activates the {intrinsic apoptosis pathway}. Perforin/granzyme is the dominant pathway; {Fas} loss or {Bcl-2} overexpression by tumors can block pathway 2.",
+        h: "CTLs are cytotoxic effectors. CD4+ Th1 cells are helpers — they do NOT use perforin/granzyme. This distinction is a frequent exam pitfall."
+      },
+      {
+        t: "NK Cell Missing-Self Recognition & ADCC",
+        b: "NK inhibitory receptors ({KIRs, NKG2A}) bind {MHC I} on normal cells — the 'do not kill' signal. When tumors {downregulate MHC I} to escape CTLs, this signal disappears. Activating receptor {NKG2D} then binds stress ligands ({MICA / MICB}) on the tumor → {lytic granule release}. ADCC: tumor-bound {IgG Fc} is recognized by {CD16 (FcγRIII)} on NK cells → killing without MHC requirement. Exploited by {trastuzumab} (anti-HER2) and {rituximab} (anti-CD20).",
+        h: "Tumors using MHC I downregulation to escape CTLs simultaneously become MORE vulnerable to NK cells — a complementary surveillance system that covers the escape route."
+      },
+      {
+        t: "IFN-γ Amplification of CTL Anti-Tumor Killing",
+        b: "IFN-γ (secreted by {Th1 cells} and activated CTLs) upregulates {MHC I heavy chains} and {β2-microglobulin} on tumor cells. It also increases {LMP2 / LMP7} immunoproteasome subunits and {TAP1 / TAP2} transporters → more peptide-MHC I display → more efficient {CTL recognition and killing}. IFN-γ drives {M1 macrophage polarization} (TNF-α + nitric oxide → anti-tumor).",
+        h: "Paradox: IFN-γ simultaneously upregulates PDL-1 on tumor cells via JAK-STAT signaling — tumors exploit this to dampen the very CTL response IFN-γ just enhanced."
+      }
+    ]
+  },
+  lo1: {
+    label: 'LO A', sub: 'Surveillance Evidence', type: 'LO',
+    cards: [
+      {
+        t: "Immunosuppression & Cancer Risk — Fold Increases",
+        b: "Evidence for immune surveillance from transplant patients on chronic immunosuppression: {Non-melanoma skin cancer + NHL} show the greatest increase at {>20-fold}. Kidney cancer: {~15-fold}. Melanoma: {~8-fold}. Hepatobiliary cancers: {~5-fold}. Breast / prostate / colon: {~2-fold}. The magnitude of increase reflects how {immunogenic} each cancer normally is — higher immunogenicity = more dependent on surveillance.",
+        h: "Transplant patients are the human experiment proving surveillance is real: remove immune control, and transformed cells accumulate. This data is direct, population-level evidence."
+      },
+      {
+        t: "Mouse Tumor Immunization Experiment — Antigen Specificity Proof",
+        b: "Mice immunized with {irradiated Tumor A cells} develop memory CTLs specific to Tumor A antigens. On rechallenge with both tumors: {Tumor A is rejected} while Tumor B grows unchecked. Conclusion: anti-tumor immunity is {antigen-specific adaptive immunity}. If the mechanism were {nonspecific inflammation}, both tumors would be cleared {equally}.",
+        h: "Irradiation kills proliferating cells but retains antigenicity — DCs can still phagocytose irradiated debris and prime T cells. The experiment would fail if irradiation destroyed all antigenic structures."
+      }
+    ]
+  },
+  lo2: {
+    label: 'LO B', sub: 'Antigen Classification', type: 'LO',
+    cards: [
+      {
+        t: "Central Tolerance Spectrum Across Antigen Classes",
+        b: "Central tolerance {NONE}: {neoantigens} (novel mutant sequences never seen by thymus) and {oncoviral antigens} (foreign viral proteins). Central tolerance {LOW}: {cancer/testes antigens} (spermatocytes + trophoblasts lack MHC I → reactive T cells escape thymic deletion). Central tolerance {HIGH}: {overexpressed proteins} (HER2/neu, tyrosinase — expressed in normal tissues → reactive T cells deleted).",
+        h: "Hierarchy of immunogenicity: neoantigens ≈ oncoviral > cancer/testes > overexpressed normal proteins. This predicts which antigens make better vaccine or immunotherapy targets."
+      },
+      {
+        t: "Antigen Processing Pathways — MHC I vs MHC II",
+        b: "Endogenous (cytosolic) proteins: {ubiquitination} → {proteasomal degradation} → {TAP1 / TAP2} transport into ER → loaded onto {MHC I} → recognized by {CD8+ CTLs}. Exogenous proteins: {endosomal} degradation → loaded onto {MHC II} → recognized by {CD4+ T cells}. Cross-presentation exception: DCs route exogenous antigen to {cytosol} → enters {MHC I pathway} → primes {naïve CD8+ T cells}.",
+        h: "Loss of MHC I, β2-microglobulin, or TAP transporters by tumor cells disrupts endogenous antigen presentation — a common immune evasion strategy."
+      }
+    ]
+  },
+  lo3: {
+    label: 'LO C', sub: 'Immune Evasion', type: 'LO',
+    cards: [
+      {
+        t: "Tumor Immune Evasion Strategies",
+        b: "(1) {MHC I downregulation}: hides from {CTL} recognition but creates {NK cell} vulnerability. (2) {PDL-1 upregulation} (induced by IFN-γ via JAK-STAT): binds {PD-1} on CTLs → T cell {exhaustion and functional suppression}. (3) Loss of {Fas} expression or overexpression of {Bcl-2}: blocks CTL-mediated apoptosis pathways. (4) Secretion of {TGF-β} and {IL-10}: generates a suppressive tumor microenvironment.",
+        h: "Each evasion strategy creates a new vulnerability. No single strategy is foolproof — this is why tumors must evolve multiple overlapping escape mechanisms simultaneously."
+      },
+      {
+        t: "Checkpoint Immunotherapy — PD-1 / PDL-1 Axis",
+        b: "Tumor {PDL-1} (CD274) binds CTL {PD-1} (CD279) → CTL functional {exhaustion}: cytokine production drops, proliferation halts, cytotoxicity lost. Anti-{PD-1} antibodies (pembrolizumab, nivolumab) or anti-{PDL-1} antibodies (atezolizumab) block this interaction → CTL reinvigoration. Response strongly correlates with {tumor mutational burden (TMB)} and {neoantigen load}: high-TMB tumors generate more neoantigens, creating a stronger preexisting CTL response to unleash.",
+        h: "MSI-high / mismatch-repair deficient tumors (any cancer type) have extremely high TMB and respond dramatically to PD-1 blockade — pembrolizumab has pan-tumor approval for MSI-high cancers."
+      }
+    ]
+  }
+};
+
+// Cross-node jump links: term text → [targetNodeId, displayLabel, colorClass]
+const LINKS = {
+  'CD8+ CTLs':              ['plo3','PLO 3','teal'],
+  'CD8+ T cells':           ['plo3','PLO 3','teal'],
+  'CTLs':                   ['plo3','PLO 3','teal'],
+  'CTL':                    ['plo3','PLO 3','teal'],
+  'cross-presentation':     ['plo3','PLO 3','teal'],
+  'cross-presentation on MHC I': ['plo3','PLO 3','teal'],
+  'MHC I':                  ['plo3','PLO 3','teal'],
+  'MHC I pathway':          ['plo3','PLO 3','teal'],
+  'NKG2D':                  ['plo3','PLO 3','teal'],
+  'missing-self recognition': ['plo3','PLO 3','teal'],
+  'innate killing':         ['plo3','PLO 3','teal'],
+  'checkpoint inhibitors':  ['lo3','LO C','teal'],
+  'tumor mutational burden (TMB)': ['lo3','LO C','teal'],
+  'PDL-1':                  ['lo3','LO C','teal'],
+  'PD-1':                   ['lo3','LO C','teal'],
+  'exhaustion and functional suppression': ['lo3','LO C','teal'],
+  'MAGE family':            ['plo2','PLO 2','amber'],
+  'neoantigens':            ['plo2','PLO 2','amber'],
+  'neoantigen':             ['plo2','PLO 2','amber'],
+  'Neoantigen':             ['plo2','PLO 2','amber'],
+  'cancer/testes antigens': ['plo2','PLO 2','amber'],
+};
+
+// ================================================================
+//  STATE
+// ================================================================
+let cur = null;
+let ci = 0;
+let tr = {};   // tr[nid][cidx] = Set<termIdx>
+let sc = {};   // sc[nid][cidx][termIdx] = 'knew' | 'needed'
+let done = new Set();
+let totRev = 0, totKnew = 0, totNeed = 0;
+let revQueue = [], revIdx = 0, revTr = {};
+
+// ================================================================
+//  UTILITIES
+// ================================================================
+function initNode(nid) {
+  if (tr[nid]) return;
+  tr[nid] = {}; sc[nid] = {};
+  D[nid].cards.forEach((_, i) => { tr[nid][i] = new Set(); sc[nid][i] = {}; });
+}
+
+function countTerms(body) {
+  return (body.match(/\{[^}]+\}/g) || []).length;
+}
+
+function allTermsRevealed(nid, cidx) {
+  initNode(nid);
+  const total = countTerms(D[nid].cards[cidx].b);
+  return total > 0 && tr[nid][cidx].size >= total;
+}
+
+function allNodeRevealed(nid) {
+  return D[nid].cards.every((_, i) => allTermsRevealed(nid, i));
+}
+
+function cardMetrics(nid, cidx) {
+  initNode(nid);
+  const total = countTerms(D[nid].cards[cidx].b);
+  const revealed = tr[nid][cidx].size;
+  const knew = Object.values(sc[nid][cidx]).filter(v => v === 'knew').length;
+  const needed = Object.values(sc[nid][cidx]).filter(v => v === 'needed').length;
+  const scored = knew + needed;
+  const unscored = revealed - scored;
+  return { total, revealed, scored, knew, needed, unscored, allRevealed: total > 0 && revealed >= total };
+}
+
+function recalcState() {
+  totRev = 0; totKnew = 0; totNeed = 0;
+  done.clear();
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((_, i) => {
+      totRev += tr[nid][i].size;
+      Object.values(sc[nid][i]).forEach(v => {
+        if (v === 'knew') totKnew++;
+        else if (v === 'needed') totNeed++;
+      });
+    });
+    if (allNodeRevealed(nid)) {
+      done.add(nid);
+      document.getElementById('n-' + nid)?.classList.add('done-node');
+    } else {
+      document.getElementById('n-' + nid)?.classList.remove('done-node');
+    }
+  });
+  updateStats();
+}
+
+function updateDot(nid) {
+  const el = document.getElementById('dot-' + nid);
+  if (!el) return;
+  initNode(nid);
+  if (done.has(nid)) el.setAttribute('fill', 'var(--green)');
+  else if (D[nid].cards.some((_, i) => tr[nid][i] && tr[nid][i].size > 0)) el.setAttribute('fill', 'var(--amber-dim)');
+  else el.setAttribute('fill', 'var(--surface-4)');
+}
+
+// ================================================================
+//  PARSE BODY
+// ================================================================
+function parseBody(body, nid, cidx, opts = {}) {
+  let i = 0;
+  return body.replace(/\{([^}]+)\}/g, (_, t) => {
+    const idx = i++;
+    const isRevMode = opts.forReview === true;
+
+    if (isRevMode) {
+      const isTarget = idx === opts.targetTermIdx;
+      const revealed = opts.revealedSet && opts.revealedSet.has(idx);
+      if (isTarget) {
+        if (!revealed) {
+          return `<span class="occ" onclick="revealReviewTerm(${idx})">${t}</span>`;
+        }
+        return `<span class="occ unscored">${t}</span>`;
+      }
+      return `<span style="color:var(--text-2)">${t}</span>`;
+    }
+
+    // Normal mode
+    initNode(nid);
+    const revealed = tr[nid][cidx].has(idx);
+    const scored = sc[nid][cidx][idx];
+
+    if (!revealed) {
+      return `<span class="occ" onclick="revealTerm(event,'${nid}',${cidx},${idx})">${t}</span>`;
+    }
+
+    let cls = 'occ';
+    if (scored === 'knew') cls += ' rev';
+    else if (scored === 'needed') cls += ' needed';
+    else cls += ' unscored';
+
+    let scoreHTML = '';
+    if (!scored) {
+      scoreHTML = `<span class="score-row">` +
+        `<button class="sc-btn knew" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button>` +
+        `<button class="sc-btn need" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button>` +
+        `</span>`;
+    }
+
+    let jumpHTML = '';
+    if (LINKS[t] && LINKS[t][0] !== nid) {
+      const [targetNid, targetLabel, color] = LINKS[t];
+      jumpHTML = `<span class="jump-link ${color}" onclick="event.stopPropagation();jumpTo('${targetNid}')">→ ${targetLabel}</span>`;
+    }
+
+    return `<span class="${cls}">${t}</span>${scoreHTML}${jumpHTML}`;
+  });
+}
+
+// ================================================================
+//  RENDER
+// ================================================================
+function render() {
+  if (!cur) return;
+  initNode(cur);
+  const node = D[cur];
+  const card = node.cards[ci];
+
+  // Header
+  const badge = document.getElementById('phBadge');
+  badge.textContent = node.label;
+  badge.className = 'ph-badge ' + (node.type === 'PLO' ? 'amber' : 'teal');
+  document.getElementById('phTitle').textContent = node.sub;
+
+  // Progress dots
+  document.getElementById('progressDots').innerHTML = node.cards.map((_, i) => {
+    const m = cardMetrics(cur, i);
+    let cls = 'pdot';
+    if (i === ci) cls += ' cur';
+    else if (m.allRevealed) cls += ' done-dot';
+    else if (m.revealed > 0) cls += ' partial';
+    return `<div class="${cls}" title="Card ${i+1}" onclick="gotoCard(${i})"></div>`;
+  }).join('');
+
+  // Card content
+  document.getElementById('cardTitle').textContent = card.t;
+  document.getElementById('cardBody').innerHTML = parseBody(card.b, cur, ci);
+  const hintEl = document.getElementById('cardHint');
+  if (card.h) { hintEl.textContent = card.h; hintEl.style.display = ''; }
+  else hintEl.style.display = 'none';
+
+  // Metrics
+  const m = cardMetrics(cur, ci);
+  let pillsHTML = `<span class="ca-pill">${m.revealed} / ${m.total} revealed</span>`;
+  if (m.knew > 0) pillsHTML += `<span class="ca-pill p-knew">${m.knew} knew</span>`;
+  if (m.needed > 0) pillsHTML += `<span class="ca-pill p-need">${m.needed} needed</span>`;
+  if (m.unscored > 0) pillsHTML += `<span class="ca-pill">${m.unscored} to score</span>`;
+  document.getElementById('caPills').innerHTML = pillsHTML;
+
+  document.getElementById('revealCardBtn').disabled = m.total === 0 || m.allRevealed;
+  document.getElementById('knewAllBtn').disabled = !m.allRevealed;
+  document.getElementById('resetCardBtn').disabled = m.revealed === 0;
+
+  // Nav
+  document.getElementById('navPos').textContent = `${ci + 1} / ${node.cards.length}`;
+  document.getElementById('prevBtn').disabled = ci === 0;
+  document.getElementById('nextBtn').disabled = ci === node.cards.length - 1;
+
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('st-rev').textContent = totRev + ' revealed';
+  document.getElementById('st-knew').textContent = totKnew + ' knew';
+  document.getElementById('st-need').textContent = totNeed + ' needed';
+  document.getElementById('st-done').textContent = done.size + ' / ' + Object.keys(D).length + ' topics done';
+  const rb = document.getElementById('revBtn');
+  rb.textContent = `Review weak spots (${totNeed})`;
+  rb.classList.toggle('visible', totNeed > 0);
+  document.getElementById('revealTopicBtn').disabled = !cur;
+}
+
+// ================================================================
+//  INTERACTIONS
+// ================================================================
+function selNode(nid) {
+  initNode(nid);
+  cur = nid; ci = 0;
+  document.getElementById('mainPanel').style.display = '';
+  document.getElementById('revPanel').style.display = 'none';
+  render();
+  setTimeout(() => document.getElementById('mainPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+function closePanel() {
+  cur = null;
+  document.getElementById('mainPanel').style.display = 'none';
+  updateStats();
+}
+
+function gotoCard(idx) { ci = idx; render(); }
+
+function navCard(dir) {
+  const n = ci + dir;
+  if (n < 0 || n >= D[cur].cards.length) return;
+  ci = n; render();
+}
+
+function jumpTo(nid) { selNode(nid); }
+
+function revealTerm(event, nid, cidx, termIdx) {
+  event.stopPropagation();
+  initNode(nid);
+  if (!tr[nid][cidx].has(termIdx)) { tr[nid][cidx].add(termIdx); totRev++; }
+  if (allNodeRevealed(nid)) { done.add(nid); document.getElementById('n-' + nid)?.classList.add('done-node'); }
+  updateDot(nid);
+  saveProgress();
+  render();
+}
+
+function scoreIt(event, nid, cidx, termIdx, score) {
+  event.stopPropagation();
+  initNode(nid);
+  if (sc[nid][cidx][termIdx]) return;
+  sc[nid][cidx][termIdx] = score;
+  if (score === 'knew') totKnew++; else totNeed++;
+  saveProgress();
+  render();
+}
+
+function revealCard() {
+  if (!cur) return;
+  initNode(cur);
+  const total = countTerms(D[cur].cards[ci].b);
+  for (let i = 0; i < total; i++) { if (!tr[cur][ci].has(i)) { tr[cur][ci].add(i); totRev++; } }
+  if (allNodeRevealed(cur)) { done.add(cur); document.getElementById('n-' + cur)?.classList.add('done-node'); }
+  updateDot(cur); saveProgress(); render();
+}
+
+function revealCurrentTopic() {
+  if (!cur) return;
+  initNode(cur);
+  D[cur].cards.forEach((_, cidx) => {
+    const total = countTerms(D[cur].cards[cidx].b);
+    for (let i = 0; i < total; i++) { if (!tr[cur][cidx].has(i)) { tr[cur][cidx].add(i); totRev++; } }
+  });
+  done.add(cur);
+  document.getElementById('n-' + cur)?.classList.add('done-node');
+  updateDot(cur); saveProgress(); render();
+}
+
+function revealDeck() {
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((_, cidx) => {
+      const total = countTerms(D[nid].cards[cidx].b);
+      for (let i = 0; i < total; i++) { if (!tr[nid][cidx].has(i)) { tr[nid][cidx].add(i); totRev++; } }
+    });
+    done.add(nid);
+    document.getElementById('n-' + nid)?.classList.add('done-node');
+    updateDot(nid);
+  });
+  saveProgress();
+  if (cur) render(); else updateStats();
+}
+
+function resetCard() {
+  if (!cur) return;
+  initNode(cur);
+  tr[cur][ci].forEach(tidx => {
+    totRev--;
+    if (sc[cur][ci][tidx] === 'knew') totKnew--;
+    else if (sc[cur][ci][tidx] === 'needed') totNeed--;
+  });
+  tr[cur][ci] = new Set();
+  sc[cur][ci] = {};
+  if (!allNodeRevealed(cur)) { done.delete(cur); document.getElementById('n-' + cur)?.classList.remove('done-node'); }
+  updateDot(cur); saveProgress(); render();
+}
+
+function knewAllCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const total = countTerms(D[cur].cards[ci].b);
+  for (let i = 0; i < total; i++) {
+    const prev = sc[cur][ci][i];
+    if (prev === 'needed') { totNeed--; totKnew++; }
+    else if (!prev && tr[cur][ci].has(i)) { totKnew++; }
+    sc[cur][ci][i] = 'knew';
+  }
+  saveProgress(); render();
+}
+
+function resetAll() {
+  tr = {}; sc = {}; done.clear();
+  totRev = 0; totKnew = 0; totNeed = 0;
+  Object.keys(D).forEach(nid => {
+    document.getElementById('n-' + nid)?.classList.remove('done-node');
+    updateDot(nid);
+  });
+  document.cookie = PROGRESS_COOKIE + '=;max-age=0;path=/;SameSite=Lax';
+  if (cur) render(); else updateStats();
+}
+
+// ================================================================
+//  REVIEW MODE
+// ================================================================
+function startReview() {
+  revQueue = [];
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((_, cidx) => {
+      const total = countTerms(D[nid].cards[cidx].b);
+      for (let i = 0; i < total; i++) {
+        if (sc[nid][cidx][i] === 'needed') revQueue.push({ nid, cidx, tidx: i });
+      }
+    });
+  });
+  // Fisher-Yates shuffle
+  for (let i = revQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [revQueue[i], revQueue[j]] = [revQueue[j], revQueue[i]];
+  }
+  revIdx = 0; revTr = {};
+  document.getElementById('mainPanel').style.display = 'none';
+  document.getElementById('revPanel').style.display = '';
+  renderReview();
+  setTimeout(() => document.getElementById('revPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+}
+
+function exitReview() {
+  document.getElementById('revPanel').style.display = 'none';
+  if (cur) { document.getElementById('mainPanel').style.display = ''; render(); }
+}
+
+function revealReviewTerm(idx) {
+  if (!revTr[revIdx]) revTr[revIdx] = new Set();
+  revTr[revIdx].add(idx);
+  renderReview();
+}
+
+function navReview(dir) {
+  revIdx = Math.max(0, Math.min(revQueue.length - 1, revIdx + dir));
+  renderReview();
+}
+
+function renderReview() {
+  if (!revQueue.length) { exitReview(); return; }
+  const { nid, cidx, tidx } = revQueue[revIdx];
+  const card = D[nid].cards[cidx];
+  const terms = [...card.b.matchAll(/\{([^}]+)\}/g)].map(m => m[1]);
+  const termText = terms[tidx] || '?';
+
+  document.getElementById('rSubBar').innerHTML =
+    `${D[nid].label} — ${D[nid].sub} &nbsp;·&nbsp; <em>${card.t}</em> &nbsp;·&nbsp; Term to recall: <span class="rsub-term">${termText}</span>`;
+  document.getElementById('revCardTitle').textContent = card.t;
+  document.getElementById('revCardBody').innerHTML = parseBody(card.b, nid, cidx, {
+    forReview: true, targetTermIdx: tidx, revealedSet: revTr[revIdx] || new Set()
+  });
+  const rh = document.getElementById('revCardHint');
+  if (card.h) { rh.textContent = card.h; rh.style.display = ''; } else rh.style.display = 'none';
+  document.getElementById('revPos').textContent = `${revIdx + 1} / ${revQueue.length}`;
+  document.getElementById('revPrev').disabled = revIdx === 0;
+  document.getElementById('revNext').disabled = revIdx === revQueue.length - 1;
+}
+
+// ================================================================
+//  PERSISTENCE (cookie, 180-day)
+// ================================================================
+const PROGRESS_COOKIE = 'contextual_anki_tumor_v1';
+
+function saveProgress() {
+  const payload = { c: cur, i: ci, r: {}, s: {} };
+  Object.keys(tr).forEach(nid => {
+    payload.r[nid] = D[nid].cards.map((_, i) => [...(tr[nid][i] || [])].join('.'));
+    payload.s[nid] = D[nid].cards.map((_, i) =>
+      Object.entries(sc[nid][i] || {}).map(([k, v]) => `${k}${v[0]}`).join('.')
+    );
+  });
+  try {
+    document.cookie = `${PROGRESS_COOKIE}=${encodeURIComponent(JSON.stringify(payload))};max-age=${180*24*3600};path=/;SameSite=Lax`;
+  } catch(e) {}
+}
+
+function loadProgress() {
+  try {
+    const m = document.cookie.match(new RegExp('(?:^|; )' + PROGRESS_COOKIE + '=([^;]*)'));
+    if (!m) return;
+    const p = JSON.parse(decodeURIComponent(m[1]));
+    if (p.c && D[p.c]) cur = p.c;
+    if (p.i != null) ci = p.i;
+    Object.entries(p.r || {}).forEach(([nid, arr]) => {
+      if (!D[nid]) return;
+      initNode(nid);
+      arr.forEach((row, cidx) => {
+        if (row) row.split('.').filter(Boolean).forEach(idx => tr[nid][cidx].add(Number(idx)));
+      });
+    });
+    Object.entries(p.s || {}).forEach(([nid, arr]) => {
+      if (!D[nid]) return;
+      initNode(nid);
+      arr.forEach((row, cidx) => {
+        if (!row) return;
+        row.split('.').filter(Boolean).forEach(tok => {
+          const tidx = parseInt(tok);
+          sc[nid][cidx][tidx] = tok.slice(String(tidx).length) === 'k' ? 'knew' : 'needed';
+        });
+      });
+    });
+  } catch(e) {}
+}
+
+function restoreSession() {
+  loadProgress();
+  recalcState();
+  Object.keys(D).forEach(updateDot);
+  if (cur && D[cur]) {
+    document.getElementById('mainPanel').style.display = '';
+    render();
+  }
+}
+
+// ================================================================
+//  THEME
+// ================================================================
+function setTheme(theme) {
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+  if (theme === 'slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', theme);
+  try { localStorage.setItem('contextual-anki-theme', theme); } catch(e) {}
+}
+
+// ================================================================
+//  KEYBOARD
+// ================================================================
+document.addEventListener('keydown', e => {
+  const revOpen = document.getElementById('revPanel').style.display !== 'none';
+  const mainOpen = document.getElementById('mainPanel').style.display !== 'none';
+  if (e.key === 'Escape') {
+    if (revOpen) exitReview();
+    else if (mainOpen) closePanel();
+  } else if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    if (revOpen) navReview(1);
+    else if (mainOpen) navCard(1);
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    if (revOpen) navReview(-1);
+    else if (mainOpen) navCard(-1);
+  }
+});
+
+// ================================================================
+//  BOOT
+// ================================================================
+document.getElementById('deckMeta').textContent =
+  `Active recall map · ${Object.keys(D).length} topics · ${Object.values(D).reduce((n, v) => n + v.cards.length, 0)} cards`;
+
+try {
+  const savedTheme = localStorage.getItem('contextual-anki-theme');
+  if (savedTheme) setTheme(savedTheme);
+} catch(e) {}
+
+restoreSession();
+</script>
+</body>
+</html>
