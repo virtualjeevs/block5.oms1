@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharmacogenetics & Lynch Syndrome — Active Recall Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+   DESIGN TOKENS — SLATE (default)
+═══════════════════════════════════════════════════════ */
+:root {
+  --bg:#0b0f1a; --surface:#131929; --surface-2:#19223a; --surface-3:#1f2a42; --surface-4:#24314e;
+  --amber:#f6a533; --amber-soft:rgba(246,165,51,.13); --amber-mid:rgba(246,165,51,.25); --amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf; --teal-soft:rgba(45,212,191,.12); --teal-mid:rgba(45,212,191,.22); --teal-dim:rgba(45,212,191,.5);
+  --green:#34d399; --green-soft:rgba(52,211,153,.13); --green-mid:rgba(52,211,153,.22);
+  --red:#f87171; --red-soft:rgba(248,113,113,.12); --red-mid:rgba(248,113,113,.22);
+  --text:#dde5f0; --text-2:#7e90a9; --text-3:#3e5065;
+  --border:#1c2a40; --border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08); --hero-glow-b:rgba(246,165,51,.09);
+  --bg-top:#0b0f1a; --bg-bottom:#0d1321;
+  --map-shadow:0 20px 45px rgba(0,0,0,.22);
+  --panel-shadow:0 22px 48px rgba(0,0,0,.24);
+  --header-shadow:0 22px 50px rgba(0,0,0,.24);
+  --header-a:#141e35; --header-b:#0e1628;
+  --card-a:#131929; --card-b:#0f1522;
+  --card-action-bg:#0d1421;
+  --nav-bg:#19223a; --nav-bg-hover:#1f2a42; --nav-text:#7e90a9;
+  --showall-bg:#1f2a42; --showall-text:#7e90a9;
+  --meta-bg:#19223a;
+  --table-head-a:#0e1628; --table-head-b:#131929;
+}
+html[data-theme="cream"] {
+  --bg:#f4efe4; --surface:#ebe4d6; --surface-2:#e2dace; --surface-3:#d8d0c2; --surface-4:#cec6b6;
+  --text:#2a2118; --text-2:#6b5c44; --text-3:#a0927a;
+  --border:#d4c8b0; --border-2:#c8baa0;
+  --hero-glow-a:rgba(45,180,160,.06); --hero-glow-b:rgba(200,140,40,.07);
+  --bg-top:#f4efe4; --bg-bottom:#ede7da;
+  --header-a:#ebe4d6; --header-b:#e2dace;
+  --card-a:#f0ebe0; --card-b:#ebe4d6;
+  --card-action-bg:#e5dece;
+  --nav-bg:#e2dace; --nav-bg-hover:#d8d0c2; --nav-text:#6b5c44;
+  --showall-bg:#d8d0c2; --showall-text:#6b5c44;
+  --meta-bg:#e2dace;
+  --table-head-a:#2a2118; --table-head-b:#3a3028;
+  --amber:#c47a10; --teal:#0e9483; --green:#18835c; --red:#c0392b;
+  --amber-soft:rgba(196,122,16,.12); --teal-soft:rgba(14,148,131,.1);
+  --green-soft:rgba(24,131,92,.12); --green-mid:rgba(24,131,92,.2);
+}
+html[data-theme="forest"] {
+  --bg:#081512; --surface:#0f201a; --surface-2:#162820; --surface-3:#1c3028; --surface-4:#223830;
+  --text:#c8e8d8; --text-2:#6a9a80; --text-3:#3a6050;
+  --border:#1a3828; --border-2:#203f30;
+  --bg-top:#081512; --bg-bottom:#0a1a14;
+  --header-a:#0f201a; --header-b:#0a1812;
+  --card-a:#0f201a; --card-b:#0a1812;
+  --card-action-bg:#091610;
+  --nav-bg:#162820; --nav-bg-hover:#1c3028; --nav-text:#6a9a80;
+  --showall-bg:#1c3028; --showall-text:#6a9a80;
+  --meta-bg:#162820;
+  --table-head-a:#0a1812; --table-head-b:#0f201a;
+  --amber:#f0b040; --teal:#40d8b0; --green:#48e098; --red:#f07070;
+  --amber-soft:rgba(240,176,64,.13); --teal-soft:rgba(64,216,176,.12);
+  --green-soft:rgba(72,224,152,.13); --green-mid:rgba(72,224,152,.22);
+}
+
+/* ═══════════════════════════════════════════════════════
+   BASE
+═══════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:
+    radial-gradient(circle at top left, var(--hero-glow-a), transparent 26rem),
+    radial-gradient(circle at top right, var(--hero-glow-b), transparent 24rem),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  background-attachment:fixed;
+  color:var(--text);
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:15px;
+  line-height:1.7;
+  min-height:100vh;
+}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════ */
+header{
+  background:linear-gradient(180deg, var(--header-a) 0%, var(--header-b) 100%);
+  border-bottom:1px solid var(--border);
+  padding:28px 28px 20px;
+  box-shadow:var(--header-shadow);
+}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.eyebrow{font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;color:var(--text-3);margin-bottom:6px;}
+h1{font-family:'Crimson Pro',Georgia,serif;font-size:1.9rem;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:4px;}
+.sub{font-size:.84rem;color:var(--text-2);margin-top:2px;}
+.theme-switch{display:flex;gap:6px;flex-shrink:0;margin-top:4px;}
+.theme-btn{font-family:'DM Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;padding:5px 12px;border-radius:20px;border:1px solid var(--border-2);background:var(--surface-2);color:var(--text-2);cursor:pointer;transition:all .15s;}
+.theme-btn.active,.theme-btn:hover{background:var(--amber);color:#0b0f1a;border-color:var(--amber);}
+
+/* ═══════════════════════════════════════════════════════
+   LEGEND
+═══════════════════════════════════════════════════════ */
+.legend{display:flex;gap:20px;flex-wrap:wrap;padding:12px 28px;border-bottom:1px solid var(--border);}
+.legend-item{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-2);}
+.lswatch{width:10px;height:10px;border-radius:50%;}
+
+/* ═══════════════════════════════════════════════════════
+   MAP
+═══════════════════════════════════════════════════════ */
+.map-wrap{padding:24px 28px 0;overflow-x:auto;}
+svg.concept-map{display:block;margin:0 auto;filter:drop-shadow(var(--map-shadow));}
+.node{cursor:pointer;transition:opacity .2s;}
+.node rect{transition:fill .15s, stroke .15s;}
+.node:hover rect{opacity:.88;}
+.node.done-node{opacity:.45;}
+.c-amber rect{fill:var(--surface-2);stroke:var(--amber);stroke-width:1.5;}
+.c-amber .n-label{fill:var(--amber);font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;}
+.c-amber .n-sub{fill:var(--text-2);font-family:'DM Sans',sans-serif;font-size:8.5px;}
+.c-teal rect{fill:var(--surface-2);stroke:var(--teal);stroke-width:1.5;}
+.c-teal .n-label{fill:var(--teal);font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;}
+.c-teal .n-sub{fill:var(--text-2);font-family:'DM Sans',sans-serif;font-size:8.5px;}
+.c-gray rect{fill:var(--surface-3);stroke:var(--border-2);stroke-width:1.5;}
+.c-gray .n-label{fill:var(--text-2);font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;}
+.c-gray .n-sub{fill:var(--text-3);font-family:'DM Sans',sans-serif;font-size:8.5px;}
+.conn{stroke:var(--border-2);stroke-width:1;}
+.hint-lbl{fill:var(--text-3);font-family:'DM Mono',monospace;font-size:7.5px;text-anchor:middle;}
+/* progress dots */
+.pdot{transition:fill .3s;}
+
+/* ═══════════════════════════════════════════════════════
+   STATS BAR
+═══════════════════════════════════════════════════════ */
+.stats-bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:12px 28px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);}
+.stat-pill{font-family:'DM Mono',monospace;font-size:.62rem;padding:3px 10px;border-radius:20px;background:var(--meta-bg);color:var(--text-2);}
+.stat-pill span{color:var(--text);}
+.stats-actions{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;}
+.sa-btn{font-family:'DM Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;padding:5px 11px;border-radius:20px;border:1px solid var(--border-2);background:var(--showall-bg);color:var(--showall-text);cursor:pointer;transition:all .15s;}
+.sa-btn:hover{background:var(--surface-3);color:var(--text);}
+.sa-btn.review-btn{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid);}
+.sa-btn.review-btn:hover{background:var(--amber-mid);}
+.sa-btn.reset-btn{background:var(--red-soft);color:var(--red);border-color:var(--red-mid);}
+
+/* ═══════════════════════════════════════════════════════
+   PANEL
+═══════════════════════════════════════════════════════ */
+.panel-wrap{padding:0 28px 32px;}
+.panel{background:linear-gradient(180deg, var(--card-a) 0%, var(--card-b) 100%);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:16px;box-shadow:var(--panel-shadow);}
+.panel-header{padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.panel-badge{font-family:'DM Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;padding:3px 10px;border-radius:20px;}
+.badge-amber{background:var(--amber-soft);color:var(--amber);}
+.badge-teal{background:var(--teal-soft);color:var(--teal);}
+.panel-title{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--text);font-weight:500;}
+.panel-close{font-family:'DM Mono',monospace;font-size:.6rem;padding:4px 10px;border-radius:20px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);cursor:pointer;}
+.panel-close:hover{background:var(--surface-2);}
+/* review sub */
+.rsub{padding:8px 20px;font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-2);background:var(--surface-2);border-bottom:1px solid var(--border);}
+.rsub .rt{color:var(--amber);}
+/* card */
+.card-body-wrap{padding:20px;}
+.card-title{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.08em;}
+.card-body{font-size:.92rem;color:var(--text);line-height:1.8;}
+/* occlusion */
+.occ{
+  display:inline-block;
+  min-width:3ch;
+  background:var(--text);
+  color:transparent;
+  border:1px solid transparent;
+  border-radius:3px;
+  cursor:pointer;
+  padding:1px 6px;
+  white-space:nowrap;
+  user-select:none;
+  vertical-align:baseline;
+  transition:background .15s, color .15s, border-color .15s;
+}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15);}
+.occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25);}
+.occ.needed{background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25);}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.20);}
+/* score buttons */
+.score-row{display:inline-flex;gap:5px;margin-left:6px;vertical-align:baseline;}
+.score-btn{font-family:'DM Mono',monospace;font-size:.58rem;padding:2px 7px;border-radius:10px;border:none;cursor:pointer;}
+.knew-btn{background:var(--green-mid);color:var(--green);}
+.need-btn{background:var(--amber-mid);color:var(--amber);}
+/* jump link */
+.jump-link{font-family:'DM Mono',monospace;font-size:.6rem;padding:1px 6px;border-radius:8px;border:1px solid;cursor:pointer;margin-left:4px;vertical-align:baseline;}
+.jump-amber{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid);}
+.jump-teal{background:var(--teal-soft);color:var(--teal);border-color:var(--teal-mid);}
+/* table quiz */
+.tblq-note{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:var(--surface-2);border-radius:6px;margin-bottom:8px;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--text-2);}
+.tblq-pill{background:var(--teal-soft);color:var(--teal);padding:2px 8px;border-radius:10px;}
+.tblq-actions{display:none;}
+.tblq-btn{font-family:'DM Mono',monospace;font-size:.6rem;padding:3px 9px;border-radius:10px;border:1px solid var(--border-2);background:var(--surface-3);color:var(--text-2);cursor:pointer;}
+.tblq-wrap{overflow-x:auto;}
+table.tblq{width:100%;border-collapse:collapse;font-size:.85rem;}
+table.tblq th{background:linear-gradient(180deg, var(--table-head-a), var(--table-head-b));color:var(--text-2);font-family:'DM Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border-2);}
+table.tblq td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;}
+table.tblq tr:nth-child(even) td{background:var(--surface);}
+table.tblq th[scope="row"]{background:var(--surface-2);color:var(--text-2);font-weight:500;}
+.tblq td .occ{display:block;text-align:center;white-space:normal;padding:6px 10px;min-width:120px;}
+.tblq td .score-row{display:flex;justify-content:center;margin-left:0;margin-top:4px;}
+/* card actions */
+.card-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:12px 20px;background:var(--card-action-bg);border-top:1px solid var(--border);}
+.meta-pills{display:flex;gap:6px;flex-wrap:wrap;}
+.meta-pill{font-family:'DM Mono',monospace;font-size:.58rem;padding:2px 8px;border-radius:10px;background:var(--meta-bg);color:var(--text-2);}
+.meta-pill span{color:var(--text);}
+.action-btns{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;}
+.act-primary{font-family:'DM Mono',monospace;font-size:.6rem;padding:5px 11px;border-radius:10px;border:none;background:var(--teal-soft);color:var(--teal);cursor:pointer;}
+.act-primary:hover:not(:disabled){background:var(--teal-mid);}
+.act-primary:disabled{opacity:.35;cursor:not-allowed;}
+.act-knew{font-family:'DM Mono',monospace;font-size:.6rem;padding:5px 11px;border-radius:10px;border:none;background:var(--amber-soft);color:var(--amber);cursor:pointer;}
+.act-knew:hover:not(:disabled){background:var(--amber-mid);}
+.act-knew:disabled{opacity:.35;cursor:not-allowed;}
+.act-ghost{font-family:'DM Mono',monospace;font-size:.6rem;padding:5px 11px;border-radius:10px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);cursor:pointer;}
+.act-ghost:hover:not(:disabled){background:var(--surface-2);}
+.act-ghost:disabled{opacity:.35;cursor:not-allowed;}
+/* nav */
+.nav-row{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-top:1px solid var(--border);}
+.nav-btn{font-family:'DM Mono',monospace;font-size:.65rem;padding:6px 14px;border-radius:8px;border:1px solid var(--border-2);background:var(--nav-bg);color:var(--nav-text);cursor:pointer;}
+.nav-btn:hover:not(:disabled){background:var(--nav-bg-hover);color:var(--text);}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed;}
+.nav-pos{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-2);}
+/* responsive */
+@media(max-width:720px){
+  .action-btns,.stats-actions{width:100%;flex-wrap:wrap;}
+  .act-primary,.act-knew,.act-ghost,.sa-btn{flex:1;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Dr. Kathleen Becker · UNE COM · Pharmacogenetics Parts I–III</div>
+      <h1>Pharmacogenetics &amp; Lynch Syndrome</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════ LEGEND ═══════════════════ -->
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Lecture Objectives (LO)</div>
+</div>
+
+<!-- ═══════════════════ MAP ═══════════════════ -->
+<div class="map-wrap">
+<svg class="concept-map" viewBox="0 0 740 330" xmlns="http://www.w3.org/2000/svg">
+  <!-- connectors -->
+  <line class="conn" x1="115" y1="58" x2="305" y2="148"/>
+  <line class="conn" x1="295" y1="58" x2="340" y2="148"/>
+  <line class="conn" x1="475" y1="58" x2="375" y2="148"/>
+  <line class="conn" x1="625" y1="58" x2="375" y2="148"/>
+  <line class="conn" x1="115" y1="268" x2="305" y2="178"/>
+  <line class="conn" x1="295" y1="268" x2="340" y2="178"/>
+  <line class="conn" x1="475" y1="268" x2="375" y2="178"/>
+
+  <!-- center node -->
+  <g class="node c-gray" onclick="selNode('center')">
+    <rect x="175" y="140" width="390" height="46" rx="8"/>
+    <text class="n-label" x="370" y="158" text-anchor="middle">Pharmacogenetics &amp; Lynch Syndrome</text>
+    <text class="n-sub" x="370" y="172" text-anchor="middle">How genetic variation shapes drug response &amp; cancer risk</text>
+  </g>
+
+  <!-- PLO row (top) -->
+  <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+    <rect x="50" y="16" width="130" height="56" rx="8"/>
+    <text class="n-label" x="115" y="34" text-anchor="middle">PLO 1</text>
+    <text class="n-sub" x="115" y="47" text-anchor="middle">Define</text>
+    <text class="n-sub" x="115" y="59" text-anchor="middle">Pharmacogenetics</text>
+    <circle class="pdot" id="pd-plo1" cx="158" cy="22" r="5" fill="var(--border-2)"/>
+  </g>
+
+  <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+    <rect x="230" y="16" width="130" height="56" rx="8"/>
+    <text class="n-label" x="295" y="34" text-anchor="middle">PLO 2</text>
+    <text class="n-sub" x="295" y="47" text-anchor="middle">Multistep</text>
+    <text class="n-sub" x="295" y="59" text-anchor="middle">Tumorigenesis</text>
+    <circle class="pdot" id="pd-plo2" cx="338" cy="22" r="5" fill="var(--border-2)"/>
+  </g>
+
+  <g id="n-plo3" class="node c-amber" onclick="selNode('plo3')">
+    <rect x="410" y="16" width="130" height="56" rx="8"/>
+    <text class="n-label" x="475" y="34" text-anchor="middle">PLO 3</text>
+    <text class="n-sub" x="475" y="47" text-anchor="middle">Germline vs</text>
+    <text class="n-sub" x="475" y="59" text-anchor="middle">Somatic Mutations</text>
+    <circle class="pdot" id="pd-plo3" cx="518" cy="22" r="5" fill="var(--border-2)"/>
+  </g>
+
+  <g id="n-lo1" class="node c-amber" onclick="selNode('lo1')">
+    <rect x="560" y="16" width="130" height="56" rx="8"/>
+    <text class="n-label" x="625" y="34" text-anchor="middle">LO 1 (PLO)</text>
+    <text class="n-sub" x="625" y="47" text-anchor="middle">Drug Response</text>
+    <text class="n-sub" x="625" y="59" text-anchor="middle">&amp; MDR1 / ABCB1</text>
+    <circle class="pdot" id="pd-lo1" cx="668" cy="22" r="5" fill="var(--border-2)"/>
+  </g>
+
+  <!-- LO row (bottom) -->
+  <g id="n-lo2a" class="node c-teal" onclick="selNode('lo2a')">
+    <rect x="50" y="256" width="130" height="56" rx="8"/>
+    <text class="n-label" x="115" y="274" text-anchor="middle">LO 2 · Part A</text>
+    <text class="n-sub" x="115" y="287" text-anchor="middle">Warfarin &amp;</text>
+    <text class="n-sub" x="115" y="299" text-anchor="middle">VKORC1</text>
+    <circle class="pdot" id="pd-lo2a" cx="158" cy="262" r="5" fill="var(--border-2)"/>
+  </g>
+
+  <g id="n-lo2b" class="node c-teal" onclick="selNode('lo2b')">
+    <rect x="230" y="256" width="130" height="56" rx="8"/>
+    <text class="n-label" x="295" y="274" text-anchor="middle">LO 2 · Part B</text>
+    <text class="n-sub" x="295" y="287" text-anchor="middle">Warfarin</text>
+    <text class="n-sub" x="295" y="299" text-anchor="middle">Metabolism</text>
+    <circle class="pdot" id="pd-lo2b" cx="338" cy="262" r="5" fill="var(--border-2)"/>
+  </g>
+
+  <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+    <rect x="410" y="256" width="130" height="56" rx="8"/>
+    <text class="n-label" x="475" y="274" text-anchor="middle">LO 3</text>
+    <text class="n-sub" x="475" y="287" text-anchor="middle">Lynch Syndrome</text>
+    <text class="n-sub" x="475" y="299" text-anchor="middle">HNPCC Genetics</text>
+    <circle class="pdot" id="pd-lo3" cx="518" cy="262" r="5" fill="var(--border-2)"/>
+  </g>
+
+  <text class="hint-lbl" x="370" y="322">← → navigate cards · click node to open · Esc to close</text>
+</svg>
+</div>
+
+<!-- ═══════════════════ STATS BAR ═══════════════════ -->
+<div class="stats-bar">
+  <div class="stat-pill">Revealed: <span id="st-rev">0</span></div>
+  <div class="stat-pill">Knew: <span id="st-knew">0</span></div>
+  <div class="stat-pill">Needed: <span id="st-need">0</span></div>
+  <div class="stat-pill">Done: <span id="st-done">0</span> / <span id="st-total">0</span></div>
+  <div class="stats-actions">
+    <button class="sa-btn" onclick="revealTopic()">Reveal topic</button>
+    <button class="sa-btn" onclick="revealDeck()">Reveal deck</button>
+    <button class="sa-btn review-btn" id="review-btn" style="display:none" onclick="startReview()">Review weak spots (<span id="review-count">0</span>)</button>
+    <button class="sa-btn reset-btn" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ PANEL ═══════════════════ -->
+<div class="panel-wrap" id="panel-wrap" style="display:none">
+  <div class="panel" id="main-panel">
+    <div class="panel-header" id="panel-header">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div class="panel-badge" id="panel-badge"></div>
+        <div class="panel-title" id="panel-title"></div>
+      </div>
+      <button class="panel-close" onclick="closePanel()">✕ Close</button>
+    </div>
+
+    <!-- review sub context bar -->
+    <div class="rsub" id="rsub" style="display:none"></div>
+
+    <div class="card-body-wrap">
+      <div class="card-title" id="card-title"></div>
+      <div class="card-body" id="card-body"></div>
+    </div>
+
+    <div class="card-actions" id="card-actions"></div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">← Prev</button>
+      <span class="nav-pos" id="nav-pos"></span>
+      <button class="nav-btn" id="next-btn" onclick="navigate(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════ */
+const D = {
+  plo1: {
+    label: 'PLO 1', sub: 'Define Pharmacogenetics & Pharmacogenomics', type: 'PLO',
+    cards: [
+      {
+        t: 'Core Definitions',
+        b: '{Pharmacogenetics} studies the genetic basis for variation in drug response — typically focusing on {large effects at a small number of genetic loci}. {Pharmacogenomics} examines larger numbers of variants across a population to explain the genetic component of variable drug responses — a {multifactorial} trait.',
+        h: 'Single-locus → bimodal distribution. Many loci → continuous normal bell curve.'
+      },
+      {
+        t: 'Why It Matters Clinically',
+        b: 'The clinical goal of pharmacogenetics is to {minimize the number of therapeutics} per patient, enable a targeted {silver bullet} approach, {reduce side effects}, and explain why {race/ethnicity} can play a role in therapeutic choice.',
+        h: 'Fewer trials and errors → patients get better faster.'
+      },
+      {
+        t: 'Codeine & CYP2D6 — Prodrug Concept',
+        b: 'Codeine is a {prodrug} that must be metabolized to {morphine} by the {CYP2D6} enzyme to produce pain relief. Without active CYP2D6, the conversion {does not occur} and the patient receives no analgesic benefit.',
+        h: 'Key concept: prodrug = inactive → active form requires enzyme. Codeine itself is NOT the active analgesic.'
+      },
+      {
+        t: 'CYP2D6 Phenotypes — Table Quiz',
+        b: '<div class="tblq-note"><span class="tblq-pill">Quiz Mode On</span><span class="tblq-copy">Row headers stay visible; reveal each cell individually.</span><div class="tblq-actions"><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Genotype</th><th>Phenotype</th><th>Clinical Outcome</th><th>Frequency</th></tr></thead><tbody><tr><th scope="row">Gene deletion — no CYP2D6</th><td>{Poor metabolizer}</td><td>{Little or no pain relief; codeine not converted to morphine}</td><td>{~10% white; ~0.5% African American & Asian}</td></tr><tr><th scope="row">Normal (1–2 copies)</th><td>{Extensive metabolizer}</td><td>{Standard pain relief}</td><td>{Majority of population}</td></tr><tr><th scope="row">Gene duplication (12–16 copies)</th><td>{Ultra-metabolizer}</td><td>{High morphine levels → impaired respiration & sedation}</td><td>{Variable; elevated in some populations}</td></tr></tbody></table></div>',
+        h: 'Ultra-metabolizer risk: a nursing mother can pass toxic morphine levels to her infant.'
+      }
+    ]
+  },
+  plo2: {
+    label: 'PLO 2', sub: 'Multistep Tumorigenesis & the 2-Hit Hypothesis', type: 'PLO',
+    cards: [
+      {
+        t: 'The Multistep Model — Core Principle',
+        b: 'A normal cell must acquire at least {6–8 driver mutations} to become fully invasive and metastatic. Each driver mutation confers a {clonal growth advantage}, leading to expansion of that cell population. This accumulation occurs over {decades}.',
+        h: 'No single mutation causes cancer — it is a sequential process.'
+      },
+      {
+        t: 'Colorectal Adenoma-Carcinoma Sequence',
+        b: 'The multistep sequence begins: {APC mutation} → small adenoma → {RAS mutation} → large adenoma → {PI3K / cell cycle / TGFB mutations} → carcinoma. This progression spans approximately {30–70 years} from normal epithelium to invasive cancer.',
+        h: 'APC is the "gatekeeper" mutation — the initiating event in most colorectal cancers.'
+      },
+      {
+        t: 'Tumor Suppressor Genes (TSGs)',
+        b: 'TSGs act as brakes on cell proliferation or guardians of the genome. DNA repair genes like {MSH2} are TSGs. Unlike oncogenes, TSGs must lose {both functional copies} to lose their protective function — they are {recessive at the cellular level}.',
+        h: 'Remember: oncogene = dominant (1 hit activates). TSG = recessive (2 hits needed to inactivate).'
+      },
+      {
+        t: 'The 2-Hit Hypothesis',
+        b: 'In {non-hereditary} cancer: the individual starts MSH2+/+ and needs {two independent somatic hits} — rare in any single cell, so cancer risk is low. In {hereditary} cancer: the individual inherits MSH2+/m — one non-functional allele in {every cell}. Only {one additional somatic hit} is needed → dramatically higher lifetime cancer risk.',
+        h: 'Hereditary predisposition = already halfway there in every target cell.'
+      }
+    ]
+  },
+  plo3: {
+    label: 'PLO 3', sub: 'Germline vs. Somatic Mutations in Tumor Formation', type: 'PLO',
+    cards: [
+      {
+        t: 'Germline Mutations — Definition & Location',
+        b: 'A germline mutation is present in the {fertilized egg} and therefore in {all cells of the body}, including normal somatic cells AND germ cells (sperm/eggs). It {can be inherited} by offspring. Example: the MSH2+/m mutation in Lynch syndrome — {every colon cell} starts with one non-functional MMR gene.',
+        h: 'Germline = everywhere in the body, passable to children.'
+      },
+      {
+        t: 'Somatic Mutations — Definition & Location',
+        b: 'A somatic mutation arises {after fertilization} in a single body cell. It is present only in the {tumor and its daughter cells}. Normal cells of the same tissue {do NOT carry it}. It {cannot be inherited} by offspring. Example: an {HRAS} driver mutation in a melanoma.',
+        h: 'Somatic = locked within the tumor lineage only. Normal skin elsewhere = normal HRAS.'
+      },
+      {
+        t: 'Lynch Syndrome Case — Germline Example',
+        b: '<div class="tblq-note"><span class="tblq-pill">Quiz Mode On</span><span class="tblq-copy">Cell type stays visible; reveal genotype and notes.</span><div class="tblq-actions"><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Cell / Timepoint</th><th>MSH2 Genotype</th><th>Key Point</th></tr></thead><tbody><tr><th scope="row">All cells at birth</th><td>{MSH2+/m}</td><td>{Inherited germline mutation — one mutated copy in every cell}</td></tr><tr><th scope="row">Normal keratinocyte (age 32)</th><td>{MSH2+/m}</td><td>{Still heterozygous — no second hit here}</td></tr><tr><th scope="row">Colon tumor cells (age 32)</th><td>{MSH2 m/m}</td><td>{Loss of heterozygosity — second somatic hit → tumor}</td></tr><tr><th scope="row">Offspring of patient</th><td>{MSH2+/m or MSH2+/+}</td><td>{50% chance of inheriting the germline mutation}</td></tr></tbody></table></div>',
+        h: 'The tumor cell is the only cell with BOTH copies inactivated (m/m). Normal tissue retains one good copy.'
+      },
+      {
+        t: 'Melanoma Case — Somatic Example',
+        b: 'An individual develops a melanoma with an {HRAS} driver mutation. The melanoma tumor cells carry {HRAS mutant} (clonally expanded). A normal melanocyte in the foot carries {HRAS normal} — it did not arise from the tumor lineage. Offspring will carry {HRAS normal} because somatic mutations {cannot be inherited}.',
+        h: '"Will it be passed to offspring?" → germline = YES. Somatic = NO. This is a classic exam question structure.'
+      }
+    ]
+  },
+  lo1: {
+    label: 'LO 1', sub: 'Drug Response & MDR1 / ABCB1 (P-glycoprotein)', type: 'PLO',
+    cards: [
+      {
+        t: 'Two Mechanisms of Genetic Impact on Drug Response',
+        b: 'Genetic variation affects drug response through two main mechanisms: (1) {altered drug–target interaction} — mutations in the binding site protein change how tightly a drug binds (↑ or ↓ affinity); and (2) {altered drug metabolism} — mutations in metabolic enzymes change how quickly the drug (or prodrug) is broken down, affecting {circulating concentrations}.',
+        h: 'Both mechanisms can occur in tumor cells (somatic) or throughout the body (germline).'
+      },
+      {
+        t: 'MDR1 / ABCB1 — Normal Function',
+        b: 'The {MDR1} gene (also called {ABCB1}) encodes {P-glycoprotein 1}, a transporter that pumps xenobiotics including many drugs out of cells — most critically out of the brain across the {blood-brain barrier}. Loss of function → {increased neural drug concentrations}. Overexpression → {resistance} (drug pumped out of tumor cells).',
+        h: 'P-gp = protective pump. In cancer: too much P-gp = treatment resistance.'
+      },
+      {
+        t: 'MDR1 in Herding Dogs — Incomplete Dominance',
+        b: 'MDR1 mutations are common in herding breeds (1 in 2 {Australian Shepherds} are carriers). The mutations display {incomplete dominance}. Heterozygotes (MDR1+/m) have {reduced} P-glycoprotein function. Drugs affected include: {ivermectin}, {loperamide}, {doxorubicin}, {cyclosporine}, and {butorphanol}.',
+        h: 'DNA testing before prescribing any MDR1-interacting drug is critical in these breeds.'
+      },
+      {
+        t: 'MDR1 Dosing Logic — Heterozygote',
+        b: 'Roger the dog is MDR1+/m (heterozygous loss-of-function). He needs an anesthetic that interacts with P-glycoprotein. You should {decrease the dose}. Reason: with incomplete dominance, heterozygotes have {reduced} P-glycoprotein → {less drug pumped out of the CNS} → {higher neural concentrations} → toxicity risk at standard doses.',
+        h: 'Less efflux pump → more drug stays in CNS → reduce dose to match.'
+      },
+      {
+        t: 'MDR1 Overexpression — Cancer & Epilepsy',
+        b: '{Overexpression} of ABCB1 in tumor or CNS cells pumps therapeutic drugs {out} before they can act, causing treatment resistance in {cancer} (chemo pumped out of tumor cells) and {epilepsy} (anti-seizure drugs pumped out of brain cells). In this scenario you must {increase the dose} to overcome efflux.',
+        h: 'Neuroblastoma with high ABCB1 expression on gene expression analysis → increase chemotherapy dose.'
+      }
+    ]
+  },
+  lo2a: {
+    label: 'LO 2A', sub: 'Warfarin & VKORC1 — Target Binding Mutations', type: 'LO',
+    cards: [
+      {
+        t: 'Warfarin Mechanism of Action',
+        b: 'Warfarin binds to {VKORC1} (Vitamin K epoxide reductase complex 1) and {inhibits} it. Without active VKORC1, {Vitamin K cannot be recycled} → the carboxylase enzyme cannot activate clotting factors {II, VII, IX, and X} → reduced clotting ({anticoagulation}). Note: {S-warfarin} is 3–5× more potent than R-warfarin and is metabolized by {CYP2C9}.',
+        h: 'Warfarin is NOT a prodrug — its metabolites do NOT inhibit VKORC1.'
+      },
+      {
+        t: 'VKORC1 Mutations — Dosing Consequences',
+        b: '<div class="tblq-note"><span class="tblq-pill">Quiz Mode On</span><span class="tblq-copy">Mutation effect stays visible; reveal consequences and dose.</span><div class="tblq-actions"><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Mutation on VKORC1</th><th>Warfarin Binding</th><th>Clinical Consequence</th><th>Dose Adjustment</th></tr></thead><tbody><tr><th scope="row">Increases affinity by 50%</th><td>{Tighter binding → more inhibition}</td><td>{Over-anticoagulation → bleeding risk}</td><td>{DECREASE dose}</td></tr><tr><th scope="row">Decreases affinity by 50%</th><td>{Weaker binding → less inhibition}</td><td>{Under-anticoagulation → clotting risk}</td><td>{INCREASE dose}</td></tr><tr><th scope="row">Minimizes interaction</th><td>{Virtually no binding → no effect}</td><td>{No benefit; increasing dose adds toxicity only}</td><td>{SWITCH medication}</td></tr></tbody></table></div>',
+        h: 'Memorize the direction: tighter binding = too much effect = decrease. Weaker = too little = increase. Zero = switch.'
+      },
+      {
+        t: 'Choosing a Replacement When Warfarin Fails',
+        b: 'If the warfarin–VKORC1 interaction is minimized, consider: (A) {same binding site on VKORC1} — generally avoid; structural change may impair all ligands at that site. (B) {different binding site on VKORC1} — better option if protein change is localized. (C) {different target molecule altogether} — most reliable; sidesteps VKORC1 structural issues entirely.',
+        h: 'Best option = different target molecule. Avoid same binding site if protein is structurally altered.'
+      }
+    ]
+  },
+  lo2b: {
+    label: 'LO 2B', sub: 'Warfarin — Metabolism Mutations & Prodrug Logic', type: 'LO',
+    cards: [
+      {
+        t: 'Metabolism Mutations — Warfarin Dosing',
+        b: '<div class="tblq-note"><span class="tblq-pill">Quiz Mode On</span><span class="tblq-copy">Mutation effect stays visible; reveal consequences and dose.</span><div class="tblq-actions"><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>CYP Mutation Effect</th><th>Warfarin Concentration</th><th>Clinical Consequence</th><th>Dose Adjustment</th></tr></thead><tbody><tr><th scope="row">Increased metabolism (faster breakdown)</th><td>{Lower circulating warfarin}</td><td>{Drug cleared too quickly → insufficient anticoagulation}</td><td>{INCREASE dose}</td></tr><tr><th scope="row">Decreased metabolism (slower breakdown)</th><td>{Higher circulating warfarin}</td><td>{Drug accumulates → over-anticoagulation → bleeding}</td><td>{DECREASE dose}</td></tr></tbody></table></div>',
+        h: 'Warfarin is NOT a prodrug: faster metabolism = less active drug = increase dose. Opposite of codeine!'
+      },
+      {
+        t: 'Prodrug vs. Non-Prodrug — Critical Distinction',
+        b: 'For {warfarin} (not a prodrug): faster metabolism → {lower} active drug concentration → {increase} dose to compensate. For {codeine} (a prodrug): faster metabolism → {more} active morphine generated → {decrease} dose or risk toxicity. Always determine {prodrug vs. non-prodrug} before reasoning through metabolic scenarios.',
+        h: 'This distinction is the #1 source of errors on metabolic dosing questions.'
+      },
+      {
+        t: 'CYP2C9 Polymorphism & S-Warfarin Risk',
+        b: 'CYP2C9 metabolizes {S-warfarin}, the more potent isomer ({3–5×} more potent than R-warfarin). A polymorphism that reduces S-warfarin metabolism by 70% causes drug {accumulation} → life-threatening {bleeding risk}. A standard dose in this patient would be equivalent to a {massive overdose} in a normal metabolizer. Action: {decrease the dose}.',
+        h: 'Genetic testing for CYP2C9 variants is now standard practice before initiating warfarin.'
+      }
+    ]
+  },
+  lo3: {
+    label: 'LO 3', sub: 'Lynch Syndrome (HNPCC) — Genetics & Tumor Development', type: 'LO',
+    cards: [
+      {
+        t: 'Lynch Syndrome — Definition',
+        b: 'Lynch Syndrome (also called {HNPCC} — Hereditary Non-Polyposis Colorectal Cancer) is an inherited disorder caused by inactivating mutations in {DNA mismatch repair (MMR) genes}: specifically {MLH1}, {MSH2}, {MSH6}, {PMS2}, or by mutations in {EPCAM} that epigenetically silence MSH2 via {DNA methylation}.',
+        h: 'EPCAM and MSH2 are both on chromosome 2p21–p16.3. 3\' deletions in EPCAM extend into MSH2 promoter.'
+      },
+      {
+        t: 'MMR System — How It Works',
+        b: 'MMR proteins operate in {G2 phase} of the cell cycle to repair single base-pair mismatches from replication. Steps: (1) {hMSH6/hMSH2} recognizes and binds the mismatch → (2) repair complexes recruited → (3) {EXO1} removes the mismatched DNA section → (4) {DNA polymerase and ligase} fill in and seal. Defective MMR leads to {microsatellite instability (MSI)}.',
+        h: 'MSI = microsatellite regions expand or contract, accelerating mutation accumulation genome-wide.'
+      },
+      {
+        t: 'Lynch Syndrome Genes & Locations — Table Quiz',
+        b: '<div class="tblq-note"><span class="tblq-pill">Quiz Mode On</span><span class="tblq-copy">Gene name stays visible; reveal location and function.</span><div class="tblq-actions"><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Gene</th><th>Chromosomal Location</th><th>Function</th></tr></thead><tbody><tr><th scope="row">MLH1</th><td>{3p22.2}</td><td>{Mismatch repair; recruits repair complex}</td></tr><tr><th scope="row">MSH2</th><td>{2p21–16}</td><td>{Mismatch recognition (pairs with MSH6)}</td></tr><tr><th scope="row">MSH6</th><td>{2p16.3}</td><td>{Mismatch recognition (pairs with MSH2)}</td></tr><tr><th scope="row">PMS2</th><td>{7p22.1}</td><td>{Mismatch repair endonuclease}</td></tr><tr><th scope="row">EPCAM</th><td>{2p21–p16.3}</td><td>{3\' deletions → epigenetic silencing of MSH2 promoter by DNA methylation}</td></tr></tbody></table></div>',
+        h: 'MSH2, MSH6, and EPCAM are all on chromosome 2p — important for locus clustering questions.'
+      },
+      {
+        t: 'Inheritance Pattern & Locus Heterogeneity',
+        b: 'Lynch syndrome displays {autosomal dominant} inheritance with {reduced penetrance}. All causative genes map to autosomes (chromosomes 2, 3, 7). The predisposition is dominant because {one inherited mutant allele} is sufficient to create dramatically elevated cancer risk. The fact that mutations in {different genes} (MLH1, MSH2, MSH6, PMS2, EPCAM) all cause the same disease is called {locus heterogeneity}.',
+        h: 'Autosomal dominant predisposition + recessive at cellular level = the 2-hit nuance. Both are true simultaneously.'
+      },
+      {
+        t: 'IHC vs. MSI Testing',
+        b: '{Immunohistochemistry (IHC)} tests for the presence or absence of MMR proteins in tumor cells. In Lynch syndrome tumors, the affected MMR protein is {absent}. Normal somatic cells show {positive} staining (they retain one functional allele). {Microsatellite Instability (MSI)} testing uses PCR to compare repeat lengths in tumor vs. normal tissue — Lynch tumors show {MSI-High} (different-length microsatellites); normal tissue shows {stable} lengths.',
+        h: 'IHC: absent protein in tumor, present in normal skin biopsy = diagnostic hallmark of Lynch.'
+      }
+    ]
+  }
+};
+
+const LINKS = {
+  'CYP2D6': ['plo1', 'PLO 1', 'amber'],
+  'prodrug': ['plo1', 'PLO 1', 'amber'],
+  'codeine': ['plo1', 'PLO 1', 'amber'],
+  'MSH2': ['lo3', 'LO 3', 'teal'],
+  'MSH2+/m': ['plo3', 'PLO 3', 'amber'],
+  'MSH2 m/m': ['plo3', 'PLO 3', 'amber'],
+  'HRAS': ['plo3', 'PLO 3', 'amber'],
+  'VKORC1': ['lo2a', 'LO 2A', 'teal'],
+  'S-warfarin': ['lo2b', 'LO 2B', 'teal'],
+  'CYP2C9': ['lo2b', 'LO 2B', 'teal'],
+  'P-glycoprotein 1': ['lo1', 'LO 1', 'amber'],
+  'MDR1': ['lo1', 'LO 1', 'amber'],
+  'ABCB1': ['lo1', 'LO 1', 'amber'],
+  'locus heterogeneity': ['lo3', 'LO 3', 'teal'],
+  'microsatellite instability (MSI)': ['lo3', 'LO 3', 'teal'],
+};
+
+/* ═══════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════ */
+let cur = null, ci = 0;
+let tr = {}, sc = {};
+let done = new Set();
+let totRev = 0, totKnew = 0, totNeed = 0;
+let revQueue = [], revIdx = 0, revTr = {};
+let reviewMode = false;
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════ */
+function initNode(id) {
+  if (!tr[id]) { tr[id] = {}; sc[id] = {}; }
+}
+
+function allTermCount(nid) {
+  let n = 0;
+  D[nid].cards.forEach((c, ci) => { n += countTerms(c.b); });
+  return n;
+}
+
+function countTerms(body) {
+  return (body.match(/\{[^}]+\}/g) || []).length;
+}
+
+/* ═══════════════════════════════════════════════════════
+   THEME
+═══════════════════════════════════════════════════════ */
+function setTheme(t) {
+  if (t === 'slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', t);
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === t));
+  localStorage.setItem('pgx-anki-theme', t);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SELECT NODE
+═══════════════════════════════════════════════════════ */
+function selNode(id) {
+  if (id === 'center') return;
+  reviewMode = false;
+  cur = id; ci = 0;
+  initNode(id);
+  document.getElementById('panel-wrap').style.display = 'block';
+  setPanelHeader();
+  render();
+  updateStats();
+  document.getElementById('panel-wrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closePanel() {
+  document.getElementById('panel-wrap').style.display = 'none';
+  cur = null; reviewMode = false;
+}
+
+function setPanelHeader() {
+  if (!cur) return;
+  const node = D[cur];
+  const badge = document.getElementById('panel-badge');
+  badge.textContent = node.label;
+  badge.className = 'panel-badge ' + (node.type === 'PLO' ? 'badge-amber' : 'badge-teal');
+  document.getElementById('panel-title').textContent = node.sub;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════════════════ */
+function render() {
+  if (!cur) return;
+  const node = D[cur];
+  const card = node.cards[ci];
+  document.getElementById('rsub').style.display = 'none';
+  document.getElementById('card-title').textContent = card.t;
+  const bodyEl = document.getElementById('card-body');
+
+  initNode(cur);
+  if (!tr[cur][ci]) { tr[cur][ci] = new Set(); sc[cur][ci] = {}; }
+
+  bodyEl.innerHTML = parseBody(card.b, cur, ci, {});
+  renderCardActions();
+  renderNav();
+}
+
+function renderReview() {
+  if (!revQueue.length) return;
+  const entry = revQueue[revIdx];
+  const { nid, cidx, tidx } = entry;
+  const card = D[nid].cards[cidx];
+  const node = D[nid];
+
+  document.getElementById('panel-wrap').style.display = 'block';
+  const badge = document.getElementById('panel-badge');
+  badge.textContent = node.label;
+  badge.className = 'panel-badge ' + (node.type === 'PLO' ? 'badge-amber' : 'badge-teal');
+  document.getElementById('panel-title').textContent = node.sub;
+
+  const rsub = document.getElementById('rsub');
+  rsub.style.display = 'block';
+  // get term text
+  let ti = 0, termText = '';
+  (card.b.match(/\{[^}]+\}/g) || []).forEach((m, i) => { if (i === tidx) termText = m.slice(1, -1); });
+  rsub.innerHTML = `${node.label} — ${card.t} · Term to recall: <span class="rt">${termText}</span>`;
+
+  document.getElementById('card-title').textContent = card.t;
+
+  if (!revTr[revIdx]) revTr[revIdx] = new Set();
+  const bodyEl = document.getElementById('card-body');
+  bodyEl.innerHTML = parseBody(card.b, nid, cidx, { forReview: true, targetTermIdx: tidx, revealedSet: revTr[revIdx] });
+
+  renderCardActions(true);
+  renderNav(true);
+}
+
+function parseBody(body, nid, cidx, opts) {
+  // table card — pass through HTML
+  if (body.trim().startsWith('<')) {
+    // process {occlusions} inside the HTML
+    let termIdx = 0;
+    const processed = body.replace(/\{([^}]+)\}/g, (_, t) => {
+      const idx = termIdx++;
+      initNode(nid);
+      if (!tr[nid][cidx]) { tr[nid][cidx] = new Set(); sc[nid][cidx] = {}; }
+      const revealed = tr[nid][cidx].has(idx);
+      const scored = sc[nid][cidx][idx];
+      if (opts && opts.forReview) {
+        if (idx === opts.targetTermIdx) {
+          const isRev = opts.revealedSet && opts.revealedSet.has(idx);
+          if (isRev) {
+            return `<span class="occ unscored">${t}</span>`;
+          }
+          return `<span class="occ" onclick="revealReviewTerm(${idx})">${t}</span>`;
+        }
+        return `<span style="color:var(--text-2)">${t}</span>`;
+      }
+      if (revealed) {
+        const cls = scored === 'knew' ? 'rev' : scored === 'needed' ? 'needed' : 'unscored';
+        let html = `<span class="occ ${cls}">${t}</span>`;
+        if (!scored) {
+          html += `<span class="score-row"><button class="score-btn knew-btn" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button><button class="score-btn need-btn" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button></span>`;
+        }
+        const link = LINKS[t];
+        if (link && link[0] !== nid) {
+          html += `<button class="jump-link jump-${link[2]}" onclick="selNode('${link[0]}')">&rarr; ${link[1]}</button>`;
+        }
+        return html;
+      }
+      return `<span class="occ" onclick="revealTerm(event,'${nid}',${cidx},${idx})">${t}</span>`;
+    });
+    return processed;
+  }
+
+  // plain text card
+  let i = 0;
+  return body.replace(/\{([^}]+)\}/g, (_, t) => {
+    const idx = i++;
+    initNode(nid);
+    if (!tr[nid][cidx]) { tr[nid][cidx] = new Set(); sc[nid][cidx] = {}; }
+    const revealed = tr[nid][cidx].has(idx);
+    const scored = sc[nid][cidx][idx];
+
+    if (opts && opts.forReview) {
+      if (idx === opts.targetTermIdx) {
+        const isRev = opts.revealedSet && opts.revealedSet.has(idx);
+        if (isRev) return `<span class="occ unscored">${t}</span>`;
+        return `<span class="occ" onclick="revealReviewTerm(${idx})">${t}</span>`;
+      }
+      return `<span style="color:var(--text-2)">${t}</span>`;
+    }
+
+    if (revealed) {
+      const cls = scored === 'knew' ? 'rev' : scored === 'needed' ? 'needed' : 'unscored';
+      let html = `<span class="occ ${cls}">${t}</span>`;
+      if (!scored) {
+        html += `<span class="score-row"><button class="score-btn knew-btn" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button><button class="score-btn need-btn" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button></span>`;
+      }
+      const link = LINKS[t];
+      if (link && link[0] !== nid) {
+        html += `<button class="jump-link jump-${link[2]}" onclick="selNode('${link[0]}')">&rarr; ${link[1]}</button>`;
+      }
+      return html;
+    }
+    return `<span class="occ" onclick="revealTerm(event,'${nid}',${cidx},${idx})">${t}</span>`;
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   TERM INTERACTIONS
+═══════════════════════════════════════════════════════ */
+function revealTerm(e, nid, cidx, idx) {
+  e.stopPropagation();
+  initNode(nid);
+  if (!tr[nid][cidx]) { tr[nid][cidx] = new Set(); sc[nid][cidx] = {}; }
+  if (tr[nid][cidx].has(idx)) return;
+  tr[nid][cidx].add(idx);
+  totRev++;
+  saveProgress();
+  render();
+  updateStats();
+}
+
+function revealReviewTerm(idx) {
+  if (revTr[revIdx]) revTr[revIdx].add(idx);
+  renderReview();
+}
+
+function scoreIt(e, nid, cidx, idx, score) {
+  e.stopPropagation();
+  initNode(nid);
+  if (!sc[nid][cidx]) sc[nid][cidx] = {};
+  if (sc[nid][cidx][idx]) return;
+  const prev = sc[nid][cidx][idx];
+  if (prev === 'needed') totNeed--;
+  sc[nid][cidx][idx] = score;
+  if (score === 'knew') totKnew++;
+  else totNeed++;
+  saveProgress();
+  if (reviewMode) renderReview(); else render();
+  updateStats();
+  checkNodeDone(nid);
+}
+
+/* ═══════════════════════════════════════════════════════
+   CARD METRICS
+═══════════════════════════════════════════════════════ */
+function cardMetrics(nid, cidx) {
+  initNode(nid);
+  if (!tr[nid][cidx]) { tr[nid][cidx] = new Set(); sc[nid][cidx] = {}; }
+  const total = countTerms(D[nid].cards[cidx].b);
+  const revealed = tr[nid][cidx].size;
+  let knew = 0, needed = 0;
+  Object.values(sc[nid][cidx]).forEach(v => { if (v === 'knew') knew++; else if (v === 'needed') needed++; });
+  const unscored = revealed - knew - needed;
+  return { total, revealed, knew, needed, unscored, allRevealed: total > 0 && revealed >= total };
+}
+
+function renderCardActions(forReview) {
+  if (!cur) return;
+  const m = cardMetrics(cur, ci);
+  const el = document.getElementById('card-actions');
+  el.innerHTML = `
+    <div class="meta-pills">
+      <div class="meta-pill"><span>${m.revealed}</span> / <span>${m.total}</span> revealed</div>
+      ${m.knew ? `<div class="meta-pill">✓ <span>${m.knew}</span> knew</div>` : ''}
+      ${m.needed ? `<div class="meta-pill">✗ <span>${m.needed}</span> needed</div>` : ''}
+      ${m.unscored ? `<div class="meta-pill"><span>${m.unscored}</span> to score</div>` : ''}
+    </div>
+    <div class="action-btns">
+      <button class="act-primary" onclick="revealCurrentCard()" ${(m.total === 0 || m.allRevealed) ? 'disabled' : ''}>Reveal this card</button>
+      <button class="act-knew" onclick="knewAllCurrentCard()" ${!m.allRevealed ? 'disabled' : ''}>Knew all</button>
+      <button class="act-ghost" onclick="resetCard()" ${m.revealed === 0 ? 'disabled' : ''}>Reset this card</button>
+    </div>
+  `;
+}
+
+function renderNav(forReview) {
+  const node = D[cur];
+  const total = node.cards.length;
+  document.getElementById('prev-btn').disabled = ci === 0;
+  document.getElementById('next-btn').disabled = ci === total - 1;
+  document.getElementById('nav-pos').textContent = `${ci + 1} / ${total}`;
+}
+
+function navigate(dir) {
+  if (reviewMode) {
+    revIdx += dir;
+    if (revIdx < 0) revIdx = 0;
+    if (revIdx >= revQueue.length) revIdx = revQueue.length - 1;
+    renderReview();
+    return;
+  }
+  if (!cur) return;
+  const node = D[cur];
+  ci = Math.max(0, Math.min(node.cards.length - 1, ci + dir));
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════
+   CARD-LEVEL ACTIONS
+═══════════════════════════════════════════════════════ */
+function revealCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const card = D[cur].cards[ci];
+  const total = countTerms(card.b);
+  if (!tr[cur][ci]) { tr[cur][ci] = new Set(); sc[cur][ci] = {}; }
+  for (let i = 0; i < total; i++) {
+    if (!tr[cur][ci].has(i)) { tr[cur][ci].add(i); totRev++; }
+  }
+  saveProgress();
+  render();
+  updateStats();
+  checkNodeDone(cur);
+}
+
+function knewAllCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const card = D[cur].cards[ci];
+  const total = countTerms(card.b);
+  if (!tr[cur][ci]) { tr[cur][ci] = new Set(); sc[cur][ci] = {}; }
+  for (let i = 0; i < total; i++) {
+    const prev = sc[cur][ci][i];
+    if (prev === 'needed') totNeed--;
+    if (prev !== 'knew') { sc[cur][ci][i] = 'knew'; if (prev !== 'knew') totKnew++; }
+  }
+  saveProgress();
+  render();
+  updateStats();
+}
+
+function resetCard() {
+  if (!cur) return;
+  initNode(cur);
+  const card = D[cur].cards[ci];
+  const total = countTerms(card.b);
+  if (!tr[cur][ci]) return;
+  const prevRev = tr[cur][ci].size;
+  tr[cur][ci].forEach(idx => {
+    const s = sc[cur][ci][idx];
+    if (s === 'knew') totKnew--;
+    else if (s === 'needed') totNeed--;
+  });
+  totRev -= prevRev;
+  tr[cur][ci] = new Set();
+  sc[cur][ci] = {};
+  done.delete(cur);
+  saveProgress();
+  render();
+  updateStats();
+  updateNodeDot(cur);
+}
+
+/* ═══════════════════════════════════════════════════════
+   TOPIC / DECK REVEAL
+═══════════════════════════════════════════════════════ */
+function revealTopic() {
+  if (!cur) return;
+  initNode(cur);
+  const node = D[cur];
+  node.cards.forEach((card, cidx) => {
+    const total = countTerms(card.b);
+    if (!tr[cur][cidx]) { tr[cur][cidx] = new Set(); sc[cur][cidx] = {}; }
+    for (let i = 0; i < total; i++) {
+      if (!tr[cur][cidx].has(i)) { tr[cur][cidx].add(i); totRev++; }
+    }
+  });
+  saveProgress();
+  render();
+  updateStats();
+  checkNodeDone(cur);
+}
+
+function revealDeck() {
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((card, cidx) => {
+      const total = countTerms(card.b);
+      if (!tr[nid][cidx]) { tr[nid][cidx] = new Set(); sc[nid][cidx] = {}; }
+      for (let i = 0; i < total; i++) {
+        if (!tr[nid][cidx].has(i)) { tr[nid][cidx].add(i); totRev++; }
+      }
+      checkNodeDone(nid);
+    });
+  });
+  saveProgress();
+  if (cur) render();
+  updateStats();
+}
+
+/* ═══════════════════════════════════════════════════════
+   NODE DONE CHECK
+═══════════════════════════════════════════════════════ */
+function checkNodeDone(nid) {
+  initNode(nid);
+  const allRev = D[nid].cards.every((card, cidx) => {
+    const total = countTerms(card.b);
+    return total === 0 || (tr[nid][cidx] && tr[nid][cidx].size >= total);
+  });
+  if (allRev) done.add(nid); else done.delete(nid);
+  updateNodeDot(nid);
+}
+
+function updateNodeDot(nid) {
+  initNode(nid);
+  const dot = document.getElementById('pd-' + nid);
+  if (!dot) return;
+  const nodeEl = document.getElementById('n-' + nid);
+  let anyRev = false;
+  D[nid].cards.forEach((card, cidx) => {
+    if (tr[nid][cidx] && tr[nid][cidx].size > 0) anyRev = true;
+  });
+  if (done.has(nid)) {
+    dot.setAttribute('fill', 'var(--green)');
+    nodeEl.classList.add('done-node');
+  } else if (anyRev) {
+    dot.setAttribute('fill', 'var(--amber)');
+    nodeEl.classList.remove('done-node');
+  } else {
+    dot.setAttribute('fill', 'var(--border-2)');
+    nodeEl.classList.remove('done-node');
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   STATS
+═══════════════════════════════════════════════════════ */
+function updateStats() {
+  document.getElementById('st-rev').textContent = totRev;
+  document.getElementById('st-knew').textContent = totKnew;
+  document.getElementById('st-need').textContent = totNeed;
+  document.getElementById('st-done').textContent = done.size;
+  document.getElementById('st-total').textContent = Object.keys(D).length;
+  const reviewBtn = document.getElementById('review-btn');
+  if (totNeed > 0) {
+    reviewBtn.style.display = 'inline-block';
+    document.getElementById('review-count').textContent = totNeed;
+  } else {
+    reviewBtn.style.display = 'none';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   REVIEW MODE
+═══════════════════════════════════════════════════════ */
+function startReview() {
+  revQueue = [];
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((card, cidx) => {
+      if (!sc[nid][cidx]) return;
+      Object.entries(sc[nid][cidx]).forEach(([idx, score]) => {
+        if (score === 'needed') revQueue.push({ nid, cidx, tidx: parseInt(idx) });
+      });
+    });
+  });
+  // Fisher-Yates shuffle
+  for (let i = revQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [revQueue[i], revQueue[j]] = [revQueue[j], revQueue[i]];
+  }
+  revIdx = 0; revTr = {};
+  reviewMode = true;
+  cur = revQueue[0] ? revQueue[0].nid : null;
+  ci = revQueue[0] ? revQueue[0].cidx : 0;
+  renderReview();
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESET ALL
+═══════════════════════════════════════════════════════ */
+function resetAll() {
+  if (!confirm('Reset all progress?')) return;
+  tr = {}; sc = {}; done = new Set();
+  totRev = 0; totKnew = 0; totNeed = 0;
+  reviewMode = false;
+  Object.keys(D).forEach(nid => updateNodeDot(nid));
+  document.getElementById('panel-wrap').style.display = 'none';
+  cur = null;
+  updateStats();
+  saveProgress();
+}
+
+/* ═══════════════════════════════════════════════════════
+   PROGRESS (COOKIE)
+═══════════════════════════════════════════════════════ */
+const COOKIE = 'pgx_anki_v1';
+function saveProgress() {
+  try {
+    const r = {}, s = {};
+    Object.keys(tr).forEach(nid => {
+      r[nid] = []; s[nid] = [];
+      Object.keys(tr[nid]).forEach(ci => {
+        r[nid][ci] = [...tr[nid][ci]].join('.');
+        const scMap = sc[nid][ci] || {};
+        s[nid][ci] = Object.entries(scMap).map(([i, v]) => `${i}${v[0]}`).join('.');
+      });
+    });
+    const payload = JSON.stringify({ c: cur, i: ci, r, s });
+    const exp = new Date(Date.now() + 180 * 24 * 3600 * 1000).toUTCString();
+    document.cookie = `${COOKIE}=${encodeURIComponent(payload)};expires=${exp};path=/;SameSite=Lax`;
+  } catch(e) {}
+}
+
+function loadProgress() {
+  try {
+    const match = document.cookie.split(';').find(c => c.trim().startsWith(COOKIE + '='));
+    if (!match) return;
+    const payload = JSON.parse(decodeURIComponent(match.split('=').slice(1).join('=')));
+    Object.keys(payload.r || {}).forEach(nid => {
+      initNode(nid);
+      (payload.r[nid] || []).forEach((revStr, cidx) => {
+        if (revStr === '' || revStr === undefined) return;
+        tr[nid][cidx] = new Set(revStr.split('.').filter(Boolean).map(Number));
+      });
+      (payload.s[nid] || []).forEach((scStr, cidx) => {
+        if (!scStr) return;
+        sc[nid][cidx] = {};
+        scStr.split('.').filter(Boolean).forEach(tok => {
+          const last = tok.slice(-1);
+          const idx = parseInt(tok.slice(0, -1));
+          sc[nid][cidx][idx] = last === 'k' ? 'knew' : 'needed';
+        });
+      });
+    });
+    if (payload.c && D[payload.c]) { cur = payload.c; ci = payload.i || 0; }
+  } catch(e) {}
+}
+
+function recalcState() {
+  totRev = 0; totKnew = 0; totNeed = 0; done = new Set();
+  Object.keys(tr).forEach(nid => {
+    Object.keys(tr[nid]).forEach(cidx => {
+      totRev += tr[nid][cidx].size;
+      if (sc[nid][cidx]) {
+        Object.values(sc[nid][cidx]).forEach(v => { if (v === 'knew') totKnew++; else if (v === 'needed') totNeed++; });
+      }
+    });
+    checkNodeDone(nid);
+  });
+}
+
+function restoreSession() {
+  loadProgress();
+  recalcState();
+  updateStats();
+  if (cur && D[cur]) {
+    document.getElementById('panel-wrap').style.display = 'block';
+    setPanelHeader();
+    render();
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   KEYBOARD
+═══════════════════════════════════════════════════════ */
+document.addEventListener('keydown', e => {
+  if (document.getElementById('panel-wrap').style.display === 'none') return;
+  if (e.key === 'ArrowRight') navigate(1);
+  else if (e.key === 'ArrowLeft') navigate(-1);
+  else if (e.key === 'Escape') closePanel();
+});
+
+/* ═══════════════════════════════════════════════════════
+   INIT ON LOAD
+═══════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTheme = localStorage.getItem('pgx-anki-theme') || 'slate';
+  setTheme(savedTheme);
+
+  // deck meta
+  const totalNodes = Object.keys(D).length;
+  const totalCards = Object.values(D).reduce((n, node) => n + node.cards.length, 0);
+  document.getElementById('deckMeta').textContent = `Active recall map · ${totalNodes} topics · ${totalCards} cards`;
+  document.getElementById('st-total').textContent = totalNodes;
+
+  restoreSession();
+});
+</script>
+</body>
+</html>

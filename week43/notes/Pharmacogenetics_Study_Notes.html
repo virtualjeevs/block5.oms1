@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharmacogenetics — Study Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ── ROOT VARIABLES ── */
+:root {
+  --ink: #1a1209;
+  --paper: #faf7f2;
+  --cream: #f2ede4;
+  --accent: #b5341a;
+  --accent2: #2c5f8a;
+  --gold: #c9922a;
+  --muted: #6b5e4e;
+  --border: #d4cabb;
+  --highlight: #fff3cd;
+  --highlight2: #ddeeff;
+  --green-bg: #e8f5e9;
+  --red-bg: #fce8e8;
+  --blue-bg: #e3f0fb;
+  --purple-bg: #f0ebff;
+  --rat-bg: #0f1923;
+  --rat-surface: #162030;
+  --rat-border: #1e3048;
+  --rat-accent: #e8b84b;
+  --rat-accent2: #4aa8d8;
+  --rat-text: #dce8f0;
+  --rat-muted: #9fb9cd;
+  --rat-green: #3dba7a;
+  --rat-red: #e05252;
+  --hero-heading: #f5ede0;
+  --hero-sub: #c9bcad;
+  --hero-meta-bg: rgba(255,255,255,0.07);
+  --hero-meta-border: rgba(255,255,255,0.12);
+  --hero-meta-label: #8a7a6a;
+  --hero-meta-value: #f0e0c8;
+  --floating-ui-bg: #3a3030;
+  --floating-ui-fg: #f5ede0;
+  --floating-ui-shadow: 0 3px 12px rgba(0,0,0,0.2);
+  --quiz-overlay: rgba(44,111,173,0.5);
+  --quiz-overlay-hover: rgba(44,111,173,0.78);
+  --rat-mode-bg: #0f1923;
+  --rat-mode-surface: #162030;
+  --rat-mode-surface-alt: #0f1923;
+  --rat-mode-border: #1e3048;
+  --rat-mode-text: #dce8f0;
+  --rat-mode-text-soft: #c8d8e8;
+  --rat-mode-muted: #9fb9cd;
+  --rat-mode-accent: #e8b84b;
+  --rat-mode-accent2: #4aa8d8;
+  --rat-mode-success: #3dba7a;
+}
+
+/* ── THEMES ── */
+[data-theme="night"] {
+  --ink: #e0e8f0; --paper: #0f1923; --cream: #162030;
+  --accent: #e8b84b; --accent2: #4aa8d8; --gold: #e8b84b;
+  --muted: #94abc0; --border: #1e3048; --highlight: #2a2200;
+  --highlight2: #0d2035; --green-bg: #0d2a16; --red-bg: #2a0d0d;
+  --blue-bg: #0d1e30; --purple-bg: #1a0d30;
+  --hero-heading: #f4f9ff; --hero-sub: #b8cad8;
+  --hero-meta-bg: rgba(255,255,255,0.08); --hero-meta-border: rgba(255,255,255,0.12);
+  --hero-meta-label: #8fa4b8; --hero-meta-value: #f4f9ff;
+  --floating-ui-bg: #070e15; --floating-ui-fg: #f4f9ff;
+  --floating-ui-shadow: 0 3px 12px rgba(0,0,0,0.36);
+  --quiz-overlay: rgba(74,168,216,0.42); --quiz-overlay-hover: rgba(74,168,216,0.62);
+  --rat-mode-bg: #08111a; --rat-mode-surface: #101b27; --rat-mode-surface-alt: #0b1520;
+  --rat-mode-border: #223247; --rat-mode-text: #e0e8f0; --rat-mode-text-soft: #c7d6e3;
+  --rat-mode-muted: #94abc0; --rat-mode-accent: #e8b84b; --rat-mode-accent2: #4aa8d8;
+  --rat-mode-success: #57c98c;
+}
+[data-theme="ocean"] {
+  --ink: #0d1f3c; --paper: #e8f4fd; --cream: #d8edf8;
+  --accent: #c0392b; --accent2: #1565c0; --gold: #e67e22;
+  --muted: #2c5f8a; --border: #b3d0e8; --highlight: #fff9e6;
+  --highlight2: #cce5ff; --green-bg: #e0f2e8; --red-bg: #fce8e8;
+  --blue-bg: #cce5ff; --purple-bg: #ede0ff;
+  --hero-heading: #e8f4fd; --hero-sub: #a8c8e8;
+  --hero-meta-bg: rgba(255,255,255,0.1); --hero-meta-border: rgba(255,255,255,0.15);
+  --hero-meta-label: #6a9abd; --hero-meta-value: #e8f4fd;
+  --floating-ui-bg: #0d2a4a; --floating-ui-fg: #e8f4fd;
+  --floating-ui-shadow: 0 3px 12px rgba(0,0,0,0.2);
+  --quiz-overlay: rgba(21,101,192,0.5); --quiz-overlay-hover: rgba(21,101,192,0.75);
+  --rat-mode-bg: #0f1923; --rat-mode-surface: #162030; --rat-mode-surface-alt: #0f1923;
+  --rat-mode-border: #1e3048; --rat-mode-text: #dce8f0; --rat-mode-text-soft: #c8d8e8;
+  --rat-mode-muted: #9fb9cd; --rat-mode-accent: #e8b84b; --rat-mode-accent2: #4aa8d8;
+  --rat-mode-success: #3dba7a;
+}
+[data-theme="forest"] {
+  --ink: #1a2e1a; --paper: #f0f7f0; --cream: #e2f0e2;
+  --accent: #b5341a; --accent2: #2e7d32; --gold: #c9922a;
+  --muted: #4a6b4a; --border: #b8d4b8; --highlight: #fff9e0;
+  --highlight2: #d4edda; --green-bg: #d4edda; --red-bg: #fce8e8;
+  --blue-bg: #e0eeff; --purple-bg: #f0e8ff;
+  --hero-heading: #f0f7f0; --hero-sub: #a8c8a8;
+  --hero-meta-bg: rgba(255,255,255,0.1); --hero-meta-border: rgba(255,255,255,0.15);
+  --hero-meta-label: #6a9b6a; --hero-meta-value: #f0f7f0;
+  --floating-ui-bg: #1a3a1a; --floating-ui-fg: #f0f7f0;
+  --floating-ui-shadow: 0 3px 12px rgba(0,0,0,0.2);
+  --quiz-overlay: rgba(46,125,50,0.5); --quiz-overlay-hover: rgba(46,125,50,0.75);
+  --rat-mode-bg: #0f1923; --rat-mode-surface: #162030; --rat-mode-surface-alt: #0f1923;
+  --rat-mode-border: #1e3048; --rat-mode-text: #dce8f0; --rat-mode-text-soft: #c8d8e8;
+  --rat-mode-muted: #9fb9cd; --rat-mode-accent: #e8b84b; --rat-mode-accent2: #4aa8d8;
+  --rat-mode-success: #3dba7a;
+}
+[data-theme="sepia"] {
+  --ink: #2c1a08; --paper: #faf3e8; --cream: #f0e8d8;
+  --accent: #8b4513; --accent2: #5c4a1a; --gold: #c9922a;
+  --muted: #7a5a3a; --border: #d4b896; --highlight: #fff5d8;
+  --highlight2: #f0e0c0; --green-bg: #e8f0e0; --red-bg: #f8e8e0;
+  --blue-bg: #e8ecf8; --purple-bg: #f0e8f8;
+  --hero-heading: #faf3e8; --hero-sub: #c8aa88;
+  --hero-meta-bg: rgba(255,255,255,0.08); --hero-meta-border: rgba(255,255,255,0.12);
+  --hero-meta-label: #8a6a4a; --hero-meta-value: #faf3e8;
+  --floating-ui-bg: #2c1a08; --floating-ui-fg: #faf3e8;
+  --floating-ui-shadow: 0 3px 12px rgba(0,0,0,0.2);
+  --quiz-overlay: rgba(139,69,19,0.5); --quiz-overlay-hover: rgba(139,69,19,0.75);
+  --rat-mode-bg: #0f1923; --rat-mode-surface: #162030; --rat-mode-surface-alt: #0f1923;
+  --rat-mode-border: #1e3048; --rat-mode-text: #dce8f0; --rat-mode-text-soft: #c8d8e8;
+  --rat-mode-muted: #9fb9cd; --rat-mode-accent: #e8b84b; --rat-mode-accent2: #4aa8d8;
+  --rat-mode-success: #3dba7a;
+}
+
+/* ── RAT MODE OVERRIDES ── */
+body.rat-mode { background: var(--rat-mode-bg); color: var(--rat-mode-text); }
+body.rat-mode .hero { background: #070e15; }
+body.rat-mode .toc-bar { background: #070e15; border-color: #1e3048; }
+body.rat-mode .toc-bar nav a { color: var(--rat-mode-accent); }
+body.rat-mode .section { background: var(--rat-mode-bg); border-color: var(--rat-mode-border); }
+body.rat-mode [data-mode="lo-only"] { display: none !important; }
+body.rat-mode [data-mode="rat-only"] { display: block !important; }
+body.rat-mode .rat-banner { display: flex !important; }
+body.rat-mode .rat-plo-header { background: var(--rat-mode-surface); border-color: var(--rat-mode-accent); padding: 20px 24px; border-radius: 10px; margin-bottom: 16px; border-left: 4px solid var(--rat-mode-accent); }
+body.rat-mode .rat-plo-header h2 { color: var(--rat-mode-text); font-family: 'Playfair Display', serif; margin: 8px 0 4px; }
+body.rat-mode .rat-plo-header p { color: var(--rat-mode-muted); margin: 0; }
+body.rat-mode .rat-plo-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--rat-mode-accent); margin-bottom: 4px; }
+body.rat-mode .rat-checklist { list-style: none; padding: 0; margin: 12px 0 0; }
+body.rat-mode .rat-checklist li { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--rat-mode-border); color: var(--rat-mode-text-soft); font-family: 'Source Serif 4', serif; }
+body.rat-mode .rat-checklist li:last-child { border-bottom: none; }
+body.rat-mode .rat-checklist .check { color: var(--rat-mode-success); font-size: 1rem; flex-shrink: 0; }
+body.rat-mode .rat-checklist strong { color: var(--rat-mode-accent2); }
+body.rat-mode .callout { background: var(--rat-mode-surface); border-color: var(--rat-mode-border); }
+body.rat-mode .callout-title { color: var(--rat-mode-accent); }
+body.rat-mode table th { background: #0d1e30; color: var(--rat-mode-text); }
+body.rat-mode table tr:nth-child(even) { background: var(--rat-mode-surface); }
+body.rat-mode table td { color: var(--rat-mode-text-soft); border-color: var(--rat-mode-border); }
+body.rat-mode .exam-q { background: #0d1e30; border-color: #1e3048; }
+body.rat-mode .exam-q p { color: var(--rat-mode-text-soft); }
+body.rat-mode .answer { background: #162030; border-top: 1px solid #1e3048; }
+body.rat-mode .plo-badge { background: #4a0f0f; color: #ffb3a0; }
+body.rat-mode .lo-badge { background: #0f1e40; color: #a0c4ff; }
+body.rat-mode .hallmark-card, body.rat-mode .drug-card, body.rat-mode .p53-card { background: var(--rat-mode-surface); border-color: var(--rat-mode-border); color: var(--rat-mode-text-soft); }
+body.rat-mode .compare-card { background: var(--rat-mode-surface) !important; border-color: var(--rat-mode-border) !important; color: var(--rat-mode-text-soft); }
+body.rat-mode .tq-bar { background: var(--rat-mode-surface) !important; border-color: var(--rat-mode-border) !important; }
+body.rat-mode .tq-score { color: var(--rat-mode-muted) !important; }
+body.rat-mode .tq-col-btn { background: var(--rat-mode-bg) !important; border-color: var(--rat-mode-border) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode .tq-col-btn.sel { background: var(--rat-mode-accent2) !important; border-color: var(--rat-mode-accent2) !important; color: #08111a !important; }
+body.rat-mode .font-btn-row { background: var(--rat-mode-surface-alt) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode .font-btn { color: var(--rat-mode-text) !important; }
+body.rat-mode .font-sep, body.rat-mode .font-label { color: var(--rat-mode-muted) !important; }
+
+/* ── BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.75;
+  transition: background 0.25s, color 0.25s;
+}
+.container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+h1,h2,h3,h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+a { color: var(--accent2); }
+strong { font-weight: 600; }
+[data-mode="rat-only"] { display: none; }
+
+/* ── RAT BANNER ── */
+.rat-banner {
+  display: none;
+  background: var(--rat-mode-bg);
+  border-bottom: 2px solid var(--rat-mode-accent);
+  padding: 10px 24px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rat-mode-accent);
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--ink);
+  padding: 56px 0 44px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(181,52,26,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--hero-meta-label);
+  margin-bottom: 12px;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 900;
+  color: var(--hero-heading);
+  margin-bottom: 10px;
+}
+.hero h1 span { color: var(--accent); }
+.hero-sub {
+  font-size: 1rem;
+  color: var(--hero-sub);
+  max-width: 600px;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.hero-meta-item {
+  background: var(--hero-meta-bg);
+  border: 1px solid var(--hero-meta-border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hero-meta-item .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--hero-meta-label);
+}
+.hero-meta-item .value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--hero-meta-value);
+}
+
+/* ── TOC BAR ── */
+.toc-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--paper);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.toc-bar::-webkit-scrollbar { display: none; }
+.toc-bar nav {
+  display: flex;
+  gap: 0;
+  padding: 0 16px;
+  white-space: nowrap;
+}
+.toc-bar nav a {
+  display: inline-block;
+  padding: 12px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+.toc-bar nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ── SECTIONS ── */
+.section {
+  padding: 52px 0;
+  border-bottom: 1px solid var(--border);
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent);
+  color: var(--ink);
+}
+h3 {
+  font-size: 1.15rem;
+  margin: 24px 0 10px;
+  padding-bottom: 4px;
+  border-left: 3px solid var(--accent2);
+  padding-left: 10px;
+  color: var(--ink);
+}
+p { margin-bottom: 12px; }
+
+/* ── BADGES ── */
+.plo-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.lo-badge {
+  display: inline-block;
+  background: var(--accent2);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+
+/* ── CALLOUTS ── */
+.callout {
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 18px 0;
+  border-left: 4px solid;
+}
+.callout-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+.callout-key { background: var(--highlight); border-color: var(--gold); }
+.callout-key .callout-title { color: var(--gold); }
+.callout-concept { background: var(--blue-bg); border-color: var(--accent2); }
+.callout-concept .callout-title { color: var(--accent2); }
+.callout-clinical { background: var(--green-bg); border-color: #2e7d32; }
+.callout-clinical .callout-title { color: #2e7d32; }
+.callout-warning { background: var(--red-bg); border-color: var(--accent); }
+.callout-warning .callout-title { color: var(--accent); }
+.callout-purple { background: var(--purple-bg); border-color: #7b2d8b; }
+.callout-purple .callout-title { color: #7b2d8b; }
+
+/* ── LISTS ── */
+.notes-list { list-style: none; padding: 0; margin: 10px 0 14px; }
+.notes-list li { padding: 4px 0 4px 18px; position: relative; }
+.notes-list li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.step-list { list-style: none; counter-reset: steps; padding: 0; margin: 12px 0; }
+.step-list li { display: flex; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--border); counter-increment: steps; }
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before { content: counter(steps); background: var(--accent); color: #fff; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 0.78rem; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+
+/* ── TABLES ── */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+th { background: var(--ink); color: #f5ede0; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 14px; text-align: left; }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--ink); vertical-align: top; }
+tr:nth-child(even) td { background: var(--cream); }
+
+/* ── EXAM Q ── */
+.exam-q {
+  background: #1a1209;
+  color: #f5ede0;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 20px 0;
+  position: relative;
+}
+.exam-q::before {
+  content: 'EXAM Q';
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.exam-q p { color: #e8d8c8; margin-bottom: 0; }
+.answer { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.12); }
+.answer .label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 6px; }
+.answer p { color: #c8d8c8; }
+
+/* ── COMPARE GRID ── */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+@media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+.compare-card { border-radius: 10px; padding: 20px; border: 1px solid var(--border); }
+.compare-card h4 { font-size: 1rem; margin-bottom: 8px; font-family: 'Playfair Display', serif; }
+.compare-card .card-emoji { font-size: 1.5rem; display: block; margin-bottom: 8px; }
+.antiresorptive { background: linear-gradient(135deg, #e3f0fb 0%, #d0e8f8 100%); border-color: #2c5f8a; }
+.anabolic { background: linear-gradient(135deg, #e8f5e9 0%, #d0edd4 100%); border-color: #2e7d32; }
+
+/* ── HALLMARKS GRID ── */
+.hallmarks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 18px 0; }
+.hallmark-card { background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 18px; border-top: 3px solid; }
+.hallmark-card:nth-child(1) { border-top-color: var(--accent); }
+.hallmark-card:nth-child(2) { border-top-color: var(--accent2); }
+.hallmark-card:nth-child(3) { border-top-color: var(--gold); }
+.hallmark-card:nth-child(4) { border-top-color: #2e7d32; }
+.hallmark-card:nth-child(5) { border-top-color: #7b2d8b; }
+.hallmark-card:nth-child(6) { border-top-color: #c9922a; }
+.hallmark-num { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-bottom: 6px; }
+.hallmark-card h4 { font-size: 0.95rem; margin-bottom: 6px; }
+.hallmark-card p { font-size: 0.86rem; color: var(--muted); margin: 0; }
+
+/* ── DRUG GRID ── */
+.drug-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 18px 0; }
+.drug-card { background: var(--cream); border: 1px solid var(--border); border-top: 3px solid var(--accent2); border-radius: 10px; padding: 16px; }
+.drug-card h4 { font-size: 0.95rem; margin-bottom: 4px; }
+.drug-card .generic { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* ── P53 GRID ── */
+.p53-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin: 18px 0; }
+.p53-card { background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+.p53-card .icon { font-size: 1.6rem; margin-bottom: 8px; }
+.p53-card h4 { font-size: 0.9rem; margin-bottom: 4px; }
+.p53-card p { font-size: 0.82rem; color: var(--muted); margin: 0; }
+
+/* ── INLINE ELEMENTS ── */
+.gene-tag { font-family: 'JetBrains Mono', monospace; color: var(--accent2); font-size: 0.88rem; font-weight: 500; }
+.snp-code { font-family: 'JetBrains Mono', monospace; background: var(--cream); border: 1px solid var(--border); padding: 2px 7px; border-radius: 4px; font-size: 0.82rem; }
+
+/* ── TABLE QUIZ ── */
+.tq-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; padding: 8px 12px; background: var(--cream); border: 1px solid var(--border); border-radius: 8px; }
+.tq-toggle { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent2); color: #fff; border: none; border-radius: 20px; padding: 5px 12px; cursor: pointer; }
+.tq-toggle.active { background: var(--accent); }
+.tq-cols { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+.tq-col-btn { font-size: 0.72rem; padding: 3px 9px; border: 1px solid var(--border); border-radius: 12px; background: var(--paper); cursor: pointer; font-family: 'JetBrains Mono', monospace; transition: all 0.15s; }
+.tq-col-btn.sel { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+.tq-start { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; background: #2e7d32; color: #fff; border: none; border-radius: 20px; padding: 5px 12px; cursor: pointer; }
+.tq-start:disabled { opacity: 0.35; cursor: not-allowed; }
+.tq-reset { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; background: #b5341a; color: #fff; border: none; border-radius: 20px; padding: 5px 13px; cursor: pointer; }
+.tq-score { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.tq-score.done { color: #2e7d32; font-weight: 700; }
+.quiz-hidden-cell { position: relative !important; cursor: pointer !important; }
+.quiz-hidden-cell .tq-cell-content { filter: blur(5px) !important; user-select: none !important; pointer-events: none !important; opacity: 0.4 !important; }
+.quiz-hidden-cell::after { content: 'tap to reveal' !important; position: absolute !important; inset: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; background: var(--quiz-overlay) !important; color: #fff !important; font-family: 'JetBrains Mono', monospace !important; font-size: 0.6rem !important; font-weight: 700 !important; letter-spacing: 0.12em !important; text-transform: uppercase !important; border-radius: 4px !important; }
+.quiz-hidden-cell:hover::after { background: var(--quiz-overlay-hover) !important; }
+
+/* ── LIGHTBOX ── */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 6px; box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+.slide-img { width: 100%; border-radius: 8px; margin: 14px 0 4px; cursor: zoom-in; border: 1px solid var(--border); }
+.slide-caption { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 10px; }
+/* ── FLOATING CONTROLS ── */
+.rat-toggle { position: fixed; bottom: 24px; right: 20px; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; z-index: 200; }
+.rat-pill { display: none; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; background: var(--rat-mode-accent); color: #0f1923; padding: 4px 12px; border-radius: 20px; font-weight: 700; }
+body.rat-mode .rat-pill { display: block; }
+.font-btn-row { display: flex; align-items: center; background: var(--floating-ui-bg); color: var(--floating-ui-fg); padding: 7px 10px; border-radius: 30px; box-shadow: var(--floating-ui-shadow); font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; gap: 2px; }
+.font-btn { background: none; border: none; cursor: pointer; color: var(--floating-ui-fg); font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1rem; padding: 2px 8px; border-radius: 6px; transition: background 0.15s; line-height: 1; }
+.font-btn:hover { background: rgba(255,255,255,0.18); }
+.font-sep { color: rgba(255,255,255,0.2); padding: 0 3px; }
+.font-label { font-size: 0.58rem; opacity: 0.7; padding: 0 5px; text-transform: uppercase; letter-spacing: 0.1em; }
+.theme-btn { display: flex; align-items: center; gap: 6px; background: var(--floating-ui-bg); color: var(--floating-ui-fg); border: none; padding: 9px 14px; border-radius: 30px; box-shadow: var(--floating-ui-shadow); font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
+.rat-btn { display: flex; align-items: center; gap: 8px; border: none; padding: 10px 16px; border-radius: 30px; box-shadow: var(--floating-ui-shadow); font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; font-weight: 700; transition: all 0.2s; }
+.rat-btn.off { background: var(--floating-ui-bg); color: var(--floating-ui-fg); }
+.rat-btn.on { background: var(--rat-mode-accent); color: #0f1923; }
+.theme-panel { position: fixed; bottom: 160px; right: 20px; background: var(--floating-ui-bg); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px; min-width: 180px; z-index: 201; display: none; box-shadow: 0 6px 24px rgba(0,0,0,0.3); }
+.theme-panel.open { display: block; }
+.theme-panel-title { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
+.theme-option { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 8px; cursor: pointer; color: var(--floating-ui-fg); font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; transition: background 0.15s; }
+.theme-option:hover, .theme-option.active { background: rgba(255,255,255,0.12); }
+.theme-swatch { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── FOOTER ── */
+footer { padding: 36px 0; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<!-- RAT BANNER -->
+<div class="rat-banner">
+  ⚡ RAT Mode Active — PLOs: Define PGx · Tumorigenesis · Germline vs Somatic · Drug Response · Dosing · Lynch Syndrome
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">Dr. Kathleen Becker · University of New England COM</div>
+    <h1>Pharmacogenetics &amp; <span>Lynch Syndrome</span></h1>
+    <p class="hero-sub">How genetic variation shapes drug response and cancer risk. Includes RAT Mode for PLO-focused exam prep.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Parts</span>
+        <span class="value">I – III</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">PLOs</span>
+        <span class="value">3 Objectives</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">LOs</span>
+        <span class="value">3 Objectives</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Key Cases</span>
+        <span class="value">Warfarin · Codeine · MDR1 · Lynch</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOC BAR -->
+<div class="toc-bar">
+  <nav>
+    <a href="#define-pgx">Define PGx</a>
+    <a href="#tumorigenesis">Tumorigenesis</a>
+    <a href="#germline-somatic">Germline vs Somatic</a>
+    <a href="#drug-response" data-lo-only>Drug Response</a>
+    <a href="#dosing" data-lo-only>Dosing Principles</a>
+    <a href="#lynch" data-lo-only>Lynch Syndrome</a>
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  PLO 1 — DEFINE PHARMACOGENETICS
+═══════════════════════════════════════════ -->
+<div class="section" id="define-pgx">
+  <div class="container">
+
+    <div data-mode="rat-only">
+      <div class="rat-plo-header">
+        <div class="rat-plo-tag">PLO 1 — Pre-Week</div>
+        <h2>Define pharmacogenetics</h2>
+        <p>Know the distinction between pharmacogenetics (single locus) and pharmacogenomics (many loci), and the clinical "so what."</p>
+      </div>
+      <ul class="rat-checklist">
+        <li><span class="check">✓</span><div><strong>Pharmacogenetics →</strong> genetic basis for variation in drug response; typically large effects at a small number of loci</div></li>
+        <li><span class="check">✓</span><div><strong>Pharmacogenomics →</strong> many variants across a population explaining the genetic component of variable drug responses; multifactorial</div></li>
+        <li><span class="check">✓</span><div><strong>Classic example →</strong> CYP2D6 &amp; codeine: poor metabolizers (gene deletion) get no pain relief; ultra-metabolizers (gene duplication) risk respiratory depression</div></li>
+        <li><span class="check">✓</span><div><strong>Clinical goal →</strong> minimize polypharmacy, use targeted "silver bullet" approach, reduce side effects, speed up patient recovery</div></li>
+        <li><span class="check">✓</span><div><strong>Race/ethnicity note →</strong> 10% white population vs 0.5% African American/Asian lack CYP2D6 → no codeine benefit; pharmacogenomics can explain disparities</div></li>
+      </ul>
+    </div>
+
+    <div class="plo-badge">PLO 1</div>
+    <p class="section-label">Foundations</p>
+    <h2 class="section-title">Defining Pharmacogenetics &amp; Pharmacogenomics</h2>
+
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 Core Definition</div>
+      <p><strong>Pharmacogenetics</strong> is the study of the genetic basis for variation in drug response. It typically focuses on <em>large effects at a small number of genetic loci</em>. The classic examples are CYP2D6/codeine and MDR1/P-glycoprotein.</p>
+    </div>
+
+    <div class="callout callout-concept">
+      <div class="callout-title">📐 Pharmacogenomics (Broader Scope)</div>
+      <p><strong>Pharmacogenomics</strong> examines <em>larger numbers of variants</em> — in an individual or across a population — to explain the genetic component of variable drug responses. These are multifactorial traits (see Week 21), where many variants collectively determine the drug response phenotype. Think of the bell curve: at one locus you get a bimodal distribution; at many loci you get a continuous normal curve.</p>
+    </div>
+
+    <h3>Why does this matter clinically?</h3>
+    <ul class="notes-list">
+      <li>Genetic variation influences which pharmacological therapeutic regimens will work for a given patient</li>
+      <li>Helps explain why race/ethnicity may play a role in therapeutic choice</li>
+      <li>Goal: <strong>minimize</strong> the number of therapeutics per patient (fewer trials &amp; errors)</li>
+      <li>Enables a targeted <strong>"silver bullet"</strong> approach — pick the drug most likely to work</li>
+      <li>Reduces unwanted side effects and gets patients better faster</li>
+    </ul>
+
+    <h3>Classic Example: Codeine &amp; CYP2D6</h3>
+    <p>Codeine is a <strong>prodrug</strong> — it must be metabolized to morphine by the <span class="gene-tag">CYP2D6</span> enzyme in order to produce pain relief. DNA polymorphisms in the <em>CYP2D6 gene</em> lead to dramatically different outcomes:</p>
+
+    <table>
+      <tr>
+        <th>Genotype</th>
+        <th>Phenotype</th>
+        <th>Clinical Outcome</th>
+        <th>Population Frequency</th>
+      </tr>
+      <tr>
+        <td><strong>Gene deletion</strong> — no CYP2D6</td>
+        <td>Poor metabolizer</td>
+        <td>Little or no pain relief; codeine not converted to morphine</td>
+        <td>~10% white; ~0.5% African American &amp; Asian</td>
+      </tr>
+      <tr>
+        <td><strong>Normal (1–2 copies)</strong></td>
+        <td>Extensive metabolizer</td>
+        <td>Standard pain relief</td>
+        <td>Majority of population</td>
+      </tr>
+      <tr>
+        <td><strong>Gene duplication</strong> (12–16 copies)</td>
+        <td>Ultra-metabolizer</td>
+        <td>Rapid conversion → high morphine levels → impaired respiration &amp; sedation</td>
+        <td>Variable; elevated in some populations</td>
+      </tr>
+    </table>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Clinical Pitfall</div>
+      <p>A standard codeine dose can be <strong>toxic</strong> in an ultra-metabolizer (e.g., a nursing mother passing excess morphine to her infant) and <strong>ineffective</strong> in a poor metabolizer. Genetic testing can identify these patients before prescribing.</p>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> A patient with a known <span class="gene-tag">CYP2D6</span> gene deletion is prescribed codeine for pain management post-surgery. Why will this patient likely receive no pain relief?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p>Codeine is a <strong>prodrug</strong> that requires CYP2D6 to be metabolized into its active form, <strong>morphine</strong>. Without CYP2D6 (poor metabolizer), the conversion does not occur, and the patient receives no analgesic benefit. A different analgesic not dependent on CYP2D6 should be selected.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  PLO 2 — TUMORIGENESIS & 2-HIT HYPOTHESIS
+═══════════════════════════════════════════ -->
+<div class="section" id="tumorigenesis">
+  <div class="container">
+
+    <div data-mode="rat-only">
+      <div class="rat-plo-header">
+        <div class="rat-plo-tag">PLO 2 — Pre-Week</div>
+        <h2>Describe the multistep model of tumorigenesis, malignant transformation, and the 2-hit hypothesis</h2>
+        <p>Know the progression from normal cell to cancer, the role of TSGs, and why inherited TSG mutations dramatically increase cancer risk.</p>
+      </div>
+      <ul class="rat-checklist">
+        <li><span class="check">✓</span><div><strong>Multistep model →</strong> normal cell needs ≥ 6–8 driver mutations to become invasive/metastatic; tumors accumulate mutations over decades</div></li>
+        <li><span class="check">✓</span><div><strong>Colorectal progression →</strong> APC mutation → small adenoma → RAS → large adenoma → PI3K/TGFB → carcinoma (30–70 yr range)</div></li>
+        <li><span class="check">✓</span><div><strong>TSG (Tumor Suppressor Gene) →</strong> DNA repair genes (like MSH2) are TSGs; both alleles must be inactivated — recessive at the cellular level</div></li>
+        <li><span class="check">✓</span><div><strong>2-Hit Hypothesis →</strong> non-hereditary: requires 2 somatic hits (rare); hereditary: born with 1 hit in every cell, only needs 1 more hit → much higher cancer risk</div></li>
+        <li><span class="check">✓</span><div><strong>Key logic →</strong> inherited MSH2+/m already has head start; one "loss of heterozygosity" event anywhere in the colon triggers tumor formation</div></li>
+      </ul>
+    </div>
+
+    <div class="plo-badge">PLO 2</div>
+    <p class="section-label">Cancer Biology</p>
+    <h2 class="section-title">Multistep Tumorigenesis &amp; the 2-Hit Hypothesis</h2>
+
+    <p>Cancer is not caused by a single mutation — it requires the sequential accumulation of genetic changes. Understanding this progression is critical for appreciating hereditary cancer syndromes like Lynch syndrome.</p>
+
+    <h3>The Multistep Model</h3>
+    <div class="callout callout-concept">
+      <div class="callout-title">📐 Core Principle</div>
+      <p>A normal cell must acquire <strong>at least 6–8 driver mutations</strong> to become fully invasive and metastatic. Each driver mutation confers a clonal growth advantage, leading to expansion of that cell population.</p>
+    </div>
+
+    <p>The <strong>colorectal adenoma-carcinoma sequence</strong> is the textbook example:</p>
+    <ol class="step-list">
+      <li><div><strong>Normal colonic epithelium (age 30–50)</strong> — APC mutation occurs → small adenoma forms</div></li>
+      <li><div><strong>Small adenoma (age 40–60)</strong> — RAS mutation → large adenoma</div></li>
+      <li><div><strong>Large adenoma (age 50–70)</strong> — PI3K, cell cycle/apoptosis, TGFB mutations accumulate → carcinoma</div></li>
+    </ol>
+
+    <img class="slide-img" src="../../assets/pharmacogenetics/cancer-hallmarks-metabolism.png" alt="Hallmarks of cancer diagram highlighting deregulated cellular energetics and reprogramming energy metabolism as a core cancer trait" loading="lazy">
+    <div class="slide-caption">Cancer Hallmarks — this figure fits here as a broad overview of how tumorigenesis reflects acquisition of multiple hallmark traits rather than a single isolated mutation.</div>
+
+    <h3>Tumor Suppressor Genes (TSGs) &amp; the 2-Hit Hypothesis</h3>
+    <p>TSGs act as brakes on cell proliferation or as guardians of the genome (like DNA repair genes). Unlike oncogenes (which need only one activating mutation), TSGs must lose <em>both</em> functional copies to lose their protective function.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card antiresorptive">
+        <span class="card-emoji">🧬</span>
+        <h4>Non-Hereditary (Sporadic)</h4>
+        <p>Individual starts with <strong>MSH2+/+</strong> (both alleles normal). Cancer requires <strong>two independent somatic hits</strong> — very rare in any single cell. Low lifetime risk.</p>
+      </div>
+      <div class="compare-card anabolic">
+        <span class="card-emoji">⚠️</span>
+        <h4>Hereditary</h4>
+        <p>Individual inherits <strong>MSH2+/m</strong> — already one non-functional allele in every cell. Cancer requires only <strong>one additional somatic hit</strong> — much more likely. High lifetime risk.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-clinical">
+      <div class="callout-title">🏥 Clinical Pearl</div>
+      <p>Individuals with an inherited TSG mutation are predisposed to cancer for <strong>two reasons</strong>: (1) they are already halfway to the 2-hit threshold in every cell of the relevant tissue, and (2) they have far more target cells — the entire colonic epithelium — that each only need one more hit.</p>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> With regard to cancer, what type category do DNA repair genes fall into? How many mutations are needed to cause a tumor-driving mutation in a cell?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p>DNA repair genes are <strong>Tumor Suppressor Genes (TSGs)</strong>. Because both copies must be inactivated (recessive at the cellular level), <strong>2 mutations</strong> are needed (the 2-hit hypothesis).</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  PLO 3 — GERMLINE vs SOMATIC MUTATIONS
+═══════════════════════════════════════════ -->
+<div class="section" id="germline-somatic">
+  <div class="container">
+
+    <div data-mode="rat-only">
+      <div class="rat-plo-header">
+        <div class="rat-plo-tag">PLO 3 — Pre-Week</div>
+        <h2>Describe how germline polymorphisms and somatic mutations lead to tumor formation — identify their location in the body</h2>
+        <p>Know which cells carry which mutations and what can be passed to offspring. This is a favorite exam question structure.</p>
+      </div>
+      <ul class="rat-checklist">
+        <li><span class="check">✓</span><div><strong>Germline mutation →</strong> present in ALL cells of the body (every somatic + germ cell); CAN be passed to offspring</div></li>
+        <li><span class="check">✓</span><div><strong>Somatic mutation →</strong> only in the tumor cell and its daughter cells; NOT present in normal tissues; cannot be inherited by offspring</div></li>
+        <li><span class="check">✓</span><div><strong>Lynch example →</strong> patient is MSH2+/m in ALL cells (germline); tumor cells undergo LOH → MSH2m/m; normal keratinocytes in the head remain MSH2+/m</div></li>
+        <li><span class="check">✓</span><div><strong>Melanoma example →</strong> HRAS mutation is somatic — present in tumor + descendant cells; foot melanocyte is HRAS normal; offspring would not inherit the HRAS mutation</div></li>
+        <li><span class="check">✓</span><div><strong>Key test question →</strong> asked to compare genotype of tumor cell vs. normal somatic cell vs. offspring — know each scenario</div></li>
+      </ul>
+    </div>
+
+    <div class="plo-badge">PLO 3</div>
+    <p class="section-label">Mutation Locations</p>
+    <h2 class="section-title">Germline vs. Somatic Mutations in Tumor Formation</h2>
+
+    <div class="compare-grid">
+      <div class="compare-card antiresorptive">
+        <span class="card-emoji">🧬</span>
+        <h4>Germline Mutation</h4>
+        <ul class="notes-list">
+          <li>Present in the <strong>fertilized egg</strong> → all cells of the body carry it</li>
+          <li>Includes all normal somatic cells AND germ cells (sperm/eggs)</li>
+          <li><strong>Can be inherited</strong> by offspring</li>
+          <li>Example: MSH2+/m inherited Lynch syndrome</li>
+          <li>Every colon cell starts with one non-functional MMR gene</li>
+        </ul>
+      </div>
+      <div class="compare-card anabolic">
+        <span class="card-emoji">🔬</span>
+        <h4>Somatic Mutation</h4>
+        <ul class="notes-list">
+          <li>Arises <strong>after</strong> fertilization in a single body cell</li>
+          <li>Present only in the <strong>tumor and its daughter cells</strong></li>
+          <li>Normal cells of the same tissue (and distant tissues) do NOT carry it</li>
+          <li><strong>Cannot be inherited</strong> by offspring</li>
+          <li>Example: HRAS driver mutation in a melanoma</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Case Study: Lynch Syndrome (Germline)</h3>
+    <p>A birth parent carries a germline <span class="gene-tag">MSH2</span> mutation and passes it to a child:</p>
+    <table>
+      <tr><th>Cell Type / Timepoint</th><th>MSH2 Genotype</th><th>Notes</th></tr>
+      <tr><td>All cells at birth</td><td>MSH2<sup>+/m</sup></td><td>One normal, one mutated copy in every cell — inherited germline mutation</td></tr>
+      <tr><td>Normal keratinocyte (head, at age 32)</td><td>MSH2<sup>+/m</sup></td><td>Still heterozygous; no second hit occurred here</td></tr>
+      <tr><td>Colon tumor cells (age 32)</td><td>MSH2<sup>m/m</sup></td><td>Second hit (loss of heterozygosity) occurred in a colon cell → tumor</td></tr>
+      <tr><td>Offspring of this patient</td><td>MSH2<sup>+/m</sup> or MSH2<sup>+/+</sup></td><td>50% chance of inheriting the germline mutation (autosomal dominant predisposition)</td></tr>
+    </table>
+
+    <h3>Case Study: Melanoma (Somatic)</h3>
+    <p>An individual develops a melanoma with an <span class="gene-tag">HRAS</span> driver mutation:</p>
+    <table>
+      <tr><th>Cell Type</th><th>HRAS Genotype</th><th>Notes</th></tr>
+      <tr><td>Melanoma tumor cells</td><td>HRAS mutant</td><td>Driver mutation occurred here; clonally expanded to entire tumor</td></tr>
+      <tr><td>Melanocyte in foot (normal)</td><td>HRAS normal</td><td>Did not arise from the tumor cell lineage; normal somatic cell</td></tr>
+      <tr><td>Offspring of this patient</td><td>HRAS normal</td><td>Somatic mutation is NOT in germ cells → cannot be inherited</td></tr>
+    </table>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Exam Distinction</div>
+      <p>The question "will the mutation be passed to offspring?" hinges entirely on whether the mutation is in the <strong>germline</strong> (yes) or is <strong>somatic</strong> (no). Somatic tumor mutations are locked within the tumor lineage.</p>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> An individual has a somatic HRAS mutation in a melanoma. Their foot melanocyte has a normal HRAS gene. If this individual has a child, will the offspring inherit the HRAS mutation?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p><strong>No.</strong> Because the HRAS mutation is somatic (arose in a single skin cell after fertilization), it is not present in the germ cells (sperm or eggs). Therefore, offspring will NOT inherit it. Compare this to Lynch syndrome, where a germline MMR mutation IS present in germ cells and CAN be passed to children.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  LO 1 — DRUG RESPONSE & GENETIC VARIANTS
+═══════════════════════════════════════════ -->
+<div class="section" id="drug-response" data-mode="lo-only">
+  <div class="container">
+
+    <div class="badge-row">
+      <div class="lo-badge">LO 1</div>
+    </div>
+    <p class="section-label">Pharmacogenetics · Part I</p>
+    <h2 class="section-title">How Genetic Variants Affect Drug Response</h2>
+
+    <p>Genetic variation can affect drug response through two main mechanisms: (1) altering the <strong>drug's interaction with its target molecule</strong>, and (2) altering <strong>drug metabolism</strong>. Both can have profound effects in tumor cells (somatic mutations) or throughout the entire body (germline variants).</p>
+
+    <div class="callout callout-concept">
+      <div class="callout-title">📐 Two Mechanisms of Genetic Impact</div>
+      <ul class="notes-list">
+        <li><strong>Altered drug–target interaction:</strong> mutations in the binding site protein change how tightly a drug binds (increase or decrease affinity)</li>
+        <li><strong>Altered drug metabolism:</strong> mutations in metabolic enzymes change how quickly the drug (or prodrug) is broken down — affecting circulating concentrations</li>
+      </ul>
+    </div>
+
+    <h3>Case Study: MDR1 / ABCB1 Gene</h3>
+    <p>The <span class="gene-tag">MDR1</span> gene (also called <span class="gene-tag">ABCB1</span>) encodes <strong>P-glycoprotein 1</strong>, a transporter that pumps xenobiotics (including many drugs) out of cells — most critically, out of the brain across the blood-brain barrier.</p>
+
+    <div class="hallmarks-grid">
+      <div class="hallmark-card">
+        <div class="hallmark-num">Function</div>
+        <h4>Normal MDR1</h4>
+        <p>Transports xenobiotics and drugs out of neural tissue, protecting the CNS from toxicity</p>
+      </div>
+      <div class="hallmark-card">
+        <div class="hallmark-num">Mutation effect</div>
+        <h4>Loss of Function</h4>
+        <p>Reduced transport → increased neural drug concentrations → CNS toxicity</p>
+      </div>
+      <div class="hallmark-card">
+        <div class="hallmark-num">Overexpression</div>
+        <h4>Resistance</h4>
+        <p>Too much P-glycoprotein pumps chemotherapeutics OUT of tumor cells → treatment resistance in cancer &amp; epilepsy</p>
+      </div>
+    </div>
+
+    <h3>MDR1 in Herding Dogs (Classic Teaching Case)</h3>
+    <p>MDR1 mutations are common in herding breeds (1 in 2 Australian Shepherds are carriers). The mutations display <strong>incomplete dominance</strong>. Roger, a Lab/Chow/Husky rescue dog, illustrates the benefit of DNA testing before administering any of these drugs:</p>
+
+    <div class="drug-grid">
+      <div class="drug-card">
+        <h4>Ivermectin</h4>
+        <div class="generic">Anti-parasitic</div>
+        <p style="font-size:0.83rem; margin-top:6px; color:var(--muted);">Low-dose safe; avoid in MDR1 mutants at standard doses</p>
+      </div>
+      <div class="drug-card">
+        <h4>Loperamide</h4>
+        <div class="generic">Anti-diarrheal</div>
+        <p style="font-size:0.83rem; margin-top:6px; color:var(--muted);">CNS toxicity risk in MDR1 mutants</p>
+      </div>
+      <div class="drug-card">
+        <h4>Doxorubicin</h4>
+        <div class="generic">Chemotherapeutic</div>
+        <p style="font-size:0.83rem; margin-top:6px; color:var(--muted);">P-gp substrate; adjust dose for MDR1 status</p>
+      </div>
+      <div class="drug-card">
+        <h4>Cyclosporine</h4>
+        <div class="generic">Immunosuppressive</div>
+        <p style="font-size:0.83rem; margin-top:6px; color:var(--muted);">Increased neural concentration risk</p>
+      </div>
+      <div class="drug-card">
+        <h4>Butorphanol</h4>
+        <div class="generic">Pre-anesthetic</div>
+        <p style="font-size:0.83rem; margin-top:6px; color:var(--muted);">CNS penetration risk; reduce dose in carriers</p>
+      </div>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> Roger the dog is heterozygous (MDR1<sup>+/m</sup>) for a loss-of-function MDR1 mutation and needs an anesthetic known to interact with P-glycoprotein. How would you alter the dose?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p><strong>Decrease the dose.</strong> With incomplete dominance, heterozygotes have reduced P-glycoprotein function compared to normal — less drug is pumped out of the CNS → higher neural concentrations → increased risk of toxicity at standard doses. A reduced dose achieves the same therapeutic effect safely.</p>
+      </div>
+    </div>
+
+    <h3>MDR1 in Human Cancer &amp; Epilepsy</h3>
+    <p>The same principle applies in humans. <strong>Overexpression</strong> of ABCB1 in tumor cells or CNS cells actively pumps therapeutic drugs out, leading to treatment resistance in:</p>
+    <ul class="notes-list">
+      <li><strong>Cancer:</strong> chemotherapeutics are pumped out of tumor cells before they can act</li>
+      <li><strong>Epilepsy:</strong> anti-seizure medications are pumped out of brain cells before reaching therapeutic concentrations</li>
+    </ul>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> An 8-year-old presents with a neuroblastoma in the right brain hemisphere. Post-resection gene expression analysis shows increased <span class="gene-tag">ABCB1</span> (MDR1) expression. How would this influence chemotherapeutic dosing?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p><strong>Increase the dose.</strong> Overexpression of ABCB1/P-glycoprotein actively pumps the chemotherapeutic drug OUT of tumor cells, reducing intracellular drug concentration. A higher dose is needed to overcome this efflux and maintain therapeutic levels within the tumor cells. This is a primary mechanism of chemotherapy resistance in brain tumors.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  LO 2 — DOSING PRINCIPLES (WARFARIN)
+═══════════════════════════════════════════ -->
+<div class="section" id="dosing" data-mode="lo-only">
+  <div class="container">
+
+    <div class="badge-row">
+      <div class="lo-badge">LO 2</div>
+    </div>
+    <p class="section-label">Pharmacogenetics · Part II</p>
+    <h2 class="section-title">Dosing Principles: How Genetic Variation Informs Medication Dosing</h2>
+
+    <p>This is perhaps the highest-yield section for both the Progress Test and boards. Dr. Becker has explicitly used Warfarin as a case on the Progress Test. The framework learned here applies to <em>any</em> drug — not just warfarin.</p>
+
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 The Master Framework</div>
+      <p>Genetic variation can: (1) alter drug–target <strong>affinity</strong>, or (2) alter drug <strong>metabolism</strong>. Each scenario has a predictable consequence for dosing. Memorize the direction of each change.</p>
+    </div>
+
+    <h3>Warfarin &amp; VKORC1 — Mechanism Review</h3>
+    <p>Warfarin binds to <strong>VKORC1</strong> (Vitamin K epoxide reductase complex 1) and <em>inhibits</em> it. Without active VKORC1, Vitamin K cannot be recycled, and the carboxylase enzyme cannot activate clotting factors II, VII, IX, and X. The result: reduced clotting (anticoagulation).</p>
+
+    <div class="callout callout-concept">
+      <div class="callout-title">📐 Pathway Summary</div>
+      <p>Warfarin → inhibits VKORC1 → blocks Vitamin K recycling → carboxylase cannot activate precursor prothrombin → reduced active clotting factors (II, VII, IX, X) → anticoagulation</p>
+      <p style="margin-top:8px; font-size:0.88em; color:var(--muted);">Note: S-warfarin (metabolized by CYP2C9) is 3–5× more potent than R-warfarin (metabolized by CYP2C19/1A2/3A4). Metabolites of warfarin do NOT affect VKORC1 — it is not a prodrug.</p>
+    </div>
+
+    <h3>How Mutations in VKORC1 Affect Warfarin Dosing</h3>
+    <p>Amino acid side chains surround warfarin in the VKORC1 binding site. A missense mutation in any of these residues can alter the affinity of warfarin for the protein:</p>
+
+    <table>
+      <tr>
+        <th>Mutation Effect on VKORC1</th>
+        <th>Effect on Warfarin Binding</th>
+        <th>Therapeutic Consequence</th>
+        <th>Dose Adjustment</th>
+      </tr>
+      <tr>
+        <td><strong>Increases affinity by 50%</strong></td>
+        <td>Warfarin binds tighter → more effective inhibition</td>
+        <td>Standard dose over-anticoagulates → dangerous bleeding risk</td>
+        <td>⬇️ <strong>DECREASE dose</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Decreases affinity by 50%</strong></td>
+        <td>Warfarin binds less tightly → less effective inhibition</td>
+        <td>Standard dose under-anticoagulates → clotting risk</td>
+        <td>⬆️ <strong>INCREASE dose</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Minimizes interaction</strong></td>
+        <td>Virtually no binding → no therapeutic effect</td>
+        <td>No benefit at any dose; increasing dose adds toxicity without benefit</td>
+        <td>🔄 <strong>SWITCH medication</strong></td>
+      </tr>
+    </table>
+
+    <h3>Choosing a Replacement Medication</h3>
+    <p>If warfarin–VKORC1 interaction is minimized, which alternative should you choose?</p>
+    <ul class="notes-list">
+      <li><strong>Same binding site on VKORC1?</strong> — Generally avoid; if the protein structure is altered, any drug targeting that site may also have reduced affinity</li>
+      <li><strong>Different binding site on VKORC1?</strong> — Better option, though if there are large structural changes to the protein, there's still some risk of reduced affinity</li>
+      <li><strong>Different target molecule altogether?</strong> — Most reliable choice; a drug that doesn't interact with VKORC1 at all sidesteps the problem entirely</li>
+    </ul>
+
+    <h3>How Mutations in Drug Metabolism Affect Warfarin Dosing</h3>
+    <p>Genetic variants in CYP enzymes affect how quickly warfarin itself is broken down. Unlike codeine, warfarin is <em>not</em> a prodrug — its metabolites do NOT inhibit VKORC1.</p>
+
+    <table>
+      <tr>
+        <th>Mutation Effect on Metabolism</th>
+        <th>Warfarin Concentration</th>
+        <th>Clinical Consequence</th>
+        <th>Dose Adjustment</th>
+      </tr>
+      <tr>
+        <td><strong>Increased metabolism</strong> (broken down faster)</td>
+        <td>Lower circulating warfarin</td>
+        <td>Drug cleared too quickly → insufficient anticoagulation</td>
+        <td>⬆️ <strong>INCREASE dose</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Decreased metabolism</strong> (broken down slower)</td>
+        <td>Higher circulating warfarin</td>
+        <td>Drug accumulates → over-anticoagulation → bleeding risk</td>
+        <td>⬇️ <strong>DECREASE dose</strong></td>
+      </tr>
+    </table>
+
+    <div class="callout callout-clinical">
+      <div class="callout-title">🏥 Prodrug vs. Non-Prodrug — Critical Distinction</div>
+      <p>For <strong>warfarin</strong> (not a prodrug): faster metabolism → lower active drug → increase dose. For <strong>codeine</strong> (a prodrug): faster metabolism → more active morphine → <em>decrease</em> dose or risk toxicity. Always determine whether you're dealing with a prodrug before reasoning through metabolic scenarios.</p>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> A patient has a VKORC1 mutation that minimizes warfarin binding. What medication strategy would you employ, and what category of drug might you consider?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p><strong>Switch medications.</strong> Since warfarin has little-to-no affinity for the mutated VKORC1, increasing the dose provides no benefit and only increases toxicity risk. The best alternatives are: (B) a drug targeting a <em>different binding site</em> on VKORC1, or (C) a drug targeting a <em>different molecule altogether</em> in the coagulation cascade. Option A (same binding site) is least preferred because the structural change may impair all ligands at that site.</p>
+      </div>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> A patient carries a CYP2C9 polymorphism that reduces S-warfarin metabolism by 70%. How does this affect dosing, and why is the clinical risk significant?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p><strong>Decrease the dose.</strong> Reduced CYP2C9 activity means S-warfarin (the more potent isomer, 3–5× R-warfarin) is cleared much more slowly, leading to drug accumulation. This creates a risk of life-threatening bleeding. A standard dose in this patient would be equivalent to a massive overdose in a normal metabolizer. Genetic testing for CYP2C9 variants is now standard practice before initiating warfarin therapy.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  LO 3 — LYNCH SYNDROME
+═══════════════════════════════════════════ -->
+<div class="section" id="lynch" data-mode="lo-only">
+  <div class="container">
+
+    <div class="badge-row">
+      <div class="lo-badge">LO 3</div>
+    </div>
+    <p class="section-label">Pharmacogenetics · Part III</p>
+    <h2 class="section-title">Lynch Syndrome (HNPCC) — Genetics, Inheritance, &amp; Tumor Development</h2>
+
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 Definition</div>
+      <p><strong>Lynch Syndrome</strong> (Hereditary Non-Polyposis Colorectal Cancer, HNPCC) is an inherited genetic disorder caused by inactivating mutations in <strong>DNA mismatch repair (MMR) genes</strong> — specifically <span class="gene-tag">MLH1</span>, <span class="gene-tag">MSH2</span>, <span class="gene-tag">MSH6</span>, <span class="gene-tag">PMS2</span> — OR by mutations in the <span class="gene-tag">EPCAM</span> gene that epigenetically silence MSH2.</p>
+    </div>
+
+    <h3>The Mismatch Repair (MMR) System</h3>
+    <p>MMR proteins work in the G2 phase of the cell cycle to identify and repair single base-pair mismatches that escape proofreading during DNA replication. The process:</p>
+    <ol class="step-list">
+      <li><div>A heterodimer of hMSH6/hMSH2 recognizes and binds the mismatch</div></li>
+      <li><div>hMSH6/hPMS2 and hMSH2/hMSH1 complexes are recruited</div></li>
+      <li><div>EXO1 (exonuclease 1) removes the section of DNA containing the mismatch</div></li>
+      <li><div>DNA polymerase and ligase fill in and seal the correct sequence</div></li>
+    </ol>
+    <p>Mutations in any of these MMR genes eliminate or impair this repair process, leading to accumulation of replication errors — especially in <strong>microsatellite regions</strong>.</p>
+
+    <h3>Causative Genes &amp; Chromosomal Locations</h3>
+    <table>
+      <tr><th>Gene</th><th>Chromosomal Location</th><th>Function</th></tr>
+      <tr><td><span class="gene-tag">MLH1</span></td><td>3p22.2</td><td>Mismatch repair; recruits repair complex</td></tr>
+      <tr><td><span class="gene-tag">MSH2</span></td><td>2p21–16</td><td>Mismatch recognition (pairs with MSH6)</td></tr>
+      <tr><td><span class="gene-tag">MSH6</span></td><td>2p16.3</td><td>Mismatch recognition (pairs with MSH2)</td></tr>
+      <tr><td><span class="gene-tag">PMS2</span></td><td>7p22.1</td><td>Mismatch repair endonuclease</td></tr>
+      <tr><td><span class="gene-tag">EPCAM</span></td><td>2p21–p16.3</td><td>Epithelial cell adhesion molecule; 3' deletions → epigenetic silencing of MSH2 promoter by DNA methylation</td></tr>
+    </table>
+
+    <div class="callout callout-purple">
+      <div class="callout-title">💡 EPCAM Connection</div>
+      <p><span class="gene-tag">EPCAM</span> and <span class="gene-tag">MSH2</span> are both located on chromosome 2p21–p16.3. Large 3' deletions in EPCAM extend into the MSH2 promoter region, causing epigenetic silencing via DNA methylation — effectively acting as a "second-hit" on MSH2 expression through an epigenetic mechanism rather than a classic DNA mutation.</p>
+    </div>
+
+    <h3>Inheritance Pattern</h3>
+    <p>All causative genes map to autosomes (chromosomes 2, 3, 7) — not sex chromosomes. Lynch syndrome displays <strong>autosomal dominant inheritance</strong>.</p>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Nuance: Autosomal Dominant vs. 2-Hit</div>
+      <p>While a mutation in <em>both alleles</em> is necessary to actually lose MMR function in a cell (recessive at the cellular level), the <strong>predisposition</strong> for cancer is inherited in a <strong>dominant manner with reduced penetrance</strong>. Heterozygous carriers (MSH2+/m) are at dramatically elevated cancer risk compared to the general population because they only need one more somatic "hit" in any colon cell.</p>
+    </div>
+
+    <h3>Locus Heterogeneity</h3>
+    <p>Lynch syndrome can result from mutations in any one of several different genes (<span class="gene-tag">MLH1</span>, <span class="gene-tag">MSH2</span>, <span class="gene-tag">MSH6</span>, <span class="gene-tag">PMS2</span>, or <span class="gene-tag">EPCAM</span>). This is the definition of <strong>locus heterogeneity</strong>: different gene mutations leading to the same disease.</p>
+
+    <table>
+      <tr><th>Genetic Concept</th><th>Definition</th><th>Lynch Connection</th></tr>
+      <tr><td><strong>Locus Heterogeneity</strong></td><td>Mutations in different genes → same disease phenotype</td><td>✅ MLH1 OR MSH2 OR MSH6 OR PMS2 → Lynch syndrome</td></tr>
+      <tr><td>Allelic Heterogeneity</td><td>Multiple different mutations in one gene → same disease</td><td>Technically also present, but not the defining feature here</td></tr>
+      <tr><td>Pleiotropy</td><td>One gene → multiple independent phenotypes</td><td>❌ Not the right answer for this question</td></tr>
+      <tr><td>Penetrance</td><td>Proportion of genotype carriers showing phenotype</td><td>Related (reduced penetrance), but not the "heterogeneity" concept</td></tr>
+    </table>
+
+    <h3>Microsatellite Instability (MSI)</h3>
+    <p>Microsatellites are 2–6 bp sequences repeated many times throughout the genome (e.g., <code>CACACACACACA…</code>). These repetitive regions are prone to polymerase slippage during replication, which generates mismatches that MMR normally corrects. When MMR is defective:</p>
+    <ul class="notes-list">
+      <li>Microsatellite regions expand or contract → <strong>microsatellite instability (MSI)</strong></li>
+      <li>MSI accelerates mutation accumulation genome-wide, driving the multistep tumorigenesis process faster</li>
+      <li>If a microsatellite is located in or near a tumor suppressor gene or oncogene, its instability can directly contribute to cancer driver mutations</li>
+    </ul>
+
+    <h3>Germline Testing for Lynch Syndrome</h3>
+    <p>Two screening approaches are used on tumor tissue, then confirmed by germline testing:</p>
+    <div class="compare-grid">
+      <div class="compare-card" style="background: var(--blue-bg); border-color: var(--accent2);">
+        <span class="card-emoji">🔬</span>
+        <h4>1. Immunohistochemistry (IHC)</h4>
+        <p>Tests for the <em>presence or absence</em> of MMR proteins in tumor cells. In Lynch syndrome tumors, the affected MMR protein is absent (no staining). Normal somatic cells would still show positive staining for all MMR proteins (they retain one functional allele).</p>
+      </div>
+      <div class="compare-card" style="background: var(--green-bg); border-color: #2e7d32;">
+        <span class="card-emoji">🧬</span>
+        <h4>2. Microsatellite Instability Testing</h4>
+        <p>PCR-based comparison of microsatellite repeat lengths in tumor vs. normal tissue. Lynch syndrome tumors show <em>different-length microsatellites</em> compared to normal tissue (MSI-High). Normal cells show stable, matched microsatellite lengths.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-clinical">
+      <div class="callout-title">🏥 Clinical Pearl: Tumor vs. Normal Cell Comparison</div>
+      <p>In a Lynch syndrome patient (MSH2+/m), IHC of the <strong>colon tumor</strong> will show <em>absent</em> MSH2 protein (MSH2m/m — both copies inactivated). IHC of a <strong>normal skin biopsy</strong> from the same patient will show <em>present</em> MSH2 protein (MSH2+/m — one functional copy remains). This discordance between tumor and normal tissue is the diagnostic hallmark.</p>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> What pattern of inheritance does Lynch syndrome display, and how can mutations in MLH1, MSH2, MSH6, and PMS2 all cause the same disease?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p><strong>Autosomal dominant</strong> (with reduced penetrance). All causative genes are on autosomes, and one inherited mutant allele is sufficient to create a predisposition to cancer, even though two hits are needed for tumor formation. The fact that mutations in several <em>different genes</em> all produce Lynch syndrome is an example of <strong>locus heterogeneity</strong> — different loci, same disease phenotype.</p>
+      </div>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> In a patient with Lynch syndrome (MSH2+/m), how does the genotype of the colon tumor cells compare to (a) normal keratinocytes in the scalp and (b) the patient's offspring?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p>(a) <strong>Colon tumor cells: MSH2m/m</strong> — a second somatic "hit" inactivated the remaining functional allele (loss of heterozygosity). (b) <strong>Normal keratinocytes: MSH2+/m</strong> — still carry the inherited mutation but never acquired a second hit, so they retain one functional copy. (c) <strong>Offspring: 50% chance of MSH2+/m</strong> — since this is a germline mutation, it can be transmitted in an autosomal dominant pattern.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FLOATING CONTROLS -->
+<div class="rat-toggle">
+  <div class="rat-pill">PLOs Only Active</div>
+  <div class="font-btn-row">
+    <span class="font-label">Text</span>
+    <button class="font-btn" onclick="changeFontSize(1)" title="Increase font size">A+</button>
+    <span class="font-sep">|</span>
+    <button class="font-btn" onclick="changeFontSize(-1)" title="Decrease font size">A−</button>
+  </div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleThemePanel()" title="Switch theme">
+    <span>🎨</span>
+    <span>Theme</span>
+  </button>
+  <button class="rat-btn off" id="ratBtn" onclick="toggleRat()">
+    <span id="ratIcon">⚡</span>
+    <span id="ratLabel">RAT Mode</span>
+  </button>
+</div>
+
+<!-- THEME PANEL -->
+<div class="theme-panel" id="themePanel">
+  <div class="theme-panel-title">Choose Theme</div>
+  <div class="theme-option active" data-theme="paper" onclick="setTheme('paper',this)">
+    <div class="theme-swatch" style="background:linear-gradient(135deg,#faf7f2,#1a1209)"></div>Paper (Default)
+  </div>
+  <div class="theme-option" data-theme="night" onclick="setTheme('night',this)">
+    <div class="theme-swatch" style="background:linear-gradient(135deg,#0f1923,#e8b84b)"></div>Night
+  </div>
+  <div class="theme-option" data-theme="ocean" onclick="setTheme('ocean',this)">
+    <div class="theme-swatch" style="background:linear-gradient(135deg,#e8f4fd,#1565c0)"></div>Ocean
+  </div>
+  <div class="theme-option" data-theme="forest" onclick="setTheme('forest',this)">
+    <div class="theme-swatch" style="background:linear-gradient(135deg,#f0f7f0,#2e7d32)"></div>Forest
+  </div>
+  <div class="theme-option" data-theme="sepia" onclick="setTheme('sepia',this)">
+    <div class="theme-swatch" style="background:linear-gradient(135deg,#faf3e8,#8b4513)"></div>Sepia
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <img id="lightboxImg" alt="Zoomed slide image">
+</div>
+
+<footer>
+  <div class="container">
+    Dr. Kathleen Becker, Ph.D. · UNE COM · Pharmacogenetics Parts I–III · Study notes for exam prep
+  </div>
+</footer>
+
+<script>
+// ── STORAGE KEYS ──
+const STORAGE_THEME_KEY = 'pgx-lynch-theme';
+const STORAGE_RAT_KEY = 'pgx-lynch-rat';
+
+// ── RAT MODE ──
+let ratActive = false;
+function applyRatState(nextState) {
+  ratActive = !!nextState;
+  const body = document.body;
+  const btn = document.getElementById('ratBtn');
+  const icon = document.getElementById('ratIcon');
+  const label = document.getElementById('ratLabel');
+  if (ratActive) {
+    body.classList.add('rat-mode');
+    btn.classList.replace('off','on');
+    icon.textContent = '✕';
+    label.textContent = 'Exit RAT';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    body.classList.remove('rat-mode');
+    btn.classList.replace('on','off');
+    icon.textContent = '⚡';
+    label.textContent = 'RAT Mode';
+  }
+  localStorage.setItem(STORAGE_RAT_KEY, ratActive ? '1' : '0');
+}
+function toggleRat() { applyRatState(!ratActive); }
+
+// ── THEME ──
+let themePanelOpen = false;
+function toggleThemePanel() {
+  themePanelOpen = !themePanelOpen;
+  document.getElementById('themePanel').classList.toggle('open', themePanelOpen);
+}
+function syncThemeOptions(theme) {
+  document.querySelectorAll('.theme-option').forEach(function(o) {
+    o.classList.toggle('active', o.dataset.theme === theme);
+  });
+}
+function setTheme(theme, el, skipStorage) {
+  if (theme === 'paper') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  syncThemeOptions(theme);
+  if (!skipStorage) localStorage.setItem(STORAGE_THEME_KEY, theme);
+  setTimeout(() => {
+    themePanelOpen = false;
+    document.getElementById('themePanel').classList.remove('open');
+  }, 300);
+}
+document.addEventListener('click', function(e) {
+  const panel = document.getElementById('themePanel');
+  const btn = document.getElementById('themeBtn');
+  if (themePanelOpen && !panel.contains(e.target) && !btn.contains(e.target)) {
+    themePanelOpen = false;
+    panel.classList.remove('open');
+  }
+});
+
+// ── FONT SIZE ──
+let currentFontSize = 16;
+function changeFontSize(delta) {
+  currentFontSize = Math.min(24, Math.max(12, currentFontSize + delta));
+  document.body.style.fontSize = currentFontSize + 'px';
+}
+
+// ── LIGHTBOX ──
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+function openLightbox(img) {
+  lightboxImg.src = img.src;
+  lightbox.classList.add('active');
+  lightbox.setAttribute('aria-hidden','false');
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  lightbox.setAttribute('aria-hidden','true');
+  lightboxImg.src = '';
+}
+document.querySelectorAll('.slide-img').forEach(img => {
+  img.addEventListener('click', () => openLightbox(img));
+});
+lightbox.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ── TABLE QUIZ ──
+function initTableQuiz() {
+  document.querySelectorAll('table').forEach(function(tbl) {
+    const ths = tbl.querySelectorAll('th');
+    if (!ths.length) return;
+    const bar = document.createElement('div');
+    bar.className = 'tq-bar';
+    const toggle = document.createElement('button');
+    toggle.className = 'tq-toggle';
+    toggle.textContent = '🧩 Quiz';
+    const colsDiv = document.createElement('div');
+    colsDiv.className = 'tq-cols';
+    colsDiv.style.display = 'none';
+    const startBtn = document.createElement('button');
+    startBtn.className = 'tq-start';
+    startBtn.textContent = '▶ Start';
+    startBtn.disabled = true;
+    startBtn.style.display = 'none';
+    const resetBtn = document.createElement('button');
+    resetBtn.className = 'tq-reset';
+    resetBtn.textContent = '↺ Reset';
+    resetBtn.style.display = 'none';
+    const scoreEl = document.createElement('span');
+    scoreEl.className = 'tq-score';
+    bar.appendChild(toggle);
+    bar.appendChild(colsDiv);
+    bar.appendChild(startBtn);
+    bar.appendChild(resetBtn);
+    bar.appendChild(scoreEl);
+    tbl.parentNode.insertBefore(bar, tbl);
+    const selectedCols = new Set();
+    let running = false;
+    let totalHidden = 0;
+    let revealed = 0;
+    const colBtns = [];
+    ths.forEach(function(th, idx) {
+      const btn = document.createElement('button');
+      btn.className = 'tq-col-btn';
+      btn.textContent = th.textContent;
+      btn.onclick = function() {
+        if (running) return;
+        if (selectedCols.has(idx)) { selectedCols.delete(idx); btn.classList.remove('sel'); }
+        else { selectedCols.add(idx); btn.classList.add('sel'); }
+        startBtn.disabled = selectedCols.size === 0;
+      };
+      colsDiv.appendChild(btn);
+      colBtns.push(btn);
+    });
+    toggle.onclick = function() {
+      const open = colsDiv.style.display !== 'none';
+      colsDiv.style.display = open ? 'none' : 'flex';
+      startBtn.style.display = open ? 'none' : 'inline-block';
+      toggle.classList.toggle('active', !open);
+    };
+    function updateScore() {
+      if (totalHidden === 0) return;
+      scoreEl.textContent = revealed + ' / ' + totalHidden + ' revealed';
+      scoreEl.className = 'tq-score' + (revealed === totalHidden ? ' done' : '');
+      if (revealed === totalHidden) scoreEl.textContent += ' 🎉';
+    }
+    startBtn.onclick = function() {
+      running = true;
+      totalHidden = 0;
+      revealed = 0;
+      startBtn.style.display = 'none';
+      resetBtn.style.display = 'inline-block';
+      colBtns.forEach(b => b.disabled = true);
+      tbl.querySelectorAll('tr').forEach(function(row, rIdx) {
+        if (rIdx === 0) return;
+        row.querySelectorAll('td').forEach(function(td, cIdx) {
+          if (selectedCols.has(cIdx)) {
+            const inner = document.createElement('span');
+            inner.className = 'tq-cell-content';
+            inner.innerHTML = td.innerHTML;
+            td.innerHTML = '';
+            td.appendChild(inner);
+            td.classList.add('quiz-hidden-cell');
+            totalHidden++;
+            td.addEventListener('click', function revealCell() {
+              td.classList.remove('quiz-hidden-cell');
+              td.removeEventListener('click', revealCell);
+              revealed++;
+              updateScore();
+            });
+          }
+        });
+      });
+      updateScore();
+    };
+    resetBtn.onclick = function() {
+      running = false;
+      totalHidden = 0;
+      revealed = 0;
+      scoreEl.textContent = '';
+      scoreEl.className = 'tq-score';
+      tbl.querySelectorAll('td').forEach(function(td) {
+        if (td.classList.contains('quiz-hidden-cell') || td.querySelector('.tq-cell-content')) {
+          const inner = td.querySelector('.tq-cell-content');
+          if (inner) td.innerHTML = inner.innerHTML;
+          td.classList.remove('quiz-hidden-cell');
+        }
+      });
+      selectedCols.clear();
+      colBtns.forEach(b => { b.classList.remove('sel'); b.disabled = false; });
+      startBtn.disabled = true;
+      resetBtn.style.display = 'none';
+      startBtn.style.display = 'inline-block';
+    };
+  });
+}
+
+// ── INIT ──
+function initVisualState() {
+  var savedTheme = localStorage.getItem(STORAGE_THEME_KEY) || 'paper';
+  setTheme(savedTheme, null, true);
+  applyRatState(localStorage.getItem(STORAGE_RAT_KEY) === '1');
+}
+document.addEventListener('DOMContentLoaded', function() {
+  initVisualState();
+  initTableQuiz();
+});
+</script>
+</body>
+</html>

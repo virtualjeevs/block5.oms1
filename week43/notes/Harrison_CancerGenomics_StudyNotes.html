@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cancer Genomics & Precision Medicine — Dr. Harrison Week 43</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1209;
+  --paper: #faf7f2;
+  --cream: #f2ede4;
+  --accent: #b5341a;
+  --accent2: #2c5f8a;
+  --gold: #c9922a;
+  --muted: #6b5e4e;
+  --border: #d4cabb;
+  --highlight: #fff3cd;
+  --highlight2: #ddeeff;
+  --green-bg: #e8f5e9;
+  --red-bg: #fce8e8;
+  --blue-bg: #e3f0fb;
+  --purple-bg: #f0ebff;
+  --rat-bg: #0f1923;
+  --rat-surface: #162030;
+  --rat-border: #1e3048;
+  --rat-accent: #e8b84b;
+  --rat-accent2: #4aa8d8;
+  --rat-text: #dce8f0;
+  --rat-muted: #9fb9cd;
+  --rat-green: #3dba7a;
+  --rat-red: #e05252;
+  --hero-heading: #f5ede0;
+  --hero-sub: #c9bcad;
+  --hero-meta-bg: rgba(255,255,255,0.07);
+  --hero-meta-border: rgba(255,255,255,0.12);
+  --hero-meta-label: #8a7a6a;
+  --hero-meta-value: #f0e0c8;
+  --floating-ui-bg: #3a3030;
+  --floating-ui-fg: #f5ede0;
+  --floating-ui-shadow: 0 3px 12px rgba(0,0,0,0.2);
+  --quiz-overlay: rgba(44,111,173,0.5);
+  --quiz-overlay-hover: rgba(44,111,173,0.78);
+  --rat-mode-bg: #0f1923;
+  --rat-mode-surface: #162030;
+  --rat-mode-surface-alt: #0f1923;
+  --rat-mode-border: #1e3048;
+  --rat-mode-text: #dce8f0;
+  --rat-mode-text-soft: #c8d8e8;
+  --rat-mode-muted: #9fb9cd;
+  --rat-mode-accent: #e8b84b;
+  --rat-mode-accent2: #4aa8d8;
+  --rat-mode-success: #3dba7a;
+}
+
+/* ── THEMES ─────────────────────────────────── */
+[data-theme="night"] {
+  --ink: #e0e8f0; --paper: #0f1923; --cream: #162030;
+  --accent: #e8b84b; --accent2: #4aa8d8; --gold: #e8b84b;
+  --muted: #9fb9cd; --border: #1e3048; --highlight: #1e3048;
+  --highlight2: #1a2d40; --green-bg: #163020; --red-bg: #2a1010;
+  --blue-bg: #0e2030; --purple-bg: #1e1030;
+  --hero-heading: #f4f9ff; --hero-sub: #b8cad8; --hero-meta-bg: rgba(255,255,255,0.08);
+  --hero-meta-border: rgba(255,255,255,0.12); --hero-meta-label: #8fa4b8; --hero-meta-value: #f4f9ff;
+  --floating-ui-bg: #070e15; --floating-ui-fg: #f4f9ff; --floating-ui-shadow: 0 3px 12px rgba(0,0,0,0.36);
+  --quiz-overlay: rgba(74,168,216,0.42); --quiz-overlay-hover: rgba(74,168,216,0.62);
+  --rat-mode-bg: #08111a; --rat-mode-surface: #101b27; --rat-mode-surface-alt: #0b1520;
+  --rat-mode-border: #223247; --rat-mode-text: #e0e8f0; --rat-mode-text-soft: #c7d6e3;
+  --rat-mode-muted: #94abc0; --rat-mode-accent: #e8b84b; --rat-mode-accent2: #4aa8d8;
+  --rat-mode-success: #57c98c;
+}
+[data-theme="night"] .hero { background: #070e15; }
+[data-theme="night"] .toc-bar { background: #070e15; border-color: #1e3048; }
+[data-theme="night"] .drug-card, [data-theme="night"] .hallmark-card,
+[data-theme="night"] .p53-card, [data-theme="night"] .tech-card { background: #162030; border-color: #1e3048; }
+[data-theme="ocean"] {
+  --ink: #0d2137; --paper: #e8f4fd; --cream: #d6ecf8;
+  --accent: #1565c0; --accent2: #0277bd; --gold: #f57c00;
+  --muted: #37678c; --border: #b0cfe8; --highlight: #fff3e0;
+  --green-bg: #e0f2f1; --red-bg: #fce4ec; --blue-bg: #e1f5fe; --purple-bg: #f3e5f5;
+  --hero-heading: #f4fbff; --hero-sub: #d4ebfb; --hero-meta-bg: rgba(255,255,255,0.14);
+  --hero-meta-border: rgba(255,255,255,0.2); --hero-meta-label: #d6efff; --hero-meta-value: #ffffff;
+  --floating-ui-bg: #0e4b78; --floating-ui-fg: #f4fbff; --floating-ui-shadow: 0 3px 12px rgba(2,119,189,0.28);
+  --quiz-overlay: rgba(2,119,189,0.48); --quiz-overlay-hover: rgba(2,119,189,0.72);
+  --rat-mode-bg: #071826; --rat-mode-surface: #0d2437; --rat-mode-surface-alt: #091d2c;
+  --rat-mode-border: #1f4b68; --rat-mode-text: #e4f5ff; --rat-mode-text-soft: #c5e1f3;
+  --rat-mode-muted: #97c4df; --rat-mode-accent: #7ed3ff; --rat-mode-accent2: #2ab3ff;
+  --rat-mode-success: #4fd1a1;
+}
+[data-theme="ocean"] .hero { background: linear-gradient(135deg, #0d47a1, #0277bd); }
+[data-theme="forest"] {
+  --ink: #1b3a1b; --paper: #f0f7f0; --cream: #e1efe1;
+  --accent: #2e7d32; --accent2: #388e3c; --gold: #f9a825;
+  --muted: #4a7a4a; --border: #b5d5b5; --highlight: #f1f8e9;
+  --green-bg: #dcedc8; --red-bg: #ffebee; --blue-bg: #e3f2fd; --purple-bg: #f3e5f5;
+  --hero-heading: #f3fff2; --hero-sub: #d9f0d3; --hero-meta-bg: rgba(255,255,255,0.12);
+  --hero-meta-border: rgba(255,255,255,0.18); --hero-meta-label: #d7f2d2; --hero-meta-value: #ffffff;
+  --floating-ui-bg: #245c28; --floating-ui-fg: #f3fff2; --floating-ui-shadow: 0 3px 12px rgba(46,125,50,0.24);
+  --quiz-overlay: rgba(56,142,60,0.46); --quiz-overlay-hover: rgba(56,142,60,0.68);
+  --rat-mode-bg: #0b190d; --rat-mode-surface: #122616; --rat-mode-surface-alt: #0e1c11;
+  --rat-mode-border: #284a2c; --rat-mode-text: #e4f5e3; --rat-mode-text-soft: #c8dfc6;
+  --rat-mode-muted: #9ec09b; --rat-mode-accent: #78d381; --rat-mode-accent2: #4db85d;
+  --rat-mode-success: #7ae39a;
+}
+[data-theme="forest"] .hero { background: linear-gradient(135deg, #1b5e20, #2e7d32); }
+[data-theme="sepia"] {
+  --ink: #3e2000; --paper: #faf3e8; --cream: #f0e8d5;
+  --accent: #8b3a00; --accent2: #5d4037; --gold: #b8860b;
+  --muted: #7a5c3a; --border: #d5c4a8; --highlight: #fff8e1;
+  --green-bg: #e8f5e9; --red-bg: #fce8e8; --blue-bg: #e8f4f8; --purple-bg: #f0e8f8;
+  --hero-heading: #fff6e7; --hero-sub: #ebd7b5; --hero-meta-bg: rgba(255,255,255,0.1);
+  --hero-meta-border: rgba(255,255,255,0.16); --hero-meta-label: #e2c89c; --hero-meta-value: #fff6e7;
+  --floating-ui-bg: #5c3722; --floating-ui-fg: #fff1de; --floating-ui-shadow: 0 3px 12px rgba(93,64,55,0.22);
+  --quiz-overlay: rgba(139,58,0,0.44); --quiz-overlay-hover: rgba(139,58,0,0.62);
+  --rat-mode-bg: #18110b; --rat-mode-surface: #241911; --rat-mode-surface-alt: #1b130d;
+  --rat-mode-border: #4a3322; --rat-mode-text: #f7e7d0; --rat-mode-text-soft: #e6d2b6;
+  --rat-mode-muted: #c6ab86; --rat-mode-accent: #e2aa54; --rat-mode-accent2: #c47a3a;
+  --rat-mode-success: #9fd28c;
+}
+[data-theme="sepia"] .hero { background: linear-gradient(135deg, #3e2000, #7a3800); }
+
+/* ── RAT MODE ─────────────────────────────────── */
+/* Only force structural dark colours — accent/theme colours are preserved */
+body.rat-mode {
+  background: var(--rat-mode-bg) !important;
+  color: var(--rat-mode-text) !important;
+}
+body.rat-mode [data-mode="lo-only"] { display: none !important; }
+body.rat-mode [data-mode="rat-only"] { display: block !important; }
+body.rat-mode .toc-bar a[data-lo-only] { display: none !important; }
+body.rat-mode .hero { background: var(--rat-mode-surface-alt) !important; }
+body.rat-mode .hero-sub { color: var(--rat-mode-muted) !important; }
+body.rat-mode .hero-meta-item { background: rgba(255,255,255,0.04) !important; border-color: rgba(255,255,255,0.08) !important; }
+body.rat-mode .hero-meta-item .label { color: var(--rat-mode-muted) !important; }
+body.rat-mode .hero-meta-item .value { color: var(--rat-mode-text) !important; }
+body.rat-mode .toc-bar { background: var(--rat-mode-surface-alt) !important; border-color: var(--rat-mode-border) !important; }
+body.rat-mode .toc-bar a { color: var(--rat-mode-muted) !important; }
+body.rat-mode .toc-bar a:hover { color: var(--rat-mode-accent) !important; border-bottom-color: var(--rat-mode-accent) !important; }
+body.rat-mode .section { background: var(--rat-mode-bg) !important; border-color: var(--rat-mode-border) !important; }
+body.rat-mode .section:nth-child(even) { background: var(--rat-mode-surface) !important; }
+body.rat-mode .rat-banner { display: block !important; }
+body.rat-mode .rat-plo-header { background: var(--rat-mode-surface) !important; border-color: var(--rat-mode-border) !important; }
+body.rat-mode .rat-plo-header h2 { color: var(--rat-mode-accent) !important; }
+body.rat-mode .rat-plo-header p { color: var(--rat-mode-muted) !important; }
+body.rat-mode .rat-plo-tag { color: var(--rat-mode-accent) !important; }
+body.rat-mode .rat-checklist li { background: var(--rat-mode-surface) !important; border-color: var(--rat-mode-border) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode .rat-checklist li > div { color: var(--rat-mode-text) !important; }
+body.rat-mode .rat-checklist li strong { color: var(--rat-mode-text) !important; }
+body.rat-mode .rat-checklist .check { color: var(--rat-mode-success) !important; }
+body.rat-mode .callout { background: var(--rat-mode-surface) !important; border-color: var(--rat-mode-border) !important; }
+body.rat-mode .callout p, body.rat-mode .callout li { color: var(--rat-mode-text) !important; }
+body.rat-mode h2, body.rat-mode h3, body.rat-mode h4 { color: var(--rat-mode-text) !important; }
+body.rat-mode p, body.rat-mode li { color: var(--rat-mode-text-soft) !important; }
+body.rat-mode .section-label { color: var(--rat-mode-muted) !important; }
+body.rat-mode .muted { color: var(--rat-mode-muted) !important; }
+body.rat-mode table { background: var(--rat-mode-surface) !important; }
+body.rat-mode th { background: var(--rat-mode-surface-alt) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode td { border-color: var(--rat-mode-border) !important; color: var(--rat-mode-text) !important; background: var(--rat-mode-surface) !important; }
+body.rat-mode tr:nth-child(even) td { background: var(--rat-mode-bg) !important; }
+body.rat-mode tr:hover td { background: color-mix(in srgb, var(--rat-mode-surface) 72%, var(--rat-mode-accent2) 28%) !important; }
+body.rat-mode .step-list li { background: var(--rat-mode-surface) !important; border-color: var(--rat-mode-border) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode .hallmark-card, body.rat-mode .p53-card, body.rat-mode .drug-card,
+body.rat-mode .tech-card, body.rat-mode .compare-card { background: var(--rat-mode-surface) !important; border-color: var(--rat-mode-border) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode .hallmark-card p, body.rat-mode .p53-card p,
+body.rat-mode .drug-card p, body.rat-mode .compare-card p { color: var(--rat-mode-muted) !important; }
+body.rat-mode .exam-q { background: var(--rat-mode-surface-alt) !important; }
+body.rat-mode .answer { background: rgba(255,255,255,0.05) !important; }
+body.rat-mode .notes-list li { color: var(--rat-mode-text-soft) !important; }
+body.rat-mode .theme-panel,
+body.rat-mode .tq-bar { background: var(--rat-mode-surface) !important; border-color: var(--rat-mode-border) !important; }
+body.rat-mode .theme-panel-title,
+body.rat-mode .tq-score { color: var(--rat-mode-muted) !important; }
+body.rat-mode .theme-option:hover { background: color-mix(in srgb, var(--rat-mode-surface) 78%, var(--rat-mode-accent2) 22%) !important; }
+body.rat-mode .theme-option.active { background: color-mix(in srgb, var(--rat-mode-surface) 68%, var(--rat-mode-accent) 32%) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode .tq-col-btn { background: var(--rat-mode-bg) !important; border-color: var(--rat-mode-border) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode .tq-col-btn.sel { background: var(--rat-mode-accent2) !important; border-color: var(--rat-mode-accent2) !important; color: #08111a !important; }
+body.rat-mode .font-btn-row { background: var(--rat-mode-surface-alt) !important; color: var(--rat-mode-text) !important; box-shadow: var(--floating-ui-shadow) !important; }
+body.rat-mode .font-btn { color: var(--rat-mode-text) !important; }
+body.rat-mode .font-btn:hover { background: rgba(255,255,255,0.1) !important; }
+body.rat-mode .font-sep,
+body.rat-mode .font-label { color: var(--rat-mode-muted) !important; }
+body.rat-mode .rat-pill { background: var(--rat-mode-accent) !important; color: var(--rat-mode-bg) !important; }
+
+/* ── GLOBAL ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Source Serif 4', Georgia, serif; font-size: 16px; line-height: 1.75;
+  background: var(--paper); color: var(--ink); transition: background 0.3s, color 0.3s; }
+.container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+/* ── HERO ─────────────────────────────────── */
+.hero { background: linear-gradient(135deg, #1a1209 0%, #2d1f10 50%, #3a2010 100%);
+  color: #f5ede0; padding: 60px 0 50px; }
+.hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: #c9922a; margin-bottom: 16px; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900; line-height: 1.1; margin-bottom: 14px; color: var(--hero-heading); }
+.hero h1 span { color: var(--accent); }
+.hero-sub { font-size: 1rem; color: var(--hero-sub); font-weight: 300; margin-bottom: 28px; max-width: 620px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-meta-item { background: var(--hero-meta-bg); border: 1px solid var(--hero-meta-border);
+  border-radius: 8px; padding: 10px 18px; }
+.hero-meta-item .label { display: block; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--hero-meta-label); margin-bottom: 3px; }
+.hero-meta-item .value { font-size: 0.95rem; font-weight: 600; color: var(--hero-meta-value); }
+
+/* ── RAT BANNER ─────────────────────────────────── */
+.rat-banner { display: none; background: #0a1520; border-bottom: 2px solid var(--rat-accent);
+  padding: 12px 24px; text-align: center; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem; letter-spacing: 0.12em; color: var(--rat-accent); text-transform: uppercase; }
+
+/* ── TOC BAR ─────────────────────────────────── */
+.toc-bar { position: sticky; top: 0; z-index: 100; background: var(--paper);
+  border-bottom: 2px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.toc-bar nav { display: flex; overflow-x: auto; gap: 0; padding: 0 16px; white-space: nowrap;
+  scrollbar-width: none; }
+.toc-bar nav::-webkit-scrollbar { display: none; }
+.toc-bar a { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em;
+  text-transform: uppercase; text-decoration: none; color: var(--muted); padding: 12px 14px;
+  border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+.toc-bar a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ── SECTIONS ─────────────────────────────────── */
+.section { padding: 52px 0 48px; border-bottom: 1px solid var(--border); }
+.section:nth-child(even) { background: var(--cream); }
+.badge-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.plo-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em;
+  text-transform: uppercase; background: var(--accent); color: #fff; padding: 4px 10px;
+  border-radius: 4px; }
+.lo-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em;
+  text-transform: uppercase; background: var(--accent2); color: #fff; padding: 4px 10px;
+  border-radius: 4px; }
+.section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700; color: var(--ink); margin-bottom: 6px; border-bottom: 3px solid var(--accent);
+  padding-bottom: 10px; display: inline-block; }
+h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700;
+  color: var(--ink); margin: 28px 0 10px; border-left: 3px solid var(--accent2); padding-left: 12px; }
+h4 { font-family: 'Source Serif 4', serif; font-size: 1rem; font-weight: 600; margin: 16px 0 6px; }
+p { margin-bottom: 14px; }
+
+/* ── RAT MODE COMPONENTS ─────────────────────────────────── */
+[data-mode="rat-only"] { display: none; }
+.rat-plo-header { background: var(--highlight); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px 24px; margin-bottom: 24px; }
+.rat-plo-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.rat-plo-header h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem;
+  font-weight: 700; margin-bottom: 6px; }
+.rat-plo-header p { font-size: 0.88rem; color: var(--muted); margin: 0; }
+.rat-checklist { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.rat-checklist li { display: flex; gap: 10px; padding: 10px 14px; background: var(--paper);
+  border: 1px solid var(--border); border-radius: 6px; font-size: 0.9rem; align-items: flex-start;
+  overflow: hidden; }
+.rat-checklist li > div { min-width: 0; overflow-wrap: break-word; word-break: break-word; flex: 1; }
+.rat-checklist .check { color: #2e7d32; font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+/* ── CALLOUTS ─────────────────────────────────── */
+.callout { border-radius: 8px; padding: 16px 20px; margin: 20px 0; }
+.callout-title { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+  letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 8px; }
+.callout-key { background: var(--highlight); border-left: 4px solid var(--gold); }
+.callout-key .callout-title { color: var(--gold); }
+.callout-concept { background: var(--blue-bg); border-left: 4px solid var(--accent2); }
+.callout-concept .callout-title { color: var(--accent2); }
+.callout-clinical { background: var(--green-bg); border-left: 4px solid #2e7d32; }
+.callout-clinical .callout-title { color: #2e7d32; }
+.callout-warning { background: var(--red-bg); border-left: 4px solid var(--accent); }
+.callout-warning .callout-title { color: var(--accent); }
+.callout-purple { background: var(--purple-bg); border-left: 4px solid #7b1fa2; }
+.callout-purple .callout-title { color: #7b1fa2; }
+
+/* ── COMPARE GRID ─────────────────────────────────── */
+.compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px; margin: 20px 0; }
+.compare-card { border-radius: 10px; padding: 20px; border: 1px solid var(--border); }
+.compare-card.gas { background: linear-gradient(135deg, #fff0f0, #ffe8e8); border-color: #e57373; }
+.compare-card.brake { background: linear-gradient(135deg, #f0f8f0, #e0f0e8); border-color: #66bb6a; }
+.compare-card.antiresorptive { background: linear-gradient(135deg, var(--blue-bg), #cde8f7); border-color: #90caf9; }
+.compare-card.anabolic { background: linear-gradient(135deg, var(--green-bg), #c8e6c9); border-color: #a5d6a7; }
+.card-emoji { font-size: 1.8rem; display: block; margin-bottom: 8px; }
+.compare-card h4 { margin: 0 0 8px; font-size: 1rem; }
+
+/* ── STEP LIST ─────────────────────────────────── */
+.step-list { list-style: none; counter-reset: steps; margin: 16px 0; display: flex;
+  flex-direction: column; gap: 12px; }
+.step-list li { counter-increment: steps; display: flex; gap: 14px; align-items: flex-start;
+  background: var(--paper); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+.step-list li::before { content: counter(steps); min-width: 26px; height: 26px; background: var(--accent);
+  color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; flex-shrink: 0; }
+
+/* ── NOTES LIST ─────────────────────────────────── */
+.notes-list { list-style: none; padding: 0; margin: 10px 0; display: flex; flex-direction: column; gap: 6px; }
+.notes-list li { padding-left: 18px; position: relative; }
+.notes-list li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+/* ── TABLES ─────────────────────────────────── */
+table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9rem; }
+th { background: var(--ink); color: #fff; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 14px; text-align: left; }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tr:nth-child(even) td { background: var(--cream); }
+tr:hover td { background: var(--highlight2); }
+
+/* ── EXAM Q ─────────────────────────────────── */
+.exam-q { background: var(--ink); color: #f5ede0; border-radius: 10px; padding: 20px 22px;
+  margin: 24px 0; position: relative; }
+.exam-q::before { content: 'EXAM Q'; font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 0.2em; background: var(--accent); color: #fff; padding: 3px 8px;
+  border-radius: 4px; position: absolute; top: -10px; left: 20px; }
+.exam-q p { color: #e8d8c4; margin-bottom: 14px; }
+.exam-q strong { color: #f5ede0; }
+.answer { background: rgba(255,255,255,0.07); border-radius: 6px; padding: 14px 16px;
+  border-left: 3px solid var(--gold); }
+.answer .label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+.answer p { color: #d4e8f0; margin: 0; }
+
+/* ── HALLMARKS GRID ─────────────────────────────────── */
+.hallmarks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px; margin: 20px 0; }
+.hallmark-card { background: var(--paper); border: 1px solid var(--border); border-radius: 8px;
+  padding: 16px; border-top: 4px solid var(--accent); }
+.hallmark-card:nth-child(2n) { border-top-color: var(--accent2); }
+.hallmark-card:nth-child(3n) { border-top-color: var(--gold); }
+.hallmark-card:nth-child(4n) { border-top-color: #7b1fa2; }
+.hallmark-card:nth-child(5n) { border-top-color: #2e7d32; }
+.hallmark-num { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+  color: var(--muted); margin-bottom: 4px; }
+.hallmark-card h4 { margin: 0 0 6px; font-size: 0.9rem; }
+.hallmark-card p { font-size: 0.82rem; color: var(--muted); margin: 0; }
+
+/* ── P53 GRID ─────────────────────────────────── */
+.p53-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px; margin: 20px 0; }
+.p53-card { background: var(--paper); border: 1px solid var(--border); border-radius: 8px;
+  padding: 14px 16px; text-align: center; }
+.p53-card .icon { font-size: 1.8rem; margin-bottom: 6px; }
+.p53-card h4 { font-size: 0.88rem; margin: 0 0 4px; }
+.p53-card p { font-size: 0.78rem; color: var(--muted); margin: 0; }
+
+/* ── DRUG GRID / TECH CARDS ─────────────────────────────────── */
+.drug-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px; margin: 16px 0; }
+.drug-card { background: var(--paper); border: 1px solid var(--border); border-top: 3px solid var(--accent2);
+  border-radius: 8px; padding: 14px 16px; }
+.drug-card h4 { margin: 0 0 4px; font-size: 0.9rem; }
+.generic { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--accent2); }
+.tech-card { background: var(--paper); border: 1px solid var(--border); border-radius: 8px;
+  padding: 18px 20px; margin: 14px 0; }
+.tech-card h4 { margin: 0 0 8px; color: var(--accent2); }
+
+/* ── POTENCY BAR ─────────────────────────────────── */
+.potency-bar { background: var(--border); border-radius: 20px; height: 28px; position: relative;
+  margin: 8px 0; overflow: hidden; }
+.potency-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent));
+  border-radius: 20px; display: flex; align-items: center; padding-left: 12px;
+  color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; white-space: nowrap; }
+
+/* ── CONTROLS (RAT, THEME, QUIZ) ─────────────────────────────────── */
+.rat-toggle { position: fixed; bottom: 24px; right: 24px; display: flex;
+  flex-direction: column; gap: 8px; z-index: 200; align-items: flex-end; }
+.rat-btn, .theme-btn, .quiz-btn { display: flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: 30px; border: none; cursor: pointer;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em;
+  text-transform: uppercase; transition: all 0.2s; box-shadow: 0 3px 12px rgba(0,0,0,0.2); }
+.rat-btn.off { background: var(--ink); color: #f5ede0; }
+.rat-btn.on { background: var(--rat-accent); color: #0f1923; font-weight: 600; }
+.theme-btn { background: var(--accent2); color: #fff; }
+
+.font-btn-row { display: flex; align-items: center; background: #3a3030; color: #f5ede0;
+  padding: 7px 10px; border-radius: 30px; box-shadow: var(--floating-ui-shadow);
+  font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; gap: 2px; }
+.font-btn-row { background: var(--floating-ui-bg); color: var(--floating-ui-fg); }
+.font-btn { background: none; border: none; cursor: pointer; color: var(--floating-ui-fg);
+  font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1rem;
+  padding: 2px 8px; border-radius: 6px; transition: background 0.15s; line-height: 1; }
+.font-btn:hover { background: rgba(255,255,255,0.18); }
+.font-sep { color: rgba(255,255,255,0.2); padding: 0 3px; }
+.font-label { font-size: 0.58rem; opacity: 0.7; padding: 0 5px; text-transform: uppercase; letter-spacing: 0.1em; }
+.rat-pill { background: var(--rat-accent); color: #0f1923; font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem; letter-spacing: 0.1em; padding: 5px 12px; border-radius: 20px;
+  display: none; font-weight: 600; }
+body.rat-mode .rat-pill { display: block; }
+
+/* ── THEME PANEL ─────────────────────────────────── */
+.theme-panel { position: fixed; bottom: 130px; right: 24px; background: var(--paper);
+  border: 1px solid var(--border); border-radius: 12px; padding: 14px; z-index: 201;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.18); display: none; min-width: 180px; }
+.theme-panel.open { display: block; }
+.theme-panel-title { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.theme-option { display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+  border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.theme-option:hover { background: var(--cream); }
+.theme-option.active { background: var(--highlight); font-weight: 600; }
+.theme-swatch { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border); }
+
+/* ── INLINE TABLE QUIZ TOOLBAR ─────────────────────────────── */
+.tq-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 6px; padding: 8px 12px; background: var(--cream);
+  border: 1px solid var(--border); border-radius: 8px; }
+.tq-toggle { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent2);
+  color: #fff; border: none; border-radius: 20px; padding: 5px 12px; cursor: pointer;
+  transition: background 0.2s; flex-shrink: 0; }
+.tq-toggle:hover { opacity: 0.85; }
+.tq-toggle.active { background: var(--accent); }
+.tq-cols { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+.tq-col-btn { font-size: 0.72rem; padding: 3px 9px; border: 1px solid var(--border);
+  border-radius: 12px; background: var(--paper); cursor: pointer;
+  font-family: 'JetBrains Mono', monospace; transition: all 0.15s; }
+.tq-col-btn.sel { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+.tq-start { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em;
+  background: #2e7d32; color: #fff; border: none; border-radius: 20px; padding: 5px 12px;
+  cursor: pointer; transition: opacity 0.2s; }
+.tq-start:disabled { opacity: 0.35; cursor: not-allowed; }
+.tq-start:not(:disabled):hover { opacity: 0.85; }
+.tq-reset { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em;
+  background: #b5341a; color: #fff; border: none; border-radius: 20px; padding: 5px 13px;
+  cursor: pointer; font-weight: 600; }
+.tq-reset:hover { opacity: 0.82; }
+.tq-score { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); padding: 0 4px; }
+.tq-score.done { color: #2e7d32; font-weight: 700; }
+/* Occluded quiz cell — content stays, just blurred + overlay */
+.quiz-hidden-cell { position: relative !important; cursor: pointer !important; }
+.quiz-hidden-cell .tq-cell-content { filter: blur(5px) !important; user-select: none !important;
+  pointer-events: none !important; opacity: 0.4 !important; }
+.quiz-hidden-cell::after { content: 'tap to reveal' !important; position: absolute !important;
+  inset: 0 !important; display: flex !important; align-items: center !important;
+  justify-content: center !important; background: var(--quiz-overlay) !important;
+  color: #fff !important; font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.6rem !important; font-weight: 700 !important; letter-spacing: 0.12em !important;
+  text-transform: uppercase !important; border-radius: 4px !important; }
+.quiz-hidden-cell:hover::after { background: var(--quiz-overlay-hover) !important; }
+
+/* ── LIGHTBOX ─────────────────────────────────── */
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 1000;
+  display: none; align-items: center; justify-content: center; cursor: zoom-out; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 6px;
+  box-shadow: 0 12px 60px rgba(0,0,0,0.5); }
+.slide-img { width: 100%; border-radius: 8px; border: 1px solid var(--border);
+  margin: 16px 0 4px; cursor: zoom-in; transition: opacity 0.2s; }
+.slide-img:hover { opacity: 0.88; }
+.slide-caption { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+  color: var(--muted); margin-bottom: 16px; }
+
+/* ── MISC ─────────────────────────────────── */
+.snp-code { font-family: 'JetBrains Mono', monospace; background: var(--cream);
+  border: 1px solid var(--border); padding: 2px 7px; border-radius: 4px; font-size: 0.82rem; }
+.gene-tag { font-family: 'JetBrains Mono', monospace; color: var(--accent2);
+  font-size: 0.88rem; font-weight: 500; }
+footer { padding: 40px 0 60px; text-align: center; color: var(--muted);
+  font-size: 0.8rem; font-family: 'JetBrains Mono', monospace; }
+</style>
+</head>
+<body>
+
+<!-- RAT BANNER -->
+<div class="rat-banner">⚡ RAT MODE — PLOs Only: Lynch Syndrome · Cell Cycle · p53 Pathway · Gene Organisation</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-tag">Dr. Ben Harrison · Cancer Genomics · Week 43, 2025</div>
+    <h1>Cancer <span>Genomics</span> &amp; Precision Medicine</h1>
+    <p class="hero-sub">Complete PLO + LO notes covering Lynch syndrome, cell cycle regulation, p53, gene organisation, high-throughput sequencing, GWAS, SNPs, and critical data appraisal. Toggle ⚡ RAT Mode for rapid PLO review.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="label">PLOs</span><span class="value">4</span></div>
+      <div class="hero-meta-item"><span class="label">LOs</span><span class="value">4</span></div>
+      <div class="hero-meta-item"><span class="label">Block</span><span class="value">5 — Cancer Week</span></div>
+      <div class="hero-meta-item"><span class="label">Key Gene</span><span class="value">TP53 · MLH1 · MSH2</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOC BAR -->
+<div class="toc-bar">
+  <nav>
+    <a href="#lynch">Lynch Syndrome</a>
+    <a href="#cellcycle">Cell Cycle</a>
+    <a href="#p53">p53 Pathway</a>
+    <a href="#geneorg">Gene Organisation</a>
+    <a href="#htseq" data-lo-only>High-Throughput Seq</a>
+    <a href="#gwas" data-lo-only>GWAS</a>
+    <a href="#snps" data-lo-only>SNPs &amp; PRS</a>
+    <a href="#critical" data-lo-only>Critical GWAS</a>
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PLO 1: LYNCH SYNDROME -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section" id="lynch">
+  <div class="container">
+
+    <div data-mode="rat-only">
+      <div class="rat-plo-header">
+        <div class="rat-plo-tag">PLO 1 — RAT Objective</div>
+        <h2>Review the inheritable causes and mechanism of Lynch syndrome</h2>
+        <p>Focus on the MMR genes, the "two-hit" mechanism, and why these are caretaker genes.</p>
+      </div>
+      <ul class="rat-checklist">
+        <li><span class="check">✓</span><div><strong>Most common hereditary CRC →</strong> Lynch syndrome (HNPCC) — autosomal dominant</div></li>
+        <li><span class="check">✓</span><div><strong>Mutated genes →</strong> MLH1, MSH2, MSH6, PMS2 (DNA mismatch repair proteins)</div></li>
+        <li><span class="check">✓</span><div><strong>Mechanism →</strong> Loss of MMR → accumulation of somatic mutations → microsatellite instability → cancer</div></li>
+        <li><span class="check">✓</span><div><strong>Classification →</strong> Caretaker genes (stabilise genome); not oncogenes</div></li>
+        <li><span class="check">✓</span><div><strong>Two-hit model →</strong> Inherited germline mutation (1st hit) + somatic mutation in remaining allele (2nd hit)</div></li>
+        <li><span class="check">✓</span><div><strong>Cancers →</strong> Colorectal (most common), endometrial, ovarian, gastric, urinary tract</div></li>
+      </ul>
+    </div>
+
+    <div class="plo-badge">PLO 1</div>
+    <p class="section-label" style="margin-top:12px">Inherited Cancer · DNA Repair</p>
+    <h2 class="section-title">Lynch Syndrome</h2>
+
+    <p>Lynch syndrome (formerly HNPCC — Hereditary Non-Polyposis Colorectal Cancer) is the <strong>most common hereditary cause of colorectal cancer</strong>, accounting for approximately 2–4% of all colorectal cancers. It is caused by germline (inherited) mutations in DNA <strong>mismatch repair (MMR)</strong> genes.</p>
+
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 Definition</div>
+      <p>Lynch syndrome = autosomal dominant condition caused by pathogenic germline variants in MMR genes, predisposing individuals to colorectal cancer and other cancers through impaired DNA mismatch repair.</p>
+    </div>
+
+    <h3>The Causative Genes</h3>
+    <p>Four primary MMR genes are implicated in Lynch syndrome:</p>
+    <div class="drug-grid">
+      <div class="drug-card">
+        <h4><span class="gene-tag">MLH1</span></h4>
+        <div class="generic">Chromosome 3p22</div>
+        <p style="font-size:0.83rem;margin-top:6px;color:var(--muted)">Most commonly mutated. MutL Homolog 1. Partners with PMS2 to form MutLα complex.</p>
+      </div>
+      <div class="drug-card">
+        <h4><span class="gene-tag">MSH2</span></h4>
+        <div class="generic">Chromosome 2p21</div>
+        <p style="font-size:0.83rem;margin-top:6px;color:var(--muted)">Second most common. MutS Homolog 2. Recognises mismatched bases; partners with MSH6 or MSH3.</p>
+      </div>
+      <div class="drug-card">
+        <h4><span class="gene-tag">MSH6</span></h4>
+        <div class="generic">Chromosome 2p16</div>
+        <p style="font-size:0.83rem;margin-top:6px;color:var(--muted)">Partners with MSH2. Loss often causes endometrial cancer predominance.</p>
+      </div>
+      <div class="drug-card">
+        <h4><span class="gene-tag">PMS2</span></h4>
+        <div class="generic">Chromosome 7p22</div>
+        <p style="font-size:0.83rem;margin-top:6px;color:var(--muted)">Partners with MLH1. Mutations often have lower penetrance than MLH1/MSH2 variants.</p>
+      </div>
+    </div>
+
+    <h3>Mechanism: How Loss of MMR Causes Cancer</h3>
+    <p>Under normal conditions, MMR proteins detect and repair single base mismatches and small insertions/deletions (indels) that occur during DNA replication. When MMR is lost:</p>
+    <ol class="step-list">
+      <li><div><strong>Germline mutation (1st hit)</strong> — Patient inherits one defective copy of an MMR gene (e.g., MLH1) in every cell of their body. This does not by itself cause cancer.</div></li>
+      <li><div><strong>Somatic mutation (2nd hit)</strong> — A random somatic mutation inactivates the remaining functional allele in a particular cell (Knudson "two-hit" model).</div></li>
+      <li><div><strong>Loss of MMR function</strong> — With both copies inactivated, the cell cannot correct replication errors. Mutations accumulate at an accelerated rate.</div></li>
+      <li><div><strong>Microsatellite instability (MSI)</strong> — Repetitive DNA sequences (microsatellites) accumulate errors, producing a molecular fingerprint called microsatellite instability — a hallmark of Lynch syndrome tumours.</div></li>
+      <li><div><strong>Accumulation of driver mutations</strong> — Over time, mutations accumulate in oncogenes and tumour suppressor genes (e.g., APC, KRAS, TP53), driving tumorigenesis.</div></li>
+    </ol>
+
+    <div class="callout callout-concept">
+      <div class="callout-title">⚙️ Why Are These Caretaker Genes?</div>
+      <p>MMR proteins <em>stabilise the genome</em> by repairing replication errors. They do not directly regulate cell division. Their inactivation is "environmentally equivalent to exposing the cell to mutagens incessantly" (Dr. Harrison's slide). This classifies them as <strong>caretaker genes</strong>, not gatekeeper genes or oncogenes.</p>
+    </div>
+
+    <h3>Genetic Classification</h3>
+    <div class="compare-grid">
+      <div class="compare-card" style="background:var(--green-bg);border-color:#66bb6a">
+        <span class="card-emoji">🔐</span>
+        <h4>Gatekeeper Genes</h4>
+        <p style="font-size:0.85rem">Directly prevent growth of potential cancer cells. E.g., APC (prevents β-catenin signalling), RB1 (cell cycle brake).</p>
+      </div>
+      <div class="compare-card" style="background:var(--blue-bg);border-color:#90caf9">
+        <span class="card-emoji">🛡️</span>
+        <h4>Caretaker Genes (MLH1, MSH2, etc.)</h4>
+        <p style="font-size:0.85rem">Stabilise the genome through DNA repair. Loss → accumulation of mutations throughout the genome → increased cancer risk.</p>
+      </div>
+    </div>
+
+    <h3>Associated Cancers</h3>
+    <table>
+      <tr><th>Cancer Type</th><th>Lifetime Risk (Lynch)</th><th>General Population Risk</th></tr>
+      <tr><td>Colorectal</td><td>~40–80%</td><td>~4–5%</td></tr>
+      <tr><td>Endometrial</td><td>~25–60%</td><td>~2–3%</td></tr>
+      <tr><td>Ovarian</td><td>~4–24%</td><td>~1.5%</td></tr>
+      <tr><td>Gastric</td><td>~6–13%</td><td>&lt;1%</td></tr>
+      <tr><td>Urinary tract</td><td>~1–28%</td><td>&lt;1%</td></tr>
+    </table>
+
+    <div class="callout callout-clinical">
+      <div class="callout-title">🏥 Clinical Pearl</div>
+      <p>Lynch syndrome is <strong>autosomal dominant</strong> — a 50% chance of passing the mutation to each child. Early-onset colorectal cancer (&lt;50 yrs) or multiple Lynch-associated cancers in the family history should raise suspicion. Testing involves immunohistochemistry for MMR protein expression in tumour tissue, followed by germline sequencing confirmation.</p>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> A patient has a pathogenic variant in <strong class="gene-tag">MLH1</strong>. Explain the mechanism by which this inherited mutation leads to colorectal cancer.</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p>MLH1 is a DNA mismatch repair (MMR) gene — a <strong>caretaker gene</strong>. The inherited pathogenic variant inactivates one allele in all cells (1st hit). When a somatic mutation inactivates the remaining allele in a colon epithelial cell (2nd hit, Knudson model), MMR function is lost entirely. This leads to <strong>microsatellite instability</strong> and accelerated accumulation of somatic mutations in proto-oncogenes and tumour suppressor genes, driving colorectal cancer development via multi-step tumorigenesis.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PLO 2: CELL CYCLE REGULATION -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section" id="cellcycle">
+  <div class="container">
+
+    <div data-mode="rat-only">
+      <div class="rat-plo-header">
+        <div class="rat-plo-tag">PLO 2 — RAT Objective</div>
+        <h2>Review the mechanisms of cell cycle regulation</h2>
+        <p>Know the phases, cyclin/CDK pairs, checkpoints, and how mutations cause cancer.</p>
+      </div>
+      <ul class="rat-checklist">
+        <li><span class="check">✓</span><div><strong>Phases →</strong> G1 → S (DNA synthesis) → G2 → M (mitosis), plus G0 (quiescence)</div></li>
+        <li><span class="check">✓</span><div><strong>Key G1/S pair →</strong> Cyclin D + CDK4/6 → phosphorylates Rb → releases E2F → S-phase genes transcribed</div></li>
+        <li><span class="check">✓</span><div><strong>S phase pair →</strong> Cyclin E + CDK2; G2/M pair: Cyclin B + CDK1 (MPF)</div></li>
+        <li><span class="check">✓</span><div><strong>Checkpoints →</strong> G1/S (Rb/p53), G2/M (p53/ATM), Spindle assembly (SAC)</div></li>
+        <li><span class="check">✓</span><div><strong>Cancer relevance →</strong> Cyclin D amplification (CCND1) = uncontrolled G1→S; CDK inhibitor (CDKN2A/p16) loss = same</div></li>
+        <li><span class="check">✓</span><div><strong>p21 →</strong> CDK inhibitor induced by p53; halts cell cycle at G1/S to allow DNA repair</div></li>
+      </ul>
+    </div>
+
+    <div class="plo-badge">PLO 2</div>
+    <p class="section-label" style="margin-top:12px">Molecular Biology · Oncology</p>
+    <h2 class="section-title">Cell Cycle Regulation</h2>
+
+    <p>The cell cycle is a precisely regulated series of events that culminates in cell division. Dysregulation of cell cycle checkpoints is a <strong>hallmark of cancer</strong>. Understanding cell cycle control is essential for understanding how oncogenic mutations drive uncontrolled proliferation.</p>
+
+    <h3>Phases of the Cell Cycle</h3>
+    <div class="hallmarks-grid">
+      <div class="hallmark-card">
+        <div class="hallmark-num">G1 Phase</div>
+        <h4>Gap 1 / Growth</h4>
+        <p>Cell grows, synthesises proteins. Critical decision point: commit to division (START/restriction point) or exit to G0. Key regulator: Cyclin D–CDK4/6.</p>
+      </div>
+      <div class="hallmark-card">
+        <div class="hallmark-num">S Phase</div>
+        <h4>DNA Synthesis</h4>
+        <p>Entire genome replicated. Each chromosome duplicated to form sister chromatids. Key regulator: Cyclin E–CDK2 (initiation), Cyclin A–CDK2 (progression).</p>
+      </div>
+      <div class="hallmark-card">
+        <div class="hallmark-num">G2 Phase</div>
+        <h4>Gap 2 / Preparation</h4>
+        <p>Cell grows further and prepares for mitosis. DNA replication fidelity is checked. Key regulator: Cyclin A/B–CDK1.</p>
+      </div>
+      <div class="hallmark-card">
+        <div class="hallmark-num">M Phase</div>
+        <h4>Mitosis / Division</h4>
+        <p>Chromosome segregation and cell division. Includes prophase, metaphase, anaphase, telophase, cytokinesis. Key regulator: Cyclin B–CDK1 (MPF).</p>
+      </div>
+      <div class="hallmark-card">
+        <div class="hallmark-num">G0 Phase</div>
+        <h4>Quiescence</h4>
+        <p>Cells exit the cycle and remain metabolically active but non-dividing. Terminal differentiation (e.g., neurons) or reversible quiescence.</p>
+      </div>
+    </div>
+
+    <h3>Cyclin–CDK Complexes</h3>
+    <p>Cyclins are proteins whose levels oscillate through the cell cycle, activating their partner CDKs (cyclin-dependent kinases). CDKs are constitutively expressed but require cyclin binding to become active.</p>
+    <table>
+      <tr><th>Phase</th><th>Cyclin</th><th>CDK Partner</th><th>Key Target / Function</th></tr>
+      <tr><td>G1 progression</td><td>Cyclin D</td><td>CDK4, CDK6</td><td>Phosphorylates Rb → releases E2F transcription factors</td></tr>
+      <tr><td>G1/S transition</td><td>Cyclin E</td><td>CDK2</td><td>Completes Rb phosphorylation; triggers S-phase entry</td></tr>
+      <tr><td>S phase</td><td>Cyclin A</td><td>CDK2</td><td>Replication fork progression; inactivates E2F</td></tr>
+      <tr><td>G2/M transition</td><td>Cyclin A/B</td><td>CDK1</td><td>Nuclear envelope breakdown; chromosome condensation</td></tr>
+      <tr><td>M phase</td><td>Cyclin B</td><td>CDK1 (MPF)</td><td>Maturation Promoting Factor — drives mitosis</td></tr>
+    </table>
+
+    <h3>The Rb–E2F Pathway (G1/S Checkpoint)</h3>
+    <p>The retinoblastoma protein (Rb) is the key gatekeeper at the G1/S checkpoint:</p>
+    <ol class="step-list">
+      <li><div><strong>Rb is hypophosphorylated (active)</strong> — binds and inhibits E2F transcription factors, preventing expression of S-phase genes. Cell remains in G1.</div></li>
+      <li><div><strong>Cyclin D–CDK4/6 activated by mitogenic signals</strong> — Growth factors (e.g., EGF) → Ras → MAPK pathway → Cyclin D synthesis.</div></li>
+      <li><div><strong>Rb partially phosphorylated</strong> — Cyclin D–CDK4/6 partially phosphorylates Rb → partial release of E2F → Cyclin E transcription.</div></li>
+      <li><div><strong>Cyclin E–CDK2 completes Rb phosphorylation</strong> — Positive feedback loop drives full commitment to S-phase (restriction point passed).</div></li>
+      <li><div><strong>E2F released → S-phase gene transcription</strong> — Genes for DNA replication machinery are expressed. Cell irreversibly commits to division.</div></li>
+    </ol>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Cancer Mutations in the Rb Pathway</div>
+      <ul class="notes-list">
+        <li><strong>Cyclin D amplification (CCND1)</strong> — Overactive CDK4/6 → constitutive Rb phosphorylation → uncontrolled S-phase entry. Seen in breast cancer, mantle cell lymphoma.</li>
+        <li><strong>CDK4/6 amplification</strong> — Same effect. Target of CDK4/6 inhibitors (palbociclib, ribociclib).</li>
+        <li><strong>Loss of p16/CDKN2A</strong> — p16 inhibits CDK4/6; its loss removes the brake on Rb phosphorylation.</li>
+        <li><strong>Rb1 mutation/deletion</strong> — Direct loss of the gatekeeper (retinoblastoma, osteosarcoma).</li>
+      </ul>
+    </div>
+
+    <h3>Cell Cycle Checkpoints</h3>
+    <table>
+      <tr><th>Checkpoint</th><th>Location</th><th>Monitors</th><th>Key Proteins</th></tr>
+      <tr><td>G1/S (Restriction Point)</td><td>Late G1</td><td>DNA damage, cell size, nutrient availability</td><td>p53 → p21 → inhibits CDK2/Cyclin E; Rb</td></tr>
+      <tr><td>Intra-S phase</td><td>S phase</td><td>DNA replication fidelity, replication fork stalls</td><td>ATM, ATR, CHK1/2</td></tr>
+      <tr><td>G2/M</td><td>Late G2</td><td>DNA damage after replication, completion of replication</td><td>ATM/ATR → CHK1/2 → CDC25 degradation → CDK1 inhibition</td></tr>
+      <tr><td>Spindle Assembly (SAC)</td><td>Metaphase</td><td>Kinetochore–microtubule attachment</td><td>MAD2, BUB1 — delay APC/C activation until all chromosomes aligned</td></tr>
+    </table>
+
+    <div class="callout callout-concept">
+      <div class="callout-title">⚙️ Telomeres and the Hayflick Limit</div>
+      <p>Normal somatic cells can divide only a finite number of times (Hayflick limit ~50–70 divisions), because <strong>telomeres</strong> — TTAGGG repeat caps at chromosome ends — shorten with each replication. When critically short, the cell enters senescence or apoptosis. Cancer cells bypass this by reactivating <strong>telomerase (TERT)</strong>, which extends telomeres and confers immortality. This is why TERT is a clinically important gene in cancer genomics.</p>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> A tumour biopsy shows amplification of <strong>CCND1</strong> (Cyclin D1). Explain how this drives uncontrolled cell proliferation.</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p>Cyclin D1 partners with CDK4/6 to phosphorylate and inactivate <strong>Rb</strong> at the G1/S checkpoint. When Cyclin D1 is amplified, CDK4/6 activity is constitutively elevated, resulting in persistent Rb phosphorylation. Rb releases E2F transcription factors, which drive expression of S-phase genes, causing cells to bypass the G1/S restriction point and enter S-phase continuously — resulting in <strong>uncontrolled cell division</strong>.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PLO 3: p53 PATHWAY -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section" id="p53">
+  <div class="container">
+
+    <div data-mode="rat-only">
+      <div class="rat-plo-header">
+        <div class="rat-plo-tag">PLO 3 — RAT Objective</div>
+        <h2>Review the p53 pathway</h2>
+        <p>Know the activating stimulus, key effectors, and the two downstream outcomes (arrest vs. apoptosis).</p>
+      </div>
+      <ul class="rat-checklist">
+        <li><span class="check">✓</span><div><strong>Gene/protein →</strong> TP53 gene (chromosome 17p13); p53 protein — transcription factor, "Guardian of the Genome"</div></li>
+        <li><span class="check">✓</span><div><strong>Activated by →</strong> DNA damage → ATM/ATR kinases → phosphorylate p53 → prevents MDM2 binding → p53 stabilised</div></li>
+        <li><span class="check">✓</span><div><strong>Outcome 1 →</strong> Cell cycle arrest — p53 → transcribes p21 (CDKN1A) → inhibits CDK2 → G1/S arrest → time to repair DNA</div></li>
+        <li><span class="check">✓</span><div><strong>Outcome 2 →</strong> Apoptosis — p53 → transcribes BAX, PUMA, NOXA → mitochondrial pathway → cytochrome c → caspase cascade</div></li>
+        <li><span class="check">✓</span><div><strong>Negative feedback →</strong> MDM2 (transcribed by p53 itself) targets p53 for ubiquitin-proteasomal degradation</div></li>
+        <li><span class="check">✓</span><div><strong>Most common hotspot →</strong> R273 (Arg273) — most frequently mutated residue in human cancers</div></li>
+      </ul>
+    </div>
+
+    <div class="plo-badge">PLO 3</div>
+    <p class="section-label" style="margin-top:12px">Tumour Suppressor · Signalling</p>
+    <h2 class="section-title">The p53 Pathway</h2>
+
+    <p>p53 is encoded by the <span class="gene-tag">TP53</span> gene (chromosome 17p13.1) and functions as a <strong>transcription factor</strong> and the most critical tumour suppressor in human biology. It is mutated in >50% of all human cancers, earning the title <em>"Guardian of the Genome."</em> Dr. Harrison's own academic lineage traces back to its discoverer, Sir David Lane.</p>
+
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 Core Concept</div>
+      <p>DNA damage → Activation of p53 by phosphorylation → p53 transcribes target genes → <strong>Either cell cycle arrest</strong> (mild/repairable damage) <strong>or apoptosis</strong> (severe/irreparable damage).</p>
+    </div>
+
+    <h3>Activation of p53</h3>
+    <ol class="step-list">
+      <li><div><strong>DNA damage stimulus</strong> — Double-strand breaks (DSBs), UV-induced crosslinks, reactive oxygen species, replication stress, or oncogene activation.</div></li>
+      <li><div><strong>ATM/ATR kinase activation</strong> — ATM responds to DSBs; ATR responds to single-stranded DNA. Both phosphorylate CHK1/CHK2, which phosphorylate p53.</div></li>
+      <li><div><strong>p53 stabilisation</strong> — Normally, p53 is rapidly degraded via MDM2-mediated ubiquitination. Phosphorylation of p53 prevents MDM2 binding → p53 protein accumulates.</div></li>
+      <li><div><strong>p53 binds DNA response elements</strong> — As a tetrameric transcription factor, p53 binds specific promoter sequences and activates target gene transcription.</div></li>
+    </ol>
+
+    <h3>Two Downstream Outcomes</h3>
+    <div class="compare-grid">
+      <div class="compare-card" style="background:var(--blue-bg);border-color:#90caf9">
+        <span class="card-emoji">🛑</span>
+        <h4>Cell Cycle Arrest</h4>
+        <p style="font-size:0.85rem"><strong>When:</strong> Mild/repairable DNA damage.</p>
+        <ul class="notes-list" style="font-size:0.82rem;margin-top:8px">
+          <li>p53 → transcribes <strong>p21</strong> (CDKN1A)</li>
+          <li>p21 inhibits CDK2–Cyclin E and CDK2–Cyclin A</li>
+          <li>Rb remains hypophosphorylated → S-phase blocked</li>
+          <li>G1/S arrest gives time for DNA repair</li>
+          <li>If repair succeeds → cell cycle resumes</li>
+        </ul>
+      </div>
+      <div class="compare-card" style="background:var(--red-bg);border-color:#ef9a9a">
+        <span class="card-emoji">💀</span>
+        <h4>Apoptosis</h4>
+        <p style="font-size:0.85rem"><strong>When:</strong> Severe/irreparable DNA damage.</p>
+        <ul class="notes-list" style="font-size:0.82rem;margin-top:8px">
+          <li>p53 → transcribes <strong>BAX, PUMA, NOXA</strong> (pro-apoptotic Bcl-2 family)</li>
+          <li>BAX forms pores in mitochondrial outer membrane</li>
+          <li>Cytochrome c released → apoptosome</li>
+          <li>Caspase cascade activation → cell death</li>
+          <li>Also transcribes <strong>FAS/TRAIL</strong> (extrinsic pathway)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>The MDM2 Negative Feedback Loop</h3>
+    <p>p53 transcribes its own negative regulator <strong>MDM2</strong>, which acts as an E3 ubiquitin ligase. MDM2 binds the N-terminus of p53, ubiquitinates it, and targets it for proteasomal degradation. This creates a tight autoregulatory loop — when the DNA damage signal resolves, p53 levels fall and the cell cycle resumes.</p>
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Cancer Relevance: MDM2 Amplification</div>
+      <p>In some cancers (e.g., liposarcoma), <strong>MDM2 is amplified</strong>, leading to excessive p53 degradation even in the presence of DNA damage. This functionally inactivates p53 without a TP53 mutation — the tumour suppressor pathway is silenced through its own negative regulator.</p>
+    </div>
+
+    <h3>p53 Functions — The p53 Grid</h3>
+    <div class="p53-grid">
+      <div class="p53-card">
+        <div class="icon">🛑</div>
+        <h4>Cell Cycle Arrest</h4>
+        <p>Via p21 → CDK2 inhibition → Rb hypophosphorylation → G1/S block</p>
+      </div>
+      <div class="p53-card">
+        <div class="icon">💀</div>
+        <h4>Apoptosis</h4>
+        <p>Via BAX/PUMA/NOXA → mitochondrial outer membrane permeabilisation</p>
+      </div>
+      <div class="p53-card">
+        <div class="icon">🔧</div>
+        <h4>DNA Repair</h4>
+        <p>Transcribes GADD45, XPC, DDB2 → enhances nucleotide excision repair</p>
+      </div>
+      <div class="p53-card">
+        <div class="icon">😴</div>
+        <h4>Senescence</h4>
+        <p>Permanent cell cycle exit without apoptosis — barrier to cancer progression</p>
+      </div>
+      <div class="p53-card">
+        <div class="icon">🚫</div>
+        <h4>Angiogenesis Inhibition</h4>
+        <p>Represses VEGF transcription — limits tumour vasculature when p53 is active</p>
+      </div>
+      <div class="p53-card">
+        <div class="icon">🔄</div>
+        <h4>Metabolism</h4>
+        <p>Regulates TIGAR (reduces glycolysis) and SCO2 (promotes OXPHOS)</p>
+      </div>
+    </div>
+
+    <h3>DNA Repair Pathways That Feed into p53 Signalling</h3>
+    <table>
+      <tr><th>Pathway</th><th>Damage Repaired</th><th>Key Genes</th></tr>
+      <tr><td>Base Excision Repair (BER)</td><td>Single-base oxidative damage, alkylation</td><td>OGG1, APE1, XRCC1, PARP</td></tr>
+      <tr><td>Nucleotide Excision Repair (NER)</td><td>Bulky adducts, UV pyrimidine dimers, crosslinks</td><td>XPC, XPA, ERCC1/2 (XPD), CSA/CSB</td></tr>
+      <tr><td>DNA Mismatch Repair (MMR)</td><td>Insertion/deletion loops, base mismatches from replication</td><td>MLH1, MSH2, MSH6, PMS2</td></tr>
+      <tr><td>Homologous Recombination (HR)</td><td>Double-strand breaks (high-fidelity)</td><td>BRCA1, BRCA2, RAD51</td></tr>
+      <tr><td>Non-Homologous End Joining (NHEJ)</td><td>Double-strand breaks (error-prone)</td><td>KU70/80, DNA-PKcs, XRCC4, LIG4</td></tr>
+    </table>
+
+    <h3>Cancer Hotspot — R273 on p53</h3>
+    <p>Dr. Harrison highlighted that when you sequence TP53 across thousands of cancers, mutations are not randomly distributed — they cluster at <strong>hotspots</strong>. The most commonly mutated residue is <strong>Arginine 273 (R273)</strong>, often mutated to cysteine (R273C) or histidine (R273H). R273 is a DNA-contact residue in the DNA-binding domain — its mutation abolishes sequence-specific binding. This was confirmed at <a href="https://www.cancerhotspots.org" target="_blank">cancerhotspots.org</a> during the lecture.</p>
+
+    <div class="callout callout-purple">
+      <div class="callout-title">🔬 Gain-of-Function TP53 Mutations</div>
+      <p>Most TP53 mutations are missense mutations in the DNA-binding domain. Some confer not just loss-of-function but active <strong>gain-of-function</strong> oncogenic properties — mutant p53 protein can inhibit wild-type p53 (dominant negative effect), activate pro-survival genes, and promote metastasis.</p>
+    </div>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> A patient's tumour has a homozygous TP53 R273C mutation. What is the downstream consequence for cell fate after DNA damage?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p>R273 is a critical DNA-contact residue in p53's DNA-binding domain. The R273C mutation abolishes p53's ability to bind its target gene promoters. Consequently, p53 cannot transcribe <strong>p21</strong> (cell cycle arrest) or <strong>BAX/PUMA</strong> (apoptosis). When DNA damage occurs, the cell continues cycling despite genomic instability, accumulating further mutations. This drives cancer progression. The cell escapes the normal "repair or die" decision governed by wild-type p53.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- PLO 4: GENE ORGANISATION -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section" id="geneorg">
+  <div class="container">
+
+    <div data-mode="rat-only">
+      <div class="rat-plo-header">
+        <div class="rat-plo-tag">PLO 4 — RAT Objective</div>
+        <h2>Describe how protein-coding genes are organised in the human genome</h2>
+        <p>Know the distinction between coding/non-coding regions, introns, exons, UTRs, and codons — and what they mean in genome browser images.</p>
+      </div>
+      <ul class="rat-checklist">
+        <li><span class="check">✓</span><div><strong>Exons →</strong> Thick boxes in diagrams; retained in mature mRNA; include 5' UTR, coding sequence (CDS), and 3' UTR</div></li>
+        <li><span class="check">✓</span><div><strong>Introns →</strong> Thin lines in diagrams; spliced out of pre-mRNA; non-coding in the mature transcript</div></li>
+        <li><span class="check">✓</span><div><strong>Coding region →</strong> Exonic sequence from start codon (AUG) to stop codon (UAA/UAG/UGA) — translated into protein</div></li>
+        <li><span class="check">✓</span><div><strong>UTRs →</strong> Untranslated regions within exons, flanking the CDS; part of mRNA but NOT translated</div></li>
+        <li><span class="check">✓</span><div><strong>Codon →</strong> 3-nucleotide sequence encoding one amino acid; 64 codons encode 20 amino acids (redundant code)</div></li>
+        <li><span class="check">✓</span><div><strong>Splice variants →</strong> Alternative splicing of exons produces multiple mRNA isoforms from one gene (e.g., TP53 has ~18 transcript variants)</div></li>
+      </ul>
+    </div>
+
+    <div class="plo-badge">PLO 4</div>
+    <p class="section-label" style="margin-top:12px">Molecular Genetics · Week 2 Review</p>
+    <h2 class="section-title">Gene Organisation in the Human Genome</h2>
+
+    <p>The human genome contains approximately <strong>3.2 billion base pairs</strong> organised across 23 pairs of chromosomes. Of this, only ~1–2% encodes protein. Understanding gene structure is foundational for interpreting sequencing results, GWAS data, and genomic browser outputs.</p>
+
+    <h3>Scale of the Genome</h3>
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 Key Numbers</div>
+      <ul class="notes-list">
+        <li>~20,000 protein-coding genes in the human genome</li>
+        <li>~180,000 exons — but exons only encode ~1% of the total genome sequence</li>
+        <li>~85% of mutations with large disease effects are present within exons (hence exome sequencing efficiency)</li>
+        <li>Chromosomes are divided into a <strong>short arm (p arm)</strong> and a <strong>long arm (q arm)</strong></li>
+      </ul>
+    </div>
+
+    <h3>Anatomy of a Gene</h3>
+    <p>A typical protein-coding gene comprises the following elements, from 5' to 3':</p>
+    <ol class="step-list">
+      <li><div><strong>Promoter &amp; Regulatory Region</strong> — Upstream of the transcription start site (TSS). Contains TATA box, enhancers, and transcription factor binding sites. Not part of the mature mRNA. Located in <em>non-coding / intergenic</em> DNA.</div></li>
+      <li><div><strong>5' Untranslated Region (5' UTR)</strong> — Part of the first exon(s); transcribed into mRNA but NOT translated. Regulates translation initiation efficiency. Extends from TSS to the start codon (AUG).</div></li>
+      <li><div><strong>Coding Sequence (CDS)</strong> — The exonic sequence from the start codon (AUG) to the stop codon. This is the sequence that is translated into protein. Consists exclusively of codons (triplets).</div></li>
+      <li><div><strong>Introns</strong> — Intervening sequences between exons. Transcribed into pre-mRNA but removed by splicing (spliceosome) before the mature mRNA is exported from the nucleus. Represented as thin lines/chevrons in genome browsers.</div></li>
+      <li><div><strong>Exons</strong> — Expressed sequences; retained in mature mRNA after splicing. Include the UTRs and the CDS. Represented as thick boxes in genome browsers.</div></li>
+      <li><div><strong>3' Untranslated Region (3' UTR)</strong> — Part of the last exon; transcribed into mRNA but not translated. Contains polyadenylation signal. Regulates mRNA stability, localisation, and translation via miRNA binding.</div></li>
+      <li><div><strong>Intergenic Region</strong> — DNA between genes. Once called "junk DNA" — now known to contain enhancers, lncRNAs, miRNA genes, regulatory elements.</div></li>
+    </ol>
+
+    <h3>Coding vs. Non-Coding Regions — Summary Table</h3>
+    <table>
+      <tr><th>Region</th><th>Transcribed?</th><th>In Mature mRNA?</th><th>Translated?</th><th>Genome Browser Appearance</th></tr>
+      <tr><td>Promoter / Regulatory</td><td>No</td><td>No</td><td>No</td><td>Upstream of gene</td></tr>
+      <tr><td>5' UTR</td><td>Yes</td><td>Yes</td><td>No</td><td>Thin/shaded exon box at start</td></tr>
+      <tr><td>Exon (CDS)</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Thick filled box</td></tr>
+      <tr><td>Intron</td><td>Yes (pre-mRNA)</td><td>No (spliced out)</td><td>No</td><td>Thin line or chevrons between boxes</td></tr>
+      <tr><td>3' UTR</td><td>Yes</td><td>Yes</td><td>No</td><td>Thin/shaded exon box at end</td></tr>
+      <tr><td>Intergenic</td><td>No (mostly)</td><td>No</td><td>No</td><td>Space between genes</td></tr>
+    </table>
+
+    <h3>Codons and the Genetic Code</h3>
+    <p>A <strong>codon</strong> is a sequence of three consecutive nucleotides in mRNA that specifies a single amino acid (or a stop signal).</p>
+    <div class="callout callout-concept">
+      <div class="callout-title">⚙️ The Genetic Code is Redundant (Degenerate)</div>
+      <ul class="notes-list">
+        <li><strong>64 codons</strong> encode <strong>20 amino acids</strong> — multiple codons can encode the same amino acid (e.g., UCU and UCC both encode serine)</li>
+        <li><strong>Start codon →</strong> AUG (methionine) — defines the reading frame</li>
+        <li><strong>Stop codons →</strong> UAA, UAG, UGA — terminate translation; do not encode amino acids</li>
+        <li>Redundancy explains why synonymous SNPs often have no effect on protein function</li>
+        <li>Third codon position ("wobble position") is most degenerate — changes here are often synonymous</li>
+      </ul>
+    </div>
+
+    <h3>SNPs in Relation to Gene Structure</h3>
+    <table>
+      <tr><th>SNP Location</th><th>Term</th><th>Effect</th></tr>
+      <tr><td>Within an exon (changes AA)</td><td>Non-synonymous / Missense</td><td>Altered protein function — potentially pathogenic</td></tr>
+      <tr><td>Within an exon (no AA change)</td><td>Synonymous / Silent</td><td>Usually no direct protein effect; may affect splicing</td></tr>
+      <tr><td>Within an intron</td><td>Intronic</td><td>Often no effect; may disrupt splice sites if near exon boundary</td></tr>
+      <tr><td>At exon–intron boundary</td><td>Splice site variant</td><td>Can cause exon skipping or intron retention — loss of function</td></tr>
+      <tr><td>In UTR</td><td>UTR variant</td><td>May affect mRNA stability, translation, or miRNA binding</td></tr>
+      <tr><td>In intergenic region</td><td>Intergenic</td><td>May affect regulatory elements (enhancers, promoters)</td></tr>
+    </table>
+
+    <h3>Splice Variants (Transcript Variants)</h3>
+    <p>A single gene can produce multiple different mRNA isoforms through <strong>alternative splicing</strong>. Different combinations of exons are joined together, generating protein isoforms with distinct functions, localisations, or binding properties.</p>
+    <div class="callout callout-clinical">
+      <div class="callout-title">🏥 Example: TP53</div>
+      <p>The TP53 gene on chromosome 17p13.1 has approximately <strong>18 transcript variants</strong> (splice variants), visible as multiple "layers" in the UCSC Genome Browser. Each isoform has subtly different properties. The gene has 10 exons and runs from right to left on the genome browser display (note the arrow direction indicates transcriptional orientation).</p>
+    </div>
+
+    <h3>Reading the Genome Browser</h3>
+    <p>On exams, Dr. Harrison expects you to interpret genome browser images. Key things to identify:</p>
+    <ul class="notes-list">
+      <li><strong>Chromosome and arm:</strong> Identified in the chromosome ideogram (p arm = short arm, q arm = long arm; red line shows your current position)</li>
+      <li><strong>Scale bar:</strong> Shows kilobases (kb) represented across the view (e.g., 5 kb = 5,000 bases)</li>
+      <li><strong>Gene name and orientation:</strong> Arrow direction indicates which strand is transcribed (left-to-right = sense strand; right-to-left = antisense)</li>
+      <li><strong>Exons vs. introns:</strong> Thick boxes = exons; thin lines / arrows = introns</li>
+      <li><strong>Transcript variants:</strong> Multiple rows below the gene = different splice isoforms</li>
+      <li><strong>Adjacent genes:</strong> Genes in the intergenic regions on either side (e.g., TP53 neighbours: ATP1B2 and WRAP53/TP53 antisense)</li>
+      <li><strong>Intronic vs. exonic variants:</strong> SNPs shown in SNPedia track — note whether each falls on an exon or intron</li>
+    </ul>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> In a genome browser image of a gene, you see thick boxes connected by thin chevron-shaped lines pointing right. What does each element represent, and what is their fate during gene expression?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p><strong>Thick boxes = exons</strong> — these are transcribed into pre-mRNA and retained in the mature mRNA after splicing. They include the 5' UTR, coding sequence (CDS), and 3' UTR. The CDS within exons is translated into protein.<br><br><strong>Thin chevron lines = introns</strong> — also transcribed into pre-mRNA, but removed by the spliceosome during RNA processing and are absent from the mature mRNA. They are therefore NOT translated.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- LO 1: HIGH-THROUGHPUT SEQUENCING -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section" data-mode="lo-only" id="htseq">
+  <div class="container">
+    <div class="lo-badge">LO 1</div>
+    <p class="section-label" style="margin-top:12px">Methods · Omics Technologies</p>
+    <h2 class="section-title">High-Throughput Sequencing: WGS &amp; RNA-Seq</h2>
+
+    <p>High-throughput (next-generation) sequencing (NGS) allows the rapid, massively parallel sequencing of millions to billions of DNA or RNA fragments simultaneously. This is the technological backbone of genomics and transcriptomics in precision medicine.</p>
+
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 Core Principle</div>
+      <p>Instead of sequencing one gene at a time (low-throughput), NGS sequences the entire genome or transcriptome in a single experiment. The key steps are <strong>fragmentation → sequencing → assembly/alignment</strong>.</p>
+    </div>
+
+    <h3>Whole-Genome Sequencing (WGS)</h3>
+    <p>WGS sequences all DNA in a sample — the entire ~3.2 billion base pairs of the human genome:</p>
+    <ol class="step-list">
+      <li><div><strong>DNA extraction</strong> — Isolate genomic DNA from sample (blood, saliva, tissue biopsy).</div></li>
+      <li><div><strong>Fragmentation</strong> — The long chromosomal DNA is sheared into short fragments (~150–300 bp). This is necessary because current sequencers cannot read entire chromosomes end-to-end.</div></li>
+      <li><div><strong>Library preparation</strong> — Adaptor sequences are ligated to fragment ends. These allow fragments to bind to the sequencing flow cell and are used for PCR amplification of clusters.</div></li>
+      <li><div><strong>Sequencing</strong> — Each fragment is sequenced simultaneously (sequencing-by-synthesis: fluorescently labelled nucleotides are incorporated and imaged). Produces millions of short "reads."</div></li>
+      <li><div><strong>Assembly / Alignment</strong> — Short reads are aligned back to the reference human genome (GRCh38) using overlapping sequences. Variants are called where reads differ from the reference.</div></li>
+    </ol>
+    <div class="callout callout-concept">
+      <div class="callout-title">⚙️ What Can WGS Detect?</div>
+      <ul class="notes-list">
+        <li>Gross structural variants — large deletions, insertions, inversions, translocations</li>
+        <li>Gene copy number variants (CNVs) — e.g., MET amplification</li>
+        <li>Single Nucleotide Polymorphisms (SNPs) — both inherited and somatic</li>
+        <li>Haplotypes — sets of co-segregating variants</li>
+        <li>Somatic mutations in tumours (when compared to normal tissue)</li>
+      </ul>
+    </div>
+
+    <h3>Exome Sequencing (WES — Whole Exome Sequencing)</h3>
+    <p>A targeted variant of WGS that sequences only the protein-coding exons (~1% of the genome):</p>
+    <div class="tech-card">
+      <h4>Why WES Over WGS?</h4>
+      <ul class="notes-list">
+        <li>~180,000 human exons, representing only ~1% of the genome</li>
+        <li>Yet ~85% of mutations with large disease effects are exonic</li>
+        <li>Much cheaper, faster, and computationally simpler than WGS</li>
+        <li>Ideal for identifying pathogenic variants in known disease genes</li>
+        <li>Method: Hybridisation capture — biotinylated RNA baits anneal to exonic DNA fragments, which are pulled down with streptavidin beads before sequencing</li>
+      </ul>
+    </div>
+
+    <h3>Somatic vs. Inherited Mutations — Experimental Design</h3>
+    <div class="callout callout-clinical">
+      <div class="callout-title">🏥 Key Distinction (Exam-Ready)</div>
+      <p>To distinguish inherited germline variants from somatic tumour mutations, sequence <strong>two samples from the same patient</strong>:</p>
+      <ul class="notes-list">
+        <li><strong>Normal (non-tumour) tissue</strong> — e.g., blood or buccal cells. Variants found here are <strong>germline/inherited</strong> — present in every cell.</li>
+        <li><strong>Tumour tissue</strong> — Variants present in the tumour but <strong>absent</strong> from normal tissue are <strong>somatic mutations</strong> — acquired during cancer development.</li>
+        <li>This paired tumour–normal sequencing approach is standard in clinical oncology genomics.</li>
+      </ul>
+    </div>
+
+    <h3>RNA-Sequencing (RNA-Seq) — Transcriptomics</h3>
+    <p>RNA-Seq measures the entire transcriptome — all mRNA transcripts expressed in a cell at a given time. The methodology is analogous to WGS but applied to RNA:</p>
+    <ol class="step-list">
+      <li><div><strong>RNA extraction</strong> — Total RNA or poly-A-selected mRNA is isolated from sample (e.g., tumour biopsy).</div></li>
+      <li><div><strong>Reverse transcription</strong> — RNA is converted to complementary DNA (cDNA) using reverse transcriptase, because current sequencers read DNA, not RNA directly.</div></li>
+      <li><div><strong>Fragmentation &amp; library prep</strong> — cDNA is fragmented and adaptors are ligated (same as WGS).</div></li>
+      <li><div><strong>Sequencing</strong> — High-throughput sequencing produces millions of reads from cDNA fragments.</div></li>
+      <li><div><strong>Alignment &amp; quantification</strong> — Reads are aligned to the reference genome or transcriptome. Read counts per gene reflect <strong>mRNA abundance</strong> = gene expression level.</div></li>
+    </ol>
+
+    <h3>Why Use RNA-Seq Instead of (or in Addition to) WGS?</h3>
+    <table>
+      <tr><th>Feature</th><th>WGS/WES</th><th>RNA-Seq</th></tr>
+      <tr><td>What it measures</td><td>DNA sequence (static)</td><td>mRNA expression (dynamic)</td></tr>
+      <tr><td>Reflects disease state?</td><td>Potential/predisposition</td><td>Current active state of disease</td></tr>
+      <tr><td>Detects mutations?</td><td>Yes — inherited &amp; somatic</td><td>Yes — only expressed variants</td></tr>
+      <tr><td>Detects splice variants?</td><td>Not directly</td><td>Yes — detects isoform usage</td></tr>
+      <tr><td>Clinical use</td><td>Cancer panel, Lynch syndrome diagnosis, pharmacogenomics</td><td>Tumour staging, immune cell profiling, biomarker discovery</td></tr>
+      <tr><td>Low-throughput equivalent</td><td>Sanger sequencing, PCR</td><td>qPCR, Northern blot</td></tr>
+    </table>
+
+    <div class="callout callout-clinical">
+      <div class="callout-title">🏥 Application: RNA Fingerprinting in Immuno-Oncology</div>
+      <p>Tumour-infiltrating immune cells can be characterised by sequencing their RNA. The resulting "RNA fingerprint" is matched against a database of known immune cell transcriptomic signatures. This allows clinicians to determine which immune cells are present in a tumour microenvironment — information that correlates with prognosis and response to immunotherapy (e.g., checkpoint inhibitors).</p>
+    </div>
+
+    <h3>Omics Technologies at a Glance</h3>
+    <table>
+      <tr><th>Omic</th><th>Studies</th><th>Low-Throughput Equivalent</th><th>High-Throughput Method</th></tr>
+      <tr><td>Genomics</td><td>DNA / genes</td><td>Sanger sequencing, PCR</td><td>Whole Genome Sequencing (WGS)</td></tr>
+      <tr><td>Transcriptomics</td><td>mRNA transcripts</td><td>qPCR, Northern blot</td><td>RNA-Seq</td></tr>
+      <tr><td>Proteomics</td><td>Proteins</td><td>Western blot, ELISA</td><td>Mass spectrometry proteomics</td></tr>
+      <tr><td>Metabolomics</td><td>Small molecules</td><td>Individual metabolite assays</td><td>LC-MS / NMR metabolomics</td></tr>
+      <tr><td>Epigenomics</td><td>DNA methylation, histone marks</td><td>Bisulfite sequencing (single locus)</td><td>WGBS, ChIP-Seq, ATAC-Seq</td></tr>
+    </table>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> Explain in simple terms how whole-genome sequencing works. What are the three fundamental steps?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p>1. <strong>Fragmentation</strong> — Chromosomal DNA is sheared into small pieces (~150–300 bp), because sequencers cannot read whole chromosomes.<br>
+        2. <strong>Sequencing</strong> — All fragments are sequenced in massively parallel fashion (NGS), generating millions of short reads.<br>
+        3. <strong>Assembly/Alignment</strong> — Reads are aligned back to the reference human genome using overlapping sequences, identifying where each fragment originated and where variants exist relative to the reference.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- LO 2: GWAS METHODOLOGY -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section" data-mode="lo-only" id="gwas">
+  <div class="container">
+    <div class="lo-badge">LO 2</div>
+    <p class="section-label" style="margin-top:12px">Epidemiology · Statistical Genetics</p>
+    <h2 class="section-title">Genome-Wide Association Studies (GWAS)</h2>
+
+    <p>GWAS are epidemiological studies that scan the entire genome to identify common genetic variants (usually SNPs) statistically associated with a disease or trait. They are the primary tool for discovering <strong>common, low-penetrance risk alleles</strong> — the variants that account for the "missing heritability" in complex diseases.</p>
+
+    <h3>Why GWAS? — The Heritability Gap</h3>
+    <div class="callout callout-concept">
+      <div class="callout-title">⚙️ The Problem GWAS Solves</div>
+      <p>By the 1980–90s, genetic linkage studies had identified ~70 high-penetrance cancer susceptibility genes (e.g., BRCA1/2, APC, MLH1, MSH2) — mutations conferring 5–100× elevated risk. But these high-penetrance syndromes account for only a <strong>small fraction of familial cancer risk</strong>. The vast majority of cancer heritability was unexplained.<br><br>
+      GWAS hunt for the <strong>common variants of small effect</strong> that collectively contribute much of the remaining familial risk — variants too subtle to be found by linkage studies.</p>
+    </div>
+
+    <h3>The Risk–Frequency Spectrum</h3>
+    <p>Genetic variants can be plotted on a graph of allele frequency (x-axis) vs. risk conferred (y-axis):</p>
+    <ul class="notes-list">
+      <li><strong>High penetrance, low frequency</strong> — BRCA1/2, MLH1 mutations. Rare in population, but individually very risky (OR 5–100). Found by linkage studies.</li>
+      <li><strong>Moderate penetrance, uncommon</strong> — CHEK2, ATM mutations. Intermediate category now being described.</li>
+      <li><strong>Low penetrance, common</strong> — SNPs with OR 1.1–1.5. Very common in population, individually small effect. <strong>Found by GWAS.</strong></li>
+    </ul>
+
+    <h3>GWAS Study Design</h3>
+    <ol class="step-list">
+      <li><div><strong>Recruit cases &amp; controls</strong> — Assemble a large cohort of individuals with the disease (cases) and matched individuals without (controls). Typically requires thousands to hundreds of thousands of participants for statistical power.</div></li>
+      <li><div><strong>Genotype entire genome</strong> — Use SNP genotyping arrays (or WGS) to determine each participant's genotype at up to ~1 million SNP positions across the genome.</div></li>
+      <li><div><strong>Statistical comparison</strong> — At each SNP position, compare the frequency of each allele in cases vs. controls. Calculate a P-value (how likely is this difference to be due to chance?).</div></li>
+      <li><div><strong>Plot Manhattan plot</strong> — X-axis = chromosomal position (chromosomes 1–22 + X, Y); Y-axis = –log₁₀(P-value). Tall spikes ("skyscrapers") indicate strongly associated SNPs.</div></li>
+      <li><div><strong>Calculate odds ratio (OR)</strong> — Quantify the effect size: how much does having this SNP change the odds of disease?</div></li>
+      <li><div><strong>Replication</strong> — Top hits are validated in independent cohorts from different populations.</div></li>
+    </ol>
+
+    <h3>Key Statistical Concepts</h3>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Genome-Wide Significance Threshold — MEMORISE THIS</div>
+      <p style="font-size:1.1rem;font-weight:700;text-align:center;color:var(--accent)">P &lt; 5 × 10⁻⁸</p>
+      <p>This extremely stringent threshold corrects for <strong>~1 million independent statistical tests</strong> performed across the genome (Bonferroni-style correction). It is the universally accepted threshold for declaring a GWAS hit "genome-wide significant." A standard threshold of p &lt; 0.05 would generate thousands of false positives by chance alone.</p>
+    </div>
+
+    <div class="callout callout-concept">
+      <div class="callout-title">⚙️ The Odds Ratio (OR)</div>
+      <p>The OR quantifies the <strong>magnitude of risk</strong> associated with a SNP:</p>
+      <p style="font-size:1.05rem; text-align:center; padding: 10px; background: var(--cream); border-radius:6px; font-family:'JetBrains Mono',monospace">OR = Odds(disease | SNP present) ÷ Odds(disease | SNP absent)</p>
+      <ul class="notes-list" style="margin-top:12px">
+        <li><strong>OR = 1</strong> — No association; SNP has no effect on disease risk</li>
+        <li><strong>OR &gt; 1</strong> — Risk allele; presence of SNP increases odds of disease (e.g., OR = 1.5 → 50% increased odds)</li>
+        <li><strong>OR &lt; 1</strong> — Protective allele; presence of SNP decreases odds of disease (e.g., OR = 0.8 → 20% reduced odds)</li>
+      </ul>
+    </div>
+
+    <h3>P-value vs. Odds Ratio — Two Different Questions</h3>
+    <table>
+      <tr><th>Metric</th><th>Question it Answers</th><th>Interpretation</th></tr>
+      <tr><td>P-value</td><td>"How confident are we this association is real?"</td><td>Must be &lt; 5×10⁻⁸ for genome-wide significance. Reflects statistical robustness, NOT effect size.</td></tr>
+      <tr><td>Odds Ratio (OR)</td><td>"How risky is having this SNP?"</td><td>Reflects effect size. A highly significant result (tiny P) can still have a small OR (e.g., 1.05). Clinically, you need both significance AND a meaningful OR.</td></tr>
+    </table>
+
+    <h3>Polygenic Risk Score (PRS) — Preview</h3>
+    <p>Once GWAS has identified many significant SNPs associated with a disease, all of them can be combined into a single <strong>Polygenic Risk Score</strong> that estimates an individual's cumulative genetic risk. (See LO 3 for full details.)</p>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> Why is the P-value threshold for genome-wide significance set at 5 × 10⁻⁸ rather than the conventional 0.05?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p>In GWAS, a statistical test is performed at every SNP position across the genome — approximately <strong>1 million independent tests</strong>. If we used p &lt; 0.05, we would expect 50,000 false positives by chance alone. The threshold of p &lt; 5 × 10⁻⁸ is a Bonferroni-style correction for this multiple-testing burden: 0.05 ÷ 1,000,000 ≈ 5 × 10⁻⁸. This stringent cutoff ensures that reported associations are very unlikely to be false positives.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- LO 3: SNPs, HAPLOTYPES & PRS -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section" data-mode="lo-only" id="snps">
+  <div class="container">
+    <div class="lo-badge">LO 3</div>
+    <p class="section-label" style="margin-top:12px">Genetic Variation · Population Genetics</p>
+    <h2 class="section-title">SNPs, Haplotypes &amp; Polygenic Risk Scores</h2>
+
+    <h3>Single Nucleotide Polymorphisms (SNPs)</h3>
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 Definition of a SNP</div>
+      <p>A <strong>Single Nucleotide Polymorphism (SNP)</strong> — pronounced "snip" — is a variation at a <strong>single base position</strong> in the DNA sequence that is present in at least 1% of the population. It is the most common type of genetic variation in humans. Approximately 4–5 million SNPs distinguish any two unrelated individuals.</p>
+    </div>
+
+    <p>SNPs are given reference IDs in the format <span class="snp-code">rs######</span> (e.g., rs63750710 in MLH1 associated with Lynch syndrome). Each SNP has two alleles — the major allele (more common) and the minor allele.</p>
+
+    <h3>Types of SNPs</h3>
+    <div class="compare-grid">
+      <div class="compare-card" style="background:var(--green-bg);border-color:#a5d6a7">
+        <span class="card-emoji">✅</span>
+        <h4>Synonymous SNP (Silent)</h4>
+        <p style="font-size:0.85rem">Changes the codon but NOT the encoded amino acid (due to redundancy of the genetic code).</p>
+        <p style="font-size:0.82rem;margin-top:8px;font-family:'JetBrains Mono',monospace">UCU → UCC<br>Both encode Serine</p>
+        <p style="font-size:0.82rem;margin-top:6px;color:var(--muted)">Usually no functional consequence. May still affect splicing or mRNA stability.</p>
+      </div>
+      <div class="compare-card" style="background:var(--red-bg);border-color:#ef9a9a">
+        <span class="card-emoji">⚠️</span>
+        <h4>Non-Synonymous SNP (Missense)</h4>
+        <p style="font-size:0.85rem">Changes the codon AND the encoded amino acid — alters the protein sequence.</p>
+        <p style="font-size:0.82rem;margin-top:8px;font-family:'JetBrains Mono',monospace">UCU → ACU<br>Serine → Threonine</p>
+        <p style="font-size:0.82rem;margin-top:6px;color:var(--muted)">May affect protein folding, function, or stability. Pathogenic variants are often non-synonymous.</p>
+      </div>
+    </div>
+
+    <div class="callout callout-concept">
+      <div class="callout-title">⚙️ Other SNP Types</div>
+      <ul class="notes-list">
+        <li><strong>Nonsense SNP</strong> — Non-synonymous SNP that creates a premature stop codon → truncated protein, usually loss-of-function</li>
+        <li><strong>Intronic SNP</strong> — Located within an intron; often no effect unless at splice site</li>
+        <li><strong>Regulatory SNP</strong> — Located in promoter or enhancer regions; can alter gene expression levels</li>
+        <li><strong>Most SNPs have no health effect</strong> — Because they are synonymous, intronic, or in intergenic non-functional regions</li>
+      </ul>
+    </div>
+
+    <h3>SNPs and Genotype</h3>
+    <p>An individual's <strong>genotype</strong> at a SNP locus refers to the two alleles they carry (one from each chromosome). For a biallelic SNP (A or G), the three possible genotypes are AA, AG, or GG. Genotype at a single SNP does not usually determine phenotype alone — it is the combination of many variants across the genome that matters.</p>
+
+    <h3>Haplotypes — Co-Segregating Variants</h3>
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 Definition of a Haplotype</div>
+      <p>A <strong>haplotype</strong> is a set of DNA variations (SNPs and/or other polymorphisms) that tend to be <strong>inherited together</strong> because they are physically close on the same chromosome. "Haplo" = one chromosome; a haplotype describes the particular combination of alleles on one chromosome.</p>
+    </div>
+
+    <h4>Why Do Nearby SNPs Tend to Be Inherited Together?</h4>
+    <p>During meiosis, chromosomes from each parent are reshuffled via <strong>crossover (recombination)</strong> events. Two SNPs that are physically <em>close</em> to each other on a chromosome are <strong>less likely</strong> to have a crossover event between them — they travel together as a unit. This relationship is called <strong>linkage disequilibrium (LD)</strong>.</p>
+    <div class="callout callout-concept">
+      <div class="callout-title">⚙️ Linkage Disequilibrium</div>
+      <p>LD describes the non-random association of alleles at two or more loci. SNPs in high LD are almost always inherited together — if you see one, you predict the other. SNPs in LD with a causal variant can serve as <strong>proxies or tags</strong> for that variant even if they themselves are not functional. This is how GWAS works in practice — the "hit" SNP may not be the causal variant but is in high LD with it.</p>
+    </div>
+
+    <h3>Polygenic Risk Score (PRS)</h3>
+    <div class="callout callout-key">
+      <div class="callout-title">🔑 Definition of PRS</div>
+      <p>A <strong>Polygenic Risk Score (PRS)</strong> is a single numerical estimate of an individual's genetic predisposition to a disease, calculated by aggregating the effects of many SNPs across the genome — each weighted by its GWAS-derived effect size (odds ratio or beta coefficient).</p>
+    </div>
+
+    <h4>How PRS is Calculated</h4>
+    <p>For each significant GWAS SNP, an individual receives a "score" based on:</p>
+    <ul class="notes-list">
+      <li>Whether they carry 0, 1, or 2 copies of the risk allele at that SNP</li>
+      <li>Multiplied by the log(OR) — the weight/effect size from GWAS</li>
+      <li>The scores from all significant SNPs are summed → one overall PRS</li>
+    </ul>
+
+    <div class="callout callout-clinical">
+      <div class="callout-title">🏥 Clinical Interpretation of PRS</div>
+      <p>Imagine a bell-curve distribution of PRS in the population. Individuals at the <strong>high tail</strong> (top ~10%) have a combination of SNPs that collectively confer substantially elevated risk — comparable to some single-gene risk factors. Individuals at the <strong>low tail</strong> have a protective combination. The <strong>middle group</strong> has average population risk. PRS is being developed for clinical use in breast cancer screening stratification, cardiovascular risk, and other polygenic diseases.</p>
+    </div>
+
+    <table>
+      <tr><th>Concept</th><th>Definition</th><th>Scale</th></tr>
+      <tr><td>SNP</td><td>Single base variation in DNA (&gt;1% population frequency)</td><td>One nucleotide</td></tr>
+      <tr><td>Genotype</td><td>An individual's two alleles at one locus</td><td>One locus</td></tr>
+      <tr><td>Haplotype</td><td>Set of co-segregating variants on one chromosome</td><td>Chromosomal region</td></tr>
+      <tr><td>Polygenic Risk Score</td><td>Sum of weighted risk alleles across the entire genome</td><td>Whole genome</td></tr>
+    </table>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> Define haplotype and explain why SNPs close together on the same chromosome tend to be inherited together.</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p>A <strong>haplotype</strong> is a set of DNA variations that tend to be inherited together because they are physically located close to each other on the same chromosome. During meiosis, homologous chromosomes exchange segments through <strong>recombination (crossover)</strong>. Two SNPs that are close together have a very low probability of having a crossover event occur between them — they are therefore co-inherited as a block. This non-random association is called <strong>linkage disequilibrium (LD)</strong>.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- LO 4: CRITICAL ASSESSMENT OF GWAS DATA -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="section" data-mode="lo-only" id="critical">
+  <div class="container">
+    <div class="lo-badge">LO 4</div>
+    <p class="section-label" style="margin-top:12px">Evidence Appraisal · Clinical Application</p>
+    <h2 class="section-title">Critically Assessing GWAS Data</h2>
+
+    <p>As a future clinician, patients will present with GWAS results from DTC genetic tests (23andMe, etc.) or formal clinical genomics reports. You need a systematic framework to evaluate whether a reported association is real, significant, and clinically meaningful.</p>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Dr. Harrison's Core Message</div>
+      <p>"You have to be careful about making clinical decisions based on a lot of this information. Some of it is really good, very strong, clear, and penetrant/actionable, and some of it is not." The goal is to be a critical consumer of genomic data, not just a passive recipient.</p>
+    </div>
+
+    <h3>Step-by-Step Framework for Evaluating a GWAS Result</h3>
+    <ol class="step-list">
+      <li><div><strong>Check the P-value</strong> — Is it below the genome-wide significance threshold of <strong>p &lt; 5 × 10⁻⁸</strong>? If not, the association is not genome-wide significant and should be interpreted cautiously. Even a p-value of 10⁻⁶ is not adequate.</div></li>
+      <li><div><strong>Check the Odds Ratio (OR)</strong> — What is the effect size? An OR of 1.05 (5% increased risk) is statistically real but clinically trivial. An OR of 2.5 may be clinically actionable. Always ask: does this OR warrant changing clinical management?</div></li>
+      <li><div><strong>Check the sample size and study population</strong> — Was the study large enough to detect this effect reliably? What ancestry/ethnicity was the cohort? Most GWAS have been performed in populations of European ancestry — results may not generalise to other populations.</div></li>
+      <li><div><strong>Consider replication</strong> — Has the finding been replicated in independent cohorts? Single-study hits without replication should be treated with scepticism.</div></li>
+      <li><div><strong>Assess biological plausibility</strong> — Is there a mechanistic explanation? Is the SNP in an oncogene, tumour suppressor, or caretaker gene? An intergenic SNP may tag a regulatory element — or may be a false positive.</div></li>
+      <li><div><strong>Consider clinical utility</strong> — Even if an association is statistically robust, can the patient act on this information? Is there an effective intervention? If no action can be taken, the information may cause anxiety without benefit.</div></li>
+    </ol>
+
+    <h3>Interpreting the Odds Ratio — A Clinical Lens</h3>
+    <table>
+      <tr><th>Odds Ratio</th><th>Interpretation</th><th>Example</th></tr>
+      <tr><td>OR &lt; 1 (e.g., 0.8)</td><td><strong>Protective</strong> — SNP reduces odds of disease by (1 − OR) × 100%</td><td>rs2736098 in TERT: OR = 0.8 → ~20% reduced odds of pancreatic cancer in Europeans</td></tr>
+      <tr><td>OR = 1.0</td><td>No association</td><td>SNP has no effect on disease risk</td></tr>
+      <tr><td>OR = 1.1–1.3</td><td>Weak risk factor — typical for common GWAS hits</td><td>Most BRCA-pathway adjacent SNPs from GWAS</td></tr>
+      <tr><td>OR = 1.5–3.0</td><td>Moderate risk — may be clinically relevant</td><td>SNP rs4645881 in BAX: OR = 1.5 → 50% increased odds</td></tr>
+      <tr><td>OR &gt; 5</td><td>High penetrance — rare in GWAS, more typical of linkage-era genes</td><td>BRCA1 pathogenic variant: OR ~10–20 for breast cancer</td></tr>
+    </table>
+
+    <h3>Population Stratification — A Critical Limitation</h3>
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ Population Bias in GWAS</div>
+      <p>Most GWAS to date have been conducted in populations of <strong>European ancestry</strong> (and more recently East Asian ancestry). A SNP that is a risk factor in Europeans may be:</p>
+      <ul class="notes-list">
+        <li>Absent or very rare in other populations (different allele frequencies)</li>
+        <li>Protective in a different population (different LD patterns, different environmental context)</li>
+        <li>A different "tag" for an entirely different causal variant in a non-European background</li>
+      </ul>
+      <p style="margin-top:10px">Example from lecture: rs2736098 in the TERT gene is protective against pancreatic cancer in Europeans (OR 0.8) — but at least one study found it may be a risk factor in Asian populations. <strong>This is the norm, not the exception.</strong></p>
+    </div>
+
+    <h3>The Problem with Direct-to-Consumer Tests</h3>
+    <p>DTC tests (23andMe, etc.) report on a subset of known GWAS variants. Critical concerns:</p>
+    <ul class="notes-list">
+      <li>Most reported variants have small ORs (1.05–1.3) and are not clinically actionable</li>
+      <li>Results are calibrated for specific ancestry groups — may be inaccurate or uninformative for patients of other backgrounds</li>
+      <li>Finding a "risk variant" does not mean the patient will develop the disease — OR is a population-level statistic, not a deterministic prediction</li>
+      <li>Missing a variant does not mean zero risk — DTC tests cover a fraction of all possible variants</li>
+      <li>Privacy and data security concerns (23andMe data breach)</li>
+      <li>Psychological burden of uncertain results</li>
+    </ul>
+
+    <h3>Clinical Counselling Framework</h3>
+    <div class="callout callout-clinical">
+      <div class="callout-title">🏥 When a Patient Brings You a Genetic Result</div>
+      <ol class="step-list" style="margin-top:10px">
+        <li><div><strong>Identify the SNP</strong> — Use GeneCards, UCSC Genome Browser, SNPedia, or GeneReviews to find the gene, its function, and the specific variant.</div></li>
+        <li><div><strong>Assess p-value and OR</strong> — Is the association genome-wide significant? Is the OR clinically meaningful?</div></li>
+        <li><div><strong>Consider population relevance</strong> — Does this result apply to your patient's ancestry background?</div></li>
+        <li><div><strong>Contextualise within total risk</strong> — A small genetic risk increase is often dwarfed by modifiable lifestyle factors. Eating well and not smoking may far outweigh a genetic OR of 1.1.</div></li>
+        <li><div><strong>Identify actionable interventions (if any)</strong> — Enhanced surveillance? Chemoprevention? Lifestyle modification? Or no actionable intervention?</div></li>
+      </ol>
+    </div>
+
+    <h3>Practical Example — The TERT rs2736098 Variant</h3>
+    <div class="tech-card">
+      <h4>Case: rs2736098 in the TERT gene</h4>
+      <ul class="notes-list">
+        <li><strong>Gene:</strong> TERT — telomerase reverse transcriptase (maintains telomeres; enables cellular immortality)</li>
+        <li><strong>P-value:</strong> 9.8 × 10⁻¹⁴ — well below 5 × 10⁻⁸ → genome-wide significant ✓</li>
+        <li><strong>OR:</strong> 0.8 — <em>protective</em> against pancreatic cancer in the studied European cohort</li>
+        <li><strong>Study:</strong> 7,683 European cases vs. 14,397 controls</li>
+        <li><strong>Interpretation:</strong> This patient's "risk variant" is actually slightly protective in her ancestry background — she should be reassured</li>
+        <li><strong>Caveat:</strong> Not necessarily applicable to non-European populations; conflicting data exists for Asian populations</li>
+      </ul>
+    </div>
+
+    <h3>Recommended Resources for GWAS Interpretation</h3>
+    <table>
+      <tr><th>Resource</th><th>Best For</th><th>URL</th></tr>
+      <tr><td>UCSC Genome Browser</td><td>Gene structure, SNP visualisation, variant context</td><td>genome.ucsc.edu</td></tr>
+      <tr><td>GeneCards</td><td>Brief gene overviews, aliases, disease associations</td><td>genecards.org</td></tr>
+      <tr><td>SNPedia</td><td>Clinical significance of specific SNPs</td><td>snpedia.com</td></tr>
+      <tr><td>GeneReviews (NCBI)</td><td>Detailed clinical information on genetic conditions</td><td>ncbi.nlm.nih.gov/books</td></tr>
+      <tr><td>MedlinePlus Genetics</td><td>Salient, patient-facing clinical information</td><td>medlineplus.gov/genetics</td></tr>
+      <tr><td>CancerHotspots.org</td><td>Recurrent somatic cancer mutations (hotspots)</td><td>cancerhotspots.org</td></tr>
+    </table>
+
+    <div class="exam-q">
+      <p><strong>Q:</strong> A patient brings you a DTC genetic test result showing SNP <span class="snp-code">rs4645881</span> with an OR of 1.5 and a P-value of 1 × 10⁻¹¹ in the BAX gene. How do you critically evaluate this result?</p>
+      <div class="answer">
+        <div class="label">Answer</div>
+        <p><strong>P-value:</strong> 1 × 10⁻¹¹ is well below the 5 × 10⁻⁸ genome-wide significance threshold — the association is statistically robust.<br><br>
+        <strong>Odds ratio:</strong> OR = 1.5 means this patient has 1.5× the odds of developing the associated disease compared to someone without the risk allele. This is a moderate effect — potentially clinically relevant but not deterministic.<br><br>
+        <strong>Variant location:</strong> Check whether this SNP is intronic or exonic in BAX. If intronic, it may be tagging a nearby functional variant. BAX is a pro-apoptotic gene — loss of BAX function would inhibit apoptosis, a hallmark of cancer.<br><br>
+        <strong>Population:</strong> Ask which ancestry cohort the study used; consider whether this applies to your patient.<br><br>
+        <strong>Clinical utility:</strong> Determine whether there are actionable interventions. This is a small-to-moderate increase in risk — lifestyle counselling, regular screening, and contextualising against other stronger risk factors (smoking, obesity) is appropriate. This OR does not warrant drastic intervention in isolation.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="rat-toggle">
+  <div class="rat-pill">PLOs Only Active</div>
+  <div class="font-btn-row"><span class="font-label">Text</span><button class="font-btn" onclick="changeFontSize(1)" title="Increase font size">A+</button><span class="font-sep">|</span><button class="font-btn" onclick="changeFontSize(-1)" title="Decrease font size">A−</button></div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleThemePanel()" title="Switch theme"><span>🎨</span><span>Theme</span></button>
+  <button class="rat-btn off" id="ratBtn" onclick="toggleRat()"><span id="ratIcon">⚡</span><span id="ratLabel">RAT Mode</span></button>
+</div>
+
+<!-- THEME PANEL -->
+<div class="theme-panel" id="themePanel">
+  <div class="theme-panel-title">Choose Theme</div>
+  <div class="theme-option active" data-theme="paper" onclick="setTheme('paper',this)"><div class="theme-swatch" style="background:linear-gradient(135deg,#faf7f2,#1a1209)"></div>Paper (Default)</div>
+  <div class="theme-option" data-theme="night" onclick="setTheme('night',this)"><div class="theme-swatch" style="background:linear-gradient(135deg,#0f1923,#e8b84b)"></div>Night</div>
+  <div class="theme-option" data-theme="ocean" onclick="setTheme('ocean',this)"><div class="theme-swatch" style="background:linear-gradient(135deg,#e8f4fd,#1565c0)"></div>Ocean</div>
+  <div class="theme-option" data-theme="forest" onclick="setTheme('forest',this)"><div class="theme-swatch" style="background:linear-gradient(135deg,#f0f7f0,#2e7d32)"></div>Forest</div>
+  <div class="theme-option" data-theme="sepia" onclick="setTheme('sepia',this)"><div class="theme-swatch" style="background:linear-gradient(135deg,#faf3e8,#8b4513)"></div>Sepia</div>
+</div>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <img id="lightboxImg" alt="Zoomed image">
+</div>
+
+<footer>
+  <div class="container">
+    <p>Dr. Ben Harrison · Cancer Genomics &amp; Precision Medicine · Week 43, 2025 · Block 5</p>
+    <p style="margin-top:6px;font-size:0.7rem;color:var(--border)">Study notes compiled from lecture transcript, slides, and study guide materials.</p>
+  </div>
+</footer>
+
+<script>
+const STORAGE_THEME_KEY = 'harrison-cancer-genomics-theme';
+const STORAGE_RAT_KEY = 'harrison-cancer-genomics-rat-mode';
+
+// ── RAT MODE ──
+let ratActive = false;
+function applyRatState(nextState) {
+  ratActive = !!nextState;
+  const body = document.body;
+  const btn = document.getElementById('ratBtn');
+  const icon = document.getElementById('ratIcon');
+  const label = document.getElementById('ratLabel');
+  if (ratActive) {
+    body.classList.add('rat-mode');
+    btn.classList.replace('off', 'on');
+    icon.textContent = '✕';
+    label.textContent = 'Exit RAT';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    body.classList.remove('rat-mode');
+    btn.classList.replace('on', 'off');
+    icon.textContent = '⚡';
+    label.textContent = 'RAT Mode';
+  }
+  localStorage.setItem(STORAGE_RAT_KEY, ratActive ? '1' : '0');
+}
+function toggleRat() {
+  applyRatState(!ratActive);
+}
+
+// ── THEME ──
+let themePanelOpen = false;
+function toggleThemePanel() {
+  themePanelOpen = !themePanelOpen;
+  document.getElementById('themePanel').classList.toggle('open', themePanelOpen);
+}
+function syncThemeOptions(theme) {
+  document.querySelectorAll('.theme-option').forEach(function(option) {
+    option.classList.toggle('active', option.dataset.theme === theme);
+  });
+}
+function setTheme(theme, el, skipStorage) {
+  if (theme === 'paper') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  syncThemeOptions(theme);
+  if (!skipStorage) localStorage.setItem(STORAGE_THEME_KEY, theme);
+  if (el) el.classList.add('active');
+  setTimeout(() => {
+    themePanelOpen = false;
+    document.getElementById('themePanel').classList.remove('open');
+  }, 300);
+}
+document.addEventListener('click', function(e) {
+  const panel = document.getElementById('themePanel');
+  const btn = document.getElementById('themeBtn');
+  if (themePanelOpen && !panel.contains(e.target) && !btn.contains(e.target)) {
+    themePanelOpen = false;
+    panel.classList.remove('open');
+  }
+});
+
+function initVisualState() {
+  var savedTheme = localStorage.getItem(STORAGE_THEME_KEY) || 'paper';
+  setTheme(savedTheme, null, true);
+  applyRatState(localStorage.getItem(STORAGE_RAT_KEY) === '1');
+}
+
+// ── TABLE QUIZ (fully per-table, self-contained) ──
+function initTableQuiz() {
+  document.querySelectorAll('table').forEach(function(table, ti) {
+    var headerRow = table.querySelector('tr');
+    if (!headerRow) return;
+    var headers = Array.from(headerRow.querySelectorAll('th')).map(function(th){ return th.textContent.trim(); });
+    if (!headers.length) return;
+
+    // Per-table state
+    var selectedCols = new Set();
+    var hiddenCells = new Map();
+    var quizRunning = false;
+    var revealed = 0, total = 0;
+
+    var bar = document.createElement('div');
+    bar.className = 'tq-bar';
+
+    var toggleBtn = document.createElement('button');
+    toggleBtn.className = 'tq-toggle';
+    toggleBtn.textContent = '🧩 Quiz this table';
+
+    var colsDiv = document.createElement('div');
+    colsDiv.className = 'tq-cols';
+    colsDiv.style.display = 'none';
+
+    var startBtn = document.createElement('button');
+    startBtn.className = 'tq-start';
+    startBtn.textContent = '▶ Start';
+    startBtn.disabled = true;
+    startBtn.style.display = 'none';
+
+    var scoreEl = document.createElement('span');
+    scoreEl.className = 'tq-score';
+    scoreEl.style.display = 'none';
+
+    var resetBtn = document.createElement('button');
+    resetBtn.className = 'tq-reset';
+    resetBtn.textContent = '↺ Reset';
+    resetBtn.style.display = 'none';
+
+    // Build column selector buttons
+    headers.forEach(function(h, hi) {
+      var btn = document.createElement('button');
+      btn.className = 'tq-col-btn';
+      btn.textContent = h.length > 24 ? h.substring(0,24)+'…' : h;
+      btn.onclick = function() {
+        if (quizRunning) return;
+        if (selectedCols.has(hi)) { selectedCols.delete(hi); btn.classList.remove('sel'); }
+        else { selectedCols.add(hi); btn.classList.add('sel'); }
+        startBtn.disabled = selectedCols.size === 0;
+      };
+      colsDiv.appendChild(btn);
+    });
+
+    toggleBtn.onclick = function() {
+      if (quizRunning) return;
+      var isOpen = colsDiv.style.display !== 'none';
+      if (isOpen) {
+        colsDiv.style.display = 'none';
+        startBtn.style.display = 'none';
+        toggleBtn.classList.remove('active');
+        selectedCols.clear();
+        colsDiv.querySelectorAll('.tq-col-btn').forEach(function(b){ b.classList.remove('sel'); });
+        startBtn.disabled = true;
+      } else {
+        colsDiv.style.display = 'flex';
+        startBtn.style.display = 'inline-block';
+        toggleBtn.classList.add('active');
+      }
+    };
+
+    startBtn.onclick = function() {
+      if (selectedCols.size === 0) return;
+      quizRunning = true;
+      revealed = 0; total = 0;
+      hiddenCells.clear();
+
+      table.querySelectorAll('tr').forEach(function(row, ri) {
+        if (ri === 0) return;
+        var cells = row.querySelectorAll('td');
+        selectedCols.forEach(function(hi) {
+          if (cells[hi]) {
+            var cell = cells[hi];
+            var originalHTML = cell.innerHTML;
+            hiddenCells.set(cell, originalHTML);
+            cell.innerHTML = '<div class="tq-cell-content">' + originalHTML + '</div>';
+            cell.classList.add('quiz-hidden-cell');
+            cell.onclick = function() {
+              if (!cell.classList.contains('quiz-hidden-cell')) return;
+              cell.classList.remove('quiz-hidden-cell');
+              cell.innerHTML = hiddenCells.get(cell);
+              cell.onclick = null;
+              revealed++;
+              updateScore();
+            };
+            total++;
+          }
+        });
+      });
+
+      // Switch UI to quiz mode
+      toggleBtn.style.display = 'none';
+      colsDiv.style.display = 'none';
+      startBtn.style.display = 'none';
+      scoreEl.style.display = 'inline';
+      resetBtn.style.display = 'inline-block';
+      updateScore();
+    };
+
+    resetBtn.onclick = function() {
+      hiddenCells.forEach(function(html, cell) {
+        cell.classList.remove('quiz-hidden-cell');
+        cell.innerHTML = html;
+        cell.onclick = null;
+      });
+      hiddenCells.clear();
+      selectedCols.clear();
+      quizRunning = false;
+      revealed = 0; total = 0;
+      // Restore UI
+      scoreEl.style.display = 'none';
+      scoreEl.classList.remove('done');
+      resetBtn.style.display = 'none';
+      toggleBtn.style.display = 'inline-block';
+      toggleBtn.classList.remove('active');
+      colsDiv.style.display = 'none';
+      startBtn.style.display = 'none';
+      startBtn.disabled = true;
+      colsDiv.querySelectorAll('.tq-col-btn').forEach(function(b){ b.classList.remove('sel'); });
+    };
+
+    function updateScore() {
+      var done = revealed === total && total > 0;
+      scoreEl.textContent = revealed + ' / ' + total + ' revealed' + (done ? ' 🎉' : '');
+      if (done) scoreEl.classList.add('done');
+    }
+
+    bar.appendChild(toggleBtn);
+    bar.appendChild(colsDiv);
+    bar.appendChild(startBtn);
+    bar.appendChild(scoreEl);
+    bar.appendChild(resetBtn);
+    table.parentNode.insertBefore(bar, table);
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  initVisualState();
+  initTableQuiz();
+});
+
+// ── FONT SIZE ──
+let currentFontSize = 16;
+function changeFontSize(delta) {
+  currentFontSize = Math.min(24, Math.max(12, currentFontSize + delta));
+  document.body.style.fontSize = currentFontSize + 'px';
+}
+
+// ── LIGHTBOX ──
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+function openLightbox(img) {
+  lightboxImg.src = img.src;
+  lightbox.classList.add('active');
+  lightbox.setAttribute('aria-hidden', 'false');
+}
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  lightbox.setAttribute('aria-hidden', 'true');
+  lightboxImg.src = '';
+}
+document.querySelectorAll('.slide-img').forEach(img => {
+  img.addEventListener('click', () => openLightbox(img));
+});
+lightbox.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>

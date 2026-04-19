@@ -52,6 +52,35 @@ Define all colors as variables so RAT mode and themes can override them cleanly:
   --rat-muted: #9fb9cd;
   --rat-green: #3dba7a;
   --rat-red: #e05252;
+
+  /* Hero-specific vars (override per-theme for correct contrast) */
+  --hero-heading: #f5ede0;
+  --hero-sub: #c9bcad;
+  --hero-meta-bg: rgba(255,255,255,0.07);
+  --hero-meta-border: rgba(255,255,255,0.12);
+  --hero-meta-label: #8a7a6a;
+  --hero-meta-value: #f0e0c8;
+
+  /* Floating UI (font control, controls bar) */
+  --floating-ui-bg: #3a3030;
+  --floating-ui-fg: #f5ede0;
+  --floating-ui-shadow: 0 3px 12px rgba(0,0,0,0.2);
+
+  /* Table quiz cell overlay */
+  --quiz-overlay: rgba(44,111,173,0.5);
+  --quiz-overlay-hover: rgba(44,111,173,0.78);
+
+  /* Semantic RAT mode aliases — use these in component RAT-mode overrides */
+  --rat-mode-bg: #0f1923;
+  --rat-mode-surface: #162030;
+  --rat-mode-surface-alt: #0f1923;
+  --rat-mode-border: #1e3048;
+  --rat-mode-text: #dce8f0;
+  --rat-mode-text-soft: #c8d8e8;
+  --rat-mode-muted: #9fb9cd;
+  --rat-mode-accent: #e8b84b;
+  --rat-mode-accent2: #4aa8d8;
+  --rat-mode-success: #3dba7a;
 }
 ```
 
@@ -72,7 +101,7 @@ The page supports 5 visual themes via a `data-theme` attribute on the `<html>` e
 | Sepia | Warm tan + brown | `sepia` |
 
 ### Theme CSS Structure
-Each theme overrides the `:root` CSS variables. Example:
+Each theme overrides **all** `:root` CSS variables — not just the core palette, but also the hero, floating-ui, quiz-overlay, and rat-mode semantic aliases. Example (Night theme, abbreviated):
 
 ```css
 [data-theme="night"] {
@@ -81,14 +110,45 @@ Each theme overrides the `:root` CSS variables. Example:
   --cream: #162030;
   --accent: #e8b84b;
   --accent2: #4aa8d8;
-  /* ... remaining variable overrides ... */
+  /* ... remaining base variables ... */
+
+  /* Hero vars */
+  --hero-heading: #f4f9ff;
+  --hero-sub: #b8cad8;
+  --hero-meta-bg: rgba(255,255,255,0.08);
+  --hero-meta-border: rgba(255,255,255,0.12);
+  --hero-meta-label: #8fa4b8;
+  --hero-meta-value: #f4f9ff;
+
+  /* Floating UI */
+  --floating-ui-bg: #070e15;
+  --floating-ui-fg: #f4f9ff;
+  --floating-ui-shadow: 0 3px 12px rgba(0,0,0,0.36);
+
+  /* Quiz overlay */
+  --quiz-overlay: rgba(74,168,216,0.42);
+  --quiz-overlay-hover: rgba(74,168,216,0.62);
+
+  /* RAT mode semantic aliases */
+  --rat-mode-bg: #08111a;
+  --rat-mode-surface: #101b27;
+  --rat-mode-surface-alt: #0b1520;
+  --rat-mode-border: #223247;
+  --rat-mode-text: #e0e8f0;
+  --rat-mode-text-soft: #c7d6e3;
+  --rat-mode-muted: #94abc0;
+  --rat-mode-accent: #e8b84b;
+  --rat-mode-accent2: #4aa8d8;
+  --rat-mode-success: #57c98c;
 }
 /* Then override specific components that need more than variable swaps: */
 [data-theme="night"] .hero { background: #070e15; }
-[data-theme="night"] .toc-bar { background: #070e15; }
-[data-theme="night"] .drug-card { background: #162030; border-color: #1e3048; }
-[data-theme="night"] .compare-card.antiresorptive { background: linear-gradient(...); }
+[data-theme="night"] .toc-bar { background: #070e15; border-color: #1e3048; }
+[data-theme="night"] .drug-card, [data-theme="night"] .hallmark-card,
+[data-theme="night"] .p53-card, [data-theme="night"] .tech-card { background: #162030; border-color: #1e3048; }
 ```
+
+> **Rule:** Every theme must override all four variable groups: base palette, hero vars, floating-ui vars, and rat-mode aliases. Copy the full block from a reference file rather than writing it from scratch — it's easy to miss a variable.
 
 ### Theme Switcher HTML (in fixed bottom-right controls)
 ```html
@@ -115,16 +175,26 @@ Each theme overrides the `:root` CSS variables. Example:
 
 ### Theme Switcher JS
 ```js
+const STORAGE_THEME_KEY = 'lecture-theme'; // use a unique key per lecture file
+
 let themePanelOpen = false;
 function toggleThemePanel() {
   themePanelOpen = !themePanelOpen;
   document.getElementById('themePanel').classList.toggle('open', themePanelOpen);
 }
-function setTheme(theme, el) {
-  document.documentElement.setAttribute('data-theme', theme === 'paper' ? '' : theme);
-  if (theme === 'paper') document.documentElement.removeAttribute('data-theme');
-  document.querySelectorAll('.theme-option').forEach(o => o.classList.remove('active'));
-  el.classList.add('active');
+function syncThemeOptions(theme) {
+  document.querySelectorAll('.theme-option').forEach(function(option) {
+    option.classList.toggle('active', option.dataset.theme === theme);
+  });
+}
+function setTheme(theme, el, skipStorage) {
+  if (theme === 'paper') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  syncThemeOptions(theme);
+  if (!skipStorage) localStorage.setItem(STORAGE_THEME_KEY, theme);
   setTimeout(() => {
     themePanelOpen = false;
     document.getElementById('themePanel').classList.remove('open');
@@ -140,6 +210,8 @@ document.addEventListener('click', function(e) {
   }
 });
 ```
+
+> **Upgrade from older version:** `setTheme()` now accepts a third `skipStorage` parameter and delegates active-class sync to `syncThemeOptions()`. The old approach of querying `.theme-option` inside `setTheme()` is replaced by this helper.
 
 ---
 
@@ -342,12 +414,88 @@ Dark card with a hidden/revealed answer. The red "EXAM Q" label is injected via 
 ```
 
 ### 5.11 Slide Image + Caption
-Images are click-to-zoom via lightbox. Use descriptive `alt` text.
+Images use `.slide-img` and are automatically wired to the click-to-zoom lightbox by the JS at the bottom of the file. Always add a `.slide-caption` below.
 
 ```html
-<img src="path/to/slide.png" alt="Description" class="slide-img">
+<img src="path/to/slide.png" alt="Description of image content" class="slide-img">
 <p class="slide-caption">Slide N — Title of Slide</p>
 ```
+
+#### Option A — Relative path (simplest, but file must travel with the HTML)
+Point `src` at a file next to (or in a subfolder of) the HTML file. The page will only display correctly if the image file is present in the same relative location.
+
+```html
+<img src="slides/slide-04-cell-cycle.png" alt="Cell cycle diagram" class="slide-img">
+<p class="slide-caption">Slide 4 — Cell Cycle Overview</p>
+```
+
+This is fine while working locally, but **breaks if you send the HTML file without the images folder**.
+
+#### Option B — Base64 inline (self-contained, recommended for sharing)
+Embed the image data directly in the `src` attribute. The file becomes larger but is completely portable — one file, no dependencies.
+
+**How to get the base64 string:**
+
+*In a terminal (macOS/Linux):*
+```bash
+base64 -i slide-04.png | tr -d '\n'
+```
+
+*In Python (any OS):*
+```python
+import base64
+with open("slide-04.png", "rb") as f:
+    print(base64.b64encode(f.read()).decode())
+```
+
+*In a browser console (if you already have the file open):*
+```js
+// Paste this into DevTools console after dragging the image into a tab
+const img = document.querySelector('img');
+const canvas = document.createElement('canvas');
+canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+canvas.getContext('2d').drawImage(img, 0, 0);
+console.log(canvas.toDataURL('image/png'));
+```
+
+**Then paste the result into the HTML:**
+```html
+<img
+  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
+  alt="Cell cycle diagram"
+  class="slide-img"
+>
+<p class="slide-caption">Slide 4 — Cell Cycle Overview</p>
+```
+
+Use `image/jpeg` for JPEGs and `image/webp` for WebP files:
+```html
+src="data:image/jpeg;base64,/9j/4AAQSkZJRgAB..."
+src="data:image/webp;base64,UklGRlAA..."
+```
+
+#### Option C — Paste a screenshot directly (Claude workflow)
+If you're asking Claude to build the notes file, you can paste or upload screenshots of lecture slides directly in the chat. Claude will embed them as base64 automatically and place them with the correct `.slide-img` + `.slide-caption` markup.
+
+#### Sizing and layout notes
+- `.slide-img` is `width: 100%` by default — it fills the content column (max 860px)
+- To display two images side by side, wrap them in a flex container:
+
+```html
+<div style="display:flex; gap:16px; margin:16px 0;">
+  <div style="flex:1;">
+    <img src="..." alt="..." class="slide-img" style="margin:0;">
+    <p class="slide-caption">Slide 3A</p>
+  </div>
+  <div style="flex:1;">
+    <img src="..." alt="..." class="slide-img" style="margin:0;">
+    <p class="slide-caption">Slide 3B</p>
+  </div>
+</div>
+```
+
+- To constrain a small image to half-width, use `style="width:50%;"` on the `<img>`
+- The lightbox always shows the image at its natural size (up to 92vw / 88vh), so high-resolution source images zoom in nicely
 
 ### 5.12 Drug Grid / Drug Card
 Auto-fit card grid for listing individual drugs within a class. Similar visual structure to the Hallmarks Grid, but with a blue top border and a `.generic` subtitle line for dosing/route info. Use one `.drug-card` per drug.
@@ -422,9 +570,69 @@ Visual horizontal bar for representing relative potency. Set width as a percenta
 </div>
 ```
 
----
+### 5.17 Font Size Control
+A floating A+/A− control rendered as part of the `.rat-toggle` stack. Adjusts `document.body.style.fontSize` between 12px and 24px. No external state — resets to 16px on page reload.
 
-## 6. RAT Mode System
+```html
+<!-- Inside .rat-toggle, above the theme-btn -->
+<div class="font-btn-row">
+  <span class="font-label">Text</span>
+  <button class="font-btn" onclick="changeFontSize(1)" title="Increase font size">A+</button>
+  <span class="font-sep">|</span>
+  <button class="font-btn" onclick="changeFontSize(-1)" title="Decrease font size">A−</button>
+</div>
+```
+
+```css
+.font-btn-row { display: flex; align-items: center; background: var(--floating-ui-bg);
+  color: var(--floating-ui-fg); padding: 7px 10px; border-radius: 30px;
+  box-shadow: var(--floating-ui-shadow); font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem; letter-spacing: 0.1em; gap: 2px; }
+.font-btn { background: none; border: none; cursor: pointer; color: var(--floating-ui-fg);
+  font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1rem;
+  padding: 2px 8px; border-radius: 6px; transition: background 0.15s; line-height: 1; }
+.font-btn:hover { background: rgba(255,255,255,0.18); }
+.font-sep { color: rgba(255,255,255,0.2); padding: 0 3px; }
+.font-label { font-size: 0.58rem; opacity: 0.7; padding: 0 5px;
+  text-transform: uppercase; letter-spacing: 0.1em; }
+```
+
+```js
+let currentFontSize = 16;
+function changeFontSize(delta) {
+  currentFontSize = Math.min(24, Math.max(12, currentFontSize + delta));
+  document.body.style.fontSize = currentFontSize + 'px';
+}
+```
+
+Add RAT mode override in the `body.rat-mode` block:
+```css
+body.rat-mode .font-btn-row { background: var(--rat-mode-surface-alt) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode .font-btn { color: var(--rat-mode-text) !important; }
+body.rat-mode .font-sep, body.rat-mode .font-label { color: var(--rat-mode-muted) !important; }
+```
+
+### 5.18 Inline Text Elements (Domain-Specific)
+Two inline elements for genetics/genomics content. Can be adapted for other domains.
+
+```html
+<!-- SNP identifier chip — monospaced, cream background -->
+<span class="snp-code">rs2736098</span>
+
+<!-- Gene name — blue, monospaced, slightly smaller -->
+<span class="gene-tag">TP53</span>
+```
+
+```css
+.snp-code { font-family: 'JetBrains Mono', monospace; background: var(--cream);
+  border: 1px solid var(--border); padding: 2px 7px; border-radius: 4px; font-size: 0.82rem; }
+.gene-tag { font-family: 'JetBrains Mono', monospace; color: var(--accent2);
+  font-size: 0.88rem; font-weight: 500; }
+```
+
+> These are deliberately un-themed (they inherit well from variable-based colors), so no per-theme overrides are needed. Adapt names for other domains — e.g. `.drug-code`, `.pathway-tag`.
+
+
 
 ### How it works
 - `body.rat-mode` is toggled by `toggleRat()` in JS
@@ -438,16 +646,18 @@ Each PLO section should have a `data-mode="rat-only"` div at the top containing:
 1. A `.rat-plo-header` with the PLO stated verbatim and a study tip
 2. A `.rat-checklist` summarizing the 4–6 most testable facts for that PLO
 
-### Toggle button (fixed bottom-right — now part of a 3-button stack)
-The RAT Mode button is now the bottom button in a stack that also includes Theme and Quiz. All three live inside `.rat-toggle`.
+### Toggle button (fixed bottom-right — a stacked control bar)
+The RAT Mode button sits at the bottom of a fixed stack that also includes a Font Size control and Theme switcher. All live inside `.rat-toggle`.
 
 ```html
 <div class="rat-toggle">
   <div class="rat-pill">PLOs Only Active</div>
-  <button class="quiz-btn" id="quizBtn" onclick="toggleQuizPanel()">
-    <span>🧩</span>
-    <span id="quizBtnLabel">Table Quiz</span>
-  </button>
+  <div class="font-btn-row">
+    <span class="font-label">Text</span>
+    <button class="font-btn" onclick="changeFontSize(1)" title="Increase font size">A+</button>
+    <span class="font-sep">|</span>
+    <button class="font-btn" onclick="changeFontSize(-1)" title="Decrease font size">A−</button>
+  </div>
   <button class="theme-btn" id="themeBtn" onclick="toggleThemePanel()" title="Switch theme">
     <span>🎨</span>
     <span>Theme</span>
@@ -459,11 +669,15 @@ The RAT Mode button is now the bottom button in a stack that also includes Theme
 </div>
 ```
 
+> **Note:** The separate Table Quiz button has been removed from this stack. Quiz controls are now injected inline above each table by JavaScript — see Section 7.
+
 ### JS (RAT Mode — paste at end of `<body>`)
 ```js
+const STORAGE_RAT_KEY = 'lecture-rat-mode'; // use a unique key per lecture file
+
 let ratActive = false;
-function toggleRat() {
-  ratActive = !ratActive;
+function applyRatState(nextState) {
+  ratActive = !!nextState;
   const body = document.body;
   const btn = document.getElementById('ratBtn');
   const icon = document.getElementById('ratIcon');
@@ -480,52 +694,97 @@ function toggleRat() {
     icon.textContent = '⚡';
     label.textContent = 'RAT Mode';
   }
+  localStorage.setItem(STORAGE_RAT_KEY, ratActive ? '1' : '0');
+}
+function toggleRat() {
+  applyRatState(!ratActive);
 }
 ```
+
+### Persistence: restoring state on load
+Call `initVisualState()` on `DOMContentLoaded` to restore both theme and RAT mode from `localStorage`:
+
+```js
+function initVisualState() {
+  var savedTheme = localStorage.getItem(STORAGE_THEME_KEY) || 'paper';
+  setTheme(savedTheme, null, true); // skipStorage=true avoids re-writing same value
+  applyRatState(localStorage.getItem(STORAGE_RAT_KEY) === '1');
+}
+document.addEventListener('DOMContentLoaded', function() {
+  initVisualState();
+  initTableQuiz(); // see Section 7
+});
+```
+
+> **Storage key naming:** Use a unique key per lecture file (e.g. `'harrison-cancer-genomics-theme'`) so that different lecture files don't overwrite each other's saved state.
 
 ---
 
 ## 7. Table Quiz System
 
-An interactive self-testing feature. Users open the quiz panel, select which columns of which tables to hide, start the quiz, then click hidden cells to reveal answers one by one. A score bar tracks progress.
+An interactive self-testing feature. A quiz toolbar (`.tq-bar`) is **automatically injected above every `<table>` by JavaScript** — no manual HTML needed. Users select columns to hide, start the quiz, then click blurred cells to reveal answers one by one.
 
-### How it works
-1. User clicks **Table Quiz** button → right-side `.quiz-panel` slides in
-2. Panel auto-detects all `<table>` elements on the page, labeled by the nearest heading above them
-3. User clicks column name buttons to select which columns to hide
-4. User clicks **Start Quiz** → selected column cells become blue tiles with "?" 
-5. Clicking any hidden cell reveals its original content and increments the score
-6. Score bar shows `revealed / total` with a progress fill
-7. Reset restores all cells and reopens the panel
+### How it works (per-table inline approach)
+1. On `DOMContentLoaded`, `initTableQuiz()` loops over all `<table>` elements
+2. For each table it injects a `.tq-bar` directly above the table in the DOM
+3. User clicks **🧩 Quiz this table** → column name buttons appear
+4. User selects which columns to hide → **▶ Start** button enables
+5. On Start: selected column cells are wrapped in `.tq-cell-content` (content blurred) and the cell gets `.quiz-hidden-cell` class + a "tap to reveal" overlay
+6. Clicking a hidden cell removes the class and restores the original HTML
+7. A live `N / total revealed` score shows in the toolbar; displays 🎉 on completion
+8. **↺ Reset** restores all cells and returns the toolbar to its initial state
 
-### Required HTML (place before `</body>`)
-```html
-<!-- QUIZ SCORE BAR (fixed top, hidden until quiz starts) -->
-<div class="quiz-score-bar" id="quizScoreBar">
-  <span>📊 QUIZ MODE</span>
-  <span class="score-num" id="quizScoreText">0 / 0</span>
-  <div class="quiz-progress-track">
-    <div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div>
-  </div>
-  <span id="quizCompleteMsg" class="quiz-complete-msg" style="display:none">🎉 Complete!</span>
-</div>
+### Required CSS
+```css
+/* Inline quiz toolbar — injected above each table */
+.tq-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 6px; padding: 8px 12px; background: var(--cream);
+  border: 1px solid var(--border); border-radius: 8px; }
+.tq-toggle { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent2);
+  color: #fff; border: none; border-radius: 20px; padding: 5px 12px; cursor: pointer; }
+.tq-toggle.active { background: var(--accent); }
+.tq-cols { display: flex; flex-wrap: wrap; gap: 5px; flex: 1; }
+.tq-col-btn { font-size: 0.72rem; padding: 3px 9px; border: 1px solid var(--border);
+  border-radius: 12px; background: var(--paper); cursor: pointer;
+  font-family: 'JetBrains Mono', monospace; transition: all 0.15s; }
+.tq-col-btn.sel { background: var(--accent2); color: #fff; border-color: var(--accent2); }
+.tq-start { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  background: #2e7d32; color: #fff; border: none; border-radius: 20px; padding: 5px 12px; cursor: pointer; }
+.tq-start:disabled { opacity: 0.35; cursor: not-allowed; }
+.tq-reset { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+  background: #b5341a; color: #fff; border: none; border-radius: 20px; padding: 5px 13px; cursor: pointer; }
+.tq-score { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.tq-score.done { color: #2e7d32; font-weight: 700; }
 
-<!-- QUIZ PANEL (fixed right side) -->
-<div class="quiz-panel" id="quizPanel">
-  <button class="quiz-close-btn" onclick="toggleQuizPanel()" title="Close">✕</button>
-  <div class="quiz-panel-title">Table Quiz</div>
-  <div class="quiz-panel-sub">Select columns to test yourself</div>
-  <div id="quizTableList"></div>
-  <button class="quiz-start-btn" id="quizStartBtn" onclick="startQuiz()" disabled>▶ Start Quiz</button>
-  <button class="quiz-reset-btn" id="quizResetBtn" onclick="resetQuiz()" style="display:none">↺ Reset All</button>
-</div>
+/* Hidden cell: content blurred, overlay shows "tap to reveal" */
+.quiz-hidden-cell { position: relative !important; cursor: pointer !important; }
+.quiz-hidden-cell .tq-cell-content { filter: blur(5px) !important; user-select: none !important;
+  pointer-events: none !important; opacity: 0.4 !important; }
+.quiz-hidden-cell::after { content: 'tap to reveal' !important; position: absolute !important;
+  inset: 0 !important; display: flex !important; align-items: center !important;
+  justify-content: center !important; background: var(--quiz-overlay) !important;
+  color: #fff !important; font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.6rem !important; font-weight: 700 !important; letter-spacing: 0.12em !important;
+  text-transform: uppercase !important; border-radius: 4px !important; }
+.quiz-hidden-cell:hover::after { background: var(--quiz-overlay-hover) !important; }
+```
+
+Also add RAT mode overrides for the quiz toolbar in the `body.rat-mode ...` block:
+```css
+body.rat-mode .tq-bar { background: var(--rat-mode-surface) !important; border-color: var(--rat-mode-border) !important; }
+body.rat-mode .tq-score { color: var(--rat-mode-muted) !important; }
+body.rat-mode .tq-col-btn { background: var(--rat-mode-bg) !important; border-color: var(--rat-mode-border) !important; color: var(--rat-mode-text) !important; }
+body.rat-mode .tq-col-btn.sel { background: var(--rat-mode-accent2) !important; border-color: var(--rat-mode-accent2) !important; color: #08111a !important; }
 ```
 
 ### No special markup needed on tables
-The quiz JS automatically queries all `<table>` elements. No classes or `data-` attributes are needed on individual tables. The panel labels each table using the nearest `h2`, `h3`, or `h4` found above it in the DOM.
+The quiz JS automatically queries all `<table>` elements. No classes or `data-` attributes are required. Column labels are read from `<th>` text content.
 
-### JS (Table Quiz — paste alongside RAT mode and theme JS)
-The quiz JS manages: `buildQuizPanel()`, `updateQuizStartBtn()`, `toggleQuizPanel()`, `startQuiz()`, `revealCell()`, `updateQuizScoreBar()`, `resetQuiz()`. Copy the full block from the source file — it is ~130 lines and manages all state internally via `quizSelections` map and `originalCellContent` Map.
+### JS (Table Quiz — call `initTableQuiz()` from `DOMContentLoaded`)
+`initTableQuiz()` is ~130 lines. It creates per-table state (selectedCols Set, hiddenCells Map, running flag, score counters) and builds the entire `.tq-bar` DOM dynamically. Copy the full function from the source file — key functions inside: `toggleBtn.onclick`, `startBtn.onclick`, `resetBtn.onclick`, `updateScore()`.
+
+> **Architecture note:** This replaces the older global `.quiz-panel` / `.quiz-score-bar` approach. There is no longer a single quiz panel or a quiz button in the floating controls — everything is self-contained per table.
 
 ---
 
@@ -581,6 +840,12 @@ When adding a new topic section, go through this checklist:
 - [ ] Add `.rems-badge` inline for any drug with an FDA REMS program
 - [ ] RAT banner text updated to name all covered PLOs
 
+When setting up a new lecture file:
+
+- [ ] `STORAGE_THEME_KEY` and `STORAGE_RAT_KEY` constants are unique to this file
+- [ ] `initVisualState()` and `initTableQuiz()` both called in `DOMContentLoaded`
+- [ ] All four theme variable groups overridden in each `[data-theme="..."]` block
+
 ---
 
 ## 10. Adapting for a New Lecture
@@ -591,7 +856,10 @@ When adding a new topic section, go through this checklist:
 4. **Pick the right components** — use drug grids for drug class breakdowns, compare grids for binary contrasts, step lists for processes, hallmark grids for enumerated concepts, p53 grid for function lists
 5. **Write RAT summaries first** — the `rat-plo-header` + `rat-checklist` for each PLO forces you to identify the most testable content before writing the full notes
 6. **Keep the color system** — don't introduce new colors; map new content onto existing callout types. Use `.box-warning` for regulatory/safety warnings, `.callout-warning` for clinical pitfalls.
-7. **Theme system is plug-and-play** — copy the theme CSS block and JS verbatim; no edits needed per lecture
+7. **Theme system is plug-and-play** — copy the full theme CSS block (all four variable groups) and JS verbatim; no edits needed per lecture
+8. **Change the localStorage keys** — update `STORAGE_THEME_KEY` and `STORAGE_RAT_KEY` constants to a unique per-lecture string so different files don't share state
+9. **Table Quiz is automatic** — `initTableQuiz()` requires no per-table setup; just include it and call it from `DOMContentLoaded`
+10. **Font size control** — copy the `.font-btn-row` HTML and `changeFontSize()` JS verbatim; no edits needed
 
 ---
 
@@ -600,4 +868,4 @@ When adding a new topic section, go through this checklist:
 - Single `.html` file, no external dependencies except Google Fonts CDN
 - Works offline if fonts are cached
 - No framework, no build step — just open in a browser
-- Images can be embedded as base64 `src` for true portability, or referenced as relative paths
+- **Images:** use base64-embedded `src` for true portability (one file, zero broken images); use relative paths only if the image folder will always travel with the HTML — see Section 5.11 for the full workflow

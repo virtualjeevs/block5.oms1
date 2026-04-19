@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cancer Metabolism — PLO Quiz · Filippakis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #1A7A6D; --teal-deep: #125E54; --teal-light: #E3F5F2;
+  --teal-mid: #2BA393; --teal-glow: #3EC4B2;
+  --navy: #1B2A4A; --navy2: #12203C;
+  --coral: #E07A5F; --coral-bg: #FEF0EB;
+  --gold: #D4A843; --gold-bg: #FDF6E3; --gold-warm: #E8C76A;
+  --plum: #7B5EA7; --plum-bg: #F3EEF9;
+  --sky: #4A9AE8; --sky-bg: #EAF2FC;
+  --warm: #FBF8F3; --cream: #F6F3EC; --white: #FFFFFF;
+  --ink: #1E1E20; --ink2: #3E4555; --slate: #6B7689; --mist: #A0AAB8;
+  --rule: #DBD5C9; --rule2: #E9E4DA;
+  --green: #2D8659; --green-bg: #E8F5EE;
+  --red: #C44040; --red-bg: #FDF0F0;
+  --amber: #C07B1A; --amber-bg: #FEF5E6;
+  --r: 14px; --rs: 8px;
+  --sh: 0 1px 4px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.03);
+  --sh2: 0 8px 32px rgba(0,0,0,.08);
+  --sh3: 0 12px 48px rgba(0,0,0,.10);
+  --tr: .25s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { font-size:16px; }
+body { font-family:'Nunito',sans-serif; background:var(--cream); color:var(--ink); -webkit-font-smoothing:antialiased; }
+
+/* ── LAUNCH ── */
+.launch-wrap {
+  min-height:100vh; display:grid; place-items:center; padding:32px;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(62,196,178,.16),transparent 28%),
+    radial-gradient(circle at 82% 20%,rgba(123,94,167,.12),transparent 30%),
+    linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%);
+}
+.launch-card {
+  max-width:720px; width:100%;
+  background:rgba(255,255,255,.82); backdrop-filter:blur(10px);
+  border-radius:28px; border:1px solid rgba(18,32,60,.08);
+  box-shadow:0 24px 80px rgba(18,32,60,.12); padding:44px 40px;
+}
+.launch-card h1 {
+  font-family:'Crimson Pro',serif; font-weight:800; font-size:2.6rem;
+  line-height:1.1; color:var(--navy); margin-bottom:14px;
+}
+.launch-card h1 span { color:var(--teal); }
+.launch-card p { color:var(--slate); font-size:1.05rem; line-height:1.6; margin-bottom:22px; }
+.launch-meta { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:30px; }
+.chip {
+  display:inline-flex; align-items:center; padding:7px 14px; border-radius:999px;
+  background:var(--white); border:1px solid var(--rule2);
+  font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink2); gap:6px;
+}
+.chip.plo1 { background:#E3F5F2; border-color:#1A7A6D; color:#125E54; }
+.chip.plo2 { background:var(--plum-bg); border-color:#7B5EA7; color:#6247a1; }
+.chip.plo3 { background:var(--gold-bg); border-color:#D4A843; color:#a07828; }
+.launch-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:14px 30px; border-radius:999px; border:none; cursor:pointer;
+  font-family:'Nunito',sans-serif; font-weight:800; font-size:1rem;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; box-shadow:0 4px 16px rgba(26,122,109,.28);
+  transition:all var(--tr);
+}
+.launch-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(26,122,109,.35); }
+
+/* ── QUIZ OVERLAY ── */
+.qo {
+  display:none; position:fixed; inset:0; z-index:200; overflow-y:auto;
+  background:
+    radial-gradient(circle at 10% 0%,rgba(62,196,178,.15),transparent 24%),
+    radial-gradient(circle at 92% 8%,rgba(123,94,167,.13),transparent 22%),
+    linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%);
+}
+.qo.open { display:block; animation:fi .35s cubic-bezier(.4,0,.2,1); }
+.qo.closing { display:block; pointer-events:none; animation:fo .34s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes fi { from{opacity:0;transform:scale(.985)} to{opacity:1;transform:none} }
+@keyframes fo { from{opacity:1} to{opacity:0} }
+
+/* ── TOP BAR ── */
+.qt-bar {
+  position:sticky; top:0; z-index:12;
+  padding:16px 26px; display:flex; align-items:center; justify-content:space-between; gap:14px;
+  color:#fff;
+  background:linear-gradient(135deg,rgba(18,32,60,.96),rgba(27,42,74,.93));
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(16px); box-shadow:0 10px 28px rgba(18,32,60,.18);
+}
+.qt-bar h2 { font-family:'Crimson Pro',serif; font-weight:700; font-size:1.25rem; white-space:nowrap; }
+.qt-btns { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.fs-ctrl {
+  display:flex; align-items:center; gap:4px;
+  background:rgba(255,255,255,.08); border-radius:999px; padding:5px 10px;
+}
+.fs-label { font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(255,255,255,.55); margin-right:4px; }
+.fs-btn {
+  background:none; border:none; color:rgba(255,255,255,.7); cursor:pointer;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+  padding:3px 7px; border-radius:6px; transition:background var(--tr);
+}
+.fs-btn:hover,.fs-btn.active { background:rgba(255,255,255,.15); color:#fff; }
+.qt-btn {
+  padding:8px 16px; border-radius:999px; border:none; cursor:pointer;
+  font-family:'Nunito',sans-serif; font-weight:700; font-size:.82rem;
+  transition:all var(--tr);
+}
+.qt-btn.reset { background:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
+.qt-btn.reset:hover { background:rgba(255,255,255,.18); color:#fff; }
+.qt-btn.close { background:rgba(224,122,95,.2); color:#E07A5F; }
+.qt-btn.close:hover { background:rgba(224,122,95,.35); }
+
+/* ── PROGRESS BAR ── */
+.qpb { height:3px; background:rgba(255,255,255,.1); position:relative; }
+.qpf {
+  height:100%; border-radius:0 2px 2px 0;
+  background:linear-gradient(90deg,var(--teal),var(--teal-glow));
+  transition:width .4s var(--tr);
+}
+
+/* ── LAYOUT ── */
+.qin {
+  max-width:1120px; margin:0 auto;
+  display:grid; grid-template-columns:280px 1fr;
+  padding:28px 24px 80px; gap:20px;
+}
+
+/* ── LEFT COLUMN ── */
+.q-left { display:flex; flex-direction:column; gap:14px; }
+
+.score-panel, .mode-toggle, .timer-panel, .tool-panel, .exam-submit-row {
+  background:rgba(255,255,255,.82); backdrop-filter:blur(8px);
+  border-radius:var(--r); border:1px solid var(--rule); padding:16px;
+  box-shadow:var(--sh);
+}
+.score-panel { animation:slideUp .4s cubic-bezier(.4,0,.2,1) both; }
+.mode-toggle  { animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both; }
+.timer-panel  { animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both; }
+.tool-panel   { animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both; }
+@keyframes slideUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+
+.panel-label {
+  font-family:'IBM Plex Mono',monospace; font-size:10px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--mist);
+  margin-bottom:10px;
+}
+
+/* Score */
+.score-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.sv {
+  padding:10px; border-radius:var(--rs); text-align:center;
+  background:var(--warm); border:1px solid var(--rule2);
+}
+.sv.correct { background:var(--green-bg); border-color:var(--green); }
+.sv.incorrect { background:var(--red-bg); border-color:var(--red); }
+.sv-num {
+  font-family:'Crimson Pro',serif; font-size:2rem; font-weight:700; line-height:1;
+  color:var(--ink);
+}
+.sv.correct .sv-num { color:var(--green); }
+.sv.incorrect .sv-num { color:var(--red); }
+.sv-lbl { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--mist); margin-top:2px; }
+.sv-current { margin-top:8px; text-align:center; font-size:.82rem; color:var(--slate); }
+
+/* Mode toggle */
+.mt-row { display:flex; gap:8px; }
+.mt-btn {
+  flex:1; padding:9px; border-radius:var(--rs); border:1px solid var(--rule);
+  background:var(--warm); cursor:pointer;
+  font-family:'Nunito',sans-serif; font-weight:700; font-size:.82rem; color:var(--slate);
+  transition:all var(--tr);
+}
+.mt-btn.active { background:var(--teal); border-color:var(--teal); color:#fff; }
+
+/* Timer */
+.timer-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.timer-cell { text-align:center; }
+.timer-val {
+  font-family:'IBM Plex Mono',monospace; font-size:1.5rem; font-weight:600;
+  color:var(--navy); line-height:1;
+}
+.timer-lbl { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--mist); margin-top:2px; }
+
+/* Tools */
+.tool-grid { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.tool-btn {
+  padding:8px 4px; border-radius:var(--rs); border:1px solid var(--rule);
+  background:var(--warm); cursor:pointer;
+  font-family:'Nunito',sans-serif; font-weight:600; font-size:.8rem; color:var(--ink2);
+  text-align:center; transition:all var(--tr);
+}
+.tool-btn:hover { background:var(--cream); border-color:var(--teal-light); color:var(--teal); }
+.tool-btn.active { background:var(--teal-light); border-color:var(--teal); color:var(--teal-deep); }
+
+/* Exam submit */
+.exam-submit-row { display:none; }
+.exam-submit-row.exam-live { display:block; }
+.exam-submit-row.exam-done { display:block; }
+.submit-exam-btn {
+  width:100%; padding:12px; border-radius:999px; border:none; cursor:pointer;
+  font-family:'Nunito',sans-serif; font-weight:800; font-size:.9rem;
+  background:linear-gradient(135deg,var(--coral),#c85a40);
+  color:#fff; box-shadow:0 4px 14px rgba(224,122,95,.3);
+  transition:all var(--tr);
+}
+.submit-exam-btn:disabled { opacity:.45; cursor:not-allowed; }
+.submit-exam-btn:not(:disabled):hover { transform:translateY(-1px); }
+.exam-submit-row.exam-done .submit-exam-btn { background:var(--green); box-shadow:none; }
+.ep { font-size:.8rem; color:var(--slate); margin-top:8px; text-align:center; }
+
+/* ── RIGHT COLUMN — QUESTION CARD ── */
+.q-right { min-width:0; }
+#qA {
+  background:rgba(255,255,255,.9); backdrop-filter:blur(8px);
+  border-radius:20px; border:1px solid var(--rule);
+  box-shadow:var(--sh2); padding:32px 36px;
+  animation:cardIn .45s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes cardIn { from{opacity:0;transform:translateY(16px) scale(.99)} to{opacity:1;transform:none} }
+
+.qcd {}
+
+.qmeta { display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
+.qnum {
+  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
+  color:var(--teal); background:var(--teal-light);
+  padding:4px 10px; border-radius:999px;
+}
+.plo-tag {
+  font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
+  padding:4px 10px; border-radius:999px;
+}
+.plo-tag.p1 { background:#E3F5F2; color:#125E54; }
+.plo-tag.p2 { background:var(--plum-bg); color:#6247a1; }
+.plo-tag.p3 { background:var(--gold-bg); color:#a07828; }
+
+#qStem {
+  font-family:'Crimson Pro',serif; font-size:1.45rem; font-weight:600;
+  line-height:1.45; color:var(--navy); margin-bottom:24px;
+}
+
+/* Choices */
+.choices { display:flex; flex-direction:column; gap:10px; margin-bottom:22px; }
+.ach {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:12px 16px; border-radius:var(--r);
+  border:1.5px solid var(--rule); background:var(--warm);
+  cursor:pointer; transition:all var(--tr); user-select:none;
+}
+.ach:hover:not(.locked) { border-color:var(--teal); background:var(--teal-light); }
+.ach.selected { border-color:var(--teal); background:var(--teal-light); }
+.ach.correct { border-color:var(--green); background:var(--green-bg); }
+.ach.incorrect { border-color:var(--red); background:var(--red-bg); }
+.ach.locked { cursor:default; }
+.alet {
+  flex-shrink:0; width:28px; height:28px; border-radius:50%;
+  background:rgba(0,0,0,.06); display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; color:var(--ink2);
+  transition:all var(--tr);
+}
+.ach.selected .alet { background:var(--teal); color:#fff; }
+.ach.correct .alet  { background:var(--green); color:#fff; }
+.ach.incorrect .alet{ background:var(--red); color:#fff; }
+.actx { font-size:.95rem; line-height:1.5; color:var(--ink); padding-top:3px; }
+#qo[data-fs="sm"] .actx { font-size:.82rem; }
+#qo[data-fs="md"] .actx { font-size:.95rem; }
+#qo[data-fs="lg"] .actx { font-size:1.1rem; }
+#qo[data-fs="xl"] .actx { font-size:1.25rem; }
+
+/* Submit + Nav */
+.qactions { display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+.submit-btn {
+  padding:11px 26px; border-radius:999px; border:none; cursor:pointer;
+  font-family:'Nunito',sans-serif; font-weight:800; font-size:.88rem;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff; box-shadow:0 3px 12px rgba(26,122,109,.25);
+  transition:all var(--tr);
+}
+.submit-btn:disabled { opacity:.35; cursor:not-allowed; box-shadow:none; }
+.submit-btn:not(:disabled):hover { transform:translateY(-1px); box-shadow:0 6px 18px rgba(26,122,109,.3); }
+
+.qnv { display:flex; align-items:center; gap:10px; margin-left:auto; }
+.nb {
+  padding:10px 20px; border-radius:999px;
+  border:1.5px solid var(--rule); background:var(--white);
+  cursor:pointer; font-family:'Nunito',sans-serif; font-weight:700; font-size:.85rem;
+  color:var(--ink2); transition:all var(--tr);
+}
+.nb:hover:not(:disabled) { border-color:var(--navy); color:var(--navy); }
+.nb:disabled { opacity:.3; cursor:not-allowed; }
+.nb.next { background:var(--navy); color:#fff; border-color:var(--navy); }
+.nb.next:hover:not(:disabled) { background:var(--navy2); }
+
+.qdots { display:flex; flex-wrap:wrap; gap:5px; }
+.qd {
+  width:9px; height:9px; border-radius:50%;
+  background:var(--rule); transition:all var(--tr); cursor:pointer;
+}
+.qd.answered { background:var(--gold); }
+.qd.current  { background:var(--teal); transform:scale(1.3); }
+.qd.correct-dot  { background:var(--green); }
+.qd.incorrect-dot{ background:var(--red); }
+
+/* Explanation */
+.exb {
+  margin-top:18px; border-radius:var(--r); overflow:hidden;
+  border:1px solid var(--rule); display:none;
+  animation:fi .35s cubic-bezier(.4,0,.2,1);
+}
+.exb.show { display:block; }
+.exb-correct {
+  padding:14px 16px; background:var(--green-bg);
+  border-left:4px solid var(--green); font-size:.92rem; line-height:1.6; color:var(--ink);
+}
+.exb-correct strong { color:var(--green); }
+.exb-teach {
+  padding:14px 16px; background:var(--teal-light);
+  border-left:4px solid var(--teal); font-size:.88rem; line-height:1.6; color:var(--ink);
+}
+.exb-teach strong { color:var(--teal-deep); }
+.exb-wrong { display:flex; flex-direction:column; }
+.exb-wrong-item {
+  padding:11px 16px; background:var(--red-bg);
+  border-left:4px solid var(--red); border-top:1px solid var(--rule);
+  font-size:.86rem; line-height:1.55; color:var(--ink);
+}
+.exb-wrong-item strong { color:var(--red); }
+
+/* Highlight tool */
+.qstem-wrap { position:relative; }
+.highlight-mode #qStem { cursor:text; }
+::selection { background:rgba(212,168,67,.4); }
+
+/* ── DOTS NAV SCROLL ── */
+.qdots-wrap { overflow-x:auto; padding-bottom:4px; }
+
+/* ── PRINT ── */
+#printReviewRoot { display:none; }
+body.print-review-active .launch-wrap, body.print-review-active .qo { display:none !important; }
+body.print-review-active #printReviewRoot { display:block; padding:32px; background:#fff; min-height:100vh; }
+.print-shell { max-width:980px; margin:0 auto; font-family:'Nunito',sans-serif; }
+.print-hdr { margin-bottom:28px; border-bottom:2px solid #ddd; padding-bottom:14px; }
+.print-hdr h2 { font-family:'Crimson Pro',serif; font-size:1.8rem; }
+.print-card { break-inside:avoid; border:1px solid #ddd; border-radius:12px; padding:18px; margin-bottom:14px; }
+.print-qnum { font-family:'IBM Plex Mono',monospace; font-size:11px; color:#6B7689; margin-bottom:6px; }
+.print-stem { font-family:'Crimson Pro',serif; font-size:1.1rem; font-weight:600; margin-bottom:10px; }
+.print-choice { display:flex; gap:8px; align-items:flex-start; padding:8px 10px; border-radius:6px; border:1px solid #ddd; margin-bottom:6px; font-size:.88rem; }
+.print-choice.correct { border-color:#2D8659; background:#E8F5EE; }
+.print-choice.incorrect { border-color:#C44040; background:#FDF0F0; }
+.print-ltr { font-family:'IBM Plex Mono',monospace; font-weight:600; width:20px; flex-shrink:0; }
+.print-explainer { padding:10px 12px; border-radius:6px; margin-top:6px; font-size:.84rem; line-height:1.55; }
+.print-explainer.correct-box { background:#E8F5EE; border-left:4px solid #2D8659; }
+.print-explainer.teach-box   { background:#E3F5F2; border-left:4px solid #1A7A6D; }
+.print-explainer.wrong-box   { background:#FDF0F0; border-left:4px solid #C44040; margin-bottom:4px; }
+@media print {
+  body.print-review-active .launch-wrap,
+  body.print-review-active .qo { display:none !important; }
+  body.print-review-active #printReviewRoot { display:block !important; padding:0; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width:920px) {
+  .qin { grid-template-columns:1fr; padding:22px 18px 72px; gap:16px; }
+  .q-left { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .exam-submit-row { grid-column:1/-1; }
+  .score-panel { grid-column:1/-1; }
+}
+@media (max-width:700px) {
+  .qt-bar { flex-direction:column; align-items:flex-start; gap:10px; }
+  .q-left { grid-template-columns:1fr; }
+  #qStem { font-size:1.2rem; }
+  #qA { padding:20px 18px; }
+  .qnv { margin-left:0; }
+  .qactions { flex-direction:column; align-items:stretch; }
+  .nb { width:100%; justify-content:center; }
+  .submit-btn { width:100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap" id="launchWrap">
+  <div class="launch-card">
+    <h1>Cancer Metabolism<br><span>PLO Quiz</span></h1>
+    <p>18 board-style questions covering the three Pre-Class PLOs from Dr. Filippakis's Block 5 lecture: metabolic differences between cancer and normal cells, the Warburg effect, and mitochondrial metabolism in cancer.</p>
+    <div class="launch-meta">
+      <span class="chip">18 Questions</span>
+      <span class="chip plo1">PLO 1 · Cancer vs Normal Cells</span>
+      <span class="chip plo2">PLO 2 · Warburg Effect</span>
+      <span class="chip plo3">PLO 3 · Mitochondrial Metabolism</span>
+      <span class="chip">Learn &amp; Exam Modes</span>
+      <span class="chip">Filippakis · Block 5</span>
+    </div>
+    <button class="launch-btn" id="openDemo">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/><path d="M6 5.5l5 2.5-5 2.5V5.5z" fill="#fff"/></svg>
+      Open quiz
+    </button>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>Cancer Metabolism — PLO Quiz</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A−</button>
+        <button class="fs-btn active" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+  <div class="qpb"><div class="qpf" id="qpf" style="width:5.55%"></div></div>
+
+  <div class="qin">
+    <!-- LEFT -->
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="panel-label">Score</div>
+        <div class="score-grid">
+          <div class="sv correct"><div class="sv-num" id="svCorrect">0</div><div class="sv-lbl">Correct</div></div>
+          <div class="sv incorrect"><div class="sv-num" id="svIncorrect">0</div><div class="sv-lbl">Incorrect</div></div>
+        </div>
+        <div class="sv-current" id="svCurrent">Question 1 of 18</div>
+      </div>
+
+      <div class="mode-toggle">
+        <div class="panel-label">Mode</div>
+        <div class="mt-row">
+          <button class="mt-btn active" id="btnLearn">Learn</button>
+          <button class="mt-btn" id="btnExam">Exam</button>
+        </div>
+      </div>
+
+      <div class="timer-panel">
+        <div class="panel-label">Timers</div>
+        <div class="timer-grid">
+          <div class="timer-cell">
+            <div class="timer-val" id="tTotal">0:00</div>
+            <div class="timer-lbl">Total</div>
+          </div>
+          <div class="timer-cell">
+            <div class="timer-val" id="tQuestion">0:00</div>
+            <div class="timer-lbl">Question</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <div class="panel-label">Navigation</div>
+        <div class="qdots-wrap">
+          <div class="qdots" id="qdots"></div>
+        </div>
+      </div>
+
+      <div class="exam-submit-row" id="examSubmitRow">
+        <button class="submit-exam-btn" id="submitExamBtn" disabled>Submit Exam</button>
+        <div class="ep" id="examProgress"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qmeta">
+            <span class="qnum" id="qnum">Q 1 / 18</span>
+            <span class="plo-tag p1" id="ploTag">Pre-Class PLO 1</span>
+          </div>
+          <div id="qStem">Loading…</div>
+          <div class="choices" id="choicesEl"></div>
+          <div class="qactions">
+            <button class="submit-btn" id="submitBtn" disabled>Submit Answer</button>
+            <div class="qnv">
+              <button class="nb prev" id="prevBtn">← Prev</button>
+              <button class="nb next" id="nextBtn">Next →</button>
+            </div>
+          </div>
+          <div class="exb" id="exBlock"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const RAW_QUESTIONS = [
+  {
+    plo: 1,
+    stem: "A quiescent hepatocyte and an actively dividing embryonic stem cell are maintained in identical oxygen-rich, glucose-rich media. Compared to the hepatocyte, the proliferating stem cell primarily redirects intracellular carbon toward:",
+    choices: ["biomass synthesis, making proteins, nucleic acids, and membrane lipids for new daughter cells", "full oxidation in the TCA cycle, maximizing ATP yield per mole of glucose consumed", "glycogen storage within cytoplasmic granules, reserving fuel during nutrient-replete conditions", "fatty acid import and beta-oxidation, generating acetyl-CoA from exogenous lipid substrates", "gluconeogenesis in the endoplasmic reticulum, exporting glucose back into the culture media"],
+    correct: 0,
+    explanation: {
+      correct: "Proliferating cells redirect carbon away from full oxidation toward biomass synthesis \u2014 protein, nucleic acids, lipids \u2014 needed to build two daughter cells.",
+      teaching: "The key metabolic shift in proliferating cells is from energy maximization to biomass maximization. Quiescent cells use glucose + FA \u2192 TCA \u2192 ATP + CO\u2082. Proliferating cells use GLUCOSE \u2192 BIOMASS + ATP + CO\u2082.",
+      wrongs: [null, "B \u2014 Full TCA oxidation for maximum ATP is the quiescent cell strategy. Proliferating cells sacrifice ATP efficiency to preserve carbon for biosynthesis.", "C \u2014 Glycogen synthesis is a storage strategy suited to quiescent or hepatic contexts, not the hallmark of an actively dividing cell building new biomolecules.", "D \u2014 Fatty acid import/\u03b2-oxidation provides acetyl-CoA and ATP but is a catabolic, not biosynthetic, program. Proliferating cells run the reverse: de novo lipogenesis.", "E \u2014 Gluconeogenesis exports carbon and is incompatible with biomass accumulation. Proliferating cells are net carbon importers, not exporters."]
+    }
+  },
+  {
+    plo: 1,
+    stem: "Which statement BEST explains why normal proliferating tissues \u2014 such as cells of the developing embryo \u2014 do not undergo uncontrolled growth despite running an elevated, biomass-oriented metabolism?",
+    choices: ["Growth factor signals gate nutrient uptake and biosynthesis; withdrawing the signal halts the proliferative metabolic program", "Embryonic cells constitutively degrade all excess ATP to heat, preventing surplus energy from fueling uncontrolled division", "The pentose phosphate pathway is epigenetically silenced in all normal tissues, making nucleotide synthesis impossible", "Mitochondria are structurally absent from normally proliferating cells, preventing an oxidative program from initiating", "Normal proliferating cells express only glucokinase, which becomes saturated and stops glycolysis at physiologic glucose levels"],
+    correct: 0,
+    explanation: {
+      correct: "Growth factor signals \u2014 received by RTKs \u2014 gate the entire metabolic proliferative program. No growth factor = no PI3K/AKT/mTOR = no nutrient uptake program = no uncontrolled division.",
+      teaching: "Normal proliferating cells depend on paracrine/autocrine growth factor input (e.g., embryonic morphogens, activated T-cell cytokines). When growth signals are present \u2192 proliferative metabolism \u2192 cell division. When absent \u2192 quiescent metabolism \u2192 halt. Cancer bypasses this by constitutively mimicking 'growth factors present' via oncogene mutations.",
+      wrongs: [null, "B \u2014 No such constitutive ATP-to-heat mechanism exists. Energy dissipation via uncoupling is tissue-specific (e.g., brown fat UCP1) and unrelated to proliferation control.", "C \u2014 The pentose phosphate pathway is active in normal proliferating cells (e.g., rapidly dividing immune cells). It is NOT silenced \u2014 it provides ribose-5-P and NADPH for growth.", "D \u2014 Normal proliferating cells have fully functional mitochondria that supply biosynthetic intermediates (citrate \u2192 acetyl-CoA) and additional ATP for biosynthesis.", "E \u2014 Glucokinase saturation is a hepatic glucose-sensing mechanism unrelated to proliferative control. Proliferating cells use hexokinase II, which is not the rate-limiting constraint here."]
+    }
+  },
+  {
+    plo: 1,
+    stem: "A cancer cell and a normally proliferating embryonic cell both display elevated aerobic glycolysis and divert carbon to biosynthesis. Which feature MOST distinguishes the cancer cell's metabolic program from that of the normal proliferating cell?",
+    choices: ["The cancer cell maintains a proliferative metabolic program independently of external growth factor signals", "The cancer cell oxidizes significantly more glucose per minute than the normal proliferating cell ever could", "The cancer cell relies exclusively on the TCA cycle for biosynthetic precursors, bypassing glycolysis entirely", "The cancer cell preferentially degrades glutamine while the normal proliferating cell cannot use glutamine", "The cancer cell produces zero lactate because it shunts all pyruvate into the mitochondrial matrix instead"],
+    correct: 0,
+    explanation: {
+      correct: "Both cell types run similar biosynthetic programs, but the cancer cell is GROWTH-FACTOR INDEPENDENT. Oncogene mutations (PI3K, RAS, MYC) or TSG losses (PTEN) constitutively activate the proliferative metabolic program without needing external growth factor signals.",
+      teaching: "Normal proliferating cells require growth factor \u2192 RTK \u2192 PI3K \u2192 AKT \u2192 mTOR to turn on nutrient uptake and biosynthesis. Cancer cells bypass this through constitutively active oncogenes or silenced tumor suppressors \u2014 they 'pretend' growth factor is always present. This loss of growth-factor dependency is the fundamental difference.",
+      wrongs: [null, "B \u2014 The quantitative rate of glucose oxidation per minute is not reliably different and is not the defining distinction. The issue is growth-factor independence, not raw glycolytic rate.", "C \u2014 Cancer cells are not TCA-exclusive for biosynthesis; they rely heavily on glycolytic intermediates (G-6-P \u2192 PPP \u2192 ribose-5-P) for nucleotide synthesis, not only mitochondrial TCA.", "D \u2014 Both normal proliferating cells (e.g., activated T cells) and cancer cells use glutamine as a key biosynthetic and anaplerotic fuel. Glutamine dependence is not unique to cancer.", "E \u2014 Cancer cells produce substantial lactate \u2014 that is precisely the Warburg effect. Shutting down lactate production would stall glycolysis by depleting NAD\u207a."]
+    }
+  },
+  {
+    plo: 1,
+    stem: "Dr. Filippakis describes two major metabolic goals that must be met simultaneously for tumor growth. A student correctly identifies these as:",
+    choices: ["biomass production (proteins, nucleic acids, lipids, carbohydrates) plus adequate ATP generation", "maximal oxidative phosphorylation output combined with complete silencing of all anabolic pathways", "exclusive fatty acid oxidation for ATP combined with glycolysis reserved only for lactate export", "gluconeogenesis for glucose output combined with ketone body synthesis for local energy supply", "complete mitochondrial uncoupling for heat generation combined with glycogen synthesis for storage"],
+    correct: 0,
+    explanation: {
+      correct: "Tumor metabolism must supply both (1) BIOMASS \u2014 all macromolecular building blocks (proteins, nucleic acids, lipids, carbohydrates) to build daughter cells \u2014 and (2) ENERGY (ATP) to power the biosynthetic machinery and cellular housekeeping.",
+      teaching: "This dual requirement explains why cancer metabolism is so complex. The cell cannot simply maximize ATP (too little biosynthetic carbon) nor maximize biosynthesis without energy (biosynthetic reactions cost ATP). The Warburg effect and glutaminolysis represent a compromise that serves both goals simultaneously.",
+      wrongs: [null, "B \u2014 Maximal OxPhos would deprive the cell of biosynthetic carbon. Cancer cells deliberately limit OxPhos efficiency to preserve carbon for biomass, not silence anabolism.", "C \u2014 Exclusive fatty acid oxidation does not supply nucleotides or amino acid precursors. Cancer cells need multiple carbon inputs \u2014 glucose AND glutamine \u2014 for balanced biomass.", "D \u2014 Gluconeogenesis and ketogenesis are catabolic/export programs. Gluconeogenesis releases carbon from the cell; ketogenesis processes lipid catabolically. Neither supports rapid proliferation.", "E \u2014 Mitochondrial uncoupling dissipates the proton gradient as heat (thermogenesis, not biosynthesis). Glycogen storage is a reserve strategy incompatible with rapid proliferation."]
+    }
+  },
+  {
+    plo: 1,
+    stem: "In normal tissues, a mechanism of self-regulation prevents uncontrolled cell proliferation even when nutrient availability far exceeds demand. Which mechanism BEST describes this self-regulation?",
+    choices: ["Growth factors must first activate RTK \u2192 PI3K \u2192 AKT \u2192 mTOR signaling before nutrient uptake and active biosynthesis are permitted to increase", "Hexokinase is inhibited allosterically by glucose-6-phosphate when cytosolic glucose rises, permanently blocking glycolysis in non-dividing cells", "LDH is constitutively phosphorylated and inactivated in all differentiated tissues, preventing any lactate from being produced under normoxia", "Mitochondrial membrane potential is kept artificially low by constitutive UCP2 expression, blocking ATP synthesis in non-proliferating cells", "The mRNA for all glycolytic enzymes is rapidly degraded after translation in quiescent cells, depleting the enzymatic machinery for glucose catabolism"],
+    correct: 0,
+    explanation: {
+      correct: "Growth factor receptor \u2192 PI3K \u2192 AKT \u2192 mTOR is the master gating mechanism. Without an activating growth factor signal, this cascade is off, nutrient transporters are internalized, and the biosynthetic machinery is quiescent \u2014 regardless of how much glucose or glutamine is available.",
+      teaching: "This is why cancer is so dangerous: oncogene mutations (e.g., PIK3CA gain-of-function, PTEN loss) permanently activate PI3K/AKT/mTOR, mimicking a constant growth-factor signal. The self-regulation gate is stuck open. The cell perpetually believes growth factors are present, so it perpetually proliferates.",
+      wrongs: [null, "B \u2014 Hexokinase product inhibition (by G-6-P) is a local enzymatic feedback, not a cell-fate-level proliferation switch. Hexokinase II in cancer cells is actually upregulated and insensitive to this inhibition.", "C \u2014 LDH is not constitutively inactivated in normal differentiated cells. Many normal tissues (e.g., exercising muscle) produce substantial lactate under physiologic conditions.", "D \u2014 UCP2 is not constitutively expressed at high levels in all quiescent tissues to block ATP synthesis. That would be lethally inefficient. Mitochondrial coupling varies by cell type but is not the primary proliferation gatekeeper.", "E \u2014 Glycolytic enzyme mRNAs are stable and enzymes are present in quiescent cells. Flux is regulated at the signaling level, not by mRNA degradation of the entire glycolytic apparatus."]
+    }
+  },
+  {
+    plo: 1,
+    stem: "A researcher finds that tumor cells harvested from a patient continue to proliferate rapidly when all exogenous growth factors are removed from the culture media, whereas normal epithelial cells from the same patient arrest within 24 hours. This observation is MOST consistent with which molecular alteration in the tumor cells?",
+    choices: ["A constitutively activating mutation in PIK3CA that permanently drives AKT\u2013mTOR signaling without any RTK input", "Upregulation of mitochondrial uncoupling protein 3, which prevents ATP synthesis and forces rapid glycolysis", "Complete loss of all lactate dehydrogenase isoforms, redirecting all pyruvate into the TCA cycle permanently", "Silencing of hexokinase II expression, which paradoxically increases glucose uptake through compensatory GLUT1 trafficking", "Constitutive overexpression of pyruvate carboxylase, which floods the TCA cycle and blocks all catabolic intermediates"],
+    correct: 0,
+    explanation: {
+      correct: "A gain-of-function PIK3CA mutation locks PI3K activity 'on' without needing RTK/growth factor input, so the downstream AKT \u2192 mTOR proliferative metabolic program runs constitutively. This is why the tumor cells do not arrest when growth factors are removed.",
+      teaching: "This is the single most common mechanism by which tumors achieve growth-factor independence. PIK3CA (PI3K catalytic \u03b1-subunit) is mutated in ~30% of breast cancers, endometrial cancers, and many others. The targeted drug is alpelisib, a PI3K-\u03b1 selective inhibitor. The normal counterpart is PTEN, which dephosphorylates PIP\u2083 back to PIP\u2082.",
+      wrongs: [null, "B \u2014 UCP3 overexpression would uncouple the ETC, reduce ATP, and paradoxically activate AMPK (an anti-growth signal). This would not sustain growth-factor-independent proliferation.", "C \u2014 Loss of all LDH isoforms would block NAD\u207a regeneration via lactate, stalling glycolysis. The cell would not be able to sustain high glycolytic rates needed for rapid proliferation.", "D \u2014 Loss of hexokinase II would reduce glycolytic entry of glucose, slowing biosynthesis. Compensatory GLUT1 trafficking cannot rescue downstream carbon flow if the phosphorylation step is absent.", "E \u2014 Pyruvate carboxylase overexpression would increase anaplerotic OAA synthesis in mitochondria. This supports TCA cycle biosynthesis but does not make the cell growth-factor independent."]
+    }
+  },
+  {
+    plo: 2,
+    stem: "The Warburg effect, first described by Otto Warburg in the 1920s, is best defined as:",
+    choices: ["the preferential conversion of pyruvate to lactate in cancer cells despite adequate oxygen availability", "the complete shutdown of mitochondrial oxidative phosphorylation due to structural damage in cancer cells", "the selective upregulation of fatty acid oxidation in rapidly dividing cells to generate acetyl-CoA", "the dependence of quiescent tissues on anaerobic glycolysis when mitochondria are transiently hyperpolarized", "the induction of gluconeogenesis in cancer cells that export glucose to fuel surrounding stromal cells"],
+    correct: 0,
+    explanation: {
+      correct: "The Warburg effect = aerobic glycolysis: cancer cells shunt ~85% of pyruvate to lactate via LDH even when O\u2082 is plentiful, rather than routing it through the TCA cycle for full oxidation.",
+      teaching: "The key word is 'aerobic' \u2014 oxygen is PRESENT, yet glycolysis + lactate production dominates over oxidative phosphorylation. This paradox is what Warburg observed. Normal differentiated cells with O\u2082 run OxPhos (~36 ATP/glucose). Anaerobic glycolysis (no O\u2082) gives 2 ATP/glucose. Aerobic glycolysis (Warburg) gives ~4 ATP/glucose.",
+      wrongs: [null, "B \u2014 Warburg's original hypothesis about mitochondrial damage is now known to be incorrect. Cancer cell mitochondria are structurally and functionally intact; they are repurposed, not destroyed.", "C \u2014 Upregulation of fatty acid oxidation is a secondary adaptive strategy in some nutrient-stressed tumors, not the defining feature of the Warburg effect. The Warburg effect specifically concerns glucose metabolism.", "D \u2014 Quiescent normal tissues use aerobic OxPhos, not anaerobic glycolysis, when oxygen is available. The Warburg effect is specific to cancer/proliferating cells, not quiescent differentiated ones.", "E \u2014 Gluconeogenesis and glucose export describe the Cori cycle in the liver, not the Warburg effect in cancer cells. Cancer cells are net glucose importers, not exporters."]
+    }
+  },
+  {
+    plo: 2,
+    stem: "A medical student is reviewing cellular bioenergetics before a pharmacology exam. Rank the following in DESCENDING order of ATP yield per mole of glucose: (1) Oxidative phosphorylation, (2) Warburg aerobic glycolysis, (3) Anaerobic glycolysis.",
+    choices: ["1 > 2 > 3, with approximate yields of 36, 4, and 2 mol ATP per mol of glucose, respectively", "2 > 1 > 3, with yields of approximately 36, 4, and 2 mol ATP per mol glucose respectively", "1 > 3 > 2, with yields of approximately 36, 2, and 4 mol ATP per mol glucose respectively", "3 > 2 > 1, with yields of approximately 36, 4, and 2 mol ATP per mol glucose respectively", "1 = 2 > 3, because aerobic conditions always produce identical ATP regardless of pathway used"],
+    correct: 0,
+    explanation: {
+      correct: "OxPhos (1) \u2248 36 ATP/glucose, Warburg aerobic glycolysis (2) \u2248 4 ATP/glucose, Anaerobic glycolysis (3) \u2248 2 ATP/glucose. OxPhos >> Warburg >> Anaerobic.",
+      teaching: "The numbers to memorize: 36 (OxPhos), 4 (Warburg/aerobic glycolysis), 2 (anaerobic glycolysis). The Warburg effect yields slightly more ATP than strict anaerobic glycolysis because some pyruvate does enter mitochondria (~15%), but the vast majority is shunted to lactate. The paradox: cancer cells choose a ~9\u00d7 less efficient pathway \u2014 which only makes sense if the goal is NOT ATP maximization but rather biosynthetic carbon preservation.",
+      wrongs: [null, "B \u2014 OxPhos (1) is the most efficient, not aerobic glycolysis (2). Placing aerobic glycolysis above OxPhos inverts the core relationship. ~36 ATP via OxPhos far exceeds ~4 ATP via Warburg.", "C \u2014 Anaerobic glycolysis (3) and the Warburg effect (2) are NOT swapped in yield \u2014 Warburg (aerobic glycolysis, ~4 ATP) yields slightly more than strict anaerobic glycolysis (~2 ATP) because some OxPhos still occurs.", "D \u2014 Ranking 3 > 2 > 1 is the inverse of reality and inverts the fundamental thermodynamic advantage of aerobic metabolism. Full oxidative phosphorylation is always the highest-yield pathway.", "E \u2014 OxPhos and aerobic glycolysis produce vastly different amounts of ATP per glucose. The presence of oxygen does not equate the yields \u2014 it is what pathway the cell chooses to run that determines ATP output."]
+    }
+  },
+  {
+    plo: 2,
+    stem: "A tumor cell preferentially converts glucose to lactate despite abundant oxygen. A colleague argues this is energetically wasteful. Which argument BEST defends the tumor cell's strategy as metabolically advantageous for rapid proliferation?",
+    choices: ["Aerobic glycolysis generates biosynthetic precursors \u2014 ribose-5-P via PPP, acetyl-CoA via citrate, and NAD\u207a recycling \u2014 that fuel biomass expansion", "Lactate fermentation regenerates FADH\u2082 more efficiently than mitochondrial oxidation, providing superior reducing power for biosynthetic reactions", "The pentose phosphate pathway is entirely dependent on lactate as its entry substrate, making lactate production obligate for nucleotide synthesis", "Aerobic glycolysis produces far more NADPH per glucose than the oxidative pentose phosphate pathway, making it superior for antioxidant defense alone", "Lactate itself is directly polymerized into structural polysaccharides that reinforce the extracellular matrix of the rapidly expanding tumor mass"],
+    correct: 0,
+    explanation: {
+      correct: "Running glycolysis fast achieves three biosynthetic goals: (1) PPP \u2192 ribose-5-P + NADPH for nucleotides; (2) citrate export \u2192 acetyl-CoA \u2192 fatty acids for membrane lipids; (3) pyruvate \u2192 lactate via LDH regenerates NAD\u207a to keep glycolysis running at high flux.",
+      teaching: "ATP is NOT the limiting resource for a proliferating cancer cell \u2014 biosynthetic carbon and reducing power are. Aerobic glycolysis preserves carbon in partially-oxidized intermediates rather than fully burning them to CO\u2082. The PPP, lipogenesis, and serine synthesis pathways all branch off glycolytic intermediates. Sending pyruvate to lactate (not CO\u2082) also regenerates NAD\u207a, allowing GAPDH to keep running at high speed.",
+      wrongs: [null, "B \u2014 LDH produces lactate, not FADH\u2082. FADH\u2082 is generated in the TCA cycle (succinate dehydrogenase) and \u03b2-oxidation. Lactate fermentation does not produce any FADH\u2082.", "C \u2014 The pentose phosphate pathway uses glucose-6-phosphate as its entry substrate, not lactate. Lactate is a glycolytic endpoint, not a PPP substrate.", "D \u2014 NADPH is produced by the OXIDATIVE branch of the PPP and by malic enzyme \u2014 not by aerobic glycolysis per se. Glycolysis itself produces NADH (from GAPDH), not NADPH.", "E \u2014 Lactate cannot be polymerized into structural polysaccharides. Polysaccharide synthesis (glycosaminoglycans, glycoproteins) requires UDP-sugar nucleotides derived from glucose-6-phosphate, not from lactate."]
+    }
+  },
+  {
+    plo: 2,
+    stem: "Lactate produced by tumor cells via aerobic glycolysis is secreted into the tumor microenvironment. Which downstream consequence of extracellular lactate accumulation MOST directly promotes tumor immune evasion?",
+    choices: ["Lactate impairs dendritic cell and cytotoxic T cell function, creating immunosuppressive, tumor-permissive microenvironment", "Lactate directly activates natural killer cell cytotoxicity by binding NKG2D receptors on the NK cell surface membrane", "Lactate is taken up by tumor-infiltrating neutrophils and drives their differentiation into N1-polarized anti-tumor effectors", "Lactate activates complement cascade cleavage of C3, depositing opsonins on tumor cells and enhancing macrophage phagocytosis", "Lactate promotes CD8\u207a T cell proliferation by acting as a co-stimulatory signal through the LAG-3 checkpoint receptor pathway"],
+    correct: 0,
+    explanation: {
+      correct: "Lactate directly impairs dendritic cell maturation and cytotoxic T lymphocyte (CD8\u207a T cell) function, and polarizes macrophages toward the immunosuppressive M2 (TAM) phenotype \u2014 collectively establishing an immune-permissive tumor microenvironment.",
+      teaching: "The tumor's lactate serves five documented pro-tumor roles: (1) impairs DCs and CTLs \u2192 immune evasion; (2) polarizes macrophages M1\u2192M2 (TAMs) \u2192 immunosuppression; (3) activates NF-\u03baB/PI3K in endothelium \u2192 MMPs \u2192 metastasis; (4) stabilizes HIF1\u03b1 \u2192 VEGF \u2192 angiogenesis; (5) drives fibroblasts to produce hyaluronic acid \u2192 invasiveness. Question 10 covers the first and most immune-relevant consequence.",
+      wrongs: [null, "B \u2014 Lactate does not activate NK cells via NKG2D. In fact, lactate in the TME suppresses NK cell function by lowering local pH and disrupting NK cell metabolism.", "C \u2014 Lactate promotes M2 polarization of macrophages (pro-tumor), not N1 neutrophil differentiation. N1 neutrophils are anti-tumor; the TME, acidified by lactate, tends to suppress these.", "D \u2014 Lactate does not activate the complement cascade. Complement activation is antigen-driven (antibody or lectin pathway) and is generally suppressed in the TME, not enhanced by lactate.", "E \u2014 Lactate suppresses CD8\u207a T cell proliferation and effector function \u2014 it does not co-stimulate them. LAG-3 is an immune checkpoint receptor that is not directly activated by lactate."]
+    }
+  },
+  {
+    plo: 2,
+    stem: "A patient with a large gastrointestinal stromal tumor (GIST) undergoes \u00b9\u2078F-FDG PET/CT imaging before and four weeks after starting sunitinib therapy. Post-therapy imaging shows complete absence of FDG uptake in the tumor, though the anatomic CT still shows a persistent mass of unchanged size. What does this FDG-PET result indicate?",
+    choices: ["The tumor is responding to therapy \u2014 reduced glucose avidity reflects suppressed glycolytic activity before morphologic regression occurs", "The tumor has upregulated fatty acid oxidation as a compensatory fuel source, which FDG-PET cannot detect, indicating metabolic resistance", "Lack of FDG uptake confirms tumor necrosis and complete pathologic response, making follow-up imaging unnecessary going forward", "The persistent CT mass with absent FDG uptake indicates treatment failure and warrants immediate escalation to a second-line chemotherapy regimen", "FDG-PET cannot distinguish live tumor from scar tissue, so the result is inconclusive and a surgical biopsy is the only informative next step"],
+    correct: 0,
+    explanation: {
+      correct: "Absent FDG uptake despite a persistent CT mass indicates METABOLIC RESPONSE \u2014 the tumor's glycolytic machinery has been suppressed by sunitinib before the tumor has had time to physically shrink. Metabolic response PRECEDES morphologic response by weeks to months.",
+      teaching: "This is the clinical power of FDG-PET in oncology. Because tumors take up \u00b9\u2078F-FDG (a glucose analog) in proportion to their glycolytic activity, a fall in FDG signal = fall in Warburg activity = therapeutic response. The CT mass may persist because dead/fibrotic tumor tissue retains its anatomic footprint even after the cancer cells are killed. FDG-PET was FDA-approved partly based on its ability to detect early metabolic response in GIST treated with imatinib/sunitinib.",
+      wrongs: [null, "B \u2014 While tumors can develop metabolic plasticity, the clinical interpretation of complete FDG response after TKI therapy in GIST is favorable therapeutic response, not resistance. Upregulated FAO would not present as 'no FDG uptake everywhere.'", "C \u2014 Absent FDG uptake does not confirm complete pathologic response or preclude the need for follow-up. Residual viable tumor may remain, and surveillance imaging is still standard of care.", "D \u2014 Absent FDG uptake is the opposite of treatment failure \u2014 it indicates metabolic response. Escalating therapy based on a responding tumor would be clinically incorrect.", "E \u2014 FDG-PET has well-established clinical utility in differentiating metabolically active tumor from fibrosis/scar. While biopsy may sometimes be used for confirmation, the FDG-PET result here is not 'inconclusive' \u2014 it is a standard positive indicator of metabolic response."]
+    }
+  },
+  {
+    plo: 2,
+    stem: "Blocking lactate dehydrogenase (LDH) in a cancer cell line that displays robust aerobic glycolysis causes an abrupt halt in glycolytic flux within minutes, even though the pentose phosphate pathway and TCA cycle remain intact. Which mechanistic explanation BEST accounts for this immediate collapse of glycolysis?",
+    choices: ["LDH inhibition depletes cytosolic NAD\u207a, which GAPDH requires at glycolytic step 6 to proceed, stalling the entire upstream pathway", "LDH inhibition accumulates pyruvate, which allosterically activates pyruvate kinase M2 and drives reverse flux through glycolysis", "LDH inhibition prevents NADH from entering the malate-aspartate shuttle, blocking mitochondrial ATP synthesis and collapsing glycolysis", "LDH inhibition causes lactate export via MCT4 to cease, triggering osmotic swelling of the cytosol and disrupting enzyme function", "LDH inhibition reduces cytosolic NADPH, which glucose-6-phosphate dehydrogenase requires to initiate the pentose phosphate pathway"],
+    correct: 0,
+    explanation: {
+      correct: "Glycolysis step 6 (GAPDH: G-3-P \u2192 1,3-BPG) requires NAD\u207a as an oxidizing cofactor. In the Warburg state, the primary route for regenerating NAD\u207a is: NADH + pyruvate \u2192 NAD\u207a + lactate (LDH). Block LDH \u2192 NAD\u207a depleted \u2192 GAPDH stalls \u2192 all upstream glycolytic flux halts.",
+      teaching: "This is the mechanistic reason why lactate production is not 'waste' but rather a functional necessity for sustained aerobic glycolysis. In normal mitochondria-using cells, the malate-aspartate shuttle transfers NADH into the mitochondrion for reoxidation \u2014 but cancer cells running very high glycolytic flux cannot shuttle NADH fast enough. LDH is the overflow valve. Block it, and glycolysis starves for NAD\u207a.",
+      wrongs: [null, "B \u2014 Pyruvate accumulation does not drive reverse glycolysis. PKM2 allosteric regulation is complex (FGFR-mediated phosphorylation actually inhibits PKM2 in cancer), but reverse glycolytic flux is not the mechanism here.", "C \u2014 LDH inhibition would cause NADH to accumulate in the cytosol, not deplete it from the mitochondrion. The malate-aspartate shuttle transfers cytosolic NADH into mitochondria \u2014 it does not depend on LDH.", "D \u2014 MCT4 exports lactate (not LDH). Inhibiting LDH prevents lactate synthesis but does not directly block MCT4. Osmotic swelling from lactate retention is not the primary mechanism of glycolytic arrest.", "E \u2014 LDH uses NADH, not NADPH. GAPDH uses NAD\u207a, not NADPH. The pentose phosphate pathway uses NADP\u207a \u2192 NADPH via G6PD \u2014 a completely separate cofactor pool from the NAD\u207a/NADH that governs glycolytic flux."]
+    }
+  },
+  {
+    plo: 3,
+    stem: "Warburg's original 1924 hypothesis proposed that cancer cells have permanently damaged mitochondria, forcing reliance on fermentation. Which subsequent finding most directly REFUTES this hypothesis?",
+    choices: ["Cancer cell mitochondria are structurally intact and produce TCA intermediates used as biosynthetic precursors for lipid and nucleotide synthesis", "All cancer cells completely lack cristae in their inner mitochondrial membrane, confirming total loss of electron transport chain function", "Inhibition of glycolysis with 2-deoxyglucose causes immediate cancer cell death without any compensatory increase in oxidative metabolism", "Lactate dehydrogenase is exclusively expressed in cancer cells, confirming that glycolysis and fermentation are cancer-specific processes only", "Cancer cells excrete large amounts of succinate, which proves that the entire TCA cycle runs in reverse to generate ATP by substrate-level phosphorylation"],
+    correct: 0,
+    explanation: {
+      correct: "The discovery that cancer cell mitochondria are structurally and functionally intact \u2014 capable of running the TCA cycle, generating citrate for lipogenesis, and performing partial oxidative phosphorylation \u2014 directly refutes Warburg's 'damaged mitochondria' hypothesis.",
+      teaching: "Modern understanding: cancer mitochondria are REPURPOSED biosynthetic hubs, not damaged organelles. They export citrate for lipogenesis, supply \u03b1-KG/OAA for amino acid synthesis, and generate heme from succinyl-CoA. Multiple drugs targeting mitochondrial enzymes (CB-839, CPI-613, metformin) have clinical activity, which would be impossible if cancer mitochondria were non-functional.",
+      wrongs: [null, "B \u2014 This is factually incorrect. Most cancer cells retain mitochondrial cristae and functional ETC components. If cristae were universally absent, the ETC would be non-functional and mito-targeting drugs could not work.", "C \u2014 If 2-DG caused death without compensatory OxPhos, it would SUPPORT Warburg's view (cancer depends entirely on glycolysis). In reality, some cancer cells DO upregulate OxPhos when glycolysis is blocked \u2014 further refuting Warburg.", "D \u2014 LDH is not exclusively cancer-specific. It is expressed in exercising muscle, red blood cells, and many normal tissues. This assertion is factually wrong and does not address mitochondrial function.", "E \u2014 Reverse TCA for ATP generation (as in some anaerobic bacteria) is not a documented feature of most cancer cells. Succinate accumulation occurs in SDH-mutant tumors and acts as an oncometabolite, not as evidence of reverse TCA for ATP."]
+    }
+  },
+  {
+    plo: 3,
+    stem: "Citrate is a TCA cycle intermediate that plays a distinctive dual role in cancer cell metabolism. Which statement BEST describes how cancer cells exploit citrate beyond its role as a TCA cycle intermediate?",
+    choices: ["Citrate exits the mitochondrion via the citrate transporter, is cleaved by ACL to cytosolic acetyl-CoA, and fuels fatty acid synthesis via FASN", "Citrate is exported from the mitochondrion and used as the direct substrate for glutaminase to generate glutamate and replenish the TCA cycle", "Citrate is converted to succinate in the cytosol and then re-imported into the mitochondrion to regenerate fumarate and malate for OxPhos", "Citrate is directly phosphorylated by hexokinase in the cytosol to form citrate-6-phosphate, which serves as the primary substrate for the PPP", "Citrate leaves the mitochondrion and is polymerized by fatty acid synthase without first being cleaved, producing long-chain citrate lipids directly"],
+    correct: 0,
+    explanation: {
+      correct: "Citrate exits the mitochondrion \u2192 ATP-citrate lyase (ACL/ACLY) in the cytosol cleaves it into acetyl-CoA + oxaloacetate \u2192 acetyl-CoA + ACC (acetyl-CoA carboxylase) \u2192 malonyl-CoA \u2192 FASN \u2192 palmitate \u2192 long-chain fatty acids for membranes.",
+      teaching: "This is the molecular basis of neoplastic lipogenesis. The sequence is: High glycolytic flux \u2192 excess pyruvate \u2192 acetyl-CoA in mitochondria \u2192 citrate \u2192 exported via citrate transporter \u2192 ACL cleaves to cytosolic acetyl-CoA \u2192 ACC \u2192 malonyl-CoA \u2192 FASN (the 'oncogene' fatty acid synthase) \u2192 palmitate \u2192 membrane lipids, cholesterol esters, acylated signaling proteins.",
+      wrongs: [null, "B \u2014 Glutaminase acts on glutamine (not citrate). Glutaminase converts glutamine \u2192 glutamate \u2192 \u03b1-KG to REPLENISH the TCA cycle (anaplerosis). Citrate is not a glutaminase substrate.", "C \u2014 Citrate \u2192 succinate conversion in the cytosol is not a normal mammalian metabolic route. The reverse TCA sequence (citrate \u2192 isocitrate \u2192 \u03b1-KG \u2192 succinate) occurs inside the mitochondrion, not as a cytosolic-to-mitochondrial shuttle.", "D \u2014 Hexokinase phosphorylates glucose, not citrate. Citrate-6-phosphate does not exist as a PPP substrate. The PPP substrate is glucose-6-phosphate generated by hexokinase acting on glucose.", "E \u2014 Fatty acid synthase (FASN) uses malonyl-CoA and acetyl-CoA as substrates. Citrate must first be cleaved by ACL to generate cytosolic acetyl-CoA before FASN can act. Citrate is not directly polymerized by FASN."]
+    }
+  },
+  {
+    plo: 3,
+    stem: "A rapidly dividing glioma cell continuously exports citrate from the TCA cycle to fuel lipogenesis, yet the TCA cycle does not become depleted. Which process MOST directly replenishes TCA cycle intermediates to compensate for this ongoing citrate efflux?",
+    choices: ["Glutaminolysis \u2014 glutamine is first converted by GLS to glutamate, then to \u03b1-ketoglutarate, directly refilling the TCA cycle", "Lactate re-import \u2014 extracellular lactate is taken up via MCT1, oxidized to pyruvate, and channeled directly into oxaloacetate", "Gluconeogenesis \u2014 the cell runs glycolysis in reverse to convert two lactate molecules back into a single glucose molecule", "Fatty acid re-esterification \u2014 exogenous palmitate is \u03b2-oxidized to acetyl-CoA and then condensed into citrate de novo", "Ketone body oxidation \u2014 circulating \u03b2-hydroxybutyrate is converted to acetoacetate and then to acetyl-CoA in the cytosol"],
+    correct: 0,
+    explanation: {
+      correct: "Glutaminolysis is the primary anaplerotic pathway: Glutamine \u2192 Glutamate (glutaminase, GLS) \u2192 \u03b1-ketoglutarate (GLUD1, GOT2, GPT2) \u2192 enters TCA cycle, replenishing the pool depleted by citrate export. MYC drives this program by transactivating glutamine transporters and GLS.",
+      teaching: "This is the concept of ANAPLEROSIS \u2014 refilling the TCA cycle. Because cancer cells drain citrate (cataplerosis) for lipogenesis faster than glucose-derived pyruvate can replenish OAA, they rely heavily on glutamine-derived \u03b1-KG as the second major anaplerotic input. CB-839 (telaglenastat) blocks GLS and effectively starves the TCA cycle of its replenishment supply \u2014 hence its antitumor activity in MYC-high tumors.",
+      wrongs: [null, "B \u2014 Lactate re-import via MCT1 does occur in some tumor populations (metabolic symbiosis), but oxidized lactate \u2192 pyruvate \u2192 OAA requires the mitochondrial enzyme pyruvate carboxylase and is NOT the primary anaplerotic route for citrate replacement. Glutaminolysis is quantitatively dominant.", "C \u2014 Cancer cells do not run significant gluconeogenesis. Gluconeogenesis is a hepatic/renal program that consumes TCA intermediates (OAA \u2192 PEP \u2192 glucose), which would further deplete the cycle, not replenish it.", "D \u2014 Beta-oxidation of palmitate generates acetyl-CoA, which condenses with OAA to form citrate \u2014 this partially replenishes citrate but requires OAA to be already present. It does not add net carbon to the cycle the way glutamine \u2192 \u03b1-KG does.", "E \u2014 Ketone body oxidation occurs in the mitochondrial matrix: \u03b2-hydroxybutyrate \u2192 acetoacetate \u2192 acetyl-CoA. The final step requires mitochondrial SCOT enzyme, and acetyl-CoA still needs OAA for net TCA entry. Ketone oxidation is not the primary anaplerotic strategy in glioma."]
+    }
+  },
+  {
+    plo: 3,
+    stem: "During systemic chemotherapy, a tumor cell in a hypoxic, nutrient-depleted region of a solid tumor survives while neighboring cells die. Metabolomics analysis reveals markedly elevated acylcarnitines (intermediates of mitochondrial fatty acid transport) in the surviving cells. This finding MOST suggests the surviving cells are:",
+    choices: ["upregulating mitochondrial fatty acid beta-oxidation as an alternative fuel source during glucose and glutamine deprivation", "synthesizing excess new membrane lipids via de novo fatty acid synthesis to rapidly expand their plasma membrane surface area", "exporting fatty acids as VLDL-like particles to nearby stromal cells as part of reverse cholesterol transport mechanism", "converting fatty acids to glycogen via gluconeogenesis to store energy in anticipation of future nutrient availability", "running the fatty acid elongation pathway in the endoplasmic reticulum to generate very-long-chain fatty acids for signaling"],
+    correct: 0,
+    explanation: {
+      correct: "Elevated acylcarnitines = fatty acids being actively transported into the mitochondrial matrix for \u03b2-oxidation (carnitine shuttle: cytosolic FA + carnitine \u2192 acylcarnitine \u2192 crosses inner membrane \u2192 \u03b2-oxidation). These cells are using FAO as an alternative fuel when glucose/glutamine are scarce.",
+      teaching: "Fatty acid \u03b2-oxidation (FAO) is the stress-survival option in metabolically hostile microenvironments. FAO generates acetyl-CoA \u2192 TCA \u2192 ATP + NADH + FADH\u2082 \u2192 ETC \u2192 more ATP. This metabolic flexibility explains why some cancer cells survive in hypoxic cores, avascular niches, and during chemotherapy-induced nutrient stress. FAO is also a mechanism of resistance to anti-glycolytic drugs.",
+      wrongs: [null, "B \u2014 De novo fatty acid SYNTHESIS (lipogenesis) would CONSUME acylcarnitine precursors, not elevate them. Elevated acylcarnitines indicate transport INTO mitochondria for OXIDATION, not synthesis exiting the mitochondrion.", "C \u2014 VLDL secretion is a specialized hepatic function. Tumor cells do not package and secrete VLDL-like lipoproteins as part of a reverse cholesterol transport mechanism.", "D \u2014 Fatty acids cannot be directly converted to glycogen. The pathway would require: fatty acid \u2192 acetyl-CoA \u2192 cannot enter gluconeogenesis net (acetyl-CoA is not a gluconeogenic precursor in mammals). Glycogen synthesis from fatty acids is thermodynamically unfavorable.", "E \u2014 Fatty acid elongation (in the ER smooth membrane) does not involve acylcarnitines and does not generate ATP. It actually CONSUMES malonyl-CoA and NADPH. Elevated acylcarnitines specifically indicate mitochondrial \u03b2-oxidation, not ER elongation."]
+    }
+  },
+  {
+    plo: 3,
+    stem: "A 38-year-old man with a low-grade glioma has his tumor sequenced. A hotspot mutation in IDH1 (R132H) is identified. Mass spectrometry of tumor tissue shows markedly elevated 2-hydroxyglutarate (2-HG). Which mechanism BEST explains how 2-HG promotes malignant transformation in this patient?",
+    choices: ["2-HG inhibits \u03b1-KG-dependent dioxygenases including TET and histone demethylases, locking cells in a hypermethylated undifferentiated state", "2-HG directly alkylates and permanently inactivates IDH2, blocking NADPH regeneration in the mitochondria and triggering oxidative damage", "2-HG is converted to succinate by mitochondrial succinyl-CoA synthetase, directly causing succinate-driven pseudohypoxia via HIF1\u03b1 stabilization", "2-HG enters the nucleus and intercalates into double-stranded DNA, inducing widespread double-strand breaks and increasing the somatic mutation rate", "2-HG activates AKT by binding its PH domain, mimicking PIP\u2083 and constitutively activating the PI3K\u2013mTOR axis to drive proliferation forward"],
+    correct: 0,
+    explanation: {
+      correct: "2-HG structurally mimics \u03b1-ketoglutarate and competitively inhibits the large family of \u03b1-KG-dependent dioxygenases \u2014 most importantly TET2 (DNA demethylase) and JmjC histone demethylases. Loss of TET2 activity \u2192 global DNA hypermethylation \u2192 G-CIMP (glioma CpG island methylator phenotype) \u2192 silencing of differentiation genes \u2192 cells locked in a progenitor-like, proliferative state.",
+      teaching: "IDH1/2 mutations are neomorphic gain-of-function \u2014 mutant IDH converts \u03b1-KG to 2-HG instead of to isocitrate (normal direction). 2-HG = oncometabolite. The mechanism (inhibiting \u03b1-KG dioxygenases \u2192 epigenetic reprogramming) also explains why IDH mutations are found in low-grade glioma, AML, and cholangiocarcinoma. Targeted drugs: ivosidenib (IDH1) and enasidenib (IDH2), both FDA-approved.",
+      wrongs: [null, "B \u2014 2-HG does not directly alkylate IDH2. IDH2 mutations are separate gain-of-function mutations that also produce 2-HG. The primary mechanism of 2-HG toxicity is competitive inhibition of \u03b1-KG-dependent enzymes, not covalent IDH2 inactivation.", "C \u2014 2-HG is not converted to succinate by succinyl-CoA synthetase; that reaction is part of the normal TCA cycle (succinyl-CoA \u2192 succinate). Succinate-driven pseudohypoxia occurs in SDH-mutant tumors (paraganglioma), which is a distinct mechanism from IDH1-mutant 2-HG.", "D \u2014 2-HG does not intercalate into DNA. DNA intercalation is a property of planar aromatic compounds (e.g., doxorubicin). 2-HG is a small metabolite that acts at enzyme active sites, not the DNA helix.", "E \u2014 2-HG does not bind the AKT PH domain. PH domain activation requires PIP\u2083 (phosphatidylinositol-3,4,5-trisphosphate) generated by PI3K. 2-HG is a cytosolic/nuclear metabolite without known direct AKT-activating function."]
+    }
+  },
+  {
+    plo: 3,
+    stem: "CB-839 (telaglenastat) is a potent inhibitor of glutaminase (GLS) currently in oncology clinical trials. Which tumor type or molecular context is MOST predicted to respond to CB-839 based on the lecture's discussion of mitochondrial metabolism in cancer?",
+    choices: ["Tumors with high MYC amplification, because MYC strongly drives expression of glutamine transporters and GLS, creating glutamine addiction", "Tumors with homozygous deletion of the FASN gene, because those cells switch to glutamine as the sole substrate for de novo lipogenesis", "Tumors with activating AMPK mutations, because AMPK directly phosphorylates GLS to maximally activate glutamine catabolism in cancer cells", "Tumors with loss of hexokinase II expression, because those cells are forced to use glutamine as the sole carbon source for all glycolytic steps", "Tumors with IDH1 R132H mutations, because mutant IDH1 requires GLS-derived glutamate as the obligate substrate to produce 2-hydroxyglutarate"],
+    correct: 0,
+    explanation: {
+      correct: "MYC is the master transcriptional driver of glutamine addiction. MYC transactivates SLC1A5 (ASCT2 glutamine transporter) and GLS itself, making MYC-amplified tumors highly dependent on glutamine \u2192 \u03b1-KG anaplerosis. Block GLS (with CB-839) and the TCA cycle cannot refill, biosynthesis collapses, and MYC-driven cells die selectively.",
+      teaching: "Glutamine addiction is a targetable vulnerability. The clinical logic: (1) Profile tumor for MYC amplification or other glutamine-addiction markers (GLUD1 expression, etc.); (2) Confirm metabolically with \u00b9\u00b3C-glutamine tracing or 2-HG NMR if IDH-mutant; (3) Treat with CB-839 \u00b1 anti-PD1 (lactate depletion also improves the immune microenvironment). CB-839 has shown activity in triple-negative breast cancer and hematologic malignancies with high MYC.",
+      wrongs: [null, "B \u2014 FASN deletion would impair lipogenesis, but cells would compensate by importing exogenous fatty acids, not by routing glutamine exclusively to lipid synthesis. Glutamine's main role is anaplerotic (filling TCA), not direct lipogenic substrate.", "C \u2014 AMPK is a tumor suppressor that INHIBITS anabolic processes. Activating AMPK mutations are vanishingly rare in cancer; they would suppress, not drive, GLS activity. The logic is inverted here.", "D \u2014 Hexokinase II loss would impair glycolysis, but cells would not use glutamine for glycolytic steps \u2014 glycolysis is a glucose-only pathway. Glutamine enters at the TCA cycle level (as \u03b1-KG), not at glycolytic steps.", "E \u2014 IDH1 R132H mutant enzyme converts \u03b1-KG to 2-HG (a neomorphic reaction using \u03b1-KG directly). GLS-derived glutamate \u2192 \u03b1-KG \u2192 2-HG is theoretically possible but (a) \u03b1-KG for mutant IDH comes primarily from normal TCA intermediates, and (b) IDH1-mutant tumors are generally low-grade gliomas with LOWER glutamine dependence, not the highest responders to CB-839."]
+    }
+  }
+];
+
+// Fisher-Yates shuffle
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Build questions with shuffled choices (correct index remapped)
+const QUESTIONS = RAW_QUESTIONS.map(q => {
+  const indices = shuffle([0,1,2,3,4]);
+  const newChoices = indices.map(i => q.choices[i]);
+  const newCorrect = indices.indexOf(q.correct);
+  const newWrongs = indices.map(i => q.explanation.wrongs[i]);
+  return {
+    plo: q.plo,
+    stem: q.stem,
+    choices: newChoices,
+    correct: newCorrect,
+    explanation: {
+      correct: q.explanation.correct,
+      teaching: q.explanation.teaching,
+      wrongs: newWrongs
+    }
+  };
+});
+
+const TOTAL = QUESTIONS.length;
+const LETTERS = ['A','B','C','D','E'];
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let currentIdx = 0;
+let userAnswers = new Array(TOTAL).fill(null);   // null | index
+let gradedMap = {};   // idx → {correct:bool}
+let quizMode = 'learn';
+let examSubmitted = false;
+let selectedChoice = null;
+
+let totalSec = 0, questionSec = 0;
+let timerInterval = null;
+
+// ── ELEMENTS ─────────────────────────────────────────────────────────────────
+const qo = document.getElementById('qo');
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+
+const qpf = document.getElementById('qpf');
+const qnum = document.getElementById('qnum');
+const ploTag = document.getElementById('ploTag');
+const qStem = document.getElementById('qStem');
+const choicesEl = document.getElementById('choicesEl');
+const submitBtn = document.getElementById('submitBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const exBlock = document.getElementById('exBlock');
+const qdots = document.getElementById('qdots');
+
+const svCorrect = document.getElementById('svCorrect');
+const svIncorrect = document.getElementById('svIncorrect');
+const svCurrent = document.getElementById('svCurrent');
+
+const btnLearn = document.getElementById('btnLearn');
+const btnExam = document.getElementById('btnExam');
+const examSubmitRow = document.getElementById('examSubmitRow');
+const submitExamBtn = document.getElementById('submitExamBtn');
+const examProgress = document.getElementById('examProgress');
+
+const tTotal = document.getElementById('tTotal');
+const tQuestion = document.getElementById('tQuestion');
+
+// ── TIMER ────────────────────────────────────────────────────────────────────
+function fmt(s) { return Math.floor(s/60)+':'+(s%60<10?'0':'')+s%60; }
+function startTimer() {
+  timerInterval = setInterval(() => {
+    totalSec++; questionSec++;
+    tTotal.textContent = fmt(totalSec);
+    tQuestion.textContent = fmt(questionSec);
+  }, 1000);
+}
+function stopTimer() { clearInterval(timerInterval); timerInterval = null; }
+
+// ── NAV DOTS ─────────────────────────────────────────────────────────────────
+function buildDots() {
+  qdots.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'qd';
+    d.title = 'Q' + (i+1);
+    d.addEventListener('click', () => goTo(i));
+    qdots.appendChild(d);
+  });
+}
+function updateDots() {
+  const dots = qdots.querySelectorAll('.qd');
+  dots.forEach((d, i) => {
+    d.className = 'qd';
+    if (i === currentIdx) d.classList.add('current');
+    else if (gradedMap[i] !== undefined) {
+      d.classList.add(gradedMap[i].correct ? 'correct-dot' : 'incorrect-dot');
+    } else if (userAnswers[i] !== null) {
+      d.classList.add('answered');
+    }
+  });
+}
+
+// ── RENDER ───────────────────────────────────────────────────────────────────
+function renderQuestion(idx) {
+  const q = QUESTIONS[idx];
+  questionSec = 0;
+
+  qnum.textContent = 'Q ' + (idx+1) + ' / ' + TOTAL;
+  ploTag.textContent = 'Pre-Class PLO ' + q.plo;
+  ploTag.className = 'plo-tag p' + q.plo;
+  qStem.textContent = q.stem;
+
+  qpf.style.width = ((idx+1)/TOTAL*100) + '%';
+  svCurrent.textContent = 'Question ' + (idx+1) + ' of ' + TOTAL;
+
+  // Re-animate card
+  const card = document.getElementById('qA');
+  card.style.animation = 'none';
+  card.offsetHeight;
+  card.style.animation = '';
+
+  // Choices
+  choicesEl.innerHTML = '';
+  selectedChoice = userAnswers[idx];
+
+  q.choices.forEach((text, ci) => {
+    const el = document.createElement('div');
+    el.className = 'ach';
+    el.dataset.ci = ci;
+    el.innerHTML =
+      '<div class="alet">' + LETTERS[ci] + '</div>' +
+      '<div class="actx">' + escapeHTML(text) + '</div>';
+
+    const alreadyGraded = gradedMap[idx] !== undefined;
+    if (alreadyGraded) {
+      el.classList.add('locked');
+      if (ci === q.correct) el.classList.add('correct');
+      else if (ci === userAnswers[idx]) el.classList.add('incorrect');
+    } else if (ci === selectedChoice) {
+      el.classList.add('selected');
+    }
+
+    if (!alreadyGraded && quizMode === 'learn') {
+      el.addEventListener('click', () => selectChoice(ci));
+    } else if (!alreadyGraded && quizMode === 'exam') {
+      el.addEventListener('click', () => selectChoice(ci));
+    }
+
+    choicesEl.appendChild(el);
+  });
+
+  // Submit button
+  const graded = gradedMap[idx] !== undefined;
+  if (quizMode === 'learn') {
+    submitBtn.style.display = '';
+    submitBtn.disabled = selectedChoice === null || graded;
+    submitBtn.textContent = graded ? 'Answered' : 'Submit Answer';
+  } else {
+    submitBtn.style.display = 'none';
+  }
+
+  // Explanation
+  exBlock.className = 'exb';
+  exBlock.innerHTML = '';
+  if (graded) showExplanation(idx);
+
+  // Nav
+  prevBtn.disabled = idx === 0;
+  nextBtn.disabled = idx === TOTAL - 1;
+
+  updateDots();
+  updateScore();
+  updateExamButton();
+}
+
+function selectChoice(ci) {
+  if (gradedMap[currentIdx] !== undefined) return;
+  selectedChoice = ci;
+  userAnswers[currentIdx] = ci;
+
+  const choices = choicesEl.querySelectorAll('.ach');
+  choices.forEach(el => el.classList.toggle('selected', parseInt(el.dataset.ci) === ci));
+
+  if (quizMode === 'learn') submitBtn.disabled = false;
+  updateExamButton();
+  updateDots();
+}
+
+// ── GRADING ──────────────────────────────────────────────────────────────────
+function gradeCurrentQuestion() {
+  const idx = currentIdx;
+  const q = QUESTIONS[idx];
+  if (userAnswers[idx] === null) return false;
+  if (gradedMap[idx] !== undefined) return true;
+
+  const correct = userAnswers[idx] === q.correct;
+  gradedMap[idx] = { correct };
+
+  const choices = choicesEl.querySelectorAll('.ach');
+  choices.forEach(el => {
+    el.classList.add('locked');
+    const ci = parseInt(el.dataset.ci);
+    if (ci === q.correct) el.classList.add('correct');
+    else if (ci === userAnswers[idx]) el.classList.add('incorrect');
+  });
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Answered';
+  showExplanation(idx);
+  updateScore();
+  updateDots();
+  return true;
+}
+
+function showExplanation(idx) {
+  const q = QUESTIONS[idx];
+  const answered = userAnswers[idx];
+  const isCorrect = gradedMap[idx] ? gradedMap[idx].correct : false;
+
+  let html = '';
+
+  // Correct answer explanation
+  html += '<div class="exb-correct"><strong>' + (isCorrect ? '✓ Correct — ' : '✓ Correct answer: ' + LETTERS[q.correct] + ' — ') + '</strong>' + escapeHTML(q.explanation.correct) + '</div>';
+
+  // Teaching point
+  html += '<div class="exb-teach"><strong>📚 Teaching Point — </strong>' + escapeHTML(q.explanation.teaching) + '</div>';
+
+  // Wrong choice explanations
+  const wrongDiv = document.createElement('div');
+  wrongDiv.className = 'exb-wrong';
+  const wrongHtml = q.choices.map((_, ci) => {
+    if (ci === q.correct) return '';
+    const wrongText = q.explanation.wrongs[ci];
+    if (!wrongText) return '';
+    const wasChosen = ci === answered && !isCorrect;
+    return '<div class="exb-wrong-item' + (wasChosen ? '" style="border-left-color:var(--red);background:#fde8e8' : '') + '"><strong>' + LETTERS[ci] + ' — Wrong:</strong> ' + escapeHTML(wrongText.replace(/^[A-E] — /,'')) + '</div>';
+  }).join('');
+  html += '<div class="exb-wrong">' + wrongHtml + '</div>';
+
+  exBlock.innerHTML = html;
+  exBlock.classList.add('show');
+}
+
+// ── SCORE ────────────────────────────────────────────────────────────────────
+function updateScore() {
+  let c = 0, w = 0;
+  Object.values(gradedMap).forEach(g => { if(g.correct) c++; else w++; });
+  svCorrect.textContent = c;
+  svIncorrect.textContent = w;
+}
+
+// ── MODE ─────────────────────────────────────────────────────────────────────
+btnLearn.addEventListener('click', () => {
+  if (quizMode === 'learn') return;
+  quizMode = 'learn';
+  btnLearn.classList.add('active');
+  btnExam.classList.remove('active');
+  renderQuestion(currentIdx);
+  updateExamButton();
+});
+btnExam.addEventListener('click', () => {
+  if (quizMode === 'exam') return;
+  quizMode = 'exam';
+  btnExam.classList.add('active');
+  btnLearn.classList.remove('active');
+  renderQuestion(currentIdx);
+  updateExamButton();
+});
+
+function updateExamButton() {
+  const inExam = quizMode === 'exam';
+  const answered = userAnswers.filter(a => a !== null).length;
+  submitExamBtn.disabled = !inExam || examSubmitted || answered < TOTAL;
+  examSubmitRow.classList.toggle('exam-live', inExam && !examSubmitted);
+  examSubmitRow.classList.toggle('exam-done', examSubmitted);
+  submitExamBtn.textContent = examSubmitted ? '✓ Exam Submitted' : 'Submit Exam';
+  if (inExam && !examSubmitted) {
+    examProgress.textContent = answered + ' / ' + TOTAL + ' answered';
+  } else if (examSubmitted) {
+    examProgress.textContent = 'Review your answers above.';
+  }
+}
+
+submitExamBtn.addEventListener('click', () => {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  const answered = userAnswers.filter(a => a !== null).length;
+  if (answered < TOTAL) { examProgress.textContent = 'Please answer all ' + TOTAL + ' questions first.'; return; }
+  examSubmitted = true;
+  // Grade all
+  const saved = currentIdx;
+  for (let i = 0; i < TOTAL; i++) {
+    if (gradedMap[i] === undefined && userAnswers[i] !== null) {
+      const q = QUESTIONS[i];
+      gradedMap[i] = { correct: userAnswers[i] === q.correct };
+    }
+  }
+  renderQuestion(saved);
+  updateExamButton();
+});
+
+// ── NAVIGATION ───────────────────────────────────────────────────────────────
+function goTo(idx) {
+  if (idx < 0 || idx >= TOTAL) return;
+  currentIdx = idx;
+  renderQuestion(currentIdx);
+}
+
+submitBtn.addEventListener('click', () => {
+  if (gradeCurrentQuestion()) {
+    setTimeout(() => { if (currentIdx < TOTAL-1) goTo(currentIdx+1); }, 500);
+  }
+});
+prevBtn.addEventListener('click', () => goTo(currentIdx - 1));
+nextBtn.addEventListener('click', () => goTo(currentIdx + 1));
+
+// ── OPEN / CLOSE / RESET ─────────────────────────────────────────────────────
+openDemo.addEventListener('click', () => {
+  qo.classList.add('open');
+  startTimer();
+  buildDots();
+  renderQuestion(0);
+});
+closeQuiz.addEventListener('click', () => {
+  qo.classList.add('closing');
+  setTimeout(() => qo.classList.remove('open','closing'), 320);
+  stopTimer();
+});
+resetQuiz.addEventListener('click', () => {
+  if (!confirm('Reset all answers and restart?')) return;
+  currentIdx = 0;
+  userAnswers = new Array(TOTAL).fill(null);
+  gradedMap = {};
+  selectedChoice = null;
+  examSubmitted = false;
+  quizMode = 'learn';
+  totalSec = 0; questionSec = 0;
+  tTotal.textContent = '0:00'; tQuestion.textContent = '0:00';
+  btnLearn.classList.add('active'); btnExam.classList.remove('active');
+  buildDots();
+  renderQuestion(0);
+});
+
+// ── FONT SIZE ────────────────────────────────────────────────────────────────
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qo.dataset.fs = btn.dataset.fsBtn;
+    document.querySelectorAll('.fs-btn').forEach(b => b.classList.toggle('active', b === btn));
+  });
+});
+
+// ── UTIL ─────────────────────────────────────────────────────────────────────
+function escapeHTML(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+</script>
+</body>
+</html>

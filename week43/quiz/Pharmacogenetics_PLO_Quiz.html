@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharmacogenetics — PLO RAT Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #1A7A6D; --teal-deep: #125E54; --teal-light: #E3F5F2;
+  --teal-mid: #2BA393; --teal-glow: #3EC4B2;
+  --navy: #1B2A4A; --navy2: #12203C;
+  --coral: #E07A5F; --coral-bg: #FEF0EB;
+  --gold: #D4A843; --gold-bg: #FDF6E3; --gold-warm: #E8C76A;
+  --plum: #7B5EA7; --plum-bg: #F3EEF9;
+  --sky: #4A9AE8; --sky-bg: #EAF2FC;
+  --warm: #FBF8F3; --cream: #F6F3EC; --white: #FFFFFF;
+  --ink: #1E1E20; --ink2: #3E4555; --slate: #6B7689;
+  --mist: #A0AAB8; --rule: #DBD5C9; --rule2: #E9E4DA;
+  --green: #2D8659; --green-bg: #E8F5EE;
+  --red: #C44040; --red-bg: #FDF0F0;
+  --amber: #C07B1A; --amber-bg: #FEF5E6;
+  --r: 14px; --rs: 8px;
+  --sh: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+  --sh2: 0 8px 32px rgba(0,0,0,0.08);
+  --sh3: 0 12px 48px rgba(0,0,0,0.10);
+  --tr: 0.25s cubic-bezier(.4,0,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--ink); }
+button { cursor: pointer; font-family: 'Nunito', sans-serif; }
+
+/* ── LAUNCH ── */
+.launch-wrap {
+  min-height: 100vh; display: grid; place-items: center; padding: 32px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+    radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+    linear-gradient(180deg, var(--warm) 0%, var(--cream) 100%);
+}
+.launch-card {
+  max-width: 760px; width: 100%;
+  background: rgba(255,255,255,.8); backdrop-filter: blur(10px);
+  border-radius: 28px; border: 1px solid rgba(18,32,60,.08);
+  box-shadow: 0 24px 80px rgba(18,32,60,.12); padding: 40px 40px 36px;
+}
+.launch-card h1 { font-family: 'Crimson Pro', serif; font-size: 38px; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.2; }
+.launch-card h1 span { color: var(--teal); }
+.launch-card p { color: var(--slate); font-size: 16px; margin-bottom: 22px; line-height: 1.65; }
+.launch-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+.chip {
+  display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
+  background: var(--white); border: 1px solid var(--rule2);
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink2);
+}
+.chip.teal { background: var(--teal-light); border-color: rgba(26,122,109,.22); color: var(--teal-deep); }
+.chip.plum { background: var(--plum-bg); border-color: rgba(123,94,167,.22); color: var(--plum); }
+.launch-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--teal-mid), var(--teal));
+  color: #fff; border: none; border-radius: 999px;
+  padding: 14px 32px; font-size: 16px; font-weight: 700;
+  box-shadow: 0 6px 24px rgba(26,122,109,.30);
+  transition: all var(--tr);
+}
+.launch-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(26,122,109,.40); }
+
+/* ── OVERLAY ── */
+.qo {
+  display: none; position: fixed; inset: 0; z-index: 200; overflow-y: auto;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(62,196,178,.10), transparent 24%),
+    radial-gradient(circle at 92% 8%, rgba(123,94,167,.09), transparent 22%),
+    linear-gradient(180deg, var(--warm) 0%, var(--cream) 100%);
+}
+.qo.open { display: block; animation: fi .35s cubic-bezier(.4,0,.2,1); }
+.qo.closing { display: block; pointer-events: none; animation: fo .34s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes fi { from { opacity: 0; transform: scale(.985); } to { opacity: 1; transform: none; } }
+@keyframes fo { from { opacity: 1; } to { opacity: 0; } }
+
+/* ── TOP BAR ── */
+.qt-bar {
+  position: sticky; top: 0; z-index: 12;
+  padding: 16px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(18,32,60,.96), rgba(27,42,74,.94));
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 28px rgba(18,32,60,.16);
+}
+.qt-bar h2 { font-family: 'Crimson Pro', serif; font-size: 20px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qt-btns { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.fs-ctrl { display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: 999px; padding: 4px 10px; }
+.fs-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .1em; margin-right: 4px; }
+.fs-btn { background: none; border: none; color: rgba(255,255,255,.7); font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; padding: 3px 7px; border-radius: 6px; transition: all var(--tr); }
+.fs-btn:hover, .fs-btn.fs-active { background: rgba(255,255,255,.15); color: #fff; }
+.qt-btn { border: none; border-radius: 999px; padding: 8px 16px; font-size: 13px; font-weight: 700; transition: all var(--tr); }
+.qt-btn.reset, .qt-btn.close { background: rgba(255,255,255,.07); color: rgba(255,255,255,.78); border: 1px solid rgba(255,255,255,.1); }
+.qt-btn.reset:hover, .qt-btn.close:hover { background: rgba(255,255,255,.14); }
+.qt-btn.print { background: linear-gradient(135deg, var(--gold-warm), var(--gold)); color: var(--navy2); font-weight: 900; }
+.qt-btn.print:hover { opacity: .9; }
+
+/* ── CONTENT GRID ── */
+.qin { max-width: 1380px; margin: 0 auto; padding: 28px 28px 84px; display: grid; grid-template-columns: 340px minmax(0,1fr); gap: 18px 24px; align-items: start; }
+.q-left { display: flex; flex-direction: column; gap: 14px; position: sticky; top: 74px; }
+
+/* ── SCORE PANEL ── */
+.score-panel {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--rule); box-shadow: var(--sh);
+  padding: 18px 16px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+  animation: slideUp .4s cubic-bezier(.4,0,.2,1) both;
+}
+.score-box { padding: 10px 12px; position: relative; text-align: center; }
+.score-box + .score-box { border-left: 1px solid var(--rule2); }
+.score-box::before { content: ''; position: absolute; left: 16px; right: 16px; top: 0; height: 4px; border-radius: 0 0 999px 999px; background: linear-gradient(90deg, rgba(26,122,109,.16), rgba(62,196,178,.5)); }
+.score-box .sv { font-family: 'Crimson Pro', serif; font-size: 36px; font-weight: 800; color: var(--navy); line-height: 1; }
+.score-box .sl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--mist); margin-top: 3px; }
+.score-box.correct .sv { color: var(--green); }
+.score-box.incorrect .sv { color: var(--red); }
+
+/* ── MODE TOGGLE ── */
+.mode-toggle {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--rule); box-shadow: var(--sh);
+  padding: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+  animation: slideUp .4s .04s cubic-bezier(.4,0,.2,1) both;
+}
+.mode-btn { border: none; border-radius: 10px; padding: 10px 8px; font-size: 13px; font-weight: 700; color: var(--slate); background: transparent; transition: all var(--tr); display: flex; align-items: center; justify-content: center; gap: 6px; }
+.mode-btn.active { background: linear-gradient(135deg, var(--navy2), var(--navy)); color: #fff; box-shadow: 0 4px 12px rgba(18,32,60,.22); }
+.mode-icon { font-size: 15px; }
+
+/* ── TIMER PANEL ── */
+.timer-panel {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--rule); box-shadow: var(--sh);
+  padding: 16px; display: flex; flex-direction: column; gap: 12px;
+  animation: slideUp .4s .08s cubic-bezier(.4,0,.2,1) both;
+}
+.timer-card, .cd-card { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.timer-lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--mist); width: 52px; flex-shrink: 0; }
+.timer-time, .cd-time { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600; color: var(--navy); min-width: 52px; }
+.cd-time.warn { color: var(--red); }
+.tbtn { border: 1px solid var(--rule2); background: var(--warm); border-radius: 8px; padding: 5px 9px; font-size: 13px; color: var(--ink2); transition: all var(--tr); }
+.tbtn:hover { background: var(--teal-light); border-color: var(--teal); color: var(--teal-deep); }
+.cd-controls { display: flex; align-items: center; gap: 6px; }
+.cd-pm { border: 1px solid var(--rule2); background: var(--warm); border-radius: 8px; padding: 4px 10px; font-size: 16px; font-weight: 700; color: var(--ink2); transition: all var(--tr); }
+.cd-pm:hover { background: var(--teal-light); border-color: var(--teal); }
+.cd-val { font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600; color: var(--navy); min-width: 22px; text-align: center; }
+.cd-unit { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--mist); text-transform: uppercase; }
+.cd-go { background: var(--teal); color: #fff; border: none; border-radius: 8px; padding: 5px 14px; font-size: 12px; font-weight: 700; transition: all var(--tr); }
+.cd-go:hover { background: var(--teal-deep); }
+
+/* ── TOOL PANEL ── */
+.tool-panel {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--rule); box-shadow: var(--sh);
+  padding: 14px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+  animation: slideUp .4s .14s cubic-bezier(.4,0,.2,1) both;
+}
+.q-tool { border: 1px solid var(--rule2); background: var(--warm); border-radius: 10px; padding: 9px 6px; font-size: 11px; font-weight: 700; color: var(--ink2); text-align: center; transition: all var(--tr); }
+.q-tool:hover { background: var(--cream); border-color: var(--teal); color: var(--teal-deep); }
+.q-tool.active.hl-tool { background: #FFF8B8; border-color: #D3AF2B; color: #6B5C00; }
+.q-tool.active.st-tool { background: var(--red-bg); border-color: rgba(196,64,64,.44); color: var(--red); }
+.q-tool.rv-tool { grid-column: span 3; }
+.tool-status { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--mist); text-transform: uppercase; letter-spacing: .1em; text-align: center; padding: 4px 0 0; }
+.tool-status.active-highlight { color: #8a6a00; }
+.tool-status.active-strike { color: var(--red); }
+
+/* ── EXAM SUBMIT ── */
+.exam-submit-row {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--rule); box-shadow: var(--sh);
+  padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;
+  animation: slideUp .4s .18s cubic-bezier(.4,0,.2,1) both;
+}
+.exam-progress { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--mist); text-transform: uppercase; letter-spacing: .08em; }
+.exam-submit-btn { background: linear-gradient(135deg, var(--coral), #d45f3e); color: #fff; border: none; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 800; transition: all var(--tr); }
+.exam-submit-btn:hover:not(:disabled) { opacity: .9; transform: translateY(-1px); }
+.exam-submit-btn:disabled { opacity: .45; cursor: not-allowed; }
+.exam-submit-row.exam-live { box-shadow: 0 0 0 3px rgba(224,122,95,.10), 0 14px 34px rgba(18,32,60,.08); }
+.exam-submit-row.exam-done .exam-submit-btn { background: linear-gradient(135deg, var(--green), #3aa56f); }
+
+/* ── QUESTION CARD ── */
+#qA { animation: cardIn .45s .08s cubic-bezier(.4,0,.2,1) both; }
+.qcd { background: var(--white); border-radius: var(--r); border: 1px solid var(--rule); box-shadow: var(--sh2); overflow: hidden; }
+@keyframes cardIn { from { opacity: 0; transform: translateY(16px) scale(.99); } to { opacity: 1; transform: none; } }
+.qpg { height: 4px; background: var(--rule2); position: relative; }
+.qpf { height: 100%; border-radius: 0 999px 999px 0; background: linear-gradient(90deg, var(--teal-mid), var(--teal-glow)); transition: width .4s cubic-bezier(.4,0,.2,1); }
+.qbd { padding: 28px 30px 24px; }
+.qnum { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--mist); margin-bottom: 10px; }
+.qstem { font-family: 'Crimson Pro', serif; font-size: 26px; font-weight: 600; color: var(--navy); line-height: 1.45; margin-bottom: 24px; border-radius: 8px; padding: 4px 0; transition: background var(--tr), box-shadow var(--tr); cursor: default; }
+.qstem.hl-applied { background: linear-gradient(180deg,#FFF4A8,#FFF7C9)!important; box-shadow: inset 0 0 0 2px rgba(212,168,67,.34); cursor: pointer; }
+.qstem.st-applied { background: linear-gradient(180deg,#FFF3F3,#FFF8F8)!important; box-shadow: inset 0 0 0 2px rgba(196,64,64,.22); cursor: pointer; }
+.qstem.tool-hover { box-shadow: inset 0 0 0 2px rgba(26,122,109,.16); background: rgba(26,122,109,.04); }
+.qstem .stem-hl { background: #FFF1A6; border-radius: 6px; padding: 0 .12em; box-shadow: 0 0 0 1px rgba(212,168,67,.18); }
+.qstem .stem-st { text-decoration: line-through; text-decoration-color: var(--red); color: #8B2C2C !important; }
+.ach { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.ac {
+  display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px;
+  border: 1.5px solid var(--rule2); border-radius: 12px;
+  background: var(--warm); cursor: pointer; transition: all var(--tr); user-select: none;
+}
+.ac:hover:not(.dis) { border-color: var(--teal); background: var(--teal-light); }
+.ac.sel { border-color: var(--teal); background: var(--teal-light); }
+.ac.cor { border-color: var(--green); background: var(--green-bg); }
+.ac.inc { border-color: var(--red); background: var(--red-bg); }
+.ac.shc { border-color: var(--green); background: var(--green-bg); }
+.ac.dis { cursor: default; }
+.ac.hl-applied { background: #FFF8B8 !important; border-color: #D3AF2B !important; }
+.ac.st-applied .ctx { text-decoration: line-through; color: var(--mist); }
+.cl {
+  width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+  background: var(--rule2); display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600;
+  color: var(--ink2); transition: all var(--tr); margin-top: 1px;
+}
+.ac.sel .cl { background: var(--teal); color: #fff; }
+.ac.cor .cl { background: var(--green); color: #fff; }
+.ac.inc .cl { background: var(--red); color: #fff; }
+.ac.shc .cl { background: var(--green); color: #fff; }
+.ctx { font-size: 15px; color: var(--ink); line-height: 1.55; }
+#qo[data-fs="sm"] .ctx { font-size: 13px; }
+#qo[data-fs="md"] .ctx { font-size: 16px; }
+#qo[data-fs="lg"] .ctx { font-size: 19px; }
+#qo[data-fs="xl"] .ctx { font-size: 22px; }
+.submit-row { margin-bottom: 16px; }
+.submit-btn {
+  background: linear-gradient(135deg, var(--teal-mid), var(--teal));
+  color: #fff; border: none; border-radius: 10px; padding: 12px 28px;
+  font-size: 15px; font-weight: 800; transition: all var(--tr); width: 100%;
+}
+.submit-btn:hover:not(:disabled) { opacity: .9; transform: translateY(-1px); }
+.submit-btn:disabled { opacity: .38; cursor: not-allowed; }
+
+/* ── EXPLANATION ── */
+.exb { display: none; flex-direction: column; gap: 10px; margin-bottom: 10px; animation: fi .3s cubic-bezier(.4,0,.2,1); }
+.exb.vis { display: flex; }
+.exs { border-radius: 12px; padding: 16px 18px; border-left: 4px solid; }
+.exc { background: var(--green-bg); border-color: var(--green); }
+.exe { background: var(--teal-light); border-color: var(--teal); }
+.exw { background: var(--red-bg); border-color: var(--red); }
+.exl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; font-weight: 600; margin-bottom: 6px; }
+.exc .exl { color: var(--green); }
+.exe .exl { color: var(--teal-deep); }
+.exw .exl { color: var(--red); }
+.ext { font-size: 14px; color: var(--ink2); line-height: 1.6; }
+.wce { margin-bottom: 6px; }
+.wce:last-child { margin-bottom: 0; }
+
+/* ── NAV BAR ── */
+.qnv { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px 18px; border-top: 1px solid var(--rule2); }
+.nb { border: 1.5px solid var(--rule2); background: var(--warm); border-radius: 10px; padding: 10px 20px; font-size: 14px; font-weight: 700; color: var(--ink2); transition: all var(--tr); }
+.nb:hover:not(:disabled) { border-color: var(--teal); color: var(--teal-deep); background: var(--teal-light); }
+.nb:disabled { opacity: .38; cursor: not-allowed; }
+.nb.pr { background: linear-gradient(135deg, var(--teal-mid), var(--teal)); color: #fff; border-color: transparent; }
+.nb.pr:hover:not(:disabled) { opacity: .9; transform: translateY(-1px); }
+.qdots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.qd { width: 11px; height: 11px; border-radius: 50%; border: 1.5px solid var(--rule); background: var(--white); cursor: pointer; transition: all var(--tr); padding: 0; }
+.qd:hover { transform: scale(1.25); }
+.qd.cur { background: var(--teal); border-color: var(--teal); transform: scale(1.2); }
+.qd.acor { background: var(--green); border-color: var(--green); }
+.qd.ainc { background: var(--red); border-color: var(--red); }
+.qd.asel { background: var(--gold); border-color: var(--gold); }
+
+/* ── ANIMATIONS ── */
+@keyframes slideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 920px) {
+  .qin { grid-template-columns: 1fr; padding: 22px 18px 72px; gap: 16px; }
+  .q-left { position: static; }
+  .timer-panel { flex-direction: row; flex-wrap: wrap; }
+  .tool-panel { grid-template-columns: 1fr 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .qt-bar { flex-direction: column; align-items: flex-start; }
+  .qin { padding: 18px 14px 64px; }
+  .qnv { flex-direction: column; align-items: stretch; }
+  .qdots { order: 3; }
+  .nb { width: 100%; text-align: center; }
+  .qstem { font-size: 22px; }
+  .launch-card { padding: 28px 22px; }
+  .launch-card h1 { font-size: 28px; }
+}
+
+/* ── PRINT ── */
+#printReviewRoot { display: none; }
+body.print-review-active .launch-wrap, body.print-review-active .qo { display: none !important; }
+body.print-review-active #printReviewRoot { display: block; padding: 32px; background: #fff; }
+.print-shell { max-width: 980px; margin: 0 auto; font-family: 'Nunito', sans-serif; }
+.print-title { font-family: 'Crimson Pro', serif; font-size: 28px; font-weight: 800; color: var(--navy); margin-bottom: 24px; }
+.print-card { break-inside: avoid; border: 1px solid #ddd; border-radius: 16px; padding: 20px; margin-bottom: 18px; }
+.print-qnum { font-family: 'IBM Plex Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--mist); margin-bottom: 8px; }
+.print-stem { font-family: 'Crimson Pro', serif; font-size: 20px; font-weight: 600; color: var(--navy); margin-bottom: 14px; line-height: 1.4; }
+.print-choices { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.print-choice { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1.5px solid #ddd; border-radius: 10px; font-size: 14px; }
+.print-choice.correct { border-color: #2D8659; background: #E8F5EE; }
+.print-choice.incorrect { border-color: #C44040; background: #FDF0F0; }
+.print-choice-lbl { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; color: #6B7689; min-width: 18px; }
+.print-explainer { border-radius: 10px; padding: 12px 16px; margin-bottom: 8px; font-size: 13px; color: var(--ink2); }
+.print-explainer.correct-box { background: #E8F5EE; border-left: 4px solid #2D8659; }
+.print-explainer.teach-box { background: #E3F5F2; border-left: 4px solid #1A7A6D; }
+.print-explainer.wrong-box { background: #FDF0F0; border-left: 4px solid #C44040; }
+.print-explainer-lbl { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; font-weight: 600; margin-bottom: 4px; }
+.correct-box .print-explainer-lbl { color: #2D8659; }
+.teach-box .print-explainer-lbl { color: #1A7A6D; }
+.wrong-box .print-explainer-lbl { color: #C44040; }
+@media print {
+  body.print-review-active .launch-wrap, body.print-review-active .qo { display: none !important; }
+  body.print-review-active #printReviewRoot { display: block !important; padding: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap" id="launchWrap">
+  <div class="launch-card">
+    <h1>Pharmacogenetics<br><span>PLO RAT Quiz</span></h1>
+    <p>18 questions covering all three Program-Level Objectives — pharmacogenetics definition, multistep tumorigenesis &amp; the 2-hit hypothesis, and germline vs. somatic mutations. Use Learn Mode for immediate feedback or Exam Mode to simulate RAT conditions.</p>
+    <div class="launch-meta">
+      <span class="chip teal">18 Questions</span>
+      <span class="chip plum">PLOs 1 · 2 · 3</span>
+      <span class="chip">Dr. Becker · UNE COM</span>
+      <span class="chip">Learn &amp; Exam Mode</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz →</button>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo" data-fs="md">
+
+  <!-- TOP BAR -->
+  <div class="qt-bar">
+    <h2>Pharmacogenetics — PLO RAT Quiz</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn fs-active" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuiz">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <!-- CONTENT GRID -->
+  <div class="qin">
+
+    <!-- LEFT COLUMN -->
+    <div class="q-left">
+
+      <div class="score-panel">
+        <div class="score-box">
+          <div class="sv" id="svCurrent">1</div>
+          <div class="sl">Current</div>
+        </div>
+        <div class="score-box correct">
+          <div class="sv" id="svCorrect">0</div>
+          <div class="sl">Correct</div>
+        </div>
+        <div class="score-box incorrect">
+          <div class="sv" id="svIncorrect">0</div>
+          <div class="sl">Incorrect</div>
+        </div>
+      </div>
+
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam</button>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Timer</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <button class="tbtn" id="timerStart">▶</button>
+          <button class="tbtn" id="timerPause">⏸</button>
+          <button class="tbtn" id="timerReset">↺</button>
+        </div>
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">05:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">5</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+            <button class="cd-go" id="cdGo">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <button class="q-tool hl-tool" id="toolHighlight">🖊 Highlight</button>
+        <button class="q-tool st-tool" id="toolStrike">✕ Strikeout</button>
+        <button class="q-tool rv-tool" id="toolReveal">👁 Reveal Explanation</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+
+      <div class="exam-submit-row" id="examSubmitRow">
+        <div class="exam-progress" id="examProgress">0 of 18 answered</div>
+        <button class="exam-submit-btn" id="submitExam" disabled>Submit Exam</button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN: QUESTION CARD -->
+    <div id="qA">
+      <div class="qcd">
+        <div class="qpg"><div class="qpf" id="qpf" style="width:5.6%;"></div></div>
+        <div class="qbd">
+          <div class="qnum" id="qNum">Question 1 of 18</div>
+          <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+          <div class="ach" id="ach"></div>
+          <div class="submit-row">
+            <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+          </div>
+          <div class="exb" id="exBlock">
+            <div class="exs exc"><div class="exl">Correct Answer</div><div class="ext" id="exCorrect"></div></div>
+            <div class="exs exe"><div class="exl">Teaching Point</div><div class="ext" id="exTeach"></div></div>
+            <div class="exs exw"><div class="exl">Why the Others Are Wrong</div><div class="ext" id="exWrong"></div></div>
+          </div>
+        </div>
+        <div class="qnv">
+          <button class="nb" id="prevBtn">← Previous</button>
+          <div class="qdots" id="qdots"></div>
+          <button class="nb pr" id="nextBtn">Next →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+// ─────────────────────────────────────────────
+// QUESTION DATA — 18 PLO Questions
+// ─────────────────────────────────────────────
+const questions = [
+
+  // ══════ PLO 1: Define Pharmacogenetics (Qs 1–6) ══════
+
+  {
+    plo: 'PLO 1',
+    stem: 'Which of the following most accurately defines pharmacogenetics?',
+    choices: [
+      'The study of how environmental toxins alter DNA sequences in response to drug exposure in a population',
+      'The study of how genetic variation at one or more loci underlies observable differences in individual drug response',
+      'The study of how epigenetic modifications change protein folding in relevant drug metabolic pathways',
+      'The study of how plasma drug concentrations are correlated with measurable clinical treatment outcomes'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Pharmacogenetics is defined as the genetic basis for variation in drug response — typically focused on large effects at a small number of genetic loci (e.g., CYP2D6 and codeine).',
+      teaching: 'The key distinction is that pharmacogenetics studies genetic variation (DNA sequence differences between individuals) as the cause of different drug responses. It is not about environment, epigenetics, or PK/PD relationships alone.',
+      wrongs: [
+        'A — Environmental toxins and DNA sequence alteration describe mutagenesis or toxicology, not pharmacogenetics, which focuses on pre-existing inherited variation.',
+        'C — Epigenetic modifications affecting protein folding describes a different mechanism; pharmacogenetics concerns heritable DNA sequence variants, not post-translational changes.',
+        'D — Plasma concentration correlated with outcomes describes pharmacokinetics and pharmacodynamics (PK/PD), a related but distinct field from pharmacogenetics.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 1',
+    stem: 'How does pharmacogenomics most meaningfully differ from pharmacogenetics?',
+    choices: [
+      'Pharmacogenomics studies single-gene effects while pharmacogenetics examines multiple genetic loci simultaneously',
+      'Pharmacogenomics focuses on drug receptor binding while pharmacogenetics focuses only on metabolic enzyme activity',
+      'Pharmacogenomics considers many variants across a population while pharmacogenetics typically focuses on a small number of high-impact loci',
+      'Pharmacogenomics applies exclusively to chemotherapeutics while pharmacogenetics applies to all other drug classes'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Pharmacogenomics examines larger numbers of variants — in an individual or across a population — to explain the genetic component of variable drug responses. This makes it multifactorial, whereas pharmacogenetics typically involves large effects at a small number of loci.',
+      teaching: 'Think of pharmacogenetics as the "one locus → bimodal curve" model (e.g., CYP2D6: you either have it or you don\'t), versus pharmacogenomics as the "many loci → bell curve" model, similar to how height is polygenic.',
+      wrongs: [
+        'A — This is backwards. Pharmacogenomics studies many loci; pharmacogenetics typically focuses on a small number of high-impact single-gene effects.',
+        'B — Neither field is limited to receptor binding or metabolism alone; both address any genetic variant affecting drug response at any mechanistic level.',
+        'D — Both fields apply to all drug classes. Neither is restricted to chemotherapeutics or any other specific pharmacological category.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 1',
+    stem: 'A patient with a CYP2D6 gene deletion is prescribed codeine for post-operative pain. What outcome is most expected?',
+    choices: [
+      'Codeine will be metabolized faster than usual, producing morphine more rapidly and causing sedation at standard doses',
+      'Codeine will not be converted to morphine, providing little or no pain relief to the patient at standard doses',
+      'Codeine will accumulate in the CNS and exert direct analgesic effects independent of CYP2D6 enzyme activity',
+      'Codeine will be converted to an alternative active metabolite with equivalent analgesic potency via a backup pathway'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Codeine is a prodrug that requires CYP2D6 to convert it to morphine, its active analgesic form. A patient with a CYP2D6 gene deletion (poor metabolizer) cannot perform this conversion and receives little or no pain relief.',
+      teaching: 'This is the textbook pharmacogenetics example. "Prodrug" is the key word — codeine itself has minimal analgesic activity. Without CYP2D6, no morphine is produced. The correct therapeutic response is to switch to a non-CYP2D6-dependent analgesic.',
+      wrongs: [
+        'A — Faster metabolism describes the ultra-metabolizer phenotype (gene duplication), not a gene deletion, which results in slow or no metabolism.',
+        'C — Codeine does not have significant direct CNS analgesic activity; it must be converted to morphine. There is no independent CYP2D6-bypass mechanism.',
+        'D — There is no clinically significant backup pathway that converts codeine to an equally potent active analgesic when CYP2D6 is absent.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 1',
+    stem: 'A patient carries 14 copies of the CYP2D6 gene due to a gene duplication event. What is the most significant clinical concern when prescribing standard-dose codeine?',
+    choices: [
+      'Complete absence of pain relief due to insufficient enzyme concentration overwhelming the available codeine substrate',
+      'Rapid conversion of codeine to high morphine levels, creating a serious risk of impaired respiration and sedation',
+      'Accumulation of unmetabolized codeine in adipose tissue, significantly prolonging the drug\'s duration of action',
+      'Inhibition of competing CYP isoforms leading to toxic buildup of other co-administered medications in the liver'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'With 14 copies of CYP2D6 (ultra-metabolizer), codeine is converted to morphine extremely rapidly and in much larger amounts than expected. This leads to dangerously high morphine levels, causing impaired respiration and sedation — a potentially fatal outcome.',
+      teaching: 'Ultra-metabolizers represent the opposite clinical risk from poor metabolizers. Standard doses that are safe for normal metabolizers become toxic overdoses in ultra-metabolizers. This is why a nursing mother who is an ultra-metabolizer was reported to have transferred lethal morphine concentrations to her infant through breast milk.',
+      wrongs: [
+        'A — Absence of pain relief describes the poor metabolizer (gene deletion) phenotype, not the ultra-metabolizer (gene duplication) phenotype, which has excessive enzyme activity.',
+        'C — Codeine does not preferentially accumulate in adipose tissue in this scenario; the issue is excessive enzymatic conversion to morphine, not substrate retention.',
+        'D — While CYP enzyme competition is a real pharmacogenetic concept, the primary concern with 14 CYP2D6 copies is excessive morphine production from codeine conversion.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 1',
+    stem: 'Which of the following best describes the primary clinical goal of applying pharmacogenetics when selecting and dosing medications?',
+    choices: [
+      'Standardizing all drug doses across populations to minimize inter-laboratory variability in pharmacokinetic outcome studies',
+      'Replacing clinical judgment entirely with algorithmic prescribing based solely on genotype-to-phenotype correlation data',
+      'Using a patient\'s genetic profile to select the most effective therapeutic agent and reduce unwanted side effects faster',
+      'Identifying genetic markers that predict whether a given patient will adhere to a prescribed medication regimen long-term'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'The clinical goal of pharmacogenetics is to use a patient\'s genetic makeup to select the therapeutic most likely to be effective, minimize the number of drugs needed (fewer trials and errors), reduce side effects, and get the patient feeling better faster — a targeted "silver bullet" approach.',
+      teaching: 'Pharmacogenetics moves prescribing from "trial and error" toward precision medicine. Instead of trying drug A, then B, then adjusting doses — genetic testing upfront can predict which drug and dose will work best for that individual.',
+      wrongs: [
+        'A — Standardizing doses across all patients is the exact opposite of pharmacogenetics\' goal; individualized dosing based on genetic variation is the objective.',
+        'B — Pharmacogenetics informs clinical judgment; it does not replace it. Contraindications, drug interactions, and clinical context still require physician decision-making.',
+        'D — Predicting medication adherence is a behavioral/social science question, not a pharmacogenetics question, which focuses on biological drug response variability.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 1',
+    stem: 'About 10% of white patients obtain no codeine pain relief, compared to 0.5% of African American and Asian patients. What does this finding most directly illustrate?',
+    choices: [
+      'That environmental factors and dietary habits are the primary determinants of codeine metabolism variability across all groups',
+      'That genetic variation at a single locus can account for measurable population-level differences in drug response outcomes',
+      'That standard weight-based and body-surface-area dosing adjustments are sufficient to manage inter-individual variability',
+      'That race itself is a direct biological determinant of enzyme activity that operates independently of any specific allele frequency'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'The frequency difference in CYP2D6 poor metabolizers between populations is explained by different allele frequencies at the CYP2D6 locus — a single gene. This illustrates how pharmacogenetics can explain population-level variation in drug response through inherited genetic differences.',
+      teaching: 'This is a classic example of why pharmacogenetics matters for health equity. Race/ethnicity can be a statistical predictor of drug response, but the actual cause is the underlying allele frequency difference at specific loci. Genetic testing identifies the individual\'s true genotype, which is more precise than population-level generalizations.',
+      wrongs: [
+        'A — Diet and environment do not explain the CYP2D6 poor metabolizer phenotype; it is caused by inherited gene deletion variants that eliminate CYP2D6 expression entirely.',
+        'C — Weight-based dosing does not account for the presence or absence of the CYP2D6 enzyme; even a large dose cannot help a poor metabolizer convert codeine to morphine.',
+        'D — Race is a social and demographic category, not a direct biological determinant. The actual mechanism is the frequency of specific CYP2D6 alleles that vary across ancestral populations.'
+      ]
+    }
+  },
+
+  // ══════ PLO 2: Multistep Tumorigenesis & 2-Hit Hypothesis (Qs 7–12) ══════
+
+  {
+    plo: 'PLO 2',
+    stem: 'According to the multistep model of tumorigenesis, how many driver mutations are typically required for a normal cell to become fully invasive and metastatic?',
+    choices: [
+      'A single activating mutation in a key proto-oncogene is sufficient to initiate fully uncontrolled cellular proliferation',
+      'Exactly 3–4 mutations confined to mismatch repair genes must accumulate before invasive cancer can develop',
+      'At least 6–8 driver mutations must accumulate sequentially before a cell acquires the invasive, metastatic phenotype',
+      'A precise set of exactly 5 simultaneous mutations in tumor suppressor genes is required for full malignant transformation'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'The multistep model holds that a normal cell must accumulate at least 6–8 driver mutations to become fully invasive and metastatic. Each driver mutation confers a clonal growth advantage, allowing that cell\'s descendants to expand and accumulate further mutations over time.',
+      teaching: 'This is why cancer typically takes decades to develop — it requires sequential accumulation of independent rare events. This multistep process also explains why tumors become a heterogeneous mass: different subclones accumulate different additional mutations after the initial driver events.',
+      wrongs: [
+        'A — A single proto-oncogene activation is insufficient. It may initiate aberrant proliferation but is not enough for invasive cancer; normal tumor suppressor mechanisms, apoptosis, and immune surveillance must also be overcome.',
+        'B — 3–4 mutations specifically in mismatch repair genes does not describe the multistep model; MMR gene mutations accelerate mutation accumulation but are not the sole driver events required.',
+        'D — The number is not a precise 5, nor does the model require simultaneous mutation events. Mutations occur sequentially and the minimum threshold is 6–8 for full malignant transformation.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 2',
+    stem: 'In the well-characterized colorectal adenoma-carcinoma sequence, which mutation is typically the earliest driver event initiating the transition from normal epithelium to adenoma?',
+    choices: [
+      'A gain-of-function RAS mutation that drives initial clonal expansion of normal epithelial cells into a small adenoma',
+      'A loss-of-function APC mutation that initiates abnormal proliferation of the normal colonic epithelium into an adenoma',
+      'An activating PI3K mutation that disrupts cell cycle checkpoint regulation at the normal-to-adenoma transition point',
+      'A loss-of-function TGFB mutation that removes growth-inhibitory signaling from fully differentiated carcinoma cells'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'In the colorectal adenoma-carcinoma sequence, a loss-of-function APC mutation is the earliest and initiating driver event (ages 30–50), creating the small adenoma. RAS mutations drive the small-to-large adenoma transition, and PI3K/TGFB mutations contribute later to carcinoma development.',
+      teaching: 'The sequence is: APC → small adenoma (30–50 yr) → RAS → large adenoma (40–60 yr) → PI3K/cell cycle/TGFB → carcinoma (50–70 yr). APC is the gatekeeper; losing it initiates the entire pathway. This is why familial adenomatous polyposis (APC germline mutation) dramatically increases colorectal cancer risk.',
+      wrongs: [
+        'A — RAS mutations drive progression from a pre-existing small adenoma to a large adenoma; they are not the initiating event in normal epithelium.',
+        'C — PI3K mutations contribute later in the multistep process, during the large adenoma-to-carcinoma transition, not at the very beginning of the adenoma sequence.',
+        'D — TGFB pathway mutations occur late in tumor progression, contributing to carcinoma development after the adenoma has already formed through earlier driver mutations.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 2',
+    stem: 'With respect to cancer genetics, which functional category do DNA mismatch repair genes such as MSH2 and MLH1 belong to?',
+    choices: [
+      'Proto-oncogenes, because their normal function actively promotes cell survival, division, and tissue maintenance',
+      'Oncogenes, because their mutated form directly drives uncontrolled cellular proliferation and blocks apoptosis',
+      'Tumor suppressor genes, because the loss of both functional copies removes a critical genomic guardian mechanism',
+      'Housekeeping genes, because their constitutive expression is required for basic metabolic processes in all cell types'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'DNA mismatch repair genes are tumor suppressor genes (TSGs). Their normal function protects the genome by repairing replication errors. When both alleles are inactivated (2-hit hypothesis), this protection is lost, the mutation rate accelerates, and tumor-driving mutations accumulate faster.',
+      teaching: 'TSGs work like brakes — you need to knock out both copies to lose braking function. This is the cellular recessive nature of TSGs. But at the organismal level, inheriting one inactivated copy creates a dominant predisposition because only one more somatic hit is needed in any vulnerable cell.',
+      wrongs: [
+        'A — Proto-oncogenes promote cell growth when activated, the opposite function of TSGs. MMR genes repair DNA errors; they do not promote proliferation.',
+        'B — Oncogenes are the mutated, gain-of-function forms of proto-oncogenes that drive proliferation. MMR genes become cancer-promoting only when they lose function, not when they gain function.',
+        'D — While MMR genes are expressed ubiquitously, "housekeeping gene" is not a cancer genetics classification. The relevant classification for cancer biology is TSG based on their function as genomic guardians.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 2',
+    stem: 'According to the two-hit hypothesis, how many mutational events must occur in a tumor suppressor gene before its protective function is completely lost within a single cell?',
+    choices: [
+      'One mutation in either allele is sufficient because tumor suppressor genes display classical haploinsufficiency at full penetrance',
+      'Two mutations — one inactivating each of the two alleles present — must occur before TSG function is fully eliminated',
+      'Three mutations are required: two somatic and one inherited germline event, to inactivate all redundant backup pathways',
+      'Four mutations are needed to overwhelm the combined error-correction capacity of the full mismatch repair machinery'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'The two-hit hypothesis states that both copies (alleles) of a tumor suppressor gene must be inactivated to eliminate its protective function. This is because most TSG proteins are recessive at the cellular level — one functional copy is sufficient to maintain normal suppressor activity.',
+      teaching: 'Knudson proposed the 2-hit hypothesis from retinoblastoma data. In hereditary cases, one hit is inherited in the germline (present in every cell); the second somatic hit occurs later. In sporadic cases, both hits must occur in the same cell by chance — much rarer.',
+      wrongs: [
+        'A — Most TSGs do not display true haploinsufficiency at clinical levels; one functional copy is usually sufficient to maintain protective function. The second hit is required to fully inactivate TSG activity.',
+        'C — Three mutations are not required by the 2-hit model. The model specifically proposes two inactivating events for TSGs, corresponding to the two alleles present in a diploid genome.',
+        'D — Four mutations is not part of the 2-hit hypothesis. The "two hits" refer specifically to the two alleles of a single TSG locus, not to the entire MMR system.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 2',
+    stem: 'A child inherits one inactivated MSH2 allele from a parent with Lynch syndrome. Why is this child at dramatically higher lifetime cancer risk than a child born with two normal MSH2 alleles?',
+    choices: [
+      'Because the inherited mutation activates a linked dominant oncogene that drives colonic cell proliferation from the time of birth',
+      'Because loss of one allele immediately and completely eliminates mismatch repair activity in every cell of the child\'s body',
+      'Because the child is already at the first hit in every cell of the body, so only one additional somatic event is sufficient for MSH2 loss',
+      'Because the inherited allele produces a dominant-negative protein that actively blocks the function of the remaining wild-type copy'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'The child inheriting MSH2+/m starts with the first hit already present in every cell of their body. For cancer to develop, only one additional somatic event — the second hit — is needed in any single colon cell. The child with two normal alleles (MSH2+/+) requires two independent rare somatic events in the same cell, which is far less probable.',
+      teaching: 'Think of it as a race: the non-hereditary patient is still at the starting line, while the hereditary patient is already halfway to the finish in every cell simultaneously. With millions of colonic epithelial cells, the probability of any single one acquiring a second hit over a lifetime is very high.',
+      wrongs: [
+        'A — MSH2 is a DNA repair gene, not a proto-oncogene. Inactivating one copy does not activate any oncogenic pathway; it simply reduces genomic repair capacity.',
+        'B — One inactivated MSH2 allele does NOT eliminate MMR activity. The remaining functional copy is sufficient to maintain normal repair. Loss of both alleles is required to lose MMR function.',
+        'D — MSH2 mutations are loss-of-function, not dominant-negative. The remaining normal copy continues to function normally; it is only when that copy is also lost that MMR is eliminated.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 2',
+    stem: 'Which of the following patients has the statistically lowest probability of developing a mismatch repair–deficient tumor during their lifetime?',
+    choices: [
+      'A patient inheriting a germline MSH2 inactivating mutation whose colonic epithelial cells subsequently undergo loss of the second allele',
+      'A patient born with two normal MSH2 alleles who requires two independent somatic hits to occur in the same single colonic cell',
+      'A patient carrying a germline MLH1 deletion affecting one allele in all cells who later develops a second somatic hit event',
+      'A patient with a heterozygous MSH6 germline mutation who undergoes loss of heterozygosity in a single colonic epithelial cell'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'A patient born with two normal MSH2 alleles (MSH2+/+) requires two completely independent somatic mutation events to occur in the same cell — an extremely rare probabilistic coincidence. The other patients all carry a germline first hit and only need one additional somatic event.',
+      teaching: 'This directly illustrates why hereditary cancer syndromes confer dramatically elevated risk. Options A, C, and D all describe hereditary scenarios where the first hit is already present in every cell. Option B is the sporadic case, requiring two rare independent events in the same cell — vastly lower probability.',
+      wrongs: [
+        'A — This patient (MSH2+/m germline) starts with one hit everywhere; their lifetime cancer risk is dramatically elevated compared to the sporadic case.',
+        'C — This patient with a germline MLH1 deletion is in the same elevated-risk category as option A; they only need one more somatic event to eliminate MMR function.',
+        'D — A germline MSH6 mutation places this patient in the same high-risk group; loss of heterozygosity in any single colon cell completes the two-hit requirement.'
+      ]
+    }
+  },
+
+  // ══════ PLO 3: Germline vs. Somatic Mutations (Qs 13–18) ══════
+
+  {
+    plo: 'PLO 3',
+    stem: 'A patient is diagnosed with melanoma harboring an HRAS driver mutation. A biopsy of normal skin from the patient\'s forearm reveals wild-type HRAS. What type of mutation does the HRAS variant in the melanoma represent?',
+    choices: [
+      'A germline mutation, because it is present in the tumor and was inherited from one parent at the time of conception',
+      'A somatic mutation, because it arose in a single body cell after fertilization and is absent from normal somatic tissue',
+      'A constitutional mutation, because it arose at conception and is therefore present in every nucleated cell of the body',
+      'A de novo germline mutation, because it appeared spontaneously in utero and was subsequently transferred into germ cells'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Because the HRAS mutation is present in the melanoma but absent from the normal forearm skin biopsy, it arose after fertilization in a single somatic cell. This defines a somatic mutation — one that is only present in the tumor and its daughter cells, not in normal tissues throughout the body.',
+      teaching: 'The critical test: check a normal cell from a distant tissue. If the mutation is absent there, it\'s somatic. If it\'s present everywhere (including normal cells), it\'s germline/constitutional. This distinction drives decisions about hereditary cancer risk counseling and family screening.',
+      wrongs: [
+        'A — A germline mutation would be present in ALL cells of the body, including the normal forearm skin. Since the forearm biopsy shows wild-type HRAS, the mutation is not germline.',
+        'C — Constitutional mutation means present in every cell (synonymous with germline in this context). The absence of the mutation in normal skin rules out constitutional status.',
+        'D — A de novo germline mutation occurring in utero would still be present in every cell, including the forearm skin biopsy. Its absence there definitively identifies this as a post-fertilization somatic event.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 3',
+    stem: 'The patient with the somatic HRAS melanoma mutation from the previous question has a biological child. What is the expected HRAS genotype in the offspring\'s normal skin melanocytes?',
+    choices: [
+      'Heterozygous for the HRAS mutation, because somatic mutations in rapidly dividing skin cells can enter the germline lineage',
+      'Wild-type HRAS, because a somatic tumor mutation is not present in germ cells and therefore cannot be passed to offspring',
+      'Homozygous mutant HRAS, because the offspring inherited both copies of the mutated allele from the affected parent',
+      'Wild-type HRAS only if the other biological parent does not also carry an HRAS polymorphism at the same chromosomal locus'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'The HRAS mutation arose somatically in a melanocyte — it is not present in the patient\'s germ cells (sperm or eggs). Therefore, it cannot be inherited by any offspring. The child\'s melanocytes will have normal wild-type HRAS.',
+      teaching: 'This is the fundamental distinction between germline and somatic mutations: only germline mutations can be transmitted to the next generation. Somatic mutations die with the patient\'s tumor. This is why a patient with a sporadic (somatic) cancer does not automatically place their children at elevated genetic risk.',
+      wrongs: [
+        'A — Somatic mutations in skin cells do not enter the germline. The germ cell lineage (sperm/eggs) is established separately from somatic tissue early in development and is not derived from skin cells.',
+        'C — Homozygous mutant offspring would require the mutation to be present in two alleles transmitted at fertilization. Since the mutation is somatic and absent from germ cells, neither allele passed to the child carries it.',
+        'D — The other parent\'s HRAS status is irrelevant to this child\'s risk from this somatic mutation. Whether the other parent carries a variant is an independent question; the somatic nature of this mutation means the child gets zero copies of it from this parent.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 3',
+    stem: 'A parent with Lynch syndrome carries a germline MSH2+/m mutation and has a child. Before any second somatic hit occurs, what is the MSH2 genotype of a normal keratinocyte in the child\'s scalp?',
+    choices: [
+      'MSH2 m/m, because the child inherited both inactivated copies from the affected parent\'s germline at fertilization',
+      'MSH2 +/+, because normal somatic cells actively repair all inherited germline mutations through base excision repair',
+      'MSH2 +/m, because the germline mutation is present in every cell of the body while the second allele remains functional',
+      'MSH2 +/m only in colonic epithelium, because germline mutations preferentially segregate to target organ tissues during development'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'A parent with MSH2+/m has a 50% chance of passing the mutant allele to the child. If the child inherits it, every cell in the child\'s body — including scalp keratinocytes — will be MSH2+/m. The second allele remains functional until a somatic second-hit event occurs.',
+      teaching: 'Germline mutations are present in every cell because they were present in the founding fertilized egg from which all cells descended. There is no tissue preference or selective segregation. This is why Lynch syndrome patients are at risk for cancers in multiple organs (colon, uterus, stomach, etc.) — the first hit is everywhere.',
+      wrongs: [
+        'A — MSH2 m/m would require BOTH alleles to be inactivated. A parent with MSH2+/m can only pass one allele — either the mutant or the normal one. The child cannot receive both copies from one parent.',
+        'B — Base excision repair corrects specific types of DNA damage (oxidative, alkylation), not inherited germline mutations. A germline MSH2 mutation is a heritable sequence change, not a damage lesion that can be "repaired."',
+        'D — Germline mutations are present in ALL cells of the body from the moment of fertilization. There is no mechanism by which a germline mutation would segregate only to colon cells during embryonic development.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 3',
+    stem: 'The Lynch syndrome child from the previous question develops a colon tumor at age 32. A tumor biopsy reveals MSH2 m/m. A normal liver biopsy from the same patient shows MSH2 +/m. What best explains this genotypic difference between the two tissues?',
+    choices: [
+      'The liver cells acquired a secondary de novo germline MSH2 mutation after birth that was subsequently corrected by active mismatch repair',
+      'A second somatic loss-of-heterozygosity event inactivated the remaining functional MSH2 allele specifically within the tumor cell lineage',
+      'The MSH2 +/m genotype in liver tissue reflects somatic reversion, where the mutant allele spontaneously corrected itself back to normal',
+      'The difference is an artifact of immunohistochemistry technique, because protein expression levels do not reliably reflect underlying genotype'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'The patient started with MSH2+/m in all cells (germline). In one colon cell, a second somatic event — loss of heterozygosity (LOH) — inactivated the remaining functional MSH2 allele. That cell\'s descendants (the tumor) are now MSH2 m/m. The liver cells never experienced this second hit, so they remain MSH2+/m.',
+      teaching: 'This is the two-hit hypothesis in action, demonstrated at the genotype level. The germline provides hit #1 in every cell simultaneously. Hit #2 is somatic and random — it happened in a colon cell, not a liver cell. The genotypic difference between the tumor and normal liver tissue is diagnostic evidence of the second hit.',
+      wrongs: [
+        'A — Liver cells do not acquire new germline mutations after birth; "germline" by definition refers to mutations present at fertilization. Post-natal mutations in somatic liver cells would be somatic, not germline.',
+        'C — Spontaneous somatic reversion (correction of a mutant allele back to normal) is an extremely rare theoretical event, not a standard mechanism. The far simpler and correct explanation is LOH in the tumor lineage.',
+        'D — While IHC can have technical limitations, this question specifies genotyping (MSH2 m/m vs +/m), which directly reflects the DNA sequence. The difference is not an IHC artifact but a real genotypic difference caused by LOH.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 3',
+    stem: 'A patient simultaneously has a somatic HRAS mutation in a melanoma AND carries a germline MSH2+/m mutation throughout their body. A biopsy is taken from a normal lymph node. What genotype is expected at HRAS and MSH2 in the lymph node cells?',
+    choices: [
+      'HRAS mutant and MSH2 m/m, because both driver mutations spread systemically to adjacent lymph nodes through the bloodstream',
+      'HRAS wild-type and MSH2 +/m, because the somatic HRAS mutation stays in the tumor lineage while the germline MSH2 mutation is in every cell',
+      'HRAS mutant and MSH2 +/+, because melanoma tumor cells shed mutant DNA that integrates into the genome of nearby lymph node cells',
+      'HRAS wild-type and MSH2 +/+, because lymph node immune cells are specifically protected from both somatic and germline mutation types'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'The normal lymph node has HRAS wild-type (the HRAS mutation is somatic — confined to the melanoma tumor lineage and absent from normal cells) and MSH2+/m (the germline mutation is present in ALL cells of the body, including normal lymph node cells).',
+      teaching: 'This question tests whether you can apply both mutation types simultaneously. The rule: somatic mutations = only in the tumor and its descendants; germline mutations = in every cell in the body. The lymph node is a normal tissue not derived from the tumor, so it gets the germline MSH2 status but not the somatic HRAS mutation.',
+      wrongs: [
+        'A — Somatic mutations do not spread systemically through the bloodstream to enter the genome of normal cells. MSH2 m/m requires loss of both alleles; normal lymph node cells retain one functional copy (MSH2+/m).',
+        'C — Tumor cells shedding circulating DNA is a real phenomenon (basis for liquid biopsy), but shed tumor DNA does not integrate into the genomes of normal lymph node cells and alter their heritable genotype.',
+        'D — Lymph node cells have no special protection from germline mutations; they descended from the same fertilized egg as all other cells and therefore carry the MSH2+/m germline mutation like every other cell in the body.'
+      ]
+    }
+  },
+
+  {
+    plo: 'PLO 3',
+    stem: 'Which statement most accurately distinguishes how germline and somatic mutations differ with respect to their location in the body and transmissibility to offspring?',
+    choices: [
+      'Germline mutations arise only in germ cells and migrate secondarily to somatic tissues during early embryogenesis to cause cancer',
+      'Somatic mutations are present throughout every cell of the body while germline mutations are confined to the tumor and its daughter cells',
+      'Germline mutations are present in all cells including germ cells and can be inherited; somatic mutations exist only in the tumor lineage and cannot be passed to offspring',
+      'Both mutation types are present throughout the body, but only germline mutations are reliably detectable in blood samples by standard genetic sequencing'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Germline mutations are present in every cell of the body (including germ cells) because they were present in the founding fertilized egg. They can be transmitted to offspring. Somatic mutations arise after fertilization in a specific cell and are found only in that cell\'s descendants (the tumor lineage). They cannot be inherited.',
+      teaching: 'This is the master concept for PLO 3. Location in body: germline = everywhere; somatic = tumor only. Transmissibility: germline = yes (50% chance per child for autosomal dominant); somatic = no (not in germ cells). These two properties together define and distinguish the two types.',
+      wrongs: [
+        'A — Germline mutations do not arise in germ cells and then migrate. They are present in the fertilized egg from the very start and are therefore in every cell that develops from that egg, including germ cells.',
+        'B — This has it exactly backwards. It is the germline mutation (not somatic) that is present throughout every cell of the body, and the somatic mutation (not germline) that is confined to the tumor lineage.',
+        'D — Somatic tumor mutations can actually be detected in blood through circulating tumor DNA (ctDNA) "liquid biopsy" techniques. The key distinction is transmissibility, not detectability in blood.'
+      ]
+    }
+  }
+
+];
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let currentIndex = 0;
+let quizMode = 'learn';
+let examSubmitted = false;
+let selectedChoice = null;
+let toolMode = null;
+
+// Per-question state
+const state = questions.map(() => ({
+  selected: null,    // 0–3 or null
+  graded: false,
+  correct: null      // true/false/null
+}));
+
+// ─────────────────────────────────────────────
+// DOM REFS
+// ─────────────────────────────────────────────
+const qo            = document.getElementById('qo');
+const openDemo      = document.getElementById('openDemo');
+const closeQuiz     = document.getElementById('closeQuiz');
+const resetQuiz     = document.getElementById('resetQuiz');
+const printQuiz     = document.getElementById('printQuiz');
+const qNum          = document.getElementById('qNum');
+const qStem         = document.getElementById('qStem');
+const achEl         = document.getElementById('ach');
+const submitOne     = document.getElementById('submitOne');
+const exBlock       = document.getElementById('exBlock');
+const exCorrect     = document.getElementById('exCorrect');
+const exTeach       = document.getElementById('exTeach');
+const exWrong       = document.getElementById('exWrong');
+const prevBtn       = document.getElementById('prevBtn');
+const nextBtn       = document.getElementById('nextBtn');
+const qdots         = document.getElementById('qdots');
+const qpf           = document.getElementById('qpf');
+const svCurrent     = document.getElementById('svCurrent');
+const svCorrect     = document.getElementById('svCorrect');
+const svIncorrect   = document.getElementById('svIncorrect');
+const modeLearn     = document.getElementById('modeLearn');
+const modeExam      = document.getElementById('modeExam');
+const submitExam    = document.getElementById('submitExam');
+const examSubmitRow = document.getElementById('examSubmitRow');
+const examProgress  = document.getElementById('examProgress');
+const toolHighlight = document.getElementById('toolHighlight');
+const toolStrike    = document.getElementById('toolStrike');
+const toolReveal    = document.getElementById('toolReveal');
+const toolStatus    = document.getElementById('toolStatus');
+
+// ─────────────────────────────────────────────
+// OPEN / CLOSE
+// ─────────────────────────────────────────────
+openDemo.addEventListener('click', () => { qo.classList.add('open'); renderQuestion(currentIndex); });
+closeQuiz.addEventListener('click', () => {
+  qo.classList.add('closing');
+  setTimeout(() => qo.classList.remove('open', 'closing'), 320);
+});
+
+// ─────────────────────────────────────────────
+// RENDER QUESTION
+// ─────────────────────────────────────────────
+function renderQuestion(idx) {
+  const q = questions[idx];
+  const s = state[idx];
+  selectedChoice = s.selected;
+
+  // Header
+  qNum.textContent = `Question ${idx + 1} of ${questions.length}  ·  ${q.plo}`;
+  qStem.innerHTML = `<span class="stem-text">${q.stem}</span>`;
+  qStem.className = 'qstem';
+
+  // Progress bar
+  qpf.style.width = ((idx + 1) / questions.length * 100) + '%';
+
+  // Score
+  svCurrent.textContent = idx + 1;
+  updateScoreDisplay();
+
+  // Choices
+  achEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.choices.forEach((text, ci) => {
+    const ac = document.createElement('div');
+    ac.className = 'ac';
+    ac.dataset.choice = ci;
+    ac.innerHTML = `<div class="cl">${letters[ci]}</div><div class="ctx">${text}</div>`;
+
+    if (s.graded) {
+      ac.classList.add('dis');
+      if (ci === q.correct) ac.classList.add('cor');
+      else if (ci === s.selected) ac.classList.add('inc');
+    } else if (s.selected === ci) {
+      ac.classList.add('sel');
+    }
+
+    ac.addEventListener('click', () => onChoiceClick(ac, ci));
+    achEl.appendChild(ac);
+  });
+
+  // Explanation
+  if (s.graded) {
+    exCorrect.textContent = q.explanation.correct;
+    exTeach.textContent = q.explanation.teaching;
+    exWrong.innerHTML = q.explanation.wrongs.map((w, i) => {
+      const skip = letters[q.correct];
+      return `<div class="wce"><strong>${letters[i]}</strong> — ${w}</div>`;
+    }).filter((_, i) => i !== q.correct).join('');
+    exBlock.classList.add('vis');
+  } else {
+    exBlock.classList.remove('vis');
+  }
+
+  // Submit button
+  submitOne.disabled = (s.graded || s.selected === null);
+  submitOne.style.display = (quizMode === 'exam') ? 'none' : 'block';
+
+  // Nav buttons
+  prevBtn.disabled = idx === 0;
+  nextBtn.disabled = idx === questions.length - 1;
+
+  // Dots
+  renderDots(idx);
+
+  // Exam progress
+  updateExamProgress();
+  updateExamButton();
+
+  // Scroll top
+  document.getElementById('qA').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─────────────────────────────────────────────
+// CHOICE CLICK
+// ─────────────────────────────────────────────
+function onChoiceClick(ac, ci) {
+  const s = state[currentIndex];
+  if (s.graded) return;
+
+  // Tool modes
+  if (toolMode === 'highlight') { ac.classList.toggle('hl-applied'); ac.classList.remove('st-applied'); return; }
+  if (toolMode === 'strike')    { ac.classList.toggle('st-applied'); ac.classList.remove('hl-applied'); return; }
+
+  // Normal selection
+  document.querySelectorAll('.ac').forEach(el => el.classList.remove('sel'));
+  ac.classList.add('sel');
+  s.selected = ci;
+  selectedChoice = ci;
+  submitOne.disabled = false;
+  updateExamProgress();
+  updateExamButton();
+  renderDots(currentIndex);
+}
+
+// ─────────────────────────────────────────────
+// GRADING
+// ─────────────────────────────────────────────
+function gradeQuestion(idx) {
+  const q = questions[idx];
+  const s = state[idx];
+  if (s.selected === null) return false;
+  s.graded = true;
+  s.correct = (s.selected === q.correct);
+
+  document.querySelectorAll('.ac').forEach(ac => {
+    ac.classList.add('dis');
+    const ci = parseInt(ac.dataset.choice);
+    if (ci === q.correct) ac.classList.add('cor');
+    else if (ci === s.selected) ac.classList.add('inc');
+    const cl = ac.querySelector('.cl');
+    if (ci === q.correct) { cl.style.background = 'var(--green)'; cl.style.color = '#fff'; }
+    else if (ci === s.selected) { cl.style.background = 'var(--red)'; cl.style.color = '#fff'; }
+  });
+
+  exCorrect.textContent = q.explanation.correct;
+  exTeach.textContent = q.explanation.teaching;
+  const letters = ['A','B','C','D'];
+  exWrong.innerHTML = q.explanation.wrongs.map((w, i) => {
+    return `<div class="wce"><strong>${letters[i]}</strong> — ${w}</div>`;
+  }).filter((_, i) => i !== q.correct).join('');
+  exBlock.classList.add('vis');
+
+  submitOne.disabled = true;
+  updateScoreDisplay();
+  renderDots(currentIndex);
+  return true;
+}
+
+submitOne.addEventListener('click', () => {
+  if (quizMode !== 'learn') return;
+  gradeQuestion(currentIndex);
+});
+
+// ─────────────────────────────────────────────
+// SCORE DISPLAY
+// ─────────────────────────────────────────────
+function updateScoreDisplay() {
+  const correct = state.filter(s => s.correct === true).length;
+  const incorrect = state.filter(s => s.correct === false).length;
+  svCorrect.textContent = correct;
+  svIncorrect.textContent = incorrect;
+}
+
+// ─────────────────────────────────────────────
+// NAVIGATION DOTS
+// ─────────────────────────────────────────────
+function renderDots(activeIdx) {
+  qdots.innerHTML = '';
+  state.forEach((s, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'qd';
+    if (i === activeIdx) dot.classList.add('cur');
+    else if (s.graded && s.correct) dot.classList.add('acor');
+    else if (s.graded && !s.correct) dot.classList.add('ainc');
+    else if (s.selected !== null) dot.classList.add('asel');
+    dot.addEventListener('click', () => { currentIndex = i; renderQuestion(i); });
+    qdots.appendChild(dot);
+  });
+}
+
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+prevBtn.addEventListener('click', () => { if (currentIndex > 0) { currentIndex--; renderQuestion(currentIndex); } });
+nextBtn.addEventListener('click', () => { if (currentIndex < questions.length - 1) { currentIndex++; renderQuestion(currentIndex); } });
+
+// ─────────────────────────────────────────────
+// MODE TOGGLE
+// ─────────────────────────────────────────────
+function setMode(mode) {
+  quizMode = mode;
+  modeLearn.classList.toggle('active', mode === 'learn');
+  modeExam.classList.toggle('active', mode === 'exam');
+  submitOne.style.display = mode === 'exam' ? 'none' : 'block';
+  updateExamButton();
+}
+modeLearn.addEventListener('click', () => setMode('learn'));
+modeExam.addEventListener('click', () => setMode('exam'));
+
+// ─────────────────────────────────────────────
+// EXAM MODE
+// ─────────────────────────────────────────────
+function updateExamProgress() {
+  const answered = state.filter(s => s.selected !== null).length;
+  examProgress.textContent = `${answered} of ${questions.length} answered`;
+}
+function updateExamButton() {
+  const inExam = quizMode === 'exam';
+  const answered = state.filter(s => s.selected !== null).length;
+  submitExam.disabled = !inExam || examSubmitted || answered === 0;
+  examSubmitRow.classList.toggle('exam-live', inExam && !examSubmitted);
+  examSubmitRow.classList.toggle('exam-done', examSubmitted);
+  submitExam.textContent = examSubmitted ? 'Exam Submitted ✓' : 'Submit Exam';
+}
+submitExam.addEventListener('click', () => {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  state.forEach((s, i) => { if (s.selected !== null && !s.graded) gradeQuestion(i); });
+  examSubmitted = true;
+  updateExamButton();
+  renderQuestion(currentIndex);
+});
+
+// ─────────────────────────────────────────────
+// RESET
+// ─────────────────────────────────────────────
+resetQuiz.addEventListener('click', () => {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  state.forEach(s => { s.selected = null; s.graded = false; s.correct = null; });
+  currentIndex = 0;
+  examSubmitted = false;
+  selectedChoice = null;
+  toolMode = null;
+  updateToolUI();
+  setMode('learn');
+  renderQuestion(0);
+});
+
+// ─────────────────────────────────────────────
+// TOOL SYSTEM
+// ─────────────────────────────────────────────
+function updateToolUI() {
+  toolHighlight.classList.toggle('active', toolMode === 'highlight');
+  toolStrike.classList.toggle('active', toolMode === 'strike');
+  if (toolMode === 'highlight') { toolStatus.textContent = 'Tool mode: highlight active'; toolStatus.className = 'tool-status active-highlight'; }
+  else if (toolMode === 'strike') { toolStatus.textContent = 'Tool mode: strikeout active'; toolStatus.className = 'tool-status active-strike'; }
+  else { toolStatus.textContent = 'Tool mode: none'; toolStatus.className = 'tool-status'; }
+  // Add/remove hover class on stem
+  if (toolMode) qStem.classList.add('tool-hover'); else qStem.classList.remove('tool-hover');
+}
+function setToolMode(mode) { toolMode = toolMode === mode ? null : mode; updateToolUI(); }
+toolHighlight.addEventListener('click', () => setToolMode('highlight'));
+toolStrike.addEventListener('click', () => setToolMode('strike'));
+toolReveal.addEventListener('click', () => exBlock.classList.toggle('vis'));
+
+// Stem highlight/strikeout
+function applyStemMarkup(type) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+  const range = sel.getRangeAt(0);
+  if (!qStem.contains(range.commonAncestorContainer)) return false;
+  const wrapper = document.createElement('span');
+  wrapper.className = type === 'highlight' ? 'stem-hl' : 'stem-st';
+  try { range.surroundContents(wrapper); }
+  catch(e) { const frag = range.extractContents(); wrapper.appendChild(frag); range.insertNode(wrapper); }
+  sel.removeAllRanges();
+  return true;
+}
+function toggleWholeStem(type) {
+  if (type === 'highlight') { qStem.classList.toggle('hl-applied'); qStem.classList.remove('st-applied'); }
+  else { qStem.classList.toggle('st-applied'); qStem.classList.remove('hl-applied'); }
+}
+qStem.addEventListener('click', e => {
+  if (!toolMode) return;
+  const didApply = applyStemMarkup(toolMode);
+  if (!didApply) toggleWholeStem(toolMode);
+  e.preventDefault();
+});
+
+// ─────────────────────────────────────────────
+// FONT SIZE
+// ─────────────────────────────────────────────
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qo.dataset.fs = btn.dataset.fsBtn;
+    document.querySelectorAll('.fs-btn').forEach(b => b.classList.toggle('fs-active', b.dataset.fsBtn === btn.dataset.fsBtn));
+  });
+});
+
+// ─────────────────────────────────────────────
+// TIMERS
+// ─────────────────────────────────────────────
+let timerInt = null, timerSec = 0;
+function renderTimer() {
+  const m = String(Math.floor(timerSec/60)).padStart(2,'0');
+  const s = String(timerSec%60).padStart(2,'0');
+  document.getElementById('timerTime').textContent = `${m}:${s}`;
+}
+document.getElementById('timerStart').addEventListener('click', () => { if(timerInt) return; timerInt = setInterval(()=>{ timerSec++; renderTimer(); },1000); });
+document.getElementById('timerPause').addEventListener('click', () => { clearInterval(timerInt); timerInt=null; });
+document.getElementById('timerReset').addEventListener('click', () => { clearInterval(timerInt); timerInt=null; timerSec=0; renderTimer(); });
+
+let cdMinutes = 5, cdInt = null, cdSec = 300;
+function renderCountdown() {
+  const m = String(Math.floor(cdSec/60)).padStart(2,'0');
+  const s = String(cdSec%60).padStart(2,'0');
+  const el = document.getElementById('cdTime');
+  el.textContent = `${m}:${s}`;
+  el.className = cdSec <= 30 && cdInt ? 'cd-time warn' : 'cd-time';
+}
+document.getElementById('cdMinus').addEventListener('click',()=>{ if(cdInt) return; cdMinutes=Math.max(1,cdMinutes-1); cdSec=cdMinutes*60; document.getElementById('cdVal').textContent=cdMinutes; renderCountdown(); });
+document.getElementById('cdPlus').addEventListener('click',()=>{ if(cdInt) return; cdMinutes=Math.min(99,cdMinutes+1); cdSec=cdMinutes*60; document.getElementById('cdVal').textContent=cdMinutes; renderCountdown(); });
+document.getElementById('cdGo').addEventListener('click',()=>{
+  if(cdInt){ clearInterval(cdInt); cdInt=null; document.getElementById('cdGo').textContent='Start'; return; }
+  document.getElementById('cdGo').textContent='Pause';
+  cdInt=setInterval(()=>{
+    if(cdSec<=0){ clearInterval(cdInt); cdInt=null; document.getElementById('cdGo').textContent='Start'; renderCountdown(); return; }
+    cdSec--; renderCountdown();
+  },1000);
+});
+
+// ─────────────────────────────────────────────
+// PRINT
+// ─────────────────────────────────────────────
+function escapeHTML(v){ return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
+function buildPrintReviewMarkup() {
+  const letters = ['A','B','C','D'];
+  const answered = state.filter(s => s.graded);
+  if (answered.length === 0) return '<div class="print-shell"><p>No questions have been answered yet.</p></div>';
+  let html = '<div class="print-shell"><h1 class="print-title">Pharmacogenetics PLO RAT Quiz — Review</h1>';
+  questions.forEach((q, i) => {
+    const s = state[i];
+    if (!s.graded) return;
+    html += `<div class="print-card">`;
+    html += `<div class="print-qnum">Question ${i+1} · ${escapeHTML(q.plo)}</div>`;
+    html += `<div class="print-stem">${escapeHTML(q.stem)}</div>`;
+    html += `<div class="print-choices">`;
+    q.choices.forEach((c, ci) => {
+      let cls = '';
+      if (ci === q.correct) cls = 'correct';
+      else if (ci === s.selected && s.selected !== q.correct) cls = 'incorrect';
+      html += `<div class="print-choice ${cls}"><span class="print-choice-lbl">${letters[ci]}</span><span>${escapeHTML(c)}</span></div>`;
+    });
+    html += `</div>`;
+    html += `<div class="print-explainer correct-box"><div class="print-explainer-lbl">Correct Answer</div>${escapeHTML(q.explanation.correct)}</div>`;
+    html += `<div class="print-explainer teach-box"><div class="print-explainer-lbl">Teaching Point</div>${escapeHTML(q.explanation.teaching)}</div>`;
+    if (!s.correct) {
+      html += `<div class="print-explainer wrong-box"><div class="print-explainer-lbl">Why the Others Are Wrong</div>`;
+      q.explanation.wrongs.forEach((w, wi) => {
+        html += `<div style="margin-bottom:4px"><strong>${letters[wi]}</strong> — ${escapeHTML(w)}</div>`;
+      });
+      html += `</div>`;
+    }
+    html += `</div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+function printQuizReview() {
+  document.getElementById('printReviewRoot').innerHTML = buildPrintReviewMarkup();
+  document.body.classList.add('print-review-active');
+  setTimeout(() => window.print(), 50);
+}
+window.addEventListener('afterprint', () => document.body.classList.remove('print-review-active'));
+printQuiz.addEventListener('click', printQuizReview);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tumor Immunology — PLO Quiz | Dr. Goode Block 5</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;font-size:17px;background:var(--cream);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+body,.qbd,.cd,.r-box,.box,.panel{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease}
+::selection{background:var(--teal-light);color:var(--teal-deep)}
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;background:
+ radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+ radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+ linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%)}
+.launch-card{max-width:760px;width:min(100%,760px);background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:1px solid rgba(18,32,60,.08);border-radius:28px;box-shadow:0 24px 80px rgba(18,32,60,.12);padding:32px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:42px;line-height:1.02;color:var(--navy);margin-bottom:8px}
+.launch-card p{color:var(--slate);max-width:62ch;margin-bottom:10px}
+.launch-meta{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 24px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:var(--white);border:1px solid var(--rule2);color:var(--ink2);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.chip.plo{border-color:rgba(123,94,167,.4);color:var(--plum);background:var(--plum-bg)}
+.chip.lo{border-color:rgba(26,122,109,.4);color:var(--teal-deep);background:var(--teal-light)}
+.launch-btn{padding:14px 20px;border:none;border-radius:16px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 24px rgba(26,122,109,.24);transition:var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+
+.qo{display:none;position:fixed;inset:0;background:
+  radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--teal-glow) 18%, transparent), transparent 24%),
+  radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--plum) 16%, transparent), transparent 22%),
+  linear-gradient(180deg,var(--warm) 0%, var(--cream) 100%);
+  z-index:200;overflow-y:auto}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(0.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+.qt-bar{position:sticky;top:0;z-index:12;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;background:linear-gradient(135deg,color-mix(in srgb, var(--navy2) 94%, transparent),color-mix(in srgb, var(--navy) 92%, transparent));border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:28px;font-weight:700;letter-spacing:-.3px;line-height:1.1}
+.qt-btns{display:flex;gap:8px;flex-wrap:wrap}
+.qt-btn{padding:10px 16px;border-radius:14px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;letter-spacing:.2px;transition:var(--tr);border:none}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15);color:#fff;transform:translateY(-1px)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900;box-shadow:0 8px 20px rgba(212,168,67,.24)}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 12px 24px rgba(212,168,67,.28)}
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px 24px;align-items:start}
+.q-left{display:grid;gap:18px;align-content:start;align-self:start}
+.q-right{min-width:0;display:grid;gap:16px;align-content:start;align-self:start}
+#qA{min-width:0;align-self:start;position:relative}
+.score-panel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.score-box{position:relative;overflow:hidden;background:color-mix(in srgb, var(--white) 88%, var(--warm) 12%);backdrop-filter:blur(10px);border-radius:22px;padding:18px 14px 14px;text-align:center;box-shadow:0 14px 34px rgba(18,32,60,.08);border:1px solid rgba(18,32,60,.08);transition:var(--tr)}
+.score-box::before{content:'';position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 999px 999px;background:linear-gradient(90deg, rgba(26,122,109,.16), rgba(62,196,178,.5));opacity:.75}
+.score-box.correct{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(232,245,238,.98))}
+.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(253,240,240,.98))}
+.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;color:var(--navy);line-height:1}
+.score-box .sl{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:8px}
+.score-box.correct .sv{color:var(--green)}
+.score-box.incorrect .sv{color:var(--red)}
+.mode-toggle,.timer-panel,.tool-panel,.exam-submit-row{position:relative;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08)}
+.mode-toggle{display:flex;gap:8px;padding:8px;border-radius:24px;animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{flex:1;padding:14px 18px;border-radius:18px;text-align:center;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .25s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 12px 24px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:20px;margin-bottom:4px}
+.timer-panel{display:grid;grid-template-columns:1fr;gap:14px;padding:0;border-radius:24px;box-shadow:none;border:none;background:transparent;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.timer-card,.cd-card{position:relative;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:46px 18px 18px;background:rgba(255,255,255,.84);border-radius:24px;border:1px solid rgba(18,32,60,.08);box-shadow:0 14px 34px rgba(18,32,60,.08);transition:var(--tr)}
+.timer-lbl{position:absolute;top:14px;left:16px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;padding:6px 10px;border-radius:999px;background:rgba(18,32,60,.04)}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:40px;font-weight:600;color:var(--navy);min-width:120px;text-align:center;letter-spacing:2px}
+.tbtn,.cd-pm{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(27,42,74,.24);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:var(--tr);color:var(--navy);flex-shrink:0;box-shadow:0 6px 18px rgba(18,32,60,.08)}
+.cd-pm{width:34px;height:34px;font-size:20px;font-weight:800;border-color:rgba(27,42,74,.16)}
+.tbtn:hover,.cd-pm:hover{background:var(--navy);color:#fff;transform:translateY(-1px) scale(1.04);border-color:var(--navy)}
+.cd-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;min-width:36px;text-align:center;color:var(--navy)}
+.cd-unit{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mist);font-weight:800}
+.cd-go{padding:11px 18px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:var(--tr);box-shadow:0 10px 22px rgba(224,122,95,.22)}
+.cd-go:hover{background:linear-gradient(135deg,#D86E53,#C95E45);transform:translateY(-1px)}
+.tool-panel{display:flex;flex-wrap:wrap;gap:10px;padding:10px;border-radius:24px;animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
+.q-tool{flex:1 1 180px;min-width:0;padding:13px 16px;border-radius:16px;font-size:13px;font-weight:800;border:1.5px solid rgba(18,32,60,.08);background:rgba(255,255,255,.86);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);box-shadow:0 8px 18px rgba(18,32,60,.06);text-align:left}
+.q-tool:hover{border-color:rgba(26,122,109,.32);color:var(--teal);transform:translateY(-1px);background:#fff}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00;box-shadow:0 0 0 3px rgba(211,175,43,.12)}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red);box-shadow:0 0 0 3px rgba(196,64,64,.08)}
+.exam-submit-row{padding:20px;border-radius:24px;text-align:center}
+.exam-submit-row .exam-progress{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--mist);margin-bottom:12px}
+.exam-submit-btn{padding:15px 52px;border-radius:18px;background:linear-gradient(135deg,var(--coral),#D4664A);color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 8px 22px rgba(224,122,95,.24)}
+.exam-submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(224,122,95,.32)}
+.qcd{background:color-mix(in srgb, var(--white) 94%, var(--warm) 6%);border-radius:28px;overflow:hidden;box-shadow:0 28px 70px rgba(18,32,60,.12);border:1px solid rgba(18,32,60,.08);animation:cardIn .45s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(0.99)}to{opacity:1;transform:none}}
+.qpg{height:6px;background:color-mix(in srgb, var(--teal) 10%, transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 34px 26px}
+.qnum{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.qplo{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:var(--plum-bg);border:1px solid rgba(123,94,167,.3);font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--plum);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;margin-left:8px;font-weight:700}
+.qstem{font-family:'Crimson Pro',serif;font-size:25px;line-height:1.35;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.15px}
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:15px 18px;border:1.5px solid rgba(18,32,60,.09);border-radius:18px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb, var(--warm) 78%, var(--white) 22%);position:relative;box-shadow:0 6px 18px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.42);background:#fff;transform:translateY(-1px);box-shadow:0 12px 24px rgba(18,32,60,.08)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.shc{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.dis{cursor:default;transform:none!important}
+.cl{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 6px 14px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl,.ac.shc .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ctx{font-size:16px;line-height:1.45;padding-top:4px;color:var(--ink)}
+.submit-row{margin-top:24px;text-align:center}
+.submit-btn{padding:15px 54px;border-radius:18px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.4px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;box-shadow:none;transform:none}
+.exb{margin-top:26px;border-radius:22px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fi .4s cubic-bezier(.4,0,.2,1)}
+.exs{padding:22px 26px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:16px;line-height:1.75;color:var(--ink2)}
+.wce{margin-top:10px;padding:12px 16px;background:rgba(255,255,255,.58);border-radius:14px;font-size:15px;line-height:1.65}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12px}
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 24px 20px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,color-mix(in srgb, var(--warm) 32%, transparent),color-mix(in srgb, var(--cream) 82%, transparent))}
+.nb{padding:12px 24px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 8px 18px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.qdots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:14px;height:14px;border-radius:50%;border:2px solid rgba(18,32,60,.12);background:#fff;cursor:pointer;transition:var(--tr);box-shadow:0 4px 10px rgba(18,32,60,.04)}
+.qd:hover{transform:scale(1.18)}
+.qd.cur{border-color:var(--teal);background:var(--teal);box-shadow:0 0 0 3px rgba(26,122,109,0.14)}
+.qd.acor{border-color:var(--green);background:var(--green)}
+.qd.ainc{border-color:var(--red);background:var(--red)}
+.qd.asel{border-color:var(--gold);background:var(--gold)}
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:16px}
+#qo[data-fs="lg"] .ctx{font-size:19px}
+#qo[data-fs="xl"] .ctx{font-size:22px}
+.fs-ctrl{display:flex;align-items:center;gap:4px}
+.fs-btn{width:32px;height:32px;border-radius:10px;border:1.5px solid rgba(18,32,60,.14);background:#fff;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);color:var(--ink2);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(18,32,60,.06)}
+.fs-btn:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal);transform:translateY(-1px)}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:var(--mist);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.ac.hl-applied{background:#FFF4A8!important;border-color:#D4A843!important;box-shadow:0 0 0 3px rgba(212,168,67,.18),0 10px 22px rgba(18,32,60,.06)!important}
+.ac.hl-applied .cl{background:#D4A843!important;border-color:#D4A843!important;color:#fff!important}
+.ac.hl-applied .ctx{color:#5c4400!important}
+.ac.st-applied{background:#FFF3F3!important;border-color:rgba(196,64,64,.52)!important;box-shadow:0 0 0 3px rgba(196,64,64,.10),0 10px 22px rgba(18,32,60,.06)!important;opacity:.72}
+.ac.st-applied .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ac.st-applied .ctx{color:#8B2C2C!important;text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--red)}
+.qstem{position:relative;border-radius:16px;padding:6px 8px;margin:-6px -8px 22px -8px;transition:var(--tr)}
+.qstem.tool-hover{box-shadow:inset 0 0 0 2px rgba(26,122,109,.16);background:rgba(26,122,109,.04)}
+.qstem.hl-applied{background:linear-gradient(180deg,#FFF4A8,#FFF7C9)!important;box-shadow:inset 0 0 0 2px rgba(212,168,67,.34)}
+.qstem.st-applied{background:linear-gradient(180deg,#FFF3F3,#FFF8F8)!important;box-shadow:inset 0 0 0 2px rgba(196,64,64,.22)}
+.qstem.st-applied .stem-text,.qstem .stem-st{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--red);color:#8B2C2C!important}
+.qstem .stem-hl{background:#FFF1A6;border-radius:6px;padding:0 .12em;box-shadow:0 0 0 1px rgba(212,168,67,.18)}
+.tool-status{margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mist);padding:0 4px}
+.tool-status.active-highlight{color:#8a6a00}
+.tool-status.active-strike{color:var(--red)}
+.exam-submit-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.exam-submit-row.exam-live{box-shadow:0 0 0 3px rgba(224,122,95,.10),0 14px 34px rgba(18,32,60,.08)}
+.exam-submit-row.exam-done .exam-submit-btn{background:linear-gradient(135deg,var(--green),#3aa56f);box-shadow:0 10px 24px rgba(45,134,89,.24)}
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,body.print-review-active .qo{display:none!important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:980px;margin:0 auto;color:#111;font-family:'Nunito',sans-serif}
+.print-header{margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #ddd}
+.print-header h1{font-family:'Crimson Pro',serif;font-size:32px;color:#12203C;margin-bottom:10px}
+.print-summary{display:flex;gap:10px;flex-wrap:wrap}
+.print-pill{padding:6px 10px;border:1px solid #ddd;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.print-card{break-inside:avoid;page-break-inside:avoid;border:1px solid #ddd;border-radius:16px;padding:20px;margin:0 0 18px;background:#fff}
+.print-card h2{font-family:'Crimson Pro',serif;font-size:26px;color:#12203C;margin:0 0 10px}
+.print-qtag{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6B7689;margin-bottom:8px}
+.print-stem{font-size:17px;line-height:1.55;margin-bottom:16px}
+.print-choices{display:grid;gap:10px;margin-bottom:16px}
+.print-choice{display:flex;gap:12px;border:1px solid #ddd;border-radius:12px;padding:12px;background:#fafafa}
+.print-choice.correct{border-color:#2D8659;background:#E8F5EE}
+.print-choice.incorrect{border-color:#C44040;background:#FDF0F0}
+.print-choice-letter{width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;flex:0 0 32px}
+.print-choice-copy{flex:1}
+.print-choice-badge{margin-top:6px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.print-explainer{border-radius:12px;padding:14px 16px;margin-top:12px}
+.print-explainer.correct-box{background:#E8F5EE;border-left:4px solid #2D8659}
+.print-explainer.teach-box{background:#E3F5F2;border-left:4px solid #1A7A6D}
+.print-explainer.wrong-box{background:#FDF0F0;border-left:4px solid #C44040}
+.print-label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.print-wrong{margin-top:8px}
+@media print{body{background:#fff}body:not(.print-review-active) .launch-wrap,body:not(.print-review-active) .qo,body:not(.print-review-active) #printReviewRoot{display:none!important}body.print-review-active .launch-wrap,body.print-review-active .qo{display:none!important}body.print-review-active #printReviewRoot{display:block!important;padding:0;background:#fff}.print-card{border-color:#ccc;box-shadow:none}}
+@media(max-width:920px){.qin{grid-template-columns:1fr;padding:22px 18px 72px;gap:16px}.score-panel{grid-template-columns:repeat(3,minmax(0,1fr))}.timer-panel{grid-template-columns:1fr 1fr}.tool-panel{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:700px){.qt-bar{padding:14px 16px;align-items:flex-start;flex-direction:column}.qt-bar h2{font-size:24px}.qin{padding:18px 14px 64px}.score-panel{grid-template-columns:1fr}.timer-panel{grid-template-columns:1fr}.tool-panel{grid-template-columns:1fr}.qbd{padding:22px 18px 20px}.qstem{font-size:24px;line-height:1.42}.ctx{font-size:16px}.qnv{padding:16px 18px 20px;flex-direction:column;align-items:stretch}.qdots{order:3}.nb{width:100%}.launch-card h1{font-size:34px}}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Tumor Immunology<br/>PLO Quiz</h1>
+    <p>Dr. Goode · Block 5 · 18 Questions<br/>Covers immune surveillance, tumor antigens, and CTL/NK cell anti-tumor immunity.</p>
+    <div class="launch-meta">
+      <span class="chip plo">PLO 1 — Immune Surveillance</span>
+      <span class="chip plo">PLO 2 — Tumor Antigens</span>
+      <span class="chip plo">PLO 3 — CTLs & NK Cells</span>
+      <span class="chip">18 Questions</span>
+      <span class="chip lo">Learn &amp; Exam Mode</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Start Quiz</button>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>Tumor Immunology — PLO Quiz</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuiz">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box"><div class="sv" id="svCurrent">1</div><div class="sl">Question</div></div>
+        <div class="score-box correct"><div class="sv" id="svCorrect">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="svIncorrect">0</div><div class="sl">Incorrect</div></div>
+      </div>
+
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Stopwatch</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <button class="tbtn" id="timerStart">▶</button>
+          <button class="tbtn" id="timerPause">⏸</button>
+          <button class="tbtn" id="timerReset">↺</button>
+        </div>
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">05:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">5</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+            <button class="cd-go" id="cdGo">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <button class="q-tool" id="toolHighlight">🖊 Highlight tool</button>
+        <button class="q-tool" id="toolStrike">✕ Strikeout tool</button>
+        <button class="q-tool" id="toolReveal">👁 Reveal explanation</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+
+      <div class="exam-submit-row">
+        <div class="exam-progress" id="examProgress">0 of 18 answered</div>
+        <button class="exam-submit-btn" id="submitExam">Submit Exam</button>
+      </div>
+    </div>
+
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qpg"><div class="qpf" id="qProgress" style="width:5%"></div></div>
+          <div class="qbd">
+            <div style="display:flex;align-items:center;gap:0">
+              <div class="qnum" id="qNum">Question 1 of 18</div>
+              <div class="qplo" id="qPlo">PLO 1</div>
+            </div>
+            <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+            <div class="ach" id="qChoices"></div>
+            <div class="submit-row">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+            <div class="exb" id="exBlock">
+              <div class="exs exc"><div class="exl">Correct Answer</div><div class="ext" id="exCorrect"></div></div>
+              <div class="exs exe"><div class="exl">Teaching Point</div><div class="ext" id="exTeaching"></div></div>
+              <div class="exs exw"><div class="exl">Why the Others Are Wrong</div><div class="ext" id="exWrongs"></div></div>
+            </div>
+          </div>
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Previous</button>
+            <div class="qdots" id="qDots"><button class="qd cur" data-dot="0"></button><button class="qd" data-dot="1"></button><button class="qd" data-dot="2"></button><button class="qd" data-dot="3"></button><button class="qd" data-dot="4"></button><button class="qd" data-dot="5"></button><button class="qd" data-dot="6"></button><button class="qd" data-dot="7"></button><button class="qd" data-dot="8"></button><button class="qd" data-dot="9"></button><button class="qd" data-dot="10"></button><button class="qd" data-dot="11"></button><button class="qd" data-dot="12"></button><button class="qd" data-dot="13"></button><button class="qd" data-dot="14"></button><button class="qd" data-dot="15"></button><button class="qd" data-dot="16"></button><button class="qd" data-dot="17"></button></div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+const QS = [{"plo": "PLO 2", "tag": "Tumor Antigens", "stem": "Which comparison between cancer/testes antigens and neoantigens is most accurate?", "choices": ["Neoantigen from a tumor-specific somatic mutation with absolutely no central T cell tolerance", "Both arise from somatic mutations and are absent from all normal somatic tissues", "Cancer/testes antigens have no central tolerance while neoantigens carry significant tolerance", "Neoantigens carry high central tolerance while cancer/testes antigens carry essentially none"], "correct": 0, "teaching": "Cancer/testes antigens are re-expressed germline genes shared across many patients and tumor types — their prevalence across multiple patients is HIGH, making them potential shared vaccine targets. Neoantigens arise from individual somatic mutations unique to each patient's tumor — they are private, patient-specific antigens (LOW prevalence across patients), requiring personalized vaccine design. This is the critical practical distinction that drives the difference between shared tumor vaccines and personalized neoantigen therapies.", "wrongs": {"B": "This is the reverse: neoantigens have NO central tolerance (novel sequences); cancer/testes antigens have LOW central tolerance (spermatocytes lack MHC I).", "C": "", "D": "This is also reversed: cancer/testes antigens have LOW (not zero) central tolerance; neoantigens have NO central tolerance because the thymus never encountered these mutant sequences."}}, {"plo": "PLO 3", "tag": "CTLs and NK Cells", "stem": "Which statement best explains why a higher density of CD4+ Th1 cells in a tumor predicts better prognosis?", "choices": ["Th1 cells suppress VEGF secretion by M2-polarized tumor-associated macrophages directly", "Th1 cells release perforin and granzyme B to directly lyse tumor cells in the stroma", "Cross-presentation: exogenous tumor antigen enters the DC cytosol and loads onto MHC I", "Th1 cells secrete IL-4 and IL-13 to activate NK cell killing of nearby tumor cells"], "correct": 2, "teaching": "Th1 cells are key amplifiers of anti-tumor immunity through multiple mechanisms: (1) CD40L-CD40 costimulation and IL-2 sustain CD8+ CTL proliferation and survival; (2) IFN-γ drives M1 macrophage polarization (anti-tumor, secreting nitric oxide and TNF-α); (3) IFN-γ upregulates MHC I on tumor cells, improving CTL recognition efficiency. This multi-pronged amplification is why high Th1 infiltration correlates with better prognosis across many cancer types.", "wrongs": {"A": "Perforin/granzyme cytotoxicity is the exclusive effector tool of CD8+ CTLs and NK cells. CD4+ Th1 cells are helpers and amplifiers — they are not cytotoxic effectors under normal conditions.", "B": "", "D": "While IFN-γ has indirect anti-angiogenic effects, directly inhibiting VEGF secretion from M2 macrophages is not a recognized primary mechanism of Th1-mediated tumor control in Dr. Goode's lecture."}}, {"plo": "PLO 2", "tag": "Tumor Antigens", "stem": "Which statement about oncoviral antigens as a class of tumor antigen is most accurate?", "choices": ["They have variable tumor specificity because the same virus also infects many normal non-tumor cells", "They carry high central tolerance because viral antigens are encountered during early thymic development", "They are expressed at low levels by all somatic cells, creating moderate baseline central tolerance", "The cells that normally express them lack MHC I, thus preventing effective thymic negative selection"], "correct": 3, "teaching": "Oncoviral antigens (HPV E6/E7, EBV EBNA, HBV surface antigen) are encoded by viral genomes — truly foreign proteins. The thymus never encountered them, so central tolerance is NONE. Their tumor specificity is IDEAL because only virally-transformed tumor cells express them — normal uninfected cells are antigen-negative. This is why HPV vaccination prevents cervical cancer: blocking viral antigen expression prevents the immune target from ever appearing.", "wrongs": {"A": "Oncoviral antigens are not host proteins and are not presented in the thymus during T cell development. There is no central tolerance to foreign viral proteins — the opposite of this statement is true.", "B": "", "C": "In the context of virus-associated cancers, only transformed/infected cells express viral oncoproteins at meaningful levels. Tumor specificity is ideal (not variable) because normal uninfected cells are antigen-negative."}}, {"plo": "PLO 1", "tag": "Immune Surveillance", "stem": "Which finding most directly demonstrates the concept of immune surveillance?", "choices": ["Tumor incidence is significantly elevated in immunocompromised individuals", "PD-1 upregulation on T cells limits excessive effector activity in tissue", "NK cells release perforin and granzymes to lyse tumor cells in the stroma", "CTLs use the Fas-FasL pathway to trigger apoptosis in target cells directly"], "correct": 0, "teaching": "Immune surveillance means the immune system actively recognizes and destroys transformed cells. The clearest evidence: when surveillance is lost through immunosuppression, tumor incidence skyrockets — non-melanoma skin cancer increases >20-fold in transplant patients; NHL and kidney cancer rise ~15-fold. Immunocompromised patients are the human experiment proving surveillance is real and consequential.", "wrongs": {"B": "", "C": "CTL Fas-FasL killing is a relevant effector pathway, but demonstrating it exists does not prove immune surveillance protects against tumor development.", "D": "PD-1 upregulation limits surveillance rather than supporting it — it is a mechanism tumors exploit to shut down CTL function."}}, {"plo": "PLO 2", "tag": "Tumor Antigens", "stem": "Neoantigens in tumor cells are typically processed by the proteasome and then presented via:", "choices": ["Secretory IgA displayed on the exterior surface of the malignant cell", "MHC II molecules on tumor cells, stimulating CD4+ Th1 helper cell responses", "Cancer/testes antigen expressed via epigenetic demethylation in tumor cells", "Polymeric immunoglobulin receptor on adjacent mucosal epithelial cells nearby"], "correct": 2, "teaching": "Neoantigens are cytosolic or nuclear proteins — they enter the classical MHC I pathway: ubiquitinated → proteasomal degradation → TAP1/TAP2 peptide transport into the ER → loaded onto MHC I → surface display. CD8+ CTLs engage peptide-MHC I and kill the tumor cell. This pathway is why tumors that lose MHC I, β2-microglobulin, or TAP transporters can evade CTL surveillance — they disrupt this antigen presentation machinery.", "wrongs": {"A": "Secretory IgA is produced by plasma cells in mucosal tissues to neutralize luminal pathogens. It has no role in tumor neoantigen presentation to T cells.", "B": "", "D": "The polymeric Ig receptor (pIgR) transports dimeric IgA across mucosal epithelia. It is entirely unrelated to tumor antigen presentation or T cell activation."}}, {"plo": "PLO 1", "tag": "Immune Surveillance", "stem": "Which combination of cell types constitutes the major players in tumor immune surveillance?", "choices": ["B cells, myeloid-derived suppressor cells, and M2-polarized macrophages", "Mast cells, eosinophils, and plasmacytoid dendritic cells secreting type I IFN", "Recognize and destroy clones of transformed cells before or after tumors form", "Neutrophils, regulatory T cells, and intestinal goblet cells producing mucin"], "correct": 2, "teaching": "Dr. Goode's surveillance slide identifies three key players: NK cells (innate cytotoxic cells killing via missing self and activating ligands), dendritic cells (phagocytic sentinels that sample the environment and present tumor antigens to T cells), and T cells (especially CD8+ CTLs, the dominant adaptive killers). DCs detect and present; T cells execute adaptive killing; NK cells provide innate backup. These three work in concert.", "wrongs": {"A": "Tregs suppress anti-tumor immunity; neutrophils are short-lived innate effectors with a minor surveillance role; goblet cells are epithelial secretory cells with no immune surveillance function.", "B": "", "D": "Mast cells and eosinophils dominate allergic/anti-helminth responses; plasmacytoid DCs are interferon specialists. These are not the major trio identified by Dr. Goode."}}, {"plo": "PLO 2", "tag": "Tumor Antigens", "stem": "Why do cancer/testes antigens have lower central tolerance than most overexpressed normal cellular proteins?", "choices": ["They are only expressed on tumor cell surfaces and cannot circulate to reach the thymus", "They are derived from integrated oncogenic viruses that are foreign to the host genome", "The cells that normally express them lack MHC I, preventing thymic negative selection", "They are encoded by mutated oncogenes that are absent from the normal host germline"], "correct": 2, "teaching": "Cancer/testes antigens (e.g., MAGE family) are normally expressed in spermatocytes and trophoblasts — both of which lack MHC I expression. Thymic negative selection deletes autoreactive T cells through MHC I-peptide recognition. Because spermatocytes lack MHC I, the thymus cannot delete T cells reactive to cancer/testes antigens. When tumors de-repress these genes (via demethylation) and DO express MHC I, those T cells can now respond.", "wrongs": {"A": "Cancer/testes antigens are NOT mutated — they are normal unmutated germline sequences that are epigenetically silenced in somatic cells and aberrantly reactivated by demethylation. Products of mutations are called neoantigens.", "B": "", "D": "Central tolerance is determined by presentation in the thymus, not by whether a protein circulates. The key factor is that spermatocytes have no MHC I to present cancer/testes antigens for thymic negative selection."}}, {"plo": "PLO 3", "tag": "CTLs and NK Cells", "stem": "Which feature of a tumor cell most directly renders it susceptible to NK cell killing?", "choices": ["Upregulation of PDL-1 to suppress CD8 T cell effector responses throughout the tumor microenvironment", "It upregulates tumor MHC I expression, making peptides more visible to CD8+ T cells", "Secretion of TGF-β into the surrounding tumor microenvironment in very large amounts", "Upregulation of B7 co-stimulatory molecules broadly across the tumor cell surface"], "correct": 1, "teaching": "NK cells use 'missing self' recognition. MHC I on healthy cells binds NK inhibitory receptors (KIRs, NKG2A) and sends a 'do not kill' signal. When tumors downregulate MHC I to evade CTL surveillance, this inhibitory signal disappears. Activating signals (from NKG2D binding stress ligands like MICA/B) then dominate, and NK cells release lytic granules to kill the tumor. The same trick that helps tumors evade CTLs makes them more vulnerable to NK cells — a complementary surveillance system.", "wrongs": {"A": "B7 upregulation provides T cell co-stimulation via CD28. NK cells do not use CD28-B7 signaling — their activation is governed by activating vs inhibitory receptor balance.", "C": "PDL-1 upregulation suppresses CTL effector responses through the PD-1 pathway. NK cells under resting conditions do not express PD-1 at high levels, so PDL-1 does not directly trigger NK killing.", "D": ""}}, {"plo": "PLO 1", "tag": "Immune Surveillance", "stem": "A mouse immunized with irradiated Tumor A cells is challenged with viable Tumor A and a distinct Tumor B. What result is expected?", "choices": ["Both tumors grow because irradiated cells fail to prime any protective immune response", "Both tumors are cleared because nonspecific inflammation from the vaccine eliminates them", "Tumor A is rejected while Tumor B grows, demonstrating tumor-specific adaptive immunity", "Tumor B is rejected because it shares MHC alleles with the irradiated Tumor A cells"], "correct": 2, "teaching": "This experiment demonstrates antigen-specificity of anti-tumor immunity. Irradiated Tumor A cells prime memory CTLs specific to Tumor A's unique antigens. Upon challenge, only Tumor A is rejected — there is no cross-reactive memory for Tumor B. If rejection were nonspecific inflammation, both would be cleared. This specificity is why tumors that lose antigen expression (immune editing) can escape immune surveillance.", "wrongs": {"A": "", "B": "Irradiated tumor cells retain their antigenicity and are fully capable of priming immune responses. Irradiation prevents tumor growth but does not eliminate antigen expression or DC activation.", "D": "If nonspecific inflammation were responsible, both tumors would be cleared equally. The rejection of only Tumor A is definitive proof that the mechanism is specific adaptive immunity."}}, {"plo": "PLO 1", "tag": "Immune Surveillance", "stem": "What is the primary role of dendritic cells in immune surveillance against tumors?", "choices": ["Secreting tumor-specific IgA into the surrounding tumor microenvironment directly", "Non-melanoma skin cancer, showing more than 20-fold increase in transplant patients", "Directly lysing tumor cells via secreted perforin and granzyme B in the nearby stroma", "Producing IL-10 to reduce collateral inflammatory damage in tumor-adjacent tissue"], "correct": 1, "teaching": "Dendritic cells are phagocytic sentinels — the bridge between innate detection and adaptive killing. They ingest tumor cells and debris, process the antigens, upregulate costimulators (B7), and migrate to draining lymph nodes. There they present antigen on MHC I (cross-presentation, activating CD8+) and MHC II (canonical, activating CD4+). Without DC priming, naïve tumor-specific T cells remain unactivated.", "wrongs": {"A": "Perforin/granzyme cytotoxicity is the effector tool of CTLs and NK cells — dendritic cells are professional antigen presenters, not cytotoxic effectors.", "C": "", "D": "IgA secretion is the function of plasma cells in mucosal tissues. Dendritic cells are antigen-presenting cells and do not produce immunoglobulins."}}, {"plo": "PLO 3", "tag": "CTLs and NK Cells", "stem": "How does IFN-γ produced by Th1 cells amplify CTL-mediated killing of tumor cells?", "choices": ["It directly signals through the TCR on CD8+ CTLs to boost their cytotoxic activity", "Th1 cells amplify CD8+ CTL responses and drive IFN-γ production from tumor macrophages", "It promotes M2 macrophage polarization to enhance phagocytosis of dead tumor debris", "It blocks PDL-1 expression on tumor-associated macrophages to relieve T cell exhaustion"], "correct": 1, "teaching": "IFN-γ upregulates MHC I and the antigen processing machinery on tumor cells: MHC I heavy chains, β2-microglobulin, proteasome subunits (LMP2, LMP7), and TAP1/TAP2 transporters. More MHC I = more peptide display = more TCR engagement = more efficient CTL killing. IFN-γ also drives M1 macrophage polarization. Paradoxically, IFN-γ can also upregulate PDL-1 on tumor cells — a mechanism tumors exploit to dampen the CTL response it just enhanced.", "wrongs": {"A": "", "C": "IFN-γ drives M1 (classically activated) macrophage polarization — anti-tumor. M2 (alternatively activated) polarization is pro-tumor and is driven by IL-4, IL-13, and IL-10.", "D": "IFN-γ actually upregulates PDL-1 expression as a paradoxical immune evasion response from tumor cells. Blocking PDL-1 is the function of anti-PDL-1 checkpoint inhibitor antibodies, not IFN-γ itself."}}, {"plo": "PLO 3", "tag": "CTLs and NK Cells", "stem": "NK cells can kill tumor cells coated with anti-tumor IgG antibodies via which mechanism?", "choices": ["CD28-B7 co-stimulatory engagement triggering NK cell lytic granule degranulation", "NKG2D recognition of stress ligands upregulated on the opsonized tumor cell surface", "CD16-mediated antibody-dependent cellular cytotoxicity triggered by IgG Fc binding", "TCR recognition of tumor-specific peptide-MHC I complexes on the tumor cell surface"], "correct": 2, "teaching": "ADCC: tumor-specific IgG antibodies bind tumor surface antigens via Fab domains, and the exposed Fc region is recognized by CD16 (FcγRIII) on the NK cell. CD16 engagement activates NK killing without any requirement for MHC recognition. This is clinically exploited by therapeutic mAbs like trastuzumab (anti-HER2) and rituximab (anti-CD20): they opsonize tumor cells so that NK cells can destroy them via ADCC — a key mechanism of action for many approved monoclonal antibody therapies.", "wrongs": {"A": "NK cells do not have T cell receptors. TCR-mediated recognition is exclusive to T cells. NK cells use germline-encoded activating and inhibitory receptors — a fundamentally different recognition system.", "B": "", "D": "NKG2D binding to stress ligands IS a real NK activation mechanism, but it is independent of antibody coating. ADCC specifically requires IgG antibody on the target cell to engage CD16 on the NK cell."}}, {"plo": "PLO 1", "tag": "Immune Surveillance", "stem": "Which cancer shows the greatest fold-increase in incidence among transplant recipients on chronic immunosuppression?", "choices": ["Melanoma, which shows a significant but modest 8-fold increase in transplant patients", "Tumor A is rejected while Tumor B grows, showing immunity is tumor-antigen-specific", "Colon cancer, which also shows approximately a 2-fold increase in transplant patients", "Prostate cancer, which shows roughly a 2-fold increase in transplant patients"], "correct": 1, "teaching": "Non-melanoma skin cancer (plus NHL) shows the most dramatic increase — >20-fold in transplant patients. This reflects: (1) loss of immune surveillance allowing accumulation of UV-induced mutations and (2) possible role of viral carcinogens (e.g., Merkel cell polyomavirus). Kidney cancer ~15-fold; melanoma ~8-fold; hepatobiliary ~5-fold; breast, prostate, colon ~2-fold. The magnitude of the increase varies by how 'immunogenic' each cancer normally is.", "wrongs": {"A": "Prostate cancer increases only ~2-fold — one of the smallest increases, suggesting that normal prostate carcinogenesis depends relatively little on immune control.", "C": "Melanoma increases significantly (~8-fold), but it does not top the list — non-melanoma skin cancer and NHL show greater fold-increases.", "D": "Colon cancer also shows only ~2-fold increase. Many GI cancers are relatively less dependent on immunosurveillance for early control."}}, {"plo": "PLO 1", "tag": "Immune Surveillance", "stem": "Immune surveillance is best defined as the physiologic ability of the immune system to:", "choices": ["NK cells, dendritic cells, and T cells collaborating in innate-adaptive coordination", "Produce neutralizing antibodies that block oncoproteins expressed on tumor surfaces", "Maintain central tolerance to tumor-associated self-antigens during thymic development", "Block angiogenesis in inflamed tissues to starve growing tumor cell populations"], "correct": 0, "teaching": "Dr. Goode quotes Burnet directly: 'Physiologic function of the immune system is to recognize and destroy clones of transformed cells before they grow into tumors and to kill tumors after they are formed.' This is immune surveillance — continuous patrolling and elimination of transformed cells. All of the wrong answers describe components of immunity, but none captures the defining concept of surveillance itself.", "wrongs": {"B": "Antibody production against oncoproteins is one possible effector mechanism but is too narrow — surveillance also includes T cell- and NK cell-mediated killing.", "C": "", "D": "While IFN-γ can have indirect anti-angiogenic effects, 'blocking angiogenesis' is not what immune surveillance means. Surveillance refers to recognition and elimination of transformed cells."}}, {"plo": "PLO 2", "tag": "Tumor Antigens", "stem": "A patient with HER2/neu-overexpressing breast cancer mounts only a weak CTL response to HER2/neu. What best explains this?", "choices": ["HER2/neu directly upregulates PDL-1 on the tumor surface, blocking all CTL responses here", "HER2/neu is presented exclusively on MHC II and cannot be recognized by CD8+ T cells", "HER2/neu is a secreted glycoprotein that does not enter the MHC I processing pathway", "Cancer/testes antigens appear in many patients; neoantigens tend to be patient-specific"], "correct": 3, "teaching": "HER2/neu is a normal receptor tyrosine kinase expressed at low levels in many tissues. During thymic T cell development, autoreactive T cells specific for HER2/neu peptides are deleted by negative selection. When breast cancer overexpresses HER2/neu, only a very small residual T cell repertoire remains capable of responding. This is why anti-HER2 therapy uses monoclonal antibodies (trastuzumab) rather than relying on CTL immunity — the T cell response is inherently limited by central tolerance.", "wrongs": {"A": "", "B": "HER2/neu is a transmembrane receptor with intracellular domains processed by the proteasome and presented on MHC I. The problem is tolerance, not MHC restriction.", "C": "PDL-1 upregulation is a separate immune evasion mechanism. It does not explain the inherent weakness of the initial anti-HER2 CTL response — that is caused by central tolerance depleting reactive T cell clones during development."}}, {"plo": "PLO 2", "tag": "Tumor Antigens", "stem": "Which tumor antigen type is produced by mutated genes and has NO central tolerance in the host T cell repertoire?", "choices": ["Neoantigen generated by a somatic point mutation unique to the patient's tumor", "Cancer/testes antigen expressed due to epigenetic demethylation in tumor cells", "Tyrosinase, a tissue-specific differentiation protein overexpressed in melanoma", "HER2/neu protein, overexpressed due to gene amplification in breast carcinoma"], "correct": 0, "teaching": "Neoantigens arise from somatic mutations generating entirely novel peptide sequences not in the germline. The thymus never encountered these peptides during negative selection — central tolerance is NONE, and the full naive T cell repertoire is available to respond. This makes neoantigens the most immunogenic tumor antigens and the primary basis for checkpoint inhibitor efficacy. Higher tumor mutational burden = more neoantigens = better immunotherapy response.", "wrongs": {"B": "", "C": "Cancer/testes antigens have LOW (not zero) central tolerance — spermatocytes lack MHC I so some thymic escape occurs, but deletion is not completely absent for all T cell clones.", "D": "Tyrosinase is a tissue-specific differentiation antigen present in normal melanocytes. It has significant central tolerance and is the least immunogenic of the three overexpressed categories."}}, {"plo": "PLO 3", "tag": "CTLs and NK Cells", "stem": "A tumor downregulates MHC I expression on its surface to escape CTL killing. Which immune response is most directly triggered as a consequence?", "choices": ["Enhanced activation of CD4+ Th1 cells via MHC II expressed on the tumor surface", "CD16-mediated ADCC triggered when IgG Fc regions bind the tumor-specific NK receptor", "Upregulation of CTLA-4 expression on CD8+ T cells in the tumor-draining lymph node", "Increased Treg recruitment to the tumor via CCL22-CCR4 chemokine signaling mechanisms"], "correct": 1, "teaching": "Loss of MHC I is a double-edged strategy: it allows tumor escape from CTL recognition (CTLs need MHC I to engage the TCR), but simultaneously removes the inhibitory signal that prevents NK cell killing. NK inhibitory receptors (KIRs, NKG2A) bind MHC I — without it, inhibitory signals disappear. Activating signals from NKG2D and other receptors then dominate, triggering NK lytic granule release. This 'missing self' mechanism is the complementary innate backup to CTL adaptive surveillance.", "wrongs": {"A": "MHC II is regulated separately from MHC I. CD4+ Th1 cells require MHC II for activation and are not directly triggered by MHC I loss on tumor cells.", "C": "CTLA-4 upregulation is a consequence of chronic TCR activation. MHC I downregulation actually reduces TCR engagement in CTLs (no MHC I to engage), so CTLA-4 upregulation is not the primary immediate consequence.", "D": ""}}, {"plo": "PLO 3", "tag": "CTLs and NK Cells", "stem": "Which mechanism enables dendritic cells to prime CD8+ T cells against tumor antigens the DCs did not themselves synthesize?", "choices": ["Direct genetic transfer of tumor-derived T cell receptors into naïve CD8+ lymphocytes", "Increased NK cell killing via loss of MHC I inhibitory signaling on the tumor surface", "Canonical MHC II presentation of exogenous antigen to CD4+ Th1 cells in the lymph node", "ADCC via CD16 engagement with tumor-opsonizing IgG antibodies on the tumor surface"], "correct": 1, "teaching": "Cross-presentation allows DCs to take up exogenous tumor antigens (from phagocytosed tumor cells or shed debris), route them into the cytosol, process them via the proteasome, load them onto MHC I, and activate naive CD8+ T cells. This bypasses the normal rule that MHC I only presents endogenous (cytosolic) antigens. Cross-presentation is essential because tumor cells are often poor APCs — they express antigen but lack the costimulatory molecules (B7/CD80/CD86) needed to activate naive T cells.", "wrongs": {"A": "Canonical MHC II presentation activates CD4+ T cells, not CD8+ CTLs. While helpful for Th cell priming, it cannot directly prime naive CD8+ T cells against tumor antigens.", "C": "", "D": "TCR genes are genomically encoded and are never transferred between cells as a biological mechanism. This is not a real pathway of immune activation."}}];
+const N = 18;
+const LETTERS = ['A','B','C','D'];
+
+// State
+let cur = 0;
+let quizMode = 'learn';
+let toolMode = null;
+let examSubmitted = false;
+let answers = Array(N).fill(null);   // selected choice idx per question
+let graded  = Array(N).fill(false);  // has been submitted per question
+let results = Array(N).fill(null);   // true=correct false=incorrect
+
+// Elements
+const qo = document.getElementById('qo');
+const qStem = document.getElementById('qStem');
+const qChoices = document.getElementById('qChoices');
+const qNum = document.getElementById('qNum');
+const qPlo = document.getElementById('qPlo');
+const qProgress = document.getElementById('qProgress');
+const qDots = document.getElementById('qDots');
+const exBlock = document.getElementById('exBlock');
+const exCorrect = document.getElementById('exCorrect');
+const exTeaching = document.getElementById('exTeaching');
+const exWrongs = document.getElementById('exWrongs');
+const submitOne = document.getElementById('submitOne');
+const submitExam = document.getElementById('submitExam');
+const svCurrent = document.getElementById('svCurrent');
+const svCorrect = document.getElementById('svCorrect');
+const svIncorrect = document.getElementById('svIncorrect');
+const examProgress = document.getElementById('examProgress');
+const modeLearn = document.getElementById('modeLearn');
+const modeExam = document.getElementById('modeExam');
+const toolHighlight = document.getElementById('toolHighlight');
+const toolStrike = document.getElementById('toolStrike');
+const toolReveal = document.getElementById('toolReveal');
+const toolStatus = document.getElementById('toolStatus');
+
+function escH(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function renderQuestion() {
+  const q = QS[cur];
+  // Update header
+  qNum.textContent = `Question ${cur+1} of ${N}`;
+  qPlo.textContent = q.plo;
+  qProgress.style.width = `${Math.round((cur+1)/N*100)}%`;
+  svCurrent.textContent = cur+1;
+
+  // Stem
+  qStem.innerHTML = `<span class="stem-text">${escH(q.stem)}</span>`;
+  qStem.classList.remove('hl-applied','st-applied','tool-hover');
+
+  // Choices
+  qChoices.innerHTML = q.choices.map((c,i) =>
+    `<div class="ac" data-choice="${i}"><div class="cl">${LETTERS[i]}</div><div class="ctx">${escH(c)}</div></div>`
+  ).join('');
+
+  // Restore previous selection / grading
+  const choiceEls = qChoices.querySelectorAll('.ac');
+  if (graded[cur]) {
+    choiceEls.forEach(el => el.classList.add('dis'));
+    choiceEls[q.correct].classList.add('cor');
+    if (answers[cur] !== null && answers[cur] !== q.correct) {
+      choiceEls[answers[cur]].classList.add('inc');
+    }
+    exBlock.classList.add('vis');
+    renderExplanation();
+    submitOne.disabled = true;
+  } else {
+    exBlock.classList.remove('vis');
+    submitOne.disabled = answers[cur] === null;
+    if (answers[cur] !== null) {
+      choiceEls[answers[cur]].classList.add('sel');
+    }
+  }
+
+  // Attach choice listeners
+  choiceEls.forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (toolMode === 'highlight') {
+        el.classList.toggle('hl-applied');
+        el.classList.remove('st-applied');
+        return;
+      }
+      if (toolMode === 'strike') {
+        el.classList.toggle('st-applied');
+        el.classList.remove('hl-applied');
+        return;
+      }
+      if (el.classList.contains('dis')) return;
+      choiceEls.forEach(c => c.classList.remove('sel'));
+      el.classList.add('sel');
+      answers[cur] = parseInt(el.dataset.choice);
+      submitOne.disabled = false;
+      updateExamProgress();
+    });
+  });
+
+  // Dots
+  const dots = qDots.querySelectorAll('.qd');
+  dots.forEach((d,i) => {
+    d.classList.remove('cur','acor','ainc','asel');
+    if (i === cur) d.classList.add('cur');
+    else if (graded[i]) {
+      d.classList.add(results[i] ? 'acor' : 'ainc');
+    } else if (answers[i] !== null) {
+      d.classList.add('asel');
+    }
+  });
+
+  // Score
+  svCorrect.textContent = results.filter(r=>r===true).length;
+  svIncorrect.textContent = results.filter(r=>r===false).length;
+
+  updateExamButton();
+  updateExamProgress();
+}
+
+function renderExplanation() {
+  const q = QS[cur];
+  const correctLetter = LETTERS[q.correct];
+  exCorrect.textContent = `${correctLetter}. ${q.choices[q.correct]}`;
+  exTeaching.textContent = q.teaching;
+  
+  // Wrong explanations
+  const wrongHTML = q.choices.map((c,i) => {
+    if (i === q.correct) return '';
+    const letter = LETTERS[i];
+    const exp = q.wrongs[letter] || "This option is not correct per Dr. Goode's lecture.";
+    return `<div class="wce"><strong>${letter}</strong> — ${escH(exp)}</div>`;
+  }).join('');
+  exWrongs.innerHTML = wrongHTML;
+}
+
+function gradeQuestion() {
+  if (answers[cur] === null) return false;
+  const q = QS[cur];
+  const correct = answers[cur] === q.correct;
+  graded[cur] = true;
+  results[cur] = correct;
+  
+  const choiceEls = qChoices.querySelectorAll('.ac');
+  choiceEls.forEach(el => el.classList.add('dis'));
+  choiceEls[q.correct].classList.add('cor');
+  if (!correct) choiceEls[answers[cur]].classList.add('inc');
+  
+  exBlock.classList.add('vis');
+  renderExplanation();
+  submitOne.disabled = true;
+  
+  svCorrect.textContent = results.filter(r=>r===true).length;
+  svIncorrect.textContent = results.filter(r=>r===false).length;
+  
+  const dots = qDots.querySelectorAll('.qd');
+  dots.forEach((d,i) => {
+    if (i === cur) {
+      d.classList.remove('cur');
+      d.classList.add(correct ? 'acor' : 'ainc');
+    }
+  });
+  
+  updateExamButton();
+  return true;
+}
+
+function updateExamProgress() {
+  const answered = answers.filter(a=>a!==null).length;
+  if (quizMode === 'exam') {
+    examProgress.textContent = `${answered} of ${N} answered`;
+  } else {
+    examProgress.textContent = `Learn mode — ${answered} answered`;
+  }
+}
+
+function updateExamButton() {
+  const inExam = quizMode === 'exam';
+  const allAnswered = answers.every(a=>a!==null);
+  submitExam.disabled = !inExam || examSubmitted || !allAnswered;
+  document.querySelector('.exam-submit-row').classList.toggle('exam-live', inExam && !examSubmitted);
+  document.querySelector('.exam-submit-row').classList.toggle('exam-done', examSubmitted);
+  if (examSubmitted) submitExam.textContent = 'Exam Submitted';
+  else submitExam.textContent = 'Submit Exam';
+}
+
+function setMode(mode) {
+  quizMode = mode;
+  modeLearn.classList.toggle('active', mode==='learn');
+  modeExam.classList.toggle('active', mode==='exam');
+  updateExamProgress();
+  updateExamButton();
+}
+
+function setToolMode(mode) {
+  toolMode = toolMode === mode ? null : mode;
+  toolHighlight.classList.toggle('active', toolMode==='highlight');
+  toolHighlight.classList.toggle('hl-tool', toolMode==='highlight');
+  toolStrike.classList.toggle('active', toolMode==='strike');
+  toolStrike.classList.toggle('st-tool', toolMode==='strike');
+  if (toolMode==='highlight') { toolStatus.textContent='Tool mode: highlight'; toolStatus.className='tool-status active-highlight'; qStem.classList.add('tool-hover'); }
+  else if (toolMode==='strike') { toolStatus.textContent='Tool mode: strikeout'; toolStatus.className='tool-status active-strike'; qStem.classList.add('tool-hover'); }
+  else { toolStatus.textContent='Tool mode: none'; toolStatus.className='tool-status'; qStem.classList.remove('tool-hover'); }
+}
+
+function resetQuiz() {
+  cur = 0;
+  answers = Array(N).fill(null);
+  graded = Array(N).fill(false);
+  results = Array(N).fill(null);
+  examSubmitted = false;
+  toolMode = null;
+  setToolMode(null);
+  setMode('learn');
+  renderQuestion();
+}
+
+function goTo(i) {
+  if (i<0||i>=N) return;
+  cur = i;
+  renderQuestion();
+  document.querySelector('.qcd').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// Event listeners
+document.getElementById('openDemo').addEventListener('click', ()=>{
+  qo.classList.add('open');
+  renderQuestion();
+});
+
+document.getElementById('closeQuiz').addEventListener('click', ()=>{
+  qo.classList.add('closing');
+  setTimeout(()=>qo.classList.remove('open','closing'),320);
+});
+
+document.getElementById('resetQuiz').addEventListener('click', resetQuiz);
+
+modeLearn.addEventListener('click', ()=>setMode('learn'));
+modeExam.addEventListener('click', ()=>setMode('exam'));
+toolHighlight.addEventListener('click', ()=>setToolMode('highlight'));
+toolStrike.addEventListener('click', ()=>setToolMode('strike'));
+toolReveal.addEventListener('click', ()=>exBlock.classList.toggle('vis'));
+
+submitOne.addEventListener('click', ()=>{
+  if (quizMode==='learn') gradeQuestion();
+});
+
+submitExam.addEventListener('click', ()=>{
+  if (quizMode!=='exam'||examSubmitted) return;
+  // Grade all answered questions
+  for(let i=0;i<N;i++) {
+    if(answers[i]!==null && !graded[i]) {
+      graded[i]=true;
+      results[i]=answers[i]===QS[i].correct;
+    }
+  }
+  examSubmitted=true;
+  renderQuestion();
+});
+
+document.getElementById('prevBtn').addEventListener('click', ()=>goTo(cur-1));
+document.getElementById('nextBtn').addEventListener('click', ()=>goTo(cur+1));
+
+qDots.querySelectorAll('.qd').forEach((d,i)=>{
+  d.addEventListener('click',()=>goTo(i));
+});
+
+qStem.addEventListener('click',(e)=>{
+  if(!toolMode) return;
+  const sel=window.getSelection();
+  if(sel&&sel.rangeCount>0&&!sel.isCollapsed&&qStem.contains(sel.getRangeAt(0).commonAncestorContainer)){
+    const wrapper=document.createElement('span');
+    wrapper.className=toolMode==='highlight'?'stem-hl':'stem-st';
+    try{sel.getRangeAt(0).surroundContents(wrapper);}catch(err){const f=sel.getRangeAt(0).extractContents();wrapper.appendChild(f);sel.getRangeAt(0).insertNode(wrapper);}
+    sel.removeAllRanges();
+  } else {
+    if(toolMode==='highlight'){qStem.classList.toggle('hl-applied');qStem.classList.remove('st-applied');}
+    else{qStem.classList.toggle('st-applied');qStem.classList.remove('hl-applied');}
+  }
+  e.preventDefault();
+});
+
+document.querySelectorAll('[data-fs-btn]').forEach(btn=>{
+  btn.addEventListener('click',()=>{ qo.dataset.fs=btn.dataset.fsBtn; });
+});
+
+// Print
+document.getElementById('printQuiz').addEventListener('click',()=>{
+  const shell=document.getElementById('printReviewRoot');
+  const correct=results.filter(r=>r===true).length;
+  const answered=answers.filter(a=>a!==null).length;
+  shell.innerHTML=`
+    <div class="print-shell">
+      <header class="print-header">
+        <h1>Tumor Immunology PLO Quiz — Dr. Goode Block 5</h1>
+        <div class="print-summary">
+          <span class="print-pill">${N} questions</span>
+          <span class="print-pill">${answered} answered</span>
+          <span class="print-pill">${correct} correct</span>
+          <span class="print-pill">${answered-correct} incorrect</span>
+        </div>
+      </header>
+      ${QS.map((q,qi)=>{
+        const opts=q.choices.map((c,i)=>{
+          const isCorr=i===q.correct;
+          const isPicked=answers[qi]===i&&!isCorr;
+          const cls=['print-choice',isCorr?'correct':'',isPicked?'incorrect':''].filter(Boolean).join(' ');
+          const badge=isCorr?'Correct':answers[qi]===i?'Your choice':'';
+          return `<div class="${cls}"><div class="print-choice-letter">${LETTERS[i]}</div><div class="print-choice-copy"><div>${escH(c)}</div>${badge?`<div class="print-choice-badge">${badge}</div>`:''}</div></div>`;
+        }).join('');
+        const wrongItems=q.choices.map((c,i)=>{
+          if(i===q.correct)return'';
+          return`<div class="print-wrong"><strong>${LETTERS[i]}</strong> — ${escH(q.wrongs[LETTERS[i]]||'')}</div>`;
+        }).join('');
+        return`<section class="print-card">
+          <div class="print-qtag">${q.plo} · ${q.tag}</div>
+          <h2>Question ${qi+1}</h2>
+          <div class="print-stem">${escH(q.stem)}</div>
+          <div class="print-choices">${opts}</div>
+          <div class="print-explainer correct-box"><div class="print-label">Correct Answer</div><div><strong>${LETTERS[q.correct]}</strong> — ${escH(q.choices[q.correct])}</div></div>
+          <div class="print-explainer teach-box"><div class="print-label">Teaching Point</div><div>${escH(q.teaching)}</div></div>
+          <div class="print-explainer wrong-box"><div class="print-label">Why the Others Are Wrong</div>${wrongItems}</div>
+        </section>`;
+      }).join('')}
+    </div>`;
+  document.body.classList.add('print-review-active');
+  setTimeout(()=>window.print(),50);
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-review-active'));
+
+// Timer
+let timerInt=null, timerSec=0;
+const timerTime=document.getElementById('timerTime');
+function renderTimer(){const m=String(Math.floor(timerSec/60)).padStart(2,'0'),s=String(timerSec%60).padStart(2,'0');timerTime.textContent=`${m}:${s}`;}
+document.getElementById('timerStart').addEventListener('click',()=>{if(timerInt)return;timerInt=setInterval(()=>{timerSec++;renderTimer();},1000);});
+document.getElementById('timerPause').addEventListener('click',()=>{clearInterval(timerInt);timerInt=null;});
+document.getElementById('timerReset').addEventListener('click',()=>{clearInterval(timerInt);timerInt=null;timerSec=0;renderTimer();});
+
+let cdMinutes=5,cdInt=null,cdSec=300;
+const cdVal=document.getElementById('cdVal'),cdTime=document.getElementById('cdTime'),cdGo=document.getElementById('cdGo');
+function renderCd(){const m=String(Math.floor(cdSec/60)).padStart(2,'0'),s=String(cdSec%60).padStart(2,'0');cdTime.textContent=`${m}:${s}`;cdVal.textContent=Math.max(1,Math.floor(cdSec/60)||0);}
+document.getElementById('cdMinus').addEventListener('click',()=>{if(cdInt)return;cdMinutes=Math.max(1,cdMinutes-1);cdSec=cdMinutes*60;renderCd();});
+document.getElementById('cdPlus').addEventListener('click',()=>{if(cdInt)return;cdMinutes=Math.min(99,cdMinutes+1);cdSec=cdMinutes*60;renderCd();});
+cdGo.addEventListener('click',()=>{if(cdInt){clearInterval(cdInt);cdInt=null;cdGo.textContent='Start';return;}cdGo.textContent='Pause';cdInt=setInterval(()=>{if(cdSec<=0){clearInterval(cdInt);cdInt=null;cdGo.textContent='Start';return;}cdSec--;renderCd();},1000);});
+
+renderTimer();
+renderCd();
+</script>
+</body>
+</html>

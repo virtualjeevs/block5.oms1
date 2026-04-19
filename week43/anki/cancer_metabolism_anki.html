@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cancer Metabolism — Filippakis · Active Recall Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== DESIGN TOKENS ===== */
+:root {
+  --bg: #0b0f1a;
+  --surface: #131929;
+  --surface-2: #19223a;
+  --surface-3: #1f2a42;
+  --surface-4: #24314e;
+  --amber: #f6a533;
+  --amber-soft: rgba(246,165,51,.13);
+  --amber-mid: rgba(246,165,51,.25);
+  --amber-dim: rgba(246,165,51,.55);
+  --teal: #2dd4bf;
+  --teal-soft: rgba(45,212,191,.12);
+  --teal-mid: rgba(45,212,191,.22);
+  --teal-dim: rgba(45,212,191,.5);
+  --green: #34d399;
+  --green-soft: rgba(52,211,153,.13);
+  --green-mid: rgba(52,211,153,.22);
+  --red: #f87171;
+  --red-soft: rgba(248,113,113,.12);
+  --red-mid: rgba(248,113,113,.22);
+  --text: #dde5f0;
+  --text-2: #7e90a9;
+  --text-3: #3e5065;
+  --border: #1c2a40;
+  --border-2: #243348;
+  --hero-glow-a: rgba(45,212,191,.08);
+  --hero-glow-b: rgba(246,165,51,.09);
+  --bg-top: #0b0f1a;
+  --bg-bottom: #0d1321;
+  --map-shadow: 0 20px 45px rgba(0,0,0,.22);
+  --panel-shadow: 0 22px 48px rgba(0,0,0,.24);
+  --header-shadow: 0 22px 50px rgba(0,0,0,.24);
+  --header-a: #111827;
+  --header-b: #0d1321;
+  --card-a: #19223a;
+  --card-b: #141d31;
+  --card-action-bg: #131929;
+  --nav-bg: #1f2a42;
+  --nav-bg-hover: #24314e;
+  --nav-text: #dde5f0;
+  --showall-bg: rgba(45,212,191,.12);
+  --showall-text: #2dd4bf;
+  --meta-bg: #19223a;
+  --table-head-a: #1a2640;
+  --table-head-b: #1f2d4a;
+}
+html[data-theme="cream"] {
+  --bg: #f4efe4;
+  --surface: #ede6d8;
+  --surface-2: #e6ddc8;
+  --surface-3: #ddd3b8;
+  --surface-4: #d4c9a8;
+  --amber: #c47c10;
+  --amber-soft: rgba(196,124,16,.12);
+  --amber-mid: rgba(196,124,16,.25);
+  --teal: #0d8b7a;
+  --teal-soft: rgba(13,139,122,.12);
+  --teal-mid: rgba(13,139,122,.22);
+  --green: #1a8a58;
+  --green-soft: rgba(26,138,88,.12);
+  --green-mid: rgba(26,138,88,.22);
+  --red: #c0392b;
+  --red-soft: rgba(192,57,43,.10);
+  --text: #2c2410;
+  --text-2: #8a7560;
+  --text-3: #b8a890;
+  --border: #c8baa0;
+  --border-2: #d8cbb0;
+  --hero-glow-a: rgba(13,139,122,.06);
+  --hero-glow-b: rgba(196,124,16,.07);
+  --bg-top: #f4efe4;
+  --bg-bottom: #ede6d8;
+  --header-a: #2a1f10;
+  --header-b: #1e1608;
+  --card-a: #ede6d8;
+  --card-b: #e6ddc8;
+  --card-action-bg: #ddd3b8;
+  --nav-bg: #d4c9a8;
+  --nav-bg-hover: #c8baa0;
+  --nav-text: #2c2410;
+  --showall-bg: rgba(13,139,122,.12);
+  --showall-text: #0d8b7a;
+  --meta-bg: #e6ddc8;
+  --table-head-a: #ddd3b8;
+  --table-head-b: #d4c9a8;
+}
+html[data-theme="forest"] {
+  --bg: #081512;
+  --surface: #0e1f1a;
+  --surface-2: #132620;
+  --surface-3: #182e27;
+  --surface-4: #1d362e;
+  --amber: #e8a820;
+  --amber-soft: rgba(232,168,32,.13);
+  --amber-mid: rgba(232,168,32,.25);
+  --teal: #4ecb9e;
+  --teal-soft: rgba(78,203,158,.12);
+  --teal-mid: rgba(78,203,158,.22);
+  --green: #6ed4a0;
+  --green-soft: rgba(110,212,160,.13);
+  --green-mid: rgba(110,212,160,.22);
+  --red: #f0807e;
+  --red-soft: rgba(240,128,126,.12);
+  --text: #c8e8d8;
+  --text-2: #5e8a72;
+  --text-3: #3a5a48;
+  --border: #1a3028;
+  --border-2: #203830;
+  --hero-glow-a: rgba(78,203,158,.09);
+  --hero-glow-b: rgba(232,168,32,.08);
+  --bg-top: #081512;
+  --bg-bottom: #0a1915;
+  --header-a: #0e1f1a;
+  --header-b: #081512;
+  --card-a: #0e1f1a;
+  --card-b: #0b1916;
+  --card-action-bg: #0e1f1a;
+  --nav-bg: #182e27;
+  --nav-bg-hover: #1d362e;
+  --nav-text: #c8e8d8;
+  --showall-bg: rgba(78,203,158,.12);
+  --showall-text: #4ecb9e;
+  --meta-bg: #132620;
+  --table-head-a: #1a3028;
+  --table-head-b: #203830;
+}
+
+/* ===== RESETS ===== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left,var(--hero-glow-a),transparent 26rem),
+    radial-gradient(circle at top right,var(--hero-glow-b),transparent 24rem),
+    linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bottom) 100%);
+  min-height:100vh;
+}
+
+/* ===== HEADER ===== */
+header{
+  background:linear-gradient(160deg,var(--header-a),var(--header-b));
+  box-shadow:var(--header-shadow);
+  border-bottom:1px solid var(--border);
+  padding:32px 24px 24px;
+}
+.hero-top{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.eyebrow{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+h1{font-family:'Crimson Pro',serif;font-size:2.1rem;font-weight:700;color:var(--text);line-height:1.15;margin-bottom:8px}
+.sub{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--text-2)}
+.theme-switch{display:flex;gap:6px;padding-top:4px;flex-shrink:0}
+.theme-btn{font-family:'DM Mono',monospace;font-size:.68rem;padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-2);cursor:pointer;transition:all .15s}
+.theme-btn.active,.theme-btn:hover{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid)}
+
+/* ===== LEGEND ===== */
+.legend{max-width:900px;margin:18px auto 0;padding:0 0 0 0;display:flex;gap:18px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-2)}
+.lswatch{width:10px;height:10px;border-radius:3px}
+
+/* ===== MAP CONTAINER ===== */
+.map-wrap{max-width:900px;margin:24px auto 0;padding:0 24px}
+.map-svg-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--map-shadow);overflow:hidden}
+.map-svg-box svg{width:100%;height:auto;display:block}
+
+/* ===== SVG NODE STYLES ===== */
+.node{cursor:pointer;transition:filter .15s}
+.node:hover{filter:brightness(1.12)}
+.node rect{rx:8;ry:8;stroke-width:1.5}
+.node text{font-family:'DM Mono',monospace;pointer-events:none}
+.c-amber rect{fill:var(--amber-soft);stroke:var(--amber-dim)}
+.c-amber .nlbl{fill:var(--amber);font-size:9px;font-weight:500}
+.c-amber .nsub{fill:var(--text-2);font-size:7.5px}
+.c-teal rect{fill:var(--teal-soft);stroke:var(--teal-dim)}
+.c-teal .nlbl{fill:var(--teal);font-size:9px;font-weight:500}
+.c-teal .nsub{fill:var(--text-2);font-size:7.5px}
+.c-gray rect{fill:var(--surface-2);stroke:var(--border-2)}
+.c-gray .nlbl{fill:var(--text);font-size:10px;font-weight:600}
+.c-gray .nsub{fill:var(--text-2);font-size:8px}
+.conn{stroke:var(--border-2);stroke-width:1;stroke-dasharray:3 3}
+.hint-lbl{font-family:'DM Mono',monospace;font-size:7.5px;fill:var(--text-3)}
+.done-node{opacity:.42}
+.sel-node rect{stroke-width:2.5}
+.c-amber.sel-node rect{stroke:var(--amber)}
+.c-teal.sel-node rect{stroke:var(--teal)}
+
+/* ===== CARD PANEL ===== */
+.panel-wrap{max-width:900px;margin:20px auto 60px;padding:0 24px}
+.card-panel{
+  background:linear-gradient(160deg,var(--card-a),var(--card-b));
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:var(--panel-shadow);
+  overflow:hidden;
+  display:none;
+}
+.card-panel.open{display:block}
+.panel-header{
+  background:linear-gradient(135deg,var(--header-a),var(--header-b));
+  border-bottom:1px solid var(--border);
+  padding:16px 20px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap
+}
+.panel-title{font-family:'DM Mono',monospace;font-size:.72rem;font-weight:500;color:var(--text)}
+.panel-badge{font-family:'DM Mono',monospace;font-size:.62rem;padding:3px 9px;border-radius:20px;flex-shrink:0}
+.badge-amber{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber-mid)}
+.badge-teal{background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid)}
+.panel-close{background:none;border:none;color:var(--text-3);font-size:1.1rem;cursor:pointer;padding:2px 6px;border-radius:4px;transition:color .15s}
+.panel-close:hover{color:var(--text)}
+
+/* ===== CARD ===== */
+.card-area{padding:22px 22px 6px}
+.card-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px}
+.nav-btn{background:var(--nav-bg);color:var(--nav-text);border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:.7rem;padding:6px 14px;border-radius:6px;cursor:pointer;transition:background .15s}
+.nav-btn:hover:not(:disabled){background:var(--nav-bg-hover)}
+.nav-btn:disabled{opacity:.35;cursor:default}
+.card-counter{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-2)}
+.dots{display:flex;gap:5px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:280px;margin:0 auto}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--surface-3);border:1px solid var(--border-2);cursor:pointer;transition:background .15s,border-color .15s}
+.dot.partial{background:var(--amber-mid);border-color:var(--amber-dim)}
+.dot.done-dot{background:var(--green-mid);border-color:var(--green)}
+.dot.active{border-color:var(--teal);background:var(--teal-soft)}
+.card-title{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teal);margin-bottom:10px;letter-spacing:.05em}
+.card-body{font-size:.95rem;line-height:1.75;color:var(--text)}
+.card-hint{margin-top:12px;padding:10px 14px;background:var(--surface-3);border-left:2px solid var(--amber-dim);border-radius:0 6px 6px 0;font-size:.82rem;color:var(--text-2);font-style:italic}
+
+/* ===== OCCLUSION ===== */
+.occ{
+  display:inline-block;
+  min-width:3ch;
+  background:var(--text);
+  color:transparent;
+  border:1px solid transparent;
+  border-radius:3px;
+  cursor:pointer;
+  padding:1px 6px;
+  white-space:nowrap;
+  user-select:none;
+  vertical-align:baseline;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
+.occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed{background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.20)}
+.score-btns{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+.sb{font-family:'DM Mono',monospace;font-size:.62rem;padding:2px 8px;border-radius:4px;cursor:pointer;border:none;transition:background .12s}
+.sb-k{background:var(--green-soft);color:var(--green)}
+.sb-k:hover{background:var(--green-mid)}
+.sb-n{background:var(--amber-soft);color:var(--amber)}
+.sb-n:hover{background:var(--amber-mid)}
+.jump-link{display:inline-block;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teal);margin-left:5px;cursor:pointer;text-decoration:underline dotted;vertical-align:middle}
+.jump-link:hover{color:var(--amber)}
+
+/* ===== TABLE QUIZ CARD ===== */
+.tblq-wrap{overflow-x:auto;margin-top:10px}
+.tblq{border-collapse:collapse;width:100%;min-width:400px}
+.tblq thead{background:linear-gradient(135deg,var(--table-head-a),var(--table-head-b))}
+.tblq th{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-2);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border-2)}
+.tblq td{padding:7px 12px;border-bottom:1px solid var(--border);font-size:.88rem;vertical-align:middle}
+.tblq tr:last-child td{border-bottom:none}
+.tblq td .occ{display:block;text-align:center;white-space:normal;padding:10px 12px;min-width:180px}
+.tblq-note{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--surface-3);border-radius:6px;margin-bottom:8px;flex-wrap:wrap}
+.tblq-copy{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-2);flex:1}
+.tblq-pill{font-family:'DM Mono',monospace;font-size:.6rem;padding:2px 8px;background:var(--teal-soft);color:var(--teal);border-radius:20px}
+.tblq-btn{display:none}
+
+/* ===== CARD ACTIONS ===== */
+.card-actions{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  padding:10px 22px 16px;
+  justify-content:space-between;
+}
+.meta-pills{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.mpill{font-family:'DM Mono',monospace;font-size:.62rem;padding:2px 9px;border-radius:20px;background:var(--meta-bg);color:var(--text-2);border:1px solid var(--border)}
+.mpill.kpill{color:var(--green);border-color:var(--green-mid)}
+.mpill.npill{color:var(--amber);border-color:var(--amber-mid)}
+.action-btns{display:flex;gap:7px;flex-wrap:wrap}
+.abtn{font-family:'DM Mono',monospace;font-size:.65rem;padding:5px 12px;border-radius:6px;cursor:pointer;border:1px solid transparent;transition:all .15s}
+.abtn:disabled{opacity:.35;cursor:default}
+.abtn-reveal{background:var(--teal-soft);color:var(--teal);border-color:var(--teal-mid)}
+.abtn-reveal:hover:not(:disabled){background:var(--teal-mid)}
+.abtn-knew{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid)}
+.abtn-knew:hover:not(:disabled){background:var(--amber-mid)}
+.abtn-ghost{background:transparent;color:var(--text-3);border-color:var(--border)}
+.abtn-ghost:hover:not(:disabled){color:var(--text);border-color:var(--border-2)}
+
+/* ===== STATS BAR ===== */
+.stats-bar{
+  max-width:900px;margin:14px auto 0;padding:0 24px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;
+}
+.stat-pills{display:flex;gap:8px;flex-wrap:wrap}
+.spill{font-family:'DM Mono',monospace;font-size:.65rem;padding:3px 10px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--text-2)}
+.spill.s-rev{color:var(--teal);border-color:var(--teal-mid)}
+.spill.s-kn{color:var(--green);border-color:var(--green-mid)}
+.spill.s-nd{color:var(--amber);border-color:var(--amber-mid)}
+.spill.s-dn{color:var(--text-2)}
+.stat-actions{display:flex;gap:7px;flex-wrap:wrap}
+.sa-btn{font-family:'DM Mono',monospace;font-size:.63rem;padding:4px 11px;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text-2);transition:all .15s}
+.sa-btn:hover{color:var(--text);border-color:var(--border-2)}
+.sa-btn-rev{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid);display:none}
+.sa-btn-rev:hover{background:var(--amber-mid)}
+
+/* ===== REVIEW PANEL ===== */
+.review-panel{
+  max-width:900px;margin:20px auto 60px;padding:0 24px;
+  display:none;
+}
+.review-panel.open{display:block}
+.rpanel-inner{
+  background:linear-gradient(160deg,var(--card-a),var(--card-b));
+  border:1px solid var(--amber-mid);
+  border-radius:14px;
+  box-shadow:var(--panel-shadow);
+  overflow:hidden;
+}
+.rp-header{
+  background:var(--amber-soft);
+  border-bottom:1px solid var(--amber-mid);
+  padding:14px 20px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.rp-title{font-family:'Crimson Pro',serif;font-weight:600;font-size:1.1rem;color:var(--amber)}
+.rp-counter{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--amber-dim)}
+.rsub{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--amber);padding:10px 20px 0;letter-spacing:.04em}
+.rp-body{padding:16px 22px 20px}
+.rp-card-title{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teal);margin-bottom:8px}
+.rp-body-text{font-size:.95rem;line-height:1.75;color:var(--text)}
+.rp-nav{display:flex;justify-content:space-between;padding:12px 22px 18px;gap:12px}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:720px){
+  .card-actions{flex-direction:column;align-items:flex-start}
+  .action-btns{width:100%}
+  .abtn{flex:1;text-align:center}
+  .stats-bar{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Block 5 · Dr. Filippakis · Cancer Metabolism</div>
+      <h1>Cell Growth &amp; Metabolism</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== LEGEND ===== -->
+<div class="map-wrap">
+  <div class="legend">
+    <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+    <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Lecture Objectives (LO)</div>
+  </div>
+</div>
+
+<!-- ===== MAP ===== -->
+<div class="map-wrap">
+  <div class="map-svg-box">
+    <svg viewBox="0 0 860 325" xmlns="http://www.w3.org/2000/svg">
+      <!-- connectors top row to center -->
+      <line class="conn" x1="115" y1="72" x2="265" y2="148"/>
+      <line class="conn" x1="295" y1="72" x2="335" y2="148"/>
+      <line class="conn" x1="475" y1="72" x2="445" y2="148"/>
+      <line class="conn" x1="655" y1="72" x2="525" y2="148"/>
+      <!-- connectors center to bottom row -->
+      <line class="conn" x1="115" y1="252" x2="265" y2="178"/>
+      <line class="conn" x1="295" y1="252" x2="335" y2="178"/>
+      <line class="conn" x1="475" y1="252" x2="445" y2="178"/>
+      <line class="conn" x1="655" y1="252" x2="525" y2="178"/>
+
+      <!-- TOP ROW: PLOs -->
+      <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+        <rect x="30" y="16" width="170" height="56" rx="8"/>
+        <text x="115" y="36" text-anchor="middle" class="nlbl">PLO 1</text>
+        <text x="115" y="50" text-anchor="middle" class="nsub">Cancer vs.</text>
+        <text x="115" y="62" text-anchor="middle" class="nsub">Proliferating Cells</text>
+      </g>
+      <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+        <rect x="210" y="16" width="170" height="56" rx="8"/>
+        <text x="295" y="36" text-anchor="middle" class="nlbl">PLO 2</text>
+        <text x="295" y="50" text-anchor="middle" class="nsub">Warburg Effect &amp;</text>
+        <text x="295" y="62" text-anchor="middle" class="nsub">Aerobic Glycolysis</text>
+      </g>
+      <g id="n-plo3" class="node c-amber" onclick="selNode('plo3')">
+        <rect x="390" y="16" width="170" height="56" rx="8"/>
+        <text x="475" y="36" text-anchor="middle" class="nlbl">PLO 3</text>
+        <text x="475" y="50" text-anchor="middle" class="nsub">Mitochondrial</text>
+        <text x="475" y="62" text-anchor="middle" class="nsub">Metabolism</text>
+      </g>
+      <g id="n-plo4" class="node c-amber" onclick="selNode('plo4')">
+        <rect x="570" y="16" width="170" height="56" rx="8"/>
+        <text x="655" y="36" text-anchor="middle" class="nlbl">PLO 4</text>
+        <text x="655" y="50" text-anchor="middle" class="nsub">Oncometabolites &amp;</text>
+        <text x="655" y="62" text-anchor="middle" class="nsub">IDH Mutations</text>
+      </g>
+
+      <!-- CENTER -->
+      <g id="n-center" class="node c-gray" onclick="selNode('plo1')">
+        <rect x="235" y="128" width="390" height="50" rx="8"/>
+        <text x="430" y="148" text-anchor="middle" class="nlbl" style="font-size:11px">Cancer Metabolism</text>
+        <text x="430" y="164" text-anchor="middle" class="nsub">Click a node to begin</text>
+      </g>
+
+      <!-- BOTTOM ROW: LOs -->
+      <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+        <rect x="30" y="252" width="170" height="56" rx="8"/>
+        <text x="115" y="272" text-anchor="middle" class="nlbl">LO 1</text>
+        <text x="115" y="286" text-anchor="middle" class="nsub">Genetic Drivers:</text>
+        <text x="115" y="298" text-anchor="middle" class="nsub">Oncogenes &amp; TSGs</text>
+      </g>
+      <g id="n-lo2" class="node c-teal" onclick="selNode('lo2')">
+        <rect x="210" y="252" width="170" height="56" rx="8"/>
+        <text x="295" y="272" text-anchor="middle" class="nlbl">LO 2</text>
+        <text x="295" y="286" text-anchor="middle" class="nsub">PI3K / mTOR /</text>
+        <text x="295" y="298" text-anchor="middle" class="nsub">AMPK Signaling</text>
+      </g>
+      <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+        <rect x="390" y="252" width="170" height="56" rx="8"/>
+        <text x="475" y="272" text-anchor="middle" class="nlbl">LO 3</text>
+        <text x="475" y="286" text-anchor="middle" class="nsub">Therapeutic</text>
+        <text x="475" y="298" text-anchor="middle" class="nsub">Targeting</text>
+      </g>
+      <g id="n-lo4" class="node c-teal" onclick="selNode('lo4')">
+        <rect x="570" y="252" width="170" height="56" rx="8"/>
+        <text x="655" y="272" text-anchor="middle" class="nlbl">LO 4</text>
+        <text x="655" y="286" text-anchor="middle" class="nsub">High-Yield</text>
+        <text x="655" y="298" text-anchor="middle" class="nsub">Integration</text>
+      </g>
+
+      <text class="hint-lbl" x="430" y="316" text-anchor="middle">← → navigate cards · Esc close panel · click node to open</text>
+    </svg>
+  </div>
+</div>
+
+<!-- ===== STATS BAR ===== -->
+<div class="stats-bar">
+  <div class="stat-pills">
+    <span class="spill s-rev" id="statRev">0 revealed</span>
+    <span class="spill s-kn" id="statKn">0 knew</span>
+    <span class="spill s-nd" id="statNd">0 needed</span>
+    <span class="spill s-dn" id="statDn">0 / 8 done</span>
+  </div>
+  <div class="stat-actions">
+    <button class="sa-btn" onclick="revealTopic()">Reveal topic</button>
+    <button class="sa-btn" onclick="revealDeck()">Reveal deck</button>
+    <button class="sa-btn sa-btn-rev" id="reviewBtn" onclick="startReview()">Review weak spots (0)</button>
+    <button class="sa-btn" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+
+<!-- ===== CARD PANEL ===== -->
+<div class="panel-wrap">
+  <div class="card-panel" id="cardPanel">
+    <div class="panel-header">
+      <span class="panel-title" id="panelTitle">—</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="panel-badge" id="panelBadge">PLO</span>
+        <button class="panel-close" onclick="closePanel()">✕</button>
+      </div>
+    </div>
+    <div class="card-area">
+      <div class="card-nav">
+        <button class="nav-btn" id="prevBtn" onclick="prevCard()">← Prev</button>
+        <div style="text-align:center">
+          <div class="card-counter" id="cardCounter">1 / 1</div>
+          <div class="dots" id="dotRow"></div>
+        </div>
+        <button class="nav-btn" id="nextBtn" onclick="nextCard()">Next →</button>
+      </div>
+      <div class="card-title" id="cardTitle"></div>
+      <div class="card-body" id="cardBody"></div>
+      <div class="card-hint" id="cardHint" style="display:none"></div>
+    </div>
+    <div class="card-actions" id="cardActions"></div>
+  </div>
+</div>
+
+<!-- ===== REVIEW PANEL ===== -->
+<div class="review-panel" id="reviewPanel">
+  <div class="rpanel-inner">
+    <div class="rp-header">
+      <span class="rp-title">Review: Weak Spots</span>
+      <div style="display:flex;gap:12px;align-items:center">
+        <span class="rp-counter" id="rpCounter">0 / 0</span>
+        <button class="panel-close" onclick="closeReview()">✕ Exit</button>
+      </div>
+    </div>
+    <div class="rsub" id="rsub"></div>
+    <div class="rp-body">
+      <div class="rp-card-title" id="rpCardTitle"></div>
+      <div class="rp-body-text" id="rpBody"></div>
+    </div>
+    <div class="rp-nav">
+      <button class="nav-btn" id="rpPrev" onclick="rpNav(-1)">← Prev</button>
+      <button class="nav-btn" id="rpNext" onclick="rpNav(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const D = {
+  plo1: {
+    label: 'PLO 1',
+    sub: 'Cancer vs. Proliferating vs. Non-Proliferating Cells',
+    type: 'PLO',
+    cards: [
+      {
+        t: 'Three Metabolic States — Goals',
+        b: 'Quiescent cells: glucose + fatty acids → {TCA cycle} → {ATP} + CO₂. Goal = energy housekeeping.\nNormal proliferating cells: glucose → {biomass} (nucleotides, lipids, proteins) + ATP. Requires {growth factor} signaling.\nCancer cells: same biomass output as proliferating, but {growth-factor independent} — oncogene/TSG mutations mimic a constitutive "on" signal.',
+        h: 'Key exam pivot: cancer cells are NOT unique in their metabolic program — they are just proliferating cells that\'ve lost the growth-factor requirement.'
+      },
+      {
+        t: 'Two Competing Demands of Tumor Metabolism',
+        b: 'Every cancer metabolism question resolves to two needs:\n(1) {Biomass} — building blocks for new cells (protein, nucleic acid, lipid, carbohydrates).\n(2) {Energy (ATP)} — for ongoing cellular work.\nCancer cells sacrifice {ATP-per-glucose efficiency} to preserve carbon for {biomass}, which is why aerobic glycolysis is preferred even with functional mitochondria.',
+        h: 'Carbon goes to biomass, not to CO₂. Efficiency is traded for biosynthetic precursors.'
+      },
+      {
+        t: 'Growth Factor Independence — How It Happens',
+        b: 'Normal cells halt proliferation when nutrient supply exceeds demand — growth-factor receptors gate the metabolic reprogramming. Cancer bypasses this via:\nGain-of-function mutations in oncogenes (e.g., {MYC}, {RAS}, {PI3K}) — constitutive "growth-factor-on" signal.\nLoss-of-function mutations in tumor suppressors (e.g., {PTEN}, {LKB1}, {p53}) — removal of metabolic brakes.\n{AMPK} dysfunction — energy-stress sensor no longer shuts off anabolism when ATP drops.',
+        h: 'Metabolic reprogramming is one of Hanahan & Weinberg\'s Hallmarks of Cancer.'
+      },
+      {
+        t: 'Key Fuel Inputs for Cancer',
+        b: 'The two major fuel substrates with increased uptake in cancer cells are {glucose} and {glutamine}.\nGlucose feeds: {aerobic glycolysis} (Warburg), PPP (ribose + NADPH), and citrate export for lipogenesis.\nGlutamine feeds: {TCA anaplerosis} (replenishes oxaloacetate), nucleotide synthesis, and glutathione (antioxidant).',
+        h: 'Glutamine is the second major tumor fuel — a MYC target. CB-839 (telaglenastat) inhibits GLS.'
+      }
+    ]
+  },
+  plo2: {
+    label: 'PLO 2',
+    sub: 'Warburg Effect & Aerobic Glycolysis',
+    type: 'PLO',
+    cards: [
+      {
+        t: 'Definition: Warburg Effect',
+        b: 'Cancer cells preferentially use {aerobic glycolysis} — converting glucose to {lactate} even when oxygen is fully available and mitochondria are intact.\nNamed after {Otto Warburg} (Nobel Prize 1931). Also called the {Warburg effect}.\nATP yield: ~{4 ATP/glucose} — higher than anaerobic (2) but far lower than OxPhos (~36).',
+        h: 'The "paradox": why take a 9× hit in ATP yield? Answer: biosynthesis.'
+      },
+      {
+        t: 'Why Choose Aerobic Glycolysis? The Biosynthetic Rationale',
+        b: 'Running glycolysis hot achieves three goals simultaneously:\n1. {Nucleotide synthesis}: G6P → pentose phosphate pathway → {ribose-5-P} (DNA/RNA backbone) + {NADPH} (reducing power + antioxidant defense).\n2. {Acetyl-CoA for lipogenesis}: glycolytic flux → citrate export → cytosolic ACL → acetyl-CoA → {fatty acid synthesis}.\n3. {NAD⁺ regeneration}: pyruvate → lactate (via LDH) recycles {NAD⁺} to keep GAPDH running and glycolysis sustained.',
+        h: 'Without LDH, glycolysis stalls — which is why LDH inhibitors are being explored therapeutically.'
+      },
+      {
+        t: 'Lactate: Not Waste — A Signaling Molecule',
+        b: 'Lactate actively shapes the tumor microenvironment (TME):\n→ Inhibits {dendritic cell} and {cytotoxic T cell} function → immune evasion.\n→ Pushes macrophages toward {M2/TAM} (tumor-associated macrophage) state → immunosuppression.\n→ Activates {NF-κB} and {PI3K} in endothelial cells → MMPs → facilitates {metastasis}.\nThe acidified, lactate-rich TME is actively pro-tumorigenic.',
+        h: 'TAM = tumor-associated macrophage. Lactate = immunosuppressive metabolite.'
+      },
+      {
+        t: 'FDG-PET: Clinical Application of the Warburg Effect',
+        b: '{FDG (¹⁸F-fluorodeoxyglucose)} is a glucose analog taken up by GLUT transporters and trapped after {hexokinase} phosphorylation — it cannot proceed through glycolysis.\nTumors with high glycolytic flux appear bright on PET.\nKey clinical pearl: {metabolic response precedes morphologic response} — a tumor may show FDG disappearance on PET (therapy working) while still appearing on CT.',
+        h: 'Classic example: GIST on sunitinib — PET shows response before CT shrinkage.'
+      },
+      {
+        t: 'Anaerobic vs. Aerobic Glycolysis — Don\'t Confuse Them',
+        b: '{Anaerobic glycolysis}: no O₂ available → cell is forced to ferment. End product: {lactate}. Occurs in exercising muscle, ischemic tissue.\n{Warburg effect (aerobic glycolysis)}: O₂ is present, mitochondria are functional, but cell {chooses} to ferment anyway.\nBoth end in lactate — but the drivers are completely different. Warburg = {paradoxical choice}. Anaerobic = {forced response}.',
+        h: 'High-yield distinction. The word "paradoxical" signals Warburg on exams.'
+      }
+    ]
+  },
+  plo3: {
+    label: 'PLO 3',
+    sub: 'Mitochondrial Metabolism in Cancer',
+    type: 'PLO',
+    cards: [
+      {
+        t: 'Warburg\'s Wrong Assumption — Mitochondria Are NOT Off',
+        b: 'Warburg\'s original 1924 hypothesis: cancer cells have {damaged mitochondria} and are forced into glycolysis. This is {incorrect}.\nModern understanding: cancer mitochondria are {functional} — they have been {repurposed} as biosynthetic hubs rather than ATP-generating organelles.\nEvidence: drugs targeting mitochondria (metformin, CPI-613) still kill tumors — proving the organelle is {active and necessary}.',
+        h: 'Remember: cancer cells turn off the ATP function but upregulate the biosynthetic function of mitochondria.'
+      },
+      {
+        t: 'TCA Intermediates as Biosynthetic Precursors',
+        b: 'Each TCA intermediate does double duty. Key exits:\n{Citrate} → cytosolic ACL → acetyl-CoA → fatty acids, sterols (membrane lipids).\n{α-Ketoglutarate (α-KG)} → transamination → glutamate, amino acids.\n{Succinyl-CoA} → ALA synthase → porphyrins, heme.\n{Oxaloacetate (OAA)} → transamination → aspartate → {purines and pyrimidines}.\n{Malate} → malic enzyme → NADPH + pyruvate.',
+        h: 'Citrate exit for lipogenesis is the most exam-tested. Citrate → ACL → acetyl-CoA → FASN.'
+      },
+      {
+        t: 'TCA Intermediates → Biosynthetic Destinations (Table Quiz)',
+        b: '<div class="tblq-note"><div class="tblq-copy">Table quiz: TCA Intermediate column stays visible. Recall the destination and product.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>TCA Intermediate</th><th>Biosynthetic Destination</th><th>Product</th></tr></thead><tbody><tr><td><strong>Citrate</strong></td><td>{Exit via citrate transporter → cytosolic ACL → acetyl-CoA}</td><td>{Fatty acids, sterols, membrane lipids}</td></tr><tr><td><strong>α-Ketoglutarate</strong></td><td>{Transamination}</td><td>{Glutamate, amino acids, collagen hydroxylation}</td></tr><tr><td><strong>Succinyl-CoA</strong></td><td>{ALA synthase pathway}</td><td>{Porphyrins, heme}</td></tr><tr><td><strong>Oxaloacetate</strong></td><td>{Transamination → aspartate}</td><td>{Purines, pyrimidines (nucleotide backbones)}</td></tr><tr><td><strong>Malate / OAA</strong></td><td>{Malic enzyme / PEPCK}</td><td>{NADPH (for biosynthesis), PEP → gluconeogenesis}</td></tr></tbody></table></div>',
+        h: 'Citrate → lipids. α-KG → amino acids. Succinyl-CoA → heme. OAA → nucleotides. Malate → NADPH.'
+      },
+      {
+        t: 'Glutaminolysis: Anaplerosis for the TCA',
+        b: 'Because citrate is constantly pulled out of the TCA for lipogenesis, {oxaloacetate (OAA)} would rapidly deplete. Tumors compensate via {glutaminolysis}:\nGlutamine → glutamate → {α-ketoglutarate (α-KG)} → enters TCA.\nThis refills the cycle ({anaplerosis}) and sustains lipogenesis.\n{MYC} is the major driver of glutamine addiction — it transactivates glutamine transporters and {GLS (glutaminase)}.\n{CB-839 (telaglenastat)} is a GLS inhibitor in clinical trials.',
+        h: 'Anaplerosis = fill the TCA. Cataplerosis = drain it. In cancer, cataplerotic flux is enormous → glutamine is essential.'
+      },
+      {
+        t: 'Fatty Acid Oxidation — Stress Survival Mode',
+        b: 'When glucose and glutamine are scarce (hypoxic tumor core, avascular niches, chemotherapy stress), cancer cells activate {fatty acid oxidation (FAO)}.\nFAO generates {acetyl-CoA} that feeds the TCA cycle → ATP.\nThis metabolic {flexibility} lets tumors survive transient nutrient deprivation — a key driver of {therapy resistance} and {metastasis}.',
+        h: 'FAO is the backup fuel. Cancer uses it to survive when the usual fuels are unavailable.'
+      }
+    ]
+  },
+  plo4: {
+    label: 'PLO 4',
+    sub: 'Oncometabolites & IDH Mutations',
+    type: 'PLO',
+    cards: [
+      {
+        t: 'IDH1/IDH2 Mutations — Neomorphic Activity',
+        b: 'Mutations in {IDH1} and {IDH2} (isocitrate dehydrogenase) confer a {neomorphic} (gain-of-new-function) activity: instead of converting isocitrate → α-KG, the mutant enzyme reduces α-KG to {2-hydroxyglutarate (2-HG)}.\n2-HG is an {oncometabolite} — it structurally mimics α-KG and inhibits {α-KG-dependent dioxygenases}: histone demethylases and TET DNA demethylases.\nResult: {hypermethylation} → epigenetic reprogramming that blocks differentiation and locks cells in a progenitor-like proliferative state.',
+        h: 'Classic tumors: IDH1 in low-grade glioma; IDH1/IDH2 in AML and cholangiocarcinoma.'
+      },
+      {
+        t: 'IDH Mutations — Clinical Detection & Treatment',
+        b: 'IDH mutation status is detectable {non-invasively} by {MR spectroscopy} (2-HG peak) or standard tissue sequencing/IHC.\nTargeted agents: {ivosidenib} (IDH1) and {enasidenib} (IDH2) — they directly block 2-HG production.\nFDA approved in: {AML} (acute myeloid leukemia) and {cholangiocarcinoma} (bile duct cancer).',
+        h: 'Ivosidenib = IDH1 inhibitor. Enasidenib = IDH2 inhibitor. Both approved for AML.'
+      },
+      {
+        t: 'Other TCA-Linked Oncometabolite Syndromes',
+        b: 'Succinate and fumarate accumulate in two hereditary syndromes and also inhibit α-KG-dependent enzymes → pseudohypoxic HIF stabilization:\n{SDH mutations} (succinate dehydrogenase) → succinate accumulates → {paragangliomas and pheochromocytoma}.\n{FH mutations} (fumarate hydratase) → fumarate accumulates → {hereditary leiomyomatosis and renal cell carcinoma (HLRCC)}.\nMechanism = same as 2-HG: competitive inhibition of {TET/histone demethylases} + {HIF prolyl hydroxylases}.',
+        h: 'All three oncometabolites (2-HG, succinate, fumarate) inhibit α-KG-dependent dioxygenases.'
+      }
+    ]
+  },
+  lo1: {
+    label: 'LO 1',
+    sub: 'Genetic Drivers: Oncogenes & Tumor Suppressors',
+    type: 'LO',
+    cards: [
+      {
+        t: 'Key Oncogenes — Metabolic Effects',
+        b: '<div class="tblq-note"><div class="tblq-copy">Table quiz: Gene column stays visible.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Gene</th><th>Metabolic Effect</th><th>Clinical Relevance</th></tr></thead><tbody><tr><td><strong>MYC</strong></td><td>{↑ glutamine transporters, ↑ GLS, ↑ nucleotide synthesis, ↑ ribosome biogenesis}</td><td>{Burkitt lymphoma t(8;14), many solid tumors}</td></tr><tr><td><strong>HIF1α</strong></td><td>{↑ GLUT1, ↑ glycolytic enzymes, ↑ LDH, ↑ VEGF}</td><td>{Stabilized by hypoxia or VHL loss — clear cell RCC}</td></tr><tr><td><strong>RAS/RAF</strong></td><td>{↑ glucose uptake, ↑ PI3K, ↑ macropinocytosis}</td><td>{Pancreatic, colon, lung adenocarcinoma}</td></tr><tr><td><strong>PI3K (PIK3CA)</strong></td><td>{↑ glucose transport, ↑ lipogenesis via AKT→SREBP, ↑ mTOR}</td><td>{Breast, endometrial, colon cancers}</td></tr><tr><td><strong>AKT</strong></td><td>{↑ glucose uptake, ↑ hexokinase, ↑ mTORC1, ↑ cell survival}</td><td>{Downstream of PI3K — amplified in many cancers}</td></tr><tr><td><strong>FAS (FASN)</strong></td><td>{Cytosolic palmitate synthesis → phospholipids, protein acylation}</td><td>{Overexpressed in prostate, breast, ovarian ca; druggable}</td></tr></tbody></table></div>',
+        h: 'MYC = glutamine driver. HIF1α = glycolytic driver. PIK3CA = lipogenic/mTOR driver. FASN = lipid synthesis.'
+      },
+      {
+        t: 'Key Tumor Suppressors — Metabolic Brakes',
+        b: '<div class="tblq-note"><div class="tblq-copy">Table quiz: Gene column stays visible.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>TSG</th><th>Normal Function</th><th>Loss Consequence</th></tr></thead><tbody><tr><td><strong>PTEN</strong></td><td>{Lipid phosphatase — dephosphorylates PIP₃ → PIP₂, opposes PI3K}</td><td>{Constitutive PI3K/AKT; Cowden syndrome}</td></tr><tr><td><strong>LKB1 (STK11)</strong></td><td>{Upstream activator of AMPK; inhibits FAS}</td><td>{AMPK cannot restrain mTOR; Peutz-Jeghers; NSCLC}</td></tr><tr><td><strong>TSC1/TSC2</strong></td><td>{GAP for RHEB → inhibits mTORC1}</td><td>{Constitutive mTOR; tuberous sclerosis complex}</td></tr><tr><td><strong>p53</strong></td><td>{↓ glycolysis via TIGAR, ↑ OxPhos via SCO2, activates autophagy}</td><td>{Warburg-favoring metabolism; Li-Fraumeni syndrome}</td></tr><tr><td><strong>VHL</strong></td><td>{Ubiquitin ligase — degrades HIF1α in normoxia}</td><td>{Pseudohypoxic state; clear cell RCC}</td></tr></tbody></table></div>',
+        h: 'LKB1 loss is the most high-yield in NSCLC. VHL loss = RCC. p53 loss = Warburg-favoring.'
+      },
+      {
+        t: 'Neoplastic Lipogenesis — Integrated Circuit',
+        b: 'Rapidly dividing tumors need enormous new lipid for membranes. The circuit:\n1. {PI3K/AKT} activates {mTORC1}.\n2. mTORC1 activates {SREBP1} (sterol regulatory element binding protein).\n3. SREBP1 transcribes {FASN} (fatty acid synthase) and {ACC} (acetyl-CoA carboxylase).\n4. Glycolytic flux provides {citrate} → cytosolic ACL → {acetyl-CoA} → FASN → {palmitate}.\n5. Palmitate → phospholipids for daughter cell membranes.\nBrake: {LKB1} → {AMPK} → phosphorylates/inactivates {ACC} → stops fatty acid synthesis.',
+        h: 'FASN is overexpressed in prostate, breast, ovarian cancer. TVB-2640 is a FASN inhibitor in trials.'
+      }
+    ]
+  },
+  lo2: {
+    label: 'LO 2',
+    sub: 'PI3K / mTOR / AMPK Signaling',
+    type: 'LO',
+    cards: [
+      {
+        t: 'PI3K–AKT: The "Grow and Survive" Signal',
+        b: 'Growth factors bind RTKs → recruit {PI3K} → converts {PIP₂ → PIP₃} at plasma membrane → recruits {AKT} → phosphorylated by PDPK1 and mTORC2.\nAKT effects: ↑ {GLUT1} to membrane + ↑ hexokinase activity → ↑ glycolysis. ↑ {fatty acid synthesis}. ↑ {protein synthesis}. Activates {mTORC1} (via TSC1/TSC2 inhibition → RHEB-GTP). Inhibits {apoptosis} (BAD, FOXO).\nBrake: {PTEN} dephosphorylates PIP₃ → PIP₂. PTEN loss = constitutive AKT (Cowden syndrome; endometrial, prostate, GBM).',
+        h: 'PIK3CA H1047R mutation is the hotspot. Alpelisib targets PI3K-α selectively.'
+      },
+      {
+        t: 'mTORC1: The Growth Integrator',
+        b: 'mTORC1 integrates four inputs: {growth factors} (via PI3K/AKT), {amino acids} (leucine via Rag GTPases), {energy status} (inhibited by AMPK when ATP low), {oxygen} (inhibited under hypoxia via REDD1).\nmTORC1 outputs: ↑ {protein synthesis} (S6K, 4E-BP1 → eIF4F). ↑ {glycolysis} (via HIF1α). ↑ {lipogenesis} (via SREBP1). ↑ {nucleotide synthesis} (via G6PD, CAD). ↓ {autophagy} (via ULK1, TFEB inhibition).\nInhibitors: {sirolimus (rapamycin)} and {everolimus} — bind FKBP12 → allosteric mTORC1 block.',
+        h: 'Clinical uses: RCC (everolimus), pancreatic NETs, breast cancer + exemestane, tuberous sclerosis (TSC1/TSC2 loss).'
+      },
+      {
+        t: 'AMPK: The Energy Sensor & Master Brake',
+        b: '{AMPK} (AMP-activated protein kinase) senses the {AMP:ATP ratio}. When ATP falls, AMP rises → AMPK is activated by {LKB1} (upstream kinase).\nAMPK actions: ↓ {ACC} → ↓ fatty acid synthesis, ↑ FA oxidation. Inhibits {TSC1/2} → ↓ mTORC1 → ↓ protein synthesis. Activates {p53} → cell cycle arrest. Activates {autophagy} (via ULK1).\nIn cancer: {AMPK is suppressed} (via LKB1 loss or constitutive mTOR/AKT signaling) — anabolism runs unchecked even when ATP is low.\n{Metformin} activates AMPK indirectly by inhibiting mitochondrial {complex I}.',
+        h: 'Metformin → complex I inhibition → ↑ AMP:ATP → AMPK activation → ↓ mTOR. Being trialed as adjunct in cancer.'
+      },
+      {
+        t: 'Tuberous Sclerosis — Signaling Vignette',
+        b: 'Germline {TSC2} loss removes GAP activity on {RHEB} → RHEB-GTP persistently activates {mTORC1} → runaway protein synthesis, glycolysis, and lipogenesis.\nClinical result: {renal angiomyolipomas}, subependymal giant cell astrocytomas (SEGAs), pulmonary LAM.\nTargeted drug: {everolimus} (mTORC1 inhibitor) — FDA-approved for TSC-associated angiomyolipomas and SEGAs.\nPattern: {TSC1/TSC2 loss → RHEB always on → mTORC1 always on → targeted by rapalogs}.',
+        h: 'This is the textbook "matching germline mutation to targeted therapy" scenario.'
+      }
+    ]
+  },
+  lo3: {
+    label: 'LO 3',
+    sub: 'Therapeutic Targeting of Cancer Metabolism',
+    type: 'LO',
+    cards: [
+      {
+        t: 'Four Therapeutic Strategies',
+        b: '1. {Deplete extrinsic nutrients}: ketogenic diet, {L-asparaginase} (depletes asparagine in ALL), dietary amino acid restriction.\n2. {Block nutrient uptake}: inhibit GLUT transporters, FABP fatty acid uptake, glutamine transporters.\n3. {Inhibit endogenous biosynthesis}: FAS inhibitors, NAMPT inhibitors, nucleotide antimetabolites (methotrexate blocks folate → purines; 5-FU blocks thymidylate synthase).\n4. {Promote toxic metabolite build-up}: desaturase inhibition → saturated FA accumulation → {ER stress} → tumor death (lipotoxicity).',
+        h: 'L-asparaginase is the canonical example: ALL cells lack asparagine synthetase and depend on exogenous asparagine.'
+      },
+      {
+        t: 'Specific Drug Targets — Table',
+        b: '<div class="tblq-note"><div class="tblq-copy">Table quiz: Target column stays visible.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Target</th><th>Drug</th><th>Mechanism / Notes</th></tr></thead><tbody><tr><td>Mitochondrial Complex I</td><td>{Metformin}</td><td>{Indirect AMPK activation → ↓ mTOR, ↓ gluconeogenesis; under trial in cancer}</td></tr><tr><td>Hexokinase / Glycolysis</td><td>{2-DG, 3-bromopyruvate}</td><td>{Blocks first committed step of glycolysis}</td></tr><tr><td>Glutaminase (GLS)</td><td>{CB-839 / telaglenastat}</td><td>{Blocks glutamine → glutamate → α-KG; starves MYC-driven tumors}</td></tr><tr><td>α-KG dehydrogenase / PDH</td><td>{CPI-613 / devimistat}</td><td>{TCA cycle inhibitor; trialed in pancreatic ca}</td></tr><tr><td>mTORC1</td><td>{Sirolimus, Everolimus}</td><td>{Allosteric FKBP12-binding inhibitors; approved RCC, SEGA, pancreatic NETs}</td></tr><tr><td>FAS (FASN)</td><td>{TVB-2640}</td><td>{Blocks palmitate synthesis → starves membrane biogenesis}</td></tr><tr><td>PI3K-α</td><td>{Alpelisib}</td><td>{PIK3CA-selective; approved HR+/HER2− breast cancer; toxicity: hyperglycemia}</td></tr><tr><td>AKT</td><td>{Capivasertib, ipatasertib}</td><td>{Newer approvals in breast cancer}</td></tr><tr><td>Mutant IDH1/IDH2</td><td>{Ivosidenib / enasidenib}</td><td>{Directly blocks 2-HG production; approved AML, cholangiocarcinoma}</td></tr></tbody></table></div>',
+        h: 'High-yield drug pairings: alpelisib + fulvestrant (SOLAR-1), everolimus + exemestane, ivosidenib in IDH1+ AML.'
+      },
+      {
+        t: 'Alpelisib — Clinical Vignette',
+        b: 'HR+/HER2− breast cancer + {PIK3CA H1047R} hotspot mutation → add {alpelisib} (PI3K-α-selective inhibitor) to {fulvestrant} (endocrine therapy).\nTrial: {SOLAR-1} — improved progression-free survival in PIK3CA-mutant cohort.\nRationale: PIK3CA mutation → constitutive PI3K→AKT→mTOR → upregulates glycolytic + lipogenic programs → fuels growth.\nNotable toxicity: {hyperglycemia} — on-target effect because PI3K is also critical for insulin signaling.',
+        h: 'Hyperglycemia from alpelisib is on-target inhibition of PI3K insulin signaling. May require metformin co-prescription.'
+      }
+    ]
+  },
+  lo4: {
+    label: 'LO 4',
+    sub: 'High-Yield Integration',
+    type: 'LO',
+    cards: [
+      {
+        t: 'The Core Metabolic Reprogramming Quartet',
+        b: 'The four central metabolic changes in cancer:\n1. {Warburg effect} — aerobic glycolysis, lactate production despite O₂.\n2. {Glutaminolysis} — glutamine → α-KG → TCA anaplerosis; fuels lipogenesis + nucleotides.\n3. {De novo lipogenesis} — FASN-mediated palmitate synthesis; requires acetyl-CoA + NADPH.\n4. {Mitochondrial repurposing} — TCA as biosynthetic hub (citrate, OAA, α-KG); FAO for stress survival.',
+        h: 'Signaling and metabolism are intertwined: every growth-factor signal has a metabolic consequence.'
+      },
+      {
+        t: 'Signaling → Metabolism: Master Connections',
+        b: 'Key pathway cross-talk:\n{MYC} → glutamine addiction (GLS ↑, transporters ↑).\n{RAS/RAF} → PI3K/AKT ↑ + macropinocytosis ↑ (scavenges extracellular protein).\n{PI3K/AKT} → mTORC1 ↑ → SREBP1 → lipogenesis ↑; also GLUT1 to membrane.\n{p53 loss} → TIGAR expression ↓ → glycolysis ↑; SCO2 expression ↓ → OxPhos ↓.\n{VHL loss} → HIF1α stabilized → GLUT1 ↑, glycolytic enzymes ↑, VEGF ↑.\n{LKB1 loss} → AMPK cannot activate → mTOR unchecked, lipogenesis unchecked.',
+        h: 'p53 normally restrains glycolysis (TIGAR) and promotes OxPhos (SCO2). Loss flips both.'
+      },
+      {
+        t: 'Tumor Heterogeneity — Why Single Agents Fail',
+        b: 'A single solid tumor is {metabolically heterogeneous}.\nHypoxic cores: use {OxPhos inhibited} → rely on glycolysis + FA scavenging.\nWell-vascularized edges: use {aerobic glycolysis (Warburg)}.\n{Cancer stem cells}: often rely on {OxPhos} while bulk tumor cells run Warburg.\nThis explains why single-agent metabolic drugs often fail → {combination therapy} is the direction: metabolic inhibitor + {immune checkpoint blockade} + targeted therapy.',
+        h: 'This is the rationale for combination regimens — metabolic vulnerability + immune checkpoint + driver mutation inhibitor.'
+      },
+      {
+        t: 'The One-Sentence Big Picture',
+        b: 'Cancer is a disease of {deregulated proliferative signaling}: oncogenes run without growth-factor permission, {AMPK} (the energy brake) is silenced, and the cell commits to a {biomass-maximizing metabolic program} — {Warburg effect} + {glutaminolysis} + {de novo lipogenesis} — that produces the molecular raw material for continual division, and which we exploit therapeutically by targeting {nutrient uptake}, {biosynthetic enzymes}, or the {signaling pathways} that orchestrate them.',
+        h: 'Frame every cancer metabolism question around: what fuel? what pathway? what gene? what drug?'
+      }
+    ]
+  }
+};
+
+const LINKS = {
+  'MYC': ['lo1', 'LO 1', 'teal'],
+  'RAS': ['lo1', 'LO 1', 'teal'],
+  'PI3K': ['lo2', 'LO 2', 'teal'],
+  'PI3K/AKT': ['lo2', 'LO 2', 'teal'],
+  'AMPK': ['lo2', 'LO 2', 'teal'],
+  'mTORC1': ['lo2', 'LO 2', 'teal'],
+  'PTEN': ['lo1', 'LO 1', 'teal'],
+  'LKB1': ['lo1', 'LO 1', 'teal'],
+  'p53': ['lo1', 'LO 1', 'teal'],
+  'VHL': ['lo1', 'LO 1', 'teal'],
+  'IDH1': ['plo4', 'PLO 4', 'amber'],
+  'IDH1/IDH2': ['plo4', 'PLO 4', 'amber'],
+  'GLS': ['plo3', 'PLO 3', 'amber'],
+  'glutaminolysis': ['plo3', 'PLO 3', 'amber'],
+  'Warburg effect': ['plo2', 'PLO 2', 'amber'],
+  'aerobic glycolysis': ['plo2', 'PLO 2', 'amber'],
+  'fatty acid oxidation (FAO)': ['plo3', 'PLO 3', 'amber'],
+  'de novo lipogenesis': ['lo1', 'LO 1', 'teal'],
+  'growth-factor independent': ['plo1', 'PLO 1', 'amber'],
+  'alpelisib': ['lo3', 'LO 3', 'teal'],
+  'everolimus': ['lo3', 'LO 3', 'teal'],
+  'ivosidenib': ['plo4', 'PLO 4', 'amber'],
+  '2-hydroxyglutarate (2-HG)': ['plo4', 'PLO 4', 'amber']
+};
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const PROGRESS_COOKIE = 'cancer_met_anki_v1';
+let cur = null;
+let ci = 0;
+let tr = {}; // tr[nid][cidx] = Set<termIdx>
+let sc = {}; // sc[nid][cidx][termIdx] = 'knew'|'needed'
+let done = new Set();
+let totRev = 0, totKnew = 0, totNeed = 0;
+let revQueue = [], revIdx = 0;
+
+/* ============================================================
+   INIT NODE
+   ============================================================ */
+function initNode(id) {
+  if (!tr[id]) {
+    tr[id] = {};
+    sc[id] = {};
+    D[id].cards.forEach((_, ci) => {
+      tr[id][ci] = new Set();
+      sc[id][ci] = {};
+    });
+  }
+}
+
+/* ============================================================
+   SELECT / CLOSE NODE
+   ============================================================ */
+function selNode(id) {
+  if (id === 'center' || !D[id]) return;
+  // close review if open
+  if (document.getElementById('reviewPanel').classList.contains('open')) closeReview();
+  // deselect old
+  if (cur) {
+    document.getElementById('n-' + cur)?.classList.remove('sel-node');
+  }
+  cur = id;
+  ci = 0;
+  initNode(id);
+  document.getElementById('n-' + id)?.classList.add('sel-node');
+  document.getElementById('cardPanel').classList.add('open');
+  render();
+  document.getElementById('cardPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closePanel() {
+  document.getElementById('cardPanel').classList.remove('open');
+  if (cur) {
+    document.getElementById('n-' + cur)?.classList.remove('sel-node');
+  }
+  cur = null;
+}
+
+/* ============================================================
+   RENDER CARD
+   ============================================================ */
+function render() {
+  if (!cur) return;
+  const node = D[cur];
+  const card = node.cards[ci];
+  // header
+  document.getElementById('panelTitle').textContent = node.sub;
+  const badge = document.getElementById('panelBadge');
+  badge.textContent = node.label;
+  badge.className = 'panel-badge ' + (node.type === 'PLO' ? 'badge-amber' : 'badge-teal');
+  // counter
+  document.getElementById('cardCounter').textContent = (ci + 1) + ' / ' + node.cards.length;
+  // dots
+  const dotRow = document.getElementById('dotRow');
+  dotRow.innerHTML = '';
+  node.cards.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    const terms = countTerms(D[cur].cards[i].b);
+    const rev = tr[cur][i]?.size || 0;
+    if (rev > 0 && rev < terms) d.classList.add('partial');
+    else if (terms > 0 && rev >= terms) d.classList.add('done-dot');
+    if (i === ci) d.classList.add('active');
+    d.onclick = () => { ci = i; render(); };
+    dotRow.appendChild(d);
+  });
+  // nav
+  document.getElementById('prevBtn').disabled = ci === 0;
+  document.getElementById('nextBtn').disabled = ci === node.cards.length - 1;
+  // card content
+  document.getElementById('cardTitle').textContent = card.t;
+  document.getElementById('cardBody').innerHTML = parseBody(card.b, cur, ci, {});
+  const hint = document.getElementById('cardHint');
+  if (card.h) { hint.textContent = card.h; hint.style.display = 'block'; }
+  else hint.style.display = 'none';
+  // actions
+  renderActions();
+  // update stats
+  updateStats();
+  // done node check
+  checkDone(cur);
+}
+
+function countTerms(body) {
+  const m = body.match(/\{[^}]+\}/g);
+  return m ? m.length : 0;
+}
+
+/* ============================================================
+   PARSE BODY
+   ============================================================ */
+function parseBody(body, nid, cidx, opts) {
+  let i = 0;
+  // handle HTML table bodies (tblq)
+  if (body.includes('<table')) {
+    // parse only the {term} portions inside td/th content
+    return body.replace(/\{([^}]+)\}/g, (_, t) => {
+      const idx = i++;
+      return renderTerm(t, nid, cidx, idx, opts);
+    });
+  }
+  // plain text — convert newlines to <br>
+  const escaped = body.replace(/\{([^}]+)\}/g, (_, t) => {
+    const idx = i++;
+    return renderTerm(t, nid, cidx, idx, opts);
+  });
+  return escaped.replace(/\n/g, '<br>');
+}
+
+function renderTerm(t, nid, cidx, idx, opts) {
+  if (opts.forReview) {
+    if (idx === opts.targetTermIdx) {
+      const revealed = opts.revealedSet && opts.revealedSet.has(idx);
+      if (revealed) {
+        return `<span class="occ rev">${t}</span>`;
+      }
+      return `<span class="occ" onclick="revealReviewTerm(${idx})">${t}</span>`;
+    }
+    return `<span style="color:var(--text-2)">${t}</span>`;
+  }
+  // main mode
+  initNode(nid);
+  const revealed = tr[nid][cidx]?.has(idx);
+  const score = sc[nid][cidx]?.[idx];
+  if (!revealed) {
+    return `<span class="occ" onclick="revealTerm(event,'${nid}',${cidx},${idx})">${t}</span>`;
+  }
+  let cls = score === 'knew' ? 'rev' : score === 'needed' ? 'needed' : 'unscored';
+  let inner = `<span class="occ ${cls}">${t}</span>`;
+  // score buttons
+  if (revealed && !score) {
+    inner += `<span class="score-btns">
+      <button class="sb sb-k" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button>
+      <button class="sb sb-n" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button>
+    </span>`;
+  }
+  // jump link
+  if (revealed && LINKS[t] && LINKS[t][0] !== nid) {
+    const [tgt, lbl] = LINKS[t];
+    inner += `<span class="jump-link" onclick="selNode('${tgt}')">→ ${lbl}</span>`;
+  }
+  return inner;
+}
+
+/* ============================================================
+   REVEAL / SCORE
+   ============================================================ */
+function revealTerm(e, nid, cidx, tidx) {
+  e.stopPropagation();
+  initNode(nid);
+  if (!tr[nid][cidx].has(tidx)) {
+    tr[nid][cidx].add(tidx);
+    totRev++;
+    saveProgress();
+  }
+  if (cur === nid && ci === cidx) { render(); }
+}
+
+function scoreIt(e, nid, cidx, tidx, score) {
+  e.stopPropagation();
+  initNode(nid);
+  const prev = sc[nid][cidx][tidx];
+  if (prev === score) return;
+  if (prev === 'knew') totKnew--;
+  if (prev === 'needed') totNeed--;
+  sc[nid][cidx][tidx] = score;
+  if (score === 'knew') totKnew++;
+  if (score === 'needed') totNeed++;
+  saveProgress();
+  if (cur === nid && ci === cidx) render();
+}
+
+function revealCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const body = D[cur].cards[ci].b;
+  const terms = body.match(/\{[^}]+\}/g) || [];
+  terms.forEach((_, idx) => {
+    if (!tr[cur][ci].has(idx)) { tr[cur][ci].add(idx); totRev++; }
+  });
+  saveProgress();
+  render();
+}
+
+function knewAllCurrentCard() {
+  if (!cur) return;
+  initNode(cur);
+  const body = D[cur].cards[ci].b;
+  const terms = body.match(/\{[^}]+\}/g) || [];
+  terms.forEach((_, idx) => {
+    if (!tr[cur][ci].has(idx)) { tr[cur][ci].add(idx); totRev++; }
+    const prev = sc[cur][ci][idx];
+    if (prev === 'needed') totNeed--;
+    if (prev !== 'knew') totKnew++;
+    sc[cur][ci][idx] = 'knew';
+  });
+  saveProgress();
+  render();
+}
+
+function resetCard() {
+  if (!cur) return;
+  initNode(cur);
+  const body = D[cur].cards[ci].b;
+  const terms = body.match(/\{[^}]+\}/g) || [];
+  terms.forEach((_, idx) => {
+    if (tr[cur][ci].has(idx)) { tr[cur][ci].delete(idx); totRev--; }
+    const prev = sc[cur][ci][idx];
+    if (prev === 'knew') totKnew--;
+    if (prev === 'needed') totNeed--;
+    delete sc[cur][ci][idx];
+  });
+  done.delete(cur);
+  document.getElementById('n-' + cur)?.classList.remove('done-node');
+  saveProgress();
+  render();
+}
+
+function revealTopic() {
+  if (!cur) return;
+  initNode(cur);
+  D[cur].cards.forEach((card, cidx) => {
+    const terms = card.b.match(/\{[^}]+\}/g) || [];
+    terms.forEach((_, idx) => {
+      if (!tr[cur][cidx].has(idx)) { tr[cur][cidx].add(idx); totRev++; }
+    });
+  });
+  saveProgress();
+  render();
+}
+
+function revealDeck() {
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((card, cidx) => {
+      const terms = card.b.match(/\{[^}]+\}/g) || [];
+      terms.forEach((_, idx) => {
+        if (!tr[nid][cidx].has(idx)) { tr[nid][cidx].add(idx); totRev++; }
+      });
+    });
+    checkDone(nid);
+  });
+  saveProgress();
+  if (cur) render();
+  updateStats();
+}
+
+function resetAll() {
+  tr = {}; sc = {}; done = new Set();
+  totRev = 0; totKnew = 0; totNeed = 0;
+  document.querySelectorAll('.node').forEach(n => n.classList.remove('done-node'));
+  saveProgress();
+  if (cur) { initNode(cur); render(); }
+  updateStats();
+}
+
+/* ============================================================
+   ACTIONS BAR
+   ============================================================ */
+function renderActions() {
+  if (!cur) return;
+  const m = cardMetrics(cur, ci);
+  const bar = document.getElementById('cardActions');
+  bar.innerHTML = `
+    <div class="meta-pills">
+      <span class="mpill">${m.revealed} / ${m.total} revealed</span>
+      ${m.knew > 0 ? `<span class="mpill kpill">${m.knew} knew</span>` : ''}
+      ${m.needed > 0 ? `<span class="mpill npill">${m.needed} needed</span>` : ''}
+      ${m.unscored > 0 ? `<span class="mpill">${m.unscored} to score</span>` : ''}
+    </div>
+    <div class="action-btns">
+      <button class="abtn abtn-reveal" onclick="revealCurrentCard()" ${m.allRevealed || m.total===0?'disabled':''}>Reveal this card</button>
+      <button class="abtn abtn-knew" onclick="knewAllCurrentCard()" ${!m.allRevealed?'disabled':''}>Knew all</button>
+      <button class="abtn abtn-ghost" onclick="resetCard()" ${m.revealed===0&&m.knew===0&&m.needed===0?'disabled':''}>Reset card</button>
+    </div>
+  `;
+}
+
+function cardMetrics(nid, cidx) {
+  initNode(nid);
+  const terms = (D[nid].cards[cidx].b.match(/\{[^}]+\}/g) || []).length;
+  const rev = tr[nid][cidx]?.size || 0;
+  let knew = 0, needed = 0, unscored = 0;
+  for (let i = 0; i < terms; i++) {
+    const s = sc[nid][cidx]?.[i];
+    if (s === 'knew') knew++;
+    else if (s === 'needed') needed++;
+    else if (tr[nid][cidx]?.has(i)) unscored++;
+  }
+  return { total: terms, revealed: rev, knew, needed, unscored, allRevealed: rev >= terms && terms > 0 };
+}
+
+/* ============================================================
+   DONE NODE CHECK
+   ============================================================ */
+function checkDone(nid) {
+  initNode(nid);
+  const allDone = D[nid].cards.every((card, cidx) => {
+    const terms = (card.b.match(/\{[^}]+\}/g) || []).length;
+    return terms === 0 || (tr[nid][cidx]?.size || 0) >= terms;
+  });
+  if (allDone && !done.has(nid)) {
+    done.add(nid);
+    document.getElementById('n-' + nid)?.classList.add('done-node');
+  } else if (!allDone && done.has(nid)) {
+    done.delete(nid);
+    document.getElementById('n-' + nid)?.classList.remove('done-node');
+  }
+}
+
+/* ============================================================
+   STATS
+   ============================================================ */
+function updateStats() {
+  const totalTerms = Object.values(D).reduce((s, n) => s + n.cards.reduce((ss, c) => ss + (c.b.match(/\{[^}]+\}/g)||[]).length, 0), 0);
+  document.getElementById('statRev').textContent = totRev + ' revealed';
+  document.getElementById('statKn').textContent = totKnew + ' knew';
+  document.getElementById('statNd').textContent = totNeed + ' needed';
+  document.getElementById('statDn').textContent = done.size + ' / ' + Object.keys(D).length + ' done';
+  const rb = document.getElementById('reviewBtn');
+  if (totNeed > 0) { rb.style.display = 'inline-block'; rb.textContent = `Review weak spots (${totNeed})`; }
+  else rb.style.display = 'none';
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+function prevCard() { if (ci > 0) { ci--; render(); } }
+function nextCard() { if (cur && ci < D[cur].cards.length - 1) { ci++; render(); } }
+
+/* ============================================================
+   REVIEW MODE
+   ============================================================ */
+let revealedInReview = new Set();
+
+function startReview() {
+  revQueue = [];
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((card, cidx) => {
+      const terms = card.b.match(/\{[^}]+\}/g) || [];
+      terms.forEach((t, tidx) => {
+        if (sc[nid][cidx]?.[tidx] === 'needed') {
+          revQueue.push({ nid, cidx, tidx, term: t.replace(/[{}]/g,'') });
+        }
+      });
+    });
+  });
+  // Fisher-Yates shuffle
+  for (let i = revQueue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [revQueue[i], revQueue[j]] = [revQueue[j], revQueue[i]];
+  }
+  revIdx = 0;
+  revealedInReview = new Set();
+  document.getElementById('reviewPanel').classList.add('open');
+  closePanel();
+  renderReview();
+}
+
+function closeReview() {
+  document.getElementById('reviewPanel').classList.remove('open');
+}
+
+function renderReview() {
+  if (revQueue.length === 0) { closeReview(); return; }
+  const item = revQueue[revIdx];
+  const node = D[item.nid];
+  const card = node.cards[item.cidx];
+  document.getElementById('rpCounter').textContent = (revIdx + 1) + ' / ' + revQueue.length;
+  document.getElementById('rsub').textContent = node.label + ' — ' + card.t + ' · Term: ' + item.term;
+  document.getElementById('rpCardTitle').textContent = card.t;
+  document.getElementById('rpBody').innerHTML = parseBody(card.b, item.nid, item.cidx, {
+    forReview: true,
+    targetTermIdx: item.tidx,
+    revealedSet: revealedInReview
+  });
+  document.getElementById('rpPrev').disabled = revIdx === 0;
+  document.getElementById('rpNext').disabled = revIdx === revQueue.length - 1;
+}
+
+function revealReviewTerm(idx) {
+  revealedInReview.add(idx);
+  renderReview();
+}
+
+function rpNav(dir) {
+  revIdx += dir;
+  revIdx = Math.max(0, Math.min(revQueue.length - 1, revIdx));
+  revealedInReview = new Set();
+  renderReview();
+}
+
+/* ============================================================
+   KEYBOARD
+   ============================================================ */
+document.addEventListener('keydown', e => {
+  const rp = document.getElementById('reviewPanel').classList.contains('open');
+  if (rp) {
+    if (e.key === 'ArrowLeft') rpNav(-1);
+    if (e.key === 'ArrowRight') rpNav(1);
+    if (e.key === 'Escape') closeReview();
+    return;
+  }
+  if (!cur) return;
+  if (e.key === 'ArrowLeft') prevCard();
+  if (e.key === 'ArrowRight') nextCard();
+  if (e.key === 'Escape') closePanel();
+});
+
+/* ============================================================
+   PROGRESS PERSISTENCE
+   ============================================================ */
+function saveProgress() {
+  const r = {}, s = {};
+  Object.keys(tr).forEach(nid => {
+    r[nid] = {}; s[nid] = {};
+    Object.keys(tr[nid]).forEach(cidx => {
+      r[nid][cidx] = Array.from(tr[nid][cidx]).join('.');
+      s[nid][cidx] = Object.entries(sc[nid][cidx]||{}).map(([i,v])=>i+(v==='knew'?'k':'n')).join('.');
+    });
+  });
+  const payload = JSON.stringify({ c: cur, i: ci, r, s });
+  const exp = new Date(Date.now() + 180*24*60*60*1000).toUTCString();
+  document.cookie = `${PROGRESS_COOKIE}=${encodeURIComponent(payload)};expires=${exp};path=/;SameSite=Lax`;
+  updateStats();
+}
+
+function loadProgress() {
+  const match = document.cookie.split(';').map(c=>c.trim()).find(c=>c.startsWith(PROGRESS_COOKIE+'='));
+  if (!match) return;
+  try {
+    const payload = JSON.parse(decodeURIComponent(match.split('=').slice(1).join('=')));
+    if (payload.r) {
+      Object.keys(payload.r).forEach(nid => {
+        if (!D[nid]) return;
+        initNode(nid);
+        Object.keys(payload.r[nid]).forEach(cidx => {
+          const revStr = payload.r[nid][cidx];
+          if (revStr) revStr.split('.').filter(Boolean).forEach(i => tr[nid][cidx].add(+i));
+          const scStr = payload.s?.[nid]?.[cidx];
+          if (scStr) scStr.split('.').filter(Boolean).forEach(tok => {
+            const v = tok.endsWith('k') ? 'knew' : 'needed';
+            sc[nid][cidx][+tok.slice(0,-1)] = v;
+          });
+        });
+      });
+    }
+    if (payload.c && D[payload.c]) { cur = payload.c; ci = payload.i || 0; }
+  } catch(e) { /* ignore */ }
+}
+
+function recalcState() {
+  totRev = 0; totKnew = 0; totNeed = 0;
+  Object.keys(tr).forEach(nid => {
+    Object.keys(tr[nid]).forEach(cidx => {
+      totRev += tr[nid][cidx].size;
+      Object.values(sc[nid][cidx]||{}).forEach(v => {
+        if (v === 'knew') totKnew++;
+        if (v === 'needed') totNeed++;
+      });
+    });
+    checkDone(nid);
+  });
+  updateStats();
+}
+
+function restoreSession() {
+  loadProgress();
+  recalcState();
+  if (cur) {
+    initNode(cur);
+    document.getElementById('cardPanel').classList.add('open');
+    document.getElementById('n-' + cur)?.classList.add('sel-node');
+    render();
+  }
+}
+
+/* ============================================================
+   THEME
+   ============================================================ */
+function setTheme(theme) {
+  if (theme === 'slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', theme);
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+  localStorage.setItem('cancer-met-anki-theme', theme);
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+(function init() {
+  // deck meta
+  const nodeCount = Object.keys(D).length;
+  const cardCount = Object.values(D).reduce((n, node) => n + node.cards.length, 0);
+  document.getElementById('deckMeta').textContent =
+    `Active recall map · ${nodeCount} topics · ${cardCount} cards`;
+
+  // theme
+  const savedTheme = localStorage.getItem('cancer-met-anki-theme') || 'slate';
+  setTheme(savedTheme);
+
+  // restore session
+  restoreSession();
+  updateStats();
+})();
+</script>
+</body>
+</html>
