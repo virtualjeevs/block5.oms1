@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tumor Immunology — Goode-Style Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #1A7A6D;
+  --teal-deep: #125E54;
+  --teal-light: #E3F5F2;
+  --teal-mid: #2BA393;
+  --teal-glow: #3EC4B2;
+  --navy: #1B2A4A;
+  --navy2: #12203C;
+  --coral: #E07A5F;
+  --coral-bg: #FEF0EB;
+  --gold: #D4A843;
+  --gold-bg: #FDF6E3;
+  --gold-warm: #E8C76A;
+  --plum: #7B5EA7;
+  --plum-bg: #F3EEF9;
+  --sky: #4A9AE8;
+  --sky-bg: #EAF2FC;
+  --warm: #FBF8F3;
+  --cream: #F6F3EC;
+  --white: #FFFFFF;
+  --ink: #1E1E20;
+  --ink2: #3E4555;
+  --slate: #6B7689;
+  --mist: #A0AAB8;
+  --rule: #DBD5C9;
+  --rule2: #E9E4DA;
+  --green: #2D8659;
+  --green-bg: #E8F5EE;
+  --red: #C44040;
+  --red-bg: #FDF0F0;
+  --amber: #C07B1A;
+  --amber-bg: #FEF5E6;
+  --r: 14px;
+  --rs: 8px;
+  --sh: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+  --sh2: 0 8px 32px rgba(0,0,0,0.08);
+  --sh3: 0 12px 48px rgba(0,0,0,0.10);
+  --tr: 0.25s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--warm);color:var(--ink);font-family:'Nunito',sans-serif;font-size:16px;line-height:1.6}
+
+/* ── LAUNCH SCREEN ── */
+.launch-wrap{
+  min-height:100vh;display:grid;place-items:center;padding:32px;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(62,196,178,.16),transparent 28%),
+    radial-gradient(circle at 82% 20%,rgba(123,94,167,.12),transparent 30%),
+    linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%);
+}
+.launch-card{
+  max-width:680px;width:100%;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(10px);
+  border-radius:28px;
+  border:1px solid rgba(18,32,60,.08);
+  box-shadow:0 24px 80px rgba(18,32,60,.12);
+  padding:44px 40px;
+  text-align:center;
+}
+.launch-card h1{
+  font-family:'Crimson Pro',serif;font-size:2.6rem;font-weight:800;
+  color:var(--navy);margin-bottom:12px;line-height:1.15;
+}
+.launch-card p{
+  font-size:1rem;color:var(--slate);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;
+}
+.launch-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:32px}
+.chip{
+  display:inline-flex;align-items:center;padding:7px 14px;
+  border-radius:999px;background:var(--white);border:1px solid var(--rule2);
+  font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink2);
+  letter-spacing:.02em;
+}
+.launch-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 40px;border-radius:999px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;
+  box-shadow:0 8px 24px rgba(26,122,109,.28);
+  transition:transform var(--tr),box-shadow var(--tr);
+}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,122,109,.36)}
+
+/* ── OVERLAY ── */
+.qo{
+  display:none;position:fixed;inset:0;z-index:200;overflow-y:auto;
+  background:
+    radial-gradient(circle at 10% 0%,color-mix(in srgb,var(--teal-glow) 18%,transparent),transparent 24%),
+    radial-gradient(circle at 92% 8%,color-mix(in srgb,var(--plum) 16%,transparent),transparent 22%),
+    linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%);
+}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+
+@keyframes fi{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.99)}to{opacity:1;transform:none}}
+
+/* ── TOP BAR ── */
+.qt-bar{
+  position:sticky;top:0;z-index:12;
+  padding:16px 28px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  color:#fff;
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--navy2) 94%,transparent),
+    color-mix(in srgb,var(--navy) 92%,transparent));
+  border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);
+  box-shadow:0 10px 28px rgba(18,32,60,.16);
+}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:1.15rem;font-weight:700;letter-spacing:.01em;opacity:.95}
+.qt-btns{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fs-ctrl{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.07);border-radius:var(--rs);padding:3px 8px}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.5);margin-right:4px}
+.fs-btn{background:none;border:none;color:rgba(255,255,255,.7);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;padding:2px 5px;border-radius:4px;transition:background var(--tr)}
+.fs-btn:hover,.fs-btn.active{background:rgba(255,255,255,.14);color:#fff}
+.qt-btn{
+  padding:7px 16px;border-radius:var(--rs);border:none;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;
+  transition:all var(--tr);
+}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold),var(--gold-warm));color:#fff}
+.qt-btn.print:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(212,168,67,.4)}
+.qt-btn.reset{background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.15)}
+.qt-btn.reset:hover{background:rgba(255,255,255,.18)}
+.qt-btn.close{background:linear-gradient(135deg,var(--coral),#e8896e);color:#fff}
+.qt-btn.close:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(224,122,95,.4)}
+
+/* ── PROGRESS BAR ── */
+.qpb{height:3px;background:rgba(26,122,109,.12);position:relative}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .4s cubic-bezier(.4,0,.2,1);border-radius:0 2px 2px 0}
+
+/* ── MAIN GRID ── */
+.qin{
+  display:grid;grid-template-columns:260px 1fr;gap:24px;
+  padding:28px 28px 60px;max-width:1280px;margin:0 auto;
+}
+
+/* ── LEFT COLUMN ── */
+.q-left{display:flex;flex-direction:column;gap:14px}
+.score-panel{
+  background:rgba(255,255,255,.82);backdrop-filter:blur(8px);
+  border:1px solid var(--rule);border-radius:var(--r);padding:20px;
+  box-shadow:var(--sh);
+  animation:slideUp .4s cubic-bezier(.4,0,.2,1) both;
+}
+.score-panel h3{font-family:'Crimson Pro',serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-bottom:14px}
+.sv-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sv-item{text-align:center;padding:10px 6px;border-radius:var(--rs);background:var(--cream)}
+.sv-num{font-family:'Crimson Pro',serif;font-size:1.7rem;font-weight:800;line-height:1}
+.sv-num.correct{color:var(--green)}
+.sv-num.incorrect{color:var(--red)}
+.sv-num.current{color:var(--teal)}
+.sv-label{font-size:11px;color:var(--mist);font-family:'IBM Plex Mono',monospace;margin-top:3px}
+.sv-item.current{grid-column:1/-1;background:linear-gradient(135deg,rgba(26,122,109,.07),rgba(62,196,178,.06))}
+
+.mode-toggle{
+  background:rgba(255,255,255,.82);backdrop-filter:blur(8px);
+  border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px;
+  box-shadow:var(--sh);
+  animation:slideUp .4s .05s cubic-bezier(.4,0,.2,1) both;
+}
+.mode-toggle h3{font-family:'Crimson Pro',serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-bottom:10px}
+.mode-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mode-btn{
+  padding:8px 4px;border-radius:var(--rs);border:1.5px solid var(--rule2);
+  background:var(--white);cursor:pointer;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--slate);
+  transition:all var(--tr);
+}
+.mode-btn.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+
+.timer-panel{
+  background:rgba(255,255,255,.82);backdrop-filter:blur(8px);
+  border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px;
+  box-shadow:var(--sh);
+  animation:slideUp .4s .09s cubic-bezier(.4,0,.2,1) both;
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.timer-item{text-align:center}
+.timer-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--mist);margin-bottom:4px;letter-spacing:.05em;text-transform:uppercase}
+.timer-val{font-family:'IBM Plex Mono',monospace;font-size:1.25rem;font-weight:600;color:var(--ink2)}
+
+.tool-panel{
+  background:rgba(255,255,255,.82);backdrop-filter:blur(8px);
+  border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px;
+  box-shadow:var(--sh);
+  animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both;
+}
+.tool-panel h3{font-family:'Crimson Pro',serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-bottom:10px}
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tool-btn{
+  padding:9px 6px;border-radius:var(--rs);border:1.5px solid var(--rule2);
+  background:var(--white);cursor:pointer;font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;color:var(--ink2);
+  transition:all var(--tr);text-align:center;
+}
+.tool-btn:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-light)}
+.tool-btn.active-tool{border-color:var(--gold);color:var(--amber);background:var(--gold-bg)}
+
+.exam-submit-row{
+  animation:slideUp .4s .18s cubic-bezier(.4,0,.2,1) both;
+}
+.exam-submit-btn{
+  width:100%;padding:13px;border-radius:var(--r);border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--coral),#e8896e);color:#fff;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;
+  box-shadow:0 6px 20px rgba(224,122,95,.28);
+  transition:all var(--tr);
+}
+.exam-submit-btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}
+.exam-submit-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(224,122,95,.38)}
+.exam-submit-row:not(.exam-live){display:none}
+
+/* ── QUESTION CARD ── */
+.q-right{animation:cardIn .45s cubic-bezier(.4,0,.2,1) both}
+.qcard{
+  background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
+  border:1px solid var(--rule);border-radius:var(--r);
+  box-shadow:var(--sh2);overflow:hidden;
+}
+.qcard-head{
+  padding:16px 22px;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--rule2);
+  background:linear-gradient(135deg,rgba(26,122,109,.04),rgba(62,196,178,.02));
+}
+.qnum-label{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mist);letter-spacing:.08em}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--teal);font-weight:600}
+.qcard-body{padding:26px 24px 18px}
+.qstem{
+  font-family:'Crimson Pro',serif;font-size:1.45rem;font-weight:600;
+  color:var(--ink);line-height:1.45;margin-bottom:24px;
+}
+.choices{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.ach{
+  display:flex;align-items:flex-start;gap:12px;padding:13px 16px;
+  border-radius:var(--rs);border:2px solid var(--rule2);
+  background:var(--white);cursor:pointer;
+  transition:all var(--tr);text-align:left;width:100%;
+}
+.ach:hover{border-color:var(--teal);background:rgba(26,122,109,.03)}
+.ach.selected{border-color:var(--teal);background:var(--teal-light)}
+.ach.correct{border-color:var(--green);background:var(--green-bg)}
+.ach.incorrect{border-color:var(--red);background:var(--red-bg)}
+.ach.grayed{border-color:var(--rule2);background:var(--cream);opacity:.65}
+.ach-letter{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  width:26px;height:26px;min-width:26px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;border:1.5px solid var(--rule2);
+  color:var(--slate);background:var(--cream);flex-shrink:0;margin-top:1px;
+  transition:all var(--tr);
+}
+.ach.selected .ach-letter{background:var(--teal);border-color:var(--teal);color:#fff}
+.ach.correct .ach-letter{background:var(--green);border-color:var(--green);color:#fff}
+.ach.incorrect .ach-letter{background:var(--red);border-color:var(--red);color:#fff}
+.ctx{font-family:'Nunito',sans-serif;font-size:15px;color:var(--ink2);line-height:1.5}
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:15px}
+#qo[data-fs="lg"] .ctx{font-size:18px}
+#qo[data-fs="xl"] .ctx{font-size:21px}
+
+.submit-btn{
+  padding:11px 28px;border-radius:999px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));
+  color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;
+  box-shadow:0 4px 16px rgba(26,122,109,.22);
+  transition:all var(--tr);
+}
+.submit-btn:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+.submit-btn:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(26,122,109,.3)}
+
+/* ── EXPLANATION ── */
+.exblock{
+  margin-top:18px;
+  animation:fi .35s cubic-bezier(.4,0,.2,1);
+  display:none;
+}
+.exblock.show{display:block}
+.exb{
+  border-radius:var(--rs);padding:14px 16px;margin-bottom:10px;
+  font-family:'Nunito',sans-serif;font-size:14px;line-height:1.6;
+}
+.exb-correct{background:var(--green-bg);border-left:4px solid var(--green)}
+.exb-correct strong{color:var(--green)}
+.exb-teach{background:var(--teal-light);border-left:4px solid var(--teal)}
+.exb-teach strong{color:var(--teal-deep)}
+.exb-wrong{background:var(--red-bg);border-left:4px solid var(--red);margin-bottom:6px}
+.exb-wrong strong{color:var(--red)}
+.exb-wrongs-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mist);margin:12px 0 6px}
+
+/* ── NAVIGATION ── */
+.qnv{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:16px 24px;border-top:1px solid var(--rule2);flex-wrap:wrap;
+}
+.nb{
+  padding:9px 20px;border-radius:999px;border:1.5px solid var(--rule);
+  background:var(--white);cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:13px;font-weight:700;color:var(--ink2);
+  transition:all var(--tr);
+}
+.nb:hover:not(:disabled){border-color:var(--teal);color:var(--teal);background:var(--teal-light)}
+.nb:disabled{opacity:.3;cursor:not-allowed}
+.qdots{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;max-width:360px}
+.qd{
+  width:14px;height:14px;border-radius:50%;
+  border:1.5px solid var(--rule);background:var(--white);
+  cursor:pointer;transition:all var(--tr);
+}
+.qd.answered-c{background:var(--green);border-color:var(--green)}
+.qd.answered-w{background:var(--red);border-color:var(--red)}
+.qd.answered-u{background:var(--gold);border-color:var(--gold)}
+.qd.current{box-shadow:0 0 0 3px rgba(26,122,109,.25);border-color:var(--teal)}
+
+/* ── FLAGGING ── */
+.flag-bar{display:flex;align-items:center;gap:8px;padding:4px 24px 14px}
+.flag-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:999px;border:1.5px solid var(--rule2);
+  background:var(--white);cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:12px;font-weight:700;color:var(--slate);transition:all var(--tr);
+}
+.flag-btn:hover{border-color:var(--gold);color:var(--amber);background:var(--gold-bg)}
+.flag-btn.flagged{border-color:var(--gold);color:var(--amber);background:var(--gold-bg)}
+.flag-icon{font-size:14px}
+
+/* ── PRINT ── */
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,
+body.print-review-active .qo{display:none !important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:900px;margin:0 auto;font-family:'Nunito',sans-serif}
+.print-title{font-family:'Crimson Pro',serif;font-size:1.6rem;font-weight:800;margin-bottom:24px;color:#1B2A4A}
+.print-card{break-inside:avoid;border:1px solid #ddd;border-radius:14px;padding:22px;margin-bottom:18px}
+.print-stem{font-family:'Crimson Pro',serif;font-size:1.15rem;font-weight:600;margin-bottom:14px;color:#1E1E20}
+.print-choice{display:flex;gap:10px;padding:9px 13px;border-radius:8px;border:1.5px solid #ddd;margin-bottom:6px;font-size:14px}
+.print-choice.correct{border-color:#2D8659;background:#E8F5EE}
+.print-choice.incorrect{border-color:#C44040;background:#FDF0F0}
+.print-explainer{padding:12px 14px;border-radius:8px;margin-bottom:8px;font-size:13px;line-height:1.6}
+.print-explainer.correct-box{background:#E8F5EE;border-left:4px solid #2D8659}
+.print-explainer.teach-box{background:#E3F5F2;border-left:4px solid #1A7A6D}
+.print-explainer.wrong-box{background:#FDF0F0;border-left:4px solid #C44040}
+@media print{
+  body.print-review-active .launch-wrap,
+  body.print-review-active .qo{display:none !important}
+  body.print-review-active #printReviewRoot{display:block !important;padding:0}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:920px){
+  .qin{grid-template-columns:1fr;padding:20px 16px 72px}
+  .timer-panel{grid-template-columns:1fr 1fr}
+  .tool-grid{grid-template-columns:1fr 1fr 1fr}
+}
+@media(max-width:700px){
+  .qt-bar{flex-direction:column;align-items:flex-start}
+  .qin{padding:16px 12px 64px}
+  .timer-panel,.tool-grid{grid-template-columns:1fr}
+  .qnv{flex-direction:column;align-items:stretch}
+  .qdots{order:3}
+  .nb{width:100%;justify-content:center}
+  .qstem{font-size:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ LAUNCH SCREEN ═══════════════════ -->
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Tumor Immunology</h1>
+    <p>25 Goode-style multiple-choice questions covering immune surveillance, tumor antigens, CTLs &amp; NK cells, evasion mechanisms, TAMs/MDSCs, and cancer therapy.</p>
+    <div class="launch-meta">
+      <span class="chip">25 Questions</span>
+      <span class="chip">Block 5 · Dr. Goode</span>
+      <span class="chip">Immunology</span>
+      <span class="chip">Learn &amp; Exam Modes</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open Quiz →</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ QUIZ OVERLAY ═══════════════════ -->
+<div class="qo" id="qo" data-fs="md">
+
+  <div class="qt-bar">
+    <h2>Tumor Immunology — Goode-Style Quiz</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A−</button>
+        <button class="fs-btn active" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuiz">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qpb"><div class="qpf" id="qpf" style="width:4%"></div></div>
+
+  <div class="qin">
+    <!-- LEFT -->
+    <div class="q-left">
+      <div class="score-panel">
+        <h3>Score</h3>
+        <div class="sv-grid">
+          <div class="sv-item"><div class="sv-num correct" id="svCorrect">0</div><div class="sv-label">Correct</div></div>
+          <div class="sv-item"><div class="sv-num incorrect" id="svIncorrect">0</div><div class="sv-label">Incorrect</div></div>
+          <div class="sv-item current"><div class="sv-num current" id="svCurrent">1 / 25</div><div class="sv-label">Question</div></div>
+        </div>
+      </div>
+
+      <div class="mode-toggle">
+        <h3>Mode</h3>
+        <div class="mode-btns">
+          <button class="mode-btn sel" id="learnBtn">Learn</button>
+          <button class="mode-btn" id="examBtn">Exam</button>
+        </div>
+      </div>
+
+      <div class="timer-panel">
+        <div class="timer-item">
+          <div class="timer-label">Total</div>
+          <div class="timer-val" id="timerTotal">00:00</div>
+        </div>
+        <div class="timer-item">
+          <div class="timer-label">This Q</div>
+          <div class="timer-val" id="timerQ">00:00</div>
+        </div>
+      </div>
+
+      <div class="tool-panel">
+        <h3>Tools</h3>
+        <div class="tool-grid">
+          <button class="tool-btn" id="flagTool">🚩 Flag</button>
+          <button class="tool-btn" id="skipTool">⏭ Skip</button>
+        </div>
+      </div>
+
+      <div class="exam-submit-row" id="examSubmitRow">
+        <button class="exam-submit-btn" id="submitExamBtn" disabled>Submit Exam</button>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="q-right">
+      <div class="qcard" id="qA">
+        <div class="qcard-head">
+          <span class="qnum-label">QUESTION</span>
+          <span class="qnum" id="qNum">1 / 25</span>
+        </div>
+        <div class="qcard-body">
+          <div class="qstem" id="qStem"></div>
+          <div class="choices" id="choicesEl"></div>
+          <div class="flag-bar">
+            <button class="flag-btn" id="flagBtnInline"><span class="flag-icon">🚩</span> Flag this question</button>
+          </div>
+          <button class="submit-btn" id="submitBtn" disabled>Submit Answer</button>
+          <div class="exblock" id="exBlock">
+            <div class="exb exb-correct" id="exCorrect"></div>
+            <div class="exb exb-teach" id="exTeach"></div>
+            <div class="exb-wrongs-title">Why Each Wrong Answer Is Wrong</div>
+            <div id="exWrongs"></div>
+          </div>
+        </div>
+        <div class="qnv">
+          <button class="nb" id="prevBtn" disabled>← Prev</button>
+          <div class="qdots" id="qdots"></div>
+          <button class="nb" id="nextBtn">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+// ═══════════════════════════════════════
+// QUESTION DATA
+// ═══════════════════════════════════════
+const questions = [
+  {
+    stem: "Which cell type migrates to draining lymph nodes to prime naïve CD8+ T cells against tumor-derived antigens?",
+    choices: [
+      "NK cells, which carry lytic granules to lymphoid organs",
+      "Dendritic cells, which cross-present tumor peptides on MHC I",
+      "M1 macrophages, which display tumor antigens via MHC II",
+      "Regulatory T cells, which present self-antigen to tolerize CD8s"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "<strong>Correct — Dendritic cells (DCs).</strong> DCs ingest tumor antigens at the tumor site, cross-present those peptides on MHC I (and MHC II), then migrate to draining lymph nodes where they express costimulatory molecules (B7/CD80/CD86) to prime naïve CD8+ T cells into tumor-specific CTLs.",
+      teaching: "<strong>Teaching Point:</strong> Cross-presentation is the key concept here — DCs uniquely load exogenous (tumor) antigen onto MHC I to activate CD8+ CTLs. This is what makes DCs the essential bridge between the tumor site and the adaptive immune response.",
+      wrongs: [
+        "<strong>A — NK cells:</strong> NK cells are innate killers that act directly at the tumor without antigen-specific priming. They do not migrate to lymph nodes to activate naïve T cells; they kill tumor cells via missing-self and ADCC.",
+        "<strong>C — M1 macrophages:</strong> M1 macrophages kill tumors at the tumor site via NO and TNF-α and can present antigen to Th cells, but they are not the primary cell type responsible for migrating to lymph nodes to prime naïve CTLs.",
+        "<strong>D — Regulatory T cells:</strong> Tregs suppress immune responses rather than activate them. They do not prime naïve CD8+ T cells; they inhibit CTL activity via IL-10, TGF-β, and CTLA-4."
+      ]
+    }
+  },
+  {
+    stem: "Transplant patients on chronic immunosuppression develop a 20-fold increase in which cancer type?",
+    choices: [
+      "Hepatocellular carcinoma and ovarian adenocarcinoma",
+      "Breast, prostate, and colorectal adenocarcinomas",
+      "Non-melanoma skin cancer and Non-Hodgkin's lymphoma",
+      "Pancreatic adenocarcinoma and thyroid carcinoma"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Non-melanoma skin cancer and Non-Hodgkin's lymphoma.</strong> These cancers show the highest relative increase (approximately 20-fold) in chronically immunosuppressed transplant patients, providing direct human evidence that an intact immune system normally suppresses these malignancies.",
+      teaching: "<strong>Teaching Point:</strong> The dramatic rise in specific cancers in immunodeficient hosts is one of the strongest lines of clinical evidence for immune surveillance. Different tumor types show different magnitudes of increase: kidney cancer ~15-fold, melanoma ~8-fold, hepatobiliary ~5-fold, breast/prostate/colon ~2-fold.",
+      wrongs: [
+        "<strong>A — Hepatocellular/ovarian:</strong> Hepatobiliary cancer shows approximately a 5-fold increase in transplant patients, and ovarian cancer does not show a dramatically elevated risk in this population.",
+        "<strong>B — Breast/prostate/colorectal:</strong> These common adenocarcinomas show only about a 2-fold increase in immunosuppressed transplant patients, not the 20-fold increase seen with skin cancer and lymphoma.",
+        "<strong>D — Pancreatic/thyroid:</strong> Pancreatic and thyroid carcinomas are not among the cancer types that show dramatic fold-increases in transplant immunosuppression studies cited in the lecture evidence."
+      ]
+    }
+  },
+  {
+    stem: "Mice immunized with irradiated tumor cells reject rechallenge with the same tumor but not with a different tumor. What does this experiment most directly demonstrate?",
+    choices: [
+      "Innate immune responses provide broad non-specific tumor protection",
+      "NK cells form long-lived tumor-specific immunologic memory",
+      "Anti-tumor immune responses are tumor-specific and not generally inflammatory",
+      "Regulatory T cells prevent autoimmunity after tumor immunization"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Tumor-specific immune memory.</strong> Rejection of the same tumor but not a different tumor proves that the protective response is antigen-specific (tumor-specific CTL memory), not simply non-specific inflammation or generalized innate activation.",
+      teaching: "<strong>Teaching Point:</strong> This classic experiment establishes two facts: (1) the immune system can recognize tumor antigens and form memory, and (2) this protection is tumor-specific — it does not generalize to all tumors. Irradiated cells are used so they cannot grow while still presenting antigens.",
+      wrongs: [
+        "<strong>A — Broad innate protection:</strong> If the response were non-specific innate killing, mice would reject both the same tumor AND a different tumor. The specificity of rejection for only the immunizing tumor rules out non-specific innate mechanisms.",
+        "<strong>B — NK cells forming memory:</strong> NK cells are innate lymphocytes without conventional antigen-specific memory in this classic framework. The specificity of protection points to adaptive T cell memory, specifically CTLs, not NK cells.",
+        "<strong>D — Regulatory T cells preventing autoimmunity:</strong> Tregs suppress immune responses and are not responsible for rejection of the tumor rechallenge. They would dampen, not drive, the observed tumor-specific protection."
+      ]
+    }
+  },
+  {
+    stem: "Which cytokine, produced by Th1 cells and NK cells, directly upregulates MHC I expression on tumor cells to enhance CTL recognition?",
+    choices: [
+      "IL-4, which promotes B cell class switching and M2 polarization",
+      "TGF-β, which expands regulatory T cells in the tumor stroma",
+      "IL-10, which suppresses dendritic cell maturation and antigen presentation",
+      "IFN-γ, which classically activates macrophages and increases MHC I"
+    ],
+    correct: 3,
+    explanation: {
+      correct: "<strong>Correct — IFN-γ.</strong> IFN-γ produced by Th1 cells and NK cells increases MHC I expression on tumor cells, making them more visible to CD8+ CTLs. It also drives M1 macrophage polarization and enhances overall anti-tumor killing activity.",
+      teaching: "<strong>Teaching Point:</strong> IFN-γ sits at the center of anti-tumor immunity. It simultaneously enhances CTL killing (via MHC I upregulation on targets) and activates macrophages toward the M1 anti-tumor phenotype. Tumors that evade IFN-γ signaling are much harder to control.",
+      wrongs: [
+        "<strong>A — IL-4:</strong> IL-4 promotes Th2 responses, B cell isotype switching, and M2 macrophage polarization — the pro-tumor, immunosuppressive phenotype. It does not upregulate MHC I on tumor cells.",
+        "<strong>B — TGF-β:</strong> TGF-β is a master immunosuppressor in the TME. It expands Tregs and MDSCs, promotes EMT and metastasis, and suppresses lymphocyte function — the opposite of IFN-γ's anti-tumor effects.",
+        "<strong>C — IL-10:</strong> IL-10 suppresses dendritic cell maturation, inhibits T cell and macrophage effector functions, and contributes to the immunosuppressive TME. It does not upregulate MHC I."
+      ]
+    }
+  },
+  {
+    stem: "Which tumor antigen class is most immunogenic because central tolerance was never established against it?",
+    choices: [
+      "Overexpressed oncoproteins such as HER2/neu in breast cancer",
+      "Tissue-specific differentiation antigens such as tyrosinase in melanoma",
+      "Neoantigens encoded by randomly mutated genes in tumor cells",
+      "Cancer-testes antigens re-expressed via promoter demethylation"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Neoantigens.</strong> Neoantigens are peptides generated by somatic mutations unique to the tumor. The thymus never encountered these mutated sequences during development, so no central tolerance was established. A full T cell repertoire capable of recognizing neoantigens is available in the host.",
+      teaching: "<strong>Teaching Point:</strong> Immunogenicity hierarchy: Neoantigens &gt; Oncoviral antigens &gt; Cancer-testes antigens &gt; Overexpressed oncoproteins &gt; Tissue-specific differentiation antigens. Neoantigens win because they are truly novel, completely foreign to the host's immune history, and targeted by high-avidity T cells not deleted by tolerance.",
+      wrongs: [
+        "<strong>A — Overexpressed oncoproteins (HER2/neu):</strong> HER2/neu is a normal protein amplified in breast cancer. Because it is expressed in normal tissues at low levels, some central tolerance exists, making T cells less effective against it.",
+        "<strong>B — Tissue-specific differentiation antigens (tyrosinase):</strong> Tyrosinase is a normal melanocyte protein, so central tolerance has already deleted the highest-avidity T cell clones that would recognize it. Responses are weaker.",
+        "<strong>D — Cancer-testes antigens (MAGE):</strong> Cancer-testes antigens have relatively good immunogenicity because they are not expressed on normal somatic cells (only in testes/placenta, immune-privileged sites), but they are still germline-encoded self-proteins — not truly novel peptides like neoantigens."
+      ]
+    }
+  },
+  {
+    stem: "MAGE antigens are classified as cancer-testes antigens. Which mechanism causes them to be re-expressed in tumor cells?",
+    choices: [
+      "Gene amplification producing large amounts of a normally low-level protein",
+      "Viral transduction inserting a foreign oncogene into the tumor genome",
+      "De-repression through promoter demethylation in tumor cells",
+      "Frameshift mutation generating a novel peptide from an altered reading frame"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Promoter demethylation (de-repression).</strong> MAGE and other cancer-testes antigens are silenced by DNA methylation in normal somatic cells. In tumors, widespread epigenetic dysregulation causes promoter demethylation, re-activating these genes in non-germline cells.",
+      teaching: "<strong>Teaching Point:</strong> The three subtypes of overexpressed cellular protein antigens differ by mechanism: Cancer-testes antigens (demethylation/de-repression), Overexpressed oncoproteins (gene amplification), and Tissue-specific differentiation antigens (increased cell number expressing a normal protein). Knowing the mechanism helps predict immunogenicity.",
+      wrongs: [
+        "<strong>A — Gene amplification:</strong> This is the mechanism for overexpressed oncoproteins like HER2/neu, not for cancer-testes antigens like MAGE. Amplification produces too much of a protein, while MAGE re-expression results from epigenetic reactivation.",
+        "<strong>B — Viral transduction:</strong> This describes oncoviral antigens (HPV, EBV, HBV/HCV). MAGE antigens are encoded by germline genes that were silenced; no virus is involved in their re-expression.",
+        "<strong>D — Frameshift mutation:</strong> Frameshift mutations can generate neoantigens from altered reading frames, but MAGE re-expression is an epigenetic phenomenon — the gene sequence is intact and germline, merely reactivated by demethylation."
+      ]
+    }
+  },
+  {
+    stem: "HER2/neu overexpression in breast cancer is best classified as which category of tumor antigen?",
+    choices: [
+      "Neoantigen generated by a somatic missense mutation in HER2",
+      "Cancer-testes antigen reactivated by promoter demethylation",
+      "Overexpressed oncoprotein with low-to-variable immunogenicity",
+      "Oncoviral antigen derived from an integrated transforming virus"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Overexpressed oncoprotein.</strong> HER2/neu is a normal growth factor receptor gene that becomes amplified in some breast cancers, producing very large amounts of a protein that is normally expressed at low levels. Because it is a self-protein, central tolerance reduces T cell avidity against it, making immunogenicity low-to-variable.",
+      teaching: "<strong>Teaching Point:</strong> The distinction between subtypes matters clinically. HER2/neu is a self-protein present in normal tissues — this is why trastuzumab (Herceptin), a monoclonal antibody, works better than T cell–based approaches: antibodies circumvent the tolerance problem that limits T cells.",
+      wrongs: [
+        "<strong>A — Neoantigen from missense mutation:</strong> Neoantigens arise from mutations that generate novel peptide sequences absent from normal proteomes. HER2/neu overexpression is due to gene amplification, not a mutational change that generates a foreign peptide.",
+        "<strong>B — Cancer-testes antigen:</strong> Cancer-testes antigens like MAGE are reactivated by demethylation and are not normally expressed in somatic tissues. HER2/neu is expressed in normal breast, lung, and cardiac tissue — it is not a silenced germline gene.",
+        "<strong>D — Oncoviral antigen:</strong> Oncoviral antigens are proteins derived from oncogenic viruses (HPV, EBV, HBV/HCV). HER2/neu is a human growth factor receptor gene with no viral origin."
+      ]
+    }
+  },
+  {
+    stem: "Which vaccine prevents cervical carcinoma by targeting an oncoviral antigen before tumor transformation occurs?",
+    choices: [
+      "EBV vaccine targeting LMP-1 protein in Burkitt's lymphoma cells",
+      "HBV vaccine targeting surface antigen expressed on hepatocellular carcinoma cells",
+      "HPV vaccine (Gardasil) targeting proteins expressed in cervical carcinoma precursors",
+      "BCG vaccination triggering innate activation against bladder transitional cells"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — HPV vaccine (Gardasil).</strong> HPV is responsible for essentially all cervical carcinomas. Gardasil prevents HPV infection by targeting HPV capsid proteins, which prevents integration of viral oncogenes (E6/E7) into the host genome and stops the cascade that leads to cervical carcinoma. This is tumor prevention via oncoviral antigen targeting.",
+      teaching: "<strong>Teaching Point:</strong> Oncoviral antigens are excellent vaccine targets precisely because they are foreign — they were never present during thymic development, so no tolerance exists. Preventing infection prevents the viral antigen-driven transformation. Other oncoviral examples: EBV → Burkitt's lymphoma/nasopharyngeal carcinoma; HBV/HCV → hepatocellular carcinoma.",
+      wrongs: [
+        "<strong>A — EBV vaccine:</strong> There is no currently approved EBV vaccine. EBV is associated with Burkitt's lymphoma and nasopharyngeal carcinoma, but LMP-1 vaccination is not an established preventive strategy for those malignancies.",
+        "<strong>B — HBV vaccine:</strong> The hepatitis B vaccine does reduce hepatocellular carcinoma risk, but the question asks which vaccine targets a carcinoma precursor specifically by preventing viral infection, and the stem describes cervical carcinoma — the hallmark HPV example from the lecture.",
+        "<strong>D — BCG:</strong> BCG (Bacillus Calmette-Guérin) is used as intravesical immunotherapy for non-muscle-invasive bladder cancer — it stimulates local innate immunity. It is not a vaccine against an oncoviral antigen and does not prevent tumor transformation by blocking a virus."
+      ]
+    }
+  },
+  {
+    stem: "Which step in CTL activation involves tumor-derived peptides from an exogenous source being loaded onto MHC I within a dendritic cell?",
+    choices: [
+      "Antigen shedding from necrotic tumor cells into the extracellular matrix",
+      "Autocrine IFN-γ signaling upregulating proteasomal capacity in DCs",
+      "Cross-presentation routing exogenous antigen into the cytosol for MHC I loading",
+      "Direct MHC I transfer from tumor cells to DC surfaces via exosomes"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Cross-presentation.</strong> Cross-presentation allows dendritic cells to take up exogenous tumor-derived antigens, route those proteins into the cytosol, process them through the proteasome, and load the resulting peptides onto MHC I — the classical MHC II pathway in reverse, enabling activation of CD8+ CTLs against tumor antigens the DC itself does not express.",
+      teaching: "<strong>Teaching Point:</strong> Cross-presentation is the critical bridge: MHC I normally only presents endogenous (intracellular) peptides. Cross-presentation breaks this rule, letting DCs present exogenous tumor antigens on MHC I to prime CTLs. Without cross-presentation, tumor-specific CD8+ T cell responses could not be initiated efficiently.",
+      wrongs: [
+        "<strong>A — Antigen shedding into extracellular matrix:</strong> Tumor antigen release is the first step (upstream), but antigen shedding itself is not the process of peptide loading onto MHC I. The loading occurs inside the DC after antigen uptake.",
+        "<strong>B — Autocrine IFN-γ upregulating proteasomes:</strong> IFN-γ does upregulate proteasomal components (immunoproteasome) and MHC I expression, but this describes a downstream amplification step — not the specific process of routing exogenous antigen into MHC I presentation.",
+        "<strong>D — MHC I transfer via exosomes:</strong> There is some evidence for exosome-mediated antigen transfer, but cross-presentation is the established, lecture-level mechanism by which DCs activate naïve CTLs against exogenous tumor antigens."
+      ]
+    }
+  },
+  {
+    stem: "Which two mechanisms do CTLs primarily use to kill tumor cells after recognizing tumor antigen on MHC I?",
+    choices: [
+      "ADCC via CD16 receptor and oxidative burst via ROS secretion",
+      "IL-12 release to activate macrophages and complement fixation by IgG",
+      "Perforin/granzyme release and Fas-FasL signaling to induce apoptosis",
+      "Nitric oxide production and TNF-α–mediated necrosis of tumor cells"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Perforin/granzyme and Fas-FasL.</strong> CTLs kill via two converging pathways: (1) release of perforin (pore-forming protein) and granzymes (serine proteases) that enter tumor cells and activate caspase cascades, and (2) Fas ligand (FasL) on the CTL binding Fas (CD95) on the tumor cell to directly trigger apoptosis.",
+      teaching: "<strong>Teaching Point:</strong> Both CTL killing mechanisms converge on apoptosis of the tumor cell. Perforin/granzyme is the dominant pathway for most tumor cells. FasL/Fas is especially important for tumor cells that upregulate Fas. These mechanisms are distinct from NK cell killing and macrophage killing — knowing which cell uses which mechanism is a high-yield Goode target.",
+      wrongs: [
+        "<strong>A — ADCC via CD16 / ROS:</strong> ADCC via CD16 is the mechanism used by NK cells, not CTLs. CTLs use TCR-mediated antigen recognition, not antibody-dependent killing. Oxidative burst is characteristic of neutrophils and M1 macrophages.",
+        "<strong>B — IL-12 / complement:</strong> IL-12 is secreted by dendritic cells and macrophages to promote Th1 differentiation — it is not a CTL killing mechanism. Complement fixation is an antibody/B cell-mediated mechanism, not a CTL function.",
+        "<strong>D — Nitric oxide / TNF-α necrosis:</strong> NO production and TNF-α–mediated killing are hallmarks of M1 macrophage anti-tumor activity, not CTL-mediated killing. CTLs induce apoptosis, not necrosis."
+      ]
+    }
+  },
+  {
+    stem: "NK cells kill tumor cells that have downregulated MHC I expression by which primary mechanism?",
+    choices: [
+      "TCR-dependent recognition of altered peptide-MHC complexes",
+      "NKG2D receptor binding to stress ligands upregulated on tumor cells",
+      "Missing-self detection causing loss of inhibitory signaling to NK cells",
+      "CD16-mediated ADCC after IgG opsonization of MHC-low tumor cells"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Missing-self detection.</strong> Normal cells express MHC I, which engages NK inhibitory receptors (KIRs) to keep NK cells inactive. When tumor cells downregulate MHC I to escape CTL killing, NK inhibitory signaling is lost — the NK cell interprets absence of MHC I as a danger signal and activates lytic granule release.",
+      teaching: "<strong>Teaching Point:</strong> This is the elegant immune system counter to MHC I downregulation. Tumors face a dilemma: keep MHC I and get killed by CTLs, or lose MHC I and become susceptible to NK cells. This is the MHC I escape tradeoff — a classic Goode-style distinction between CTL and NK recognition.",
+      wrongs: [
+        "<strong>A — TCR-dependent recognition:</strong> NK cells do not have T cell receptors. They are innate cells that recognize patterns of missing-self and stress ligands without antigen-specific TCR signaling. TCR is the CTL recognition mechanism.",
+        "<strong>B — NKG2D binding stress ligands:</strong> NKG2D recognizing MICA/B stress ligands is a separate activating mechanism for NK cells — it applies when tumor cells upregulate stress ligands, not specifically when MHC I is downregulated. The question specifically asks about MHC I downregulation.",
+        "<strong>D — CD16-mediated ADCC:</strong> ADCC via CD16 requires IgG antibodies coating the tumor cell — it is not the mechanism triggered by MHC I downregulation alone. ADCC is a separate NK killing pathway that requires prior antibody opsonization."
+      ]
+    }
+  },
+  {
+    stem: "Which receptor on NK cells mediates killing of antibody-coated tumor cells?",
+    choices: [
+      "NKG2D, an activating receptor that binds MICA and MICB stress ligands",
+      "KIR, an inhibitory receptor that recognizes MHC I on target cells",
+      "CD16 (FcγRIII), which binds the Fc region of IgG on opsonized targets",
+      "NKp46, a natural cytotoxicity receptor recognizing viral hemagglutinin"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — CD16 (FcγRIII).</strong> CD16 is the Fc receptor on NK cells that binds the Fc (constant) region of IgG antibodies coating tumor cells. When anti-tumor IgG opsonizes a tumor cell, CD16 on the NK cell crosslinks, triggering lytic granule release — this is antibody-dependent cellular cytotoxicity (ADCC).",
+      teaching: "<strong>Teaching Point:</strong> ADCC via CD16 bridges the adaptive (antibody) and innate (NK) systems. This is clinically exploited by therapeutic monoclonal antibodies like trastuzumab (anti-HER2) and rituximab (anti-CD20) — they opsonize tumor cells so NK cells can kill them via ADCC.",
+      wrongs: [
+        "<strong>A — NKG2D:</strong> NKG2D is an activating receptor on NK cells that binds stress ligands MICA/B and ULBP proteins expressed on stressed or transformed cells. It does not recognize antibody Fc regions and is not the ADCC receptor.",
+        "<strong>B — KIR:</strong> KIR (killer immunoglobulin-like receptor) is the inhibitory receptor that recognizes MHC I — it keeps NK cells from killing normal self cells. It plays no role in ADCC and inhibits rather than activates NK killing.",
+        "<strong>D — NKp46:</strong> NKp46 is a natural cytotoxicity receptor on NK cells that recognizes viral hemagglutinin and some tumor ligands. It is an activating receptor but is not involved in ADCC; ADCC specifically requires IgG Fc recognition via CD16."
+      ]
+    }
+  },
+  {
+    stem: "CTLA-4 inhibits T cell activation via which mechanism and at which anatomical site?",
+    choices: [
+      "Binding PDL-1 on tumor cells; acts primarily within peripheral tumor tissue",
+      "Blocking ZAP-70 phosphorylation downstream of TCR; acts in the bone marrow",
+      "Outcompeting CD28 for B7 (CD80/CD86) binding; acts in secondary lymphoid organs",
+      "Upregulating TGF-β secretion by CTLs; acts within the draining lymph node"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — CTLA-4 outcompetes CD28 for B7; acts in secondary lymphoid organs.</strong> CTLA-4 is expressed on T cells and has a higher affinity for B7 (CD80/CD86) than CD28. When CTLA-4 outcompetes CD28, Signal 2 (costimulation) is lost → T cell anergy. This occurs in lymph nodes and spleen during the priming phase.",
+      teaching: "<strong>Teaching Point:</strong> Know the checkpoint location pairing: CTLA-4 acts in secondary lymphoid organs (lymph nodes/spleen) during priming. PD-1 acts in the periphery (tumor site) during effector function. Anti-CTLA-4 (ipilimumab) acts early in T cell activation; anti-PD-1 (pembrolizumab/nivolumab) rescues exhausted effector T cells at the tumor.",
+      wrongs: [
+        "<strong>A — Binding PDL-1; peripheral tumor:</strong> This describes PD-1, not CTLA-4. PD-1 on exhausted CTLs binds PDL-1 expressed by tumor cells in the periphery. CTLA-4 binds B7 on antigen-presenting cells in lymphoid organs.",
+        "<strong>B — Blocking ZAP-70; bone marrow:</strong> ZAP-70 is a kinase in the TCR signaling cascade; CTLA-4 does not directly block ZAP-70. CTLA-4 inhibits Signal 2 (costimulation), not Signal 1. The bone marrow is not the site of T cell activation.",
+        "<strong>D — Upregulating TGF-β; draining lymph node:</strong> TGF-β is secreted by Tregs and MDSCs as a suppressive cytokine, not produced by CTLA-4 signaling on CTLs. While the lymph node location is partially correct, the mechanism described is wrong."
+      ]
+    }
+  },
+  {
+    stem: "A tumor acquires a mutation that eliminates MHC I surface expression. What is the predicted consequence for NK cell activity against that tumor?",
+    choices: [
+      "NK killing decreases because TCR-mediated recognition requires MHC I",
+      "NK killing is unchanged because NK cells use NKG2D regardless of MHC I levels",
+      "NK killing decreases because ADCC requires MHC I for IgG opsonization",
+      "NK killing increases because missing-self removes the inhibitory signal from NK cells"
+    ],
+    correct: 3,
+    explanation: {
+      correct: "<strong>Correct — NK killing increases via missing-self.</strong> Loss of MHC I eliminates the inhibitory signal that normally keeps NK cells from killing healthy cells. Without MHC I engaging KIR inhibitory receptors, NK cells become activated and release lytic granules against the MHC-low tumor cell.",
+      teaching: "<strong>Teaching Point:</strong> This is the escape tradeoff. Tumors lose MHC I to evade CTL recognition — but this makes them more visible to NK cells. The immune system has redundancy built in: CTLs require MHC I (recognize it), NK cells require MHC I (are inhibited by it). Loss of MHC I shifts the balance toward NK cell killing.",
+      wrongs: [
+        "<strong>A — NK killing decreases; TCR requires MHC I:</strong> NK cells do not have TCRs. TCR-MHC I interaction is how CTLs recognize targets, not NK cells. NK killing is MHC-independent (based on absence of MHC I, not presence).",
+        "<strong>B — NK killing unchanged; NKG2D regardless of MHC I:</strong> NKG2D binding stress ligands is a separate activating pathway. Importantly, the inhibitory signal from MHC I engaging KIR is what normally suppresses NK killing — removing MHC I specifically triggers activation. NK activity is not unchanged.",
+        "<strong>C — NK killing decreases; ADCC requires MHC I for opsonization:</strong> ADCC requires IgG antibody coating of the tumor cell — it is antibody-dependent, not MHC I-dependent. Loss of MHC I does not impair ADCC. This choice confuses two distinct NK killing mechanisms."
+      ]
+    }
+  },
+  {
+    stem: "Loss of TAP1/TAP2 function in a tumor cell most directly impairs anti-tumor immunity by which mechanism?",
+    choices: [
+      "Preventing proteasomal degradation of cytosolic proteins into peptide fragments",
+      "Blocking peptide transport into the ER so no peptides load onto MHC I",
+      "Eliminating NK cell recognition of stress ligands on the tumor cell surface",
+      "Inhibiting dendritic cell migration from the tumor site to draining lymph nodes"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "<strong>Correct — Blocking peptide transport into the ER.</strong> TAP1/TAP2 (Transporter Associated with Antigen Processing) pumps peptides generated by the proteasome from the cytosol into the ER lumen, where they are loaded onto MHC I. Without TAP, MHC I cannot be stably expressed on the cell surface → CTLs cannot recognize the tumor cell.",
+      teaching: "<strong>Teaching Point:</strong> Know all four antigen-loss mechanisms and where in the MHC I pathway each step is disrupted: (1) Loss of tumor antigen gene — no protein made; (2) Decreased MHC I synthesis — no scaffold; (3) Loss of β2-microglobulin — MHC I can't fold; (4) Loss of TAP1/TAP2 — peptides can't enter ER for loading.",
+      wrongs: [
+        "<strong>A — Preventing proteasomal degradation:</strong> The proteasome itself is upstream of TAP. Loss of TAP does not prevent proteasomal processing; it specifically blocks the transport of already-processed peptides from the cytosol into the ER. The proteasome continues to function normally.",
+        "<strong>C — Eliminating NK stress ligand recognition:</strong> Stress ligands (MICA/B) recognized by NKG2D on NK cells are independent of TAP function and the MHC I loading pathway. TAP loss specifically impairs CTL recognition, not NK cell activation via NKG2D.",
+        "<strong>D — Inhibiting DC migration:</strong> TAP1/TAP2 function in antigen presentation within tumor cells and DCs, but their loss does not directly impair DC migration from the tumor site. DC migration is regulated by chemokine gradients and maturation signals, not TAP status."
+      ]
+    }
+  },
+  {
+    stem: "Which molecule expressed by tumor cells depletes tryptophan in the tumor microenvironment to suppress local T cell function?",
+    choices: [
+      "TGF-β, which directly inhibits lymphocyte proliferation and cytokine secretion",
+      "PDL-1, which binds PD-1 on chronically stimulated CTLs to induce exhaustion",
+      "IDO (indoleamine 2,3-dioxygenase), which catabolizes tryptophan in the TME",
+      "IL-10, which suppresses dendritic cell maturation and effector T cell activation"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — IDO.</strong> IDO (indoleamine 2,3-dioxygenase) is expressed by tumor cells and some stromal cells. It catabolizes tryptophan into kynurenine metabolites, depleting local tryptophan. T cells require tryptophan for protein synthesis and proliferation — tryptophan depletion causes T cell arrest and apoptosis.",
+      teaching: "<strong>Teaching Point:</strong> Tumors use multiple suppressive strategies: PDL-1 (receptor-mediated exhaustion), TGF-β (cytokine-mediated inhibition), IDO (metabolic depletion of tryptophan). IDO is the metabolic immune suppression mechanism — know it as distinct from cytokine and receptor-mediated suppression.",
+      wrongs: [
+        "<strong>A — TGF-β:</strong> TGF-β is a major immunosuppressor but acts through receptor-mediated signaling to inhibit lymphocyte function, promote Tregs, and drive EMT. It does not deplete tryptophan; its mechanism is cytokine signaling, not metabolic competition.",
+        "<strong>B — PDL-1:</strong> PDL-1 binds PD-1 on T cells to induce exhaustion — this is a cell-surface receptor interaction. PDL-1 does not deplete tryptophan; it operates through co-inhibitory signaling to functionally silence CTLs at the tumor site.",
+        "<strong>D — IL-10:</strong> IL-10 suppresses immune activation by inhibiting DC maturation and dampening macrophage function. Like TGF-β, it operates via cytokine receptor signaling rather than metabolic tryptophan depletion."
+      ]
+    }
+  },
+  {
+    stem: "Immune editing selects for tumor cell variants with reduced immunogenicity. Which process best explains how tumor progression occurs in an immunocompetent host?",
+    choices: [
+      "Neoantigens accumulate over time, making remaining tumor cells more CTL-visible",
+      "Tumors upregulate MHC I to avoid NK killing while simultaneously escaping CTLs",
+      "Immune pressure eliminates immunogenic clones, leaving low-immunogenicity variants to outgrow",
+      "Regulatory T cells expand and tolerize the host to all remaining tumor antigens"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Selective outgrowth of low-immunogenicity variants.</strong> Immune editing has three phases: Elimination (immune destroys highly immunogenic tumor cells), Equilibrium (immune and tumor in balance), and Escape (variants that evade killing outgrow). Only in immunocompetent hosts does this selective pressure create progressively less immunogenic tumors.",
+      teaching: "<strong>Teaching Point:</strong> Immune editing is essentially Darwinian selection operating on tumor heterogeneity. The immune system is so effective at killing immunogenic clones that it selects for variants that escape — contributing paradoxically to tumor evolution. This is why tumors in immunocompetent hosts are often more aggressive immunologically than those in immunodeficient hosts.",
+      wrongs: [
+        "<strong>A — Neoantigens accumulate; more CTL-visible:</strong> Accumulation of mutations does generate more neoantigens, but immune editing is specifically the process where the immune system kills those highly immunogenic clones, leaving behind the cells with FEWER visible neoantigens. The net result is reduced immunogenicity, not increased.",
+        "<strong>B — Tumors upregulate MHC I to avoid NK killing:</strong> This is backwards. Tumors that downregulate MHC I evade CTLs (and become NK-vulnerable). There is no general mechanism for tumors to upregulate MHC I to evade NK — that would make them more CTL-visible.",
+        "<strong>D — Tregs tolerize to all tumor antigens:</strong> Treg expansion does contribute to immune suppression in the TME, but immune editing is specifically about selection pressure on tumor cell populations — the elimination of immunogenic variants — not about global tolerance induction by Tregs."
+      ]
+    }
+  },
+  {
+    stem: "Which surface marker is expressed on M2-polarized tumor-associated macrophages and correlates with unfavorable prognosis?",
+    choices: [
+      "CD80, a costimulatory B7 molecule driving Th1 differentiation",
+      "CD163, a scavenger receptor expressed on alternatively activated macrophages",
+      "CD16, an Fc receptor that mediates antibody-dependent cellular cytotoxicity",
+      "CD86, a B7-family molecule promoting T cell costimulation"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "<strong>Correct — CD163.</strong> CD163 is a scavenger receptor specifically expressed on M2-polarized (alternatively activated) macrophages. In the tumor microenvironment, high CD163 expression marks pro-tumor TAMs that secrete VEGF, MMPs, and growth factors — correlating with poor clinical prognosis.",
+      teaching: "<strong>Teaching Point:</strong> The M1/M2 distinction is high-yield: M1 (classically activated by IFN-γ) → anti-tumor; M2 (alternatively activated by IL-4/IL-13/IL-10) → pro-tumor. M2 macrophages promote angiogenesis (VEGF), metastasis (MMPs), and immune suppression. CD163 is the M2 marker to know.",
+      wrongs: [
+        "<strong>A — CD80:</strong> CD80 is a B7 costimulatory molecule expressed on antigen-presenting cells (DCs, macrophages) to provide Signal 2 to T cells. It is associated with M1 activation and pro-inflammatory antigen presentation — the opposite of M2 polarization.",
+        "<strong>C — CD16:</strong> CD16 (FcγRIII) is the Fc receptor mediating ADCC on NK cells. It is not a specific M2 macrophage marker and is not associated with pro-tumor macrophage polarization.",
+        "<strong>D — CD86:</strong> CD86, like CD80, is a B7-family costimulatory molecule on antigen-presenting cells that promotes T cell activation. It is associated with pro-inflammatory classical activation, not M2 pro-tumor polarization."
+      ]
+    }
+  },
+  {
+    stem: "Which of the following is a direct suppressive mechanism employed by MDSCs in the tumor microenvironment?",
+    choices: [
+      "Secreting IL-12 to convert surrounding macrophages toward an M2 phenotype",
+      "Upregulating MHC II to present tumor antigens and tolerize Th cells",
+      "Producing TGF-β and IL-10 to directly inhibit T cell and NK cell function",
+      "Recruiting dendritic cells from draining lymph nodes into the tumor stroma"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — TGF-β and IL-10 production.</strong> MDSCs (myeloid-derived suppressor cells) are immature myeloid precursors that directly inhibit T cells and NK cells by secreting TGF-β and IL-10. They also generate ROS/NO for bystander T cell suppression, promote Tregs, and produce MMP9/VEGF for angiogenesis.",
+      teaching: "<strong>Teaching Point:</strong> MDSCs are a heterogeneous immunosuppressive myeloid population expanded in cancer patients. They accumulate in blood, lymph nodes, spleen, and TME. Unlike Tregs (which are lymphoid), MDSCs are myeloid — expanded from granulocytic and monocytic precursors by tumor-secreted factors.",
+      wrongs: [
+        "<strong>A — Secreting IL-12 to drive M2 polarization:</strong> This is doubly wrong. IL-12 drives Th1/M1 (anti-tumor) polarization, not M2. MDSCs do not secrete IL-12; they produce immunosuppressive mediators (TGF-β, IL-10, prostaglandins, ROS) — the opposite of pro-inflammatory IL-12.",
+        "<strong>B — Upregulating MHC II to tolerize Th cells:</strong> MDSCs are immature myeloid cells that generally do not efficiently present antigen to activate T cells. Their role is suppression, not productive antigen presentation. Any MHC II expression on MDSCs would be part of tolerogenic, not activating, signaling.",
+        "<strong>D — Recruiting DCs from draining lymph nodes:</strong> MDSCs do not recruit DCs from lymph nodes to the tumor stroma. MDSCs accumulate within tumors and suppress the immune response there. Chemokine-driven DC trafficking moves in the opposite direction (tumor → lymph node)."
+      ]
+    }
+  },
+  {
+    stem: "Tregs are recruited to the tumor microenvironment via which chemokine-receptor axis?",
+    choices: [
+      "CXCL10 via CXCR3, which also recruits Th1 effectors into inflamed tissue",
+      "IL-8 via CXCR1/CXCR2, which preferentially attracts neutrophils and MDSCs",
+      "VEGF via VEGFR2, which drives endothelial cell proliferation and angiogenesis",
+      "CCL22 via CCR4, which preferentially attracts regulatory T cells"
+    ],
+    correct: 3,
+    explanation: {
+      correct: "<strong>Correct — CCL22 via CCR4.</strong> Tumor cells and M2 macrophages in the TME secrete CCL22, which binds CCR4 on Tregs, selectively recruiting them to the tumor. Once there, Tregs suppress CTL activity via IL-10, TGF-β, CTLA-4, and Fas-FasL killing of effector T cells.",
+      teaching: "<strong>Teaching Point:</strong> The CCL22/CCR4 axis is the specific chemokine system for Treg recruitment to tumors. High intra-tumoral Treg numbers correlate with poor prognosis in many cancers. Depletion of Tregs enhances anti-tumor immunity in experimental models. Anti-CTLA-4 (ipilimumab) also depletes Tregs — one of its beneficial mechanisms.",
+      wrongs: [
+        "<strong>A — CXCL10 via CXCR3:</strong> CXCL10 (IP-10) via CXCR3 recruits Th1 effectors and CTLs, not Tregs. This is an anti-tumor trafficking axis — the opposite of what Tregs use. Confusing these two axes is a common error.",
+        "<strong>B — IL-8 via CXCR1/CXCR2:</strong> IL-8 via CXCR1/2 recruits neutrophils, MDSCs, and other myeloid cells. Tregs express CCR4, not CXCR1/2. These are different chemokine receptor families with distinct cellular targets.",
+        "<strong>C — VEGF via VEGFR2:</strong> VEGF/VEGFR2 signaling drives angiogenesis in tumor endothelial cells, not Treg trafficking. VEGF is an angiogenic growth factor, not a T cell chemokine."
+      ]
+    }
+  },
+  {
+    stem: "Which of the following is a direct effect of TGF-β secreted within the tumor microenvironment?",
+    choices: [
+      "Activating M1 macrophages to produce nitric oxide and kill tumor cells",
+      "Upregulating MHC I expression on tumor cells to improve CTL visibility",
+      "Expanding Tregs and MDSCs while promoting epithelial-mesenchymal transition",
+      "Inducing IFN-γ production by tumor-infiltrating NK cells and Th1 cells"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Expanding Tregs/MDSCs and promoting EMT.</strong> TGF-β is the master immunosuppressor of the TME. It expands Tregs and MDSCs, inhibits lymphocyte and macrophage effector functions, promotes EMT (epithelial-mesenchymal transition) to facilitate metastasis, suppresses tumor cell apoptosis, and promotes angiogenesis.",
+      teaching: "<strong>Teaching Point:</strong> TGF-β is uniquely multifunctional in the TME — it does almost everything pro-tumor: (1) expands suppressor cells, (2) shuts down CTLs/NK cells, (3) enables metastasis via EMT, (4) promotes angiogenesis. Tumor cells that secrete TGF-β create a deeply immunosuppressive microenvironment.",
+      wrongs: [
+        "<strong>A — Activating M1 macrophages to produce NO:</strong> This is the effect of IFN-γ, not TGF-β. TGF-β actually promotes M2 polarization and suppresses M1 activity. TGF-β and IFN-γ have opposing effects on macrophage polarization.",
+        "<strong>B — Upregulating MHC I on tumor cells:</strong> Upregulation of MHC I on tumor cells is the effect of IFN-γ. TGF-β does not upregulate MHC I — it generally suppresses antigen presentation and immune visibility of tumors.",
+        "<strong>D — Inducing IFN-γ by NK cells and Th1:</strong> TGF-β suppresses IFN-γ production by inhibiting NK cell and Th1 cell function. IFN-γ induction is driven by IL-12 and IL-18, not TGF-β — these two cytokines are immunologically antagonistic."
+      ]
+    }
+  },
+  {
+    stem: "Which structural feature of CAR T cells allows them to target tumor cells that have downregulated MHC I expression?",
+    choices: [
+      "A CD4 co-receptor that binds MHC II on antigen-presenting cells within the tumor",
+      "An integrated PD-1 knockout that prevents exhaustion of the transferred T cells",
+      "A single-chain variable fragment (scFv) that recognizes tumor antigen independent of MHC",
+      "CD28 and 4-1BB costimulatory domains that replace the need for antigen recognition"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — The scFv domain recognizes antigen independent of MHC.</strong> CAR T cells carry a chimeric antigen receptor composed of an antibody-derived single-chain variable fragment (scFv) fused to intracellular signaling domains. The scFv recognizes tumor surface antigens directly — like a B cell receptor — without MHC presentation. Tumor cells that have lost MHC I to evade CTLs can still be targeted by CAR T cells.",
+      teaching: "<strong>Teaching Point:</strong> CAR T cells combine the targeting specificity of antibodies (via scFv) with the killing power of CTLs (via CD3ζ, CD28, 4-1BB signaling). Their MHC independence is their key advantage over conventional CTLs — bypassing the MHC I antigen-loss escape mechanism. CAR structure: scFv → transmembrane domain → CD3ζ (Signal 1) → CD28/4-1BB (Signal 2).",
+      wrongs: [
+        "<strong>A — CD4 binding MHC II:</strong> CAR T cells are not restricted to CD4 co-receptor use. The scFv is the antigen-recognition domain — it does not require MHC at all, neither MHC I nor MHC II. This confuses conventional MHC-restricted T cell biology with CAR biology.",
+        "<strong>B — Integrated PD-1 knockout:</strong> PD-1 knockout in CAR T cells is a strategy under investigation to prevent exhaustion, and is indeed mentioned as a roadblock solution. However, it is not the structural feature that enables MHC-independent targeting — that is the scFv.",
+        "<strong>D — CD28/4-1BB replacing antigen recognition:</strong> CD28 and 4-1BB are costimulatory domains (Signal 2) integrated into the CAR construct. They enhance activation and persistence but do not replace antigen recognition — the scFv performs recognition. Without the scFv, the CAR cannot target any tumor."
+      ]
+    }
+  },
+  {
+    stem: "A patient with advanced melanoma initially responds to anti-PD-1 therapy but relapses six months later. Tumor biopsy shows absence of the original tumor antigen. This pattern is best explained by which mechanism?",
+    choices: [
+      "TGF-β–driven EMT causing tumor cells to downregulate surface antigen expression",
+      "MDSC expansion in the draining lymph node depleting the anti-PD-1 activated CTLs",
+      "Immune editing selecting antigen-loss variant clones that survive CTL killing",
+      "CTLA-4 upregulation on residual CTLs reversing the effect of anti-PD-1 therapy"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Immune editing / antigen-loss variant selection.</strong> Anti-PD-1 therapy unleashes CTLs, which kill tumor cells expressing the target antigen. However, within the heterogeneous tumor, rare clones that do not express the antigen survive, proliferate, and eventually dominate — a classic antigen-loss variant selected by immune pressure.",
+      teaching: "<strong>Teaching Point:</strong> This is both a checkpoint blockade failure mechanism and an example of immune editing in a therapeutic context. It mirrors why dual CAR T cells (targeting two antigens) are under investigation — targeting multiple antigens simultaneously makes antigen-loss escape much harder for the tumor.",
+      wrongs: [
+        "<strong>A — TGF-β–driven EMT and antigen downregulation:</strong> EMT allows tumor cells to become more invasive and migratory, but the mechanism for losing a specific tumor antigen in this scenario is clonal selection of antigen-negative variants (immune editing), not a TGF-β–driven transcriptional reprogramming of antigen expression.",
+        "<strong>B — MDSC expansion depleting CTLs in lymph nodes:</strong> MDSC expansion is a real immune evasion mechanism, but it would explain failure from the beginning of therapy, not a late relapse after an initial response. The biopsy showing absence of the original antigen specifically points to antigen-loss escape, not MDSC-mediated CTL depletion.",
+        "<strong>D — CTLA-4 upregulation reversing anti-PD-1:</strong> CTLA-4 upregulation on T cells can contribute to exhaustion, but this would not cause the specific pattern of antigen loss observed on biopsy. Antigen loss is a tumor-intrinsic adaptation, not primarily a T cell-intrinsic resistance mechanism."
+      ]
+    }
+  },
+  {
+    stem: "Which checkpoint inhibitor therapy is associated with higher rates of autoimmune adverse effects compared to anti-PD-1, partly due to Treg depletion?",
+    choices: [
+      "Atezolizumab (anti-PDL-1), which blocks tumor-side PDL-1 expression",
+      "Pembrolizumab (anti-PD-1), which rescues exhausted CTLs at the tumor site",
+      "Ipilimumab (anti-CTLA-4), which acts in secondary lymphoid organs and depletes Tregs",
+      "Nivolumab (anti-PD-1), which binds PD-1 on chronically stimulated T cells"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Ipilimumab (anti-CTLA-4).</strong> Anti-CTLA-4 blocks CTLA-4 on T cells in secondary lymphoid organs, enhancing T cell activation. Additionally, CTLA-4 is highly expressed on Tregs, so ipilimumab depletes intra-tumoral Tregs — amplifying the immune response but also worsening autoimmune side effects compared to anti-PD-1.",
+      teaching: "<strong>Teaching Point:</strong> Anti-CTLA-4 has more autoimmune side effects than anti-PD-1 for two reasons: (1) it acts earlier in T cell activation (lymphoid organs), affecting a broader T cell population, and (2) it depletes Tregs, removing one of the key brakes on systemic autoimmunity. Anti-PD-1 acts in the periphery/tumor and is more targeted.",
+      wrongs: [
+        "<strong>A — Atezolizumab (anti-PDL-1):</strong> Anti-PDL-1 blocks the tumor side of the PD-1/PDL-1 axis. It has fewer autoimmune side effects than anti-CTLA-4 because it does not directly deplete Tregs and acts more locally at the tumor-T cell interface.",
+        "<strong>B — Pembrolizumab (anti-PD-1):</strong> Anti-PD-1 is more effective and causes fewer autoimmune side effects than anti-CTLA-4 for most indications. It does not deplete Tregs and has a more peripheral mechanism of action.",
+        "<strong>D — Nivolumab (anti-PD-1):</strong> Like pembrolizumab, nivolumab is an anti-PD-1 agent with fewer autoimmune effects than anti-CTLA-4. Both anti-PD-1 agents have a better safety profile than ipilimumab, largely because they do not deplete Tregs."
+      ]
+    }
+  },
+  {
+    stem: "Cytokine release syndrome (CRS) after CAR T cell therapy results from which mechanism?",
+    choices: [
+      "Graft-versus-host disease from allogeneic T cells attacking recipient normal tissues",
+      "Tumor lysis releasing intracellular danger signals and activating the inflammasome",
+      "Simultaneous massive activation of CAR T cells releasing large amounts of cytokines systemically",
+      "Autoimmune cross-reactivity of scFv domains with normal tissue antigens"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — Massive simultaneous CAR T cell activation releasing cytokines.</strong> When large numbers of CAR T cells engage tumor targets simultaneously, they release enormous quantities of cytokines (TNF-α, IL-6, IFN-γ) causing a systemic inflammatory storm — fever, hypotension, capillary leak, and potential organ dysfunction (CRS).",
+      teaching: "<strong>Teaching Point:</strong> CRS is the most clinically important immediate toxicity of CAR T therapy. Severity correlates with tumor burden and the number of CAR T cells infused. Treatment includes tocilizumab (anti-IL-6R) to block the dominant CRS cytokine (IL-6). Distinguishing CRS from sepsis is a clinical challenge — both present with fever and hypotension.",
+      wrongs: [
+        "<strong>A — Graft-versus-host disease from allogeneic T cells:</strong> CAR T cells in current FDA-approved therapy are autologous — harvested from the patient's own T cells. GVHD is a complication of allogeneic bone marrow transplant, not autologous CAR T cell therapy. Future allogeneic CAR T products are in development.",
+        "<strong>B — Tumor lysis releasing intracellular DAMPs:</strong> Tumor lysis syndrome can occur alongside CRS but involves electrolyte disturbances and renal complications from massive tumor cell death — distinct from the cytokine storm of CRS. CRS is driven by T cell cytokine release, not primarily by tumor contents.",
+        "<strong>D — AutoImmune cross-reactivity of scFv with normal tissue:</strong> On-target/off-tumor toxicity (scFv recognizing normal tissue expressing the target antigen) is a separate concern — for example, anti-CD19 destroying normal B cells. This is not CRS, which is a systemic inflammatory response from cytokine release, not antigen-specific tissue attack."
+      ]
+    }
+  },
+  {
+    stem: "Which of the following best explains why tumors with high mutational burden respond better to checkpoint inhibitor therapy?",
+    choices: [
+      "High mutation rates cause tumor cell senescence, making tumors less proliferative",
+      "Genomic instability triggers innate immune pathways that attract NK cells preferentially",
+      "More mutations generate more neoantigens, expanding the tumor-specific CTL repertoire available to re-activate",
+      "High mutation rates cause overexpression of PDL-1, making checkpoint blockade more accessible"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "<strong>Correct — More neoantigens expand the available CTL repertoire.</strong> Each somatic mutation can generate a neoantigen — a novel peptide that CTLs can recognize without tolerance. High mutational burden (as in melanoma and lung cancer) means more neoantigens, more tumor-specific CTL clones primed, and more CTLs available to be rescued from exhaustion by anti-PD-1/CTLA-4.",
+      teaching: "<strong>Teaching Point:</strong> Tumor mutational burden (TMB) is now an FDA-recognized biomarker for checkpoint inhibitor response. The logic: checkpoint blockade releases exhausted CTLs — but those CTLs must have been primed against tumor antigens in the first place. Few neoantigens → few primed CTLs → little effect from checkpoint blockade. This is the dominant reason &gt;50% of patients do not respond.",
+      wrongs: [
+        "<strong>A — High mutations cause senescence and less proliferation:</strong> While oncogene-induced senescence is a real phenomenon, this is not the primary explanation for checkpoint inhibitor response. Highly mutated tumors like melanoma and lung cancer are aggressive and proliferative — high TMB does not make them senescent.",
+        "<strong>B — Genomic instability attracting NK cells via innate pathways:</strong> High mutational burden does engage innate sensors (e.g., cytosolic DNA sensing via cGAS-STING), but the primary explanation for checkpoint blockade response is the neoantigen-CTL axis, not preferential NK cell attraction.",
+        "<strong>D — High mutation rates causing PDL-1 overexpression:</strong> PDL-1 expression on tumors can correlate with immune activity (IFN-γ drives PDL-1 upregulation), but high mutational burden does not directly cause PDL-1 overexpression. PDL-1 expression alone does not determine checkpoint blockade response as well as TMB does."
+      ]
+    }
+  }
+];
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let currentIdx = 0;
+let quizMode = 'learn'; // 'learn' | 'exam'
+let examSubmitted = false;
+let selectedChoice = null;
+let answered = []; // null | { selected, correct: bool }
+let flagged = new Set();
+let totalSecs = 0, qSecs = 0;
+let totalTimer, qTimer;
+let correctCount = 0, incorrectCount = 0;
+
+// ═══════════════════════════════════════
+// DOM REFS
+// ═══════════════════════════════════════
+const qo = document.getElementById('qo');
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const printQuizBtn = document.getElementById('printQuiz');
+const qNum = document.getElementById('qNum');
+const qStem = document.getElementById('qStem');
+const choicesEl = document.getElementById('choicesEl');
+const submitBtn = document.getElementById('submitBtn');
+const exBlock = document.getElementById('exBlock');
+const exCorrect = document.getElementById('exCorrect');
+const exTeach = document.getElementById('exTeach');
+const exWrongs = document.getElementById('exWrongs');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const qdots = document.getElementById('qdots');
+const qpf = document.getElementById('qpf');
+const svCorrect = document.getElementById('svCorrect');
+const svIncorrect = document.getElementById('svIncorrect');
+const svCurrent = document.getElementById('svCurrent');
+const learnBtn = document.getElementById('learnBtn');
+const examBtn = document.getElementById('examBtn');
+const examSubmitRow = document.getElementById('examSubmitRow');
+const submitExamBtn = document.getElementById('submitExamBtn');
+const timerTotal = document.getElementById('timerTotal');
+const timerQ = document.getElementById('timerQ');
+const flagBtnInline = document.getElementById('flagBtnInline');
+const flagTool = document.getElementById('flagTool');
+
+// ═══════════════════════════════════════
+// INIT STATE
+// ═══════════════════════════════════════
+function initState() {
+  answered = new Array(questions.length).fill(null);
+  flagged = new Set();
+  correctCount = 0;
+  incorrectCount = 0;
+  currentIdx = 0;
+  selectedChoice = null;
+  totalSecs = 0;
+  qSecs = 0;
+  examSubmitted = false;
+  buildDots();
+}
+
+// ═══════════════════════════════════════
+// DOTS
+// ═══════════════════════════════════════
+function buildDots() {
+  qdots.innerHTML = '';
+  questions.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'qd';
+    d.title = `Question ${i + 1}`;
+    d.addEventListener('click', () => goTo(i));
+    qdots.appendChild(d);
+  });
+  updateDots();
+}
+
+function updateDots() {
+  const dots = qdots.querySelectorAll('.qd');
+  dots.forEach((d, i) => {
+    d.className = 'qd';
+    if (answered[i]) {
+      d.classList.add(answered[i].correct ? 'answered-c' : 'answered-w');
+    } else if (flagged.has(i)) {
+      d.classList.add('answered-u');
+    }
+    if (i === currentIdx) d.classList.add('current');
+  });
+}
+
+// ═══════════════════════════════════════
+// RENDER QUESTION
+// ═══════════════════════════════════════
+function renderQuestion(idx) {
+  const q = questions[idx];
+  selectedChoice = null;
+  qNum.textContent = `${idx + 1} / ${questions.length}`;
+  svCurrent.textContent = `${idx + 1} / ${questions.length}`;
+  qStem.textContent = q.stem;
+  qpf.style.width = ((idx + 1) / questions.length * 100) + '%';
+  prevBtn.disabled = idx === 0;
+  nextBtn.disabled = idx === questions.length - 1;
+
+  // choices
+  choicesEl.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  q.choices.forEach((text, ci) => {
+    const btn = document.createElement('button');
+    btn.className = 'ach';
+    btn.innerHTML = `<span class="ach-letter">${letters[ci]}</span><span class="ctx">${text}</span>`;
+    btn.addEventListener('click', () => {
+      if (answered[idx] !== null) return;
+      if (quizMode === 'exam' && examSubmitted) return;
+      selectedChoice = ci;
+      document.querySelectorAll('.ach').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      if (quizMode === 'learn') submitBtn.disabled = false;
+      if (quizMode === 'exam') submitExamBtn.disabled = false;
+    });
+    choicesEl.appendChild(btn);
+  });
+
+  // flag
+  flagBtnInline.classList.toggle('flagged', flagged.has(idx));
+  flagBtnInline.innerHTML = `<span class="flag-icon">${flagged.has(idx) ? '🚩' : '🚩'}</span> ${flagged.has(idx) ? 'Flagged' : 'Flag this question'}`;
+
+  // submit
+  submitBtn.disabled = true;
+  submitBtn.style.display = quizMode === 'exam' ? 'none' : '';
+
+  // explanation
+  exBlock.classList.remove('show');
+
+  // restore state if already answered
+  if (answered[idx] !== null) {
+    applyAnswerState(idx);
+  }
+
+  updateDots();
+  qSecs = 0;
+
+  if (quizMode === 'exam') {
+    updateExamButton();
+  }
+}
+
+function applyAnswerState(idx) {
+  const a = answered[idx];
+  if (!a) return;
+  const q = questions[idx];
+  const letters = ['A', 'B', 'C', 'D'];
+  const choiceBtns = choicesEl.querySelectorAll('.ach');
+  choiceBtns.forEach((btn, ci) => {
+    if (ci === q.correct) {
+      btn.classList.add('correct');
+    } else if (ci === a.selected && !a.correct) {
+      btn.classList.add('incorrect');
+    } else {
+      btn.classList.add('grayed');
+    }
+  });
+  submitBtn.disabled = true;
+  showExplanation(idx, a.selected);
+}
+
+// ═══════════════════════════════════════
+// GRADE
+// ═══════════════════════════════════════
+function gradeQuestion(idx, sel) {
+  if (answered[idx] !== null) return;
+  const q = questions[idx];
+  const isCorrect = sel === q.correct;
+  answered[idx] = { selected: sel, correct: isCorrect };
+  if (isCorrect) { correctCount++; svCorrect.textContent = correctCount; }
+  else { incorrectCount++; svIncorrect.textContent = incorrectCount; }
+  applyAnswerState(idx);
+  updateDots();
+}
+
+function showExplanation(idx, sel) {
+  const q = questions[idx];
+  const letters = ['A', 'B', 'C', 'D'];
+  exCorrect.innerHTML = q.explanation.correct;
+  exTeach.innerHTML = q.explanation.teaching;
+  exWrongs.innerHTML = '';
+  const wrongIndices = [0, 1, 2, 3].filter(i => i !== q.correct);
+  q.explanation.wrongs.forEach((w, wi) => {
+    const div = document.createElement('div');
+    div.className = 'exb exb-wrong';
+    div.innerHTML = w;
+    exWrongs.appendChild(div);
+  });
+  exBlock.classList.add('show');
+}
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function goTo(idx) {
+  currentIdx = idx;
+  renderQuestion(idx);
+}
+
+prevBtn.addEventListener('click', () => { if (currentIdx > 0) goTo(currentIdx - 1); });
+nextBtn.addEventListener('click', () => { if (currentIdx < questions.length - 1) goTo(currentIdx + 1); });
+
+submitBtn.addEventListener('click', () => {
+  if (selectedChoice === null || quizMode !== 'learn') return;
+  gradeQuestion(currentIdx, selectedChoice);
+  submitBtn.disabled = true;
+});
+
+// ═══════════════════════════════════════
+// MODE
+// ═══════════════════════════════════════
+learnBtn.addEventListener('click', () => {
+  quizMode = 'learn';
+  learnBtn.classList.add('sel');
+  examBtn.classList.remove('sel');
+  examSubmitRow.classList.remove('exam-live');
+  submitBtn.style.display = '';
+  renderQuestion(currentIdx);
+});
+
+examBtn.addEventListener('click', () => {
+  quizMode = 'exam';
+  examBtn.classList.add('sel');
+  learnBtn.classList.remove('sel');
+  submitBtn.style.display = 'none';
+  updateExamButton();
+  renderQuestion(currentIdx);
+});
+
+function updateExamButton() {
+  const inExam = quizMode === 'exam';
+  examSubmitRow.classList.toggle('exam-live', inExam && !examSubmitted);
+  submitExamBtn.disabled = !inExam || examSubmitted || selectedChoice === null;
+  submitExamBtn.textContent = examSubmitted ? 'Exam Submitted ✓' : 'Submit Exam';
+}
+
+submitExamBtn.addEventListener('click', () => {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  // grade all answered questions
+  questions.forEach((q, i) => {
+    if (answered[i] === null) {
+      // find selected choice for this question (from DOM if current)
+      // we only grade ones that had a selection
+    }
+  });
+  // grade current if selected
+  if (selectedChoice !== null && answered[currentIdx] === null) {
+    gradeQuestion(currentIdx, selectedChoice);
+  }
+  // grade all unanswered as wrong (no selection)
+  examSubmitted = true;
+  updateExamButton();
+  examSubmitRow.classList.remove('exam-live');
+  // show all results
+  applyAnswerState(currentIdx);
+  updateDots();
+});
+
+// ═══════════════════════════════════════
+// FLAG
+// ═══════════════════════════════════════
+function toggleFlag(idx) {
+  if (flagged.has(idx)) {
+    flagged.delete(idx);
+    flagBtnInline.classList.remove('flagged');
+    flagBtnInline.innerHTML = '<span class="flag-icon">🚩</span> Flag this question';
+  } else {
+    flagged.add(idx);
+    flagBtnInline.classList.add('flagged');
+    flagBtnInline.innerHTML = '<span class="flag-icon">🚩</span> Flagged';
+  }
+  updateDots();
+}
+flagBtnInline.addEventListener('click', () => toggleFlag(currentIdx));
+flagTool.addEventListener('click', () => toggleFlag(currentIdx));
+
+// skip tool
+document.getElementById('skipTool').addEventListener('click', () => {
+  if (currentIdx < questions.length - 1) goTo(currentIdx + 1);
+});
+
+// ═══════════════════════════════════════
+// TIMERS
+// ═══════════════════════════════════════
+function fmt(s) {
+  const m = Math.floor(s / 60).toString().padStart(2, '0');
+  const sec = (s % 60).toString().padStart(2, '0');
+  return `${m}:${sec}`;
+}
+function startTimers() {
+  clearInterval(totalTimer);
+  clearInterval(qTimer);
+  totalTimer = setInterval(() => { totalSecs++; timerTotal.textContent = fmt(totalSecs); }, 1000);
+  qTimer = setInterval(() => { qSecs++; timerQ.textContent = fmt(qSecs); }, 1000);
+}
+function stopTimers() {
+  clearInterval(totalTimer);
+  clearInterval(qTimer);
+}
+
+// ═══════════════════════════════════════
+// FONT SIZE
+// ═══════════════════════════════════════
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qo.dataset.fs = btn.dataset.fsBtn;
+    document.querySelectorAll('.fs-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// ═══════════════════════════════════════
+// OPEN / CLOSE
+// ═══════════════════════════════════════
+openDemo.addEventListener('click', () => {
+  initState();
+  renderQuestion(0);
+  qo.classList.add('open');
+  startTimers();
+});
+
+closeQuiz.addEventListener('click', () => {
+  qo.classList.add('closing');
+  stopTimers();
+  setTimeout(() => qo.classList.remove('open', 'closing'), 320);
+});
+
+resetQuiz.addEventListener('click', () => {
+  stopTimers();
+  totalSecs = 0; qSecs = 0;
+  timerTotal.textContent = '00:00';
+  timerQ.textContent = '00:00';
+  initState();
+  svCorrect.textContent = 0;
+  svIncorrect.textContent = 0;
+  renderQuestion(0);
+  startTimers();
+});
+
+// ═══════════════════════════════════════
+// PRINT
+// ═══════════════════════════════════════
+function escapeHTML(v) {
+  return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function buildPrintReviewMarkup() {
+  const q = questions[currentIdx];
+  const a = answered[currentIdx];
+  const letters = ['A', 'B', 'C', 'D'];
+  let html = `<div class="print-shell">
+    <div class="print-title">Tumor Immunology Quiz — Question ${currentIdx + 1} Review</div>
+    <div class="print-card">
+      <div class="print-stem">${currentIdx + 1}. ${escapeHTML(q.stem)}</div>`;
+  q.choices.forEach((ch, ci) => {
+    let cls = '';
+    if (a) {
+      if (ci === q.correct) cls = 'correct';
+      else if (a.selected === ci && !a.correct) cls = 'incorrect';
+    }
+    html += `<div class="print-choice ${cls}"><strong>${letters[ci]}.</strong> ${escapeHTML(ch)}</div>`;
+  });
+  if (a) {
+    html += `<div class="print-explainer correct-box" style="margin-top:12px">${q.explanation.correct}</div>`;
+    html += `<div class="print-explainer teach-box">${q.explanation.teaching}</div>`;
+    q.explanation.wrongs.forEach(w => {
+      html += `<div class="print-explainer wrong-box">${w}</div>`;
+    });
+  }
+  html += `</div></div>`;
+  return html;
+}
+
+printQuizBtn.addEventListener('click', () => {
+  document.getElementById('printReviewRoot').innerHTML = buildPrintReviewMarkup();
+  document.body.classList.add('print-review-active');
+  setTimeout(() => window.print(), 50);
+});
+window.addEventListener('afterprint', () => {
+  document.body.classList.remove('print-review-active');
+});
+</script>
+</body>
+</html>
