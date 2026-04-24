@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cancer Genomics & Precision Medicine — Dr. Harrison Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink)}
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;--red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.03);
+  --sh2:0 8px 32px rgba(0,0,0,.08);--sh3:0 12px 48px rgba(0,0,0,.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1)
+}
+
+/* ── LAUNCH ── */
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;
+  background:radial-gradient(circle at 15% 20%,rgba(62,196,178,.16),transparent 28%),
+    radial-gradient(circle at 82% 20%,rgba(123,94,167,.12),transparent 30%),
+    linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.launch-card{max-width:760px;width:100%;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-radius:28px;border:1px solid rgba(18,32,60,.08);box-shadow:0 24px 80px rgba(18,32,60,.12);
+  padding:48px 40px;text-align:center}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;
+  color:var(--navy);margin-bottom:10px;line-height:1.15}
+.launch-card h1 span{color:var(--teal)}
+.launch-card p{color:var(--slate);font-size:.97rem;margin-bottom:24px;max-width:520px;margin-left:auto;margin-right:auto}
+.launch-meta{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:32px}
+.chip{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;
+  background:var(--white);border:1px solid var(--rule2);font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;color:var(--ink2)}
+.launch-btn{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;
+  border:none;border-radius:999px;padding:14px 40px;cursor:pointer;
+  box-shadow:0 4px 20px rgba(26,122,109,.3);transition:transform var(--tr),box-shadow var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,122,109,.38)}
+
+/* ── QUIZ OVERLAY ── */
+.qo{display:none;position:fixed;inset:0;z-index:200;overflow-y:auto;
+  background:radial-gradient(circle at 10% 0%,color-mix(in srgb,var(--teal-glow) 18%,transparent),transparent 24%),
+    radial-gradient(circle at 92% 8%,color-mix(in srgb,var(--plum) 16%,transparent),transparent 22%),
+    linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.99)}to{opacity:1;transform:none}}
+
+/* TOP BAR */
+.qt-bar{position:sticky;top:0;z-index:12;padding:15px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--navy2) 94%,transparent),color-mix(in srgb,var(--navy) 92%,transparent));
+  border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);
+  box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:1.12rem;font-weight:700;color:#fff;white-space:nowrap}
+.qt-btns{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fs-ctrl{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.08);border-radius:8px;padding:4px 8px}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.5);margin-right:4px}
+.fs-btn{background:none;border:none;color:rgba(255,255,255,.7);font-family:'IBM Plex Mono',monospace;
+  font-size:11px;cursor:pointer;padding:3px 6px;border-radius:4px;transition:background var(--tr)}
+.fs-btn:hover,.fs-btn.active{background:rgba(255,255,255,.15);color:#fff}
+.qt-btn{font-family:'Nunito',sans-serif;font-weight:600;font-size:.8rem;border:none;
+  border-radius:8px;padding:7px 14px;cursor:pointer;transition:opacity var(--tr)}
+.qt-btn:hover{opacity:.82}
+.qt-btn.print{background:var(--gold);color:var(--navy2)}
+.qt-btn.reset{background:rgba(255,255,255,.12);color:#fff}
+.qt-btn.close{background:var(--coral);color:#fff}
+
+/* GRID */
+.qin{display:grid;grid-template-columns:256px 1fr;gap:22px;padding:26px 22px 60px;max-width:1200px;margin:0 auto}
+.q-left{display:flex;flex-direction:column;gap:13px}
+
+/* LEFT PANELS */
+.score-panel,.mode-toggle,.timer-panel,.tool-panel,.exam-submit-row{
+  background:var(--white);border-radius:var(--r);padding:17px 18px;box-shadow:var(--sh);border:1px solid var(--rule)}
+.score-panel{animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+.mode-toggle{animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.timer-panel{animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.tool-panel{animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
+.panel-label{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mist);margin-bottom:10px}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sv{text-align:center;background:var(--cream);border-radius:var(--rs);padding:10px 6px}
+.sv-num{font-family:'Crimson Pro',serif;font-size:1.6rem;font-weight:700;display:block;line-height:1}
+.sv-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--mist);text-transform:uppercase;letter-spacing:.08em}
+#svCorrect .sv-num{color:var(--green)}
+#svIncorrect .sv-num{color:var(--red)}
+#svCurrent .sv-num{color:var(--teal)}
+.progress-wrap{margin-top:12px}
+.progress-track{height:5px;background:var(--rule);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));
+  border-radius:999px;transition:width .4s cubic-bezier(.4,0,.2,1);width:5%}
+.progress-lbl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--mist);margin-top:5px;text-align:right}
+.mode-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mode-btn{font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;
+  border:2px solid var(--rule);border-radius:var(--rs);padding:8px;cursor:pointer;
+  background:none;color:var(--slate);transition:all var(--tr)}
+.mode-btn.active{border-color:var(--teal);background:var(--teal-light);color:var(--teal-deep)}
+.timer-panel{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 16px}
+.timer-box{background:var(--cream);border-radius:var(--rs);padding:10px}
+.timer-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--mist);text-transform:uppercase;letter-spacing:.1em}
+.timer-val{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:600;color:var(--ink);margin-top:4px}
+.tool-panel{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:14px 16px}
+.tool-btn{font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:600;
+  border:1.5px solid var(--rule);border-radius:var(--rs);padding:8px 6px;cursor:pointer;
+  background:none;color:var(--ink2);transition:all var(--tr);display:flex;align-items:center;gap:5px;justify-content:center}
+.tool-btn:hover{background:var(--cream)}
+.tool-btn.active{border-color:var(--gold);background:var(--gold-bg);color:var(--amber)}
+.exam-submit-row{display:none}
+.exam-submit-row.exam-live{display:block}
+.exam-submit-row.exam-done{display:block}
+#submitExamBtn{width:100%;background:linear-gradient(135deg,var(--coral),#d46040);color:#fff;
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;border:none;
+  border-radius:var(--rs);padding:12px;cursor:pointer;transition:opacity var(--tr)}
+#submitExamBtn:disabled{opacity:.4;cursor:not-allowed}
+#submitExamBtn:not(:disabled):hover{opacity:.88}
+#examProgress{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--slate);margin-top:8px;text-align:center}
+
+/* QUESTION CARD */
+.q-right{animation:cardIn .4s .1s cubic-bezier(.4,0,.2,1) both}
+.qcard{background:var(--white);border-radius:var(--r);box-shadow:var(--sh2);border:1px solid var(--rule);overflow:hidden}
+.qcard-head{padding:16px 24px 0;display:flex;align-items:center;justify-content:space-between}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--mist)}
+.qplo{font-family:'IBM Plex Mono',monospace;font-size:.7rem;
+  background:var(--teal-light);color:var(--teal-deep);padding:3px 10px;border-radius:999px}
+.qstem{font-family:'Crimson Pro',serif;font-size:1.3rem;font-weight:600;
+  color:var(--ink);padding:18px 24px 20px;line-height:1.5}
+.choices{display:flex;flex-direction:column;border-top:1px solid var(--rule2)}
+.ach{display:flex;align-items:flex-start;gap:14px;padding:14px 22px;cursor:pointer;
+  border-bottom:1px solid var(--rule2);transition:background var(--tr)}
+.ach:last-child{border-bottom:none}
+.ach:hover{background:var(--cream)}
+.ach.selected{background:var(--sky-bg)}
+.ach.selected .aletter{background:var(--sky);color:#fff;border-color:var(--sky)}
+.ach.correct{background:var(--green-bg) !important}
+.ach.correct .aletter{background:var(--green);color:#fff;border-color:var(--green)}
+.ach.incorrect{background:var(--red-bg) !important}
+.ach.incorrect .aletter{background:var(--red);color:#fff;border-color:var(--red)}
+.ach.dimmed{opacity:.42}
+.ach.eliminated .ctx{text-decoration:line-through;opacity:.5}
+.aletter{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--slate);
+  transition:all var(--tr);margin-top:2px}
+.ctx{font-size:16px;font-family:'Nunito',sans-serif;color:var(--ink2);line-height:1.5}
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:16px}
+#qo[data-fs="lg"] .ctx{font-size:19px}
+#qo[data-fs="xl"] .ctx{font-size:22px}
+.qactions{padding:16px 22px;display:flex;justify-content:flex-end;border-top:1px solid var(--rule2)}
+.submit-btn{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:.9rem;border:none;
+  border-radius:999px;padding:10px 28px;cursor:pointer;transition:opacity var(--tr)}
+.submit-btn:disabled{opacity:.35;cursor:not-allowed}
+.submit-btn:not(:disabled):hover{opacity:.88}
+
+/* EXPLANATION */
+.exblock{padding:20px 24px;border-top:1px solid var(--rule2);animation:fi .3s cubic-bezier(.4,0,.2,1);display:none}
+.exblock.shown{display:block}
+.ex-correct{background:var(--green-bg);border-left:4px solid var(--green);border-radius:var(--rs);padding:14px 16px;margin-bottom:10px}
+.ex-teach{background:var(--teal-light);border-left:4px solid var(--teal);border-radius:var(--rs);padding:14px 16px;margin-bottom:10px}
+.ex-wrong{background:var(--red-bg);border-left:4px solid var(--red);border-radius:var(--rs);padding:12px 14px;margin-bottom:6px}
+.ex-lbl{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;margin-bottom:6px}
+.ex-correct .ex-lbl{color:var(--green)}
+.ex-teach .ex-lbl{color:var(--teal-deep)}
+.ex-wrong .ex-lbl{color:var(--red)}
+.ex-correct p,.ex-teach p,.ex-wrong p{font-size:.9rem;line-height:1.65;color:var(--ink2)}
+
+/* NAV */
+.qnv{display:flex;align-items:center;gap:10px;padding:16px 22px 20px;border-top:1px solid var(--rule2)}
+.nb{font-family:'Nunito',sans-serif;font-weight:700;font-size:.85rem;
+  border:2px solid var(--rule);border-radius:var(--rs);padding:8px 18px;cursor:pointer;
+  background:none;color:var(--ink2);transition:all var(--tr)}
+.nb:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}
+.nb:disabled{opacity:.3;cursor:not-allowed}
+.qdots{display:flex;flex-wrap:wrap;gap:5px;flex:1;justify-content:center}
+.qd{width:10px;height:10px;border-radius:50%;background:var(--rule);cursor:pointer;
+  transition:all var(--tr);border:none;padding:0}
+.qd.current{background:var(--teal);transform:scale(1.3)}
+.qd.answered-c{background:var(--green)}
+.qd.answered-w{background:var(--red)}
+.qd.answered-u{background:var(--gold)}
+
+/* PRINT */
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,body.print-review-active .qo{display:none !important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:980px;margin:0 auto;font-family:'Nunito',sans-serif}
+.print-card{break-inside:avoid;border:1px solid #ddd;border-radius:16px;padding:20px;margin-bottom:18px}
+.print-choice-plain{border:1px solid #eee;border-radius:8px;padding:6px 10px;margin-bottom:4px;font-size:.9rem}
+.print-choice-correct{border:1px solid #2D8659;background:#E8F5EE;border-radius:8px;padding:6px 10px;margin-bottom:4px;font-size:.9rem}
+.print-choice-wrong{border:1px solid #C44040;background:#FDF0F0;border-radius:8px;padding:6px 10px;margin-bottom:4px;font-size:.9rem}
+.print-explainer{padding:12px 14px;border-radius:8px;margin-top:8px;font-size:.88rem}
+.print-explainer.correct-box{background:#E8F5EE;border-left:4px solid #2D8659}
+.print-explainer.teach-box{background:#E3F5F2;border-left:4px solid #1A7A6D}
+.print-explainer.wrong-box{background:#FDF0F0;border-left:4px solid #C44040}
+@media print{
+  body.print-review-active .launch-wrap,body.print-review-active .qo{display:none !important}
+  body.print-review-active #printReviewRoot{display:block !important;padding:0}
+}
+
+/* RESPONSIVE */
+@media(max-width:920px){
+  .qin{grid-template-columns:1fr;padding:18px 14px 60px;gap:14px}
+  .timer-panel{grid-template-columns:1fr 1fr}
+  .tool-panel{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .qt-bar{flex-direction:column;align-items:flex-start}
+  .qstem{font-size:1.1rem;padding:14px 16px 16px}
+  .ach{padding:12px 16px}
+  .qnv{flex-direction:column;align-items:stretch}
+  .qdots{order:3}
+  .nb{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH -->
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Cancer <span>Genomics</span> &amp; Precision Medicine</h1>
+    <p>Dr. Harrison · Week 43 · Block 5 — 20 MCQs covering all PLOs and LOs</p>
+    <div class="launch-meta">
+      <span class="chip">20 Questions</span>
+      <span class="chip">PLOs 1–4 + LOs 1–4</span>
+      <span class="chip">Learn &amp; Exam Modes</span>
+      <span class="chip">Lynch · Cell Cycle · p53 · GWAS</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz</button>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>Cancer Genomics — Dr. Harrison</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn active" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuizBtn">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="panel-label">Score</div>
+        <div class="score-grid">
+          <div class="sv" id="svCorrect"><span class="sv-num">0</span><span class="sv-lbl">Correct</span></div>
+          <div class="sv" id="svIncorrect"><span class="sv-num">0</span><span class="sv-lbl">Wrong</span></div>
+          <div class="sv" id="svCurrent"><span class="sv-num">1</span><span class="sv-lbl">Question</span></div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-track"><div class="progress-fill" id="qpf"></div></div>
+          <div class="progress-lbl" id="qpLbl">1 / 20</div>
+        </div>
+      </div>
+      <div class="mode-toggle">
+        <div class="panel-label">Mode</div>
+        <div class="mode-btns">
+          <button class="mode-btn active" id="learnBtn">Learn</button>
+          <button class="mode-btn" id="examBtn">Exam</button>
+        </div>
+      </div>
+      <div class="timer-panel">
+        <div class="timer-box"><div class="timer-lbl">Question</div><div class="timer-val" id="qTimer">0:00</div></div>
+        <div class="timer-box"><div class="timer-lbl">Total</div><div class="timer-val" id="tTimer">0:00</div></div>
+      </div>
+      <div class="tool-panel">
+        <div class="panel-label" style="grid-column:1/-1">Tools</div>
+        <button class="tool-btn" id="flagTool">🚩 Flag</button>
+        <button class="tool-btn" id="eliminateTool">✕ Eliminate</button>
+      </div>
+      <div class="exam-submit-row" id="examSubmitRow">
+        <button id="submitExamBtn" disabled>Submit Exam</button>
+        <div id="examProgress"></div>
+      </div>
+    </div>
+
+    <div class="q-right">
+      <div class="qcard" id="qA">
+        <div class="qcd">
+          <div class="qcard-head">
+            <span class="qnum" id="qnum">Question 1 of 20</span>
+            <span class="qplo" id="qplo">PLO 1</span>
+          </div>
+          <div class="qstem" id="qStem">Loading…</div>
+          <div class="choices" id="choicesEl"></div>
+          <div class="qactions" id="qActionsEl">
+            <button class="submit-btn" id="submitBtn" disabled>Submit Answer</button>
+          </div>
+          <div class="exblock" id="exBlock"></div>
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Prev</button>
+            <div class="qdots" id="qdots"></div>
+            <button class="nb" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+/* ════════════════════════════════════════
+   QUESTIONS  —  clean exam-style choices
+════════════════════════════════════════ */
+const questions = [
+
+  /* ── PLO 1 ── */
+  {
+    plo:"PLO 1",
+    stem:"Which gene is most commonly mutated in Lynch syndrome?",
+    choices:["MSH2","MLH1","PMS2","MSH6"],
+    correct:1,
+    explanation:{
+      correct:"MLH1 is the most frequently mutated Lynch syndrome gene. It encodes a mismatch repair protein that forms the MutLα complex with PMS2, correcting replication-induced base mismatches and insertion/deletion loops.",
+      teaching:"Frequency order: MLH1 > MSH2 > MSH6 > PMS2. MLH1 and MSH2 together account for the majority of Lynch syndrome cases. On the exam, MLH1 = most common; MSH6 loss = endometrial-dominant phenotype.",
+      wrongs:[
+        "A — MSH2 is the second most commonly mutated gene, not the first. It recognises mismatched bases and partners with MSH6 or MSH3.",
+        "C — PMS2 mutations generally carry lower penetrance than MLH1 or MSH2 and are identified in a smaller proportion of Lynch families.",
+        "D — MSH6 mutations are associated with endometrial cancer predominance and account for a smaller proportion of Lynch syndrome cases than MLH1 or MSH2."
+      ]
+    }
+  },
+
+  {
+    plo:"PLO 1",
+    stem:"A woman inherits one pathogenic MLH1 allele from her mother. According to the Knudson two-hit model, Lynch syndrome–associated colorectal cancer develops when:",
+    choices:[
+      "A second pathogenic MLH1 allele is inherited from her father",
+      "A somatic mutation inactivates the remaining MLH1 allele in a colon epithelial cell",
+      "MMR deficiency causes genome-wide microsatellite instability in all somatic cells simultaneously",
+      "Oncogenic KRAS mutations accumulate to a threshold level in colonic mucosa"
+    ],
+    correct:1,
+    explanation:{
+      correct:"The inherited germline mutation is the 1st hit — present in every cell but insufficient alone for cancer. Cancer arises when a random somatic mutation knocks out the remaining allele in one cell (2nd hit), completely abolishing MMR in that lineage. This is why Lynch syndrome predisposes but does not guarantee cancer.",
+      teaching:"Two-hit model: 1st hit = germline (constitutional, all cells), 2nd hit = somatic (stochastic, single cell). The inherited mutation raises risk because only one further event is needed instead of two independent somatic hits. Timing of the 2nd hit is random — hence variable age of onset.",
+      wrongs:[
+        "A — The 2nd hit is a somatic event in a single cell, not a second inherited mutation. Constitutional biallelic inactivation would cause a more severe, early-onset syndrome.",
+        "C — MSI develops in the individual cell lineage where both alleles are lost, not synchronously across all somatic cells.",
+        "D — KRAS mutations are downstream driver events that accelerate tumorigenesis after MMR is lost — they are not the triggering 2nd hit defined by Knudson."
+      ]
+    }
+  },
+
+  {
+    plo:"PLO 1",
+    stem:"MLH1, MSH2, MSH6, and PMS2 are classified as caretaker genes rather than gatekeeper genes because they:",
+    choices:[
+      "Directly block cyclin–CDK activity at the G1/S restriction point",
+      "Transcribe p21 and BAX in response to replication stress",
+      "Stabilise the genome by repairing DNA replication errors, preventing mutation accumulation",
+      "Suppress oncogene expression through CpG island methylation"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Caretaker genes maintain genomic integrity by repairing DNA errors — they do not directly regulate cell cycle entry or exit. Loss of MMR does not cause cancer immediately; it accelerates the accumulation of mutations genome-wide until a driver mutation is eventually hit.",
+      teaching:"Gatekeeper genes (e.g., RB1, APC) directly restrain cell division. Caretaker genes (e.g., MLH1, MSH2, BRCA1/2) are genome maintenance genes. Their loss is 'environmentally equivalent to constant mutagen exposure' (Dr. Harrison). Lynch syndrome = caretaker gene; retinoblastoma = gatekeeper gene.",
+      wrongs:[
+        "A — That describes gatekeeper gene function (e.g., p16 inhibiting CDK4/6). MMR proteins do not regulate CDK activity.",
+        "B — p21 and BAX transcription is a p53-mediated response, not a function of MMR proteins.",
+        "D — Epigenetic silencing of oncogenes is not the primary function of mismatch repair proteins, which act on replication errors in the DNA sequence."
+      ]
+    }
+  },
+
+  /* ── PLO 2 ── */
+  {
+    plo:"PLO 2",
+    stem:"Which cyclin–CDK complex is first activated by mitogenic signals to initiate phosphorylation of Rb at the G1/S checkpoint?",
+    choices:["Cyclin E–CDK2","Cyclin D–CDK4/6","Cyclin B–CDK1","Cyclin A–CDK2"],
+    correct:1,
+    explanation:{
+      correct:"Growth factors → Ras → MAPK → Cyclin D synthesis. Cyclin D partners with CDK4/6 to partially phosphorylate Rb, releasing enough E2F to drive Cyclin E transcription. Cyclin E–CDK2 then completes Rb phosphorylation in a positive feedback loop — but Cyclin D initiates the process.",
+      teaching:"Rb–E2F cascade: growth factor → Cyclin D–CDK4/6 (partial Rb phosphorylation) → Cyclin E transcription → Cyclin E–CDK2 (full Rb phosphorylation) → E2F release → S-phase genes. Cyclin D = the responder to external signals. CCND1 amplification or CDK4/6 amplification bypasses this requirement.",
+      wrongs:[
+        "A — Cyclin E–CDK2 completes Rb phosphorylation and commits the cell to S phase, but it acts downstream of Cyclin D — not as the initiating complex.",
+        "C — Cyclin B–CDK1 (MPF — Maturation Promoting Factor) drives the G2/M transition and mitotic entry, not the G1/S checkpoint.",
+        "D — Cyclin A–CDK2 functions in S phase to promote replication fork progression and inactivate E2F — it acts after the G1/S transition has already occurred."
+      ]
+    }
+  },
+
+  {
+    plo:"PLO 2",
+    stem:"A breast cancer biopsy shows CCND1 (Cyclin D1) amplification. The direct mechanism driving uncontrolled proliferation is:",
+    choices:[
+      "Constitutive MDM2 activation leading to p53 degradation",
+      "Persistent Rb phosphorylation causing unrestricted E2F-driven S-phase entry",
+      "Premature Cyclin B–CDK1 activation bypassing the G2/M checkpoint",
+      "Telomerase reactivation conferring replicative immortality"
+    ],
+    correct:1,
+    explanation:{
+      correct:"Cyclin D1 activates CDK4/6. When Cyclin D1 is overexpressed, CDK4/6 activity is constitutive — Rb is permanently phosphorylated, E2F is permanently released, and cells enter S phase continuously without requiring external growth signals. The G1/S restriction point is effectively disabled.",
+      teaching:"Cyclin D amplification is a common oncogenic event in breast cancer and mantle cell lymphoma. CDK4/6 inhibitors (palbociclib, ribociclib, abemaciclib) directly counter this by re-locking Rb in its active, hypophosphorylated state. Loss of p16/CDKN2A causes the same downstream effect.",
+      wrongs:[
+        "A — Cyclin D1 overexpression acts on the Rb–E2F axis. MDM2-p53 is a separate pathway not directly activated by Cyclin D1 overexpression.",
+        "C — Cyclin B–CDK1 governs G2/M, a distinct checkpoint. Cyclin D1 amplification affects G1/S, not mitotic entry.",
+        "D — Telomerase reactivation addresses replicative senescence (Hayflick limit) — it is a separate cancer hallmark unrelated to Cyclin D1 function."
+      ]
+    }
+  },
+
+  {
+    plo:"PLO 2",
+    stem:"Normal somatic cells are limited to approximately 50–70 divisions by the Hayflick limit. Cancer cells overcome this primarily by:",
+    choices:[
+      "Amplifying CDK4/6 to bypass the G1/S restriction point indefinitely",
+      "Losing p53 to prevent telomere-length-dependent apoptosis",
+      "Reactivating telomerase (TERT), extending telomeric TTAGGG repeats at each division",
+      "Silencing p21/CDKN1A to prevent intra-S-phase checkpoint arrest"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Telomeres shorten with each division because DNA polymerase cannot fully replicate chromosome ends. Critically short telomeres trigger senescence or apoptosis. Cancer cells reactivate telomerase (encoded by TERT), which synthesises new TTAGGG repeats, maintaining telomere length and enabling indefinite replication.",
+      teaching:"Telomere shortening is a tumour-suppressive mechanism in normal cells. TERT reactivation is detectable in the vast majority of cancers (via TERT promoter mutations or amplification) and is one of the key steps in achieving the hallmark of replicative immortality.",
+      wrongs:[
+        "A — CDK4/6 amplification accelerates cell cycling but does not affect how many total times a cell can divide — it does not solve the telomere problem.",
+        "B — p53 loss removes the cellular response to critically short telomeres but does not prevent the shortening itself. Cells still need a mechanism to maintain telomere length.",
+        "D — p21/CDKN1A inhibition affects the G1/S checkpoint, not telomere biology or the Hayflick limit."
+      ]
+    }
+  },
+
+  /* ── PLO 3 ── */
+  {
+    plo:"PLO 3",
+    stem:"Following a DNA double-strand break, p53 is stabilised primarily through the actions of:",
+    choices:[
+      "CDK4/6, activated downstream of the MAPK signalling cascade",
+      "MDM2, which ubiquitinates p53 and triggers its nuclear accumulation",
+      "ATM/ATR and CHK1/CHK2, which phosphorylate p53 to prevent MDM2 binding",
+      "Cyclin B–CDK1, which phosphorylates p53 at the G2/M transition"
+    ],
+    correct:2,
+    explanation:{
+      correct:"DSBs activate ATM; single-stranded DNA activates ATR. Both phosphorylate CHK1/CHK2, which then phosphorylate p53 at Ser15/Ser20. This disrupts p53's interaction with MDM2's binding groove, preventing ubiquitination. p53 accumulates and acts as a transcription factor for arrest or apoptosis genes.",
+      teaching:"Pathway: DSB → ATM → CHK2 → p53 Ser15/20 phosphorylation → MDM2 cannot bind → p53 accumulates → transcribes p21 (arrest) or BAX/PUMA (apoptosis). ssDNA: ATR → CHK1 → same. Under normal (no damage) conditions: MDM2 ubiquitinates p53 → proteasomal degradation → p53 half-life ~20 min.",
+      wrongs:[
+        "A — CDK4/6 is activated by mitogenic signals in the Rb–E2F pathway. It is not involved in the DNA damage response or p53 stabilisation.",
+        "B — MDM2 normally promotes p53 degradation — it is the negative regulator, not an activator. DNA damage breaks the MDM2–p53 interaction, which is what stabilises p53.",
+        "D — Cyclin B–CDK1 drives mitotic entry at G2/M. It is not responsible for p53 stabilisation in the DNA damage response."
+      ]
+    }
+  },
+
+  {
+    plo:"PLO 3",
+    stem:"After mild, repairable DNA damage, p53 induces cell cycle arrest at G1/S primarily by transcribing:",
+    choices:["MDM2","BAX","p21 (CDKN1A)","VEGF"],
+    correct:2,
+    explanation:{
+      correct:"p53 transcribes p21 (encoded by CDKN1A), a CDK inhibitor. p21 inhibits CDK2–Cyclin E and CDK2–Cyclin A complexes, keeping Rb in its hypophosphorylated (active) state. E2F remains sequestered, S-phase genes are not expressed, and the cell arrests at G1/S — allowing DNA repair before commitment to replication.",
+      teaching:"p53's two main cell fate decisions: mild damage → transcribe p21 → G1/S arrest → repair → resume cycle. Severe damage → transcribe BAX/PUMA/NOXA → mitochondrial apoptosis pathway. Both share the same upstream activation cascade (ATM → CHK2 → p53 stabilisation).",
+      wrongs:[
+        "A — MDM2 is transcribed by p53, but as part of a negative feedback loop to degrade p53 once the damage signal resolves — not to induce arrest.",
+        "B — BAX is a pro-apoptotic Bcl-2 family member transcribed by p53 in response to severe or irreparable DNA damage, not for a temporary arrest.",
+        "D — VEGF is an angiogenic growth factor whose transcription is actually repressed by active p53 — p53 does not transcribe VEGF to induce cell cycle arrest."
+      ]
+    }
+  },
+
+  {
+    plo:"PLO 3",
+    stem:"A liposarcoma has MDM2 amplification but a completely wild-type TP53 sequence. The functional consequence for the p53 pathway is:",
+    choices:[
+      "Constitutive p53 activation and continuous apoptotic signalling in tumour cells",
+      "No change in p53 activity, as MDM2 only regulates p53 during S phase",
+      "Functional inactivation of the p53 pathway through excessive p53 ubiquitination and proteasomal degradation",
+      "Gain-of-function p53 oncogenic activity, because MDM2 induces a dominant-negative p53 conformation"
+    ],
+    correct:2,
+    explanation:{
+      correct:"MDM2 is p53's own E3 ubiquitin ligase — it attaches ubiquitin chains to p53, targeting it for proteasomal degradation. When MDM2 is amplified, it degrades p53 at an excessive rate even in the presence of DNA damage. The cell loses tumour suppression without any TP53 mutation — the pathway is silenced through its own negative regulator.",
+      teaching:"This is a key concept: the p53 pathway can be functionally inactivated without a TP53 mutation. MDM2 amplification is the classic example. Clinical implication: MDM2 inhibitors (e.g., nutlins — bind the MDM2 hydrophobic pocket, block p53 binding) can restore p53 function in these tumours. Always think pathway, not just gene.",
+      wrongs:[
+        "A — Amplified MDM2 does the opposite: it accelerates p53 degradation. p53 activity is suppressed, not constitutively activated.",
+        "B — MDM2 regulates p53 continuously throughout the cell cycle, forming a constitutive autoregulatory feedback loop. It is not restricted to S phase.",
+        "D — Gain-of-function p53 properties arise from specific missense mutations in the TP53 DNA-binding domain, not from MDM2 amplification."
+      ]
+    }
+  },
+
+  {
+    plo:"PLO 3",
+    stem:"The R273 (Arg273) residue of p53 is the most commonly mutated position in human cancers. Mutation at R273 is particularly damaging because this residue is located in:",
+    choices:[
+      "The tetramerisation domain, preventing formation of the p53 homotetramer",
+      "The DNA-binding domain, abolishing sequence-specific binding to target gene promoters",
+      "The transactivation domain, preventing co-activator recruitment and RNA Pol II interaction",
+      "The nuclear export signal, trapping mutant p53 constitutively in the cytoplasm"
+    ],
+    correct:1,
+    explanation:{
+      correct:"R273 makes direct contact with DNA in p53's DNA-binding domain (DBD). Mutation to R273C or R273H physically disrupts this contact, abolishing p53's ability to bind its response element promoter sequences. p53 cannot transcribe p21 (arrest) or BAX/PUMA (apoptosis) — cells with severe DNA damage continue dividing.",
+      teaching:"Most TP53 hotspot mutations cluster in the DBD (exons 5–8). The most recurrent residues are R273, R248, R175, G245, R249, R282. These are missense mutations — the protein is expressed but non-functional. Some (e.g., R248W) also exhibit dominant-negative effects on remaining wild-type p53. See cancerhotspots.org.",
+      wrongs:[
+        "A — The tetramerisation domain is a structurally distinct region (residues ~325–356). R273 is deep in the central DNA-binding domain (~residues 102–292).",
+        "C — The transactivation domain is at p53's N-terminus (~residues 1–42). It interacts with MDM2 and transcriptional co-activators, but R273 is not located there.",
+        "D — p53 does contain nuclear export signals, but R273 is not part of them. Mutant p53 typically remains nuclear, able to exert dominant-negative effects."
+      ]
+    }
+  },
+
+  /* ── PLO 4 ── */
+  {
+    plo:"PLO 4",
+    stem:"In a genome browser track, thick filled boxes represent exons and thin lines with chevron arrows represent introns. Which of the following accurately describes the fate of introns during gene expression?",
+    choices:[
+      "Introns are transcribed into pre-mRNA and retained in the mature mRNA where they are translated",
+      "Introns are not transcribed, existing only as non-coding spacers between exons in the genome",
+      "Introns are transcribed into pre-mRNA but removed by the spliceosome and absent from the mature mRNA",
+      "Introns are transcribed and exported to the cytoplasm where they regulate translation of exonic mRNA"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Introns are transcribed as part of the pre-mRNA, but the spliceosome excises them during RNA processing in the nucleus. The mature mRNA exported to the cytoplasm consists only of joined exonic sequences. Introns are not translated.",
+      teaching:"Gene expression flow: DNA → transcription → pre-mRNA (exons + introns) → splicing → mature mRNA (exons only) → translation → protein. Only the CDS portion of the exons encodes protein. UTRs are exonic but not translated. Thick box = exon; thin chevron = intron — examinable from genome browser images.",
+      wrongs:[
+        "A — Introns are indeed transcribed, but they are spliced out — not retained in mature mRNA. Retention of introns (intron retention) is a type of aberrant splicing seen in some cancers.",
+        "B — Introns are transcribed into pre-mRNA. They are not merely genomic spacers — they are part of the primary RNA transcript before splicing.",
+        "D — Introns are degraded after splicing. They are not exported to the cytoplasm to regulate translation."
+      ]
+    }
+  },
+
+  {
+    plo:"PLO 4",
+    stem:"A SNP in the TP53 coding sequence changes codon UCU to UCC. Both encode serine. This variant is best classified as:",
+    choices:[
+      "Missense — a non-synonymous change altering the encoded amino acid",
+      "Nonsense — a non-synonymous change introducing a premature stop codon",
+      "Synonymous (silent) — no amino acid change due to redundancy of the genetic code",
+      "Splice site — a variant disrupting the exon–intron boundary consensus sequence"
+    ],
+    correct:2,
+    explanation:{
+      correct:"UCU and UCC both encode serine — this is a synonymous (silent) SNP. Because the genetic code is degenerate (64 codons, 20 amino acids), many amino acids are encoded by multiple codons. No protein sequence change occurs. The variant is most likely functionally neutral, though synonymous changes can occasionally affect splicing or mRNA stability.",
+      teaching:"Genetic code redundancy: most amino acids have 2–6 codons. The third codon position (wobble position) is most degenerate. Synonymous SNPs = no amino acid change = usually benign. Non-synonymous (missense) = amino acid change = potentially functional. Nonsense = new stop codon = truncated protein.",
+      wrongs:[
+        "A — A missense SNP changes the encoded amino acid (e.g., UCU → ACU: serine → threonine). UCU → UCC does not change the amino acid.",
+        "B — A nonsense mutation introduces a stop codon (UAA, UAG, or UGA). UCC is a serine codon, not a stop codon.",
+        "D — Splice site variants occur at GT/AG dinucleotides at exon–intron boundaries. A mid-exon codon change would not directly disrupt splice signals."
+      ]
+    }
+  },
+
+  /* ── LO 1 ── */
+  {
+    plo:"LO 1",
+    stem:"Which correctly describes the three fundamental steps of whole-genome sequencing in the right order?",
+    choices:[
+      "RNA extraction → reverse transcription → sequencing → transcriptome alignment",
+      "Hybridisation capture with biotinylated baits → targeted sequencing → coding variant calling",
+      "DNA fragmentation → massively parallel sequencing → alignment to reference genome",
+      "PCR amplification of target exons → Sanger sequencing → manual genome assembly"
+    ],
+    correct:2,
+    explanation:{
+      correct:"WGS: (1) Fragmentation — chromosomal DNA is sheared to ~150–300 bp fragments (sequencers cannot read whole chromosomes); (2) Sequencing — all fragments are sequenced simultaneously by sequencing-by-synthesis, producing millions of short reads; (3) Alignment — reads are mapped back to the GRCh38 reference genome to identify variant positions.",
+      teaching:"Core NGS principle: fragmentation → sequencing → assembly/alignment. Sequencing-by-synthesis uses fluorescently labelled nucleotides incorporated one at a time and imaged. WGS covers the entire genome (coding + non-coding). WES = same workflow but with a hybridisation capture step before sequencing to enrich exons.",
+      wrongs:[
+        "A — RNA extraction and reverse transcription describe RNA-Seq (transcriptomics). WGS starts directly from genomic DNA.",
+        "B — Hybridisation capture with biotinylated RNA baits describes WES (whole exome sequencing), not WGS. WGS requires no target enrichment.",
+        "D — Sanger sequencing is low-throughput, single-fragment sequencing — the predecessor to NGS, not the WGS method."
+      ]
+    }
+  },
+
+  {
+    plo:"LO 1",
+    stem:"To definitively distinguish inherited germline variants from somatic tumour mutations in a cancer patient, the required experimental design is:",
+    choices:[
+      "Tumour WGS only, comparing all variants against a public population reference database",
+      "Tumour RNA-Seq, to identify mutations in actively transcribed cancer genes",
+      "Paired tumour–normal sequencing, identifying variants present only in the tumour as somatic",
+      "Tumour WES only, classifying coding variants by their odds ratio from GWAS databases"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Without a paired normal sample, every variant in the tumour could be either germline (present since birth) or somatic (acquired). Sequencing a matched normal tissue (e.g., blood) from the same patient provides the constitutional baseline. Variants in both samples = germline; variants only in tumour = somatic. This paired design is the standard in clinical oncology genomics.",
+      teaching:"The matched normal is usually blood or buccal swab — containing the constitutional (inherited) genome. Somatic variants in tumour = cancer drivers and targets. Germline variants = inherited risk (may trigger referral for genetic counselling). Without this design, you cannot make the distinction reliably.",
+      wrongs:[
+        "A — Population reference databases (e.g., gnomAD) help with variant interpretation but cannot distinguish germline from somatic in an individual patient — germline variants can be absent from population databases if rare.",
+        "B — RNA-Seq measures expression levels, not genomic sequence variants, and cannot reliably classify germline vs. somatic at the DNA level.",
+        "D — Odds ratios from GWAS measure population-level disease associations, not whether a variant in an individual patient is germline or somatic."
+      ]
+    }
+  },
+
+  /* ── LO 2 ── */
+  {
+    plo:"LO 2",
+    stem:"The genome-wide significance threshold in GWAS is set at P < 5 × 10⁻⁸ rather than the conventional P < 0.05 because:",
+    choices:[
+      "GWAS cohorts are very large, requiring a stricter threshold to control for type II errors",
+      "SNP arrays perform approximately one million simultaneous tests, requiring Bonferroni-style correction for multiple testing",
+      "Most GWAS SNPs are synonymous and a stringent threshold filters out non-functional variants",
+      "GWAS associations must be validated in at least five independent cohorts before publication"
+    ],
+    correct:1,
+    explanation:{
+      correct:"GWAS simultaneously tests ~1 million independent SNP positions. Using P < 0.05 would yield ~50,000 false positives by chance alone. The threshold 5 × 10⁻⁸ ≈ 0.05 ÷ 1,000,000 is a Bonferroni-style correction: it limits the expected number of false positives across the entire genome to ~0.05.",
+      teaching:"Memorise: P < 5 × 10⁻⁸ = genome-wide significant. Even P = 10⁻⁶ is NOT genome-wide significant — approximately 1 in 1,000 tests would exceed this by chance. The threshold corrects for multiple testing, not for effect size. A highly significant SNP can still have a tiny, clinically trivial OR.",
+      wrongs:[
+        "A — Large sample size increases statistical power (ability to detect real effects) but is not the reason for the stringent threshold. The threshold corrects for multiple testing, not sample size.",
+        "C — SNP function (synonymous vs. non-synonymous) is irrelevant to the significance threshold. The threshold exists because of the number of simultaneous tests performed.",
+        "D — Replication in independent cohorts is a separate scientific requirement for biological validation, not the basis for the statistical significance threshold."
+      ]
+    }
+  },
+
+  {
+    plo:"LO 2",
+    stem:"In a GWAS, a SNP in the TERT gene shows P = 9.8 × 10⁻¹⁴ and OR = 0.80 in a European pancreatic cancer cohort. This result is best described as:",
+    choices:[
+      "A risk allele, statistically significant, conferring 80% increased odds of pancreatic cancer",
+      "A risk allele, but below genome-wide significance because the p-value exceeds 0.05",
+      "A protective allele, genome-wide significant, associated with approximately 20% reduced odds of pancreatic cancer",
+      "An uninterpretable result because an OR below 1.0 indicates a modelling error in the GWAS"
+    ],
+    correct:2,
+    explanation:{
+      correct:"OR = 0.80 means carrying this allele reduces disease odds by (1 − 0.80) × 100% = 20% — it is protective, not a risk allele. P = 9.8 × 10⁻¹⁴ is far below the threshold of 5 × 10⁻⁸, so the result is genome-wide significant. However, being a European cohort is an important caveat — the finding may not generalise to other ancestries.",
+      teaching:"Interpreting OR: OR < 1 = protective (risk allele decreases odds); OR > 1 = risk-increasing; OR = 1 = no association. P-value = confidence the association is real. Effect size (OR) and significance (p-value) answer two different questions. Always assess both, plus study ancestry.",
+      wrongs:[
+        "A — OR = 0.80 is below 1.0, which indicates a protective effect, not increased risk. Risk alleles have OR > 1.",
+        "B — P = 9.8 × 10⁻¹⁴ is far below 5 × 10⁻⁸, making this clearly genome-wide significant. The conventional 0.05 threshold is not used in GWAS.",
+        "D — OR < 1 is a valid, meaningful result indicating a protective allele. It is not a modelling error — it means cases are less likely to carry this allele than controls."
+      ]
+    }
+  },
+
+  {
+    plo:"LO 2",
+    stem:"On a GWAS Manhattan plot, what does a tall vertical spike ('skyscraper') rising well above the horizontal dashed significance line represent?",
+    choices:[
+      "A chromosomal region with unusually high SNP density and a large number of tested variants",
+      "A very common SNP with high minor allele frequency in the study population",
+      "A SNP or LD-block strongly and statistically associated with the disease phenotype",
+      "A chromosomal structural variant such as a large deletion or translocation"
+    ],
+    correct:2,
+    explanation:{
+      correct:"The y-axis plots –log₁₀(p-value). A very small p-value produces a large negative log, appearing as a tall spike. A spike exceeding the dashed P < 5 × 10⁻⁸ threshold line represents a SNP (or cluster of SNPs in high LD) with a statistically significant association with the trait. Nearby points spiking together define the associated LD block.",
+      teaching:"Manhattan plot axes: x = chromosomal position (chr 1–22, X, Y, alternating colours); y = –log₁₀(p-value). Dashed line = genome-wide significance threshold. The causal variant may not be the top hit — it is somewhere in the LD block surrounding the peak. The top hit may be a tag SNP in LD with the true causal variant.",
+      wrongs:[
+        "A — SNP density affects how thoroughly a region is interrogated but does not itself create tall spikes. High density with all neutral SNPs would produce a flat, low Manhattan plot.",
+        "B — Allele frequency is not plotted on a Manhattan plot. A common SNP with p = 0.5 would show as a flat point, not a spike.",
+        "D — Structural variants (CNVs, translocations) require different detection platforms. Standard SNP array–based GWAS detects single nucleotide changes."
+      ]
+    }
+  },
+
+  /* ── LO 3 ── */
+  {
+    plo:"LO 3",
+    stem:"A SNP changes the codon UCU to ACU, converting serine to threonine. This is classified as a:",
+    choices:[
+      "Synonymous (silent) SNP, because the change is in the third codon position",
+      "Nonsense SNP, because it introduces a premature stop codon in the reading frame",
+      "Non-synonymous (missense) SNP, because it alters the encoded amino acid",
+      "Regulatory SNP, because it affects mRNA stability through ribosome binding"
+    ],
+    correct:2,
+    explanation:{
+      correct:"UCU encodes serine; ACU encodes threonine — a different amino acid. Any SNP that changes the encoded amino acid is non-synonymous (missense). Depending on the protein position affected, this could alter folding, binding, or function — and may be pathogenic (e.g., R273C in TP53).",
+      teaching:"SNP classification: synonymous = same AA (silent); non-synonymous/missense = different AA (potentially functional); nonsense = new stop codon (truncated protein); splice site = disrupts GT/AG consensus at exon–intron boundary. Pathogenic variants are most often missense or nonsense.",
+      wrongs:[
+        "A — Synonymous SNPs do not change the amino acid. Serine → Threonine is a definite amino acid change, making this non-synonymous regardless of codon position.",
+        "B — Nonsense mutations specifically create a stop codon (UAA, UAG, UGA). ACU encodes threonine, not a stop codon.",
+        "D — Regulatory SNPs are located in promoter or enhancer regions and affect transcription levels. This SNP is within the coding sequence and directly changes a translated amino acid."
+      ]
+    }
+  },
+
+  {
+    plo:"LO 3",
+    stem:"A Polygenic Risk Score (PRS) is calculated by:",
+    choices:[
+      "Selecting the single highest-risk SNP in the genome and reporting its GWAS odds ratio",
+      "Summing pathogenic variants in high-penetrance cancer genes such as BRCA1 and MLH1",
+      "Aggregating risk allele contributions from many GWAS-significant SNPs, each weighted by its GWAS-derived effect size",
+      "Averaging the p-values of all genome-wide significant SNPs to produce a composite confidence score"
+    ],
+    correct:2,
+    explanation:{
+      correct:"PRS aggregates the small effects of many common SNPs. For each significant GWAS SNP: score = (number of risk alleles carried: 0, 1, or 2) × log(OR). The scores from all SNPs are summed into a single PRS value. This places the individual on a bell-curve distribution of population risk.",
+      teaching:"PRS ≠ single-gene testing. It captures cumulative polygenic risk from many common, low-penetrance variants. The top 10% of the PRS distribution may have risk comparable to single-gene risk factors. Clinical applications include breast cancer screening stratification and cardiovascular risk prediction.",
+      wrongs:[
+        "A — Using only one SNP ignores the cumulative contribution of hundreds or thousands of variants. The whole point of PRS is to aggregate small effects that individually appear trivial.",
+        "B — That describes rare pathogenic variant testing (e.g., BRCA1/2 genetic testing). PRS uses common GWAS variants, not rare high-penetrance mutations from linkage-era gene discovery.",
+        "D — Averaging p-values is statistically meaningless and does not quantify disease risk. P-values measure confidence in an association, not effect magnitude."
+      ]
+    }
+  },
+
+  /* ── LO 4 ── */
+  {
+    plo:"LO 4",
+    stem:"A patient of South Asian ancestry presents with a DTC genetic test result showing a 'colorectal cancer risk SNP' from a GWAS of 50,000 European participants, with OR = 1.2 and P = 3 × 10⁻⁹. The most important limitation to address in counselling is:",
+    choices:[
+      "The p-value of 3 × 10⁻⁹ does not meet the genome-wide significance threshold for clinical use",
+      "An OR of 1.2 is large enough to recommend immediate colonoscopy referral on its own",
+      "The study was conducted in a European cohort, so the SNP's allele frequency, effect size, and clinical relevance may not apply to this patient",
+      "DTC genetic test results are inherently invalid and should always be disregarded without further testing"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Most GWAS to date have used European (and more recently East Asian) populations. LD patterns and allele frequencies differ across ancestry groups — a SNP that tags a causal variant in Europeans may tag an entirely different variant (or be absent) in South Asian populations. The OR, and even whether the SNP is a risk allele, may not transfer.",
+      teaching:"Population stratification is a major GWAS limitation. Always ask: (1) What ancestry cohort? (2) Was it replicated in your patient's ancestry group? A protective SNP in one population can be a risk allele in another if LD structure differs. The 23andMe data breach (2023) is also a relevant counselling point for DTC tests.",
+      wrongs:[
+        "A — P = 3 × 10⁻⁹ exceeds the genome-wide significance threshold of 5 × 10⁻⁸. The association is genome-wide significant; the p-value is not the problem here.",
+        "B — OR = 1.2 (20% increased odds) is a modest effect that should be contextualised alongside lifestyle factors and absolute risk. It does not warrant immediate colonoscopy without other clinical indication.",
+        "D — DTC test results can provide real, clinically useful information when evaluated critically. The appropriate response is systematic evaluation, not blanket dismissal."
+      ]
+    }
+  },
+
+  {
+    plo:"LO 4",
+    stem:"A GWAS reports P = 4 × 10⁻⁶ and OR = 3.1 in 800 cases and 850 controls for a colorectal cancer SNP. A patient asks if this means they have triple the risk. The most accurate response is:",
+    choices:[
+      "Yes — OR = 3.1 is a large effect and confirms approximately triple the risk regardless of p-value",
+      "No — the result is not genome-wide significant and the large OR likely reflects a false positive from an underpowered study",
+      "Yes — P = 4 × 10⁻⁶ is an extremely small p-value that confirms the association is real and clinically actionable",
+      "No — OR and p-value are the same statistic expressed differently, so only one is required to assess the SNP's significance"
+    ],
+    correct:1,
+    explanation:{
+      correct:"P = 4 × 10⁻⁶ does not reach the genome-wide significance threshold of P < 5 × 10⁻⁸. A small study (n ≈ 1,650 total) with a large OR is a classic false-positive pattern: underpowered studies tend to overestimate effect sizes ('winner's curse'). Without replication in an independent larger cohort, this result is unreliable and cannot be used to counsel the patient about triple risk.",
+      teaching:"Dr. Harrison's framework: check p-value (is it < 5 × 10⁻⁸?), check OR (is the effect size clinically meaningful?), check study size and ancestry, check replication. A large OR does NOT compensate for a non-significant p-value. Small studies with large ORs are high-risk for inflation and non-replication.",
+      wrongs:[
+        "A — A large OR in an underpowered, sub-threshold study is not reliable evidence. Effect size estimates are inflated in small studies with nominally significant results.",
+        "C — P = 4 × 10⁻⁶ is approximately 50-fold less stringent than the genome-wide threshold. While it sounds small, it does NOT constitute genome-wide significance in a GWAS context.",
+        "D — OR and p-value are distinct statistics answering different questions. P-value = confidence in the association (is it real?); OR = magnitude of effect (how big is it?). Both are always required."
+      ]
+    }
+  }
+
+];
+
+/* ════════════════════════════════════
+   STATE
+════════════════════════════════════ */
+let currentIdx=0, quizMode='learn', examSubmitted=false;
+let selectedChoice=null, correctCount=0, incorrectCount=0;
+let answeredMap={}, flaggedSet=new Set(), eliminateMode=false;
+let qSeconds=0, tSeconds=0, qTimerInterval=null, tTimerInterval=null;
+
+/* ════════════════════════════════════
+   DOM
+════════════════════════════════════ */
+const qo=document.getElementById('qo');
+const openDemo=document.getElementById('openDemo');
+const closeQuiz=document.getElementById('closeQuiz');
+const resetQuiz=document.getElementById('resetQuiz');
+const printQuizBtn=document.getElementById('printQuizBtn');
+const submitBtn=document.getElementById('submitBtn');
+const submitExamBtn=document.getElementById('submitExamBtn');
+const examSubmitRow=document.getElementById('examSubmitRow');
+const examProgress=document.getElementById('examProgress');
+const learnBtn=document.getElementById('learnBtn');
+const examBtn=document.getElementById('examBtn');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+const qdots=document.getElementById('qdots');
+const qStem=document.getElementById('qStem');
+const choicesEl=document.getElementById('choicesEl');
+const exBlock=document.getElementById('exBlock');
+const qnum=document.getElementById('qnum');
+const qplo=document.getElementById('qplo');
+const qpf=document.getElementById('qpf');
+const qpLbl=document.getElementById('qpLbl');
+const svCorrect=document.getElementById('svCorrect').querySelector('.sv-num');
+const svIncorrect=document.getElementById('svIncorrect').querySelector('.sv-num');
+const svCurrent=document.getElementById('svCurrent').querySelector('.sv-num');
+const qTimer=document.getElementById('qTimer');
+const tTimer=document.getElementById('tTimer');
+const flagTool=document.getElementById('flagTool');
+const eliminateTool=document.getElementById('eliminateTool');
+const printReviewRoot=document.getElementById('printReviewRoot');
+
+/* ════════════════════════════════════
+   OPEN / CLOSE
+════════════════════════════════════ */
+openDemo.addEventListener('click',()=>{
+  qo.classList.add('open');
+  buildDots(); renderQuestion(0); startTimers();
+});
+closeQuiz.addEventListener('click',()=>{
+  qo.classList.add('closing');
+  setTimeout(()=>qo.classList.remove('open','closing'),320);
+  stopTimers();
+});
+
+/* ════════════════════════════════════
+   TIMERS
+════════════════════════════════════ */
+function fmt(s){return Math.floor(s/60)+':'+(s%60<10?'0':'')+s%60}
+function startTimers(){
+  qSeconds=0;
+  clearInterval(qTimerInterval); clearInterval(tTimerInterval);
+  qTimerInterval=setInterval(()=>{qSeconds++;qTimer.textContent=fmt(qSeconds);},1000);
+  tTimerInterval=setInterval(()=>{tSeconds++;tTimer.textContent=fmt(tSeconds);},1000);
+}
+function resetQTimer(){qSeconds=0;qTimer.textContent='0:00';}
+function stopTimers(){clearInterval(qTimerInterval);clearInterval(tTimerInterval);}
+
+/* ════════════════════════════════════
+   FONT SIZE
+════════════════════════════════════ */
+document.querySelectorAll('[data-fs-btn]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    qo.dataset.fs=btn.dataset.fsBtn;
+    document.querySelectorAll('.fs-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+/* ════════════════════════════════════
+   MODE TOGGLE
+════════════════════════════════════ */
+learnBtn.addEventListener('click',()=>{
+  if(quizMode==='learn') return;
+  quizMode='learn'; examSubmitted=false;
+  learnBtn.classList.add('active'); examBtn.classList.remove('active');
+  updateExamButton(); renderQuestion(currentIdx);
+});
+examBtn.addEventListener('click',()=>{
+  if(quizMode==='exam') return;
+  quizMode='exam'; examSubmitted=false;
+  examBtn.classList.add('active'); learnBtn.classList.remove('active');
+  updateExamButton(); renderQuestion(currentIdx);
+});
+function updateExamButton(){
+  const inExam=quizMode==='exam';
+  examSubmitRow.classList.toggle('exam-live',inExam&&!examSubmitted);
+  examSubmitRow.classList.toggle('exam-done',examSubmitted);
+  submitExamBtn.disabled=!inExam||examSubmitted||selectedChoice===null;
+  submitExamBtn.textContent=examSubmitted?'✓ Exam Submitted':'Submit Exam';
+  const answered=Object.keys(answeredMap).length;
+  examProgress.textContent=inExam?`${answered} / ${questions.length} answered`:'';
+}
+
+/* ════════════════════════════════════
+   RENDER
+════════════════════════════════════ */
+function renderQuestion(idx){
+  currentIdx=idx; selectedChoice=null;
+  const q=questions[idx];
+  qnum.textContent=`Question ${idx+1} of ${questions.length}`;
+  qplo.textContent=q.plo;
+  qStem.textContent=q.stem;
+  choicesEl.innerHTML='';
+  const letters=['A','B','C','D'];
+  q.choices.forEach((ch,ci)=>{
+    const div=document.createElement('div');
+    div.className='ach'; div.dataset.ci=ci;
+    div.innerHTML=`<span class="aletter">${letters[ci]}</span><span class="ctx">${escapeHTML(ch)}</span>`;
+    div.addEventListener('click',()=>selectChoice(ci));
+    choicesEl.appendChild(div);
+  });
+  if(answeredMap[idx]!==undefined){
+    const {selected}=answeredMap[idx];
+    selectedChoice=selected;
+    applyAnsweredState(selected,q.correct);
+    if(quizMode==='learn'||(quizMode==='exam'&&examSubmitted))
+      showExplanation(q,selected);
+    else {exBlock.classList.remove('shown');exBlock.innerHTML='';}
+    submitBtn.disabled=true;
+  } else {
+    exBlock.classList.remove('shown');exBlock.innerHTML='';
+    submitBtn.disabled=true;
+  }
+  document.getElementById('qActionsEl').style.display=quizMode==='exam'?'none':'';
+  svCurrent.textContent=idx+1;
+  qpf.style.width=((idx+1)/questions.length*100)+'%';
+  qpLbl.textContent=`${idx+1} / ${questions.length}`;
+  prevBtn.disabled=idx===0;
+  nextBtn.disabled=idx===questions.length-1;
+  updateDots(); updateExamButton(); resetQTimer();
+}
+
+function escapeHTML(v){
+  return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ════════════════════════════════════
+   SELECT
+════════════════════════════════════ */
+function selectChoice(ci){
+  if(answeredMap[currentIdx]!==undefined&&(quizMode==='learn'||(quizMode==='exam'&&examSubmitted))) return;
+  if(eliminateMode){toggleEliminate(ci);return;}
+  selectedChoice=ci;
+  document.querySelectorAll('.ach').forEach((el,i)=>{
+    el.classList.toggle('selected',i===ci);
+  });
+  submitBtn.disabled=false;
+  updateExamButton();
+}
+function toggleEliminate(ci){
+  document.querySelectorAll('.ach')[ci].classList.toggle('eliminated');
+}
+
+/* ════════════════════════════════════
+   GRADE
+════════════════════════════════════ */
+submitBtn.addEventListener('click',()=>{ if(selectedChoice!==null) gradeCurrentQuestion(); });
+submitExamBtn.addEventListener('click',()=>{
+  if(quizMode!=='exam'||examSubmitted) return;
+  const unanswered=questions.length-Object.keys(answeredMap).length-(selectedChoice!==null&&answeredMap[currentIdx]===undefined?1:0);
+  if(unanswered>0&&!confirm(`${unanswered} question(s) not yet answered. Submit anyway?`)) return;
+  if(selectedChoice!==null&&answeredMap[currentIdx]===undefined){
+    const q=questions[currentIdx], isC=selectedChoice===q.correct;
+    answeredMap[currentIdx]={selected:selectedChoice,isCorrect:isC};
+    if(isC)correctCount++;else incorrectCount++;
+  }
+  examSubmitted=true;
+  svCorrect.textContent=correctCount; svIncorrect.textContent=incorrectCount;
+  updateExamButton(); updateDots(); renderQuestion(currentIdx);
+});
+function gradeCurrentQuestion(){
+  if(selectedChoice===null) return false;
+  const q=questions[currentIdx];
+  if(answeredMap[currentIdx]!==undefined) return true;
+  const isC=selectedChoice===q.correct;
+  answeredMap[currentIdx]={selected:selectedChoice,isCorrect:isC};
+  if(isC){correctCount++;svCorrect.textContent=correctCount;}
+  else{incorrectCount++;svIncorrect.textContent=incorrectCount;}
+  applyAnsweredState(selectedChoice,q.correct);
+  showExplanation(q,selectedChoice);
+  submitBtn.disabled=true;
+  updateDots(); updateExamButton();
+  return true;
+}
+function applyAnsweredState(selected,correct){
+  document.querySelectorAll('.ach').forEach((el,i)=>{
+    el.classList.remove('selected','eliminated');
+    if(i===correct) el.classList.add('correct');
+    else if(i===selected&&selected!==correct) el.classList.add('incorrect');
+    else el.classList.add('dimmed');
+  });
+}
+function showExplanation(q,selected){
+  const letters=['A','B','C','D'];
+  let wrongsHtml='';
+  q.explanation.wrongs.forEach(w=>{
+    wrongsHtml+=`<div class="ex-wrong"><div class="ex-lbl">✗ Why this is wrong</div><p>${escapeHTML(w)}</p></div>`;
+  });
+  exBlock.innerHTML=`
+    <div class="ex-correct"><div class="ex-lbl">✓ Correct — ${letters[q.correct]}</div><p>${escapeHTML(q.explanation.correct)}</p></div>
+    <div class="ex-teach"><div class="ex-lbl">📖 Teaching Point</div><p>${escapeHTML(q.explanation.teaching)}</p></div>
+    ${wrongsHtml}`;
+  exBlock.classList.add('shown');
+  exBlock.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ════════════════════════════════════
+   DOTS & NAV
+════════════════════════════════════ */
+function buildDots(){
+  qdots.innerHTML='';
+  questions.forEach((_,i)=>{
+    const d=document.createElement('button');
+    d.className='qd'; d.title=`Q${i+1}`;
+    d.addEventListener('click',()=>renderQuestion(i));
+    qdots.appendChild(d);
+  });
+  updateDots();
+}
+function updateDots(){
+  document.querySelectorAll('.qd').forEach((d,i)=>{
+    d.className='qd';
+    if(i===currentIdx) d.classList.add('current');
+    if(answeredMap[i]!==undefined){
+      if(quizMode==='learn'||(quizMode==='exam'&&examSubmitted))
+        d.classList.add(answeredMap[i].isCorrect?'answered-c':'answered-w');
+      else d.classList.add('answered-u');
+    }
+    d.style.boxShadow=flaggedSet.has(i)?'0 0 0 2px var(--gold)':'';
+  });
+}
+prevBtn.addEventListener('click',()=>{if(currentIdx>0)renderQuestion(currentIdx-1);});
+nextBtn.addEventListener('click',()=>{if(currentIdx<questions.length-1)renderQuestion(currentIdx+1);});
+
+/* ════════════════════════════════════
+   TOOLS
+════════════════════════════════════ */
+flagTool.addEventListener('click',()=>{
+  if(flaggedSet.has(currentIdx))flaggedSet.delete(currentIdx);
+  else flaggedSet.add(currentIdx);
+  flagTool.classList.toggle('active',flaggedSet.has(currentIdx));
+  updateDots();
+});
+eliminateTool.addEventListener('click',()=>{
+  eliminateMode=!eliminateMode;
+  eliminateTool.classList.toggle('active',eliminateMode);
+});
+
+/* ════════════════════════════════════
+   RESET
+════════════════════════════════════ */
+resetQuiz.addEventListener('click',()=>{
+  if(!confirm('Reset all progress?')) return;
+  currentIdx=0;selectedChoice=null;correctCount=0;incorrectCount=0;
+  answeredMap={};flaggedSet=new Set();quizMode='learn';examSubmitted=false;
+  learnBtn.classList.add('active');examBtn.classList.remove('active');
+  tSeconds=0;tTimer.textContent='0:00';
+  svCorrect.textContent='0';svIncorrect.textContent='0';
+  updateExamButton();renderQuestion(0);updateDots();
+  stopTimers();startTimers();
+});
+
+/* ════════════════════════════════════
+   PRINT
+════════════════════════════════════ */
+function buildPrintMarkup(){
+  const letters=['A','B','C','D'];
+  let html=`<div class="print-shell"><h2 style="font-family:'Crimson Pro',serif;margin-bottom:20px">Cancer Genomics Quiz — Answer Review · Dr. Harrison</h2>`;
+  questions.forEach((q,i)=>{
+    const ans=answeredMap[i], correct=q.correct;
+    let choicesHtml='';
+    q.choices.forEach((ch,ci)=>{
+      let cls='print-choice-plain';
+      if(ci===correct)cls='print-choice-correct';
+      else if(ans&&ci===ans.selected&&ans.selected!==correct)cls='print-choice-wrong';
+      choicesHtml+=`<div class="${cls}"><strong>${letters[ci]}.</strong> ${escapeHTML(ch)}</div>`;
+    });
+    const status=ans?(ans.isCorrect?'✓ Correct':'✗ Incorrect'):'— Not answered';
+    html+=`<div class="print-card">
+      <p style="font-size:.7rem;color:#888;font-family:'IBM Plex Mono',monospace;margin-bottom:6px">Q${i+1} · ${q.plo} · ${status}</p>
+      <p style="font-family:'Crimson Pro',serif;font-size:1.1rem;font-weight:600;margin-bottom:10px">${escapeHTML(q.stem)}</p>
+      ${choicesHtml}
+      <div class="print-explainer correct-box"><strong>✓ ${letters[correct]}:</strong> ${escapeHTML(q.explanation.correct)}</div>
+      <div class="print-explainer teach-box"><strong>📖 Teaching Point:</strong> ${escapeHTML(q.explanation.teaching)}</div>
+    </div>`;
+  });
+  return html+'</div>';
+}
+printQuizBtn.addEventListener('click',()=>{
+  printReviewRoot.innerHTML=buildPrintMarkup();
+  document.body.classList.add('print-review-active');
+  setTimeout(()=>window.print(),50);
+});
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-review-active'));
+</script>
+</body>
+</html>
