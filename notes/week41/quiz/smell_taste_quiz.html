@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physiology of the Senses: Smell & Taste</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #1A7A6D;
+  --teal-deep: #125E54;
+  --teal-light: #E3F5F2;
+  --teal-mid: #2BA393;
+  --teal-glow: #3EC4B2;
+  --navy: #1B2A4A;
+  --navy2: #12203C;
+  --coral: #E07A5F;
+  --coral-bg: #FEF0EB;
+  --gold: #D4A843;
+  --gold-bg: #FDF6E3;
+  --gold-warm: #E8C76A;
+  --plum: #7B5EA7;
+  --plum-bg: #F3EEF9;
+  --sky: #4A9AE8;
+  --sky-bg: #EAF2FC;
+  --warm: #FBF8F3;
+  --cream: #F6F3EC;
+  --white: #FFFFFF;
+  --ink: #1E1E20;
+  --ink2: #3E4555;
+  --slate: #6B7689;
+  --mist: #A0AAB8;
+  --rule: #DBD5C9;
+  --rule2: #E9E4DA;
+  --green: #2D8659;
+  --green-bg: #E8F5EE;
+  --red: #C44040;
+  --red-bg: #FDF0F0;
+  --amber: #C07B1A;
+  --amber-bg: #FEF5E6;
+  --r: 14px;
+  --rs: 8px;
+  --sh: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+  --sh2: 0 8px 32px rgba(0,0,0,0.08);
+  --sh3: 0 12px 48px rgba(0,0,0,0.10);
+  --tr: 0.25s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+/* ── LAUNCH ── */
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;
+  background:radial-gradient(circle at 15% 20%,rgba(62,196,178,.16),transparent 28%),
+             radial-gradient(circle at 82% 20%,rgba(123,94,167,.12),transparent 30%),
+             linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.launch-card{max-width:760px;width:100%;background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
+  border-radius:28px;border:1px solid rgba(18,32,60,.08);box-shadow:0 24px 80px rgba(18,32,60,.12);padding:44px 40px 40px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:10px}
+.launch-card p{font-size:15px;color:var(--slate);line-height:1.7;margin-bottom:22px}
+.launch-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.chip{display:inline-flex;align-items:center;padding:7px 13px;border-radius:999px;background:var(--white);
+  border:1px solid var(--rule2);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink2);letter-spacing:.02em}
+.launch-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 32px;border-radius:999px;border:none;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:15px;font-weight:700;letter-spacing:.03em;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;
+  box-shadow:0 4px 18px rgba(26,122,109,.28);transition:all var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,122,109,.38)}
+
+/* ── OVERLAY ── */
+.qo{display:none;position:fixed;inset:0;z-index:200;overflow-y:auto;
+  background:radial-gradient(circle at 10% 0%,color-mix(in srgb,var(--teal-glow) 14%,transparent),transparent 24%),
+             radial-gradient(circle at 92% 8%,color-mix(in srgb,var(--plum) 12%,transparent),transparent 22%),
+             linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+
+/* ── TOP BAR ── */
+.qt-bar{position:sticky;top:0;z-index:12;padding:16px 26px;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;color:#fff;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--navy2) 94%,transparent),color-mix(in srgb,var(--navy) 92%,transparent));
+  border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);
+  box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:20px;font-weight:700;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qt-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.fs-ctrl{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.08);border-radius:8px;padding:4px 8px}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.5);margin-right:4px}
+.fs-btn{background:none;border:none;color:rgba(255,255,255,.7);font-family:'IBM Plex Mono',monospace;
+  font-size:11px;cursor:pointer;padding:3px 6px;border-radius:5px;transition:all var(--tr)}
+.fs-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.qt-btn{padding:7px 14px;border-radius:var(--rs);border:1px solid rgba(255,255,255,.15);
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all var(--tr);color:#fff}
+.qt-btn.print{background:rgba(212,168,67,.15);border-color:rgba(212,168,67,.3)}
+.qt-btn.print:hover{background:rgba(212,168,67,.28)}
+.qt-btn.reset{background:rgba(224,122,95,.12);border-color:rgba(224,122,95,.28)}
+.qt-btn.reset:hover{background:rgba(224,122,95,.25)}
+.qt-btn.close{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+.qt-btn.close:hover{background:rgba(255,255,255,.18)}
+
+/* ── PROGRESS BAR ── */
+.qpb{height:3px;background:rgba(255,255,255,.12)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .4s cubic-bezier(.4,0,.2,1)}
+
+/* ── MAIN GRID ── */
+.qin{display:grid;grid-template-columns:260px 1fr;gap:24px;padding:28px 26px 64px;max-width:1140px;margin:0 auto}
+
+/* ── LEFT PANEL ── */
+.q-left{display:flex;flex-direction:column;gap:14px}
+.score-panel{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);
+  box-shadow:var(--sh);padding:20px;animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+.sp-head{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+.sp-nums{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.spn{border-radius:var(--rs);padding:12px;text-align:center}
+.spn.correct{background:var(--green-bg)}
+.spn.wrong{background:var(--red-bg)}
+.spn-val{font-family:'Crimson Pro',serif;font-size:28px;font-weight:800;line-height:1}
+.spn.correct .spn-val{color:var(--green)}
+.spn.wrong .spn-val{color:var(--red)}
+.spn-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--slate);margin-top:3px}
+.sp-cur{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--slate);text-align:center;
+  padding-top:10px;border-top:1px solid var(--rule2)}
+
+.mode-toggle{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);
+  box-shadow:var(--sh);padding:16px;animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mt-head{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.mt-btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.mt-btn{padding:9px;border-radius:var(--rs);border:1px solid var(--rule);background:transparent;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--ink2);cursor:pointer;transition:all var(--tr)}
+.mt-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.mt-btn:not(.active):hover{background:var(--cream)}
+
+.exam-submit-row{padding:14px 16px;background:var(--white);border-radius:var(--r);
+  border:1px solid var(--rule);box-shadow:var(--sh);display:none}
+.exam-submit-row.exam-live{display:block}
+.exam-submit-row.exam-done{display:block;opacity:.6;pointer-events:none}
+.submit-exam-btn{width:100%;padding:11px;border-radius:var(--rs);border:none;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;
+  background:linear-gradient(135deg,var(--coral),#d4634a);color:#fff;
+  box-shadow:0 4px 14px rgba(224,122,95,.3);transition:all var(--tr)}
+.submit-exam-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(224,122,95,.4)}
+.submit-exam-btn:disabled{opacity:.5;cursor:default;transform:none}
+
+.nav-panel{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);
+  box-shadow:var(--sh);padding:16px;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.nav-head{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.qdots{display:flex;flex-wrap:wrap;gap:5px}
+.qd{width:26px;height:26px;border-radius:6px;background:var(--cream);border:1px solid var(--rule2);
+  font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--slate);display:grid;place-items:center;
+  cursor:pointer;transition:all var(--tr)}
+.qd:hover{border-color:var(--teal);color:var(--teal)}
+.qd.current{background:var(--navy);color:#fff;border-color:var(--navy)}
+.qd.answered-correct{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.qd.answered-wrong{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ── QUESTION CARD ── */
+#qA{animation:cardIn .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.99)}to{opacity:1;transform:none}}
+.qcd{background:var(--white);border-radius:20px;border:1px solid var(--rule);box-shadow:var(--sh2);overflow:hidden}
+.qcard-head{padding:20px 26px 0;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mist);letter-spacing:.06em;text-transform:uppercase}
+.qtag{padding:4px 10px;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;
+  background:var(--teal-light);color:var(--teal);border:1px solid rgba(26,122,109,.15)}
+.qstem{font-family:'Crimson Pro',serif;font-size:22px;font-weight:600;color:var(--ink);line-height:1.5;
+  padding:16px 26px 20px}
+
+/* choices */
+.choices{padding:0 20px 20px;display:flex;flex-direction:column;gap:8px}
+.ach{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-radius:var(--rs);
+  border:1.5px solid var(--rule);background:var(--warm);cursor:pointer;transition:all var(--tr);
+  font-family:'Nunito',sans-serif;line-height:1.5;font-size:15px;color:var(--ink2)}
+.ach:hover:not(.locked){border-color:var(--teal);background:var(--teal-light);color:var(--ink)}
+.ach.selected:not(.locked){border-color:var(--teal);background:var(--teal-light);color:var(--ink)}
+.ach.correct{border-color:var(--green);background:var(--green-bg);color:var(--ink)}
+.ach.incorrect{border-color:var(--red);background:var(--red-bg);color:var(--ink)}
+.ach.locked{cursor:default}
+.aletter{width:26px;height:26px;border-radius:6px;flex-shrink:0;
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;display:grid;place-items:center;
+  background:rgba(107,118,137,.1);color:var(--slate);transition:all var(--tr)}
+.ach.selected:not(.locked) .aletter{background:var(--teal);color:#fff}
+.ach.correct .aletter{background:var(--green);color:#fff}
+.ach.incorrect .aletter{background:var(--red);color:#fff}
+.ctx{flex:1}
+
+/* submit btn per question */
+.submit-row{padding:0 20px 22px}
+.submit-btn{padding:11px 28px;border-radius:var(--rs);border:none;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;
+  box-shadow:0 4px 14px rgba(26,122,109,.22);transition:all var(--tr)}
+.submit-btn:disabled{opacity:.38;cursor:default;box-shadow:none}
+.submit-btn:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,122,109,.34)}
+
+/* explanation */
+.exb{border-top:1px solid var(--rule2);padding:0 24px;max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1),padding .45s cubic-bezier(.4,0,.2,1);display:none}
+.exb.show{display:block;max-height:2000px;padding:20px 24px 24px;animation:fi .3s cubic-bezier(.4,0,.2,1)}
+.ex-correct{background:var(--green-bg);border-left:3px solid var(--green);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px;font-size:14px;color:var(--green);font-weight:700}
+.ex-teach{background:var(--teal-light);border-left:3px solid var(--teal);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px;font-size:14px;color:var(--teal-deep);line-height:1.65}
+.ex-teach strong{color:var(--teal-deep)}
+.ex-wrongs{display:flex;flex-direction:column;gap:7px}
+.ex-wrong{background:var(--red-bg);border-left:3px solid var(--red);border-radius:var(--rs);padding:10px 13px;font-size:13px;color:var(--red);line-height:1.55}
+.ex-wrong span{font-weight:700}
+
+/* navigation */
+.qnv{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:14px 20px;border-top:1px solid var(--rule2);background:var(--warm)}
+.nb{padding:9px 20px;border-radius:var(--rs);border:1.5px solid var(--rule);
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;color:var(--ink2);background:var(--white);
+  cursor:pointer;transition:all var(--tr)}
+.nb:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}
+.nb:disabled{opacity:.35;cursor:default}
+.nb.next{background:var(--navy);color:#fff;border-color:var(--navy)}
+.nb.next:hover:not(:disabled){background:var(--navy2);border-color:var(--navy2)}
+
+/* ── PRINT ── */
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,
+body.print-review-active .qo{display:none !important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:980px;margin:0 auto;font-family:'Nunito',sans-serif}
+.print-card{break-inside:avoid;border:1px solid #ddd;border-radius:16px;padding:20px;margin-bottom:18px}
+.print-choice{padding:8px 12px;border-radius:8px;border:1px solid #ddd;margin-bottom:5px;font-size:14px}
+.print-choice.correct{border-color:#2D8659;background:#E8F5EE}
+.print-choice.incorrect{border-color:#C44040;background:#FDF0F0}
+.print-explainer{border-radius:8px;padding:12px 14px;margin-bottom:8px;font-size:13px;line-height:1.6}
+.print-explainer.correct-box{background:#E8F5EE;border-left:4px solid #2D8659}
+.print-explainer.teach-box{background:#E3F5F2;border-left:4px solid #1A7A6D}
+.print-explainer.wrong-box{background:#FDF0F0;border-left:4px solid #C44040}
+@media print{body.print-review-active .launch-wrap,body.print-review-active .qo{display:none !important}
+  body.print-review-active #printReviewRoot{display:block !important;padding:0}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:920px){
+  .qin{grid-template-columns:1fr;padding:22px 18px 72px}
+  .q-left{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .nav-panel{grid-column:1/-1}
+  .exam-submit-row{grid-column:1/-1}
+}
+@media(max-width:700px){
+  .qt-bar{flex-direction:column;align-items:flex-start}
+  .qin{padding:18px 14px 64px}
+  .q-left{grid-template-columns:1fr}
+  .qnv{flex-direction:column;align-items:stretch}
+  .qdots{order:3}
+  .nb{width:100%}
+  .qstem{font-size:19px}
+  .launch-card{padding:30px 22px 26px}
+  .launch-card h1{font-size:28px}
+}
+
+/* font-size system */
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:15px}
+#qo[data-fs="lg"] .ctx{font-size:18px}
+#qo[data-fs="xl"] .ctx{font-size:21px}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Physiology of the Senses:<br>Smell &amp; Taste</h1>
+    <p>Twenty high-yield questions covering olfactory and gustatory signal transduction, central pathways, and clinical disorders. Based on Dr. Ferland's lecture notes.</p>
+    <div class="launch-meta">
+      <span class="chip">20 Questions</span>
+      <span class="chip">Olfaction &amp; Gustation</span>
+      <span class="chip">Learn &amp; Exam Modes</span>
+      <span class="chip">Clinical Correlations</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz →</button>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>Smell &amp; Taste — Physiology</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A−</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuiz">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+  <div class="qpb"><div class="qpf" id="qpf" style="width:5%"></div></div>
+
+  <div class="qin">
+    <!-- LEFT PANEL -->
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="sp-head">Score</div>
+        <div class="sp-nums">
+          <div class="spn correct"><div class="spn-val" id="svCorrect">0</div><div class="spn-lbl">CORRECT</div></div>
+          <div class="spn wrong"><div class="spn-val" id="svIncorrect">0</div><div class="spn-lbl">WRONG</div></div>
+        </div>
+        <div class="sp-cur" id="svCurrent">Question 1 of 20</div>
+      </div>
+
+      <div class="mode-toggle">
+        <div class="mt-head">Mode</div>
+        <div class="mt-btns">
+          <button class="mt-btn active" id="learnBtn">Learn</button>
+          <button class="mt-btn" id="examBtn">Exam</button>
+        </div>
+      </div>
+
+      <div class="exam-submit-row" id="examSubmitRow">
+        <button class="submit-exam-btn" id="submitExamBtn" disabled>Submit Exam</button>
+      </div>
+
+      <div class="nav-panel">
+        <div class="nav-head">Questions</div>
+        <div class="qdots" id="qdots"></div>
+      </div>
+    </div>
+
+    <!-- QUESTION CARD -->
+    <div id="qA">
+      <div class="qcd">
+        <div class="qcard-head">
+          <span class="qnum" id="qnum">Question 1</span>
+          <span class="qtag" id="qtag">Olfaction</span>
+        </div>
+        <div class="qstem" id="qStem"></div>
+        <div class="choices" id="choices"></div>
+        <div class="submit-row" id="submitRow">
+          <button class="submit-btn" id="submitBtn" disabled>Submit Answer</button>
+        </div>
+        <div class="exb" id="exb"></div>
+        <div class="qnv">
+          <button class="nb prev" id="prevBtn">← Prev</button>
+          <div class="qdots" id="qdotsMini" style="display:none"></div>
+          <button class="nb next" id="nextBtn">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+const questions = [
+  // ── OLFACTION ──────────────────────────────────────────────────────────────
+  {
+    stem: "An odorant molecule dissolves in nasal mucus and binds to its G-protein coupled receptor on the cilia of an olfactory receptor neuron. Which of the following correctly describes the immediate downstream signaling step?",
+    tag: "Olfaction",
+    choices: [
+      "The receptor directly gates a ligand-gated Na⁺/Ca²⁺ channel, producing a receptor potential",
+      "G-olf activates adenylyl cyclase, increasing cAMP, which opens cyclic nucleotide-gated cation channels",
+      "The receptor activates phospholipase C to generate IP₃, triggering Ca²⁺ release from intracellular stores",
+      "cGMP is generated via guanylyl cyclase, which hyperpolarizes the olfactory neuron"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Odorant → GPCR → G-olf → adenylyl cyclase → ↑cAMP → cyclic nucleotide-gated Na⁺/Ca²⁺ channels open → depolarization.",
+      teaching: "The olfactory transduction cascade uses a Gₒₗf-coupled receptor. Odorant binding activates Gₒₗf → adenylyl cyclase → cAMP (second messenger) → opens cyclic nucleotide-gated (CNG) channels allowing Na⁺ and Ca²⁺ influx. The subsequent Ca²⁺ increase then activates Ca²⁺-gated Cl⁻ channels, amplifying the depolarizing receptor potential. Note: PLC/IP₃ is the pathway for bitter, sweet, and umami taste (Type II cells), not olfaction.",
+      wrongs: [
+        "A — Olfactory GPCRs do not directly gate ion channels. The coupling goes through G-protein (Gₒₗf) and cAMP as a second messenger before channels open.",
+        "C — PLC/IP₃/Ca²⁺-from-stores is the signaling cascade for bitter, sweet, and umami tastants in Type II taste receptor cells. Olfactory transduction uses cAMP, not IP₃.",
+        "D — cGMP signaling (used in photoreceptors for vision) is not part of olfactory transduction. cAMP is the key second messenger in olfaction, and its effect is depolarizing (via CNG channels), not hyperpolarizing."
+      ]
+    }
+  },
+  {
+    stem: "During olfactory signal transduction, Ca²⁺ influx through cyclic nucleotide-gated channels subsequently activates Ca²⁺-gated Cl⁻ channels. What is the functional consequence of Cl⁻ flux through these channels?",
+    tag: "Olfaction",
+    choices: [
+      "Chloride influx hyperpolarizes the membrane, terminating the olfactory signal",
+      "Chloride efflux amplifies the depolarizing receptor potential",
+      "Chloride activates adenylyl cyclase to generate additional cAMP",
+      "Chloride binds directly to CNG channels to increase their open probability"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Cl⁻ efflux (outward current) from the cell further depolarizes the membrane, amplifying the olfactory stimulus.",
+      teaching: "Because olfactory receptor cells maintain a high intracellular Cl⁻ concentration, when Ca²⁺-activated Cl⁻ channels open, Cl⁻ flows OUT of the cell (down its concentration gradient). Cl⁻ efflux is a positive (outward) current that adds to the depolarization already produced by Na⁺/Ca²⁺ influx. This is a critical amplification step — the slide explicitly states 'Cl⁻ here can act as an amplifier of the olfactory stimulus.'",
+      wrongs: [
+        "A — Cl⁻ efflux (not influx) occurs here due to high intracellular Cl⁻. Efflux produces depolarization (amplification), not hyperpolarization. Hyperpolarization would terminate the signal — the opposite of amplification.",
+        "C — Cl⁻ does not activate adenylyl cyclase. The Gₒₗf/adenylyl cyclase step has already occurred upstream. The Cl⁻ channel is activated by Ca²⁺, which itself entered through cAMP-gated channels.",
+        "D — CNG channels are gated by cAMP (and Ca²⁺ can close them via calmodulin for adaptation), not by direct Cl⁻ binding. Cl⁻ acts at a separate downstream channel type."
+      ]
+    }
+  },
+  {
+    stem: "Which of the following is a unique feature of the olfactory pathway that distinguishes it from virtually all other major sensory modalities?",
+    tag: "Olfaction",
+    choices: [
+      "It is the only sensory system that uses G-protein coupled receptors for initial transduction",
+      "Olfactory information reaches the cerebral cortex without first synapsing in the thalamus",
+      "Olfactory receptor neurons are the only sensory neurons that can regenerate in the CNS",
+      "The olfactory system projects exclusively to the ipsilateral hemisphere"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Uniquely among sensory pathways, olfactory information reaches the cerebral cortex (piriform cortex, entorhinal cortex) WITHOUT first synapsing in the thalamus.",
+      teaching: "All other major sensory pathways (visual, auditory, somatosensory, taste) relay through the thalamus before reaching the cortex. Olfactory signals travel: olfactory receptor neurons (CN I) → olfactory bulb (mitral/tufted cells) → olfactory tract → anterior olfactory nucleus → directly to piriform cortex, periamygdaloid cortex, olfactory tubercle, amygdala, and entorhinal cortex. The olfactory cortex can then project to the thalamus (mediodorsal nucleus) for onward relay to the orbitofrontal cortex, but the direct cortical connection bypasses the thalamus.",
+      wrongs: [
+        "A — GPCRs are used in other sensory systems too (e.g., photoreceptors in vision use rhodopsin, which is a GPCR), so this is not a unique feature of olfaction.",
+        "C — While olfactory receptor neurons DO regenerate (one of the very few CNS neurons capable of this, with a 4-8 week lifespan), this is NOT what makes the olfactory pathway unique compared to other sensory modalities. The thalamus bypass is the most tested distinction.",
+        "D — The olfactory pathway is actually bilateral, with projections to both ipsilateral and contralateral olfactory bulbs via the anterior commissure."
+      ]
+    }
+  },
+  {
+    stem: "An olfactory receptor neuron in the nasal epithelium expresses a specific olfactory receptor protein gene. According to the organization of the olfactory bulb, where does this neuron's axon terminate?",
+    tag: "Olfaction",
+    choices: [
+      "It synapses diffusely across all glomeruli to allow broad odor detection",
+      "It terminates exclusively in glomeruli containing neurons expressing the same receptor gene",
+      "It synapses directly onto mitral cells in the olfactory tract without a glomerular relay",
+      "It projects to the piriform cortex without synapsing in the olfactory bulb"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Each glomerulus receives input from olfactory receptor cells that all express the same olfactory receptor protein gene.",
+      teaching: "This convergent, receptor-specific organization creates a precise 'odor map' in the olfactory bulb. Thousands of olfactory receptor cells scattered throughout the epithelium — all expressing the same receptor gene — funnel their axons to converge on just a few specific glomeruli in the olfactory bulb. Within glomeruli, they synapse onto second-order neurons (mitral and tufted cells). This spatial segregation is the basis for how different odors produce distinct patterns of glomerular activation.",
+      wrongs: [
+        "A — Diffuse synaptic organization would not allow the spatial odor mapping seen in the olfactory bulb. The convergence is highly specific, not diffuse.",
+        "C — Olfactory receptor neuron axons do NOT bypass the glomeruli. The glomerulus is where the 1° → 2° synapse occurs. Mitral cells are second-order neurons whose dendrites arborize within glomeruli.",
+        "D — Olfactory receptor neurons (CN I fibers) do not project directly to the piriform cortex. They must first synapse in the olfactory bulb (at glomeruli). Only the 2nd-order neurons (mitral/tufted cells) project via the olfactory tract to the piriform cortex."
+      ]
+    }
+  },
+  {
+    stem: "A 32-year-old cyclist is thrown from his bicycle and strikes the back of his head on pavement. He arrives in the ED alert and oriented. Two days later he reports complete inability to smell anything. Which anatomical event most likely explains his anosmia?",
+    tag: "Clinical: Olfaction",
+    choices: [
+      "Contusion of the piriform cortex causing central anosmia",
+      "Shearing of olfactory nerve fibers (CN I) at the cribriform plate",
+      "Damage to Bowman's glands, eliminating the mucus layer needed for odorant dissolution",
+      "Disruption of the olfactory bulb's blood supply via the anterior ethmoidal artery"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Head trauma is a classic cause of anosmia. 7–30% of head injuries result in shearing of CN I olfactory cilia/fibers at the cribriform plate.",
+      teaching: "The cribriform plate is a thin, perforated bone at the skull base. CN I consists of tiny, unmyelinated axon fascicles passing through these perforations. Acceleration-deceleration injuries (even without direct frontal impact) can shear these fragile fibers. The resulting anosmia can be permanent if the olfactory receptor neuron axons are severed. This is a high-yield clinical correlation: post-traumatic anosmia should prompt assessment for cribriform plate fracture and CN I damage.",
+      wrongs: [
+        "A — Piriform cortex injury would cause central anosmia, but the lesion is much less common from blunt head trauma compared to peripheral CN I shearing at the cribriform plate. Piriform cortex injury typically also causes other neurological findings.",
+        "C — Bowman's (olfactory) gland damage would impair mucus production, but this is not a typical consequence of closed head trauma and would not explain acute-onset complete anosmia.",
+        "D — Vascular injury causing olfactory bulb ischemia is possible but much less common than direct CN I shearing. The cribriform plate vulnerability is the tested mechanism."
+      ]
+    }
+  },
+  {
+    stem: "A 58-year-old woman is referred for progressive anosmia and subtle personality changes. MRI reveals a 3 cm enhancing mass at the floor of the anterior cranial fossa, beneath the orbital surface of the frontal lobe. What is the most likely mechanism of her anosmia?",
+    tag: "Clinical: Olfaction",
+    choices: [
+      "Erosion of the cribriform plate disrupting olfactory receptor cells in the nasal epithelium",
+      "Pressure on the olfactory bulb or tract by the expanding mass",
+      "Elevated intracranial pressure impairing signal conduction in the olfactory tract",
+      "Invasion of the amygdala by tumor cells disrupting odor memory"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Tumors of the anterior cranial fossa floor (classically olfactory groove meningiomas) cause anosmia by compressing the olfactory bulb or tract.",
+      teaching: "The olfactory bulb lies on the cribriform plate in the anterior cranial fossa, just beneath the orbital surface of the frontal lobe. An expanding mass in this location (olfactory groove meningioma is the classic example) compresses the olfactory bulb and/or olfactory tract. Personality changes occur when the mass enlarges to compress the orbitofrontal cortex. This combination of anosmia + frontal personality change should prompt neuroimaging to rule out a mass. Foster Kennedy syndrome (ipsilateral optic atrophy + contralateral papilledema + anosmia) is another related syndrome from this type of mass.",
+      wrongs: [
+        "A — Direct cribriform plate erosion could theoretically disrupt olfactory neurons, but compression of the olfactory bulb/tract is the primary mechanism for tumors located at the floor of the anterior cranial fossa.",
+        "C — Generalized ICP elevation can impair many functions, but the localized anosmia with a specific mass in the anterior fossa points to direct compression rather than global ICP effects.",
+        "D — Amygdala invasion would impair odor-associated memory and emotional responses to odors, not primary odor detection. Primary anosmia from this location results from olfactory bulb/tract compression."
+      ]
+    }
+  },
+  {
+    stem: "A 46-year-old patient with a known temporal lobe lesion experiences recurring episodes of perceiving a foul burning smell, followed by involuntary chewing movements and lip-smacking. What is this syndrome called?",
+    tag: "Clinical: Olfaction",
+    choices: [
+      "Gustatory aura — arising from seizure activity in the insular cortex",
+      "Uncinate fits — seizures arising from a lesion affecting the olfactory cortex",
+      "Hypoosmia episodes — from intermittent ischemia of the olfactory bulb",
+      "Parosmia — caused by aberrant regeneration of olfactory receptor neurons"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Uncinate fits are seizures characterized by olfactory auras (often unpleasant smells) and involuntary oromandibular movements, arising from lesions of the olfactory cortex (uncus/piriform cortex).",
+      teaching: "The uncinate gyrus is part of the piriform/olfactory cortex in the medial temporal lobe. Irritative lesions here (tumors, scar tissue) generate abnormal electrical activity that produces hallucinated smells — called olfactory auras. The involuntary lip and tongue movements reflect the seizure spreading to adjacent motor cortex. This is distinct from gustatory auras, which arise from the insular cortex (secondary taste area) and are perceived as taste sensations. Key pearl: olfactory auras = olfactory cortex (uncus); gustatory auras = insular/frontal operculum.",
+      wrongs: [
+        "A — Gustatory auras arise from the secondary taste area (insula and frontal operculum) and are experienced as taste sensations (metallic, sweet, etc.), not smell. The olfactory/smell perception here points to olfactory cortex involvement.",
+        "C — Hypoosmia refers to reduced odor perception, not episodic hallucinated smells. Olfactory bulb ischemia would not produce repeated stereotyped episodes with motor features.",
+        "D — Parosmia is a distorted perception of actual smells (existing odors perceived differently). The episodic nature, motor features, and absence of an actual odor source indicate a seizure disorder, not a perceptual distortion."
+      ]
+    }
+  },
+  {
+    stem: "A neurologist administers a standardized smell identification test to 100 consecutive Parkinson's disease patients. Results show that 90 score below the normal range. When asked beforehand, only 12 of those 90 reported any subjective problem with their sense of smell. Which term correctly names this olfactory finding, and what is its anatomical basis?",
+    tag: "Clinical: Olfaction",
+    choices: [
+      "Anosmia from bilateral cribriform plate fractures — head tremor in Parkinson's causes repeated microtrauma shearing CN I fibers",
+      "Hypoosmia from degeneration of central olfactory regions — the deficit is partial and gradual, so most patients do not notice it",
+      "Parosmia from dopaminergic dysregulation — familiar odors are perceived as unfamiliar, which patients accept as normal aging",
+      "Olfactory adaptation from excessive cAMP phosphodiesterase activity driven by alpha-synuclein accumulation in receptor cilia"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Hypoosmia (reduced, not absent, odor perception) is characteristic of Parkinson's disease and is usually subclinical until formally tested.",
+      teaching: "Hypoosmia in Parkinson's disease results from degeneration of olfactory brain regions (olfactory bulb volume loss and Lewy body pathology are found there). Importantly, the olfactory deficit often precedes motor symptoms by years and has been proposed as a prodromal biomarker. The reason patients are unaware is because the loss is gradual and partial — they continue to perceive some odors. Anosmia (complete loss) would more likely be noticed. Alzheimer's disease and Huntington's chorea also cause hypoosmia via alterations in olfactory brain regions.",
+      wrongs: [
+        "A — Anosmia means complete loss. The finding here is that patients CAN smell somewhat (they just have reduced ability), which is why most don't notice without formal testing. Anosognosia refers to lack of awareness of motor/cognitive deficits, not olfactory ones.",
+        "C — Parosmia (distorted smell perception) is a qualitative change. The Parkinson's finding is a quantitative reduction (hypo-osmia), not a qualitative distortion.",
+        "D — Normal olfactory adaptation takes ~1 minute and is a physiological response to continuous stimulus. This is not the mechanism for the chronic, progressive olfactory decline in Parkinson's."
+      ]
+    }
+  },
+  {
+    stem: "Which of the following correctly distinguishes olfactory receptor cells from taste receptor cells in terms of their neuronal nature and lifespan?",
+    tag: "Olfaction",
+    choices: [
+      "Both are neurons; olfactory cells last 4–8 weeks, taste cells last 2 weeks",
+      "Olfactory receptor cells are neurons (4–8 week lifespan); taste receptor cells are NOT neurons (~2 week lifespan)",
+      "Taste receptor cells are neurons (2-week lifespan); olfactory receptor cells are NOT neurons (4–8 week lifespan)",
+      "Neither are neurons; both are specialized epithelial cells that synapse onto afferent axons"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Olfactory receptor cells ARE neurons (their axons form CN I); taste receptor cells are NOT neurons (they are epithelial cells that synapse onto CN VII/IX/X afferents).",
+      teaching: "This is a critical distinction. Olfactory receptor cells are bipolar neurons: dendrites extend cilia into nasal mucosa, and their axons bundle to form CN I (the olfactory nerve). They regenerate from basal cells every 4-8 weeks — making them one of the very few neurons in the CNS/PNS capable of lifelong regeneration. In contrast, taste receptor cells are non-neuronal specialized epithelial cells with a ~2-week lifespan, regenerated by basal cells within taste buds. They synapse onto true afferent neurons (pseudounipolar cells of CN VII, IX, X ganglia).",
+      wrongs: [
+        "A — Taste receptor cells are NOT neurons. They are specialized epithelial cells. Only olfactory receptor cells are neurons.",
+        "C — This has it backwards. Olfactory receptor cells are the neurons (with axons forming CN I). Taste receptor cells are non-neuronal epithelial cells.",
+        "D — This is incorrect on both counts. Olfactory receptor cells ARE neurons. Only taste receptor cells are non-neuronal epithelial cells."
+      ]
+    }
+  },
+  {
+    stem: "A patient who has been working in a bakery notices that after about one minute inside, they can no longer smell the bread baking, even though the odor is clearly still present. Which mechanism BEST explains the time course of this phenomenon?",
+    tag: "Olfaction",
+    choices: [
+      "Scavenger enzymes in Bowman's gland mucus rapidly degrade the odorant molecules",
+      "cAMP activates additional signaling pathways that permanently inactivate the G-protein",
+      "Adaptation of the olfactory receptor cell response despite continued odorant presence",
+      "Negative feedback from mitral cells in the olfactory bulb blocks further receptor potentials"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "C is correct — Even with continued odorant presence, the olfactory receptor cell response adapts in approximately 1 minute.",
+      teaching: "Olfactory adaptation is the progressive decrease in neural response to a sustained stimulus. Several mechanisms contribute: (1) Ca²⁺-calmodulin binding to CNG channels reduces their affinity for cAMP (receptor-level adaptation); (2) cAMP activating alternative signaling pathways that end the transduction process; (3) phosphodiesterase degrading cAMP. The ~1-minute time course described matches cellular-level adaptation. Other termination mechanisms include odorant diffusion and enzymatic degradation by mucus enzymes, but these are faster and would not explain the gradual 1-minute fade of an odor that is clearly still present.",
+      wrongs: [
+        "A — Enzymatic degradation by scavenger enzymes in mucus does contribute to termination, but this mechanism would not explain the gradual 1-minute time course. Enzyme activity is typically rapid (seconds) and the odorant is still present in the bakery environment.",
+        "B — cAMP can activate other signaling pathways that end transduction, but this does not 'permanently inactivate' the G-protein. The term 'permanent' is incorrect — adaptation is reversible. This also doesn't explain the ~1-minute time course as cleanly as cellular adaptation.",
+        "D — The olfactory bulb does have inhibitory interneurons (periglomerular and granule cells) that modulate activity, but 'negative feedback blocking receptor potentials' is not the primary mechanism described in the lecture for the ~1-minute adaptation."
+      ]
+    }
+  },
+
+  // ── TASTE ─────────────────────────────────────────────────────────────────
+  {
+    stem: "A researcher applies amiloride (an ENaC channel blocker) to the apical surface of lingual epithelium. Which of the following taste qualities would be most directly impaired?",
+    tag: "Gustation",
+    choices: [
+      "Bitter — blocking the epithelial sodium channel reduces TAS2R receptor activation",
+      "Sweet — ENaC channels are required for GPCR-mediated sweet transduction",
+      "Salty — Na⁺ entry through ENaC channels is the primary mechanism of salt taste",
+      "Sour — ENaC channels mediate H⁺ entry in Type III taste receptor cells"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "C is correct — Salt (Na⁺) taste is transduced via amiloride-sensitive epithelial sodium channels (ENaC) on Type I taste receptor cells.",
+      teaching: "Salt (NaCl) taste transduction in Type I cells: Na⁺ passes directly through voltage-insensitive ENaC channels on the apical membrane → direct membrane depolarization → opens voltage-gated Na⁺ and Ca²⁺ channels → ↑intracellular Ca²⁺ → serotonin release → activates gustatory afferent axon. Clinical relevance: Amiloride is used as a potassium-sparing diuretic, and reduced salt taste perception can be a side effect, sometimes causing patients to add excess salt to their food.",
+      wrongs: [
+        "A — Bitter compounds are detected by TAS2R receptors (GPCRs) on Type II cells, completely independently of ENaC channels. Blocking ENaC has no direct effect on bitter transduction.",
+        "B — Sweet transduction uses TAS1R2/TAS1R3 GPCRs on Type II cells, coupling through PLC → IP₃ → Ca²⁺ → TRPM4/5 → ATP release. ENaC plays no role in sweet taste.",
+        "D — Sour taste (H⁺) is mediated by Type III cells via proton channels (otopterin 1) and K⁺ channel blockade — NOT ENaC. ENaC is selective for Na⁺ in this context."
+      ]
+    }
+  },
+  {
+    stem: "A bitter compound binds to its receptor on a Type II taste receptor cell. Tracing the complete downstream signaling cascade, what is the final event that activates the gustatory afferent axon?",
+    tag: "Gustation",
+    choices: [
+      "Serotonin released from synaptic vesicles binds to 5-HT₃ receptors on the afferent axon",
+      "Calcium influx through voltage-gated channels directly depolarizes the afferent axon terminal",
+      "ATP released through CALHM1/3 channels binds to P2X2/P2X3 receptors on the afferent axon",
+      "Glutamate is released from the taste cell via VGLUT2 and activates AMPA receptors"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "C is correct — In Type II cells (bitter/sweet/umami), depolarization leads to ATP release through CALHM1/3 channels, and ATP then activates P2X2/P2X3 receptors on the gustatory afferent axon.",
+      teaching: "Type II cell cascade: Bitter/sweet/umami tastant → GPCR (e.g., TAS2Rs for bitter) → Gα activation → PLC → ↑IP₃ → Ca²⁺ from ER stores → activates TRPM4/5 channels → Na⁺ influx → membrane depolarization → ATP exits through CALHM1/3 channels (not voltage-gated Ca²⁺-dependent vesicle fusion) → ATP binds P2X2/X3 on afferent → action potential. Note: serotonin is used by Type I and III cells (salt/sour), not Type II.",
+      wrongs: [
+        "A — Serotonin-mediated transmission occurs in Type III taste cells (sour/acid) and Type I cells (salt), not Type II cells. Type II cells use ATP as the primary afferent transmitter.",
+        "B — Type II cells do not use classical vesicular Ca²⁺-dependent neurotransmitter release. ATP is released through CALHM1/3 channels (a unique non-vesicular mechanism), making this pathway distinct from classical synaptic transmission.",
+        "D — Glutamate release via VGLUT2 has been described in some taste cells, but its role is currently unknown (explicitly stated in the lecture). It is not the established mechanism for Type II → afferent communication."
+      ]
+    }
+  },
+  {
+    stem: "A 35-year-old patient undergoes middle ear surgery involving repair of the tympanic membrane. Two weeks postoperatively, she notices that food tastes different and she cannot perceive sweet flavors on the tip of her tongue. Which nerve was most likely injured?",
+    tag: "Clinical: Gustation",
+    choices: [
+      "CN IX (glossopharyngeal nerve) — carries taste from the posterior 1/3 of the tongue",
+      "CN VII (chorda tympani) — carries taste from the anterior 2/3 of the tongue",
+      "CN X (vagus nerve) — carries taste from the epiglottis region",
+      "CN V (trigeminal nerve) — carries general sensation from the anterior tongue"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — The chorda tympani branch of CN VII carries taste from the anterior 2/3 of the tongue. It runs through the middle ear (medial wall of the tympanic cavity) and is vulnerable during middle ear surgery.",
+      teaching: "Taste innervation summary: CN VII (chorda tympani branch) → anterior 2/3 of tongue; CN IX (glossopharyngeal) → posterior 1/3 of tongue, pharynx, palate; CN X (vagus) → epiglottis region. The chorda tympani is particularly vulnerable during middle ear/mastoid surgery because it traverses the tympanic cavity. Sweet taste receptors (TAS1R2/TAS1R3) have the highest sensitivity in the anterior 2/3, which is why sweet perception was most affected. The geniculate ganglion (temporal bone) houses the 1° afferent cell bodies for CN VII taste.",
+      wrongs: [
+        "A — CN IX damage would impair taste from the posterior 1/3 of the tongue and pharynx. The patient's symptom is at the tip of the tongue (anterior), not posterior tongue.",
+        "C — CN X damage would impair taste from the epiglottis region, far from the tongue tip. CN X also travels through the jugular fossa, not the middle ear.",
+        "D — CN V (trigeminal) carries general somatosensory (touch, pain, temperature) information from the anterior tongue, not taste. CN V damage would cause numbness, not loss of taste quality."
+      ]
+    }
+  },
+  {
+    stem: "Taste information from the anterior 2/3 of the tongue is carried by CN VII to the rostral nucleus of the solitary tract (NTS). From the NTS, the central gustatory pathway projects upward. What is the correct sequence of the remaining pathway to conscious taste perception?",
+    tag: "Gustation",
+    choices: [
+      "NTS → piriform cortex → orbitofrontal cortex (bypassing thalamus, like olfaction)",
+      "NTS → VPM nucleus of the thalamus → insular and frontal taste cortices",
+      "NTS → medial geniculate nucleus of the thalamus → primary somatosensory cortex",
+      "NTS → anterior olfactory nucleus → insular cortex via the olfactory stria"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Taste: NTS (2°) → VPM nucleus of thalamus (3°) → insular and frontal opercular taste cortices (conscious taste perception).",
+      teaching: "Unlike olfaction (which bypasses the thalamus), the taste pathway is a 3-neuron pathway that DOES include a thalamic relay. The VPM (ventral posteromedial nucleus) of the thalamus is where 2° gustatory neurons synapse before projecting to the insular cortex (primary taste cortex) and frontal operculum. The NTS also sends collaterals to the hypothalamus (emotion/feeding regulation) and amygdala. Gustatory auras (seizures producing taste sensations) arise from the secondary taste area (insula/frontal operculum).",
+      wrongs: [
+        "A — This describes the olfactory pathway, which uniquely bypasses the thalamus. The taste pathway does NOT bypass the thalamus — it relays through VPM of the thalamus. This is a critical distinction between taste and smell pathways.",
+        "C — The medial geniculate nucleus processes auditory information, not taste. The VPM (ventral posteromedial) nucleus handles taste and facial somatosensation. Primary somatosensory cortex is not the taste cortex.",
+        "D — The anterior olfactory nucleus is part of the olfactory (not taste) pathway. These two chemical sense pathways are anatomically separate from the NTS onward."
+      ]
+    }
+  },
+  {
+    stem: "An H⁺ ion (sour tastant) reaches the apical membrane of a Type III taste receptor cell. Which of the following mechanisms contributes to the resulting membrane depolarization?",
+    tag: "Gustation",
+    choices: [
+      "H⁺ activates a Gs-coupled GPCR, increasing cAMP and opening CNG channels (same pathway as olfaction)",
+      "H⁺ passes through ENaC channels, providing the same depolarizing Na⁺ current as salt taste",
+      "H⁺ passes through proton channels (otopterin 1) AND H⁺ blocks K⁺ channels, both reducing outward K⁺ current",
+      "H⁺ directly activates phospholipase C, triggering IP₃-mediated Ca²⁺ release from the ER"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "C is correct — Sour (H⁺) transduction in Type III cells uses two mechanisms: H⁺ influx through proton channels (otopterin 1) and H⁺ blocking of potassium channels, both causing depolarization.",
+      teaching: "Sour taste transduction is distinct from all other modalities. Type III cells detect H⁺ via: (1) Proton channels (thought to be otopterin 1 on the apical membrane) allow H⁺ entry; (2) H⁺ can also block K⁺ channels, reducing the outward K⁺ current that normally maintains resting potential — both effects depolarize the cell. The resulting depolarization opens voltage-gated Na⁺/Ca²⁺ channels → ↑Ca²⁺ → serotonin release from synaptic vesicles → activates the afferent axon.",
+      wrongs: [
+        "A — cAMP/CNG channel signaling is the olfactory transduction pathway (via Gₒₗf). Sour taste does NOT use cAMP as a second messenger. Do not confuse the olfactory cAMP pathway with gustatory transduction.",
+        "B — ENaC channels are used by Type I cells for SALT (Na⁺) detection, not sour. H⁺ does not use ENaC for sour transduction. Confusing Na⁺ (salt) and H⁺ (sour) entry channels is a common error.",
+        "D — PLC/IP₃/Ca²⁺-from-stores is the signaling cascade for BITTER, SWEET, and UMAMI in Type II cells. Sour taste (Type III cells) uses a completely different mechanism involving proton channels and K⁺ channel blockade."
+      ]
+    }
+  },
+  {
+    stem: "A 28-year-old woman complains of persistent foul-tasting food and a metallic sensation in her mouth. She recently started a new medication for hypertension and has no oral pathology on exam. What is the most likely diagnosis and mechanism?",
+    tag: "Clinical: Gustation",
+    choices: [
+      "Ageusia — her medication has destroyed taste receptor cells via apoptosis",
+      "Hypogeusia — the medication activates TRPM5 channels causing reduced overall taste sensitivity",
+      "Dysgeusia — a qualitative distortion of taste perception, most commonly arising from oral or systemic sources",
+      "Gustatory aura — the medication is lowering seizure threshold in the insular cortex"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "C is correct — Dysgeusia (distorted taste) is the most common clinical taste problem, and medications entering saliva from the blood are a major cause.",
+      teaching: "Dysgeusia refers to a distorted or altered taste sensation (often metallic, bitter, or foul). It is the most common clinical taste disorder. Key mechanisms include: drugs entering saliva from the blood and acting as noxious stimuli on taste receptors; dental infections introducing inflammatory products into saliva; direct effects on taste receptor cell signaling. Many antihypertensives (ACE inhibitors classically cause metallic taste), antibiotics, and chemotherapy agents are culprits. The lecture explicitly states: 'Dysgeusia is the most common clinical taste problem and usually reflects the presence of noxious substances in the mouth from dental infection or drugs that enter saliva from blood.'",
+      wrongs: [
+        "A — Ageusia (complete loss of taste) is RARE. Drug-induced taste changes almost never cause complete taste loss, and apoptosis of taste cells is not the mechanism — these cells turn over every 2 weeks regardless.",
+        "B — While some drugs do affect ion channels, the primary clinical mechanism for drug-induced taste distortion is via drug metabolites in saliva activating taste receptors directly, not via TRPM5 modulation.",
+        "D — Gustatory auras are seizure phenomena with stereotyped onset, associated with epileptiform EEG activity. A persistent metallic taste starting with a new medication is far more consistent with drug-induced dysgeusia."
+      ]
+    }
+  },
+  {
+    stem: "A patient reports they 'can't taste food anymore' after a URI. During formal testing, you apply sucrose, NaCl, HCl, and quinine to their tongue — they correctly identify all four tastes. However, they cannot identify foods by flavor when their eyes are closed. What is the most likely explanation?",
+    tag: "Clinical: Gustation",
+    choices: [
+      "The primary taste receptor cells were transiently damaged by the viral infection, causing selective loss of flavor identification while basic taste detection recovers first",
+      "Retronasal olfactory input — which provides most of what we experience as 'flavor' — is disrupted by the URI, while primary tongue-based taste modalities remain intact",
+      "Bilateral CN VII demyelination from the viral illness produced compensated ageusia that is unmasked only when the patient attempts to identify complex food flavors",
+      "The URI caused temporary central sensitization in the NTS, selectively impairing flavor identification pathways while sparing basic tastant detection"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — This is a high-yield clinical pearl: patients complaining of inability to taste food often actually have olfactory deficits, which they perceive as reduced taste.",
+      teaching: "What we commonly call 'flavor' is largely retronasal olfaction — volatile food odorants travel from the mouth through the nasopharynx to olfactory receptors. Primary taste qualities (sweet, salty, sour, bitter, umami) are intact, but the rich experience of recognizing a specific food requires olfaction. URI-associated anosmia/hypoosmia is very common (mucosal swelling, viral damage to olfactory epithelium). This patient can still detect primary taste qualities (tested with pure tastants) but cannot identify foods by 'flavor' — the classic presentation of olfactory loss masquerading as taste loss. COVID-19 anosmia is a prominent contemporary example.",
+      wrongs: [
+        "A — If viral injury to taste receptor cells were the cause, the patient would also fail to identify sucrose, NaCl, HCl, and quinine on formal testing. Basic taste modalities are intact here, which rules out peripheral gustatory damage.",
+        "C — Bilateral CN VII demyelination is extremely rare from a URI and would produce measurable ageusia on formal testing for the anterior 2/3 of the tongue — which this patient does not have.",
+        "D — The NTS processes both taste and other visceral input but does not selectively impair flavor identification while sparing basic tastant detection. This is not an established mechanism for URI-related flavor loss."
+      ]
+    }
+  },
+  {
+    stem: "Which type of lingual papilla contains NO taste buds but plays an important role in tactile sensation of the tongue?",
+    tag: "Gustation",
+    choices: [
+      "Fungiform papillae — scattered across the tongue with 3–5 taste buds each",
+      "Foliate papillae — located on the lateral tongue edges with numerous taste buds",
+      "Vallate (circumvallate) papillae — forming a V-shape at the tongue base",
+      "Filiform papillae — the most numerous, hair-like projections covering the dorsal tongue"
+    ],
+    correct: 3,
+    explanation: {
+      correct: "D is correct — Filiform papillae are the most numerous papillae on the tongue but contain NO taste buds. They function in tactile (touch) sensation.",
+      teaching: "The four papilla types: (1) Fungiform — mushroom-shaped, distributed across the tongue with highest density at the tip and sides, contain 3–5 taste buds each; (2) Foliate — leaf-like folds on the lateral tongue edges, numerous taste buds; (3) Vallate (circumvallate) — large papillae in a V-shaped row at the tongue base (circumvallate sulcus), high number of taste buds; (4) Filiform — fine, hair-like, most numerous, NO taste buds, primary role is tactile sensation and tongue texture. Burning tongue syndrome may involve filiform papillae.",
+      wrongs: [
+        "A — Fungiform papillae DO contain taste buds (3–5 per papilla). They are distributed across the tongue with the highest density at the anterior tip and lateral edges.",
+        "B — Foliate papillae DO contain numerous taste buds. They are located on the posterior lateral edges of the tongue.",
+        "C — Vallate (circumvallate) papillae contain a high number of taste buds and are located at the base of the tongue near the throat, forming the sulcus terminalis."
+      ]
+    }
+  },
+  {
+    stem: "A patient undergoing chemoradiation for head and neck cancer develops significant mucositis. His oncologist explains that taste disturbance during treatment is expected but may recover because taste receptor cells are continuously renewed. Which cell type is responsible for this regeneration?",
+    tag: "Gustation",
+    choices: [
+      "Supporting cells within the taste bud, which transdifferentiate into new taste receptor cells",
+      "Basal cells within taste buds, which serve as stem cells for taste receptor cell renewal",
+      "Mitral cells from the olfactory bulb, which migrate to repopulate taste buds",
+      "Type II taste receptor cells, which undergo asymmetric division to produce new cells"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "B is correct — Basal cells within taste buds are the stem cells responsible for continuous renewal of taste receptor cells (~2-week lifespan).",
+      teaching: "Taste receptor cells have a lifespan of approximately 2 weeks and are continuously replaced by mitotic basal cells within each taste bud. This is analogous to the olfactory system, where basal cells in the olfactory epithelium regenerate olfactory receptor neurons (4–8 week lifespan) — making olfactory neurons one of the very few CNS neurons that regenerate. Radiation and chemotherapy damage rapidly dividing cells (including taste bud basal cells), explaining post-treatment dysgeusia/hypogeusia. Recovery occurs as basal cells repopulate after treatment ends.",
+      wrongs: [
+        "A — Supporting cells in taste buds provide structural and metabolic support but are not the stem cell population. Transdifferentiation of supporting cells into taste receptor cells is not the established mechanism.",
+        "C — Mitral cells are 2nd-order neurons in the olfactory bulb (involved in smell, not taste) and do not migrate to taste buds. This confuses the olfactory and gustatory systems.",
+        "D — Taste receptor cells are post-mitotic specialized epithelial cells. They do not divide. Only the basal stem cell population proliferates to replenish the taste receptor cell pool."
+      ]
+    }
+  },
+  {
+    stem: "A 45-year-old man complains that sour foods taste unbearably intense — even mildly acidic foods cause a sharp, overwhelming sensation. His workup reveals an underlying malignancy. Which gustatory disorder does this represent, and in which patient population has it specifically been reported?",
+    tag: "Clinical: Gustation",
+    choices: [
+      "Dysgeusia — reported in patients with dental abscesses causing chronic salivary contamination",
+      "Hypogeusia — reported in elderly patients following long-term use of ACE inhibitors",
+      "Hypergeusia — reported specifically in breast cancer patients, particularly for sour taste",
+      "Ageusia — reported in patients following bilateral glossopharyngeal nerve injury"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "C is correct — Hypergeusia refers to heightened taste sensation. Hypergeusia to sour has specifically been reported in breast cancer patients.",
+      teaching: "The full spectrum of gustatory disorders: Ageusia (complete loss — rare), Hypogeusia (lessened sensation — common, associated with smoking, aging, endocrine/inflammatory/metastatic disease), Dysgeusia (distorted taste — most common; drugs, dental infections), Hypergeusia (heightened taste — rare; specifically reported for sour taste in breast cancer patients), Gustatory auras (epileptiform activity in the secondary taste area — insula/frontal operculum). Remembering the Greek prefixes helps: a- (none), hypo- (less), dys- (abnormal/distorted), hyper- (excess).",
+      wrongs: [
+        "A — Dysgeusia is a qualitative distortion of taste (things taste wrong/metallic/foul), not heightened sensitivity to a specific taste quality. The patient experiences abnormal intensity, not distortion.",
+        "B — Hypogeusia is REDUCED taste sensation — the opposite of what this patient is experiencing. The patient has heightened (excessive) sensitivity to sour.",
+        "D — Ageusia is complete absence of taste sensation (rare). This patient has heightened taste — the precise opposite of no taste."
+      ]
+    }
+  },
+  {
+    stem: "A medical student learns that taste buds are found not just on the tongue. Which of the following correctly lists ALL the anatomical sites where taste receptor cells can be found?",
+    tag: "Gustation",
+    choices: [
+      "Tongue only — taste buds elsewhere atrophy after infancy",
+      "Tongue and hard palate only — CN VII serves both regions",
+      "Tongue, soft palate, pharynx, and epiglottis",
+      "Tongue, pharynx, epiglottis, and esophagus (entire GI tract)"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "C is correct — Taste is detected by the tongue, palate, pharynx, AND epiglottis.",
+      teaching: "Cranial nerve distribution: CN VII (chorda tympani) → anterior 2/3 tongue; CN IX (glossopharyngeal) → posterior 1/3 tongue, pharynx, and palate; CN X (vagus) → epiglottis region. The distribution of taste buds beyond the tongue to the pharynx and epiglottis makes functional sense — tasting food as it moves toward swallowing allows protective reflexes (gagging, swallowing initiation, salivation). Additionally, retronasal odors can travel from the mouth through the pharynx into the nasal cavity, where olfactory receptors contribute to what we perceive as taste/flavor.",
+      wrongs: [
+        "A — Taste buds do NOT disappear after infancy. Extraoral taste buds persist throughout life in the palate, pharynx, and epiglottis.",
+        "B — The hard palate is less significant as a taste site; the soft palate has taste receptors served by CN IX. More importantly, the pharynx (CN IX) and epiglottis (CN X) are omitted from this answer.",
+        "D — While some taste-like receptor cells have been identified in gut mucosa (involved in hormonal/autonomic responses), classic conscious taste perception from taste buds does not extend throughout the GI tract. The lecture identifies tongue, palate, pharynx, and epiglottis as the relevant sites."
+      ]
+    }
+  }
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+let currentIndex = 0;
+let quizMode = 'learn'; // 'learn' | 'exam'
+let examSubmitted = false;
+let selectedChoice = null;
+let answers = new Array(questions.length).fill(null); // null | { chosen, correct }
+let scoreCorrect = 0;
+let scoreWrong = 0;
+
+// ── DOM ────────────────────────────────────────────────────────────────────
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const printQuizBtn = document.getElementById('printQuiz');
+const qo = document.getElementById('qo');
+const qpf = document.getElementById('qpf');
+const svCorrect = document.getElementById('svCorrect');
+const svIncorrect = document.getElementById('svIncorrect');
+const svCurrent = document.getElementById('svCurrent');
+const qnum = document.getElementById('qnum');
+const qtag = document.getElementById('qtag');
+const qStem = document.getElementById('qStem');
+const choicesEl = document.getElementById('choices');
+const submitBtn = document.getElementById('submitBtn');
+const submitRow = document.getElementById('submitRow');
+const exb = document.getElementById('exb');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const learnBtn = document.getElementById('learnBtn');
+const examBtn = document.getElementById('examBtn');
+const examSubmitRow = document.getElementById('examSubmitRow');
+const submitExamBtn = document.getElementById('submitExamBtn');
+const qdotsEl = document.getElementById('qdots');
+
+function escapeHTML(v){
+  return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ── DOTS ──────────────────────────────────────────────────────────────────
+function buildDots() {
+  qdotsEl.innerHTML = '';
+  questions.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'qd';
+    d.textContent = i + 1;
+    d.addEventListener('click', () => { currentIndex = i; renderQuestion(); });
+    qdotsEl.appendChild(d);
+  });
+}
+
+function updateDots() {
+  const dots = qdotsEl.querySelectorAll('.qd');
+  dots.forEach((d, i) => {
+    d.className = 'qd';
+    if (i === currentIndex) d.classList.add('current');
+    else if (answers[i]) {
+      d.classList.add(answers[i].correct ? 'answered-correct' : 'answered-wrong');
+    }
+  });
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────────
+function renderQuestion() {
+  const q = questions[currentIndex];
+  const answered = answers[currentIndex];
+  selectedChoice = answered ? answered.chosen : null;
+
+  qnum.textContent = `Question ${currentIndex + 1}`;
+  qtag.textContent = q.tag;
+  qStem.textContent = q.stem;
+
+  // choices
+  choicesEl.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.choices.forEach((text, i) => {
+    const btn = document.createElement('div');
+    btn.className = 'ach';
+    btn.innerHTML = `<span class="aletter">${letters[i]}</span><span class="ctx">${escapeHTML(text)}</span>`;
+    if (answered) {
+      btn.classList.add('locked');
+      if (i === q.correct) btn.classList.add('correct');
+      else if (i === answered.chosen) btn.classList.add('incorrect');
+    } else if (selectedChoice === i) {
+      btn.classList.add('selected');
+    }
+    btn.addEventListener('click', () => {
+      if (answered) return;
+      if (quizMode === 'exam' && examSubmitted) return;
+      selectedChoice = i;
+      choicesEl.querySelectorAll('.ach').forEach((el, idx) => {
+        el.classList.toggle('selected', idx === i);
+      });
+      submitBtn.disabled = false;
+      if (quizMode === 'exam') updateExamButton();
+    });
+    choicesEl.appendChild(btn);
+  });
+
+  // submit button (learn mode)
+  submitRow.style.display = quizMode === 'learn' ? 'block' : 'none';
+  submitBtn.disabled = (selectedChoice === null) || !!answered;
+  if (answered && quizMode === 'learn') submitBtn.disabled = true;
+
+  // explanation
+  exb.className = 'exb';
+  if (answered && quizMode === 'learn') {
+    renderExplanation(q, answered);
+    exb.classList.add('show');
+  } else if (answered && quizMode === 'exam' && examSubmitted) {
+    renderExplanation(q, answered);
+    exb.classList.add('show');
+  } else {
+    exb.innerHTML = '';
+  }
+
+  // nav
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === questions.length - 1;
+
+  // progress + score
+  qpf.style.width = ((currentIndex + 1) / questions.length * 100) + '%';
+  svCurrent.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+  updateDots();
+  updateExamButton();
+}
+
+function renderExplanation(q, answered) {
+  const isCorrect = answered.correct;
+  const letters = ['A','B','C','D'];
+  const wrongExplanations = q.choices.map((_, i) => {
+    if (i === q.correct) return null;
+    const letterIdx = q.choices.indexOf(q.choices[i]);
+    const wrongText = q.explanation.wrongs.find(w => w.startsWith(letters[i]));
+    return wrongText ? `<div class="ex-wrong"><span>${letters[i]} —</span> ${escapeHTML(wrongText.slice(3))}</div>` : null;
+  }).filter(Boolean).join('');
+
+  exb.innerHTML = `
+    <div class="ex-correct">${isCorrect ? '✓ Correct!' : `✗ Incorrect — correct answer: ${letters[q.correct]}`}</div>
+    <div class="ex-teach"><strong>Teaching Point:</strong> ${escapeHTML(q.explanation.teaching)}</div>
+    ${wrongExplanations ? `<div class="ex-wrongs">${wrongExplanations}</div>` : ''}
+  `;
+}
+
+// ── GRADING ───────────────────────────────────────────────────────────────
+function gradeCurrentQuestion() {
+  if (selectedChoice === null) return false;
+  if (answers[currentIndex]) return true;
+  const q = questions[currentIndex];
+  const isCorrect = selectedChoice === q.correct;
+  answers[currentIndex] = { chosen: selectedChoice, correct: isCorrect };
+  if (isCorrect) { scoreCorrect++; svCorrect.textContent = scoreCorrect; }
+  else { scoreWrong++; svIncorrect.textContent = scoreWrong; }
+  return true;
+}
+
+// ── SUBMIT (LEARN) ────────────────────────────────────────────────────────
+submitBtn.addEventListener('click', () => {
+  if (!gradeCurrentQuestion()) return;
+  renderQuestion();
+});
+
+// ── SUBMIT (EXAM) ─────────────────────────────────────────────────────────
+submitExamBtn.addEventListener('click', () => {
+  if (quizMode !== 'exam') return;
+  if (examSubmitted) return;
+  // grade all answered
+  const prevSel = selectedChoice;
+  answers.forEach((a, i) => {
+    if (a) return;
+    // can only grade current in one click — for exam we grade on final submit
+  });
+  // grade current if selected
+  gradeCurrentQuestion();
+  // grade all that have selectedChoice tracked — actually recalculate from stored answers isn't possible
+  // re-approach: exam mode grades everything at once based on stored selected choices per question
+  // We need to track selections per question in exam mode
+  examSubmitted = true;
+  // regrade using examSelections
+  scoreCorrect = 0; scoreWrong = 0;
+  answers.forEach((a, i) => {
+    if (a) { if (a.correct) scoreCorrect++; else scoreWrong++; }
+    else if (examSelections[i] !== undefined) {
+      const isCorrect = examSelections[i] === questions[i].correct;
+      answers[i] = { chosen: examSelections[i], correct: isCorrect };
+      if (isCorrect) scoreCorrect++; else scoreWrong++;
+    }
+  });
+  svCorrect.textContent = scoreCorrect;
+  svIncorrect.textContent = scoreWrong;
+  examSubmitRow.classList.remove('exam-live');
+  examSubmitRow.classList.add('exam-done');
+  submitExamBtn.textContent = 'Exam Submitted';
+  submitExamBtn.disabled = true;
+  renderQuestion();
+});
+
+// Track exam selections separately
+let examSelections = {};
+
+// Patch choice click to also record exam selections
+function rebuildChoiceListeners() {
+  const q = questions[currentIndex];
+  const answered = answers[currentIndex];
+  choicesEl.querySelectorAll('.ach').forEach((btn, i) => {
+    btn.addEventListener('click', () => {
+      if (answered) return;
+      if (quizMode === 'exam' && !examSubmitted) {
+        examSelections[currentIndex] = i;
+      }
+    });
+  });
+}
+
+// ── NAV ───────────────────────────────────────────────────────────────────
+prevBtn.addEventListener('click', () => {
+  if (currentIndex > 0) { currentIndex--; renderQuestion(); rebuildChoiceListeners(); }
+});
+nextBtn.addEventListener('click', () => {
+  if (currentIndex < questions.length - 1) { currentIndex++; renderQuestion(); rebuildChoiceListeners(); }
+});
+
+// ── MODE TOGGLE ───────────────────────────────────────────────────────────
+learnBtn.addEventListener('click', () => {
+  quizMode = 'learn';
+  learnBtn.classList.add('active'); examBtn.classList.remove('active');
+  submitRow.style.display = 'block';
+  examSubmitRow.classList.remove('exam-live','exam-done');
+  renderQuestion();
+});
+examBtn.addEventListener('click', () => {
+  quizMode = 'exam';
+  examBtn.classList.add('active'); learnBtn.classList.remove('active');
+  submitRow.style.display = 'none';
+  if (!examSubmitted) examSubmitRow.classList.add('exam-live');
+  renderQuestion();
+});
+
+function updateExamButton() {
+  if (quizMode !== 'exam') return;
+  const anySelected = Object.keys(examSelections).length > 0 || selectedChoice !== null;
+  submitExamBtn.disabled = examSubmitted || !anySelected;
+}
+
+// ── FONT SIZE ─────────────────────────────────────────────────────────────
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => { qo.dataset.fs = btn.dataset.fsBtn; });
+});
+
+// ── OPEN/CLOSE ────────────────────────────────────────────────────────────
+openDemo.addEventListener('click', () => { qo.classList.add('open'); renderQuestion(); rebuildChoiceListeners(); });
+closeQuiz.addEventListener('click', () => {
+  qo.classList.add('closing');
+  setTimeout(() => qo.classList.remove('open','closing'), 320);
+});
+
+// ── RESET ─────────────────────────────────────────────────────────────────
+resetQuiz.addEventListener('click', () => {
+  currentIndex = 0; selectedChoice = null;
+  answers = new Array(questions.length).fill(null);
+  examSelections = {};
+  scoreCorrect = 0; scoreWrong = 0; examSubmitted = false;
+  svCorrect.textContent = '0'; svIncorrect.textContent = '0';
+  examSubmitRow.classList.remove('exam-live','exam-done');
+  submitExamBtn.textContent = 'Submit Exam'; submitExamBtn.disabled = true;
+  quizMode = 'learn';
+  learnBtn.classList.add('active'); examBtn.classList.remove('active');
+  submitRow.style.display = 'block';
+  buildDots(); renderQuestion();
+});
+
+// ── PRINT ─────────────────────────────────────────────────────────────────
+function buildPrintReviewMarkup() {
+  const q = questions[currentIndex];
+  const answered = answers[currentIndex];
+  const letters = ['A','B','C','D'];
+  const choicesHtml = q.choices.map((text, i) => {
+    let cls = '';
+    if (answered) { cls = i === q.correct ? 'correct' : (i === answered.chosen ? 'incorrect' : ''); }
+    return `<div class="print-choice ${cls}">${letters[i]}. ${escapeHTML(text)}</div>`;
+  }).join('');
+  const explainHtml = answered ? `
+    <div class="print-explainer correct-box">Correct: ${escapeHTML(q.explanation.correct)}</div>
+    <div class="print-explainer teach-box">Teaching Point: ${escapeHTML(q.explanation.teaching)}</div>
+  ` : '<p><em>Not yet answered.</em></p>';
+  return `<div class="print-shell">
+    <h2 style="font-family:'Crimson Pro',serif;margin-bottom:18px">Smell &amp; Taste — Q${currentIndex+1} Review</h2>
+    <div class="print-card">
+      <p style="font-weight:700;margin-bottom:12px">${escapeHTML(q.stem)}</p>
+      ${choicesHtml}
+      <div style="margin-top:14px">${explainHtml}</div>
+    </div>
+  </div>`;
+}
+function printQuizReview() {
+  document.getElementById('printReviewRoot').innerHTML = buildPrintReviewMarkup();
+  document.body.classList.add('print-review-active');
+  setTimeout(() => window.print(), 50);
+}
+window.addEventListener('afterprint', () => document.body.classList.remove('print-review-active'));
+printQuizBtn.addEventListener('click', printQuizReview);
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+buildDots();
+</script>
+</body>
+</html>
