@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharmacogenetics & Lynch Syndrome — MCQ Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #1A7A6D;
+  --teal-deep: #125E54;
+  --teal-light: #E3F5F2;
+  --teal-mid: #2BA393;
+  --teal-glow: #3EC4B2;
+  --navy: #1B2A4A;
+  --navy2: #12203C;
+  --coral: #E07A5F;
+  --coral-bg: #FEF0EB;
+  --gold: #D4A843;
+  --gold-bg: #FDF6E3;
+  --gold-warm: #E8C76A;
+  --plum: #7B5EA7;
+  --plum-bg: #F3EEF9;
+  --sky: #4A9AE8;
+  --sky-bg: #EAF2FC;
+  --warm: #FBF8F3;
+  --cream: #F6F3EC;
+  --white: #FFFFFF;
+  --ink: #1E1E20;
+  --ink2: #3E4555;
+  --slate: #6B7689;
+  --mist: #A0AAB8;
+  --rule: #DBD5C9;
+  --rule2: #E9E4DA;
+  --green: #2D8659;
+  --green-bg: #E8F5EE;
+  --red: #C44040;
+  --red-bg: #FDF0F0;
+  --amber: #C07B1A;
+  --amber-bg: #FEF5E6;
+  --r: 14px;
+  --rs: 8px;
+  --sh: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+  --sh2: 0 8px 32px rgba(0,0,0,0.08);
+  --sh3: 0 12px 48px rgba(0,0,0,0.10);
+  --tr: 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--cream); color: var(--ink); font-family: 'Nunito', sans-serif; font-size: 16px; line-height: 1.6; }
+
+/* ── LAUNCH SCREEN ── */
+.launch-wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(62,196,178,.16), transparent 28%),
+    radial-gradient(circle at 82% 20%, rgba(123,94,167,.12), transparent 30%),
+    linear-gradient(180deg, var(--warm) 0%, var(--cream) 100%);
+}
+.launch-card {
+  max-width: 760px;
+  width: 100%;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  border: 1px solid rgba(18,32,60,.08);
+  box-shadow: 0 24px 80px rgba(18,32,60,.12);
+  padding: 44px 40px;
+  text-align: center;
+}
+.launch-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--teal);
+  margin-bottom: 14px;
+}
+.launch-card h1 {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.launch-card h1 span { color: var(--teal); }
+.launch-desc {
+  font-size: 1rem;
+  color: var(--slate);
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+.launch-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--white);
+  border: 1px solid var(--rule2);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--ink2);
+  font-weight: 500;
+}
+.chip-icon { font-size: 14px; }
+.launch-btn {
+  background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 48px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(26,122,109,.35);
+  transition: transform var(--tr), box-shadow var(--tr);
+}
+.launch-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(26,122,109,.4); }
+
+/* ── QUIZ OVERLAY ── */
+.qo {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--teal-glow) 18%, transparent), transparent 24%),
+    radial-gradient(circle at 92% 8%, color-mix(in srgb, var(--plum) 16%, transparent), transparent 22%),
+    linear-gradient(180deg, var(--warm) 0%, var(--cream) 100%);
+}
+.qo.open { display: block; animation: fi .35s cubic-bezier(.4,0,.2,1); }
+.qo.closing { display: block; pointer-events: none; animation: fo .34s cubic-bezier(.4,0,.2,1) forwards; }
+
+@keyframes fi { from { opacity:0; transform:scale(0.985); } to { opacity:1; transform:none; } }
+@keyframes fo { from { opacity:1; } to { opacity:0; } }
+
+/* ── TOP BAR ── */
+.qt-bar {
+  position: sticky; top: 0; z-index: 12;
+  padding: 16px 26px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  color: #fff;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--navy2) 94%, transparent),
+    color-mix(in srgb, var(--navy) 92%, transparent));
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 28px rgba(18,32,60,.16);
+}
+.qt-bar h2 {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.qt-btns { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.fs-ctrl { display: flex; align-items: center; gap: 4px; }
+.fs-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(255,255,255,.5); margin-right: 4px; }
+.fs-btn {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.85);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background var(--tr);
+}
+.fs-btn:hover { background: rgba(255,255,255,.2); }
+.qt-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--tr), transform var(--tr);
+}
+.qt-btn:hover { transform: translateY(-1px); }
+.qt-btn.reset { background: rgba(255,255,255,.12); color: rgba(255,255,255,.9); }
+.qt-btn.reset:hover { background: rgba(255,255,255,.2); }
+.qt-btn.close { background: rgba(224,122,95,.25); color: #FFB8A0; }
+.qt-btn.close:hover { background: rgba(224,122,95,.4); }
+.qt-btn.print { background: rgba(212,168,67,.2); color: var(--gold-warm); }
+.qt-btn.print:hover { background: rgba(212,168,67,.3); }
+
+/* ── TWO-COLUMN GRID ── */
+.qin {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  padding: 28px 24px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── LEFT PANEL ── */
+.q-left { display: flex; flex-direction: column; gap: 16px; }
+
+.score-panel {
+  background: var(--white);
+  border-radius: var(--r);
+  padding: 20px;
+  box-shadow: var(--sh);
+  border: 1px solid var(--rule);
+  animation: slideUp .4s cubic-bezier(.4,0,.2,1) both;
+}
+.score-panel h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mist);
+  margin-bottom: 14px;
+}
+.sv-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.sv-label { font-size: 0.82rem; color: var(--slate); font-weight: 600; }
+.sv-val {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+#svCorrect { color: var(--green); }
+#svIncorrect { color: var(--red); }
+#svCurrent { color: var(--teal); }
+.prog-wrap { margin-top: 14px; }
+.prog-label { font-size: 0.75rem; color: var(--mist); margin-bottom: 6px; display: flex; justify-content: space-between; }
+.prog-track { height: 6px; background: var(--rule); border-radius: 99px; overflow: hidden; }
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--teal-glow));
+  border-radius: 99px;
+  transition: width .4s cubic-bezier(.4,0,.2,1);
+  width: 5%;
+}
+
+.mode-toggle {
+  background: var(--white);
+  border-radius: var(--r);
+  padding: 16px;
+  box-shadow: var(--sh);
+  border: 1px solid var(--rule);
+  animation: slideUp .4s .04s cubic-bezier(.4,0,.2,1) both;
+}
+.mode-toggle h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mist);
+  margin-bottom: 10px;
+}
+.mode-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mode-btn {
+  padding: 9px 6px;
+  border-radius: var(--rs);
+  border: 1.5px solid var(--rule);
+  background: transparent;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--slate);
+  cursor: pointer;
+  transition: all var(--tr);
+}
+.mode-btn.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+.nav-panel {
+  background: var(--white);
+  border-radius: var(--r);
+  padding: 16px;
+  box-shadow: var(--sh);
+  border: 1px solid var(--rule);
+  animation: slideUp .4s .08s cubic-bezier(.4,0,.2,1) both;
+}
+.nav-panel h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--mist);
+  margin-bottom: 10px;
+}
+.qdots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.qd {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--rule);
+  border: none;
+  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--slate);
+  transition: all var(--tr);
+  display: flex; align-items: center; justify-content: center;
+}
+.qd.answered { background: var(--gold-bg); color: var(--amber); border: 1.5px solid var(--gold); }
+.qd.correct-dot { background: var(--green-bg); color: var(--green); border: 1.5px solid var(--green); }
+.qd.incorrect-dot { background: var(--red-bg); color: var(--red); border: 1.5px solid var(--red); }
+.qd.current { background: var(--teal); color: #fff; border: 1.5px solid var(--teal-deep); }
+
+.exam-submit-row {
+  background: var(--white);
+  border-radius: var(--r);
+  padding: 16px;
+  box-shadow: var(--sh);
+  border: 1px solid var(--rule);
+  display: none;
+  animation: slideUp .4s .14s cubic-bezier(.4,0,.2,1) both;
+}
+.exam-submit-row.exam-live { display: block; }
+.exam-submit-row.exam-done { display: block; }
+.submit-exam-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--rs);
+  border: none;
+  background: linear-gradient(135deg, var(--coral), #D45F3F);
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity var(--tr), transform var(--tr);
+}
+.submit-exam-btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+.submit-exam-btn:not(:disabled):hover { transform: translateY(-1px); }
+.exam-progress { font-size: 0.78rem; color: var(--mist); text-align: center; margin-top: 8px; }
+
+/* ── RIGHT: QUESTION CARD ── */
+.q-right { min-width: 0; }
+
+.qcard {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: var(--sh2);
+  border: 1px solid var(--rule);
+  animation: cardIn .4s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes cardIn { from { opacity:0; transform:translateY(16px) scale(.99); } to { opacity:1; transform:none; } }
+
+.qcard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.qnum {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mist);
+}
+.plo-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-weight: 600;
+}
+.plo-tag.plo { background: #FDECEA; color: #B03A2E; }
+.plo-tag.lo { background: var(--sky-bg); color: #2565A4; }
+
+.qstem {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--navy);
+  margin-bottom: 24px;
+}
+
+.choices { display: flex; flex-direction: column; gap: 10px; }
+.ach {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--rs);
+  border: 1.5px solid var(--rule);
+  background: var(--warm);
+  cursor: pointer;
+  transition: all var(--tr);
+}
+.ach:hover { border-color: var(--teal); background: var(--teal-light); }
+.ach.selected { border-color: var(--teal); background: var(--teal-light); }
+.ach.correct { border-color: var(--green); background: var(--green-bg); pointer-events: none; }
+.ach.incorrect { border-color: var(--red); background: var(--red-bg); pointer-events: none; }
+.ach.grayed { opacity: .55; pointer-events: none; }
+
+.letter-circle {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  background: var(--rule);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--slate);
+  transition: all var(--tr);
+}
+.ach.selected .letter-circle { background: var(--teal); color: #fff; }
+.ach.correct .letter-circle { background: var(--green); color: #fff; }
+.ach.incorrect .letter-circle { background: var(--red); color: #fff; }
+
+.ctx {
+  font-size: 16px;
+  color: var(--ink2);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Submit button (per question) */
+.submit-btn {
+  margin-top: 20px;
+  padding: 12px 32px;
+  border-radius: var(--rs);
+  border: none;
+  background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(26,122,109,.3);
+  transition: opacity var(--tr), transform var(--tr);
+}
+.submit-btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; transform: none !important; }
+.submit-btn:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(26,122,109,.4); }
+
+/* Explanation block */
+.exb {
+  margin-top: 20px;
+  border-radius: var(--rs);
+  overflow: hidden;
+  display: none;
+  animation: fi .3s cubic-bezier(.4,0,.2,1);
+}
+.exb.show { display: block; }
+.exb-correct {
+  background: var(--green-bg);
+  border-left: 4px solid var(--green);
+  padding: 14px 16px;
+}
+.exb-correct .ex-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--green);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.exb-teach {
+  background: var(--teal-light);
+  border-left: 4px solid var(--teal);
+  padding: 14px 16px;
+}
+.exb-teach .ex-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.exb-wrong {
+  background: var(--red-bg);
+  border-left: 4px solid var(--red);
+  padding: 14px 16px;
+}
+.exb-wrong .ex-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.ex-text { font-size: 0.9rem; color: var(--ink2); line-height: 1.6; }
+
+/* Navigation */
+.qnv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+}
+.nb {
+  padding: 10px 22px;
+  border-radius: var(--rs);
+  border: 1.5px solid var(--rule);
+  background: var(--white);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink2);
+  cursor: pointer;
+  transition: all var(--tr);
+}
+.nb:disabled { opacity: .38; cursor: not-allowed; }
+.nb.next-btn { background: var(--navy); border-color: var(--navy); color: #fff; }
+.nb.next-btn:not(:disabled):hover { background: var(--navy2); }
+.nb.prev-btn:not(:disabled):hover { background: var(--rule); }
+
+@keyframes slideUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+
+/* ── PRINT ── */
+#printReviewRoot { display: none; }
+body.print-review-active .launch-wrap,
+body.print-review-active .qo { display: none !important; }
+body.print-review-active #printReviewRoot { display: block; padding: 32px; background: #fff; }
+.print-shell { max-width: 980px; margin: 0 auto; font-family: 'Nunito', sans-serif; }
+.print-header { margin-bottom: 24px; border-bottom: 2px solid #ddd; padding-bottom: 16px; }
+.print-card { break-inside: avoid; border: 1px solid #ddd; border-radius: 12px; padding: 20px; margin-bottom: 18px; }
+.print-qnum { font-size: 11px; color: #888; font-family: monospace; margin-bottom: 6px; text-transform: uppercase; }
+.print-stem { font-size: 1.05rem; font-weight: 600; color: #1B2A4A; margin-bottom: 14px; }
+.print-choice { padding: 8px 12px; border-radius: 6px; border: 1px solid #e0e0e0; margin-bottom: 6px; font-size: 0.9rem; }
+.print-choice.correct { border-color: #2D8659; background: #E8F5EE; font-weight: 600; }
+.print-choice.incorrect { border-color: #C44040; background: #FDF0F0; }
+.print-explainer { padding: 10px 14px; border-radius: 6px; margin-top: 10px; font-size: 0.88rem; line-height: 1.6; }
+.print-explainer.correct-box { background: #E8F5EE; border-left: 4px solid #2D8659; }
+.print-explainer.teach-box { background: #E3F5F2; border-left: 4px solid #1A7A6D; }
+@media print {
+  body.print-review-active .launch-wrap,
+  body.print-review-active .qo { display: none !important; }
+  body.print-review-active #printReviewRoot { display: block !important; padding: 0; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 920px) {
+  .qin { grid-template-columns: 1fr; padding: 22px 18px 72px; gap: 16px; }
+  .q-left { flex-direction: row; flex-wrap: wrap; }
+  .score-panel, .mode-toggle, .nav-panel, .exam-submit-row { flex: 1 1 200px; }
+}
+@media (max-width: 700px) {
+  .qt-bar { flex-direction: column; align-items: flex-start; }
+  .qstem { font-size: 1.2rem; }
+  .qcard { padding: 22px 18px; }
+  .q-left { flex-direction: column; }
+}
+
+/* Closing animation sub-selectors */
+.qo.closing .qt-bar { animation: qBarOut .32s cubic-bezier(.4,0,.2,1) forwards; }
+.qo.closing .qin { animation: qSheetOut .32s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes qBarOut { from{opacity:1;transform:translateY(0);} to{opacity:0;transform:translateY(-12px);} }
+@keyframes qSheetOut { from{opacity:1;transform:scale(1);} to{opacity:0;transform:scale(.98);} }
+
+#qo[data-fs="sm"] .ctx { font-size: 13px; }
+#qo[data-fs="md"] .ctx { font-size: 16px; }
+#qo[data-fs="lg"] .ctx { font-size: 19px; }
+#qo[data-fs="xl"] .ctx { font-size: 22px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ LAUNCH SCREEN ═══════════ -->
+<div class="launch-wrap">
+  <div class="launch-card">
+    <div class="launch-eyebrow">Dr. Kathleen Becker · UNE COM</div>
+    <h1>Pharmacogenetics &amp; <span>Lynch Syndrome</span></h1>
+    <p class="launch-desc">20 MCQ questions covering all PLOs and LOs — from CYP2D6 and MDR1 to warfarin dosing principles and Lynch syndrome genetics.</p>
+    <div class="launch-meta">
+      <span class="chip"><span class="chip-icon">📋</span>20 Questions</span>
+      <span class="chip"><span class="chip-icon">🎯</span>3 PLOs · 3 LOs</span>
+      <span class="chip"><span class="chip-icon">💊</span>Pharmacogenetics</span>
+      <span class="chip"><span class="chip-icon">🧬</span>Lynch Syndrome</span>
+      <span class="chip"><span class="chip-icon">📚</span>Learn &amp; Exam modes</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open Quiz</button>
+  </div>
+</div>
+
+<!-- ═══════════ QUIZ OVERLAY ═══════════ -->
+<div class="qo" id="qo" data-fs="md">
+
+  <!-- TOP BAR -->
+  <div class="qt-bar">
+    <h2>Pharmacogenetics &amp; Lynch Syndrome</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuiz">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <!-- CONTENT GRID -->
+  <div class="qin">
+
+    <!-- LEFT COLUMN -->
+    <div class="q-left">
+
+      <div class="score-panel">
+        <h3>Score</h3>
+        <div class="sv-row">
+          <span class="sv-label">✓ Correct</span>
+          <span class="sv-val" id="svCorrect">0</span>
+        </div>
+        <div class="sv-row">
+          <span class="sv-label">✗ Incorrect</span>
+          <span class="sv-val" id="svIncorrect">0</span>
+        </div>
+        <div class="sv-row">
+          <span class="sv-label">Question</span>
+          <span class="sv-val" id="svCurrent">1 / 20</span>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-label">
+            <span>Progress</span>
+            <span id="progPct">5%</span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" id="qpf"></div></div>
+        </div>
+      </div>
+
+      <div class="mode-toggle">
+        <h3>Mode</h3>
+        <div class="mode-btns">
+          <button class="mode-btn active" id="learnBtn">Learn</button>
+          <button class="mode-btn" id="examBtn">Exam</button>
+        </div>
+      </div>
+
+      <div class="nav-panel">
+        <h3>Questions</h3>
+        <div class="qdots" id="qdots"></div>
+      </div>
+
+      <div class="exam-submit-row" id="examSubmitRow">
+        <button class="submit-exam-btn" id="submitExamBtn" disabled>Submit Exam</button>
+        <div class="exam-progress" id="examProgress"></div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN: QUESTION CARD -->
+    <div class="q-right">
+      <div class="qcard" id="qA">
+        <div class="qcd">
+          <div class="qcard-header">
+            <span class="qnum" id="qnum">Question 1 of 20</span>
+            <span class="plo-tag plo" id="ploTag">PLO 1</span>
+          </div>
+          <div class="qstem" id="qStem"></div>
+          <div class="choices" id="choices"></div>
+          <button class="submit-btn" id="submitBtn" disabled>Submit Answer</button>
+          <div class="exb" id="exBlock"></div>
+          <div class="qnv">
+            <button class="nb prev-btn" id="prevBtn" disabled>← Prev</button>
+            <button class="nb next-btn" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PRINT ROOT -->
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+// ═══════════════════════════════════════════
+//  QUESTION DATA
+// ═══════════════════════════════════════════
+const questions = [
+  // ── PLO 1: Define Pharmacogenetics ──
+  {
+    tag: 'PLO 1', tagType: 'plo',
+    stem: 'Which statement best distinguishes pharmacogenetics from pharmacogenomics?',
+    choices: [
+      'Pharmacogenetics studies large effects at a small number of genetic loci; pharmacogenomics examines many variants across a population to explain multifactorial drug-response traits.',
+      'Pharmacogenetics is limited to cancer therapeutics, while pharmacogenomics applies to all drugs.',
+      'Pharmacogenomics studies single-gene effects; pharmacogenetics studies genome-wide association.',
+      'Both terms are interchangeable and refer to the same field of study.'
+    ],
+    correct: 0,
+    explanation: {
+      correct: 'Correct. Pharmacogenetics focuses on large effects at a small number of loci (bimodal distribution), while pharmacogenomics examines many variants collectively explaining variable drug responses — a multifactorial, continuous distribution.',
+      teaching: 'The classic pharmacogenetics example is CYP2D6 and codeine: a single locus with a gene deletion (poor metabolizer) or gene duplication (ultra-metabolizer) determines the entire phenotype. Pharmacogenomics, by contrast, sums contributions from many loci — like a polygenic score.',
+      wrongs: [
+        'A — Pharmacogenetics applies to all drugs, not just cancer therapeutics.',
+        'C — This is reversed: pharmacogenetics = single/few loci; pharmacogenomics = many loci.',
+        'D — The two terms have distinct meanings regarding the number of loci studied.'
+      ]
+    }
+  },
+  {
+    tag: 'PLO 1', tagType: 'plo',
+    stem: 'A patient with a confirmed CYP2D6 gene deletion is prescribed codeine for post-operative pain. What is the most likely clinical outcome?',
+    choices: [
+      'Rapid conversion to morphine causing respiratory depression',
+      'Little to no pain relief, as codeine cannot be converted to its active form',
+      'Standard pain relief with a slightly delayed onset',
+      'Increased risk of serotonin syndrome due to excess morphine accumulation'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. Codeine is a prodrug that requires CYP2D6 to be metabolized into morphine (its active analgesic form). A CYP2D6 deletion means no functional enzyme — so codeine is not converted and provides no pain relief.',
+      teaching: 'This patient is a "poor metabolizer." The correct clinical response is to choose an analgesic that does not depend on CYP2D6 (e.g., morphine directly, or a non-opioid). About 10% of white individuals are poor metabolizers, compared to ~0.5% of African American and Asian individuals.',
+      wrongs: [
+        'A — Rapid conversion and respiratory depression describe the ultra-metabolizer phenotype (gene duplication), not deletion.',
+        'C — Codeine requires enzymatic activation; without CYP2D6 there is no active drug, so standard efficacy does not occur.',
+        'D — Serotonin syndrome is not a consequence of a CYP2D6 deletion or lack of morphine production.'
+      ]
+    }
+  },
+  {
+    tag: 'PLO 1', tagType: 'plo',
+    stem: 'A breastfeeding mother who is a CYP2D6 ultra-rapid metabolizer takes a standard dose of codeine for pain. What is the primary risk to her infant?',
+    choices: [
+      'The infant receives no analgesic benefit because the mother\'s milk contains only unmetabolized codeine',
+      'The infant is at risk for respiratory depression due to elevated morphine concentrations in breast milk',
+      'The infant develops tolerance to opioids rapidly due to chronic low-level morphine exposure',
+      'The infant\'s CYP2D6 status is upregulated, creating a permanent enzymatic change'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. An ultra-rapid metabolizer converts codeine to morphine far faster and more completely than normal (due to 12–16 gene copies). This produces dangerously high morphine concentrations in breast milk, which can cause neonatal respiratory depression.',
+      teaching: 'This is a documented clinical tragedy — there are fatal cases of neonatal opioid toxicity from breast milk in ultra-metabolizer mothers given codeine. Codeine and tramadol are now discouraged in breastfeeding mothers for this reason.',
+      wrongs: [
+        'A — The opposite is true: ultra-metabolizers produce excess morphine, not less.',
+        'C — Tolerance is not an acute concern; the immediate risk is respiratory depression.',
+        'D — An infant\'s CYP2D6 enzyme status is genetically determined at birth and is not altered by maternal milk composition.'
+      ]
+    }
+  },
+  {
+    tag: 'PLO 1', tagType: 'plo',
+    stem: 'Approximately what percentage of individuals in the white population lack functional CYP2D6 and are therefore "poor metabolizers" of codeine?',
+    choices: [
+      '0.5%',
+      '3%',
+      '10%',
+      '25%'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Correct. Approximately 10% of white individuals are CYP2D6 poor metabolizers due to gene deletion or inactivating mutations.',
+      teaching: 'By contrast, only ~0.5% of African American and Asian individuals are poor metabolizers for CYP2D6 — a clinically important ethnic difference in pharmacogenetics that highlights why race/ethnicity may influence therapeutic choice. Pharmacogenomics can help explain and reduce these disparities.',
+      wrongs: [
+        'A — 0.5% describes the frequency of CYP2D6 poor metabolizers in African American and Asian populations, not white populations.',
+        'B — 3% is not the documented frequency for this population.',
+        'D — 25% would be a very high frequency; the actual figure is ~10% for white populations.'
+      ]
+    }
+  },
+
+  // ── PLO 2: Multistep Tumorigenesis & 2-Hit ──
+  {
+    tag: 'PLO 2', tagType: 'plo',
+    stem: 'According to the multistep model of tumorigenesis, approximately how many driver mutations must a normal colonic epithelial cell accumulate before becoming fully invasive and metastatic?',
+    choices: [
+      '1–2 driver mutations',
+      '3–4 driver mutations',
+      '6–8 driver mutations',
+      '20 or more driver mutations'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Correct. At least 6–8 driver mutations are required for a normal cell to become fully invasive and metastatic. Each driver mutation confers a clonal growth advantage.',
+      teaching: 'The classic colorectal adenoma-carcinoma sequence illustrates this: APC mutation → small adenoma; RAS mutation → large adenoma; PI3K, cell cycle/apoptosis, and TGFB mutations → carcinoma. This process typically unfolds over 30–70 years, which is why colorectal cancer is rare in younger individuals without a hereditary predisposition.',
+      wrongs: [
+        'A — A single mutation is the initial event (e.g., APC) but is insufficient for cancer; many additional driver mutations are required.',
+        'B — 3–4 mutations are still insufficient for full malignant transformation.',
+        'D — While tumors accumulate thousands of passenger mutations, only 6–8 driver mutations are needed for malignant transformation.'
+      ]
+    }
+  },
+  {
+    tag: 'PLO 2', tagType: 'plo',
+    stem: 'DNA mismatch repair (MMR) genes, such as MSH2 and MLH1, are classified as which category of cancer gene? How many mutations in these genes are required for tumor formation in a single cell?',
+    choices: [
+      'Oncogenes; one activating mutation is sufficient',
+      'Tumor suppressor genes; both alleles must be inactivated (2-hit hypothesis)',
+      'Proto-oncogenes; one mutation converts them to active oncogenes',
+      'Repair genes; they are dominant and only one functional copy is needed to prevent cancer at the cellular level'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. MMR genes are tumor suppressor genes (TSGs). They act recessively at the cellular level — both copies must be inactivated before the protective function is lost. This is the 2-hit hypothesis: one germline mutation (hit 1) + one somatic loss of heterozygosity (hit 2) = tumor formation.',
+      teaching: 'Oncogenes (e.g., RAS) need only one dominant gain-of-function mutation ("one hit"). TSGs (e.g., MSH2, APC, RB1) need both alleles inactivated. This distinction is why inherited TSG mutations are so dangerous — every cell in the body already carries hit 1 at birth.',
+      wrongs: [
+        'A — Oncogenes require only one activating mutation, but MMR genes are TSGs, not oncogenes.',
+        'C — Proto-oncogenes can be converted to oncogenes by a single mutation; MSH2 and MLH1 are not proto-oncogenes.',
+        'D — TSGs are recessive at the cellular level; losing one allele leaves the other functional, but losing both removes all protection.'
+      ]
+    }
+  },
+  {
+    tag: 'PLO 2', tagType: 'plo',
+    stem: 'A patient inherits one mutated MSH2 allele (MSH2+/m) from a parent with Lynch syndrome. Why is this patient\'s lifetime risk of colorectal cancer dramatically higher than the general population?',
+    choices: [
+      'Because the single mutated allele constitutively activates cell proliferation pathways',
+      'Because every colon cell already carries one non-functional MMR allele and requires only one additional somatic hit to lose all mismatch repair function',
+      'Because the inherited mutation also inactivates the TP53 tumor suppressor in all cells',
+      'Because MMR genes are haploinsufficient — one functional copy is not enough to prevent errors'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. Every colonic epithelial cell in this patient starts life already halfway to the 2-hit threshold. Any one of billions of colon cells that acquires a single additional somatic hit (loss of heterozygosity) will immediately lose all MMR function — dramatically increasing the probability of tumor formation over a lifetime.',
+      teaching: 'In sporadic (non-hereditary) cancer, two independent somatic hits must occur in the same cell — a rare event. In Lynch syndrome, the first hit is already present in every cell. With millions of colon cells dividing over decades, the chance that at least one acquires a second hit is very high. This explains the dramatically elevated penetrance (up to ~80% lifetime risk of colorectal cancer in Lynch syndrome carriers).',
+      wrongs: [
+        'A — MSH2+/m does not activate proliferation; MSH2 is a repair gene, not an oncogene.',
+        'C — The inherited mutation is specific to the MSH2 locus; it does not inactivate TP53.',
+        'D — TSGs are recessive at the cellular level; one functional copy of MSH2 IS sufficient for repair — cancer risk increases because the second allele is so easily lost.'
+      ]
+    }
+  },
+
+  // ── PLO 3: Germline vs Somatic Mutations ──
+  {
+    tag: 'PLO 3', tagType: 'plo',
+    stem: 'Which of the following best describes a germline mutation?',
+    choices: [
+      'A mutation present only in tumor cells and their daughter cells; cannot be passed to offspring',
+      'A mutation that arises after fertilization in a dividing somatic cell',
+      'A mutation present in the fertilized egg and therefore in every cell of the body, including germ cells; can be inherited by offspring',
+      'A mutation limited to a specific tissue type due to tissue-restricted gene expression'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Correct. A germline mutation originates in or before the fertilized egg, making it present in every somatic cell and every germ cell (sperm/eggs). Because it is in the germ cells, it can be passed to the next generation.',
+      teaching: 'Contrast this with a somatic mutation, which arises after fertilization in a single body cell. Somatic mutations are present only in the tumor and its descendants — not in normal tissues, not in germ cells, and therefore cannot be inherited. The question "will this mutation be inherited by offspring?" hinges entirely on whether it is germline or somatic.',
+      wrongs: [
+        'A — This describes a somatic mutation, not a germline mutation.',
+        'B — A mutation arising after fertilization is a somatic (not germline) mutation.',
+        'D — Germline mutations are present in every cell regardless of tissue type.'
+      ]
+    }
+  },
+  {
+    tag: 'PLO 3', tagType: 'plo',
+    stem: 'A patient develops a melanoma with a somatic HRAS driver mutation. A biopsy of a normal melanocyte from the patient\'s foot is analyzed. What is the HRAS genotype of that normal melanocyte?',
+    choices: [
+      'HRAS mutant — the mutation is present in all melanocytes regardless of location',
+      'HRAS normal (wild-type) — somatic mutations are confined to the tumor cell lineage',
+      'HRAS heterozygous — the patient inherited one mutant copy of HRAS at birth',
+      'HRAS mutant — melanocytes share the same precursor pool as the tumor cells'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. The HRAS mutation arose somatically in a single melanocyte that eventually became the melanoma. A normal melanocyte in the foot comes from a different cell lineage that never acquired this mutation, so its HRAS genotype is wild-type (normal).',
+      teaching: 'This is a core exam concept: somatic mutations are present only in the tumor and its clonal descendants. All other normal cells — even the same cell type in a different location — remain genetically unaffected. The offspring of this patient would also carry a normal HRAS genotype, since the mutation never entered the germ cells.',
+      wrongs: [
+        'A — Somatic mutations are not systemic; they are localized to the cell lineage in which they arose.',
+        'C — If HRAS were heterozygous in all cells, this would indicate a germline mutation — but the question specifies a somatic mutation.',
+        'D — Different individual melanocytes throughout the body are not clonal descendants of the tumor; they arise independently during development.'
+      ]
+    }
+  },
+  {
+    tag: 'PLO 3', tagType: 'plo',
+    stem: 'A Lynch syndrome patient (germline MSH2+/m) develops a colon adenocarcinoma at age 42. A tissue sample from the colon tumor is sent for MSH2 genotyping. What result is expected?',
+    choices: [
+      'MSH2+/m — the tumor retains one functional allele and is still heterozygous',
+      'MSH2+/+ — the tumor has restored the wild-type allele by gene conversion',
+      'MSH2m/m — a second somatic hit caused loss of heterozygosity, inactivating both alleles',
+      'MSH2 deletion — the entire gene has been deleted by chromosomal instability'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Correct. Per the 2-hit hypothesis, the patient was born with MSH2+/m in every cell. For a tumor to form, a colon cell must have lost the remaining functional allele through loss of heterozygosity (LOH) — leaving the cell MSH2m/m with no functional mismatch repair.',
+      teaching: 'Compare this to normal keratinocytes from the same patient (e.g., a scalp biopsy): those cells remain MSH2+/m because no second hit occurred there. The diagnostic hallmark in Lynch syndrome is that tumor cells are MSH2m/m (absent MSH2 on IHC), while normal somatic cells are MSH2+/m (MSH2 present on IHC). This discordance is used clinically to confirm Lynch syndrome.',
+      wrongs: [
+        'A — Heterozygosity in the tumor would mean MMR function is preserved — no tumor would form.',
+        'B — Gene conversion to wild-type does not occur and is not a mechanism of tumorigenesis.',
+        'D — While chromosomal deletions can cause LOH, the key point is that the result is MSH2m/m — both alleles non-functional.'
+      ]
+    }
+  },
+
+  // ── LO 1: Genetic Variants & Drug Response (MDR1) ──
+  {
+    tag: 'LO 1', tagType: 'lo',
+    stem: 'The MDR1 gene (ABCB1) encodes P-glycoprotein 1. What is the primary physiological function of this protein in the central nervous system?',
+    choices: [
+      'It synthesizes neurotransmitters at the blood-brain barrier to regulate synaptic function',
+      'It pumps xenobiotics and drugs out of neural tissue, protecting the CNS from toxic concentrations',
+      'It facilitates drug entry into neurons by acting as an influx transporter',
+      'It degrades drugs metabolically in CNS endothelial cells via CYP enzyme activity'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. P-glycoprotein (encoded by MDR1/ABCB1) is an efflux transporter that actively pumps xenobiotics — including many therapeutic drugs — out of neural tissue across the blood-brain barrier, protecting the CNS from toxicity.',
+      teaching: 'Loss-of-function MDR1 mutations reduce P-gp activity, increasing CNS drug concentrations — which may cause toxicity at standard doses. Conversely, overexpression of ABCB1 in tumor cells pumps chemotherapeutics out before they can act, causing treatment resistance in cancers and epilepsy.',
+      wrongs: [
+        'A — P-glycoprotein is an efflux transporter, not a neurotransmitter synthesizing enzyme.',
+        'C — P-gp is an efflux (outward) transporter, not an influx transporter.',
+        'D — P-gp is an ATP-powered efflux pump, not a CYP metabolic enzyme.'
+      ]
+    }
+  },
+  {
+    tag: 'LO 1', tagType: 'lo',
+    stem: 'Roger, a dog, is heterozygous (MDR1+/m) for a loss-of-function MDR1 mutation. The mutation exhibits incomplete dominance. Roger requires a pre-anesthetic medication that is a P-glycoprotein substrate. How should the veterinarian adjust the dose compared to a wild-type dog?',
+    choices: [
+      'Increase the dose — less P-gp function means less drug enters the CNS',
+      'No adjustment needed — heterozygotes have fully normal P-gp function',
+      'Decrease the dose — reduced P-gp function allows more drug to accumulate in the CNS',
+      'Switch to an entirely different drug class — P-gp substrates are contraindicated in all MDR1 heterozygotes'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Correct. With incomplete dominance, the MDR1+/m heterozygote has reduced (but not absent) P-glycoprotein function compared to wild-type. Less drug is pumped out of the CNS → higher neural drug concentrations → standard doses cause disproportionately high CNS drug levels → risk of toxicity. A lower dose achieves the same CNS effect safely.',
+      teaching: 'This is a direct application of the gene dosage principle with incomplete dominance: the heterozygote phenotype is intermediate between homozygous normal and homozygous mutant. Always identify whether the mutation causes loss of function (less pumping → more CNS drug) and adjust accordingly. The same logic applies to MDR1 mutations in herding dog breeds like Australian Shepherds.',
+      wrongs: [
+        'A — Less P-gp function means LESS drug is pumped out → MORE drug remains in CNS. Increasing the dose would worsen toxicity.',
+        'B — Incomplete dominance means heterozygotes are NOT fully normal — they have intermediate P-gp activity.',
+        'D — The drug is not contraindicated; it simply requires dose adjustment based on genotype.'
+      ]
+    }
+  },
+  {
+    tag: 'LO 1', tagType: 'lo',
+    stem: 'An 8-year-old presents with a neuroblastoma in the right cerebral hemisphere. Post-resection gene expression analysis shows markedly elevated ABCB1 (MDR1) expression in the remaining tumor tissue. What is the clinical implication for chemotherapy dosing?',
+    choices: [
+      'Decrease the dose — overexpressed P-gp concentrates the drug inside tumor cells, increasing toxicity',
+      'Increase the dose — overexpressed P-gp actively pumps the drug out of tumor cells, reducing intracellular concentration',
+      'No change needed — ABCB1 overexpression only affects drug metabolism, not intracellular concentration',
+      'Switch to oral administration — overexpressed P-gp only affects intravenous drug delivery'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. Overexpression of ABCB1/P-glycoprotein in tumor cells increases drug efflux OUT of those cells, lowering intracellular drug concentrations below the therapeutic threshold. A higher dose is needed to overcome this efflux pump and maintain sufficient intracellular drug levels to kill the tumor cells.',
+      teaching: 'ABCB1 overexpression is a major mechanism of chemotherapy resistance in many cancers, including brain tumors, leukemias, and breast cancers. Some research strategies focus on P-gp inhibitors (e.g., verapamil) used alongside chemotherapy to block efflux and restore drug sensitivity.',
+      wrongs: [
+        'A — Overexpressed P-gp pumps drug OUT, reducing intracellular concentration — not concentrating it inside.',
+        'C — ABCB1 is an efflux transporter that directly reduces intracellular drug concentration, not just a metabolic enzyme.',
+        'D — P-gp operates at the cellular membrane regardless of the route of drug administration.'
+      ]
+    }
+  },
+
+  // ── LO 2: Dosing Principles (Warfarin) ──
+  {
+    tag: 'LO 2', tagType: 'lo',
+    stem: 'Warfarin exerts its anticoagulant effect through which mechanism?',
+    choices: [
+      'Direct inhibition of thrombin (Factor IIa), preventing fibrin clot formation',
+      'Inhibition of VKORC1, blocking vitamin K recycling and preventing carboxylation of clotting factors II, VII, IX, and X',
+      'Activation of protein C, which degrades clotting factors Va and VIIIa',
+      'Irreversible inhibition of COX-1 and COX-2, reducing thromboxane A2-mediated platelet aggregation'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. Warfarin inhibits VKORC1 (Vitamin K Epoxide Reductase Complex 1), preventing the recycling of oxidized Vitamin K back to its active reduced form. Without active Vitamin K, the carboxylase enzyme cannot activate prothrombin and clotting factors II, VII, IX, and X → anticoagulation.',
+      teaching: 'Warfarin is NOT a prodrug — its metabolites do not inhibit VKORC1. The S-enantiomer (metabolized by CYP2C9) is 3–5× more potent than R-warfarin. This distinction is critical: genetic variants in either VKORC1 (target affinity) or CYP2C9 (metabolism) can dramatically alter warfarin dosing needs.',
+      wrongs: [
+        'A — Direct thrombin inhibition describes drugs like dabigatran (a direct oral anticoagulant), not warfarin.',
+        'C — Protein C activation is the mechanism of thrombomodulin, not warfarin.',
+        'D — COX-1/COX-2 inhibition describes aspirin and NSAIDs, not warfarin.'
+      ]
+    }
+  },
+  {
+    tag: 'LO 2', tagType: 'lo',
+    stem: 'A patient carries a VKORC1 missense mutation that increases warfarin\'s binding affinity for VKORC1 by 50%. At the standard warfarin dose, what is the most likely consequence and what dose adjustment is required?',
+    choices: [
+      'Insufficient anticoagulation; increase the dose',
+      'Over-anticoagulation with dangerous bleeding risk; decrease the dose',
+      'No clinical effect; the increased affinity is compensated by increased VKORC1 expression',
+      'Warfarin resistance; switch to an alternative anticoagulant'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. If warfarin binds VKORC1 with 50% higher affinity, each molecule of warfarin inhibits VKORC1 more effectively. At the standard dose, this results in excessive VKORC1 inhibition → over-anticoagulation → clinically significant bleeding risk. The dose must be decreased.',
+      teaching: 'The master framework: Increased target affinity → drug more effective at same dose → DECREASE dose. Decreased target affinity → drug less effective → INCREASE dose. Minimized interaction → no drug effect → SWITCH medication. Apply this logic to any drug-target pair.',
+      wrongs: [
+        'A — Insufficient anticoagulation would result from decreased affinity, not increased affinity.',
+        'C — Genetic variants in VKORC1 are not compensated by upregulation — the binding site is structurally altered.',
+        'D — Warfarin resistance results from decreased or minimized binding affinity, not from increased affinity.'
+      ]
+    }
+  },
+  {
+    tag: 'LO 2', tagType: 'lo',
+    stem: 'A patient with atrial fibrillation is found to carry a VKORC1 mutation that minimizes (virtually eliminates) warfarin\'s binding at its usual binding site. Standard warfarin therapy is ineffective. What is the most appropriate pharmacological strategy?',
+    choices: [
+      'Administer a higher dose of warfarin to overcome the reduced binding',
+      'Switch to a drug targeting the same binding site on VKORC1 with higher potency',
+      'Switch to an anticoagulant that targets a different molecule in the coagulation cascade',
+      'Combine warfarin with a CYP inhibitor to increase circulating drug levels'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Correct. When warfarin binding is minimized, increasing the dose does not restore efficacy — it only adds toxicity without therapeutic benefit. The most reliable strategy is switching to a drug that targets a completely different molecule (e.g., a direct oral anticoagulant targeting Factor Xa or thrombin), bypassing the altered VKORC1 entirely.',
+      teaching: 'Hierarchy of alternatives when target binding is minimized: (A) Same binding site on VKORC1 — least preferred, since structural changes may impair all ligands at that site. (B) Different binding site on VKORC1 — better, but structural changes may still reduce affinity. (C) Entirely different target — most reliable, as it sidesteps the VKORC1 problem completely.',
+      wrongs: [
+        'A — Increasing the dose of warfarin provides no benefit when the drug cannot bind its target — it only adds systemic toxicity risk.',
+        'B — A drug targeting the same mutated binding site faces the same structural problem and may also have reduced affinity.',
+        'D — Inhibiting CYP enzymes increases circulating warfarin levels, but if the drug cannot bind VKORC1, more drug still produces no anticoagulant effect.'
+      ]
+    }
+  },
+  {
+    tag: 'LO 2', tagType: 'lo',
+    stem: 'A patient carries a CYP2C9 polymorphism that reduces metabolism of S-warfarin by 70%. Before initiating anticoagulation therapy, how should warfarin dosing be adjusted, and what is the primary clinical risk if unadjusted?',
+    choices: [
+      'Increase the dose — reduced metabolism means less active drug is produced from the prodrug warfarin',
+      'No adjustment — CYP enzymes only affect warfarin absorption, not its plasma concentration',
+      'Decrease the dose — reduced CYP2C9 activity allows S-warfarin to accumulate, increasing bleeding risk',
+      'Switch to a different anticoagulant — warfarin is absolutely contraindicated in CYP2C9 polymorphism carriers'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Correct. Warfarin is NOT a prodrug — the drug itself inhibits VKORC1. If CYP2C9 (which metabolizes S-warfarin, the more potent isomer at 3–5× R-warfarin) is impaired, S-warfarin accumulates in the circulation → prolonged, excessive VKORC1 inhibition → over-anticoagulation → life-threatening bleeding.',
+      teaching: 'Compare to codeine (a prodrug): slower metabolism → less active drug → decrease effect → may need MORE drug. With warfarin (not a prodrug): slower metabolism → MORE drug accumulates → increase effect → need LESS drug. Always determine prodrug vs. non-prodrug status before reasoning through metabolic consequences.',
+      wrongs: [
+        'A — Warfarin is not a prodrug; slowed metabolism increases circulating active warfarin, it does not reduce the active product.',
+        'B — CYP2C9 directly controls the plasma half-life and concentration of S-warfarin; impaired metabolism significantly increases drug levels.',
+        'D — Warfarin can still be used with a CYP2C9 polymorphism; genetic testing informs dosing, it does not make the drug absolutely contraindicated.'
+      ]
+    }
+  },
+
+  // ── LO 3: Lynch Syndrome ──
+  {
+    tag: 'LO 3', tagType: 'lo',
+    stem: 'What is the inheritance pattern of Lynch syndrome (HNPCC), and how is this reconciled with the fact that two allelic hits are required for tumor formation at the cellular level?',
+    choices: [
+      'Autosomal recessive — both copies of the MMR gene must be inherited as mutated alleles for disease to manifest',
+      'X-linked dominant — the MMR genes are located on the X chromosome and expressed primarily in colonic tissue',
+      'Autosomal dominant with reduced penetrance — one inherited mutant allele creates a predisposition; tumorigenesis requires a second somatic hit in a colon cell',
+      'Autosomal dominant with full penetrance — any carrier of one mutated MMR allele will inevitably develop colorectal cancer'
+    ],
+    correct: 2,
+    explanation: {
+      correct: 'Correct. Lynch syndrome is autosomal dominant with reduced penetrance. The "dominant" refers to the predisposition — inheriting one mutant allele is sufficient to dramatically increase cancer risk (because every colon cell is halfway to the 2-hit threshold). However, tumorigenesis still requires a second somatic hit in a specific cell, which is why not every carrier develops cancer (reduced penetrance).',
+      teaching: 'All Lynch syndrome causative genes — MLH1 (3p22.2), MSH2 (2p21–16), MSH6 (2p16.3), PMS2 (7p22.1), and EPCAM (2p21) — are located on autosomes, not sex chromosomes, confirming autosomal (not X-linked) inheritance. The penetrance for colorectal cancer is estimated at 50–80% lifetime risk in carriers, confirming it is high but not 100% (reduced penetrance).',
+      wrongs: [
+        'A — Autosomal recessive would require inheriting two mutant alleles from both parents at birth; Lynch syndrome carriers only need one germline mutation.',
+        'B — Lynch syndrome genes are on autosomes (chromosomes 2, 3, 7), not the X chromosome.',
+        'D — Penetrance is high but reduced — not all carriers develop cancer, because the second somatic hit must also occur.'
+      ]
+    }
+  },
+  {
+    tag: 'LO 3', tagType: 'lo',
+    stem: 'Lynch syndrome can be caused by mutations in MLH1, MSH2, MSH6, PMS2, or EPCAM — each a different gene, yet each producing the same disease phenotype. Which genetic concept does this exemplify?',
+    choices: [
+      'Pleiotropy — one gene producing multiple independent phenotypes',
+      'Locus heterogeneity — mutations in different genes leading to the same disease phenotype',
+      'Allelic heterogeneity — multiple different mutations within the same gene causing the same disease',
+      'Variable expressivity — the same mutation causing different severity of the same disease'
+    ],
+    correct: 1,
+    explanation: {
+      correct: 'Correct. Locus heterogeneity describes the situation where mutations in distinct genetic loci (different genes) all result in the same disease phenotype. Lynch syndrome is a textbook example: mutating any one of the MMR pathway genes (MLH1, MSH2, MSH6, PMS2) or EPCAM leads to hereditary colorectal cancer predisposition.',
+      teaching: 'Distinguish: Allelic heterogeneity = many different mutations at the same gene locus causing the same disease. Locus heterogeneity = mutations at different genes causing the same disease. EPCAM is an interesting special case: deletions in the 3\' end of EPCAM extend into the MSH2 promoter, causing epigenetic silencing of MSH2 by DNA methylation — effectively the same result (MSH2 loss) achieved through an epigenetic mechanism.',
+      wrongs: [
+        'A — Pleiotropy is one gene → multiple different phenotypes; this is the opposite — multiple genes → one phenotype.',
+        'C — Allelic heterogeneity refers to different mutations within the same gene, not in different genes.',
+        'D — Variable expressivity refers to differing severity of a trait in individuals with the same genotype, not the ability of different genes to cause the same phenotype.'
+      ]
+    }
+  },
+  {
+    tag: 'LO 3', tagType: 'lo',
+    stem: 'In a patient with Lynch syndrome (MSH2+/m), microsatellite instability (MSI) is detected in the colorectal tumor. What is the underlying molecular mechanism responsible for MSI in these tumors?',
+    choices: [
+      'Defective MMR proteins fail to correct polymerase slippage errors in repetitive microsatellite sequences, allowing them to expand or contract abnormally',
+      'Hyperactivation of telomerase in tumor cells causes abnormal lengthening of microsatellite repeats throughout the genome',
+      'Loss of EPCAM function disrupts chromosomal stability, causing large-scale deletions of microsatellite-containing chromosomal segments',
+      'Tumor cells upregulate error-prone translesion polymerases that preferentially mutate microsatellite regions'
+    ],
+    correct: 0,
+    explanation: {
+      correct: 'Correct. Microsatellites are 2–6 bp repetitive sequences (e.g., CACACACA…) scattered throughout the genome. During replication, DNA polymerase frequently slips on these repetitive sequences, creating mismatches. MMR proteins normally correct these errors. When MMR is defective (as in Lynch syndrome tumor cells, which are MSH2m/m), these slippage errors are not repaired — microsatellites expand or contract → microsatellite instability (MSI).',
+      teaching: 'MSI is both a consequence and a biomarker of MMR deficiency. MSI-High (MSI-H) status is detected by PCR comparing microsatellite lengths in tumor vs. normal tissue or by immunohistochemistry (IHC) showing absent MMR protein in tumor cells. MSI-H tumors respond better to immune checkpoint inhibitors (pembrolizumab), making MMR status clinically actionable for immunotherapy.',
+      wrongs: [
+        'B — Telomerase acts on telomeres (ends of chromosomes), not on internal microsatellite sequences throughout the genome.',
+        'C — EPCAM mutations affect Lynch syndrome through epigenetic silencing of MSH2; EPCAM itself is not involved in chromosomal stability at microsatellite loci.',
+        'D — Translesion polymerases handle DNA lesions (chemical damage), not simple replication slippage errors at microsatellites.'
+      ]
+    }
+  }
+];
+
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+let currentIdx = 0;
+let quizMode = 'learn';  // 'learn' | 'exam'
+let examSubmitted = false;
+let selectedChoice = null;
+
+// Per-question state: { selected: null|number, graded: bool, result: null|'correct'|'incorrect' }
+const state = questions.map(() => ({ selected: null, graded: false, result: null }));
+
+// ═══════════════════════════════════════════
+//  DOM REFS
+// ═══════════════════════════════════════════
+const qo = document.getElementById('qo');
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const printQuizBtn = document.getElementById('printQuiz');
+
+const svCorrect = document.getElementById('svCorrect');
+const svIncorrect = document.getElementById('svIncorrect');
+const svCurrent = document.getElementById('svCurrent');
+const qpf = document.getElementById('qpf');
+const progPct = document.getElementById('progPct');
+
+const learnBtn = document.getElementById('learnBtn');
+const examBtn = document.getElementById('examBtn');
+const examSubmitRow = document.getElementById('examSubmitRow');
+const submitExamBtn = document.getElementById('submitExamBtn');
+const examProgress = document.getElementById('examProgress');
+
+const qdotsContainer = document.getElementById('qdots');
+const qnum = document.getElementById('qnum');
+const ploTag = document.getElementById('ploTag');
+const qStem = document.getElementById('qStem');
+const choicesEl = document.getElementById('choices');
+const submitBtn = document.getElementById('submitBtn');
+const exBlock = document.getElementById('exBlock');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const qA = document.getElementById('qA');
+
+// ═══════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════
+function escapeHTML(v) {
+  return String(v ?? '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function getLetterLabel(i) { return ['A','B','C','D'][i]; }
+
+// ═══════════════════════════════════════════
+//  SCORE & PROGRESS
+// ═══════════════════════════════════════════
+function updateScore() {
+  let correct = 0, incorrect = 0;
+  state.forEach(s => {
+    if (s.result === 'correct') correct++;
+    else if (s.result === 'incorrect') incorrect++;
+  });
+  svCorrect.textContent = correct;
+  svIncorrect.textContent = incorrect;
+  svCurrent.textContent = (currentIdx + 1) + ' / ' + questions.length;
+  const pct = Math.round(((currentIdx + 1) / questions.length) * 100);
+  qpf.style.width = pct + '%';
+  progPct.textContent = pct + '%';
+}
+
+// ═══════════════════════════════════════════
+//  NAV DOTS
+// ═══════════════════════════════════════════
+function buildDots() {
+  qdotsContainer.innerHTML = '';
+  questions.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'qd';
+    d.textContent = i + 1;
+    d.addEventListener('click', () => goTo(i));
+    qdotsContainer.appendChild(d);
+  });
+}
+
+function updateDots() {
+  const dots = qdotsContainer.querySelectorAll('.qd');
+  dots.forEach((d, i) => {
+    d.className = 'qd';
+    if (i === currentIdx) d.classList.add('current');
+    else if (state[i].result === 'correct') d.classList.add('correct-dot');
+    else if (state[i].result === 'incorrect') d.classList.add('incorrect-dot');
+    else if (state[i].selected !== null) d.classList.add('answered');
+  });
+}
+
+// ═══════════════════════════════════════════
+//  RENDER QUESTION
+// ═══════════════════════════════════════════
+function renderQuestion(idx) {
+  const q = questions[idx];
+  const s = state[idx];
+  selectedChoice = s.selected;
+
+  // Header
+  qnum.textContent = 'Question ' + (idx + 1) + ' of ' + questions.length;
+  ploTag.textContent = q.tag;
+  ploTag.className = 'plo-tag ' + q.tagType;
+
+  // Stem
+  qStem.textContent = q.stem;
+
+  // Choices
+  choicesEl.innerHTML = '';
+  q.choices.forEach((text, ci) => {
+    const div = document.createElement('div');
+    div.className = 'ach';
+    if (s.selected === ci) div.classList.add('selected');
+    if (s.graded) {
+      if (ci === q.correct) div.classList.add('correct');
+      else if (s.selected === ci && ci !== q.correct) div.classList.add('incorrect');
+      else div.classList.add('grayed');
+    }
+    div.innerHTML = `<div class="letter-circle">${escapeHTML(getLetterLabel(ci))}</div><div class="ctx">${escapeHTML(text)}</div>`;
+    if (!s.graded) {
+      div.addEventListener('click', () => selectChoice(ci));
+    }
+    choicesEl.appendChild(div);
+  });
+
+  // Submit button (per-question, learn mode)
+  if (quizMode === 'exam') {
+    submitBtn.style.display = 'none';
+  } else {
+    submitBtn.style.display = '';
+    submitBtn.disabled = s.selected === null || s.graded;
+    submitBtn.textContent = s.graded ? 'Answered' : 'Submit Answer';
+  }
+
+  // Explanation
+  if (s.graded) {
+    showExplanation(idx);
+  } else {
+    exBlock.className = 'exb';
+    exBlock.innerHTML = '';
+  }
+
+  // Nav
+  prevBtn.disabled = idx === 0;
+  nextBtn.disabled = idx === questions.length - 1;
+
+  // Card animation
+  qA.style.animation = 'none';
+  requestAnimationFrame(() => { qA.style.animation = ''; });
+
+  updateScore();
+  updateDots();
+  updateExamButton();
+}
+
+// ═══════════════════════════════════════════
+//  CHOICE SELECTION
+// ═══════════════════════════════════════════
+function selectChoice(ci) {
+  const s = state[currentIdx];
+  if (s.graded) return;
+  s.selected = ci;
+  selectedChoice = ci;
+
+  const choices = choicesEl.querySelectorAll('.ach');
+  choices.forEach((c, i) => {
+    c.classList.toggle('selected', i === ci);
+  });
+
+  if (quizMode === 'learn') {
+    submitBtn.disabled = false;
+  }
+  updateExamButton();
+}
+
+// ═══════════════════════════════════════════
+//  GRADING
+// ═══════════════════════════════════════════
+function gradeCurrentQuestion() {
+  const s = state[currentIdx];
+  if (s.selected === null || s.graded) return false;
+  s.graded = true;
+  const q = questions[currentIdx];
+  s.result = s.selected === q.correct ? 'correct' : 'incorrect';
+
+  const choices = choicesEl.querySelectorAll('.ach');
+  choices.forEach((c, i) => {
+    c.classList.remove('selected');
+    if (i === q.correct) c.classList.add('correct');
+    else if (i === s.selected) c.classList.add('incorrect');
+    else c.classList.add('grayed');
+    c.style.cursor = 'default';
+    c.onclick = null;
+  });
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Answered';
+  showExplanation(currentIdx);
+  updateScore();
+  updateDots();
+  return true;
+}
+
+function showExplanation(idx) {
+  const q = questions[idx];
+  const s = state[idx];
+  let html = '';
+
+  if (s.result === 'correct') {
+    html += `<div class="exb-correct"><div class="ex-label">✓ Correct</div><div class="ex-text">${escapeHTML(q.explanation.correct)}</div></div>`;
+  } else {
+    html += `<div class="exb-wrong"><div class="ex-label">✗ Incorrect</div><div class="ex-text">${escapeHTML(q.explanation.wrongs[s.selected] || 'That is not the correct answer.')}</div></div>`;
+  }
+  html += `<div class="exb-teach"><div class="ex-label">💡 Teaching Point</div><div class="ex-text">${escapeHTML(q.explanation.teaching)}</div></div>`;
+
+  exBlock.innerHTML = html;
+  exBlock.className = 'exb show';
+}
+
+// ═══════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════
+function goTo(idx) {
+  currentIdx = idx;
+  renderQuestion(currentIdx);
+  qo.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+prevBtn.addEventListener('click', () => { if (currentIdx > 0) goTo(currentIdx - 1); });
+nextBtn.addEventListener('click', () => { if (currentIdx < questions.length - 1) goTo(currentIdx + 1); });
+
+submitBtn.addEventListener('click', () => {
+  if (quizMode !== 'learn') return;
+  gradeCurrentQuestion();
+});
+
+// ═══════════════════════════════════════════
+//  EXAM MODE
+// ═══════════════════════════════════════════
+function updateExamButton() {
+  const inExam = quizMode === 'exam';
+  const allAnswered = state.every(s => s.selected !== null);
+  submitExamBtn.disabled = !inExam || examSubmitted || !allAnswered;
+  examSubmitRow.classList.toggle('exam-live', inExam && !examSubmitted);
+  examSubmitRow.classList.toggle('exam-done', examSubmitted);
+  submitExamBtn.textContent = examSubmitted ? 'Exam Submitted ✓' : 'Submit Exam';
+
+  if (inExam && !examSubmitted) {
+    const answered = state.filter(s => s.selected !== null).length;
+    examProgress.textContent = answered + ' / ' + questions.length + ' answered';
+  } else if (examSubmitted) {
+    const correct = state.filter(s => s.result === 'correct').length;
+    examProgress.textContent = 'Score: ' + correct + ' / ' + questions.length;
+  } else {
+    examProgress.textContent = '';
+  }
+}
+
+submitExamBtn.addEventListener('click', () => {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  const allAnswered = state.every(s => s.selected !== null);
+  if (!allAnswered) return;
+  // Grade all questions
+  state.forEach((s, i) => {
+    if (!s.graded && s.selected !== null) {
+      s.graded = true;
+      s.result = s.selected === questions[i].correct ? 'correct' : 'incorrect';
+    }
+  });
+  examSubmitted = true;
+  renderQuestion(currentIdx);
+  updateExamButton();
+  updateDots();
+  updateScore();
+});
+
+// ═══════════════════════════════════════════
+//  MODE TOGGLE
+// ═══════════════════════════════════════════
+learnBtn.addEventListener('click', () => {
+  quizMode = 'learn';
+  learnBtn.classList.add('active');
+  examBtn.classList.remove('active');
+  submitBtn.style.display = '';
+  updateExamButton();
+  renderQuestion(currentIdx);
+});
+examBtn.addEventListener('click', () => {
+  quizMode = 'exam';
+  examBtn.classList.add('active');
+  learnBtn.classList.remove('active');
+  submitBtn.style.display = 'none';
+  updateExamButton();
+  renderQuestion(currentIdx);
+});
+
+// ═══════════════════════════════════════════
+//  FONT SIZE
+// ═══════════════════════════════════════════
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => { qo.dataset.fs = btn.dataset.fsBtn; });
+});
+
+// ═══════════════════════════════════════════
+//  OPEN / CLOSE / RESET
+// ═══════════════════════════════════════════
+openDemo.addEventListener('click', () => qo.classList.add('open'));
+
+closeQuiz.addEventListener('click', () => {
+  qo.classList.add('closing');
+  setTimeout(() => qo.classList.remove('open', 'closing'), 320);
+});
+
+resetQuiz.addEventListener('click', () => {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  state.forEach(s => { s.selected = null; s.graded = false; s.result = null; });
+  examSubmitted = false;
+  selectedChoice = null;
+  currentIdx = 0;
+  quizMode = 'learn';
+  learnBtn.classList.add('active');
+  examBtn.classList.remove('active');
+  updateExamButton();
+  renderQuestion(0);
+  updateDots();
+});
+
+// ═══════════════════════════════════════════
+//  PRINT
+// ═══════════════════════════════════════════
+function buildPrintReviewMarkup() {
+  let html = '<div class="print-shell">';
+  html += '<div class="print-header"><h2>Pharmacogenetics &amp; Lynch Syndrome — Answer Review</h2><p>Dr. Kathleen Becker · UNE COM | Questions Answered: ' + state.filter(s=>s.graded).length + ' / ' + questions.length + '</p></div>';
+  questions.forEach((q, i) => {
+    const s = state[i];
+    if (!s.graded) return;
+    html += '<div class="print-card">';
+    html += '<div class="print-qnum">Question ' + (i+1) + ' &bull; ' + escapeHTML(q.tag) + '</div>';
+    html += '<div class="print-stem">' + escapeHTML(q.stem) + '</div>';
+    q.choices.forEach((c, ci) => {
+      let cls = 'print-choice';
+      if (ci === q.correct) cls += ' correct';
+      else if (ci === s.selected && s.result === 'incorrect') cls += ' incorrect';
+      html += '<div class="' + cls + '">' + escapeHTML(getLetterLabel(ci)) + '. ' + escapeHTML(c) + '</div>';
+    });
+    html += '<div class="print-explainer correct-box">' + escapeHTML(q.explanation.correct) + '</div>';
+    html += '<div class="print-explainer teach-box">💡 ' + escapeHTML(q.explanation.teaching) + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function printQuizReview() {
+  const answered = state.filter(s => s.graded).length;
+  if (answered === 0) { alert('Answer at least one question before printing.'); return; }
+  document.getElementById('printReviewRoot').innerHTML = buildPrintReviewMarkup();
+  document.body.classList.add('print-review-active');
+  setTimeout(() => window.print(), 50);
+}
+window.addEventListener('afterprint', () => { document.body.classList.remove('print-review-active'); });
+printQuizBtn.addEventListener('click', printQuizReview);
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+buildDots();
+renderQuestion(0);
+</script>
+</body>
+</html>
