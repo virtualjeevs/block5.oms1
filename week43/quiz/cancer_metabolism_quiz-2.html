@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cancer Metabolism Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  --sh2:0 8px 32px rgba(0,0,0,0.08);
+  --sh3:0 12px 48px rgba(0,0,0,0.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+
+/* Launch */
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;
+  background:radial-gradient(circle at 15% 20%,rgba(62,196,178,.16),transparent 28%),
+             radial-gradient(circle at 82% 20%,rgba(123,94,167,.12),transparent 30%),
+             linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.launch-card{max-width:700px;width:100%;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-radius:28px;border:1px solid rgba(18,32,60,.08);box-shadow:0 24px 80px rgba(18,32,60,.12);padding:44px 40px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.launch-card p{color:var(--slate);font-size:15px;margin-bottom:22px;line-height:1.6}
+.launch-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
+.chip{display:inline-flex;align-items:center;padding:7px 13px;border-radius:999px;background:var(--white);
+  border:1px solid var(--rule2);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink2)}
+.launch-btn{background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;border:none;
+  border-radius:12px;padding:14px 32px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:700;
+  cursor:pointer;transition:var(--tr);box-shadow:0 4px 16px rgba(26,122,109,.3)}
+.launch-btn:hover{background:linear-gradient(135deg,var(--teal-deep),var(--teal));transform:translateY(-1px)}
+.lo-list{margin-bottom:28px;padding-left:0;list-style:none;display:grid;gap:8px}
+.lo-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--ink2);background:var(--teal-light);
+  border-radius:10px;padding:9px 14px}
+.lo-list li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--teal);
+  margin-top:6px;flex-shrink:0}
+
+/* Quiz overlay */
+.qo{display:none;position:fixed;inset:0;z-index:200;overflow-y:auto;
+  background:radial-gradient(circle at 10% 0%,rgba(62,196,178,.12),transparent 24%),
+             radial-gradient(circle at 92% 8%,rgba(123,94,167,.10),transparent 22%),
+             linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+
+/* Top bar */
+.qt-bar{position:sticky;top:0;z-index:12;padding:16px 24px;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;color:#fff;
+  background:linear-gradient(135deg,rgba(18,32,60,.96),rgba(27,42,74,.94));
+  border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);
+  box-shadow:0 8px 28px rgba(18,32,60,.18)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:20px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qt-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.fs-ctrl{display:flex;align-items:center;gap:4px;margin-right:8px}
+.fs-label{font-size:11px;color:rgba(255,255,255,.5);font-family:'IBM Plex Mono',monospace;margin-right:4px}
+.fs-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.8);
+  border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;transition:var(--tr);font-family:'IBM Plex Mono',monospace}
+.fs-btn:hover,.fs-btn.active{background:rgba(255,255,255,.2);color:#fff}
+.qt-btn{border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;
+  border:1px solid rgba(255,255,255,.2);transition:var(--tr);font-family:'Nunito',sans-serif}
+.qt-btn.print{background:var(--gold);color:var(--navy2);border-color:var(--gold)}
+.qt-btn.print:hover{background:var(--gold-warm)}
+.qt-btn.reset{background:rgba(255,255,255,.12);color:#fff}
+.qt-btn.reset:hover{background:rgba(255,255,255,.2)}
+.qt-btn.close{background:var(--coral);color:#fff;border-color:var(--coral)}
+.qt-btn.close:hover{background:#c5604a}
+
+/* Progress bar */
+.qpbar{height:3px;background:rgba(255,255,255,.1)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal-glow),var(--teal-mid));transition:width .4s ease}
+
+/* Content grid */
+.qin{display:grid;grid-template-columns:260px 1fr;gap:24px;padding:28px 24px 60px;max-width:1200px;margin:0 auto}
+@media(max-width:920px){.qin{grid-template-columns:1fr;padding:20px 16px 60px}}
+@media(max-width:700px){.qt-bar{flex-wrap:wrap}.qt-btns{flex-wrap:wrap}.qin{padding:16px 12px 50px}}
+
+/* Left panels */
+.q-left{display:flex;flex-direction:column;gap:14px}
+.lp{background:rgba(255,255,255,.85);border:1px solid var(--rule);border-radius:var(--r);padding:16px;
+  box-shadow:var(--sh);animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.lp-title{font-size:10px;font-family:'IBM Plex Mono',monospace;color:var(--mist);letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:10px}
+.score-row{display:flex;justify-content:space-between;gap:8px}
+.sc-box{flex:1;text-align:center;padding:10px 6px;border-radius:10px}
+.sc-box.cor{background:var(--green-bg)}
+.sc-box.inc{background:var(--red-bg)}
+.sc-box.cur{background:var(--teal-light)}
+.sc-num{font-family:'Crimson Pro',serif;font-size:26px;font-weight:800;display:block}
+.sc-box.cor .sc-num{color:var(--green)}
+.sc-box.inc .sc-num{color:var(--red)}
+.sc-box.cur .sc-num{color:var(--teal)}
+.sc-lbl{font-size:10px;font-family:'IBM Plex Mono',monospace;color:var(--slate);text-transform:uppercase}
+
+/* Mode toggle */
+.mode-row{display:flex;gap:0;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.mode-btn{flex:1;border:none;padding:8px;font-size:12px;font-weight:700;font-family:'Nunito',sans-serif;
+  cursor:pointer;transition:var(--tr);background:transparent;color:var(--slate)}
+.mode-btn.active-learn{background:var(--teal);color:#fff}
+.mode-btn.active-exam{background:var(--plum);color:#fff}
+
+/* Nav dots */
+.qdots{display:flex;flex-wrap:wrap;gap:5px}
+.qd{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);background:var(--white);
+  font-size:9px;font-family:'IBM Plex Mono',monospace;color:var(--slate);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.qd:hover{border-color:var(--teal);color:var(--teal)}
+.qd.answered{background:var(--gold-bg);border-color:var(--gold);color:var(--amber)}
+.qd.correct{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.qd.incorrect{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.qd.current{border-color:var(--teal);background:var(--teal-light);color:var(--teal);font-weight:700}
+
+/* Exam submit */
+.exam-submit-row{display:none}
+.exam-submit-row.exam-live{display:block}
+.exam-submit-row.exam-done{display:block}
+.submit-exam-btn{width:100%;padding:11px;border:none;border-radius:10px;font-family:'Nunito',sans-serif;
+  font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);background:var(--plum);color:#fff}
+.submit-exam-btn:hover:not(:disabled){background:#6b4e97}
+.submit-exam-btn:disabled{opacity:.5;cursor:not-allowed}
+#examProgress{font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--slate);margin-top:6px;text-align:center}
+
+/* Question card */
+.q-right{animation:cardIn .4s .1s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.99)}to{opacity:1;transform:none}}
+.qcd{background:rgba(255,255,255,.9);border:1px solid var(--rule);border-radius:20px;padding:32px;box-shadow:var(--sh2)}
+.qnum{font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--mist);margin-bottom:12px;display:flex;gap:8px;align-items:center}
+.qnum-tag{background:var(--teal-light);color:var(--teal);padding:3px 8px;border-radius:6px;font-size:10px}
+.qstem{font-family:'Crimson Pro',serif;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:24px;line-height:1.4}
+.choices{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.ach{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border:1.5px solid var(--rule2);
+  border-radius:11px;cursor:pointer;transition:var(--tr);background:var(--white);text-align:left;width:100%}
+.ach:hover:not(:disabled){border-color:var(--teal);background:var(--teal-light)}
+.ach.selected{border-color:var(--teal);background:var(--teal-light)}
+.ach.correct-ans{border-color:var(--green) !important;background:var(--green-bg) !important}
+.ach.wrong-ans{border-color:var(--red) !important;background:var(--red-bg) !important}
+.ach:disabled{cursor:default}
+.aletter{width:26px;height:26px;border-radius:50%;background:var(--cream);border:1.5px solid var(--rule);
+  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--slate);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:var(--tr)}
+.ach.selected .aletter{background:var(--teal);border-color:var(--teal);color:#fff}
+.ach.correct-ans .aletter{background:var(--green);border-color:var(--green);color:#fff}
+.ach.wrong-ans .aletter{background:var(--red);border-color:var(--red);color:#fff}
+.ctx{font-size:15px;color:var(--ink2);line-height:1.5}
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:15px}
+#qo[data-fs="lg"] .ctx{font-size:18px}
+#qo[data-fs="xl"] .ctx{font-size:21px}
+
+/* Submit button */
+.submit-btn{width:100%;padding:13px;border:none;border-radius:11px;font-family:'Nunito',sans-serif;
+  font-size:15px;font-weight:700;cursor:pointer;transition:var(--tr);
+  background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;margin-bottom:16px;
+  box-shadow:0 4px 14px rgba(26,122,109,.25)}
+.submit-btn:hover:not(:disabled){background:linear-gradient(135deg,var(--teal-deep),var(--teal));transform:translateY(-1px)}
+.submit-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* Explanation */
+.exb{display:none;animation:fi .3s ease}
+.exb.show{display:block}
+.ex-correct{background:var(--green-bg);border-left:4px solid var(--green);border-radius:0 10px 10px 0;padding:13px 16px;margin-bottom:10px}
+.ex-correct p{color:var(--green);font-size:13px;font-weight:700;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
+.ex-correct span{color:#1e5c3a;font-size:14px}
+.ex-teach{background:var(--teal-light);border-left:4px solid var(--teal);border-radius:0 10px 10px 0;padding:13px 16px;margin-bottom:10px}
+.ex-teach p{color:var(--teal);font-size:13px;font-weight:700;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.05em}
+.ex-teach span{color:#0d4d43;font-size:14px;line-height:1.55}
+.ex-wrong{background:var(--red-bg);border-left:4px solid var(--red);border-radius:0 10px 10px 0;padding:13px 16px;margin-bottom:6px}
+.ex-wrong p{color:var(--red);font-size:12px;font-weight:700;margin-bottom:3px;font-family:'IBM Plex Mono',monospace}
+.ex-wrong span{color:#7a2929;font-size:13px}
+.ex-wrongs-title{font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--slate);margin:10px 0 6px;letter-spacing:.05em;text-transform:uppercase}
+
+/* Nav buttons */
+.qnv{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:16px}
+.nb{padding:10px 20px;border:1.5px solid var(--rule);border-radius:10px;font-family:'Nunito',sans-serif;
+  font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr);background:var(--white);color:var(--ink2)}
+.nb:hover:not(:disabled){border-color:var(--teal);color:var(--teal);background:var(--teal-light)}
+.nb:disabled{opacity:.3;cursor:default}
+.nb.next-btn{background:var(--navy);color:#fff;border-color:var(--navy)}
+.nb.next-btn:hover:not(:disabled){background:var(--navy2)}
+
+/* Print */
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,body.print-review-active .qo{display:none !important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:900px;margin:0 auto;font-family:'Nunito',sans-serif}
+.print-card{break-inside:avoid;border:1px solid #ddd;border-radius:12px;padding:20px;margin-bottom:16px}
+.print-choice{padding:8px 12px;border:1px solid #ddd;border-radius:8px;margin-bottom:6px;font-size:13px}
+.print-choice.correct{border-color:#2D8659;background:#E8F5EE}
+.print-choice.incorrect{border-color:#C44040;background:#FDF0F0}
+.print-explainer{padding:10px 14px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:13px}
+.print-explainer.correct-box{background:#E8F5EE;border-left:4px solid #2D8659}
+.print-explainer.teach-box{background:#E3F5F2;border-left:4px solid #1A7A6D}
+@media print{body.print-review-active .launch-wrap,body.print-review-active .qo{display:none !important}
+  body.print-review-active #printReviewRoot{display:block !important;padding:0}}
+
+/* LO badge */
+.lo-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:6px;
+  font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;margin-left:6px}
+.lo1{background:#E3F5F2;color:#0d6b5f}
+.lo2{background:#FDF6E3;color:#8a5a00}
+.lo3{background:#F3EEF9;color:#5a3f88}
+.lo4{background:#EAF2FC;color:#1a4b80}
+.lo5{background:#FEF0EB;color:#8a3a25}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Cancer Cell Metabolism</h1>
+    <p>High-yield MCQs covering all learning objectives from Dr. Filippakis's lecture — Mechanisms of Cancer Cell Growth and Metabolism.</p>
+    <ul class="lo-list">
+      <li>Differentiate metabolism in cancer vs. proliferating vs. non-proliferating cells</li>
+      <li>Define aerobic glycolysis and the Warburg effect</li>
+      <li>Describe tumor suppressor gene and oncogene roles in metabolic reprogramming</li>
+      <li>Define PI3K, mTOR, and AMPK roles in cancer cell metabolism</li>
+      <li>Discuss therapeutic targeting options in cancer metabolism</li>
+    </ul>
+    <div class="launch-meta">
+      <span class="chip">12 Questions</span>
+      <span class="chip">5 Learning Objectives</span>
+      <span class="chip">Learn &amp; Exam Modes</span>
+      <span class="chip">Filippakis — UNE</span>
+    </div>
+    <button class="launch-btn" id="openQuiz">Open quiz</button>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>Cancer Cell Metabolism</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn active" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuiz">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+  <div class="qpbar"><div class="qpf" id="qpf" style="width:8.33%"></div></div>
+
+  <div class="qin">
+    <!-- LEFT PANEL -->
+    <div class="q-left">
+      <div class="lp" style="animation-delay:.0s">
+        <div class="lp-title">Score</div>
+        <div class="score-row">
+          <div class="sc-box cor"><span class="sc-num" id="svCorrect">0</span><span class="sc-lbl">Correct</span></div>
+          <div class="sc-box inc"><span class="sc-num" id="svIncorrect">0</span><span class="sc-lbl">Wrong</span></div>
+          <div class="sc-box cur"><span class="sc-num" id="svCurrent">1/12</span><span class="sc-lbl">Q</span></div>
+        </div>
+      </div>
+      <div class="lp" style="animation-delay:.04s">
+        <div class="lp-title">Mode</div>
+        <div class="mode-row">
+          <button class="mode-btn active-learn" id="learnBtn">Learn</button>
+          <button class="mode-btn" id="examBtn">Exam</button>
+        </div>
+      </div>
+      <div class="lp" style="animation-delay:.08s">
+        <div class="lp-title">Questions</div>
+        <div class="qdots" id="qdots"></div>
+      </div>
+      <div class="lp exam-submit-row" id="examSubmitRow" style="animation-delay:.12s">
+        <button class="submit-exam-btn" id="submitExamBtn" disabled>Submit Exam</button>
+        <div id="examProgress"></div>
+      </div>
+      <div class="lp" style="animation-delay:.14s;font-size:11px;color:var(--slate);line-height:1.6">
+        <div class="lp-title">Key</div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <span><span class="lo-badge lo1">LO 1</span> Proliferating vs. non-proliferating</span>
+          <span><span class="lo-badge lo2">LO 2</span> Warburg effect</span>
+          <span><span class="lo-badge lo3">LO 3</span> Oncogenes / tumor suppressors</span>
+          <span><span class="lo-badge lo4">LO 4</span> PI3K / mTOR / AMPK</span>
+          <span><span class="lo-badge lo5">LO 5</span> Therapeutic targeting</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: QUESTION CARD -->
+    <div class="q-right">
+      <div class="qcd" id="qA">
+        <div class="qnum" id="qnum">Question 1 of 12 <span class="lo-badge lo1" id="lobadge">LO 1</span></div>
+        <div class="qstem" id="qStem"></div>
+        <div class="choices" id="choices"></div>
+        <button class="submit-btn" id="submitBtn" disabled>Submit Answer</button>
+        <div class="exb" id="exBlock"></div>
+        <div class="qnv">
+          <button class="nb" id="prevBtn" disabled>← Prev</button>
+          <button class="nb next-btn" id="nextBtn">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+const questions = [
+  {
+    lo: 1,
+    stem: "Which of the following equations best represents the metabolic strategy of a quiescent (non-proliferating) cell?",
+    choices: [
+      "Glucose → Biomass + ATP + CO₂",
+      "Glucose + FA → TCA cycle → ATP + CO₂",
+      "Glucose → Lactate + NAD⁺ + nucleotides",
+      "Glutamine → Biosynthetic precursors + mTOR activation",
+      "Glucose + O₂ → Lactate + CO₂ (aerobic glycolysis)"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Quiescent cells channel glucose and fatty acids (FA) into the TCA cycle primarily to produce ATP + CO₂ — the goal is energy homeostasis, not biomass generation.",
+      teaching: "The lecture distinguishes two metabolic modes: quiescent cells run Glucose + FA → TCA → ATP + CO₂, while proliferating cells redirect glucose toward biomass (proteins, lipids, nucleic acids). Cancer cells adopt a proliferative metabolic program even without growth factor signals — the key pathological distinction.",
+      wrongs: [
+        "A — This is the equation for a proliferating cell, not a quiescent one. Quiescent cells do not prioritize biomass synthesis.",
+        "C — Lactate production + NAD⁺ regeneration + nucleotide synthesis describe the aerobic glycolysis (Warburg effect) seen in cancer cells, not quiescent differentiated tissue.",
+        "D — Glutamine-driven mTOR signaling is a feature of actively proliferating (especially cancer) cells, not resting cells.",
+        "E — Aerobic glycolysis (Warburg effect) is the hallmark of cancer cells, not quiescent ones. Quiescent cells use oxidative phosphorylation when oxygen is available."
+      ]
+    }
+  },
+  {
+    lo: 1,
+    stem: "A key feature that distinguishes cancer cell metabolism from normal proliferating cell metabolism is that cancer cells:",
+    choices: [
+      "Use oxidative phosphorylation exclusively, unlike normal proliferating cells",
+      "Do not consume glutamine, relying solely on glucose",
+      "Maintain a proliferative metabolic state independent of growth factor signals",
+      "Produce more ATP per glucose molecule than normal proliferating cells",
+      "Completely suppress mitochondrial function to maximize glycolytic flux"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Cancer cells maintain aerobic glycolysis and biosynthetic activity independent of external growth factor signals — due to oncogenic mutations that constitutively activate growth-promoting pathways.",
+      teaching: "In normal physiology: growth factors → proliferative metabolism → proliferation; withdrawal of growth factors → quiescent metabolism. Cancer bypasses this regulation. Oncogenic gain-of-function mutations (e.g., KRAS, MYC) and tumor suppressor loss (e.g., PTEN, p53) allow constitutive metabolic reprogramming without requiring growth factor input.",
+      wrongs: [
+        "A — Both normal proliferating and cancer cells use glycolysis; normal proliferating cells do not rely exclusively on OxPhos.",
+        "B — Glutamine is an important carbon and nitrogen source for both normal proliferating cells and cancer cells (glutaminolysis).",
+        "D — Cancer cells using aerobic glycolysis (Warburg) produce only ~4 mol ATP/mol glucose — far less than OxPhos (~36 mol ATP). Efficiency is sacrificed for biomass.",
+        "E — Cancer cells retain mitochondrial function. TCA cycle intermediates are critical as biosynthetic precursors; mitochondria are not completely suppressed."
+      ]
+    }
+  },
+  {
+    lo: 2,
+    stem: "The Warburg effect describes a paradox in cancer metabolism. Which of the following best defines it?",
+    choices: [
+      "Cancer cells increase oxidative phosphorylation to meet the high energy demands of rapid proliferation",
+      "Cancer cells convert pyruvate to acetyl-CoA exclusively, bypassing lactate production",
+      "Cancer cells preferentially convert glucose to lactate via glycolysis even in the presence of adequate oxygen",
+      "Cancer cells suppress glucose uptake and rely on fatty acid oxidation for ATP production",
+      "Cancer cells upregulate mitochondrial biogenesis to increase TCA cycle flux"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "The Warburg effect (aerobic glycolysis) = cancer cells convert glucose → pyruvate → lactate even when O₂ is plentiful, rather than fully oxidizing pyruvate via the TCA cycle. This generates ~4 mol ATP/mol glucose (vs. ~36 via OxPhos).",
+      teaching: "Discovered by Otto Heinrich Warburg (Nobel Prize, 1931). Despite being energetically inefficient, aerobic glycolysis provides: (1) Pentose phosphate pathway → Ribose-5-P → nucleotides, (2) Acetyl-CoA for lipid synthesis, (3) NAD⁺ regeneration for continued glycolytic flux. The slide shows 85% of pyruvate goes to lactate, only 5% enters the mitochondria in tumor cells.",
+      wrongs: [
+        "A — The Warburg effect is characterized by decreased (not increased) OxPhos, with a paradoxical reliance on less efficient glycolysis.",
+        "B — Exactly the opposite: cancer cells divert pyruvate to lactate rather than acetyl-CoA/TCA. This is the defining feature of aerobic glycolysis.",
+        "D — Cancer cells dramatically upregulate glucose uptake (via GLUT transporters + hexokinase II). Fatty acid uptake is a secondary metabolic feature in some cancers.",
+        "E — The Warburg effect actually reflects a relative reduction in mitochondrial TCA cycle use for energy production, not an increase."
+      ]
+    }
+  },
+  {
+    lo: 2,
+    stem: "A patient's tumor shows intense ¹⁸F-FDG uptake on PET scan. After 4 weeks of therapy with a tyrosine kinase inhibitor, FDG uptake is markedly reduced despite persistent structural abnormalities on CT. Which of the following best explains the initial high FDG uptake?",
+    choices: [
+      "Tumor cells have enhanced mitochondrial oxidative phosphorylation requiring more glucose as substrate",
+      "FDG is preferentially taken up by necrotic tumor tissue rather than living cells",
+      "Upregulated GLUT transporters and hexokinase activity in cancer cells trap FDG intracellularly",
+      "FDG is incorporated into nucleotides via the pentose phosphate pathway",
+      "Tumor cells express unique FDG-binding surface receptors not found on normal cells"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Cancer cells upregulate GLUT glucose transporters and hexokinase II (driven by AKT/mTOR/HIF1α). FDG enters via GLUTs, is phosphorylated by hexokinase to FDG-6-phosphate, but cannot proceed through glycolysis — it is trapped. High uptake = high aerobic glycolysis (Warburg effect).",
+      teaching: "FDG-PET is a direct clinical application of the Warburg effect. The reduced post-therapy FDG uptake (despite CT abnormalities) demonstrates successful metabolic suppression by the TKI — which inhibits PI3K/AKT signaling, reducing GLUT expression and glycolytic flux. Metabolic response precedes structural response. This is used clinically to monitor early treatment response.",
+      wrongs: [
+        "A — FDG-PET exploits decreased OxPhos and increased glycolysis (Warburg), not enhanced OxPhos.",
+        "B — Necrotic tissue has no metabolic activity and would not take up FDG. Active aerobic glycolysis in viable tumor cells drives FDG uptake.",
+        "D — FDG cannot enter the PPP because the 2-fluoro substitution blocks further metabolism after phosphorylation. Trapping in the phosphorylated form is what enables imaging.",
+        "E — FDG enters via the same GLUT transporters used for glucose — not via tumor-specific receptors."
+      ]
+    }
+  },
+  {
+    lo: 2,
+    stem: "Cancer cells preferentially use aerobic glycolysis despite its lower ATP yield (~4 mol/glucose) compared to oxidative phosphorylation (~36 mol/glucose). Which set of metabolic benefits best justifies this strategy for a rapidly dividing cell?",
+    choices: [
+      "Increased mitochondrial membrane potential, reduced ROS, and enhanced β-oxidation",
+      "Production of ribose-5-phosphate (nucleotides), acetyl-CoA (lipids), and NAD⁺ regeneration for biomass",
+      "Complete oxidation of glutamine to CO₂, sparing glucose for gluconeogenesis",
+      "Activation of AMPK to suppress anabolism and conserve ATP",
+      "Increased OxPhos efficiency via upregulation of ETC complex I and III"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Aerobic glycolysis generates biosynthetic intermediates essential for cell division: (1) Pentose phosphate pathway → Ribose-5-P → nucleotides for DNA/RNA, (2) Citrate → Acetyl-CoA for fatty acid/lipid synthesis, (3) NAD⁺ regeneration (from lactate dehydrogenase) to sustain continued glycolytic flux.",
+      teaching: "The lecture explicitly addresses this 'paradox': cancer cells need BIOMASS (proteins, lipids, nucleic acids, carbohydrates) as much as energy. Glycolytic intermediates feed the PPP (nucleotide synthesis), acetyl-CoA production (lipogenesis), and serine synthesis. The inefficiency in ATP production is offset by the biosynthetic advantage — a proliferating cell must double its mass before dividing.",
+      wrongs: [
+        "A — Aerobic glycolysis does not enhance β-oxidation or mitochondrial membrane potential. ROS are a byproduct of OxPhos (ETC), not glycolysis.",
+        "C — Glutamine feeds the TCA cycle (anaplerosis) — it is not completely oxidized via the PPP. Gluconeogenesis is not a cancer cell priority.",
+        "D — AMPK activation opposes anabolism — this would actually work against the cancer cell's proliferative goals. Cancer cells often become insensitive to AMPK.",
+        "E — The Warburg effect reflects a shift away from OxPhos efficiency, not toward it. ETC upregulation would be the opposite of aerobic glycolysis."
+      ]
+    }
+  },
+  {
+    lo: 3,
+    stem: "In normal (non-cancer) cells, the LKB1–AMPK–ACC axis tightly regulates fatty acid synthesis. Which sequence correctly describes how this pathway suppresses lipogenesis under low-energy conditions?",
+    choices: [
+      "LKB1 inhibits AMPK → AMPK activates ACC → ACC produces malonyl-CoA → fatty acid synthesis proceeds",
+      "LKB1 activates AMPK → AMPK phosphorylates/inactivates ACC → malonyl-CoA falls → fatty acid synthesis is suppressed",
+      "AMPK directly inhibits FAS transcription via SREBP-1 without involving ACC",
+      "LKB1 activates mTOR → mTOR stimulates SREBP-1 → FAS is upregulated",
+      "AMPK phosphorylates FAS directly, increasing its lipogenic activity to restore ATP via β-oxidation"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "LKB1 (tumor suppressor) → activates AMPK (when AMP:ATP is high) → AMPK phosphorylates and inactivates ACC (acetyl-CoA carboxylase) → malonyl-CoA production falls → fatty acid synthesis (FAS) is blocked.",
+      teaching: "FAS is described in the lecture as a tumor oncogene. In cancer: loss of LKB1 or AMPK insensitivity removes this brake → constitutive ACC activity → sustained malonyl-CoA production → de novo fatty acid synthesis → membrane lipids and lipid-modified proteins for rapidly proliferating cancer cells. SREBP-1 (transcription factor) activates FAS; LKB1/AMPK pathway is the opposing tumor-suppressive axis.",
+      wrongs: [
+        "A — LKB1 activates (not inhibits) AMPK. AMPK inactivates (not activates) ACC. The sequence is inverted.",
+        "C — AMPK acts primarily through post-translational phosphorylation of ACC, not direct FAS transcription. SREBP-1 activation of FAS is actually the pro-lipogenic pathway AMPK opposes.",
+        "D — LKB1 activates AMPK, which then inhibits mTOR (not activates it). mTOR activation drives SREBP-1 — the opposite of LKB1's tumor-suppressive effect.",
+        "E — AMPK does not activate FAS. AMPK inhibits lipogenesis; it would not increase FAS activity. β-oxidation of existing lipids is enhanced, but not via FAS."
+      ]
+    }
+  },
+  {
+    lo: 3,
+    stem: "Which of the following correctly pairs an oncogene or tumor suppressor gene with its effect on cancer cell metabolism?",
+    choices: [
+      "PTEN loss → decreased PI3K/AKT signaling → reduced glycolysis and lipid synthesis",
+      "MYC gain-of-function → increased glutamine uptake and utilization → enhanced TCA anaplerosis",
+      "p53 gain-of-function → increased glycolysis → higher lactate output",
+      "LKB1 loss-of-function → increased AMPK activity → suppressed tumor lipogenesis",
+      "FAS loss-of-function → increased membrane production → enhanced cancer cell proliferation"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "MYC is a transcription factor oncogene that drives glutamine uptake and glutaminolysis. Glutamine enters the TCA cycle as α-ketoglutarate (anaplerosis), replenishing TCA intermediates for biosynthesis. MYC directly transcribes glutamine transporters and glutaminase (GLS).",
+      teaching: "The cancer metabolism snapshot in the lecture shows MYC driving glutamine uptake. Oncogenes promote metabolic reprogramming: KRAS → increased glycolysis, MYC → glutaminolysis + nucleotide synthesis, HIF1α → aerobic glycolysis. Tumor suppressors restrain metabolism: PTEN opposes PI3K, LKB1 activates AMPK, p53 inhibits glycolysis.",
+      wrongs: [
+        "A — PTEN loss removes inhibition of PI3K → AKT is constitutively active → increased glycolysis, lipid synthesis, and glucose/AA transport. PTEN loss promotes (not reduces) these processes.",
+        "C — p53 is a tumor suppressor. Wild-type p53 inhibits glycolysis. Gain-of-function p53 mutations can sometimes promote glycolysis, but the premise contradicts p53's primary role as described in the lecture.",
+        "D — LKB1 is a tumor suppressor that activates AMPK. Loss of LKB1 → decreased AMPK activity → lipogenesis is promoted (not suppressed). The effect is reversed.",
+        "E — FAS is an oncogene — its gain-of-function (not loss) drives lipogenesis and membrane production for rapidly dividing cancer cells."
+      ]
+    }
+  },
+  {
+    lo: 4,
+    stem: "PI3K activation by growth factor receptor signaling initiates a cascade with broad metabolic consequences in cancer cells. Which downstream outcome is INCORRECTLY attributed to PI3K/AKT activation?",
+    choices: [
+      "Increased amino acid and glucose transport into the cell",
+      "Activation of mTOR, leading to enhanced protein synthesis",
+      "Lipid and phospholipid synthesis via lipogenic pathways",
+      "Inhibition of AKT, promoting apoptosis and suppressing cell growth",
+      "Metabolic reprogramming that supports cell survival and proliferation"
+    ],
+    correct: 3,
+    explanation: {
+      correct: "PI3K activation leads to PIP3 production, which recruits and activates AKT (not inhibits it). AKT is the pro-survival kinase. Inhibition of AKT would be the effect of PTEN (tumor suppressor), which degrades PIP3 — the opposite of PI3K activation.",
+      teaching: "PI3K → PIP3 → AKT activation (not inhibition) → AKT = cell survival. AKT then: (1) inhibits TSC2 → releases RHEB → activates mTORC1 → protein synthesis, (2) phosphorylates GSK3 → stabilizes SREBP/MYC/HIF1 → metabolic transcription, (3) promotes nutrient transporter expression. PTEN is the brake on this pathway — it's one of the most commonly mutated tumor suppressors.",
+      wrongs: [
+        "A — PI3K/AKT signaling does increase amino acid and glucose transport — correctly attributed.",
+        "B — AKT inhibits TSC1/2 → activates RHEB → activates mTORC1 → protein synthesis — correctly attributed.",
+        "C — AKT and downstream mTOR activate SREBP-1 → lipid and phospholipid synthesis — correctly attributed.",
+        "E — PI3K/AKT activation is a major driver of metabolic reprogramming toward cell survival and proliferation — correctly attributed."
+      ]
+    }
+  },
+  {
+    lo: 4,
+    stem: "mTOR is described in the lecture as a master integrator of growth signals and metabolism. Which of the following correctly pairs an mTOR downstream effector with its metabolic consequence?",
+    choices: [
+      "HIF1A → inhibition of aerobic glycolysis; SREBP1 → suppression of lipid synthesis",
+      "4EBP1 activation → enhanced mRNA translation; ULK1 activation → stimulation of autophagy",
+      "HIF1A → promotion of aerobic glycolysis; SREBP1 → activation of lipid synthesis",
+      "S6K1 → inhibition of ribosome biogenesis; CAD → suppression of nucleotide synthesis",
+      "ULK1 → inhibition of autophagy; S6K1 → activation of fatty acid oxidation"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "mTORC1 activation → HIF1A (drives aerobic glycolysis/Warburg) and SREBP1 (drives lipid synthesis/neoplastic lipogenesis). These are two of the four key downstream branches shown in the lecture's mTOR pathway diagram.",
+      teaching: "mTOR sits at the center of cancer metabolic reprogramming. Activated by AKT/ERK/amino acids; inhibited by AMPK/hypoxia/TSC1-2. Four downstream outputs: (1) HIF1A → aerobic glycolysis, (2) SREBP1 → lipid synthesis + sterols, (3) CAD/G6PD/PPP → nucleotide synthesis, (4) S6K1/4EBP1 → mRNA translation/ribosome biogenesis. ULK1 is INHIBITED by mTOR, suppressing autophagy. Clinical inhibitors: Sirolimus, Everolimus.",
+      wrongs: [
+        "A — mTOR activates HIF1A (promotes glycolysis) and activates SREBP1 (promotes lipid synthesis). Both are upregulated, not inhibited.",
+        "B — mTOR phosphorylates and INHIBITS 4EBP1 (releasing it from eIF4F to allow translation). ULK1 is INHIBITED by mTOR (suppressing autophagy, not stimulating it).",
+        "D — S6K1 is activated by mTOR to promote (not inhibit) ribosome biogenesis. CAD is also activated to promote (not suppress) nucleotide synthesis.",
+        "E — ULK1 is indeed inhibited by mTOR (correct), but S6K1 promotes protein synthesis and ribosome biogenesis — not fatty acid oxidation."
+      ]
+    }
+  },
+  {
+    lo: 4,
+    stem: "AMPK is described as a 'master switch' in cellular metabolism. In normal (non-cancer) physiology, AMPK activation in response to a high AMP:ATP ratio leads to all of the following EXCEPT:",
+    choices: [
+      "Inhibition of ACC, reducing fatty acid synthesis",
+      "Inhibition of mTOR, reducing protein synthesis",
+      "Stimulation of p53, causing cell cycle arrest and glycolysis inhibition",
+      "Activation of FAS (fatty acid synthase), increasing lipogenesis to restore energy",
+      "General inhibition of anabolic processes and activation of catabolic processes"
+    ],
+    correct: 3,
+    explanation: {
+      correct: "FAS (fatty acid synthase) is an anabolic enzyme — its activation would consume ATP and increase energy expenditure. AMPK, as a sensor of low energy (high AMP:ATP), would inhibit (not activate) FAS. AMPK's normal role is to suppress anabolism and promote catabolism.",
+      teaching: "AMPK is activated by LKB1 (tumor suppressor) when AMP:ATP rises (nutrient deprivation, hypoxia, metformin). AMPK then: INHIBITS ACC (→ blocks fatty acid synthesis), INHIBITS mTOR (→ reduces protein synthesis), STIMULATES p53 (→ cell cycle arrest), promotes autophagy and fatty acid oxidation. In cancer: AMPK becomes insensitive to energy status → anabolism is NOT suppressed → tumors grow despite energy depletion.",
+      wrongs: [
+        "A — AMPK inhibits ACC → reduces malonyl-CoA → blocks fatty acid synthesis. Correctly attributed to AMPK.",
+        "B — AMPK activates TSC1/2 → inhibits RHEB → inhibits mTORC1 → reduced protein synthesis. Correctly attributed.",
+        "C — AMPK stimulates p53, leading to cell cycle arrest and inhibition of glycolysis. Correctly attributed from the lecture.",
+        "E — General inhibition of anabolism and activation of catabolism is the primary normal function of AMPK as stated directly in the lecture slide."
+      ]
+    }
+  },
+  {
+    lo: 5,
+    stem: "A pharmaceutical company is developing a combination therapy for cancer that targets three distinct metabolic vulnerabilities. Which combination correctly matches the drug class to its metabolic target?",
+    choices: [
+      "Hexokinase inhibitor → TCA cycle; CB-839 → glycolysis; Sirolimus → AMPK activation",
+      "Metformin → PI3K direct inhibition; CPI-613 → fatty acid synthesis; FAS inhibitor → glutaminolysis",
+      "Hexokinase inhibitor → glycolysis; CB-839 → glutaminolysis; Sirolimus → mTOR",
+      "Everolimus → AMPK activation; CB-839 → fatty acid oxidation; Metformin → glycolysis blockade",
+      "FAS inhibitor → mTOR inhibition; CPI-613 → glycolysis; CB-839 → fatty acid oxidation"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Hexokinase inhibitors block the first committed step of glycolysis (glucose → glucose-6-phosphate). CB-839 inhibits glutaminase (GLS), blocking glutamine → glutamate conversion and reducing TCA anaplerosis. Sirolimus (rapamycin) and Everolimus directly inhibit mTORC1.",
+      teaching: "The lecture outlines these therapeutic strategies: (1) AMPK activation — Metformin (type 2 diabetes drug, repurposed for cancer via ETC Complex I inhibition → raises AMP:ATP → activates AMPK); (2) Glycolysis inhibition — hexokinase inhibitors; (3) Glutaminase inhibitors — CB-839; (4) mTOR inhibitors — Sirolimus/Everolimus; (5) FAS inhibitors; (6) PI3K and AKT inhibitors; (7) TCA cycle inhibitors — CPI-613.",
+      wrongs: [
+        "A — Hexokinase inhibits glycolysis (not TCA). CB-839 targets glutaminolysis (not glycolysis). Sirolimus inhibits mTOR (not activates AMPK).",
+        "B — Metformin activates AMPK via ETC Complex I inhibition (not direct PI3K inhibition). CPI-613 inhibits TCA cycle enzymes (not fatty acid synthesis). FAS inhibitors target lipogenesis (not glutaminolysis).",
+        "D — Everolimus inhibits mTOR (not activates AMPK — these are opposing pathways). CB-839 targets glutaminolysis (not fatty acid oxidation). Metformin activates AMPK via ETC inhibition (not direct glycolysis blockade).",
+        "E — FAS inhibitors target lipogenesis (not mTOR). CPI-613 targets TCA cycle enzymes (not glycolysis). CB-839 inhibits glutaminase (not fatty acid oxidation)."
+      ]
+    }
+  },
+  {
+    lo: 5,
+    stem: "A clinical oncologist is considering metabolic diagnostic tools and therapeutic approaches for a newly diagnosed tumor. Regarding the clinical applications of cancer metabolic vulnerabilities, which of the following statements is CORRECT?",
+    choices: [
+      "FDG-PET cannot detect tumor response to therapy because structural tumor mass persists even after metabolic suppression",
+      "Calorie restriction and glucose restriction have no theoretical basis as adjuncts to cancer therapy",
+      "Reduced FDG uptake after tyrosine kinase inhibitor therapy predicts positive anticancer response, even before CT changes are apparent",
+      "Metformin is exclusively used for type 2 diabetes and has no known role in targeting cancer metabolism",
+      "2HG-NMR imaging is used to detect aerobic glycolysis in tumors with IDH1/2 mutations"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "The lecture describes a gastrointestinal stromal tumor case in which FDG uptake disappeared after 4 weeks of TKI therapy (sunitinib), despite persistent CT abnormalities. Decreased metabolic activity (glycolysis) precedes structural regression — FDG-PET is a valid early response marker.",
+      teaching: "Clinical applications of cancer metabolism understanding include: (1) FDG-PET for monitoring tumor metabolic response — reduced FDG = metabolic suppression = early treatment response; (2) Dietary/calorie restriction to reduce glucose availability; (3) Metformin (AMPK activator via Complex I inhibition) being investigated as an anticancer agent; (4) 2HG-NMR for detecting 2-hydroxyglutarate produced by IDH1/2 mutant tumors (an oncometabolite). All these represent translational applications of the Warburg effect and metabolic reprogramming concepts.",
+      wrongs: [
+        "A — FDG-PET is precisely validated for detecting early metabolic response — the lecture's clinical example demonstrates tumor FDG disappearance before CT normalization. This is a major advantage of PET over CT alone.",
+        "B — The lecture explicitly lists 'calorie/glucose restriction' as a clinical application. Reducing glucose availability directly targets the Warburg effect and cancer cells' dependency on glycolysis.",
+        "D — The lecture specifically mentions 'Metformin in T2D and cancer' as an AMPK-activating therapeutic strategy targeting cancer metabolism via ETC Complex I inhibition.",
+        "E — 2HG-NMR detects 2-hydroxyglutarate (2HG), an oncometabolite produced by IDH1/2-mutant tumors from α-ketoglutarate — it is NOT a marker of aerobic glycolysis. FDG-PET is the glycolysis marker."
+      ]
+    }
+  }
+];
+
+let currentQ = 0;
+let quizMode = 'learn';
+let examSubmitted = false;
+let selectedChoice = null;
+let answered = new Array(questions.length).fill(null);
+let results = new Array(questions.length).fill(null);
+let correctCount = 0, incorrectCount = 0;
+
+const qo = document.getElementById('qo');
+const openQuiz = document.getElementById('openQuiz');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const printQuiz = document.getElementById('printQuiz');
+const learnBtn = document.getElementById('learnBtn');
+const examBtn = document.getElementById('examBtn');
+const submitBtn = document.getElementById('submitBtn');
+const submitExamBtn = document.getElementById('submitExamBtn');
+const examSubmitRow = document.getElementById('examSubmitRow');
+const examProgress = document.getElementById('examProgress');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const qpf = document.getElementById('qpf');
+const svCorrect = document.getElementById('svCorrect');
+const svIncorrect = document.getElementById('svIncorrect');
+const svCurrent = document.getElementById('svCurrent');
+const qnum = document.getElementById('qnum');
+const lobadge = document.getElementById('lobadge');
+const qStem = document.getElementById('qStem');
+const choicesEl = document.getElementById('choices');
+const exBlock = document.getElementById('exBlock');
+const qdots = document.getElementById('qdots');
+
+const loClasses = ['', 'lo1', 'lo2', 'lo3', 'lo4', 'lo5'];
+const loLabels = ['', 'LO 1', 'LO 2', 'LO 3', 'LO 4', 'LO 5'];
+
+function buildDots() {
+  qdots.innerHTML = '';
+  questions.forEach((q, i) => {
+    const d = document.createElement('button');
+    d.className = 'qd' + (i === currentQ ? ' current' : '');
+    if (results[i] === true) d.classList.add('correct');
+    else if (results[i] === false) d.classList.add('incorrect');
+    else if (answered[i] !== null) d.classList.add('answered');
+    d.textContent = i + 1;
+    d.addEventListener('click', () => { currentQ = i; renderQ(); });
+    qdots.appendChild(d);
+  });
+}
+
+function renderQ() {
+  const q = questions[currentQ];
+  selectedChoice = answered[currentQ];
+
+  qnum.innerHTML = `Question ${currentQ + 1} of ${questions.length} <span class="lo-badge ${loClasses[q.lo]}">${loLabels[q.lo]}</span>`;
+  qStem.textContent = q.stem;
+
+  choicesEl.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D', 'E'];
+  const alreadyAnswered = results[currentQ] !== null;
+
+  q.choices.forEach((ch, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ach';
+    btn.disabled = alreadyAnswered || (quizMode === 'exam' && examSubmitted);
+    btn.innerHTML = `<span class="aletter">${letters[i]}</span><span class="ctx">${ch}</span>`;
+
+    if (alreadyAnswered) {
+      if (i === q.correct) btn.classList.add('correct-ans');
+      else if (i === answered[currentQ] && answered[currentQ] !== q.correct) btn.classList.add('wrong-ans');
+    } else if (selectedChoice === i) {
+      btn.classList.add('selected');
+    }
+
+    btn.addEventListener('click', () => {
+      if (alreadyAnswered) return;
+      selectedChoice = i;
+      document.querySelectorAll('.ach').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      if (quizMode === 'learn') submitBtn.disabled = false;
+      else updateExamButton();
+    });
+    choicesEl.appendChild(btn);
+  });
+
+  if (alreadyAnswered) {
+    showExplanation(q, answered[currentQ]);
+    submitBtn.style.display = 'none';
+  } else {
+    exBlock.className = 'exb';
+    exBlock.innerHTML = '';
+    submitBtn.style.display = 'block';
+    submitBtn.disabled = (selectedChoice === null) || quizMode === 'exam';
+  }
+
+  qpf.style.width = ((currentQ + 1) / questions.length * 100) + '%';
+  svCurrent.textContent = `${currentQ + 1}/${questions.length}`;
+  prevBtn.disabled = currentQ === 0;
+  nextBtn.disabled = currentQ === questions.length - 1;
+  buildDots();
+
+  if (quizMode === 'exam' && examSubmitted) {
+    submitBtn.style.display = 'none';
+  }
+}
+
+function showExplanation(q, chosen) {
+  const letters = ['A', 'B', 'C', 'D', 'E'];
+  const isCorrect = chosen === q.correct;
+  let html = '';
+  if (isCorrect) {
+    html += `<div class="ex-correct"><p>✓ Correct — ${letters[q.correct]}</p><span>${q.explanation.correct}</span></div>`;
+  } else {
+    html += `<div class="ex-wrong"><p>✗ You chose ${letters[chosen]} — Incorrect</p><span>The correct answer is ${letters[q.correct]}.</span></div>`;
+    html += `<div class="ex-correct"><p>✓ Correct — ${letters[q.correct]}</p><span>${q.explanation.correct}</span></div>`;
+  }
+  html += `<div class="ex-teach"><p>Teaching Point</p><span>${q.explanation.teaching}</span></div>`;
+
+  if (q.explanation.wrongs && q.explanation.wrongs.length) {
+    html += `<div class="ex-wrongs-title">Why the others are wrong</div>`;
+    q.explanation.wrongs.forEach(w => {
+      html += `<div class="ex-wrong"><span>${w}</span></div>`;
+    });
+  }
+  exBlock.innerHTML = html;
+  exBlock.className = 'exb show';
+}
+
+function gradeCurrentQuestion() {
+  if (selectedChoice === null) return false;
+  const q = questions[currentQ];
+  const isCorrect = selectedChoice === q.correct;
+  answered[currentQ] = selectedChoice;
+  results[currentQ] = isCorrect;
+  if (isCorrect) correctCount++; else incorrectCount++;
+  svCorrect.textContent = correctCount;
+  svIncorrect.textContent = incorrectCount;
+  return true;
+}
+
+submitBtn.addEventListener('click', () => {
+  if (quizMode !== 'learn' || selectedChoice === null) return;
+  if (!gradeCurrentQuestion()) return;
+  renderQ();
+});
+
+submitExamBtn.addEventListener('click', () => {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  if (selectedChoice === null) { alert('Please select an answer first.'); return; }
+  answered[currentQ] = selectedChoice;
+
+  answered.forEach((ans, i) => {
+    if (ans !== null && results[i] === null) {
+      results[i] = ans === questions[i].correct;
+      if (results[i]) correctCount++; else incorrectCount++;
+    }
+  });
+  examSubmitted = true;
+  svCorrect.textContent = correctCount;
+  svIncorrect.textContent = incorrectCount;
+  examProgress.textContent = `Exam submitted — ${correctCount}/${questions.length} correct`;
+  updateExamButton();
+  renderQ();
+});
+
+function updateExamButton() {
+  const inExam = quizMode === 'exam';
+  submitExamBtn.disabled = !inExam || examSubmitted || selectedChoice === null;
+  examSubmitRow.classList.toggle('exam-live', inExam && !examSubmitted);
+  examSubmitRow.classList.toggle('exam-done', examSubmitted);
+  submitExamBtn.textContent = examSubmitted ? 'Exam Submitted ✓' : 'Submit Exam';
+}
+
+learnBtn.addEventListener('click', () => {
+  quizMode = 'learn';
+  learnBtn.className = 'mode-btn active-learn';
+  examBtn.className = 'mode-btn';
+  examSubmitRow.classList.remove('exam-live', 'exam-done');
+  renderQ();
+});
+
+examBtn.addEventListener('click', () => {
+  quizMode = 'exam';
+  examBtn.className = 'mode-btn active-exam';
+  learnBtn.className = 'mode-btn';
+  updateExamButton();
+  renderQ();
+});
+
+prevBtn.addEventListener('click', () => { if (currentQ > 0) { currentQ--; renderQ(); } });
+nextBtn.addEventListener('click', () => { if (currentQ < questions.length - 1) { currentQ++; renderQ(); } });
+
+openQuiz.addEventListener('click', () => qo.classList.add('open'));
+closeQuiz.addEventListener('click', () => {
+  qo.classList.add('closing');
+  setTimeout(() => qo.classList.remove('open', 'closing'), 320);
+});
+
+resetQuiz.addEventListener('click', () => {
+  if (!confirm('Reset all answers?')) return;
+  currentQ = 0; quizMode = 'learn'; examSubmitted = false; selectedChoice = null;
+  answered = new Array(questions.length).fill(null);
+  results = new Array(questions.length).fill(null);
+  correctCount = 0; incorrectCount = 0;
+  svCorrect.textContent = 0; svIncorrect.textContent = 0;
+  learnBtn.className = 'mode-btn active-learn';
+  examBtn.className = 'mode-btn';
+  examSubmitRow.classList.remove('exam-live', 'exam-done');
+  examProgress.textContent = '';
+  renderQ();
+});
+
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    qo.dataset.fs = btn.dataset.fsBtn;
+    document.querySelectorAll('.fs-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+function escapeHTML(v) {
+  return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function buildPrintReviewMarkup() {
+  const letters = ['A','B','C','D','E'];
+  let html = `<div class="print-shell"><h2 style="font-family:'Crimson Pro',serif;color:#1B2A4A;margin-bottom:24px">Cancer Cell Metabolism — Answer Review</h2>`;
+  questions.forEach((q, i) => {
+    const chosen = answered[i];
+    const isCorrect = results[i];
+    html += `<div class="print-card">`;
+    html += `<p style="font-size:11px;color:#6B7689;font-family:'IBM Plex Mono',monospace;margin-bottom:8px">Q${i+1} · ${loLabels[q.lo]}</p>`;
+    html += `<p style="font-family:'Crimson Pro',serif;font-size:18px;font-weight:600;color:#1B2A4A;margin-bottom:12px">${escapeHTML(q.stem)}</p>`;
+    q.choices.forEach((ch, ci) => {
+      let cls = 'print-choice';
+      if (ci === q.correct) cls += ' correct';
+      else if (ci === chosen && chosen !== q.correct) cls += ' incorrect';
+      html += `<div class="${cls}"><strong>${letters[ci]}.</strong> ${escapeHTML(ch)}</div>`;
+    });
+    if (chosen !== null) {
+      html += `<div class="print-explainer ${isCorrect?'correct-box':'correct-box'}" style="margin-top:10px"><strong>${isCorrect?'✓ Correct':'✗ Incorrect — Correct answer: '+letters[q.correct]}</strong><br>${escapeHTML(q.explanation.correct)}</div>`;
+      html += `<div class="print-explainer teach-box"><strong>Teaching Point</strong><br>${escapeHTML(q.explanation.teaching)}</div>`;
+    }
+    html += `</div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+printQuiz.addEventListener('click', () => {
+  document.getElementById('printReviewRoot').innerHTML = buildPrintReviewMarkup();
+  document.body.classList.add('print-review-active');
+  setTimeout(() => window.print(), 50);
+});
+window.addEventListener('afterprint', () => document.body.classList.remove('print-review-active'));
+
+renderQ();
+</script>
+</body>
+</html>
