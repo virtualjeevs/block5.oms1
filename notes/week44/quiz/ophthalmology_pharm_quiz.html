@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ophthalmology Pharmacology Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.03);
+  --sh2:0 8px 32px rgba(0,0,0,.08);
+  --sh3:0 12px 48px rgba(0,0,0,.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+
+/* LAUNCH */
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;
+  background:radial-gradient(circle at 15% 20%,rgba(62,196,178,.16),transparent 28%),
+    radial-gradient(circle at 82% 20%,rgba(123,94,167,.12),transparent 30%),
+    linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.launch-card{max-width:760px;width:100%;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-radius:28px;border:1px solid rgba(18,32,60,.08);box-shadow:0 24px 80px rgba(18,32,60,.12);padding:40px 44px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:38px;font-weight:800;color:var(--navy);margin-bottom:10px;line-height:1.2}
+.launch-card p{font-size:16px;color:var(--slate);margin-bottom:20px;line-height:1.65}
+.launch-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.chip{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;background:var(--white);
+  border:1px solid var(--rule2);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink2)}
+.launch-btn{display:inline-flex;align-items:center;gap:8px;padding:15px 36px;border:none;cursor:pointer;
+  border-radius:999px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:800;
+  background:linear-gradient(135deg,var(--teal-mid),var(--teal-deep));color:#fff;
+  box-shadow:0 8px 24px rgba(26,122,109,.28);transition:var(--tr)}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(26,122,109,.36)}
+
+/* OVERLAY */
+.qo{display:none;position:fixed;inset:0;z-index:200;overflow-y:auto;
+  background:radial-gradient(circle at 10% 0%,color-mix(in srgb,var(--teal-glow) 18%,transparent),transparent 24%),
+    radial-gradient(circle at 92% 8%,color-mix(in srgb,var(--plum) 16%,transparent),transparent 22%),
+    linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+
+/* TOP BAR */
+.qt-bar{position:sticky;top:0;z-index:12;padding:16px 26px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;color:#fff;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--navy2) 94%,transparent),color-mix(in srgb,var(--navy) 92%,transparent));
+  border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);
+  box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:20px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qt-btns{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fs-ctrl{display:flex;align-items:center;gap:4px;padding:4px 8px;background:rgba(255,255,255,.07);border-radius:8px}
+.fs-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.5);margin-right:4px}
+.fs-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.7);font-family:'IBM Plex Mono',monospace;
+  font-size:13px;padding:3px 7px;border-radius:5px;transition:var(--tr)}
+.fs-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+.qt-btn{padding:8px 16px;border-radius:8px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;border:none;transition:var(--tr)}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.14)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900}
+.qt-btn.print:hover{opacity:.9}
+
+/* GRID */
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;
+  display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px 24px;align-items:start}
+
+/* LEFT PANELS */
+.score-panel{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);
+  box-shadow:var(--sh);padding:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+.score-box{position:relative;padding:14px 12px 12px;border-radius:10px;background:var(--warm);text-align:center}
+.score-box::before{content:'';position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 999px 999px;
+  background:linear-gradient(90deg,rgba(26,122,109,.16),rgba(62,196,178,.5))}
+.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.5))}
+.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.2),rgba(196,64,64,.5))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:36px;font-weight:800;color:var(--navy);line-height:1}
+.score-box.correct .sv{color:var(--green)}
+.score-box.incorrect .sv{color:var(--red)}
+.score-box .sl{font-size:11px;font-weight:700;color:var(--mist);text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+
+.mode-toggle{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);box-shadow:var(--sh);
+  padding:6px;display:grid;grid-template-columns:1fr 1fr;gap:4px;
+  animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{padding:10px 6px;border:none;cursor:pointer;border-radius:9px;font-family:'Nunito',sans-serif;
+  font-size:13px;font-weight:700;color:var(--slate);background:none;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:5px}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;box-shadow:0 2px 10px rgba(18,32,60,.2)}
+.mode-icon{font-size:15px}
+
+.timer-panel{display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.timer-card,.cd-card{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);
+  box-shadow:var(--sh);padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.timer-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--mist);text-transform:uppercase;letter-spacing:.08em}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:var(--navy)}
+.timer-btns{display:flex;gap:4px}
+.tbtn{width:28px;height:28px;border:1px solid var(--rule);border-radius:6px;background:var(--warm);
+  cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.tbtn:hover{background:var(--teal-light);border-color:var(--teal)}
+.cd-controls{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center}
+.cd-pm{width:26px;height:26px;border:1px solid var(--rule);border-radius:6px;background:var(--warm);
+  cursor:pointer;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.cd-pm:hover{background:var(--teal-light)}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;color:var(--navy);min-width:20px;text-align:center}
+.cd-unit{font-size:11px;color:var(--mist)}
+.cd-go{padding:5px 12px;border:none;border-radius:6px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;
+  background:linear-gradient(135deg,var(--teal-mid),var(--teal-deep));color:#fff;transition:var(--tr)}
+.cd-go:hover{opacity:.9}
+
+.tool-panel{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);box-shadow:var(--sh);
+  padding:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;
+  animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
+.q-tool{padding:9px 6px;border:1px solid var(--rule);border-radius:8px;background:var(--warm);
+  cursor:pointer;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;color:var(--ink2);
+  transition:var(--tr);text-align:center}
+.q-tool:hover{border-color:var(--teal);color:var(--teal)}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red)}
+.q-tool.active.rv-tool{background:var(--teal-light);border-color:var(--teal);color:var(--teal-deep)}
+.tool-status{font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--mist);text-align:center;padding:4px 14px;transition:var(--tr)}
+.tool-status.active-highlight{color:#8a6a00}
+.tool-status.active-strike{color:var(--red)}
+
+.exam-submit-row{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);
+  box-shadow:var(--sh);padding:16px;display:flex;flex-direction:column;gap:10px;
+  animation:slideUp .4s .18s cubic-bezier(.4,0,.2,1) both}
+.exam-progress{font-size:13px;font-weight:600;color:var(--slate);text-align:center}
+.exam-submit-btn{padding:12px;border:none;cursor:pointer;border-radius:10px;font-family:'Nunito',sans-serif;
+  font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--coral),#d4614a);color:#fff;
+  box-shadow:0 6px 18px rgba(224,122,95,.3);transition:var(--tr)}
+.exam-submit-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 22px rgba(224,122,95,.4)}
+.exam-submit-btn:disabled{opacity:.45;cursor:not-allowed}
+.exam-submit-row.exam-live{box-shadow:0 0 0 3px rgba(224,122,95,.10),0 14px 34px rgba(18,32,60,.08)}
+.exam-submit-row.exam-done .exam-submit-btn{background:linear-gradient(135deg,var(--green),#3aa56f);box-shadow:0 6px 18px rgba(45,134,89,.3)}
+
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* QUESTION CARD */
+#qA{animation:cardIn .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.99)}to{opacity:1;transform:none}}
+.qcd{background:var(--white);border-radius:20px;border:1px solid var(--rule);box-shadow:var(--sh2);overflow:hidden}
+.qpg{height:5px;background:var(--rule2)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 30px 0}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:var(--mist);margin-bottom:12px;letter-spacing:.04em}
+.qstem{font-family:'Crimson Pro',serif;font-size:24px;font-weight:600;color:var(--navy);line-height:1.5;
+  margin-bottom:22px;padding:16px 18px;border-radius:12px;border:1px solid var(--rule2);background:var(--warm);
+  cursor:default;transition:var(--tr)}
+.qstem.hl-applied{background:linear-gradient(180deg,#FFF4A8,#FFF7C9)!important;box-shadow:inset 0 0 0 2px rgba(212,168,67,.34)}
+.qstem.st-applied{background:linear-gradient(180deg,#FFF3F3,#FFF8F8)!important;box-shadow:inset 0 0 0 2px rgba(196,64,64,.22)}
+.qstem.tool-hover{box-shadow:inset 0 0 0 2px rgba(26,122,109,.16);background:rgba(26,122,109,.04)}
+.qstem .stem-hl{background:#FFF1A6;border-radius:6px;padding:0 .12em;box-shadow:0 0 0 1px rgba(212,168,67,.18)}
+.qstem .stem-st{text-decoration:line-through;text-decoration-color:var(--red);color:#8B2C2C!important}
+
+.ach{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.ac{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:12px;
+  border:2px solid var(--rule2);background:var(--warm);cursor:pointer;transition:var(--tr)}
+.ac:hover:not(.dis){border-color:var(--teal);background:var(--teal-light);transform:translateX(2px)}
+.ac.sel{border-color:var(--teal);background:var(--teal-light);box-shadow:0 0 0 3px rgba(26,122,109,.1)}
+.ac.cor{border-color:var(--green);background:var(--green-bg)}
+.ac.inc{border-color:var(--red);background:var(--red-bg)}
+.ac.shc{border-color:var(--green);background:var(--green-bg)}
+.ac.dis{cursor:default;transform:none}
+.ac.hl-applied{background:#FFF8B8;border-color:#D3AF2B}
+.ac.st-applied{background:var(--red-bg);border-color:rgba(196,64,64,.3)}
+.ac.st-applied .ctx{text-decoration:line-through;color:var(--slate)}
+.cl{width:28px;height:28px;border-radius:50%;background:var(--rule2);display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;color:var(--ink2);flex-shrink:0;transition:var(--tr)}
+.ac.sel .cl{background:var(--teal);color:#fff}
+.ac.cor .cl{background:var(--green);color:#fff}
+.ac.inc .cl{background:var(--red);color:#fff}
+.ac.shc .cl{background:var(--green);color:#fff}
+.ctx{font-size:15px;line-height:1.55;color:var(--ink);transition:var(--tr)}
+
+.submit-row{padding-bottom:18px}
+.submit-btn{width:100%;padding:13px;border:none;border-radius:11px;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;
+  background:linear-gradient(135deg,var(--teal-mid),var(--teal-deep));color:#fff;
+  box-shadow:0 6px 18px rgba(26,122,109,.25);transition:var(--tr)}
+.submit-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 22px rgba(26,122,109,.35)}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+.exb{display:none;border-top:1px solid var(--rule2);margin-top:4px;padding:20px 0 0;
+  flex-direction:column;gap:12px;animation:fi .3s cubic-bezier(.4,0,.2,1)}
+.exb.vis{display:flex}
+.exs{padding:16px 18px;border-radius:12px;border-left:4px solid}
+.exc{border-color:var(--green);background:var(--green-bg)}
+.exe{border-color:var(--teal);background:var(--teal-light)}
+.exw{border-color:var(--red);background:var(--red-bg)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.exc .exl{color:var(--green)}
+.exe .exl{color:var(--teal)}
+.exw .exl{color:var(--red)}
+.ext{font-size:14px;line-height:1.65;color:var(--ink2)}
+.wce{margin-bottom:8px;padding-left:0}
+.wce:last-child{margin-bottom:0}
+
+.qnv{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;
+  border-top:1px solid var(--rule2);margin-top:4px}
+.nb{padding:10px 22px;border:1px solid var(--rule);border-radius:9px;background:var(--warm);
+  cursor:pointer;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--ink2);transition:var(--tr)}
+.nb.pr{background:linear-gradient(135deg,var(--teal-mid),var(--teal-deep));color:#fff;border-color:transparent;
+  box-shadow:0 4px 14px rgba(26,122,109,.22)}
+.nb:hover:not(:disabled){transform:translateY(-1px)}
+.nb.pr:hover:not(:disabled){box-shadow:0 6px 18px rgba(26,122,109,.32)}
+.nb:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.qdots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:260px}
+.qd{width:10px;height:10px;border-radius:50%;background:var(--rule);border:none;cursor:pointer;
+  transition:var(--tr);padding:0}
+.qd.cur{background:var(--teal);transform:scale(1.35)}
+.qd.acor{background:var(--green)}
+.qd.ainc{background:var(--red)}
+.qd.asel{background:var(--gold)}
+.qd:hover{transform:scale(1.3);opacity:.85}
+.qd.cur:hover{transform:scale(1.35)}
+
+/* FONT SIZE */
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:15px}
+#qo[data-fs="lg"] .ctx{font-size:18px}
+#qo[data-fs="xl"] .ctx{font-size:21px}
+
+/* PRINT */
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,
+body.print-review-active .qo{display:none!important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:980px;margin:0 auto;font-family:'Nunito',sans-serif}
+.print-card{break-inside:avoid;border:1px solid #ddd;border-radius:16px;padding:20px;margin-bottom:18px}
+.print-q-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#999;margin-bottom:8px;text-transform:uppercase}
+.print-stem{font-family:'Crimson Pro',serif;font-size:20px;font-weight:600;color:#1B2A4A;margin-bottom:14px;line-height:1.5}
+.print-choices{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.print-choice{display:flex;gap:10px;padding:10px 14px;border-radius:10px;border:2px solid #eee;font-size:14px}
+.print-choice.correct{border-color:#2D8659;background:#E8F5EE}
+.print-choice.incorrect{border-color:#C44040;background:#FDF0F0}
+.print-cl{width:24px;height:24px;border-radius:50%;background:#ddd;display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;flex-shrink:0}
+.print-choice.correct .print-cl{background:#2D8659;color:#fff}
+.print-choice.incorrect .print-cl{background:#C44040;color:#fff}
+.print-explainer{padding:12px 16px;border-radius:10px;border-left:4px solid;margin-bottom:8px;font-size:13px;line-height:1.6}
+.print-explainer.correct-box{background:#E8F5EE;border-left-color:#2D8659}
+.print-explainer.teach-box{background:#E3F5F2;border-left-color:#1A7A6D}
+.print-explainer.wrong-box{background:#FDF0F0;border-left-color:#C44040}
+.print-exp-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:6px}
+.correct-box .print-exp-lbl{color:#2D8659}
+.teach-box .print-exp-lbl{color:#1A7A6D}
+.wrong-box .print-exp-lbl{color:#C44040}
+.print-header{font-family:'Crimson Pro',serif;font-size:28px;font-weight:800;color:#1B2A4A;margin-bottom:6px}
+.print-sub{font-size:14px;color:#6B7689;margin-bottom:24px}
+@media print{
+  body.print-review-active .launch-wrap,
+  body.print-review-active .qo{display:none!important}
+  body.print-review-active #printReviewRoot{display:block!important;padding:0}
+}
+
+/* RESPONSIVE */
+@media(max-width:920px){
+  .qin{grid-template-columns:1fr;padding:22px 18px 72px;gap:16px}
+  .timer-panel{grid-template-columns:1fr 1fr}
+  .tool-panel{grid-template-columns:1fr 1fr 1fr}
+}
+@media(max-width:700px){
+  .qt-bar{flex-direction:column;align-items:flex-start}
+  .qin{padding:18px 14px 64px}
+  .timer-panel,.tool-panel{grid-template-columns:1fr}
+  .qnv{flex-direction:column;align-items:stretch}
+  .qdots{order:3}
+  .nb{width:100%}
+  .qstem{font-size:20px}
+  .launch-card{padding:28px 24px}
+  .launch-card h1{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Ophthalmology Pharmacology</h1>
+    <p>A board-style deep dive into glaucoma drug classes, dry eye disease treatments, acute angle-closure emergencies, and systemic drug interactions — with full mechanism, clinical hierarchy, and adverse-effect teaching for every question.</p>
+    <div class="launch-meta">
+      <span class="chip">📋 23 Questions</span>
+      <span class="chip">🏥 Ophthalmology</span>
+      <span class="chip">💊 Pharmacology</span>
+      <span class="chip">🎓 Board Prep</span>
+      <span class="chip">⚡ Learn &amp; Exam Mode</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz →</button>
+  </div>
+</div>
+
+<div class="qo" id="qo" data-fs="md">
+  <div class="qt-bar">
+    <h2>Ophthalmology Pharmacology</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuiz">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <div class="qin">
+    <div class="q-left">
+      <div class="score-panel">
+        <div class="score-box">
+          <div class="sv" id="svCurrent">1</div>
+          <div class="sl">Current</div>
+        </div>
+        <div class="score-box correct">
+          <div class="sv" id="svCorrect">0</div>
+          <div class="sl">Correct</div>
+        </div>
+        <div class="score-box incorrect">
+          <div class="sv" id="svIncorrect">0</div>
+          <div class="sl">Incorrect</div>
+        </div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Timer</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <div class="timer-btns">
+            <button class="tbtn" id="timerStart">▶</button>
+            <button class="tbtn" id="timerPause">⏸</button>
+            <button class="tbtn" id="timerReset">↺</button>
+          </div>
+        </div>
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">05:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">5</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+          </div>
+          <button class="cd-go" id="cdGo">Start</button>
+        </div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="tool-panel">
+        <button class="q-tool hl-tool" id="toolHighlight">✏️ Highlight</button>
+        <button class="q-tool st-tool" id="toolStrike">✂️ Strikeout</button>
+        <button class="q-tool rv-tool" id="toolReveal">💡 Reveal</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+
+      <div style="height:12px"></div>
+
+      <div class="exam-submit-row" id="examSubmitRow">
+        <div class="exam-progress" id="examProgress">0 of 23 answered</div>
+        <button class="exam-submit-btn" id="submitExam" disabled>Submit Exam</button>
+      </div>
+    </div>
+
+    <div class="q-right">
+      <div id="qA">
+        <div class="qcd">
+          <div class="qpg"><div class="qpf" id="qpf" style="width:4.35%"></div></div>
+          <div class="qbd">
+            <div class="qnum" id="qnum">Question 1 of 23</div>
+            <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+            <div class="ach" id="ach"></div>
+            <div class="submit-row">
+              <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+            </div>
+            <div class="exb" id="exBlock">
+              <div class="exs exc" id="exCorrect">
+                <div class="exl">Correct Answer</div>
+                <div class="ext" id="exCorrectText"></div>
+              </div>
+              <div class="exs exe" id="exTeach">
+                <div class="exl">Teaching Point</div>
+                <div class="ext" id="exTeachText"></div>
+              </div>
+              <div class="exs exw" id="exWrong">
+                <div class="exl">Why the Others Are Wrong</div>
+                <div class="ext" id="exWrongText"></div>
+              </div>
+            </div>
+          </div>
+          <div class="qnv">
+            <button class="nb" id="prevBtn">← Previous</button>
+            <div class="qdots" id="qdots"></div>
+            <button class="nb pr" id="nextBtn">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+const questions = [
+  {
+    stem: "A 58-year-old man is diagnosed with open-angle glaucoma with an IOP of 27 mmHg. He has no other medical conditions and no prior eye drop use. Which drug class represents the preferred first-line monotherapy for this patient?",
+    choices: [
+      "Ophthalmic beta-blockers, which decrease aqueous production by blocking β₂ receptors on ciliary epithelium",
+      "Prostaglandin analogs, which increase uveoscleral outflow by agonizing FP receptors in the ciliary body",
+      "Ophthalmic carbonic anhydrase inhibitors, which decrease aqueous production by blocking carbonic anhydrase II",
+      "Alpha-2 adrenergic agonists, which decrease aqueous production by activating Gi-coupled ciliary receptors"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Prostaglandin analogs (latanoprost, bimatoprost, travoprost, tafluprost) are the preferred first-line monotherapy for open-angle glaucoma because they are the most effective class (↓ IOP 25–30%), dosed only once nightly for excellent compliance, and have the fewest systemic side effects due to minimal absorption.",
+      teaching: "The open-angle glaucoma treatment hierarchy: (1) Prostaglandin analog → (2) ADD beta-blocker if partial response, or SWITCH to timolol if no response → (3) Add ophthalmic CAI or α₂ agonist as further adjuncts. The key reason PAs dominate: most effective + once daily + safest systemically.",
+      wrongs: [
+        "A — Beta-blockers (e.g., timolol) are effective second-line agents added when a PA gives insufficient IOP reduction, not the preferred first-line monotherapy. They are also less effective overall (↓ IOP ~20–25% vs. 25–30% with PAs).",
+        "C — Ophthalmic CAIs (dorzolamide, brinzolamide) are adjunct agents used only when first- and second-line drugs are insufficient. They are less effective than PAs and require more frequent dosing.",
+        "D — Alpha-2 agonists (brimonidine, apraclonidine) are adjunct agents limited by significant local allergic reactions and tachyphylaxis with long-term use, making them unsuitable as first-line monotherapy."
+      ]
+    }
+  },
+  {
+    stem: "Latanoprost lowers intraocular pressure in open-angle glaucoma. Which of the following correctly describes its primary mechanism of action?",
+    choices: [
+      "Blockade of β₂ receptors on ciliary epithelium, reducing adenylate cyclase activity and decreasing aqueous production",
+      "Inhibition of carbonic anhydrase II in ciliary epithelium, reducing bicarbonate-driven aqueous secretion into the eye",
+      "Agonism of FP prostaglandin receptors in the ciliary body, promoting extracellular matrix remodeling and uveoscleral outflow",
+      "Agonism of M3 muscarinic receptors on ciliary muscle, promoting muscle contraction and trabecular meshwork opening"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Prostaglandin analogs bind FP (prostaglandin F₂α) receptors → remodel the extracellular matrix in the ciliary muscle → increase uveoscleral outflow. Because this pathway is pressure-independent, its IOP-lowering effect persists even at low pressures. Always answer 'uveoscleral outflow' for the exam — not trabecular (inconsistent evidence).",
+      teaching: "Two outflow pathways: (1) Trabecular/Schlemm's canal = 75–90%, pressure-dependent; (2) Uveoscleral = 10–25%, pressure-independent. PAs increase the uveoscleral route → sustained IOP reduction. Cholinergics (pilocarpine) increase the trabecular route. These are frequently confused on exams.",
+      wrongs: [
+        "A — β₂ blockade on ciliary epithelium describes the mechanism of ophthalmic beta-blockers (timolol, levobunolol, carteolol). These are second-line agents added when PAs provide insufficient IOP reduction.",
+        "B — Carbonic anhydrase II inhibition is the mechanism of ophthalmic CAIs (dorzolamide, brinzolamide) and systemic CAIs (acetazolamide), which reduce bicarbonate production and the osmotic gradient driving aqueous secretion.",
+        "D — M3 muscarinic agonism describes the mechanism of pilocarpine and carbachol. These agents are used in acute angle-closure glaucoma and for presbyopia, not as first-line open-angle management."
+      ]
+    }
+  },
+  {
+    stem: "A 42-year-old woman with blue eyes has been using latanoprost eye drops for six months. On follow-up, she notices her left iris has developed a noticeable brown tinge. Which statement about this finding is most accurate?",
+    choices: [
+      "This is a drug toxicity reaction requiring immediate discontinuation of latanoprost and a switch to timolol",
+      "This is an expected and permanent adverse effect of prostaglandin analogs due to increased iris melanogenesis",
+      "This is an allergic reaction to benzalkonium chloride preservative and requires switching to a preservative-free formulation",
+      "This is a sign of elevated IOP causing pigment dispersion and indicates latanoprost is no longer controlling pressure"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Prostaglandin analogs stimulate FP receptors on iris melanocytes → increased melanin synthesis → iris darkening. This is permanent and irreversible. Patients with blue, green, or hazel eyes are most noticeably affected. This is an expected adverse effect, not a reason to discontinue therapy. Patients must be counseled before starting.",
+      teaching: "The three pigmentation AEs of prostaglandin analogs: (1) Iris darkening (irreversible), (2) Increased eyelid/periocular skin pigmentation, (3) Hypertrichosis of eyelashes (longer, thicker, more lashes — the basis for Latisse). All are expected and none are reasons to stop in a well-controlled patient.",
+      wrongs: [
+        "A — Iris darkening is expected and does not indicate drug toxicity. Latanoprost should only be discontinued if IOP is inadequately controlled or if intolerable local adverse effects occur — iris pigmentation is neither of these.",
+        "C — Benzalkonium chloride sensitivity presents as conjunctival irritation, redness, or allergic conjunctivitis, not iris pigment changes. Iris melanogenesis is a direct FP receptor-mediated effect of the drug itself.",
+        "D — Pigment dispersion syndrome from elevated IOP would present with pigment on the corneal endothelium (Krukenberg spindle) and trabecular meshwork — not localized iris color change in a clinically controlled patient."
+      ]
+    }
+  },
+  {
+    stem: "A 55-year-old woman presents requesting treatment for sparse, thinning eyelashes (hypotrichosis of the eyelashes). Which ophthalmic prostaglandin analog is FDA-approved for this cosmetic indication in addition to its use for glaucoma?",
+    choices: [
+      "Latanoprost, which is approved for hypotrichosis of the eyelashes under the brand name Xelpros",
+      "Travoprost, which is approved for hypotrichosis of the eyelashes as the preservative-free formulation Travatan Z",
+      "Bimatoprost, which is approved for hypotrichosis of the eyelashes and marketed cosmetically as Latisse",
+      "Tafluprost, which is approved for hypotrichosis of the eyelashes as the preservative-free formulation Zioptan"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Bimatoprost (Latisse) is the only prostaglandin analog with an FDA-approved cosmetic indication for hypotrichosis of the eyelashes. It is applied nightly to the base of the upper lashes. The hypertrichosis (increased eyelash length, thickness, and number) is a class AE of all PAs, but only bimatoprost is formally approved for therapeutic use in thin lashes.",
+      teaching: "Bimatoprost is also available as Lumigan (glaucoma) and Durysta (intracameral implant for glaucoma). The drug is one agent with three FDA-approved uses: (1) open-angle glaucoma, (2) ocular hypertension, and (3) hypotrichosis of the eyelashes. On exams, 'Latisse' almost always points to bimatoprost.",
+      wrongs: [
+        "A — Latanoprost (Xelpros/Xalatan) causes hypertrichosis as a class adverse effect but does not have FDA approval for hypotrichosis. A preservative-free form is Iyuzeh, not Xelpros (which contains preservative).",
+        "B — Travatan Z is the preservative-free formulation of travoprost for glaucoma management, not a hypotrichosis indication. Travoprost has no FDA-approved cosmetic use for eyelash growth.",
+        "D — Zioptan is the preservative-free formulation of tafluprost for glaucoma and has no approved hypotrichosis indication. Only bimatoprost holds this specific FDA approval."
+      ]
+    }
+  },
+  {
+    stem: "A 65-year-old man presents to the ED with sudden-onset severe right eye pain, frontal headache, blurry vision, halos around lights, and vomiting that started 2 hours ago after watching a movie in a dark theater. Exam reveals a mid-dilated right pupil reacting poorly to light and corneal cloudiness. IOP is 62 mmHg. What is the most likely diagnosis?",
+    choices: [
+      "Open-angle glaucoma with acute decompensation triggered by elevated systemic blood pressure",
+      "Acute anterior uveitis causing trabecular meshwork obstruction and a secondary rise in IOP",
+      "Acute angle-closure glaucoma precipitated by pupillary dilation in a dark environment",
+      "Ocular hypertension from sympathomimetic exposure causing transient but severe IOP elevation"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Acute angle-closure glaucoma is a medical emergency. Classic features include: sudden severe eye pain, headache, halos around lights, blurred vision, nausea/vomiting, mid-dilated pupil reacting poorly to light, and corneal cloudiness. IOP is typically 40–70 mmHg. Darkness causes pupillary dilation → iris root blocks the trabecular meshwork → aqueous cannot drain → IOP spikes rapidly.",
+      teaching: "Triggers for acute angle-closure include: dim lighting, sympathetic arousal, anticholinergic drugs, adrenergic agents, antipsychotics, and antidepressants. Predisposing anatomy includes a shallow anterior chamber and narrow angle. Treatment: immediately give timolol + apraclonidine + pilocarpine eye drops + IV acetazolamide 500 mg.",
+      wrongs: [
+        "A — Open-angle glaucoma does not present acutely with eye pain, halos, and a mid-dilated pupil. It is a chronic, generally painless condition. Even with hypertensive urgency, IOP of 62 mmHg with a fixed mid-dilated pupil points to acute angle-closure.",
+        "B — Acute anterior uveitis presents with pain, photophobia, and a miotic (constricted) pupil from sphincter spasm — not a mid-dilated pupil. IOP is usually normal or low in early uveitis, not 62 mmHg.",
+        "D — Drug-induced transient ocular hypertension would not cause a fixed mid-dilated pupil, corneal cloudiness, nausea, and IOP of 62 mmHg. This full constellation is characteristic of acute angle-closure glaucoma."
+      ]
+    }
+  },
+  {
+    stem: "A 68-year-old woman presents with acute angle-closure glaucoma (IOP 58 mmHg, declining vision). An ophthalmologist is not available within one hour. Which treatment regimen should be administered immediately?",
+    choices: [
+      "Latanoprost 0.005% eye drop, pilocarpine 2% eye drop, and oral acetazolamide 250 mg by mouth",
+      "Timolol 0.5%, apraclonidine 1%, and pilocarpine 2% eye drops sequentially plus IV acetazolamide 500 mg",
+      "Brimonidine 0.2% eye drop, dorzolamide 2% eye drop, and oral acetazolamide 500 mg by mouth",
+      "Betaxolol 0.5% eye drop, pilocarpine 2% eye drop, and IV acetazolamide 250 mg intravenously"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "The acute angle-closure protocol: (1) Timolol 0.5% — ↓ aqueous production via β-blockade, (2) Apraclonidine 1% — ↓ aqueous production via α₂/Gi pathway, (3) Pilocarpine 2% — ↑ trabecular outflow via M3 agonism + miosis pulls iris from angle. Give each drop 1 minute apart. Then give IV acetazolamide 500 mg (not 250 mg). Treat when IOP >40 mmHg with declining vision even without an ophthalmologist.",
+      teaching: "Mnemonic for the acute angle-closure protocol — TAP + Acetazolamide: Timolol → Apraclonidine → Pilocarpine → Acetazolamide 500 mg IV. Each drug attacks a different IOP-lowering mechanism simultaneously. Prostaglandins are ABSENT — they require 4–6 weeks. This question tests whether you know which agents belong in the emergency protocol.",
+      wrongs: [
+        "A — Latanoprost requires 4–6 weeks of use before achieving its IOP-lowering effect via uveoscleral outflow remodeling — completely unsuitable for an acute emergency. Additionally, oral acetazolamide 250 mg is a subtherapeutic dose; 500 mg IV is the correct emergency dose.",
+        "C — Brimonidine and dorzolamide are not the validated acute angle-closure regimen. The standard protocol uses timolol, apraclonidine, and pilocarpine for their rapid, complementary mechanisms on production and outflow simultaneously.",
+        "D — Betaxolol (β₁-selective) is less potent than timolol for rapid IOP reduction in an emergency, and the validated protocol does not substitute betaxolol. IV acetazolamide 250 mg is also a subtherapeutic dose for this indication."
+      ]
+    }
+  },
+  {
+    stem: "A 70-year-old man with stable open-angle glaucoma presents with worsening IOP after his internist added a new medication. Which recently added medication is most likely responsible for this deterioration?",
+    choices: [
+      "Metoprolol for hypertension, which reduces cardiac output and can paradoxically lower ocular perfusion",
+      "Diphenhydramine for seasonal allergies, which blocks M3 receptors and closes the trabecular meshwork",
+      "Lisinopril for hypertension, which can mildly raise IOP through angiotensin II receptor effects in the eye",
+      "Atorvastatin for dyslipidemia, which can reduce ocular blood flow through lipid-lowering mechanisms"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Anticholinergic drugs block M3 receptors on the ciliary muscle → muscle cannot contract → trabecular meshwork pores close → aqueous cannot drain → IOP rises. Diphenhydramine (OTC antihistamine) is one of the most common anticholinergic drugs patients take without realizing it. TCAs, antipsychotics, antispasmodics, and motion sickness drugs carry the same risk.",
+      teaching: "Classic drug–disease interaction: anticholinergics + glaucoma = worsening IOP. The M3 receptor on the ciliary muscle normally opens the trabecular meshwork when activated (this is pilocarpine's mechanism). Blocking M3 does the opposite. Corticosteroids also worsen glaucoma via a separate, less well-understood mechanism. Always screen glaucoma patients' medication lists for anticholinergics.",
+      wrongs: [
+        "A — Beta-blockers like metoprolol do not worsen glaucoma. Topical beta-blockers (timolol) are actually used to treat glaucoma by reducing aqueous production. Systemic metoprolol may have a slight IOP-lowering effect.",
+        "C — Lisinopril (ACE inhibitor) does not raise IOP and has no established mechanism for worsening glaucoma. There is no evidence linking ACE inhibitors to glaucoma deterioration.",
+        "D — Statins have no mechanism for elevating IOP. Some epidemiological data even suggests statins may be protective against glaucoma due to their neuroprotective and anti-inflammatory properties."
+      ]
+    }
+  },
+  {
+    stem: "A 61-year-old man with moderate persistent asthma and newly diagnosed open-angle glaucoma did not reach his IOP target with a prostaglandin analog alone. An ophthalmic beta-blocker is being added. Which agent is most appropriate for this patient?",
+    choices: [
+      "Timolol 0.5% ophthalmic drops, which are non-selective and the most potent ophthalmic beta-blocker available",
+      "Levobunolol 0.5% ophthalmic drops, which are non-selective but have partial agonist activity at β receptors",
+      "Betaxolol 0.5% ophthalmic drops, which are β₁-selective and carry substantially fewer bronchoconstriction risks",
+      "Carteolol 1% ophthalmic drops, which are non-selective but have intrinsic sympathomimetic activity at β receptors"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Betaxolol is the only β₁-selective ophthalmic beta-blocker. In patients with asthma or COPD, non-selective beta-blockers cause bronchoconstriction via systemic absorption through the nasolacrimal duct into the bloodstream. Betaxolol's β₁ selectivity substantially reduces (though does not eliminate) this risk. Important caveat: betaxolol is less effective because ~90% of ciliary epithelium β-receptors are β₂, not β₁.",
+      teaching: "Ophthalmic beta-blockers and the selectivity rule: the 'A–M = selective, N–Z = non-selective' alphabet mnemonic for systemic beta-blockers does NOT apply to eye drops. Levobunolol and carteolol (both past M alphabetically) are non-selective. Betaxolol (B = selective) is the exception that follows the rule — and the only clinically relevant selective ophthalmic beta-blocker.",
+      wrongs: [
+        "A — Timolol is non-selective (blocks β₁ and β₂). In a moderate asthma patient, systemic absorption via the nasolacrimal duct can trigger bronchoconstriction — a potentially life-threatening adverse effect. Efficacy does not outweigh this risk.",
+        "B — Levobunolol is non-selective and carries the same bronchoconstriction risk as timolol. Despite the alphabetical position ('L' = before M), it does not follow the A–M selective rule. It is not appropriate for this asthmatic patient.",
+        "D — Carteolol is non-selective and its intrinsic sympathomimetic activity (ISA) does not provide adequate respiratory protection for a patient with moderate persistent asthma. Non-selective beta-blocker use should be avoided regardless of ISA status."
+      ]
+    }
+  },
+  {
+    stem: "A 72-year-old man with acute angle-closure glaucoma was treated with IV acetazolamide 500 mg. Morning labs show: pH 7.30, PaCO₂ 36 mmHg, HCO₃⁻ 17 mEq/L, Cl⁻ 116 mEq/L. Which mechanism best explains this acid-base disturbance?",
+    choices: [
+      "Respiratory depression from IV acetazolamide leading to CO₂ retention and primary respiratory acidosis",
+      "Compensatory hyperventilation from eye pain reducing PaCO₂ and masking an underlying alkalotic process",
+      "Carbonic anhydrase inhibition in the proximal tubule reducing bicarbonate reabsorption and producing hyperchloremic metabolic acidosis",
+      "Loop diuretic-like activity of acetazolamide causing chloride and potassium wasting and a hypochloremic alkalosis"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Acetazolamide inhibits carbonic anhydrase II both in the ciliary body (therapeutic effect) and in the proximal renal tubule (side effect). In the kidney, CA is required for HCO₃⁻ reabsorption. Blocking it → bicarbonaturia → ↓ serum HCO₃⁻ → ↑ Cl⁻ compensates → hyperchloremic non-anion gap metabolic acidosis. The ABG confirms: ↓ pH, normal PaCO₂, ↓ HCO₃⁻, ↑ Cl⁻.",
+      teaching: "Acetazolamide systemic AEs to know for the exam: (1) Hyperchloremic metabolic acidosis — from bicarbonaturia in the proximal tubule. (2) Renal calcium stones — alkaline urine promotes calcium precipitation. (3) Paresthesias — from CNS CA inhibition. (4) ↑ plasma NH₃ — avoid in liver disease. Topiramate (anti-seizure drug) causes the same first two AEs via its own CA inhibitor activity.",
+      wrongs: [
+        "A — Acetazolamide does not cause respiratory depression or CO₂ retention. The pH of 7.30 is an acidosis, but PaCO₂ is normal at 36 mmHg — ruling out respiratory acidosis as the primary process.",
+        "B — Hyperventilation produces respiratory alkalosis: ↑ pH and ↓ PaCO₂. This patient has a normal PaCO₂ and acidosis — the opposite of a hyperventilation pattern. This is a distractor.",
+        "D — Acetazolamide is not a loop diuretic. Loop diuretics (furosemide, bumetanide) cause Na⁺, K⁺, and Cl⁻ wasting → hypochloremic metabolic alkalosis — exactly the opposite acid-base picture from what acetazolamide produces."
+      ]
+    }
+  },
+  {
+    stem: "A 34-year-old woman taking topiramate for migraine prophylaxis presents with right flank pain radiating to the groin. Urinalysis shows calcium crystals, and CT confirms a 4 mm renal stone. Which pharmacological property of topiramate explains this complication?",
+    choices: [
+      "Topiramate inhibits renal Na⁺/K⁺-ATPase, increasing luminal calcium and promoting calcium stone nucleation",
+      "Topiramate blocks renal voltage-gated calcium channels, causing hypercalciuria through compensatory mechanisms",
+      "Topiramate has carbonic anhydrase inhibitor activity, causing alkaline urine and promoting calcium stone precipitation",
+      "Topiramate inhibits aldosterone signaling in collecting duct cells, causing calcium wasting and hypercalciuria"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Topiramate has carbonic anhydrase inhibitor activity — the same mechanism as acetazolamide. CA inhibition in the kidney → ↓ renal HCO₃⁻ reabsorption → alkaline urine → calcium precipitates at higher urine pH → calcium phosphate and oxalate stones. It also causes hyperchloremic metabolic acidosis. This connection between topiramate and acetazolamide via CA inhibition is a classic boards cross-link.",
+      teaching: "High-yield pharmacology cross-link: both acetazolamide (glaucoma, mountain sickness) and topiramate (seizures, migraines) inhibit carbonic anhydrase → both cause renal calcium stones and metabolic acidosis. When you see renal calcium stones + metabolic acidosis as drug AEs, ask: does this drug have CA inhibitor activity? Also applies to zonisamide (another anti-seizure drug with CA activity).",
+      wrongs: [
+        "A — Topiramate does not inhibit Na⁺/K⁺-ATPase. This mechanism has no established role in calcium stone formation and is not a pharmacological property of topiramate.",
+        "B — Topiramate acts on voltage-gated Na⁺ channels, AMPA/kainate glutamate receptors, and GABA-A receptors — not primarily on voltage-gated calcium channels. Calcium channel blockade does not produce the described stone-forming mechanism.",
+        "D — Topiramate does not block aldosterone signaling. Hyperaldosteronism causes hypokalemia and metabolic alkalosis with sodium and water retention — the opposite profile from the metabolic acidosis and calcium stones produced by CA inhibition."
+      ]
+    }
+  },
+  {
+    stem: "A 28-year-old mountaineer asks about pharmacological prophylaxis before ascending to 4,500 meters over 3 days. He has no significant medical history. Which drug is most appropriate, and what is the primary mechanism by which it helps?",
+    choices: [
+      "Dexamethasone 4 mg twice daily, which reduces VEGF-driven cerebral vascular permeability and prevents cerebral edema",
+      "Acetazolamide 125–250 mg twice daily, which causes mild metabolic acidosis and stimulates increased ventilatory drive",
+      "Sildenafil 50 mg three times daily, which prevents high-altitude pulmonary edema by inhibiting phosphodiesterase-5",
+      "Ibuprofen 600 mg three times daily, which prevents altitude headache and illness by reducing prostaglandin-driven inflammation"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Acetazolamide is first-line prophylaxis for acute mountain sickness. By inhibiting carbonic anhydrase → ↓ renal HCO₃⁻ reabsorption → mild metabolic acidosis → peripheral and central chemoreceptors detect lower blood pH → stimulate increased ventilation → improved arterial oxygenation at altitude. This pharmacologically accelerates the natural acclimatization process.",
+      teaching: "Acetazolamide non-ophthalmic indications (high-yield): (1) High-altitude/acute mountain sickness prophylaxis, (2) Pseudotumor cerebri (idiopathic intracranial hypertension) — reduces CSF production, (3) Urine alkalinization — for cystinuria or certain drug overdoses, (4) Acute angle-closure glaucoma. Notice the shared mechanism: CA inhibition → ↓ bicarbonate → altered fluid dynamics.",
+      wrongs: [
+        "A — Dexamethasone is reserved for treatment of severe acute mountain sickness or high-altitude cerebral edema (HACE) after it has developed — not for routine prophylaxis. Chronic steroid use carries significant side effects that outweigh preventive benefits in otherwise healthy climbers.",
+        "C — Sildenafil (PDE-5 inhibitor) can prevent high-altitude pulmonary edema (HAPE) by dilating pulmonary vasculature, but it is not first-line for general acute mountain sickness prophylaxis. Acetazolamide addresses the broader acclimatization failure.",
+        "D — Ibuprofen may reduce the headache component of altitude sickness through analgesia, but it does not accelerate acclimatization, prevent the underlying hypoxia-driven pathophysiology, or address CSF and aqueous fluid dynamics the way acetazolamide does."
+      ]
+    }
+  },
+  {
+    stem: "Brimonidine lowers intraocular pressure in open-angle glaucoma. Which of the following best describes its mechanism of action?",
+    choices: [
+      "Agonism of β₂ receptors on ciliary epithelium, stimulating adenylate cyclase and secondarily increasing aqueous reabsorption",
+      "Antagonism of α₁ receptors on trabecular meshwork cells, relaxing smooth muscle and increasing trabecular outflow",
+      "Agonism of α₂ receptors on ciliary epithelium, activating Gi protein and reducing cAMP-driven aqueous production",
+      "Antagonism of M3 receptors on ciliary muscle, preventing muscle contraction and secondarily reducing aqueous production"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Brimonidine is an α₂ adrenergic agonist. α₂ receptors are Gi-coupled → activation inhibits adenylate cyclase → ↓ cAMP → ↓ active transport of ions (Na⁺, Cl⁻, HCO₃⁻) into the posterior chamber → ↓ aqueous humor production. Brimonidine may also slightly increase uveoscleral outflow, but this is not its primary or well-established exam answer.",
+      teaching: "Receptor–G protein–effect pairings for aqueous humor: β₁/β₂ → Gs → ↑ adenylate cyclase → ↑ cAMP → ↑ AQ production (blocked by beta-blockers). α₂ → Gi → ↓ adenylate cyclase → ↓ cAMP → ↓ AQ production (exploited by brimonidine). M3 → Gq → contraction of ciliary muscle → ↑ trabecular outflow (pilocarpine). Knowing the G protein tells you the direction of effect.",
+      wrongs: [
+        "A — β₂ receptor agonism on ciliary epithelium would stimulate adenylate cyclase via Gs, increasing cAMP and increasing aqueous production — exactly the opposite of the desired IOP-lowering effect. Beta-blockers block, not activate, these receptors.",
+        "B — α₁ receptor antagonism on the trabecular meshwork is not an established mechanism for any approved glaucoma drug. Brimonidine is an α₂ agonist, not an α₁ antagonist, and acts on the ciliary body's secretory epithelium.",
+        "D — M3 receptor antagonism (anticholinergic effect) relaxes the ciliary muscle, closes the trabecular meshwork, and raises IOP — worsening glaucoma. This is the mechanism by which diphenhydramine and other anticholinergics worsen glaucoma."
+      ]
+    }
+  },
+  {
+    stem: "A 55-year-old woman with open-angle glaucoma is scheduled for laser trabeculoplasty. Apraclonidine 1% eye drops are administered immediately before and after the procedure. What is the primary reason for this use?",
+    choices: [
+      "To induce miosis before the procedure and improve the laser's ability to accurately target the trabecular meshwork",
+      "To provide local anesthetic effects and reduce pain from the contact lens placed on the corneal surface",
+      "To prevent the acute IOP spike that commonly occurs in the first few hours after laser trabeculoplasty",
+      "To dilate the pupil and improve visualization of the trabecular meshwork angle during the laser procedure"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Laser trabeculoplasty and other intraocular laser procedures commonly cause a transient acute IOP elevation in the first 1–4 hours post-procedure. Apraclonidine (α₂ agonist) is given prophylactically to blunt this IOP spike by decreasing aqueous production via Gi-coupled inhibition of adenylate cyclase. This is apraclonidine's primary clinical niche — tachyphylaxis and local allergy limit its use in chronic management.",
+      teaching: "Distinguish apraclonidine vs. brimonidine clinically: apraclonidine = acute prophylaxis of post-laser IOP spikes (short-term use, high local allergy rate); brimonidine = chronic adjunct for open-angle glaucoma (though tachyphylaxis still limits long-term efficacy). Both are α₂ agonists with the same MOA but different clinical roles. Apraclonidine's most testable use = post-laser IOP prevention.",
+      wrongs: [
+        "A — Miosis (pupil constriction) is achieved by muscarinic M3 agonists such as pilocarpine, not by alpha-2 agonists. Apraclonidine does not significantly constrict the pupil, and miosis is not a goal of laser trabeculoplasty preparation.",
+        "B — Apraclonidine has no local anesthetic properties. Topical anesthetics (proparacaine, tetracaine) are used when corneal anesthesia is required for ophthalmic procedures — not alpha-2 agonists.",
+        "D — Apraclonidine does not dilate the pupil. Mydriasis is achieved with sympathomimetics (phenylephrine) or muscarinic antagonists (tropicamide, cyclopentolate). Alpha-2 agonists have a minimal and inconsistent effect on pupil size."
+      ]
+    }
+  },
+  {
+    stem: "A 3-month-old infant with congenital glaucoma requires topical IOP-lowering medication. The pediatric ophthalmologist reviews all options. Which medication should be specifically avoided due to risk of a life-threatening adverse event in this patient?",
+    choices: [
+      "Latanoprost 0.005%, which is contraindicated in infants due to risk of iris pigmentation disrupting visual pathway development",
+      "Dorzolamide 2%, which is contraindicated in neonates due to risk of severe corneal toxicity and ulceration",
+      "Brimonidine 0.2%, which is contraindicated in infants due to risk of CNS depression and life-threatening respiratory arrest",
+      "Timolol 0.5%, which is contraindicated in all infants due to risk of permanent and irreversible bronchoconstriction"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Brimonidine crosses the immature blood-brain barrier readily and causes profound CNS depression and respiratory arrest in neonates and young infants. This is a well-documented, potentially fatal adverse effect. Brimonidine is contraindicated in children under 2 years of age and used with extreme caution in young children. It is the most specifically contraindicated glaucoma drug in this age group.",
+      teaching: "Brimonidine CNS toxicity in infants is the highest-yield adverse effect to know in pediatric ophthalmology. The immature blood-brain barrier allows far greater CNS penetration than in adults. Timolol can also cause apnea and bradycardia in infants and should be used cautiously, but brimonidine's respiratory arrest risk is the most specific and severe contraindication asked on boards.",
+      wrongs: [
+        "A — Latanoprost does cause iris pigmentation and is used cautiously in children, but iris color change is not life-threatening and does not represent the most critical contraindication in a 3-month-old. It is often used in pediatric glaucoma when carefully monitored.",
+        "B — Dorzolamide is commonly used in pediatric and congenital glaucoma when other agents are not suitable. It does not cause severe corneal toxicity in infants at standard doses and is not specifically contraindicated in this age group.",
+        "D — Timolol can cause bradycardia and apnea in infants and is used cautiously, but its effects are dose-dependent and more predictable. Timolol is not categorically contraindicated in all infants — it is used in pediatric glaucoma with monitoring. Brimonidine's risk of respiratory arrest is the more specific and severe contraindication."
+      ]
+    }
+  },
+  {
+    stem: "A patient with acute angle-closure glaucoma receives pilocarpine 2% eye drops as part of emergency treatment. Which of the following best explains how pilocarpine lowers intraocular pressure?",
+    choices: [
+      "Pilocarpine blocks α₁ adrenergic receptors on the trabecular meshwork, relaxing smooth muscle and widening outflow pores",
+      "Pilocarpine inhibits carbonic anhydrase II in ciliary epithelium, reducing bicarbonate-driven aqueous humor secretion",
+      "Pilocarpine agonizes M3 muscarinic receptors on the ciliary muscle, causing contraction that mechanically opens trabecular pores",
+      "Pilocarpine antagonizes β₂ adrenergic receptors on ciliary epithelium, reducing cAMP and decreasing aqueous humor production"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Pilocarpine is a muscarinic (M3) agonist. M3 receptor stimulation on the circular ciliary muscle → muscle contraction → scleral spur is pulled → trabecular meshwork pores widen → aqueous drains more freely. In acute angle-closure, pilocarpine also produces miosis — the constricted pupil pulls the iris away from the trabecular meshwork, breaking the angle-closure. This dual mechanism makes it essential in the emergency protocol.",
+      teaching: "Pilocarpine has two IOP-relevant effects in acute angle-closure: (1) M3 on ciliary muscle → contraction → opens trabecular meshwork pores, (2) M3 on iris sphincter → miosis → iris moves away from angle. In open-angle glaucoma, effect #1 is primary. In closed-angle, both effects matter. Its hallmark AE is brow ache from ciliary muscle spasm. Also FDA-approved for presbyopia (Vuity) — uses the same accommodation mechanism.",
+      wrongs: [
+        "A — Alpha-1 receptor blockade is not an established mechanism for any approved antiglaucoma drug. Pilocarpine is a muscarinic agonist, not an adrenergic antagonist. Its target is M3 on the ciliary muscle, not adrenergic receptors on trabecular meshwork.",
+        "B — Carbonic anhydrase inhibition is the mechanism of dorzolamide, brinzolamide (ophthalmic) and acetazolamide (systemic). Pilocarpine has no CA inhibitor activity and works through muscarinic receptor agonism, not enzyme inhibition.",
+        "D — Beta-2 receptor antagonism describes ophthalmic beta-blockers (timolol, levobunolol). Pilocarpine is a muscarinic agonist with no beta-receptor affinity. It acts on the ciliary muscle and iris sphincter, not on the ciliary epithelium's adrenergic receptors."
+      ]
+    }
+  },
+  {
+    stem: "A 65-year-old man with open-angle glaucoma was recently switched to pilocarpine 2% eye drops four times daily. He returns two weeks later complaining of a persistent aching pressure sensation in his forehead and eyebrow region that began after starting the drops. What is the most likely explanation?",
+    choices: [
+      "Allergic conjunctivitis causing referred periorbital pain from the benzalkonium chloride preservative in the formulation",
+      "Ciliary muscle spasm from muscarinic M3 agonism producing the classic adverse effect known as brow ache",
+      "Elevated IOP from incorrect drug selection causing acute angle narrowing and periorbital pressure discomfort",
+      "Corneal toxicity from pilocarpine causing trigeminal nerve irritation and referred supraorbital headache pain"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Brow ache is the hallmark adverse effect of pilocarpine and muscarinic agonists. Sustained M3 stimulation causes prolonged ciliary muscle contraction (spasm) → produces a dull, persistent aching or pressure sensation in the eyebrow and forehead region. It is most prominent when initiating therapy and may partially diminish over time. Along with the need for QID dosing, this AE contributes to pilocarpine's limited use compared to once-daily prostaglandin analogs.",
+      teaching: "Pilocarpine AE profile: (1) Brow ache — ciliary spasm (hallmark), (2) Miosis — blurred vision in dim light, difficulty driving at night, (3) Transient myopia — from lens accommodation changes, (4) QID dosing — compliance burden. These four limitations explain why pilocarpine is used mainly in acute settings, not chronic management. The brow ache question is a board favorite because it is highly characteristic and rarely causes confusion once you know it.",
+      wrongs: [
+        "A — Preservative-related allergic conjunctivitis presents with redness, itching, tearing, and foreign body sensation — not periorbital or forehead aching. The brow/forehead localization specifically points to ciliary muscle spasm rather than a surface allergic reaction.",
+        "C — Pilocarpine increases trabecular outflow and lowers IOP. It does not cause angle narrowing or IOP elevation. If IOP were elevated from acute angle-closure, symptoms would include nausea, severe eye pain, halos, and blurred vision — not an isolated brow ache.",
+        "D — Pilocarpine does not cause corneal toxicity at therapeutic concentrations. Corneal toxicity would present with photophobia, tearing, decreased visual acuity, and a foreign body sensation — not a localized brow and forehead aching discomfort."
+      ]
+    }
+  },
+  {
+    stem: "A 66-year-old woman with open-angle glaucoma has been on latanoprost 0.005% once nightly for 8 weeks. Her IOP fell from 28 to 22 mmHg, but the target IOP is 18 mmHg. She tolerates latanoprost well and has no other conditions. What is the most appropriate next step?",
+    choices: [
+      "Discontinue latanoprost and substitute timolol 0.5% ophthalmic drops twice daily as new monotherapy",
+      "Discontinue latanoprost and substitute dorzolamide 2% ophthalmic drops twice daily as new monotherapy",
+      "Continue latanoprost and add timolol 0.5% ophthalmic drops to achieve additional IOP reduction",
+      "Continue latanoprost and add pilocarpine 2% ophthalmic drops four times daily for additional outflow"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "When a prostaglandin analog produces a substantial IOP reduction but does not reach the target IOP, the correct step is to ADD a second agent — not discontinue the PA. The first-choice add-on is a beta-blocker (e.g., timolol). A 6 mmHg reduction (28→22) is substantial, meaning latanoprost is working and worth keeping. Discontinuing a partially effective drug would squander the IOP reduction already achieved.",
+      teaching: "Open-angle glaucoma step algorithm: (1) PA monotherapy → evaluate at 4–6 weeks. (2) Substantial response but not at goal → ADD beta-blocker. (3) Minimal or no response to PA → DISCONTINUE PA and switch to timolol. (4) Still not at goal → add ophthalmic CAI or α₂ agonist. The key decision branch: substantial vs. minimal response determines add vs. switch.",
+      wrongs: [
+        "A — Discontinuing latanoprost is only appropriate when the PA provides minimal or no IOP reduction. This patient achieved a meaningful 6 mmHg reduction — abandoning an effective drug wastes progress and re-exposes the patient to the titration delay of starting over.",
+        "B — Switching to dorzolamide monotherapy is doubly incorrect: latanoprost is working and should not be discontinued, and dorzolamide is an adjunct agent, not a first- or second-line monotherapy alternative.",
+        "D — While pilocarpine does lower IOP, it is not the preferred add-on agent in this situation. QID dosing, brow ache, and miosis make compliance difficult. The guideline-preferred add-on after a PA is a beta-blocker, with ophthalmic CAI or α₂ agonist as subsequent options."
+      ]
+    }
+  },
+  {
+    stem: "A 48-year-old woman presents with 6 months of bilateral burning, gritty foreign body sensation, and redness worsening with screen use. IOP is 14 mmHg bilaterally. Schirmer's test shows 3 mm wetting in 5 minutes. She has never tried any eye medications. What is the most appropriate first-line treatment?",
+    choices: [
+      "Cyclosporine 0.05% ophthalmic emulsion twice daily to reduce T-cell-mediated ocular surface inflammation",
+      "Topical lubricant eye drops such as carboxymethylcellulose as needed throughout the day for symptom relief",
+      "Lifitegrast 5% ophthalmic solution twice daily to block LFA-1-mediated T-lymphocyte ocular surface adhesion",
+      "Loteprednol 0.25% ophthalmic suspension twice daily to acutely reduce inflammatory ocular surface changes"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Topical lubricants (artificial tears) are first-line treatment for ALL patients with dry eye disease, regardless of severity. They are OTC, cost ~$5, are safe, well-tolerated, and relieve symptoms by supplementing the deficient tear film. All prescription agents (cyclosporine, lifitegrast) are step-up therapies used only when artificial tears provide inadequate relief after a trial period.",
+      teaching: "DED treatment ladder: (1) Artificial tears (carboxymethylcellulose, HPMC, polyvinyl alcohol) — always first. (2) Non-pharmacological: warm compresses, lid hygiene, punctal occlusion. (3) Cyclosporine (Restasis) — calcineurin inhibitor, ~$98/month. (4) Lifitegrast (Xiidra) — LFA-1 antagonist, ~$750/month. (5) Varenicline nasal spray (nicotinic α3β4 agonist). (6) Perfluorohexyloctane (Miebo) — reduces evaporation.",
+      wrongs: [
+        "A — Cyclosporine (Restasis) is a second-line immunomodulator appropriate when artificial tears have failed to provide adequate relief. Starting with cyclosporine in a treatment-naive patient bypasses first-line care and unnecessarily exposes her to cost (~$98/month) and burning on instillation.",
+        "C — Lifitegrast (Xiidra) is a second-line LFA-1 antagonist costing ~$750/month. It is not indicated as initial therapy in a patient who has not yet tried artificial tears. Beginning here skips the entire first-line step.",
+        "D — Ophthalmic corticosteroids are not recommended for chronic DED management due to risks of elevated IOP and cataract formation with long-term use. Even loteprednol (the only steroid with an FDA DED indication) is approved only for short-term use in specific circumstances."
+      ]
+    }
+  },
+  {
+    stem: "A 52-year-old woman with moderate dry eye disease has used carboxymethylcellulose drops four times daily for 3 months with only partial symptom improvement. Her physician adds cyclosporine 0.05% ophthalmic emulsion. What is the mechanism of action of cyclosporine in dry eye disease?",
+    choices: [
+      "Cyclosporine inhibits carbonic anhydrase in the lacrimal gland, altering tear electrolyte content and reducing hyperosmolarity",
+      "Cyclosporine blocks LFA-1 on T-lymphocytes, preventing adhesion to ICAM-1 on ocular surface epithelial cells",
+      "Cyclosporine inhibits calcineurin in T-lymphocytes, reducing cytokine release and decreasing ocular surface inflammation",
+      "Cyclosporine antagonizes prostaglandin E2 receptors on conjunctival cells, reducing inflammatory cell infiltration"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Cyclosporine (Restasis) is a calcineurin inhibitor. It binds cyclophilin → the complex inhibits calcineurin → prevents dephosphorylation of NFAT → ↓ transcription of IL-2 and other pro-inflammatory cytokines → ↓ T-cell activation → ↓ immune-mediated inflammation of the ocular surface → improved tear production and reduced DED symptoms. Full effect takes months. Cost ~$98/month.",
+      teaching: "Two immunomodulators for DED — distinguish them clearly: Cyclosporine (Restasis) = calcineurin inhibitor → ↓ T-cell cytokine release. Lifitegrast (Xiidra) = LFA-1 antagonist → blocks T-cell adhesion to ocular surface. Both reduce T-cell-mediated inflammation but through different molecular targets. Cyclosporine is cheaper (~$98) vs. lifitegrast (~$750). Lifitegrast has the unique AE of dysgeusia (bad taste).",
+      wrongs: [
+        "A — Cyclosporine does not inhibit carbonic anhydrase. CA inhibition is the mechanism of dorzolamide, brinzolamide, and acetazolamide — all glaucoma drugs, not DED medications.",
+        "B — LFA-1 (lymphocyte function-associated antigen-1) antagonism is the mechanism of lifitegrast (Xiidra), not cyclosporine. This is a common distractor because both drugs target T-cell involvement in DED via different mechanisms.",
+        "D — Cyclosporine does not antagonize prostaglandin E2 receptors. It works upstream — reducing cytokine production rather than blocking downstream prostaglandin receptor signaling. NSAIDs block prostaglandin synthesis; cyclosporine works at the T-cell transcriptional level."
+      ]
+    }
+  },
+  {
+    stem: "A 60-year-old man with dry eye disease is started on lifitegrast 5% ophthalmic solution after failing artificial tears. Two weeks later he reports an unusual bitter taste that began after starting the drops. He denies any nausea or GI symptoms. What is the most likely explanation?",
+    choices: [
+      "Systemic absorption of lifitegrast via the bloodstream causing direct stimulation of gustatory cortical neurons",
+      "Benzalkonium chloride preservative in the formulation causing parotid gland dysfunction and taste disturbance",
+      "Nasolacrimal drainage of lifitegrast into the nasopharynx producing dysgeusia as a class-specific adverse effect",
+      "Cross-reactivity of lifitegrast with olfactory receptors producing a phantom bitter taste through retronasal coupling"
+    ],
+    correct: 2,
+    explanation: {
+      correct: "Dysgeusia (abnormal, typically bitter or unpleasant taste) is the hallmark and most distinctive adverse effect of lifitegrast. Eye drops drain via the nasolacrimal duct into the nasopharynx → lifitegrast contacts taste receptors in the posterior pharynx → dysgeusia. This is a direct, well-documented class effect of lifitegrast itself, not of its preservative. Knowing this AE separates lifitegrast from cyclosporine on exams.",
+      teaching: "Lifitegrast (Xiidra) exam facts: (1) MOA = LFA-1 antagonist → blocks T-cell adhesion to ocular surface ICAM-1 → ↓ inflammation. (2) Unique AE = dysgeusia (abnormal/bitter taste). (3) Cost ~$750/month. (4) Wait 15 min before inserting contact lenses. Questions testing drug identification by AE: bitter taste after starting a DED eye drop = lifitegrast. Burning on instillation alone = more consistent with cyclosporine.",
+      wrongs: [
+        "A — While some systemic absorption occurs via the nasolacrimal duct, dysgeusia from lifitegrast is thought to result from direct local contact with pharyngeal taste receptors — not from bloodstream delivery to gustatory cortical neurons. The mechanism is peripheral, not central.",
+        "B — Benzalkonium chloride sensitivity manifests as conjunctival irritation, redness, and allergic conjunctivitis — not taste disturbance. The dysgeusia is a specific pharmacological effect of lifitegrast itself, reported in clinical trials independent of the preservative.",
+        "D — Retronasal olfaction (smell contributing to taste perception) is a physiological process, but dysgeusia from lifitegrast is a direct drug effect from pharyngeal contact, not olfactory receptor cross-reactivity. This answer misattributes the mechanism."
+      ]
+    }
+  },
+  {
+    stem: "A 57-year-old woman with severe dry eye disease has failed artificial tears and cyclosporine and has difficulty tolerating any eye drops. Her physician prescribes varenicline nasal spray (Tyrvaya). What is the mechanism by which this drug treats dry eye disease?",
+    choices: [
+      "Partial agonism of nicotinic α3β4 receptors in the nasal mucosa, stimulating the trigeminal-lacrimal reflex to increase natural tear secretion",
+      "Partial agonism of α₂ adrenergic receptors in the nasal submucosa, reducing sympathetic tone and increasing lacrimal gland secretion",
+      "Muscarinic M3 receptor agonism in the nasal submucosa, directly stimulating goblet cell mucin secretion in the conjunctiva",
+      "Phosphodiesterase-4 inhibition in nasal epithelium, increasing cAMP and driving lacrimal gland fluid secretion"
+    ],
+    correct: 0,
+    explanation: {
+      correct: "Varenicline (Tyrvaya) is a partial agonist at nicotinic acetylcholine α3β4 receptors in the nasal mucosa. Activation of these ganglionic nicotinic receptors stimulates the trigeminal-parasympathetic reflex arc → parasympathetic input to the lacrimal gland increases → ↑ natural aqueous tear secretion. This is the same active ingredient as the smoking cessation drug Chantix but given as a nasal spray at a different dose with different target anatomy.",
+      teaching: "Varenicline (Tyrvaya) key facts: (1) Drug = same molecule as varenicline for smoking cessation (Chantix) but nasal spray formulation for DED. (2) MOA = nicotinic α3β4 partial agonist → trigeminal-lacrimal reflex → ↑ natural tear production. (3) Route = NASAL SPRAY, not eye drop — key advantage for patients who cannot tolerate drops. (4) It stimulates natural tear production rather than replacing tears (different from artificial tears).",
+      wrongs: [
+        "B — Alpha-2 adrenergic agonism (the mechanism of brimonidine/apraclonidine) acts on ciliary epithelium to reduce aqueous humor production in the eye. It has no role in tear secretion via the trigeminal-lacrimal reflex. This answer misidentifies the receptor type and pharmacological pathway.",
+        "C — Muscarinic M3 agonism does stimulate lacrimal gland secretion (the mechanism of pilocarpine-like drugs), but varenicline acts on nicotinic receptors — not muscarinic receptors. The nasal route also means it triggers a reflex rather than acting directly on conjunctival goblet cells.",
+        "D — PDE-4 inhibition (mechanism of apremilast, roflumilast) is not the mechanism of varenicline. PDE-4 inhibitors are used in psoriasis, psoriatic arthritis, and COPD — not as approved dry eye disease treatments."
+      ]
+    }
+  },
+  {
+    stem: "A patient with refractory open-angle glaucoma is started on netarsudil (Rhopressa). Which mechanism of action distinguishes netarsudil from all other currently approved IOP-lowering drug classes?",
+    choices: [
+      "FP receptor agonism in the ciliary body, increasing uveoscleral outflow by remodeling the extracellular matrix",
+      "Rho-associated coiled-coil kinase (ROCK) inhibition, increasing trabecular outflow by relaxing the actomyosin cytoskeleton",
+      "Alpha-2 adrenergic receptor agonism on ciliary epithelium, activating Gi protein and reducing aqueous humor production",
+      "Carbonic anhydrase II inhibition in ciliary epithelium, reducing bicarbonate-driven aqueous humor secretion"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "Netarsudil is the only FDA-approved Rho kinase (ROCK) inhibitor for glaucoma. ROCK inhibition → relaxation of the trabecular meshwork actomyosin cytoskeleton → cells become less stiff → reduced resistance to aqueous outflow → ↑ trabecular drainage → ↓ IOP by approximately 20–25%. Per a 2022 Cochrane systematic review of 17 trials, its IOP-lowering effect may be inferior to latanoprost and slightly inferior to timolol.",
+      teaching: "Netarsudil (Rhopressa) high-yield facts: (1) MOA = ROCK inhibitor → ↑ trabecular outflow (unique class). (2) ↓ IOP ~20–25% — inferior to PAs (25–30%). (3) AEs = conjunctival hyperemia (most common), eye pain, conjunctival hemorrhage. (4) Very expensive — reserved for refractory cases. (5) Roclatan = netarsudil + latanoprost fixed-dose combination. On exams, 'Rho kinase inhibitor' or 'ROCK inhibitor' = netarsudil.",
+      wrongs: [
+        "A — FP receptor agonism describes the mechanism of prostaglandin analogs (latanoprost, bimatoprost, travoprost, tafluprost). These drugs increase uveoscleral outflow via extracellular matrix remodeling, not trabecular outflow via cytoskeletal relaxation.",
+        "C — Alpha-2 adrenergic receptor agonism on ciliary epithelium describes brimonidine and apraclonidine, which reduce aqueous production via Gi-coupled inhibition of adenylate cyclase. This is a production-reducing mechanism, not an outflow-enhancing one.",
+        "D — Carbonic anhydrase II inhibition describes the mechanism of dorzolamide, brinzolamide (ophthalmic), and acetazolamide (systemic). These reduce bicarbonate-driven aqueous production, not trabecular outflow facilitation."
+      ]
+    }
+  },
+  {
+    stem: "A 55-year-old man asks his ophthalmology resident to explain two facts: what IOP level defines 'ocular hypertension,' and what percentage of aqueous humor drains via the trabecular (conventional) pathway in a normal eye. Which answer is correct?",
+    choices: [
+      "IOP greater than 18 mmHg defines ocular hypertension; approximately 50–65% drains via trabecular outflow",
+      "IOP greater than 21 mmHg defines ocular hypertension; approximately 75–90% drains via trabecular outflow",
+      "IOP greater than 25 mmHg defines ocular hypertension; approximately 60–75% drains via trabecular outflow",
+      "IOP greater than 21 mmHg defines ocular hypertension; approximately 30–45% drains via trabecular outflow"
+    ],
+    correct: 1,
+    explanation: {
+      correct: "IOP > 21 mmHg = ocular hypertension. Normal IOP = approximately 10–21 mmHg. Aqueous humor drains predominantly via the trabecular (conventional) pathway through Schlemm's canal (75–90%, pressure-dependent) and secondarily via the uveoscleral (unconventional) pathway (10–25%, pressure-independent). Prostaglandin analogs increase uveoscleral drainage; pilocarpine increases trabecular drainage.",
+      teaching: "Why the uveoscleral pathway (only 10–25%) matters more than its size suggests: it is pressure-independent, meaning drugs that increase it (prostaglandins) lower IOP even when IOP is at the lower range of normal. Trabecular outflow is pressure-dependent — as IOP falls, trabecular drainage slows, creating a ceiling on how low beta-blockers can push IOP. This explains prostaglandins' superior efficacy.",
+      wrongs: [
+        "A — The ocular hypertension threshold is >21 mmHg, not >18 mmHg. Using 18 mmHg would misclassify a large number of normal patients as hypertensive. Additionally, 50–65% underestimates the dominance of the trabecular pathway.",
+        "C — The threshold for ocular hypertension is >21 mmHg, not >25 mmHg. A cutoff of 25 mmHg is too high and would miss patients at significant risk for glaucomatous optic neuropathy requiring treatment.",
+        "D — While the IOP threshold of >21 mmHg is correctly identified, 30–45% corresponds to the uveoscleral pathway — the smaller, unconventional route. Trabecular outflow is the dominant pathway at 75–90%, not 30–45%."
+      ]
+    }
+  }
+];
+
+const TOTAL = questions.length;
+let currentIndex = 0;
+let selectedChoice = null;
+let quizMode = 'learn';
+let examSubmitted = false;
+let toolMode = null;
+
+// Per-question state
+let questionStates = Array.from({length: TOTAL}, () => ({
+  selected: null,   // index of chosen option
+  graded: false,
+  correct: null     // true/false after grading
+}));
+
+// DOM refs
+const qo = document.getElementById('qo');
+const openDemo = document.getElementById('openDemo');
+const closeQuiz = document.getElementById('closeQuiz');
+const resetQuiz = document.getElementById('resetQuiz');
+const printQuiz = document.getElementById('printQuiz');
+const qpf = document.getElementById('qpf');
+const qnum = document.getElementById('qnum');
+const qStem = document.getElementById('qStem');
+const ach = document.getElementById('ach');
+const submitOne = document.getElementById('submitOne');
+const exBlock = document.getElementById('exBlock');
+const exCorrectText = document.getElementById('exCorrectText');
+const exTeachText = document.getElementById('exTeachText');
+const exWrongText = document.getElementById('exWrongText');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const qdots = document.getElementById('qdots');
+const svCurrent = document.getElementById('svCurrent');
+const svCorrect = document.getElementById('svCorrect');
+const svIncorrect = document.getElementById('svIncorrect');
+const modeLearn = document.getElementById('modeLearn');
+const modeExam = document.getElementById('modeExam');
+const submitExam = document.getElementById('submitExam');
+const examProgress = document.getElementById('examProgress');
+const examSubmitRow = document.getElementById('examSubmitRow');
+const toolHighlight = document.getElementById('toolHighlight');
+const toolStrike = document.getElementById('toolStrike');
+const toolReveal = document.getElementById('toolReveal');
+const toolStatus = document.getElementById('toolStatus');
+const timerTime = document.getElementById('timerTime');
+const cdTime = document.getElementById('cdTime');
+const cdVal = document.getElementById('cdVal');
+const cdGo = document.getElementById('cdGo');
+
+function escapeHTML(v) {
+  return String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function buildDots() {
+  qdots.innerHTML = '';
+  questions.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'qd';
+    d.title = `Question ${i+1}`;
+    d.addEventListener('click', () => goTo(i));
+    qdots.appendChild(d);
+  });
+}
+
+function updateDots() {
+  const dots = qdots.querySelectorAll('.qd');
+  dots.forEach((d, i) => {
+    d.className = 'qd';
+    const st = questionStates[i];
+    if (i === currentIndex) d.classList.add('cur');
+    else if (st.graded) d.classList.add(st.correct ? 'acor' : 'ainc');
+    else if (st.selected !== null) d.classList.add('asel');
+  });
+}
+
+function updateScores() {
+  const correct = questionStates.filter(s => s.graded && s.correct).length;
+  const incorrect = questionStates.filter(s => s.graded && !s.correct).length;
+  svCurrent.textContent = currentIndex + 1;
+  svCorrect.textContent = correct;
+  svIncorrect.textContent = incorrect;
+}
+
+function updateExamProgress() {
+  const answered = questionStates.filter(s => s.selected !== null).length;
+  examProgress.textContent = `${answered} of ${TOTAL} answered`;
+  submitExam.disabled = quizMode !== 'exam' || examSubmitted || answered < TOTAL;
+}
+
+function renderQuestion(index) {
+  const q = questions[index];
+  const st = questionStates[index];
+
+  // Progress bar
+  qpf.style.width = ((index + 1) / TOTAL * 100) + '%';
+  qnum.textContent = `Question ${index + 1} of ${TOTAL}`;
+
+  // Stem
+  qStem.className = 'qstem';
+  qStem.innerHTML = `<span class="stem-text">${escapeHTML(q.stem)}</span>`;
+
+  // Choices
+  ach.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.choices.forEach((choice, ci) => {
+    const div = document.createElement('div');
+    div.className = 'ac';
+    div.dataset.choice = ci;
+    div.innerHTML = `<div class="cl">${letters[ci]}</div><div class="ctx">${escapeHTML(choice)}</div>`;
+    ach.appendChild(div);
+  });
+
+  // Restore state
+  selectedChoice = st.selected;
+  if (st.graded) {
+    applyGradedState(index);
+  } else if (st.selected !== null) {
+    ach.children[st.selected].classList.add('sel');
+  }
+
+  // Submit button
+  updateSubmitBtn();
+
+  // Explanation
+  exBlock.classList.remove('vis');
+  exCorrectText.textContent = q.explanation.correct;
+  exTeachText.textContent = q.explanation.teaching;
+  const wrongsHtml = q.explanation.wrongs.map(w => {
+    const parts = w.match(/^([A-D] — )(.*)$/);
+    if (parts) return `<div class="wce"><strong>${escapeHTML(parts[1])}</strong>${escapeHTML(parts[2])}</div>`;
+    return `<div class="wce">${escapeHTML(w)}</div>`;
+  }).join('');
+  exWrongText.innerHTML = wrongsHtml;
+
+  if (st.graded) exBlock.classList.add('vis');
+
+  // Nav
+  prevBtn.disabled = index === 0;
+  nextBtn.disabled = index === TOTAL - 1;
+
+  updateDots();
+  updateScores();
+  updateExamProgress();
+  updateToolUI();
+}
+
+function applyGradedState(index) {
+  const q = questions[index];
+  const st = questionStates[index];
+  const choiceEls = Array.from(ach.children);
+  choiceEls.forEach(c => c.classList.add('dis'));
+  choiceEls[q.correct].classList.add('cor');
+  if (st.selected !== null && st.selected !== q.correct) {
+    choiceEls[st.selected].classList.add('inc');
+  }
+}
+
+function updateSubmitBtn() {
+  const st = questionStates[currentIndex];
+  if (quizMode === 'exam') {
+    submitOne.style.display = 'none';
+  } else {
+    submitOne.style.display = '';
+    submitOne.disabled = selectedChoice === null || st.graded;
+  }
+}
+
+function gradeQuestion(index) {
+  const q = questions[index];
+  const st = questionStates[index];
+  if (st.graded || st.selected === null) return false;
+  st.graded = true;
+  st.correct = st.selected === q.correct;
+  applyGradedState(index);
+  exBlock.classList.add('vis');
+  updateScores();
+  updateDots();
+  return true;
+}
+
+function goTo(index) {
+  currentIndex = index;
+  renderQuestion(index);
+  // Scroll top on mobile
+  qo.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// Click on choice
+ach.addEventListener('click', e => {
+  const ac = e.target.closest('.ac');
+  if (!ac) return;
+  const st = questionStates[currentIndex];
+  if (st.graded) return;
+
+  if (toolMode === 'highlight') {
+    ac.classList.toggle('hl-applied');
+    ac.classList.remove('st-applied');
+    return;
+  }
+  if (toolMode === 'strike') {
+    ac.classList.toggle('st-applied');
+    ac.classList.remove('hl-applied');
+    return;
+  }
+
+  const ci = parseInt(ac.dataset.choice);
+  // Deselect previous
+  Array.from(ach.children).forEach(c => c.classList.remove('sel'));
+  selectedChoice = ci;
+  st.selected = ci;
+  ac.classList.add('sel');
+  updateSubmitBtn();
+  updateExamProgress();
+  updateDots();
+});
+
+// Submit (learn mode)
+submitOne.addEventListener('click', () => {
+  gradeQuestion(currentIndex);
+  updateSubmitBtn();
+});
+
+// Submit exam
+submitExam.addEventListener('click', () => {
+  if (quizMode !== 'exam' || examSubmitted) return;
+  const unanswered = questionStates.filter(s => s.selected === null).length;
+  if (unanswered > 0) {
+    alert(`Please answer all ${TOTAL} questions before submitting. ${unanswered} question(s) remaining.`);
+    return;
+  }
+  examSubmitted = true;
+  questionStates.forEach((_, i) => gradeQuestion(i));
+  examSubmitRow.classList.remove('exam-live');
+  examSubmitRow.classList.add('exam-done');
+  submitExam.textContent = 'Exam Submitted';
+  submitExam.disabled = true;
+  examProgress.textContent = 'Exam submitted ✓';
+  renderQuestion(currentIndex);
+});
+
+// Nav
+prevBtn.addEventListener('click', () => { if (currentIndex > 0) goTo(currentIndex - 1); });
+nextBtn.addEventListener('click', () => { if (currentIndex < TOTAL - 1) goTo(currentIndex + 1); });
+
+// Mode toggle
+function setMode(mode) {
+  quizMode = mode;
+  modeLearn.classList.toggle('active', mode === 'learn');
+  modeExam.classList.toggle('active', mode === 'exam');
+  updateSubmitBtn();
+  updateExamProgress();
+  if (mode === 'exam') {
+    examSubmitRow.classList.add('exam-live');
+  } else {
+    examSubmitRow.classList.remove('exam-live', 'exam-done');
+  }
+}
+modeLearn.addEventListener('click', () => setMode('learn'));
+modeExam.addEventListener('click', () => setMode('exam'));
+
+// Open/close
+openDemo.addEventListener('click', () => {
+  qo.classList.add('open');
+  buildDots();
+  renderQuestion(0);
+});
+closeQuiz.addEventListener('click', () => {
+  qo.classList.add('closing');
+  setTimeout(() => qo.classList.remove('open', 'closing'), 320);
+});
+
+// Reset
+resetQuiz.addEventListener('click', () => {
+  if (!confirm('Reset all progress?')) return;
+  currentIndex = 0;
+  selectedChoice = null;
+  quizMode = 'learn';
+  examSubmitted = false;
+  toolMode = null;
+  questionStates = Array.from({length: TOTAL}, () => ({selected:null, graded:false, correct:null}));
+  setMode('learn');
+  buildDots();
+  renderQuestion(0);
+});
+
+// Font size
+document.querySelectorAll('[data-fs-btn]').forEach(btn => {
+  btn.addEventListener('click', () => { qo.dataset.fs = btn.dataset.fsBtn; });
+});
+
+// Tools
+function setToolMode(mode) {
+  toolMode = toolMode === mode ? null : mode;
+  updateToolUI();
+}
+function updateToolUI() {
+  toolHighlight.classList.toggle('active', toolMode === 'highlight');
+  toolStrike.classList.toggle('active', toolMode === 'strike');
+  if (toolMode === 'highlight') {
+    toolStatus.textContent = 'Tool mode: highlight';
+    toolStatus.className = 'tool-status active-highlight';
+    qStem.classList.add('tool-hover');
+  } else if (toolMode === 'strike') {
+    toolStatus.textContent = 'Tool mode: strikeout';
+    toolStatus.className = 'tool-status active-strike';
+    qStem.classList.add('tool-hover');
+  } else {
+    toolStatus.textContent = 'Tool mode: none';
+    toolStatus.className = 'tool-status';
+    qStem.classList.remove('tool-hover');
+  }
+}
+toolHighlight.addEventListener('click', () => setToolMode('highlight'));
+toolStrike.addEventListener('click', () => setToolMode('strike'));
+toolReveal.addEventListener('click', () => {
+  const st = questionStates[currentIndex];
+  if (st.graded || quizMode === 'exam') exBlock.classList.toggle('vis');
+  else { gradeQuestion(currentIndex); updateSubmitBtn(); }
+});
+
+// Stem tool interaction
+function applyStemMarkup(type) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return false;
+  const range = sel.getRangeAt(0);
+  if (!qStem.contains(range.commonAncestorContainer)) return false;
+  const wrapper = document.createElement('span');
+  wrapper.className = type === 'highlight' ? 'stem-hl' : 'stem-st';
+  try { range.surroundContents(wrapper); }
+  catch(e) { const frag = range.extractContents(); wrapper.appendChild(frag); range.insertNode(wrapper); }
+  sel.removeAllRanges();
+  return true;
+}
+function toggleWholeStem(type) {
+  if (type === 'highlight') {
+    qStem.classList.toggle('hl-applied');
+    qStem.classList.remove('st-applied');
+  } else {
+    qStem.classList.toggle('st-applied');
+    qStem.classList.remove('hl-applied');
+  }
+}
+qStem.addEventListener('click', e => {
+  if (!toolMode) return;
+  const didApply = applyStemMarkup(toolMode);
+  if (!didApply) toggleWholeStem(toolMode);
+  e.preventDefault();
+});
+
+// Timer (stopwatch)
+let timerInt = null, timerSec = 0;
+function renderTimer() {
+  const m = String(Math.floor(timerSec/60)).padStart(2,'0');
+  const s = String(timerSec%60).padStart(2,'0');
+  timerTime.textContent = `${m}:${s}`;
+}
+document.getElementById('timerStart').addEventListener('click', () => {
+  if (timerInt) return;
+  timerInt = setInterval(() => { timerSec++; renderTimer(); }, 1000);
+});
+document.getElementById('timerPause').addEventListener('click', () => { clearInterval(timerInt); timerInt = null; });
+document.getElementById('timerReset').addEventListener('click', () => {
+  clearInterval(timerInt); timerInt = null; timerSec = 0; renderTimer();
+});
+
+// Countdown
+let cdMinutes = 5, cdInt = null, cdSec = 300;
+function renderCountdown() {
+  const m = String(Math.floor(cdSec/60)).padStart(2,'0');
+  const s = String(cdSec%60).padStart(2,'0');
+  cdTime.textContent = `${m}:${s}`;
+}
+document.getElementById('cdMinus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.max(1, cdMinutes-1);
+  cdVal.textContent = cdMinutes; cdSec = cdMinutes*60; renderCountdown();
+});
+document.getElementById('cdPlus').addEventListener('click', () => {
+  if (cdInt) return;
+  cdMinutes = Math.min(99, cdMinutes+1);
+  cdVal.textContent = cdMinutes; cdSec = cdMinutes*60; renderCountdown();
+});
+cdGo.addEventListener('click', () => {
+  if (cdInt) { clearInterval(cdInt); cdInt = null; cdGo.textContent = 'Start'; return; }
+  cdGo.textContent = 'Pause';
+  cdInt = setInterval(() => {
+    if (cdSec <= 0) { clearInterval(cdInt); cdInt = null; cdGo.textContent = 'Start'; cdTime.style.color='var(--red)'; return; }
+    cdSec--; renderCountdown();
+  }, 1000);
+});
+
+// Print
+function buildPrintReviewMarkup() {
+  const letters = ['A','B','C','D'];
+  const gradedQs = questionStates.map((st, i) => ({st, i})).filter(({st}) => st.graded);
+  if (gradedQs.length === 0) {
+    // Print current question only
+    const i = currentIndex;
+    const st = questionStates[i];
+    const q = questions[i];
+    return buildSinglePrint(i, q, st, letters);
+  }
+  return `<div class="print-shell">
+    <div class="print-header">Ophthalmology Pharmacology — Answer Review</div>
+    <div class="print-sub">Reviewed ${gradedQs.length} of ${TOTAL} questions</div>
+    ${gradedQs.map(({i, st}) => buildSinglePrint(i, questions[i], st, letters)).join('')}
+  </div>`;
+}
+function buildSinglePrint(i, q, st, letters) {
+  const choicesHtml = q.choices.map((c, ci) => {
+    let cls = '';
+    if (ci === q.correct) cls = 'correct';
+    else if (st.selected === ci && ci !== q.correct) cls = 'incorrect';
+    return `<div class="print-choice ${cls}">
+      <div class="print-cl">${letters[ci]}</div>
+      <div>${escapeHTML(c)}</div>
+    </div>`;
+  }).join('');
+  const wrongsHtml = q.explanation.wrongs.map(w => {
+    const parts = w.match(/^([A-D] — )(.*)$/);
+    if (parts) return `<div class="wce"><strong>${escapeHTML(parts[1])}</strong>${escapeHTML(parts[2])}</div>`;
+    return `<div class="wce">${escapeHTML(w)}</div>`;
+  }).join('');
+  return `<div class="print-card">
+    <div class="print-q-num">Question ${i+1} of ${TOTAL}${st.graded ? (st.correct ? ' · ✓ Correct' : ' · ✗ Incorrect') : ''}</div>
+    <div class="print-stem">${escapeHTML(q.stem)}</div>
+    <div class="print-choices">${choicesHtml}</div>
+    <div class="print-explainer correct-box"><div class="print-exp-lbl">Correct Answer</div>${escapeHTML(q.explanation.correct)}</div>
+    <div class="print-explainer teach-box"><div class="print-exp-lbl">Teaching Point</div>${escapeHTML(q.explanation.teaching)}</div>
+    <div class="print-explainer wrong-box"><div class="print-exp-lbl">Why the Others Are Wrong</div>${wrongsHtml}</div>
+  </div>`;
+}
+function printQuizReview() {
+  document.getElementById('printReviewRoot').innerHTML = buildPrintReviewMarkup();
+  document.body.classList.add('print-review-active');
+  setTimeout(() => window.print(), 50);
+}
+window.addEventListener('afterprint', () => document.body.classList.remove('print-review-active'));
+printQuiz.addEventListener('click', printQuizReview);
+</script>
+</body>
+</html>
