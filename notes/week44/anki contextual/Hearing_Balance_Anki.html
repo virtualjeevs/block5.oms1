@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hearing &amp; Balance — Contextual Anki (Ferland)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ============================================================
+   DESIGN TOKENS — base + per-theme overrides
+============================================================ */
+:root{
+  --amber:#f6a533; --amber-soft:rgba(246,165,51,.13); --amber-mid:rgba(246,165,51,.25); --amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf;  --teal-soft:rgba(45,212,191,.12);  --teal-mid:rgba(45,212,191,.22);  --teal-dim:rgba(45,212,191,.5);
+  --green:#34d399; --green-soft:rgba(52,211,153,.13); --green-mid:rgba(52,211,153,.22);
+  --red:#f87171;   --red-soft:rgba(248,113,113,.12);  --red-mid:rgba(248,113,113,.22);
+  --map-shadow:0 20px 45px rgba(0,0,0,.22);
+  --panel-shadow:0 22px 48px rgba(0,0,0,.24);
+  --header-shadow:0 22px 50px rgba(0,0,0,.24);
+}
+
+/* ─── Slate (default) ─── */
+html, html[data-theme="slate"]{
+  --bg:#0b0f1a; --bg-top:#0b0f1a; --bg-bottom:#0d1321;
+  --surface:#131929; --surface-2:#19223a; --surface-3:#1f2a42; --surface-4:#24314e;
+  --text:#dde5f0; --text-2:#7e90a9; --text-3:#3e5065;
+  --border:#1c2a40; --border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08); --hero-glow-b:rgba(246,165,51,.09);
+  --header-a:#131929; --header-b:#1a2540;
+  --card-a:#19223a; --card-b:#1f2a42;
+  --card-action-bg:#0f1626;
+  --nav-bg:#19223a; --nav-bg-hover:#243348; --nav-text:#dde5f0;
+  --showall-bg:rgba(246,165,51,.13); --showall-text:#f6a533;
+  --meta-bg:rgba(126,144,169,.12);
+  --table-head-a:#19223a; --table-head-b:#243348;
+}
+
+/* ─── Cream ─── */
+html[data-theme="cream"]{
+  --bg:#f4efe4; --bg-top:#f4efe4; --bg-bottom:#ebe2cf;
+  --surface:#fffbf2; --surface-2:#f7efde; --surface-3:#ede2c9; --surface-4:#e3d6b9;
+  --text:#3b2a1a; --text-2:#7c5c3e; --text-3:#a08568;
+  --border:rgba(139,90,43,.18); --border-2:rgba(139,90,43,.10);
+  --hero-glow-a:rgba(45,150,140,.10); --hero-glow-b:rgba(180,110,30,.10);
+  --header-a:#ede2c9; --header-b:#dfd0b2;
+  --card-a:#fffbf2; --card-b:#f7efde;
+  --card-action-bg:#ede2c9;
+  --nav-bg:#ede2c9; --nav-bg-hover:#dfd0b2; --nav-text:#3b2a1a;
+  --showall-bg:rgba(180,110,30,.14); --showall-text:#aa6418;
+  --meta-bg:rgba(139,90,43,.12);
+  --table-head-a:#ede2c9; --table-head-b:#dfd0b2;
+}
+
+/* ─── Forest ─── */
+html[data-theme="forest"]{
+  --bg:#081512; --bg-top:#081512; --bg-bottom:#0c1d18;
+  --surface:#0f2520; --surface-2:#163029; --surface-3:#1c3b32; --surface-4:#23493e;
+  --text:#d8e8df; --text-2:#7fa492; --text-3:#3d5e51;
+  --border:#1a3329; --border-2:#1f3e33;
+  --hero-glow-a:rgba(45,212,191,.10); --hero-glow-b:rgba(246,165,51,.10);
+  --header-a:#0f2520; --header-b:#163029;
+  --card-a:#0f2520; --card-b:#163029;
+  --card-action-bg:#0a1c17;
+  --nav-bg:#163029; --nav-bg-hover:#1c3b32; --nav-text:#d8e8df;
+  --showall-bg:rgba(246,165,51,.14); --showall-text:#f6a533;
+  --meta-bg:rgba(127,164,146,.14);
+  --table-head-a:#163029; --table-head-b:#1c3b32;
+}
+
+/* ============================================================
+   PAGE LAYOUT
+============================================================ */
+body{
+  font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:
+    radial-gradient(circle at top left, var(--hero-glow-a), transparent 26rem),
+    radial-gradient(circle at top right, var(--hero-glow-b), transparent 24rem),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  color:var(--text);
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.55;
+  transition:background .35s ease, color .35s ease;
+}
+
+header{
+  max-width:1100px;margin:0 auto;padding:36px 28px 18px;
+}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.hero-copy{flex:1;min-width:260px}
+.eyebrow{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--text-2);margin-bottom:8px}
+h1{font-family:'Crimson Pro',serif;font-size:42px;line-height:1.05;letter-spacing:-.5px;margin-bottom:6px;font-weight:700}
+.sub{color:var(--text-2);font-size:14px;font-family:'DM Mono',monospace;letter-spacing:.5px}
+
+.theme-switch{display:flex;gap:6px;background:var(--surface);border:1px solid var(--border);padding:4px;border-radius:999px}
+.theme-btn{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.5px;padding:8px 14px;border:none;background:transparent;color:var(--text-2);border-radius:999px;cursor:pointer;transition:all .15s}
+.theme-btn:hover{color:var(--text)}
+.theme-btn.active{background:var(--surface-3);color:var(--text)}
+
+.legend{max-width:1100px;margin:0 auto;padding:0 28px 16px;display:flex;gap:24px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.5px}
+.lswatch{width:14px;height:14px;border-radius:3px}
+
+.app{max-width:1100px;margin:0 auto;padding:0 28px 28px}
+
+/* ============================================================
+   MAP
+============================================================ */
+.map-wrap{
+  background:linear-gradient(180deg, var(--card-a), var(--card-b));
+  border:1px solid var(--border);border-radius:16px;
+  padding:18px 22px 12px;
+  box-shadow:var(--map-shadow);
+  margin-bottom:18px;
+}
+.concept-map{display:block;width:100%;height:auto;max-height:380px}
+
+.node{cursor:pointer;transition:opacity .25s}
+.node rect{
+  stroke:var(--border-2);stroke-width:1.2;
+  transition:fill .2s, stroke .2s, stroke-width .2s;
+}
+.node text.th{font-family:'DM Mono',monospace;font-weight:600;font-size:12.5px;fill:var(--text);letter-spacing:.5px}
+.node text.ts{font-family:'DM Sans',sans-serif;font-size:10.5px;fill:var(--text-2)}
+
+.node.c-amber rect{fill:var(--amber-soft);stroke:var(--amber-mid)}
+.node.c-amber:hover rect{fill:rgba(246,165,51,.20);stroke:var(--amber-dim);stroke-width:1.6}
+.node.c-amber.active rect{fill:rgba(246,165,51,.28);stroke:var(--amber);stroke-width:2}
+
+.node.c-teal rect{fill:var(--teal-soft);stroke:var(--teal-mid)}
+.node.c-teal:hover rect{fill:rgba(45,212,191,.20);stroke:var(--teal-dim);stroke-width:1.6}
+.node.c-teal.active rect{fill:rgba(45,212,191,.28);stroke:var(--teal);stroke-width:2}
+
+.node.done-node{opacity:.45}
+.node.done-node:hover{opacity:.7}
+
+.c-gray rect{fill:var(--surface-3);stroke:var(--border-2);stroke-width:1.2}
+.c-gray text.th{font-family:'Crimson Pro',serif;font-weight:600;font-size:18px;fill:var(--text)}
+.c-gray text.ts{font-family:'DM Mono',monospace;font-size:11px;fill:var(--text-2);letter-spacing:.6px}
+
+line.conn{stroke:var(--border-2);stroke-width:1.2;opacity:.6}
+
+text.hint-lbl{font-family:'DM Mono',monospace;font-size:9.5px;fill:var(--text-3);letter-spacing:.6px}
+
+/* ============================================================
+   STATS BAR
+============================================================ */
+.stats-bar{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:12px 18px;margin-bottom:18px;
+}
+.stat-pill{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;
+  padding:6px 12px;border-radius:999px;
+  background:var(--meta-bg);color:var(--text);
+  border:1px solid var(--border-2);
+}
+.stat-pill.knew{background:var(--green-soft);color:var(--green);border-color:var(--green-mid)}
+.stat-pill.need{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid)}
+.stat-pill.review-btn{background:var(--amber-soft);color:var(--amber);cursor:pointer;border:1px solid var(--amber-mid);transition:all .15s;display:none}
+.stat-pill.review-btn:hover{background:rgba(246,165,51,.22)}
+.stat-pill.review-btn.show{display:inline-flex}
+.stats-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.stats-btn{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;
+  padding:7px 13px;border-radius:8px;cursor:pointer;border:1px solid var(--border-2);
+  background:var(--surface-2);color:var(--text);transition:all .15s;
+}
+.stats-btn:hover{background:var(--surface-3);border-color:var(--text-3)}
+.stats-btn.reset{background:transparent;color:var(--red);border-color:var(--red-mid)}
+.stats-btn.reset:hover{background:var(--red-soft)}
+
+/* ============================================================
+   PANEL (card view)
+============================================================ */
+.panel-wrap{display:none}
+.panel-wrap.open{display:block}
+
+.panel{
+  background:linear-gradient(180deg, var(--card-a), var(--card-b));
+  border:1px solid var(--border);border-radius:16px;
+  box-shadow:var(--panel-shadow);
+  overflow:hidden;
+  margin-bottom:18px;
+}
+.panel-header{
+  padding:18px 22px 16px;
+  background:linear-gradient(135deg, var(--header-a), var(--header-b));
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  box-shadow:var(--header-shadow);
+}
+.panel-badge{
+  font-family:'DM Mono',monospace;font-size:10.5px;font-weight:600;
+  padding:4px 10px;border-radius:6px;letter-spacing:1.2px;
+}
+.panel-badge.PLO{background:var(--amber-soft);color:var(--amber)}
+.panel-badge.LO{background:var(--teal-soft);color:var(--teal)}
+
+.panel-title{
+  flex:1;min-width:200px;
+  font-family:'Crimson Pro',serif;font-size:21px;font-weight:600;color:var(--text);
+}
+
+.progress-dots{display:flex;gap:5px;flex-wrap:wrap}
+.dot{
+  width:8px;height:8px;border-radius:50%;background:var(--border-2);
+  transition:background .15s;
+}
+.dot.partial{background:var(--amber)}
+.dot.done{background:var(--green)}
+.dot.cur{box-shadow:0 0 0 2px var(--text);}
+
+.close-btn{
+  font-family:'DM Mono',monospace;font-size:11px;
+  padding:6px 12px;border-radius:8px;
+  background:transparent;color:var(--text-2);
+  border:1px solid var(--border-2);cursor:pointer;transition:all .15s;
+}
+.close-btn:hover{color:var(--text);border-color:var(--text-3)}
+
+.card-body{padding:24px 24px 16px}
+.card-title{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.4px;
+  color:var(--text-2);margin-bottom:14px;text-transform:uppercase;
+}
+.card-content{font-size:16px;line-height:1.75;color:var(--text);font-family:'DM Sans',sans-serif}
+.card-hint{
+  margin-top:18px;padding:14px 16px;border-radius:10px;
+  background:var(--surface-3);border-left:3px solid var(--teal);
+  font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text-2);line-height:1.6;
+}
+
+/* ============================================================
+   OCCLUSION
+============================================================ */
+.occ{
+  display:inline-block;
+  min-width:3ch;
+  background:var(--text);color:transparent;
+  border:1px solid transparent;
+  border-radius:3px;cursor:pointer;
+  padding:1px 6px;white-space:nowrap;user-select:none;
+  vertical-align:baseline;
+  transition:background .15s, color .15s, border-color .15s;
+}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
+.occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
+.occ.needed{background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25)}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.20)}
+
+.score-btns{display:inline-flex;gap:4px;margin:0 0 0 6px;vertical-align:baseline}
+.sbtn{
+  font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500;
+  padding:2px 8px;border-radius:4px;cursor:pointer;border:1px solid;
+  transition:all .12s;
+}
+.sbtn-k{background:var(--green-soft);color:var(--green);border-color:var(--green-mid)}
+.sbtn-k:hover{background:rgba(52,211,153,.22)}
+.sbtn-n{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid)}
+.sbtn-n:hover{background:rgba(246,165,51,.22)}
+
+.jlink{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.4px;
+  margin-left:6px;padding:2px 7px;border-radius:4px;cursor:pointer;
+  border:1px solid;text-decoration:none;display:inline-block;
+  transition:all .12s;
+}
+.jlink.amber{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid)}
+.jlink.amber:hover{background:rgba(246,165,51,.22)}
+.jlink.teal{background:var(--teal-soft);color:var(--teal);border-color:var(--teal-mid)}
+.jlink.teal:hover{background:rgba(45,212,191,.22)}
+
+/* ============================================================
+   TABLE QUIZ CARDS
+============================================================ */
+.tblq-note{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:10px 14px;margin-bottom:12px;
+  background:var(--meta-bg);border-radius:8px;
+  font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);
+}
+.tblq-pill{
+  display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;
+  background:var(--green-soft);color:var(--green);font-size:10px;letter-spacing:.5px;
+}
+.tblq-actions{display:none}
+.tblq-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border-2)}
+table.tblq{width:100%;border-collapse:collapse;font-size:14px}
+table.tblq th{
+  background:linear-gradient(180deg, var(--table-head-a), var(--table-head-b));
+  padding:10px 14px;text-align:left;font-family:'DM Mono',monospace;font-size:11px;
+  letter-spacing:.6px;text-transform:uppercase;color:var(--text-2);font-weight:600;
+  border-bottom:1px solid var(--border);
+}
+table.tblq td, table.tblq th[scope="row"]{
+  padding:10px 14px;border-bottom:1px solid var(--border-2);
+  font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);
+}
+table.tblq th[scope="row"]{
+  font-family:'DM Mono',monospace;font-size:12px;font-weight:600;
+  background:var(--surface-3);
+  width:30%;
+}
+table.tblq tbody tr:last-child td, table.tblq tbody tr:last-child th{border-bottom:none}
+.tblq td .occ{
+  display:block;text-align:center;white-space:normal;
+  padding:10px 12px;min-width:180px;
+}
+.tblq td .score-btns{display:flex;justify-content:center;margin:6px 0 0 0;gap:6px}
+
+/* ============================================================
+   CARD ACTIONS BAR
+============================================================ */
+.card-actions{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:14px 22px;background:var(--card-action-bg);border-top:1px solid var(--border);
+}
+.metrics{display:flex;gap:8px;flex-wrap:wrap}
+.metric{
+  font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.5px;
+  padding:5px 10px;border-radius:6px;
+  background:var(--meta-bg);color:var(--text-2);
+}
+.metric.k{background:var(--green-soft);color:var(--green)}
+.metric.n{background:var(--amber-soft);color:var(--amber)}
+.metric.w{background:var(--teal-soft);color:var(--teal)}
+
+.action-btns{display:flex;gap:8px;flex-wrap:wrap}
+.act{
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.4px;
+  padding:8px 14px;border-radius:8px;cursor:pointer;border:1px solid;transition:all .15s;
+}
+.act.primary{background:var(--teal-soft);color:var(--teal);border-color:var(--teal-mid)}
+.act.primary:hover:not(:disabled){background:rgba(45,212,191,.22)}
+.act.amber{background:var(--showall-bg);color:var(--showall-text);border-color:var(--amber-mid)}
+.act.amber:hover:not(:disabled){background:rgba(246,165,51,.22)}
+.act.ghost{background:transparent;color:var(--text-2);border-color:var(--border-2)}
+.act.ghost:hover:not(:disabled){background:var(--surface-3);color:var(--text)}
+.act:disabled{opacity:.35;cursor:not-allowed}
+
+/* ============================================================
+   NAVIGATION BAR
+============================================================ */
+.nav-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 22px;background:var(--card-action-bg);border-top:1px solid var(--border);
+}
+.nav-btn{
+  font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.5px;
+  padding:8px 16px;border-radius:8px;cursor:pointer;
+  background:var(--nav-bg);color:var(--nav-text);
+  border:1px solid var(--border-2);transition:all .15s;
+}
+.nav-btn:hover:not(:disabled){background:var(--nav-bg-hover)}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.nav-info{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.5px}
+
+/* ============================================================
+   REVIEW MODE PANEL
+============================================================ */
+.review-wrap{display:none;margin-bottom:18px}
+.review-wrap.open{display:block}
+.review-panel{
+  background:linear-gradient(180deg, var(--card-a), var(--card-b));
+  border:1px solid var(--amber-mid);border-radius:16px;
+  box-shadow:var(--panel-shadow);overflow:hidden;
+}
+.review-header{
+  padding:18px 22px 14px;
+  background:linear-gradient(135deg, var(--amber-soft), var(--surface-2));
+  border-bottom:1px solid var(--amber-mid);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+}
+.review-title{font-family:'Crimson Pro',serif;font-size:20px;color:var(--amber);font-weight:600}
+.rsub{
+  font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);
+  padding:10px 22px;background:var(--card-action-bg);border-bottom:1px solid var(--border);
+  letter-spacing:.4px;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media(max-width:720px){
+  header{padding:24px 18px 12px}
+  h1{font-size:32px}
+  .app{padding:0 18px 24px}
+  .legend{padding:0 18px 14px}
+  .panel-header{padding:14px 16px}
+  .card-body{padding:18px 16px 12px}
+  .card-actions{flex-direction:column;align-items:stretch}
+  .action-btns{justify-content:stretch}
+  .action-btns .act{flex:1;text-align:center}
+  .nav-bar{padding:10px 16px}
+  .stats-bar{padding:10px 14px}
+  .stats-actions{width:100%;justify-content:flex-end}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hero-top">
+    <div class="hero-copy">
+      <div class="eyebrow">Block 5 · Week 40 · Dr. Ferland</div>
+      <h1>Hearing & Balance</h1>
+      <p id="deckMeta" class="sub"></p>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+    </div>
+  </div>
+</header>
+
+<div class="legend">
+  <div class="legend-item"><div class="lswatch" style="background:var(--amber)"></div>Program Learning Outcomes (PLO)</div>
+  <div class="legend-item"><div class="lswatch" style="background:var(--teal)"></div>Lecture Objectives (LO)</div>
+</div>
+
+<div class="app">
+
+<div class="map-wrap">
+<svg class="concept-map" viewBox="0 0 680 325" xmlns="http://www.w3.org/2000/svg">
+  <line class="conn" x1="115" y1="60" x2="340" y2="128"/>
+  <line class="conn" x1="265" y1="60" x2="340" y2="128"/>
+  <line class="conn" x1="415" y1="60" x2="340" y2="128"/>
+  <line class="conn" x1="565" y1="60" x2="340" y2="128"/>
+  <line class="conn" x1="115" y1="256" x2="340" y2="184"/>
+  <line class="conn" x1="265" y1="256" x2="340" y2="184"/>
+  <line class="conn" x1="415" y1="256" x2="340" y2="184"/>
+  <line class="conn" x1="565" y1="256" x2="340" y2="184"/>
+  <g id="n-ploH1" class="node c-amber" onclick="selNode('ploH1')">
+    <rect x="50" y="16" width="130" height="44" rx="8"/>
+    <text class="th" x="115" y="32" text-anchor="middle" dominant-baseline="central">PLO H1</text>
+    <text class="ts" x="115" y="48" text-anchor="middle" dominant-baseline="central">Periphery / Transduction</text>
+  </g>
+  <g id="n-ploH2" class="node c-amber" onclick="selNode('ploH2')">
+    <rect x="200" y="16" width="130" height="44" rx="8"/>
+    <text class="th" x="265" y="32" text-anchor="middle" dominant-baseline="central">PLO H2</text>
+    <text class="ts" x="265" y="48" text-anchor="middle" dominant-baseline="central">Auditory Coding</text>
+  </g>
+  <g id="n-ploH3" class="node c-amber" onclick="selNode('ploH3')">
+    <rect x="350" y="16" width="130" height="44" rx="8"/>
+    <text class="th" x="415" y="32" text-anchor="middle" dominant-baseline="central">PLO H3</text>
+    <text class="ts" x="415" y="48" text-anchor="middle" dominant-baseline="central">Sound Localization</text>
+  </g>
+  <g id="n-ploV1" class="node c-amber" onclick="selNode('ploV1')">
+    <rect x="500" y="16" width="130" height="44" rx="8"/>
+    <text class="th" x="565" y="32" text-anchor="middle" dominant-baseline="central">PLO V1</text>
+    <text class="ts" x="565" y="48" text-anchor="middle" dominant-baseline="central">Vestibular Overview</text>
+  </g>
+  <g class="c-gray">
+    <rect x="175" y="128" width="330" height="56" rx="10"/>
+    <text class="th" x="340" y="150" text-anchor="middle" dominant-baseline="central">Hearing & Balance</text>
+    <text class="ts" x="340" y="168" text-anchor="middle" dominant-baseline="central">Ferland · Physiology of the Senses</text>
+  </g>
+  <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+    <rect x="50" y="256" width="130" height="44" rx="8"/>
+    <text class="th" x="115" y="272" text-anchor="middle" dominant-baseline="central">LO 1</text>
+    <text class="ts" x="115" y="288" text-anchor="middle" dominant-baseline="central">Hearing Loss & Clinical</text>
+  </g>
+  <g id="n-lo2" class="node c-teal" onclick="selNode('lo2')">
+    <rect x="200" y="256" width="130" height="44" rx="8"/>
+    <text class="th" x="265" y="272" text-anchor="middle" dominant-baseline="central">LO 2</text>
+    <text class="ts" x="265" y="288" text-anchor="middle" dominant-baseline="central">Otolith Organs</text>
+  </g>
+  <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+    <rect x="350" y="256" width="130" height="44" rx="8"/>
+    <text class="th" x="415" y="272" text-anchor="middle" dominant-baseline="central">LO 3</text>
+    <text class="ts" x="415" y="288" text-anchor="middle" dominant-baseline="central">Semicircular Canals</text>
+  </g>
+  <g id="n-lo4" class="node c-teal" onclick="selNode('lo4')">
+    <rect x="500" y="256" width="130" height="44" rx="8"/>
+    <text class="th" x="565" y="272" text-anchor="middle" dominant-baseline="central">LO 4</text>
+    <text class="ts" x="565" y="288" text-anchor="middle" dominant-baseline="central">Vestibular Clinical</text>
+  </g>
+  <text class="hint-lbl" x="340" y="316" text-anchor="middle">Click any node to begin · ← → navigate cards · Esc to close · ✓/✗ score each term</text>
+</svg>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-pill" id="statTotal">0 terms revealed</div>
+  <div class="stat-pill knew" id="statKnew">0 knew</div>
+  <div class="stat-pill need" id="statNeed">0 needed help</div>
+  <div class="stat-pill" id="statDone">0 / 8 topics done</div>
+  <div class="stat-pill review-btn" id="statReview" onclick="startReview()">Review weak spots (0)</div>
+  <div class="stats-actions">
+    <button class="stats-btn" onclick="revealDeck()">Reveal deck</button>
+    <button class="stats-btn reset" onclick="resetAll()">Reset all</button>
+  </div>
+</div>
+
+<!-- Main card panel -->
+<div class="panel-wrap" id="panelWrap">
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-badge" id="panelBadge"></span>
+      <div class="panel-title" id="panelTitle"></div>
+      <div class="progress-dots" id="progressDots"></div>
+      <button class="close-btn" onclick="closePanel()">✕ Close</button>
+    </div>
+    <div class="card-body">
+      <div class="card-title" id="cardTitle"></div>
+      <div class="card-content" id="cardContent"></div>
+      <div class="card-hint" id="cardHint" style="display:none"></div>
+    </div>
+    <div class="card-actions">
+      <div class="metrics" id="cardMetrics"></div>
+      <div class="action-btns">
+        <button class="act primary" id="revealCardBtn" onclick="revealCard()">Reveal this card</button>
+        <button class="act amber" id="knewAllBtn" onclick="knewAllCard()" disabled>Knew all</button>
+        <button class="act ghost" id="resetCardBtn" onclick="resetCard()" disabled>Reset card</button>
+        <button class="act ghost" onclick="revealNode()">Reveal topic</button>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <button class="nav-btn" id="prevBtn" onclick="navCard(-1)">← Prev</button>
+      <div class="nav-info" id="navInfo"></div>
+      <button class="nav-btn" id="nextBtn" onclick="navCard(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Review (weak-spots) panel -->
+<div class="review-wrap" id="reviewWrap">
+  <div class="review-panel">
+    <div class="review-header">
+      <div class="review-title" id="reviewTitle">Reviewing weak spots</div>
+      <button class="close-btn" onclick="closeReview()">✕ Close review</button>
+    </div>
+    <div class="rsub" id="reviewSub"></div>
+    <div class="card-body">
+      <div class="card-title" id="reviewCardTitle"></div>
+      <div class="card-content" id="reviewCardContent"></div>
+    </div>
+    <div class="nav-bar">
+      <button class="nav-btn" id="reviewPrev" onclick="navReview(-1)">← Prev</button>
+      <div class="nav-info" id="reviewInfo"></div>
+      <button class="nav-btn" id="reviewNext" onclick="navReview(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+// ============================================================
+// DATA (JSON-injected; apostrophes safe inside double-quotes)
+// ============================================================
+const D = {"ploH1": {"label": "PLO H1", "sub": "Auditory periphery & hair cell transduction", "type": "PLO", "cards": [{"t": "Outer & middle ear function", "b": "Sound is funneled by the {pinna} into the {external auditory canal}, vibrates the {tympanic membrane}, then is transmitted through three ossicles ({malleus}, {incus}, {stapes}) to the {oval window}. The middle ear performs {impedance matching} so that sound moving from {air} into {fluid} is not entirely reflected.", "h": "Without impedance matching, ~99.9% of sound energy would reflect off the cochlear fluid. The ossicular chain plus the area ratio of TM-to-oval-window recovers most of that lost energy."}, {"t": "The attenuation reflex", "b": "Loud sounds trigger reflex contraction of two middle-ear muscles. {Tensor tympani} attaches to the {malleus} and is innervated by {CN V (trigeminal)}. {Stapedius} attaches to the {stapes} and is innervated by {CN VII (facial)}. Together they {dampen} ossicular movement and protect the inner ear.", "h": "Bell’s palsy = CN VII paralysis → stapedius denervation → hyperacusis (ordinary sounds feel painfully loud). See LO 1 for the clinical correlation."}, {"t": "Inner ear fluids", "b": "Scala vestibuli and scala tympani contain {perilymph}, which has {high Na+} and {low K+} (similar to CSF). Scala media (cochlear duct) contains {endolymph}, which has {high K+} and a unique resting potential of {+80 mV} called the {endocochlear potential}. Both endolymph and the +80 mV potential are produced by the {stria vascularis}.", "h": "The +80 mV endocochlear potential is the battery that drives K+ into hair cells when MET channels open. Lose the stria (e.g., presbycusis) → lose the battery → hair cells fail."}, {"t": "Hair cell mechanotransduction", "b": "Stereocilia are connected at their tips by {tip links}. When stereocilia bend toward the {kinocilium}, tip links pull taut and open {MET channels} (encoded by {TMC1/2}). K+ rushes IN from K+-rich endolymph, the cell {depolarizes}, voltage-gated {Ca2+} channels open at the base, and {glutamate} is released onto the CN VIII afferent.", "h": "Universal hair cell rule (cochlear, otolith, AND semicircular): bend toward kinocilium = depolarize = MORE firing. Bend away = hyperpolarize = LESS firing."}, {"t": "Inner vs outer hair cells", "b": "There are two populations on the organ of Corti. {Inner hair cells} (one row) are the primary auditory sensors and account for ~{95%} of {afferents} in CN VIII. {Outer hair cells} (three rows) receive {efferent} input from the {superior olivary complex} and act as acoustic {pre-amplifiers}, changing length via the motor protein {prestin}.", "h": "Memory aid: INNER = INformation OUT to brain. OUTER = OUTside influence (efferents) modulating cochlear sensitivity."}]}, "ploH2": {"label": "PLO H2", "sub": "Place code, rate code, and phase-locking", "type": "PLO", "cards": [{"t": "Tonotopy of the basilar membrane", "b": "Pitch is encoded by {place} along the basilar membrane. The {base} of the cochlea is {stiff} and {narrow}, peaking for {high frequencies} (up to ~{20 kHz}). The {apex} is {floppy} and {wide}, peaking for {low frequencies} (down to ~{20 Hz}). This map of frequency-to-place is called {tonotopy}.", "h": "Most-missed concept on this lecture. Many students reverse it. The narrow stiff end (base) handles high frequencies; the wide floppy end (apex) handles low frequencies."}, {"t": "Tonotopy reference table", "b": "<div class=\"tblq-note\"><div class=\"tblq-copy\">Table quiz: location stays visible, properties and frequencies hide.</div><div class=\"tblq-actions\"><span class=\"tblq-pill\">Quiz Mode On</span></div></div>\n<div class=\"tblq-wrap\"><table class=\"tblq\">\n<thead><tr><th>Location</th><th>Width</th><th>Stiffness</th><th>Frequency range</th></tr></thead>\n<tbody>\n<tr><th scope=\"row\">Base (near oval window)</th><td>{narrow}</td><td>{stiff}</td><td>{high (~20 kHz)}</td></tr>\n<tr><th scope=\"row\">Middle</th><td>{intermediate}</td><td>{intermediate}</td><td>{mid (~1–4 kHz)}</td></tr>\n<tr><th scope=\"row\">Apex (helicotrema)</th><td>{wide}</td><td>{floppy}</td><td>{low (~20 Hz)}</td></tr>\n</tbody></table></div>", "h": "If you only remember one fact: stiff narrow base = high frequency. Everything else falls out from that."}, {"t": "Place vs. rate code for pitch", "b": "Pitch perception uses both codes. The {place code} is dominant: each pitch peaks at a unique location on the {basilar membrane}, and the brain reads which afferents fire most. The {rate code} (firing frequency of an afferent) supplements at {low frequencies} where individual cycles can be tracked, but is limited because afferents cannot fire faster than ~{1000 Hz}.", "h": "Place code works at all frequencies. Rate code only works for the lowest frequencies a single neuron can keep up with."}, {"t": "Phase-locking", "b": "Inner hair cell receptor potentials track the sound waveform with a delay of only ~{10 microseconds}. This property is called {phase-locking}. It works best below ~{3 kHz} and breaks down at high frequencies. Phase-locking provides the precise timing that the brainstem uses for {sound localization} via the {MSO}.", "h": "Phase-locking is the bridge between hearing and localization — microsecond timing in the cochlea is what allows microsecond ITD detection in the MSO."}]}, "ploH3": {"label": "PLO H3", "sub": "Sound localization in horizontal & vertical planes", "type": "PLO", "cards": [{"t": "Two cues, two frequency ranges", "b": "Horizontal localization uses two cues. Below ~{2 kHz}, the brain uses {interaural time differences} ({ITDs}) computed in the {MSO} (medial superior olive). Above ~{2 kHz}, the brain uses {interaural intensity differences} ({IIDs}) computed in the {LSO} (lateral superior olive) with help from the {MNTB} (medial nucleus of trapezoid body).", "h": "Why the split? Low frequencies wrap around the head (no shadow but reliable timing). High frequencies cast a sound shadow but timing breaks down past ~3 kHz when phase-locking fails."}, {"t": "ITD / MSO mechanism", "b": "MSO neurons act as {coincidence detectors}. Inputs from each ear arrive via {delay lines} of varying length. Only the neuron whose two inputs arrive {simultaneously} fires maximally. The brain reads the {position} of the most-active MSO neuron to identify the sound source. Resolution: ~{10 microseconds}, equivalent to roughly {1°} of azimuth.", "h": "Delay-line architecture is one of the most elegant computations in the brain — a spatial map built from temporal differences."}, {"t": "IID / LSO + MNTB mechanism", "b": "At high frequencies, the head casts a {sound shadow}: the far ear hears a quieter signal. The {LSO} ipsilateral to a sound receives {excitation} directly from its own ear and {inhibition} (via the {MNTB}, a glycinergic relay) from the opposite ear. The LSO output ipsilateral to the louder ear identifies the sound source.", "h": "MNTB is one of the few inhibitory relays in the auditory system — its job is to convert excitation into precisely-timed inhibition for the opposite LSO."}, {"t": "Vertical localization & pinna", "b": "Up–down localization is {monaural} (one ear is enough). It uses {pinna} directional filtering: the folds of the pinna produce different patterns of {direct} and {reflected} sound depending on whether the source is above or below. The brain learns these spectral fingerprints. {Interaural} disparities cannot encode elevation because both ears are at the same height.", "h": "Cup your ears or change pinna shape (e.g., remove ear) and vertical localization fails immediately. Horizontal localization is fine."}]}, "ploV1": {"label": "PLO V1", "sub": "Vestibular system big picture", "type": "PLO", "cards": [{"t": "Two organs, two motions", "b": "The vestibular labyrinth has two functional sets. {Otolith organs} ({utricle} and {saccule}) detect {linear} acceleration and static {head tilt}. {Semicircular canals} (three per side) detect {angular} (rotational) acceleration. Both sit in the bony labyrinth, both are filled with {endolymph}, and both use the same hair cell rule.", "h": "Memory aid: SCC = Spinning, Circular Canals. Otoliths = stones (otoconia) that lag during straight-line motion."}, {"t": "Universal hair cell rule (vestibular)", "b": "Vestibular hair cells follow the same rule as cochlear hair cells. Bending stereocilia toward the {kinocilium} → {depolarization} → increased glutamate → {increased} firing in the vestibular afferent. Bending away from the kinocilium → {hyperpolarization} → {decreased} firing. Hair cells fire {tonically} at rest, so they can signal in both directions.", "h": "Resting tonic firing is critical: an unstimulated hair cell still fires steadily, and the brain reads departures from baseline (up or down) as motion signals."}, {"t": "Endolymph in vestibular system", "b": "Vestibular endolymph has the same composition as cochlear endolymph: {high K+}, {+80 mV} potential. It bathes both the {otolithic membranes} and the {cupulae}. K+ rushes into vestibular hair cells through {MET channels} when stereocilia bend toward the kinocilium — identical to the cochlear mechanism.", "h": "One continuous endolymph compartment links cochlear duct, utricle, saccule, and all three canals — which is why a single source (stria vascularis-equivalent dark cells) can supply the whole apparatus."}]}, "lo1": {"label": "LO 1", "sub": "Conductive vs sensorineural hearing loss & clinical cases", "type": "LO", "cards": [{"t": "Otitis media", "b": "AOM is the most common pediatric ear infection. Mechanism: a {URI} swells the {Eustachian tube} → middle ear fluid cannot drain → trapped fluid becomes a {culture medium} for bacteria. Otoscopy shows a {bulging}, {opaque} tympanic membrane. AOM is a {conductive} hearing loss, not sensorineural.", "h": "Pediatric Eustachian tubes are shorter, more horizontal, and easier to obstruct — hence the age peak."}, {"t": "Hyperacusis from Bell’s palsy", "b": "{Bell’s palsy} = idiopathic CN VII paralysis. Loss of motor output to the {stapedius} disables the attenuation reflex on the affected side. Ordinary sounds suddenly feel painfully loud — a symptom called {hyperacusis}. Tensor tympani still works because it is innervated by {CN V}, not CN VII.", "h": "Hyperacusis + facial droop + can’t close eye = classic Bell’s palsy triad. The auditory complaint localizes the lesion to a level above where stapedial branch leaves the facial canal."}, {"t": "Presbycusis", "b": "Age-related sensorineural hearing loss. Pattern is {gradual}, {symmetric}, and high-frequency-first. Three contributing changes: (1) preferential loss of {basal} hair cells (which encode high frequencies), (2) atrophy of the {stria vascularis}, (3) reduced {endocochlear potential}. High-frequency loss preferentially impairs {consonant} intelligibility — hence the classic complaint of \"speech in noise\".", "h": "Presbycusis is the #1 reason older adults struggle in restaurants — background noise dominates the surviving low-frequency channels and crowds out fading high-frequency consonants."}, {"t": "Cochlear implants", "b": "A cochlear implant {bypasses} damaged hair cells by directly electrically stimulating the {auditory nerve} via an electrode array threaded into the cochlea. CRITICAL caveat: {CN VIII must be intact}. If the nerve itself is damaged (e.g., post-{vestibular schwannoma} resection), an implant in the cochlea has nothing to stimulate. Conductive losses use {hearing aids}, not implants.", "h": "If a question stem mentions acoustic neuroma resection, the cochlear implant trap is set. The patient needs a future BRAINSTEM implant — not a cochlear implant."}, {"t": "Hearing loss type comparison", "b": "<div class=\"tblq-note\"><div class=\"tblq-copy\">Table quiz: feature column visible, types’ cells hide.</div><div class=\"tblq-actions\"><span class=\"tblq-pill\">Quiz Mode On</span></div></div>\n<div class=\"tblq-wrap\"><table class=\"tblq\">\n<thead><tr><th>Feature</th><th>Conductive</th><th>Sensorineural</th></tr></thead>\n<tbody>\n<tr><th scope=\"row\">Site of lesion</th><td>{outer or middle ear}</td><td>{cochlea or CN VIII}</td></tr>\n<tr><th scope=\"row\">Classic example</th><td>{otitis media, otosclerosis}</td><td>{presbycusis, noise damage}</td></tr>\n<tr><th scope=\"row\">Treatment</th><td>{hearing aid, surgery}</td><td>{hearing aid ± cochlear implant}</td></tr>\n<tr><th scope=\"row\">Weber test (forehead)</th><td>{lateralizes to BAD ear}</td><td>{lateralizes to GOOD ear}</td></tr>\n<tr><th scope=\"row\">Rinne test</th><td>{BC > AC (abnormal)}</td><td>{AC > BC (normal pattern, both reduced)}</td></tr>\n</tbody></table></div>", "h": "The Weber/Rinne pair is the highest-yield way to distinguish conductive from sensorineural at the bedside."}]}, "lo2": {"label": "LO 2", "sub": "Utricle, saccule, otoconia, and the striola", "type": "LO", "cards": [{"t": "Utricle", "b": "The utricle has a {horizontal} macula. It primarily detects {horizontal} linear acceleration (forward motion in a car, sidebending). Its {otoconia} (calcium carbonate crystals) sit on a gelatinous membrane above the hair cells. When the head accelerates forward, the otoconia {lag behind} due to inertia, deflecting the cilia and producing a directional signal.", "h": "Utricle = horizontal floor of the otolith pair. Picture a car launching forward: otoconia lag back, stereocilia tip backward."}, {"t": "Saccule", "b": "The saccule has a {vertical} macula. It primarily detects {vertical} linear acceleration (elevators, jumps) and static {head tilt} forward/back. The same inertia rule applies: when the head accelerates upward, the dense otoconia {lag downward} relative to the now-higher hair cells.", "h": "Saccule = vertical wall. Up acceleration → otoconia momentarily appear lower → stereocilia bend downward."}, {"t": "Otoconia inertia rule", "b": "The dense {otoconia} have higher inertial mass than the surrounding endolymph or hair cells. When the head accelerates in any direction, the otoconia {momentarily lag behind}, displacing the gelatinous membrane in the direction OPPOSITE to head motion. This deflects stereocilia and either depolarizes or hyperpolarizes hair cells depending on their {kinocilium} orientation.", "h": "Same physics as a passenger in a sudden-braking car: the body lurches forward because it lags the now-decelerated car. Otoconia do the same."}, {"t": "Striola", "b": "The {striola} is a curved demarcation line on each macula. It divides hair cells into two populations whose {kinocilia} point in {opposite} directions. Functional consequence: any single head movement bends cilia one way across the entire macula — but because the two sides of the striola have opposite kinocilium orientation, this {depolarizes} one half and {hyperpolarizes} the other simultaneously.", "h": "Push-pull within a single organ: the brain reads the difference between the two halves, doubling the signal-to-noise of the response."}, {"t": "Otolith organs comparison", "b": "<div class=\"tblq-note\"><div class=\"tblq-copy\">Table quiz: feature stays visible, the two organs hide.</div><div class=\"tblq-actions\"><span class=\"tblq-pill\">Quiz Mode On</span></div></div>\n<div class=\"tblq-wrap\"><table class=\"tblq\">\n<thead><tr><th>Feature</th><th>Utricle</th><th>Saccule</th></tr></thead>\n<tbody>\n<tr><th scope=\"row\">Macula orientation</th><td>{horizontal}</td><td>{vertical}</td></tr>\n<tr><th scope=\"row\">Linear acceleration sensed</th><td>{horizontal (forward, sidebending)}</td><td>{vertical (up/down) and head tilt}</td></tr>\n<tr><th scope=\"row\">Static gravity signal</th><td>{when supine or sidebent}</td><td>{when upright (constant 1g down)}</td></tr>\n<tr><th scope=\"row\">Common BPPV source</th><td>{yes — most dislodged otoconia originate here}</td><td>{less common}</td></tr>\n</tbody></table></div>", "h": "Both otolith organs use otoconia + striola + the kinocilium rule. They differ only in which plane their macula sits in."}]}, "lo3": {"label": "LO 3", "sub": "SCC mechanics: pairs, endolymph flow, push-pull", "type": "LO", "cards": [{"t": "Three canals, three planes", "b": "Each side has three semicircular canals: {anterior} (superior), {posterior}, and {horizontal} (lateral). The canals lie in roughly {orthogonal} planes so that any rotation in 3D space activates at least one canal. Each canal contains a swelling called the {ampulla} where hair cells project into a gelatinous {cupula} that spans the canal.", "h": "The cupula acts like a swinging door inside the ampulla — endolymph pushes it one way and bends the embedded stereocilia."}, {"t": "Coplanar canal pairs", "b": "Canals work in three coplanar pairs that span both sides of the head: ({left horizontal}, {right horizontal}); ({left anterior}, {right posterior}); and ({right anterior}, {left posterior}). Each pair is in the same plane on opposite sides, and their hair cells have {opposite} kinocilium orientation — setting up the {push-pull} signaling pattern.", "h": "If you rotate in any plane, exactly one pair becomes the primary signal. The other two pairs sit relatively quiet."}, {"t": "Endolymph inertia rule (SCCs)", "b": "When the head accelerates in a rotational plane, the bony canal moves with the head, but the endolymph {lags behind} due to inertia. Relative to the canal walls, endolymph appears to flow in the {opposite} direction to head acceleration. This pushes the {cupula} away from the head’s direction of motion, bending the stereocilia.", "h": "Memorize: “endolymph moves opposite to head acceleration.” Same physics as the otoconia rule — inertia of fluid vs the moving frame."}, {"t": "Push-pull rule", "b": "When the head turns to the {left}, the {left} horizontal canal’s hair cells {depolarize} (↑ firing) and the {right} horizontal canal’s hair cells {hyperpolarize} (↓ firing). The canal on the {same side} as the direction of head turn is the active one. The brain reads the {difference} between the two sides as the rotation signal.", "h": "Push-pull doubles signal-to-noise. Both excitation on one side AND inhibition on the other — either one alone would be ambiguous."}, {"t": "SCCs vs. otoliths: what each does NOT detect", "b": "Pure {linear} motion produces equal forces on both sides of each cupula → no displacement → SCCs are {silent}. Conversely, pure rotation about the head’s own center produces no net linear force on otoconia → otoliths are relatively {silent}. Real motion almost always combines both, so the systems work together.", "h": "A patient riding an elevator (pure linear) gets no SCC signal. A patient on a turntable rotating around the spine (pure angular) gets no otolith signal."}]}, "lo4": {"label": "LO 4", "sub": "BPPV, Ménière, VOR, motion sickness", "type": "LO", "cards": [{"t": "BPPV", "b": "{Benign Paroxysmal Positional Vertigo} = the most common cause of vertigo. {Otoconia} dislodged from the {utricle} float into a semicircular canal — usually the {posterior} canal. Now gravity drags the heavy crystals through endolymph during head movements, deflecting the {cupula} inappropriately. Result: {brief} (~30 sec) episodes of vertigo triggered by {position changes} (rolling over, looking up). {No} hearing loss.", "h": "BPPV is the only common vertigo treated by a physical maneuver (Epley) — you can literally relocate the crystals back to the utricle."}, {"t": "Ménière vs. BPPV", "b": "{Ménière disease} = {endolymphatic hydrops} (impaired absorption by the {endolymphatic sac}). Episodic vertigo PLUS {hearing loss}, {tinnitus}, and ear {fullness}. Distinct from BPPV, which has {no} hearing loss and is {position-triggered}. Episodes in Ménière are {longer} (minutes to hours) and not strictly position-triggered.", "h": "If a vertigo question mentions hearing loss or tinnitus = Ménière. If it mentions rolling over in bed and brief episodes = BPPV."}, {"t": "Vestibulo-ocular reflex (VOR)", "b": "The {VOR} stabilizes vision during head motion. When the head rotates, the SCCs detect the rotation and drive the {extraocular muscles} to move the eyes in the {opposite} direction at equal speed. This keeps the visual image fixed on the retina. The reflex has only {three} synapses (vestibular afferent → vestibular nucleus → oculomotor nucleus) — fast enough to operate in real time.", "h": "Test the VOR clinically with the head impulse test: rapidly rotate the patient’s head and watch for catch-up saccades. Catch-up saccades = VOR failure on that side."}, {"t": "Motion sickness", "b": "Motion sickness arises when {vestibular} signals do not match {visual} signals. Reading in a moving car: vestibular system reports motion, but the eyes (locked on a book) report stillness. The {sensory mismatch} is interpreted by the brain as a possible {neurotoxin} effect and triggers {nausea} via the area postrema. Symptoms resolve once the conflicting input ends.", "h": "This is also why VR can cause nausea — your eyes report motion that your vestibular system isn’t feeling. Same mismatch, opposite direction."}]}};
+const LINKS = {"kinocilium": ["ploV1", "PLO V1", "amber"], "MET channels": ["ploH1", "PLO H1", "amber"], "tonotopy": ["ploH2", "PLO H2", "amber"], "MSO": ["ploH3", "PLO H3", "amber"], "LSO": ["ploH3", "PLO H3", "amber"], "interaural time differences": ["ploH3", "PLO H3", "amber"], "interaural intensity differences": ["ploH3", "PLO H3", "amber"], "stria vascularis": ["ploH1", "PLO H1", "amber"], "endocochlear potential": ["ploH1", "PLO H1", "amber"], "stapedius": ["lo1", "LO 1", "teal"], "Bell’s palsy": ["lo1", "LO 1", "teal"], "vestibular schwannoma": ["lo1", "LO 1", "teal"], "presbycusis": ["lo1", "LO 1", "teal"], "otoconia": ["lo2", "LO 2", "teal"], "striola": ["lo2", "LO 2", "teal"], "utricle": ["lo2", "LO 2", "teal"], "saccule": ["lo2", "LO 2", "teal"], "cupula": ["lo3", "LO 3", "teal"], "ampulla": ["lo3", "LO 3", "teal"], "horizontal": ["lo3", "LO 3", "teal"], "Benign Paroxysmal Positional Vertigo": ["lo4", "LO 4", "teal"], "Ménière disease": ["lo4", "LO 4", "teal"], "VOR": ["lo4", "LO 4", "teal"], "endolymphatic hydrops": ["lo4", "LO 4", "teal"], "depolarization": ["ploH1", "PLO H1", "amber"], "hyperpolarization": ["ploH1", "PLO H1", "amber"], "tip links": ["ploH1", "PLO H1", "amber"]};
+const DECK_ID = "hearing_balance_v1";
+const COOKIE_KEY = 'ctx_anki_' + DECK_ID;
+
+// ============================================================
+// STATE
+// ============================================================
+let cur = null;        // current node id
+let ci = 0;            // current card idx within cur
+let tr = {};           // tr[nid][cidx] = Set<termIdx>
+let sc = {};           // sc[nid][cidx][termIdx] = 'knew'|'needed'
+let done = new Set();  // node ids fully revealed
+let totRev = 0, totKnew = 0, totNeed = 0;
+let revQueue = [], revIdx = 0, revTr = {};
+
+// ============================================================
+// HELPERS
+// ============================================================
+function escHTML(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function countTerms(body) {
+  return (body.match(/\{[^}]+\}/g) || []).length;
+}
+
+function initNode(nid) {
+  if (!tr[nid]) {
+    tr[nid] = {};
+    sc[nid] = {};
+    D[nid].cards.forEach((_, i) => {
+      tr[nid][i] = new Set();
+      sc[nid][i] = {};
+    });
+  }
+}
+
+function allRevealed(nid, cidx) {
+  const total = countTerms(D[nid].cards[cidx].b);
+  return total > 0 && tr[nid] && tr[nid][cidx] && tr[nid][cidx].size >= total;
+}
+
+function nodeAllRevealed(nid) {
+  return D[nid].cards.every((_, i) => allRevealed(nid, i));
+}
+
+// ============================================================
+// PARSE BODY (with occlusion)
+// ============================================================
+function parseBody(body, nid, cidx, opts) {
+  opts = opts || {};
+  let i = 0;
+  return body.replace(/\{([^}]+)\}/g, function(_, t) {
+    const idx = i++;
+    const tSafe = escHTML(t);
+
+    if (opts.forReview) {
+      if (idx === opts.targetTermIdx) {
+        const revealed = opts.revealedSet && opts.revealedSet.has(idx);
+        if (revealed) {
+          return '<span class="occ rev">' + tSafe + '</span>';
+        }
+        return '<span class="occ" onclick="revealReviewTerm(' + idx + ')">' + tSafe + '</span>';
+      }
+      return '<span style="color:var(--text-2)">' + tSafe + '</span>';
+    }
+
+    const revealed = tr[nid] && tr[nid][cidx] && tr[nid][cidx].has(idx);
+    const scored = sc[nid] && sc[nid][cidx] && sc[nid][cidx][idx];
+
+    let cls = 'occ';
+    if (revealed && scored === 'knew') cls = 'occ rev';
+    else if (revealed && scored === 'needed') cls = 'occ needed';
+    else if (revealed && !scored) cls = 'occ unscored';
+
+    let html;
+    if (!revealed) {
+      html = '<span class="' + cls + '" onclick="revealTerm(event,\'' + nid + '\',' + cidx + ',' + idx + ')">' + tSafe + '</span>';
+    } else {
+      html = '<span class="' + cls + '">' + tSafe + '</span>';
+    }
+
+    if (revealed && !scored) {
+      html += '<span class="score-btns">';
+      html += '<button class="sbtn sbtn-k" onclick="scoreIt(event,\'' + nid + '\',' + cidx + ',' + idx + ',\'knew\')">✓ knew</button>';
+      html += '<button class="sbtn sbtn-n" onclick="scoreIt(event,\'' + nid + '\',' + cidx + ',' + idx + ',\'needed\')">✗ needed</button>';
+      html += '</span>';
+    }
+
+    if (revealed && LINKS[t] && LINKS[t][0] !== nid) {
+      const link = LINKS[t];
+      html += '<span class="jlink ' + link[2] + '" onclick="selNode(\'' + link[0] + '\')">→ ' + escHTML(link[1]) + '</span>';
+    }
+
+    return html;
+  });
+}
+
+// ============================================================
+// REVEAL / SCORE
+// ============================================================
+function revealTerm(e, nid, cidx, tidx) {
+  if (e) e.stopPropagation();
+  initNode(nid);
+  if (!tr[nid][cidx].has(tidx)) {
+    tr[nid][cidx].add(tidx);
+    totRev++;
+  }
+  checkNodeDone(nid);
+  render();
+  updateStats();
+  saveProgress();
+}
+
+function scoreIt(e, nid, cidx, tidx, score) {
+  if (e) e.stopPropagation();
+  initNode(nid);
+  const prev = sc[nid][cidx][tidx];
+  if (prev === score) return;
+  if (prev === 'knew') totKnew--;
+  if (prev === 'needed') totNeed--;
+  sc[nid][cidx][tidx] = score;
+  if (score === 'knew') totKnew++;
+  else totNeed++;
+  render();
+  updateStats();
+  saveProgress();
+}
+
+function checkNodeDone(nid) {
+  if (nodeAllRevealed(nid)) {
+    done.add(nid);
+    const el = document.getElementById('n-' + nid);
+    if (el) el.classList.add('done-node');
+  } else {
+    done.delete(nid);
+    const el = document.getElementById('n-' + nid);
+    if (el) el.classList.remove('done-node');
+  }
+}
+
+// ============================================================
+// CARD METRICS
+// ============================================================
+function cardMetrics(nid, cidx) {
+  const card = D[nid].cards[cidx];
+  const total = countTerms(card.b);
+  const revealed = (tr[nid] && tr[nid][cidx]) ? tr[nid][cidx].size : 0;
+  let knew = 0, needed = 0;
+  if (sc[nid] && sc[nid][cidx]) {
+    Object.values(sc[nid][cidx]).forEach(v => {
+      if (v === 'knew') knew++;
+      else if (v === 'needed') needed++;
+    });
+  }
+  const unscored = revealed - knew - needed;
+  return { total, revealed, knew, needed, unscored, allRevealed: total > 0 && revealed >= total };
+}
+
+// ============================================================
+// SELECT NODE
+// ============================================================
+function selNode(nid) {
+  if (!D[nid]) return;
+  // Close review if open
+  closeReview();
+  initNode(nid);
+  cur = nid;
+  ci = 0;
+  document.getElementById('panelWrap').classList.add('open');
+
+  // Update active state on map
+  document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+  const el = document.getElementById('n-' + nid);
+  if (el) el.classList.add('active');
+
+  render();
+  // Scroll panel into view
+  setTimeout(() => {
+    document.getElementById('panelWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
+  saveProgress();
+}
+
+function closePanel() {
+  cur = null;
+  document.getElementById('panelWrap').classList.remove('open');
+  document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+  saveProgress();
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  if (!cur) return;
+  const node = D[cur];
+  const card = node.cards[ci];
+
+  // Header
+  const badge = document.getElementById('panelBadge');
+  badge.textContent = node.label;
+  badge.className = 'panel-badge ' + node.type;
+  document.getElementById('panelTitle').textContent = node.sub;
+
+  // Progress dots
+  const dotsEl = document.getElementById('progressDots');
+  dotsEl.innerHTML = '';
+  node.cards.forEach((_, i) => {
+    const m = cardMetrics(cur, i);
+    const d = document.createElement('div');
+    d.className = 'dot';
+    if (i === ci) d.classList.add('cur');
+    if (m.allRevealed) d.classList.add('done');
+    else if (m.revealed > 0) d.classList.add('partial');
+    d.title = node.cards[i].t;
+    d.style.cursor = 'pointer';
+    d.onclick = () => { ci = i; render(); };
+    dotsEl.appendChild(d);
+  });
+
+  // Card body
+  document.getElementById('cardTitle').textContent = card.t;
+  document.getElementById('cardContent').innerHTML = parseBody(card.b, cur, ci);
+
+  const hintEl = document.getElementById('cardHint');
+  if (card.h) {
+    hintEl.style.display = 'block';
+    hintEl.textContent = card.h;
+  } else {
+    hintEl.style.display = 'none';
+  }
+
+  // Metrics
+  const m = cardMetrics(cur, ci);
+  const metEl = document.getElementById('cardMetrics');
+  metEl.innerHTML = '';
+  const pills = [
+    ['', m.revealed + ' / ' + m.total + ' revealed'],
+    ['k', m.knew + ' knew'],
+    ['n', m.needed + ' needed'],
+  ];
+  if (m.unscored > 0) pills.push(['w', m.unscored + ' waiting to score']);
+  pills.forEach(([cls, txt]) => {
+    const p = document.createElement('div');
+    p.className = 'metric ' + cls;
+    p.textContent = txt;
+    metEl.appendChild(p);
+  });
+
+  // Action buttons enable/disable
+  document.getElementById('revealCardBtn').disabled = m.total === 0 || m.allRevealed;
+  document.getElementById('knewAllBtn').disabled = !m.allRevealed;
+  document.getElementById('resetCardBtn').disabled = m.revealed === 0;
+
+  // Nav
+  document.getElementById('prevBtn').disabled = ci === 0;
+  document.getElementById('nextBtn').disabled = ci === node.cards.length - 1;
+  document.getElementById('navInfo').textContent = 'Card ' + (ci + 1) + ' of ' + node.cards.length;
+}
+
+// ============================================================
+// CARD ACTIONS
+// ============================================================
+function revealCard() {
+  if (!cur) return;
+  const card = D[cur].cards[ci];
+  const total = countTerms(card.b);
+  initNode(cur);
+  for (let i = 0; i < total; i++) {
+    if (!tr[cur][ci].has(i)) {
+      tr[cur][ci].add(i);
+      totRev++;
+    }
+  }
+  checkNodeDone(cur);
+  render();
+  updateStats();
+  saveProgress();
+}
+
+function knewAllCard() {
+  if (!cur) return;
+  const card = D[cur].cards[ci];
+  const total = countTerms(card.b);
+  initNode(cur);
+  for (let i = 0; i < total; i++) {
+    const prev = sc[cur][ci][i];
+    if (prev === 'knew') continue;
+    if (prev === 'needed') totNeed--;
+    sc[cur][ci][i] = 'knew';
+    totKnew++;
+  }
+  render();
+  updateStats();
+  saveProgress();
+}
+
+function resetCard() {
+  if (!cur) return;
+  const card = D[cur].cards[ci];
+  const total = countTerms(card.b);
+  initNode(cur);
+  // Decrement totals for what we're losing
+  totRev -= tr[cur][ci].size;
+  for (let i = 0; i < total; i++) {
+    const s = sc[cur][ci][i];
+    if (s === 'knew') totKnew--;
+    if (s === 'needed') totNeed--;
+  }
+  tr[cur][ci] = new Set();
+  sc[cur][ci] = {};
+  checkNodeDone(cur);
+  render();
+  updateStats();
+  saveProgress();
+}
+
+function revealNode() {
+  if (!cur) return;
+  D[cur].cards.forEach((card, cidx) => {
+    const total = countTerms(card.b);
+    initNode(cur);
+    for (let i = 0; i < total; i++) {
+      if (!tr[cur][cidx].has(i)) {
+        tr[cur][cidx].add(i);
+        totRev++;
+      }
+    }
+  });
+  checkNodeDone(cur);
+  render();
+  updateStats();
+  saveProgress();
+}
+
+function revealDeck() {
+  Object.keys(D).forEach(nid => {
+    initNode(nid);
+    D[nid].cards.forEach((card, cidx) => {
+      const total = countTerms(card.b);
+      for (let i = 0; i < total; i++) {
+        if (!tr[nid][cidx].has(i)) {
+          tr[nid][cidx].add(i);
+          totRev++;
+        }
+      }
+    });
+    checkNodeDone(nid);
+  });
+  if (cur) render();
+  updateStats();
+  saveProgress();
+}
+
+function navCard(delta) {
+  if (!cur) return;
+  const node = D[cur];
+  const newCi = ci + delta;
+  if (newCi < 0 || newCi >= node.cards.length) return;
+  ci = newCi;
+  render();
+  saveProgress();
+}
+
+function resetAll() {
+  if (!confirm('Reset all progress for this deck?')) return;
+  tr = {}; sc = {}; done.clear();
+  totRev = 0; totKnew = 0; totNeed = 0;
+  document.querySelectorAll('.node').forEach(n => n.classList.remove('done-node', 'active'));
+  cur = null;
+  closePanel();
+  closeReview();
+  updateStats();
+  saveProgress();
+}
+
+// ============================================================
+// REVIEW MODE
+// ============================================================
+function startReview() {
+  // Build queue of all 'needed' terms
+  const queue = [];
+  Object.keys(sc).forEach(nid => {
+    Object.keys(sc[nid]).forEach(cidx => {
+      Object.keys(sc[nid][cidx]).forEach(tidx => {
+        if (sc[nid][cidx][tidx] === 'needed') {
+          queue.push({ nid: nid, cidx: parseInt(cidx, 10), tidx: parseInt(tidx, 10) });
+        }
+      });
+    });
+  });
+  if (queue.length === 0) return;
+  // Fisher-Yates shuffle
+  for (let i = queue.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [queue[i], queue[j]] = [queue[j], queue[i]];
+  }
+  revQueue = queue;
+  revIdx = 0;
+  revTr = {};
+  // Close main panel if open
+  document.getElementById('panelWrap').classList.remove('open');
+  document.getElementById('reviewWrap').classList.add('open');
+  renderReview();
+  setTimeout(() => {
+    document.getElementById('reviewWrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 80);
+}
+
+function closeReview() {
+  document.getElementById('reviewWrap').classList.remove('open');
+}
+
+function renderReview() {
+  if (revQueue.length === 0) return;
+  const item = revQueue[revIdx];
+  const node = D[item.nid];
+  const card = node.cards[item.cidx];
+  // Find the term text
+  const matches = card.b.match(/\{([^}]+)\}/g);
+  const targetTerm = matches[item.tidx].slice(1, -1);
+
+  document.getElementById('reviewTitle').textContent = 'Reviewing weak spots';
+  document.getElementById('reviewSub').innerHTML =
+    escHTML(node.label) + ' — ' + escHTML(card.t) +
+    ' · Term to recall: <span style="color:var(--amber);font-weight:600">' + escHTML(targetTerm) + '</span>';
+  document.getElementById('reviewCardTitle').textContent = card.t;
+
+  const key = item.nid + ':' + item.cidx + ':' + item.tidx;
+  const revealedSet = new Set();
+  if (revTr[key]) revealedSet.add(item.tidx);
+
+  document.getElementById('reviewCardContent').innerHTML = parseBody(card.b, item.nid, item.cidx, {
+    forReview: true,
+    targetTermIdx: item.tidx,
+    revealedSet: revealedSet,
+  });
+
+  document.getElementById('reviewPrev').disabled = revIdx === 0;
+  document.getElementById('reviewNext').disabled = revIdx === revQueue.length - 1;
+  document.getElementById('reviewInfo').textContent = (revIdx + 1) + ' of ' + revQueue.length;
+}
+
+function revealReviewTerm(tidx) {
+  const item = revQueue[revIdx];
+  const key = item.nid + ':' + item.cidx + ':' + item.tidx;
+  revTr[key] = true;
+  renderReview();
+}
+
+function navReview(delta) {
+  const newIdx = revIdx + delta;
+  if (newIdx < 0 || newIdx >= revQueue.length) return;
+  revIdx = newIdx;
+  renderReview();
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function updateStats() {
+  document.getElementById('statTotal').textContent = totRev + ' terms revealed';
+  document.getElementById('statKnew').textContent = totKnew + ' knew';
+  document.getElementById('statNeed').textContent = totNeed + ' needed help';
+  document.getElementById('statDone').textContent = done.size + ' / ' + Object.keys(D).length + ' topics done';
+
+  const reviewBtn = document.getElementById('statReview');
+  reviewBtn.textContent = 'Review weak spots (' + totNeed + ')';
+  reviewBtn.classList.toggle('show', totNeed > 0);
+}
+
+// ============================================================
+// PERSISTENCE (cookie, 180d)
+// ============================================================
+function saveProgress() {
+  try {
+    const trSer = {};
+    Object.keys(tr).forEach(nid => {
+      trSer[nid] = {};
+      Object.keys(tr[nid]).forEach(cidx => {
+        trSer[nid][cidx] = Array.from(tr[nid][cidx]);
+      });
+    });
+    const payload = JSON.stringify({
+      cur: cur, ci: ci,
+      tr: trSer, sc: sc,
+    });
+    const exp = new Date();
+    exp.setDate(exp.getDate() + 180);
+    document.cookie = COOKIE_KEY + '=' + encodeURIComponent(payload) +
+                      ';expires=' + exp.toUTCString() + ';path=/;SameSite=Lax';
+  } catch (e) {}
+}
+
+function loadProgress() {
+  try {
+    const m = document.cookie.split(';').map(c => c.trim()).find(c => c.startsWith(COOKIE_KEY + '='));
+    if (!m) return;
+    const payload = JSON.parse(decodeURIComponent(m.slice(COOKIE_KEY.length + 1)));
+    if (payload.tr) {
+      Object.keys(payload.tr).forEach(nid => {
+        if (!D[nid]) return;
+        tr[nid] = {};
+        Object.keys(payload.tr[nid]).forEach(cidx => {
+          tr[nid][cidx] = new Set(payload.tr[nid][cidx]);
+        });
+      });
+    }
+    if (payload.sc) {
+      Object.keys(payload.sc).forEach(nid => {
+        if (!D[nid]) return;
+        sc[nid] = payload.sc[nid];
+      });
+    }
+    recalcState();
+    if (payload.cur && D[payload.cur]) {
+      cur = payload.cur;
+      ci = payload.ci || 0;
+      // Don't auto-open panel on reload — just restore counts
+    }
+  } catch (e) {}
+}
+
+function recalcState() {
+  totRev = 0; totKnew = 0; totNeed = 0;
+  done.clear();
+  Object.keys(D).forEach(nid => {
+    let nodeAll = true;
+    if (tr[nid]) {
+      D[nid].cards.forEach((card, cidx) => {
+        const total = countTerms(card.b);
+        const rev = tr[nid][cidx] ? tr[nid][cidx].size : 0;
+        totRev += rev;
+        if (rev < total) nodeAll = false;
+      });
+    } else {
+      nodeAll = false;
+    }
+    if (sc[nid]) {
+      Object.keys(sc[nid]).forEach(cidx => {
+        Object.values(sc[nid][cidx] || {}).forEach(v => {
+          if (v === 'knew') totKnew++;
+          else if (v === 'needed') totNeed++;
+        });
+      });
+    }
+    if (nodeAll && Object.keys(D[nid].cards).length > 0) {
+      done.add(nid);
+      const el = document.getElementById('n-' + nid);
+      if (el) el.classList.add('done-node');
+    }
+  });
+}
+
+// ============================================================
+// THEME
+// ============================================================
+function setTheme(theme) {
+  if (theme === 'slate') {
+    document.documentElement.setAttribute('data-theme', 'slate');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.theme === theme);
+  });
+  try { localStorage.setItem('contextual-anki-theme', theme); } catch(e){}
+}
+
+// ============================================================
+// KEYBOARD
+// ============================================================
+document.addEventListener('keydown', (e) => {
+  const tag = (e.target.tagName || '').toLowerCase();
+  if (tag === 'input' || tag === 'textarea') return;
+
+  // Review panel takes priority if open
+  if (document.getElementById('reviewWrap').classList.contains('open')) {
+    if (e.key === 'ArrowLeft') { navReview(-1); }
+    else if (e.key === 'ArrowRight') { navReview(1); }
+    else if (e.key === 'Escape') { closeReview(); }
+    return;
+  }
+
+  // Main panel
+  if (document.getElementById('panelWrap').classList.contains('open')) {
+    if (e.key === 'ArrowLeft') { navCard(-1); }
+    else if (e.key === 'ArrowRight') { navCard(1); }
+    else if (e.key === 'Escape') { closePanel(); }
+  }
+});
+
+// ============================================================
+// INIT
+// ============================================================
+document.getElementById('deckMeta').textContent =
+  'Active recall map · ' + Object.keys(D).length + ' topics · ' +
+  Object.values(D).reduce((n, node) => n + node.cards.length, 0) + ' cards';
+
+try {
+  const savedTheme = localStorage.getItem('contextual-anki-theme');
+  if (savedTheme) setTheme(savedTheme);
+} catch(e){}
+
+loadProgress();
+updateStats();
+</script>
+</body>
+</html>
