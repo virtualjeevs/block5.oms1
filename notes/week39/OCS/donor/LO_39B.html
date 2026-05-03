@@ -857,7 +857,7 @@
 <div id="quiz-score" class="quiz-score">
   <div class="big-num"><span id="score-num">0</span>/24</div>
   <p id="score-msg"></p>
-  <button class="btn-reset" onclick="resetQuiz()">🔄 Shuffle & Retry</button>
+  <button class="btn-reset" id="quiz-reset-btn" type="button">🔄 Shuffle & Retry</button>
 </div>
 
 <!-- SOURCES -->
@@ -901,9 +901,15 @@ const QUESTIONS=[
 
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 let answered=0,correct=0;
-function renderQuiz(){const c=document.getElementById('quiz-container');c.innerHTML='';answered=0;correct=0;document.getElementById('quiz-score').classList.remove('visible');const qs=shuffle(QUESTIONS);qs.forEach((q,qi)=>{const d=document.createElement('div');d.className='q-card';d.id='q'+qi;const so=shuffle(q.options);d.innerHTML=`<div class="q-stem"><span class="q-num">${qi+1}</span>${q.stem}</div><ul class="q-options">${so.map((o,oi)=>`<li data-correct="${o.correct}" onclick="sel(this,${qi})">${String.fromCharCode(65+oi)}. ${o.text}</li>`).join('')}</ul><div class="q-explanation" id="exp${qi}">${q.explanation}</div>`;c.appendChild(d);});}
+function renderQuiz(){const c=document.getElementById('quiz-container');c.innerHTML='';answered=0;correct=0;document.getElementById('quiz-score').classList.remove('visible');const qs=shuffle(QUESTIONS);qs.forEach((q,qi)=>{const d=document.createElement('div');d.className='q-card';d.id='q'+qi;const so=shuffle(q.options);d.innerHTML=`<div class="q-stem"><span class="q-num">${qi+1}</span>${q.stem}</div><ul class="q-options">${so.map((o,oi)=>`<li data-correct="${o.correct}" data-qi="${qi}">${String.fromCharCode(65+oi)}. ${o.text}</li>`).join('')}</ul><div class="q-explanation" id="exp${qi}">${q.explanation}</div>`;c.appendChild(d);});}
 function sel(li,qi){const card=document.getElementById('q'+qi);if(card.classList.contains('answered-correct')||card.classList.contains('answered-wrong'))return;const ok=li.getAttribute('data-correct')==='true';answered++;card.querySelectorAll('.q-options li').forEach(e=>e.classList.add('disabled'));if(ok){li.classList.add('selected-correct');card.classList.add('answered-correct');correct++;}else{li.classList.add('selected-wrong');card.classList.add('answered-wrong');card.querySelectorAll('.q-options li').forEach(e=>{if(e.getAttribute('data-correct')==='true')e.classList.add('reveal-correct');});}document.getElementById('exp'+qi).classList.add('visible');if(answered===QUESTIONS.length){const s=document.getElementById('quiz-score');document.getElementById('score-num').textContent=correct;const p=Math.round(correct/QUESTIONS.length*100);let m=p>=90?"Excellent!":p>=70?"Good — review the misses.":"Keep at it!";document.getElementById('score-msg').textContent=`${p}% — ${m}`;s.classList.add('visible');}}
 function resetQuiz(){renderQuiz();window.scrollTo({top:document.getElementById('quiz').offsetTop-60,behavior:'smooth'});}
+document.getElementById('quiz-container').addEventListener('click',function(e){
+  const choice=e.target.closest('.q-options li');
+  if(!choice)return;
+  sel(choice,Number(choice.getAttribute('data-qi')));
+});
+document.getElementById('quiz-reset-btn').addEventListener('click',resetQuiz);
 renderQuiz();
 </script>
 </body>
