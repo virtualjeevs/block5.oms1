@@ -2,511 +2,286 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Contextual Anki — Morganelli: Cortisol &amp; HPA Axis</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glucocorticoids & HPA Axis — Active Recall Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0b0f1a;
-  --surface:#131929;
-  --surface-2:#19223a;
-  --surface-3:#1f2a42;
-  --surface-4:#24314e;
-  --amber:#f6a533;
-  --amber-soft:rgba(246,165,51,.13);
-  --amber-mid:rgba(246,165,51,.25);
-  --amber-dim:rgba(246,165,51,.55);
-  --teal:#2dd4bf;
-  --teal-soft:rgba(45,212,191,.12);
-  --teal-mid:rgba(45,212,191,.22);
-  --teal-dim:rgba(45,212,191,.5);
-  --green:#34d399;
-  --green-soft:rgba(52,211,153,.13);
-  --green-mid:rgba(52,211,153,.22);
-  --red:#f87171;
-  --red-soft:rgba(248,113,113,.12);
-  --red-mid:rgba(248,113,113,.22);
-  --text:#dde5f0;
-  --text-2:#7e90a9;
-  --text-3:#3e5065;
-  --border:#1c2a40;
-  --border-2:#243348;
-  --hero-glow-a:rgba(45,212,191,.08);
-  --hero-glow-b:rgba(246,165,51,.09);
-  --bg-top:#0b0f1a;
-  --bg-bottom:#0d1321;
-  --map-shadow:0 20px 45px rgba(0,0,0,.22);
-  --panel-shadow:0 22px 48px rgba(0,0,0,.24);
+/* ── TOKENS ── */
+:root {
+  --bg:#0b0f1a; --surface:#131929; --surface-2:#19223a; --surface-3:#1f2a42; --surface-4:#24314e;
+  --amber:#f6a533; --amber-soft:rgba(246,165,51,.13); --amber-mid:rgba(246,165,51,.25); --amber-dim:rgba(246,165,51,.55);
+  --teal:#2dd4bf; --teal-soft:rgba(45,212,191,.12); --teal-mid:rgba(45,212,191,.22); --teal-dim:rgba(45,212,191,.5);
+  --green:#34d399; --green-soft:rgba(52,211,153,.13); --green-mid:rgba(52,211,153,.22);
+  --red:#f87171; --red-soft:rgba(248,113,113,.12);
+  --text:#dde5f0; --text-2:#7e90a9; --text-3:#3e5065;
+  --border:#1c2a40; --border-2:#243348;
+  --hero-glow-a:rgba(45,212,191,.08); --hero-glow-b:rgba(246,165,51,.09);
+  --bg-top:#0b0f1a; --bg-bottom:#0d1321;
+  --map-shadow:0 20px 45px rgba(0,0,0,.22); --panel-shadow:0 22px 48px rgba(0,0,0,.24);
   --header-shadow:0 22px 50px rgba(0,0,0,.24);
+  --header-a:#131929; --header-b:#19223a;
+  --card-a:#131929; --card-b:#19223a;
+  --card-action-bg:#111827;
+  --nav-bg:#19223a; --nav-bg-hover:#1f2a42; --nav-text:#7e90a9;
+  --showall-bg:rgba(246,165,51,.12); --showall-text:#f6a533;
+  --meta-bg:#19223a;
+  --table-head-a:#19223a; --table-head-b:#1f2a42;
 }
 html[data-theme="cream"]{
-  --bg:#f4efe4;
-  --surface:#fffaf1;
-  --surface-2:#f6efe2;
-  --surface-3:#efe5d3;
-  --surface-4:#e4d5ba;
-  --amber:#b86519;
-  --amber-soft:rgba(184,101,25,.13);
-  --amber-mid:rgba(184,101,25,.22);
-  --amber-dim:rgba(184,101,25,.45);
-  --teal:#0f8a7b;
-  --teal-soft:rgba(15,138,123,.12);
-  --teal-mid:rgba(15,138,123,.2);
-  --teal-dim:rgba(15,138,123,.42);
-  --green:#21885a;
-  --green-soft:rgba(33,136,90,.12);
-  --green-mid:rgba(33,136,90,.22);
-  --red:#c65a52;
-  --red-soft:rgba(198,90,82,.12);
-  --red-mid:rgba(198,90,82,.22);
-  --text:#2f2a24;
-  --text-2:#6c5f51;
-  --text-3:#a28d78;
-  --border:#e4d5ba;
-  --border-2:#d6c2a1;
-  --hero-glow-a:rgba(15,138,123,.08);
-  --hero-glow-b:rgba(184,101,25,.08);
-  --bg-top:#f7f2e8;
-  --bg-bottom:#efe7d9;
-  --map-shadow:0 18px 40px rgba(106,80,45,.11);
-  --panel-shadow:0 20px 42px rgba(106,80,45,.12);
-  --header-shadow:0 18px 42px rgba(106,80,45,.12);
-  --header-a:rgba(255,250,241,.96);
-  --header-b:rgba(246,239,226,.92);
-  --card-a:rgba(255,251,244,.98);
-  --card-b:rgba(246,239,226,.98);
-  --card-action-bg:rgba(239,229,211,.86);
-  --nav-bg:rgba(246,239,226,.95);
-  --nav-bg-hover:rgba(239,229,211,.98);
-  --nav-text:#5f5141;
-  --showall-bg:rgba(255,250,241,.92);
-  --showall-text:#5f5141;
-  --meta-bg:rgba(255,250,241,.8);
-  --table-head-a:#0f8a7b;
-  --table-head-b:#b86519;
+  --bg:#f4efe4; --surface:#ede8dc; --surface-2:#e5dfd1; --surface-3:#ddd6c5; --surface-4:#d4ccba;
+  --amber:#b87a10; --amber-soft:rgba(184,122,16,.12); --amber-mid:rgba(184,122,16,.22); --amber-dim:rgba(184,122,16,.5);
+  --teal:#0f7a6e; --teal-soft:rgba(15,122,110,.1); --teal-mid:rgba(15,122,110,.2); --teal-dim:rgba(15,122,110,.45);
+  --green:#1a8a5c; --green-soft:rgba(26,138,92,.12); --green-mid:rgba(26,138,92,.2);
+  --red:#b84040; --red-soft:rgba(184,64,64,.1);
+  --text:#2a2015; --text-2:#6b5c42; --text-3:#a8966e;
+  --border:#d4ccba; --border-2:#c9bfa6;
+  --hero-glow-a:rgba(15,122,110,.06); --hero-glow-b:rgba(184,122,16,.07);
+  --bg-top:#f4efe4; --bg-bottom:#ede8dc;
+  --header-a:#ede8dc; --header-b:#e5dfd1;
+  --card-a:#ede8dc; --card-b:#e5dfd1;
+  --card-action-bg:#e0d9cc;
+  --nav-bg:#e5dfd1; --nav-bg-hover:#ddd6c5; --nav-text:#6b5c42;
+  --showall-bg:rgba(184,122,16,.1); --showall-text:#b87a10;
+  --meta-bg:#e5dfd1;
+  --table-head-a:#e5dfd1; --table-head-b:#ddd6c5;
 }
 html[data-theme="forest"]{
-  --bg:#081512;
-  --surface:#0f201b;
-  --surface-2:#16302a;
-  --surface-3:#1d4037;
-  --surface-4:#28544a;
-  --amber:#e4b04b;
-  --amber-soft:rgba(228,176,75,.12);
-  --amber-mid:rgba(228,176,75,.22);
-  --amber-dim:rgba(228,176,75,.45);
-  --teal:#52d6b7;
-  --teal-soft:rgba(82,214,183,.12);
-  --teal-mid:rgba(82,214,183,.2);
-  --teal-dim:rgba(82,214,183,.42);
-  --green:#7ae582;
-  --green-soft:rgba(122,229,130,.12);
-  --green-mid:rgba(122,229,130,.22);
-  --red:#ff8b7a;
-  --red-soft:rgba(255,139,122,.12);
-  --red-mid:rgba(255,139,122,.22);
-  --text:#e4f2ec;
-  --text-2:#8fb6aa;
-  --text-3:#54756b;
-  --border:#1d3a32;
-  --border-2:#295049;
-  --hero-glow-a:rgba(82,214,183,.08);
-  --hero-glow-b:rgba(228,176,75,.08);
-  --bg-top:#081512;
-  --bg-bottom:#0b1c18;
-  --header-a:rgba(15,32,27,.96);
-  --header-b:rgba(10,24,21,.92);
-  --card-a:rgba(22,48,42,.98);
-  --card-b:rgba(15,32,27,.98);
-  --card-action-bg:rgba(29,64,55,.82);
-  --nav-bg:rgba(22,48,42,.95);
-  --nav-bg-hover:rgba(29,64,55,.98);
-  --nav-text:#d0e9e0;
-  --showall-bg:rgba(15,32,27,.86);
-  --showall-text:#c7e7dc;
-  --meta-bg:rgba(255,255,255,.04);
-  --table-head-a:#1f7a67;
-  --table-head-b:#d79f42;
+  --bg:#081512; --surface:#0d1f1a; --surface-2:#132820; --surface-3:#183228; --surface-4:#1d3c2f;
+  --amber:#e8a428; --amber-soft:rgba(232,164,40,.13); --amber-mid:rgba(232,164,40,.25); --amber-dim:rgba(232,164,40,.55);
+  --teal:#3ecfb5; --teal-soft:rgba(62,207,181,.1); --teal-mid:rgba(62,207,181,.2); --teal-dim:rgba(62,207,181,.45);
+  --green:#4ade80; --green-soft:rgba(74,222,128,.12); --green-mid:rgba(74,222,128,.2);
+  --red:#f87171; --red-soft:rgba(248,113,113,.1);
+  --text:#cce8d8; --text-2:#6e9e80; --text-3:#2e5240;
+  --border:#1a3828; --border-2:#214530;
+  --hero-glow-a:rgba(62,207,181,.07); --hero-glow-b:rgba(232,164,40,.08);
+  --bg-top:#081512; --bg-bottom:#0a1a16;
+  --header-a:#0d1f1a; --header-b:#132820;
+  --card-a:#0d1f1a; --card-b:#132820;
+  --card-action-bg:#091510;
+  --nav-bg:#132820; --nav-bg-hover:#183228; --nav-text:#6e9e80;
+  --showall-bg:rgba(232,164,40,.12); --showall-text:#e8a428;
+  --meta-bg:#132820;
+  --table-head-a:#132820; --table-head-b:#183228;
 }
-html:not([data-theme]),html[data-theme="slate"]{
-  --header-a:rgba(25,34,58,.78);
-  --header-b:rgba(19,25,41,.56);
-  --card-a:rgba(25,34,58,.98);
-  --card-b:rgba(21,29,47,.98);
-  --card-action-bg:rgba(31,42,66,.55);
-  --nav-bg:rgba(25,34,58,.85);
-  --nav-bg-hover:rgba(31,42,66,.98);
-  --nav-text:#dde5f0;
-  --showall-bg:rgba(255,255,255,.03);
-  --showall-text:#7e90a9;
-  --meta-bg:rgba(221,229,240,.04);
-  --table-head-a:#2863d8;
-  --table-head-b:#3d7bf4;
-}
-html{font-size:17px;-webkit-font-smoothing:antialiased}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 body{
+  min-height:100vh;
   background:
     radial-gradient(circle at top left, var(--hero-glow-a), transparent 26rem),
     radial-gradient(circle at top right, var(--hero-glow-b), transparent 24rem),
     linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
-  color:var(--text);
-  font-family:'DM Sans',sans-serif;
-  min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;
-  padding:40px 16px 80px;
 }
-.wrap{width:100%;max-width:860px}
 
-/* ── Header ── */
+/* ── HEADER ── */
 header{
-  margin-bottom:32px;text-align:center;
-  background:linear-gradient(180deg, var(--header-a), var(--header-b));
-  border:1px solid var(--border-2);
+  background:linear-gradient(135deg, var(--header-a), var(--header-b));
+  border-bottom:1px solid var(--border);
   box-shadow:var(--header-shadow);
-  border-radius:24px;
-  padding:24px 20px 20px;
+  padding:1.5rem 2rem 1.25rem;
 }
-.hero-top{
-  display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap
-}
-.hero-copy{flex:1;min-width:240px}
-.theme-switch{
-  display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end
-}
-.theme-btn{
-  background:rgba(255,255,255,.03);border:1px solid var(--border);
-  color:var(--text-2);font-size:11px;font-family:'DM Mono',monospace;
-  padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .14s
-}
-.theme-btn:hover{color:var(--text);background:var(--surface-3);border-color:var(--border-2)}
-.theme-btn.active{
-  background:var(--teal-soft);border-color:rgba(45,212,191,.24);color:var(--teal)
-}
-.eyebrow{
-  font-family:'DM Mono',monospace;font-size:10px;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:var(--text-3);margin-bottom:10px;
-}
-h1{
-  font-family:'Crimson Pro',serif;font-weight:600;
-  font-size:clamp(32px,5vw,48px);line-height:1.05;
-  letter-spacing:-.025em;color:var(--text);margin-bottom:6px;
-}
-.sub{font-size:14px;color:var(--text-2)}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem;}
+header h1{font-family:'Crimson Pro',serif;font-size:1.9rem;font-weight:600;color:var(--text);line-height:1.15;margin-bottom:.3rem;}
+#deckMeta{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--text-2);}
+.theme-switch{display:flex;gap:.4rem;align-items:flex-start;padding-top:.2rem;flex-shrink:0;}
+.theme-btn{font-family:'DM Mono',monospace;font-size:.7rem;padding:.28rem .65rem;border-radius:5px;border:1px solid var(--border-2);background:transparent;color:var(--text-2);cursor:pointer;transition:all .15s;}
+.theme-btn.active,.theme-btn:hover{background:var(--amber-soft);color:var(--amber);border-color:var(--amber-mid);}
 
-/* ── Legend ── */
-.legend{display:flex;gap:18px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
-.legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text-2)}
-.lswatch{width:9px;height:9px;border-radius:50%}
+/* ── LEGEND ── */
+.legend{display:flex;gap:1.4rem;align-items:center;padding:.65rem 2rem;border-bottom:1px solid var(--border);}
+.legend-item{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--text-2);}
+.lswatch{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
 
-/* ── Map ── */
-.map-wrap{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:18px;padding:20px 16px 14px;margin-bottom:12px;
-  overflow:hidden;
-  box-shadow:var(--map-shadow);
-}
-/* SVG classes */
-.c-gray rect{fill:var(--surface-3);stroke:var(--border-2);stroke-width:.5}
-.c-gray .th{fill:var(--text);font-family:'Crimson Pro',serif;font-size:13px;font-weight:600}
-.c-gray .ts{fill:var(--text-2);font-family:'DM Sans',sans-serif;font-size:10px}
-.c-amber rect{fill:var(--amber-soft);stroke:var(--amber-dim);stroke-width:.75}
-.c-amber .th{fill:var(--amber);font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500}
-.c-amber .ts{fill:var(--text);font-family:'DM Sans',sans-serif;font-size:10px}
-.c-teal rect{fill:var(--teal-soft);stroke:var(--teal-dim);stroke-width:.75}
-.c-teal .th{fill:var(--teal);font-family:'DM Mono',monospace;font-size:10.5px;font-weight:500}
-.c-teal .ts{fill:var(--text);font-family:'DM Sans',sans-serif;font-size:10px}
-.conn{stroke:var(--border-2);stroke-width:1;fill:none;opacity:.7}
-.node{cursor:pointer;transition:filter .15s}
-.node:hover{filter:brightness(1.25)}
-.sel-node.c-amber rect{stroke:var(--amber)!important;stroke-width:2!important;filter:drop-shadow(0 0 7px rgba(246,165,51,.5))}
-.sel-node.c-teal rect{stroke:var(--teal)!important;stroke-width:2!important;filter:drop-shadow(0 0 7px rgba(45,212,191,.4))}
-.done-node{opacity:.45}
-.hint-lbl{fill:var(--text-3);font-family:'DM Mono',monospace;font-size:9.5px;font-style:italic}
+/* ── MAP WRAPPER ── */
+.map-wrap{padding:1.5rem 2rem;overflow-x:auto;}
+.map-svg-container{max-width:720px;margin:0 auto;filter:drop-shadow(var(--map-shadow));}
+svg.map{width:100%;height:auto;display:block;}
 
-/* ── Panel ── */
-.panel,.review-panel{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:18px;padding:22px 20px;margin-bottom:12px;
+/* ── SVG NODE STYLES ── */
+.node{cursor:pointer;transition:filter .15s;}
+.node:hover{filter:brightness(1.15);}
+.node rect{rx:6;ry:6;stroke-width:1.5;}
+.c-amber rect{fill:var(--amber-soft);stroke:var(--amber-mid);}
+.c-amber text{fill:var(--amber);}
+.c-teal rect{fill:var(--teal-soft);stroke:var(--teal-mid);}
+.c-teal text{fill:var(--teal);}
+.c-gray rect{fill:var(--surface-3);stroke:var(--border-2);}
+.c-gray text{fill:var(--text-2);}
+.node-label{font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;}
+.node-sub{font-family:'DM Sans',sans-serif;font-size:8px;opacity:.85;}
+.conn{stroke:var(--border-2);stroke-width:1;stroke-dasharray:4 3;}
+.hint-lbl{font-family:'DM Mono',monospace;font-size:8px;fill:var(--text-3);text-anchor:middle;}
+.done-node{opacity:.45;}
+
+/* ── PANEL ── */
+.panel-wrap{padding:0 2rem 2rem;max-width:800px;margin:0 auto;}
+.card-panel{
   display:none;
+  background:linear-gradient(135deg, var(--card-a), var(--card-b));
+  border:1px solid var(--border-2);
+  border-radius:12px;
   box-shadow:var(--panel-shadow);
+  overflow:hidden;
 }
-.panel.open{display:block;animation:rise .22s ease-out}
-.review-panel.open{display:block;border-color:rgba(246,165,51,.25);animation:rise .22s ease-out}
-@keyframes rise{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.card-panel.open{display:block;}
+.panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 1.25rem;
+  border-bottom:1px solid var(--border);
+  background:var(--surface-2);
+  gap:.75rem;flex-wrap:wrap;
+}
+.panel-label{font-family:'DM Mono',monospace;font-size:.7rem;padding:.2rem .55rem;border-radius:4px;}
+.pl-amber{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber-mid);}
+.pl-teal{background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid);}
+.panel-title{font-family:'Crimson Pro',serif;font-size:1.1rem;font-weight:600;color:var(--text);flex:1;}
+.close-btn{background:transparent;border:1px solid var(--border-2);color:var(--text-2);border-radius:6px;padding:.25rem .6rem;cursor:pointer;font-size:.8rem;transition:all .15s;}
+.close-btn:hover{background:var(--surface-3);color:var(--text);}
 
-.phead{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-.badge{
-  font-family:'DM Mono',monospace;font-size:9.5px;font-weight:500;
-  letter-spacing:.07em;text-transform:uppercase;
-  padding:3px 9px;border-radius:5px;
+/* ── CARD NAV ── */
+.card-nav{display:flex;align-items:center;gap:.6rem;padding:.75rem 1.25rem;border-bottom:1px solid var(--border);background:var(--surface);}
+.nav-btn{
+  font-family:'DM Mono',monospace;font-size:.72rem;padding:.3rem .7rem;
+  background:var(--nav-bg);color:var(--nav-text);border:1px solid var(--border-2);
+  border-radius:6px;cursor:pointer;transition:all .15s;
 }
-.b-plo{background:var(--amber-soft);color:var(--amber);border:1px solid rgba(246,165,51,.28)}
-.b-lo{background:var(--teal-soft);color:var(--teal);border:1px solid rgba(45,212,191,.25)}
-.ptitle{font-size:15px;font-weight:500;color:var(--text);flex:1;line-height:1.4}
-.dots{display:flex;gap:6px;align-items:center}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--border-2);transition:background .2s}
-.dot.active{background:var(--text)}
-.dot.done{background:var(--green)}
-.dot.partial{background:var(--amber)}
-.xbtn{
-  background:none;border:none;cursor:pointer;color:var(--text-3);
-  font-size:20px;line-height:1;padding:2px 7px;border-radius:5px;
-  transition:color .12s,background .12s;
-}
-.xbtn:hover{color:var(--text);background:var(--surface-3)}
+.nav-btn:hover:not(:disabled){background:var(--nav-bg-hover);color:var(--text);}
+.nav-btn:disabled{opacity:.4;cursor:default;}
+.card-counter{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-2);flex:1;text-align:center;}
+.progress-dots{display:flex;gap:4px;flex-wrap:wrap;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--surface-3);border:1px solid var(--border-2);transition:background .2s;}
+.dot.partial{background:var(--amber-dim);}
+.dot.done{background:var(--green);}
 
-/* ── Card ── */
-.card{
-  background:linear-gradient(180deg, var(--card-a), var(--card-b));
-  border:1px solid var(--border);
-  border-radius:16px;padding:18px 20px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
-}
-.ctitle{
-  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
-  color:var(--text-2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;
-}
-.cbody{font-size:16px;line-height:1.9;color:var(--text)}
+/* ── CARD BODY ── */
+.card-body{padding:1.25rem 1.5rem;}
+.card-title{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--text-2);margin-bottom:.65rem;letter-spacing:.04em;}
+.card-text{font-size:.95rem;line-height:1.7;color:var(--text);}
+.card-hint{font-size:.82rem;line-height:1.55;color:var(--text-2);margin-top:.85rem;padding:.6rem .85rem;background:var(--surface-3);border-left:3px solid var(--teal-mid);border-radius:0 6px 6px 0;font-style:italic;}
 
-.card-actions{
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
-  gap:12px;margin-top:12px;padding:12px 14px;border-radius:14px;
-  border:1px solid var(--border);background:var(--card-action-bg)
-}
-.card-meta{
-  display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--text-2);
-  font-size:11px;font-family:'DM Mono',monospace
-}
-.meta-pill{
-  padding:5px 10px;border-radius:999px;border:1px solid var(--border-2);
-  background:var(--meta-bg)
-}
-.meta-pill strong{color:var(--text)}
-.action-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.action-btn{
-  background:rgba(255,255,255,.03);border:1px solid var(--border-2);
-  color:var(--text-2);font-size:11px;font-family:'DM Mono',monospace;
-  padding:8px 12px;border-radius:999px;cursor:pointer;transition:all .14s
-}
-.action-btn:hover:not(:disabled){color:var(--text);background:var(--surface-3);border-color:var(--surface-4)}
-.action-btn:disabled{opacity:.35;cursor:not-allowed}
-.action-btn.primary{
-  background:var(--teal-soft);border-color:rgba(45,212,191,.22);color:var(--teal)
-}
-.action-btn.primary:hover:not(:disabled){background:var(--teal-mid);color:#dffef8}
-.action-btn.amber{
-  background:var(--amber-soft);border-color:rgba(246,165,51,.25);color:var(--amber)
-}
-.action-btn.amber:hover:not(:disabled){background:var(--amber-mid);color:#fff3df}
-.action-btn.ghost{
-  color:var(--text-3)
-}
-
-/* Table quiz */
-.tblq-note{
-  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
-  background:var(--surface-3);border:1px solid var(--border);
-  border-radius:12px;padding:12px 14px;margin-bottom:14px;
-  line-height:1.5;
-}
-.tblq-copy{color:var(--text-2);flex:1;min-width:220px}
-.tblq-actions{display:none}
-.tblq-pill,.tblq-btn{
-  border-radius:999px;padding:8px 14px;font-size:11px;
-  font-family:'DM Mono',monospace
-}
-.tblq-pill{
-  background:var(--teal-soft);border:1px solid rgba(45,212,191,.25);color:var(--teal)
-}
-.tblq-btn{
-  background:none;border:1px solid var(--border-2);color:var(--text-2);cursor:pointer
-}
-.tblq-btn:hover{background:var(--surface-2);color:var(--text)}
-.review-panel .tblq-actions{display:none}
-.tblq-wrap{
-  overflow:auto;border:1px solid var(--border);border-radius:12px;background:var(--surface)
-}
-.tblq{
-  width:100%;border-collapse:collapse;font-size:15px;line-height:1.6
-}
-.tblq thead th{
-  background:linear-gradient(135deg,var(--table-head-a),var(--table-head-b));
-  color:#f6f9ff;padding:14px 16px;text-align:left;font-weight:600;
-  border-right:1px solid rgba(255,255,255,.08)
-}
-.tblq thead th:last-child{border-right:none}
-.tblq tbody th[scope="row"]{
-  background:rgba(221,229,240,.06);color:var(--text);font-weight:600;
-  padding:14px 16px;vertical-align:top;border-top:1px solid var(--border)
-}
-.tblq tbody td{
-  background:rgba(255,255,255,.02);padding:14px 16px;vertical-align:top;border-top:1px solid var(--border)
-}
-.tblq td .occ{
-  display:block;text-align:center;white-space:normal;padding:10px 12px;min-width:180px
-}
-.tblq td .score-row{
-  display:flex;justify-content:center;flex-wrap:wrap;margin:8px 0 0
-}
-
-/* Occluded terms */
+/* ── OCCLUSION ── */
 .occ{
   display:inline-block;min-width:3ch;
   background:var(--text);color:transparent;
-  border:1px solid transparent;
-  border-radius:3px;cursor:pointer;padding:1px 6px;
-  white-space:nowrap;user-select:none;
-  vertical-align:baseline;
-  transition:background .15s,color .15s,border-color .15s;
+  border:1px solid transparent;border-radius:3px;
+  cursor:pointer;padding:1px 6px;white-space:nowrap;
+  user-select:none;vertical-align:baseline;
+  transition:background .15s, color .15s, border-color .15s;
 }
-.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15)}
-.occ.rev{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.25)}
-.occ.needed{background:var(--amber-soft);color:var(--amber);cursor:default;border-color:rgba(246,165,51,.25)}
-.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.2)}
+.occ:not(.rev):not(.needed):not(.unscored):hover{filter:brightness(1.15);opacity:1;}
+.occ.rev    {background:var(--green-soft);color:var(--green); cursor:default;border-color:rgba(52,211,153,.25);}
+.occ.needed {background:var(--amber-soft);color:var(--amber); cursor:default;border-color:rgba(246,165,51,.25);}
+.occ.unscored{background:var(--green-soft);color:var(--green);cursor:default;border-color:rgba(52,211,153,.20);}
+.score-row{display:inline-flex;gap:.3rem;margin-left:.4rem;vertical-align:middle;}
+.sc-btn{font-family:'DM Mono',monospace;font-size:.65rem;padding:.15rem .4rem;border-radius:4px;border:none;cursor:pointer;transition:all .15s;}
+.sc-knew{background:var(--green-soft);color:var(--green);}
+.sc-knew:hover{background:var(--green-mid);}
+.sc-need{background:var(--amber-soft);color:var(--amber);}
+.sc-need:hover{background:var(--amber-mid);}
+.jump-link{font-family:'DM Mono',monospace;font-size:.65rem;margin-left:.35rem;padding:.15rem .4rem;border-radius:4px;background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid);cursor:pointer;vertical-align:middle;text-decoration:none;}
+.jump-link:hover{background:var(--teal-mid);}
 
-/* Score buttons */
-.score-row{
-  display:inline-flex;gap:3px;margin-left:5px;
-  vertical-align:middle;animation:pop .15s ease-out;
-}
-@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-.sbtn{
-  font-size:9px;padding:1px 6px;border-radius:3px;cursor:pointer;
-  font-family:'DM Mono',monospace;transition:background .1s,border-color .1s;
-}
-.sbtn.know{
-  background:var(--green-soft);color:var(--green);
-  border:1px solid rgba(52,211,153,.3);
-}
-.sbtn.know:hover{background:var(--green-mid)}
-.sbtn.need{
-  background:var(--red-soft);color:var(--red);
-  border:1px solid rgba(248,113,113,.25);
-}
-.sbtn.need:hover{background:var(--red-mid)}
+/* ── TABLE QUIZ ── */
+.tblq-note{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+  background:var(--amber-soft);border:1px solid var(--amber-mid);border-radius:6px;
+  padding:.55rem .85rem;margin-bottom:.85rem;}
+.tblq-copy{font-size:.78rem;color:var(--amber);font-style:italic;}
+.tblq-actions{display:none;}
+.tblq-pill{font-family:'DM Mono',monospace;font-size:.65rem;padding:.15rem .45rem;background:var(--amber-mid);color:var(--amber);border-radius:4px;}
+.tblq-btn{font-family:'DM Mono',monospace;font-size:.65rem;padding:.15rem .45rem;border:1px solid var(--amber-mid);background:transparent;color:var(--amber);border-radius:4px;cursor:pointer;}
+.tblq-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border-2);}
+table.tblq{width:100%;border-collapse:collapse;}
+table.tblq thead tr{background:linear-gradient(90deg, var(--table-head-a), var(--table-head-b));}
+table.tblq th{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-2);padding:.5rem .75rem;text-align:left;border-bottom:1px solid var(--border-2);}
+table.tblq td{padding:.55rem .75rem;border-bottom:1px solid var(--border);font-size:.85rem;vertical-align:middle;}
+table.tblq tr:last-child td{border-bottom:none;}
+table.tblq th[scope="row"]{color:var(--text);font-weight:500;white-space:nowrap;background:var(--surface-2);}
+.tblq td .occ{display:block;text-align:center;white-space:normal;padding:10px 12px;min-width:180px;}
+.tblq td .score-row{display:flex;justify-content:center;margin:4px 0 0;margin-left:0;}
 
-/* Jump links */
-.jump{
-  display:inline-flex;align-items:center;
-  font-family:'DM Mono',monospace;font-size:9px;
-  color:var(--text-3);background:var(--surface-3);
-  border:1px solid var(--border-2);border-radius:3px;
-  padding:1px 5px;margin-left:3px;cursor:pointer;
-  vertical-align:middle;transition:all .12s;white-space:nowrap;
+/* ── CARD ACTIONS ── */
+.card-actions{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+  padding:.7rem 1.25rem;background:var(--card-action-bg);border-top:1px solid var(--border);
 }
-.jump.amber:hover{color:var(--amber);border-color:var(--amber-dim);background:var(--amber-soft)}
-.jump.teal:hover{color:var(--teal);border-color:var(--teal-dim);background:var(--teal-soft)}
+.meta-pills{display:flex;gap:.4rem;flex-wrap:wrap;}
+.meta-pill{font-family:'DM Mono',monospace;font-size:.65rem;padding:.2rem .5rem;border-radius:4px;background:var(--meta-bg);color:var(--text-2);border:1px solid var(--border);}
+.meta-pill.p-rev{color:var(--green);}
+.meta-pill.p-knew{color:var(--green);}
+.meta-pill.p-need{color:var(--amber);}
+.meta-pill.p-wait{color:var(--teal);}
+.action-btns{display:flex;gap:.4rem;flex-wrap:wrap;}
+.btn-reveal{font-family:'DM Mono',monospace;font-size:.72rem;padding:.3rem .75rem;border-radius:6px;border:none;cursor:pointer;background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid);transition:all .15s;}
+.btn-reveal:hover:not(:disabled){background:var(--teal-mid);}
+.btn-reveal:disabled{opacity:.35;cursor:default;}
+.btn-knew-all{font-family:'DM Mono',monospace;font-size:.72rem;padding:.3rem .75rem;border-radius:6px;border:1px solid var(--amber-mid);background:var(--amber-soft);color:var(--amber);cursor:pointer;transition:all .15s;}
+.btn-knew-all:hover:not(:disabled){background:var(--amber-mid);}
+.btn-knew-all:disabled{opacity:.35;cursor:default;}
+.btn-reset-card{font-family:'DM Mono',monospace;font-size:.72rem;padding:.3rem .7rem;border-radius:6px;background:transparent;border:1px solid var(--border-2);color:var(--text-2);cursor:pointer;transition:all .15s;}
+.btn-reset-card:hover:not(:disabled){background:var(--surface-3);}
+.btn-reset-card:disabled{opacity:.3;cursor:default;}
 
-/* Hint */
-.hint{
-  font-size:13px;color:var(--text-2);background:var(--surface-3);
-  border-left:2px solid var(--border-2);border-radius:0 7px 7px 0;
-  padding:9px 14px;margin-top:14px;line-height:1.65;
+/* ── STATS BAR ── */
+.stats-bar{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+  padding:.65rem 2rem;border-top:1px solid var(--border);margin-top:1rem;
+  background:var(--surface);border-radius:8px;max-width:800px;margin:1rem auto 0;
 }
-.hlbl{
-  font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;
-  letter-spacing:.09em;color:var(--text-3);display:block;margin-bottom:4px;
-}
+.stats-left{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;}
+.stat-pill{font-family:'DM Mono',monospace;font-size:.68rem;padding:.2rem .5rem;border-radius:4px;background:var(--surface-2);color:var(--text-2);}
+.stat-pill.s-rev{color:var(--text);}
+.stat-pill.s-knew{color:var(--green);}
+.stat-pill.s-need{color:var(--amber);}
+.stat-pill.s-done{color:var(--teal);}
+.stats-right{display:flex;gap:.4rem;flex-wrap:wrap;}
+.btn-showall{font-family:'DM Mono',monospace;font-size:.68rem;padding:.25rem .65rem;border-radius:5px;background:var(--showall-bg);color:var(--showall-text);border:1px solid var(--amber-mid);cursor:pointer;transition:all .15s;}
+.btn-showall:hover:not(:disabled){filter:brightness(1.1);}
+.btn-showall:disabled{opacity:.3;cursor:default;}
+.btn-review{font-family:'DM Mono',monospace;font-size:.68rem;padding:.25rem .65rem;border-radius:5px;background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal-mid);cursor:pointer;display:none;transition:all .15s;}
+.btn-review:hover{background:var(--teal-mid);}
+.btn-reset-all{font-family:'DM Mono',monospace;font-size:.68rem;padding:.25rem .65rem;border-radius:5px;background:transparent;border:1px solid var(--border-2);color:var(--text-2);cursor:pointer;transition:all .15s;}
+.btn-reset-all:hover{background:var(--surface-3);}
 
-/* Nav */
-.nav{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:8px}
-.nbtn{
-  background:var(--nav-bg);border:1px solid var(--border);
-  color:var(--nav-text);font-family:'DM Sans',sans-serif;font-size:13px;
-  padding:9px 16px;border-radius:10px;cursor:pointer;
-  transition:background .12s,color .12s;
+/* ── REVIEW PANEL ── */
+.review-panel{
+  display:none;max-width:800px;margin:1rem auto 2rem;
+  background:linear-gradient(135deg, var(--card-a), var(--card-b));
+  border:1px solid var(--border-2);border-radius:12px;box-shadow:var(--panel-shadow);overflow:hidden;
 }
-.nbtn:hover:not(:disabled){background:var(--nav-bg-hover);color:var(--text)}
-.nbtn:disabled{opacity:.25;cursor:not-allowed}
-.nmc{display:flex;gap:10px;align-items:center}
-.ncnt{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
-.showall{
-  background:var(--showall-bg);border:1px solid var(--border);
-  color:var(--showall-text);font-size:11px;font-family:'DM Sans',sans-serif;
-  padding:7px 12px;border-radius:999px;cursor:pointer;transition:all .12s;
-}
-.showall:hover{color:var(--text);border-color:var(--border-2)}
+.review-panel.open{display:block;}
+.review-header{padding:.85rem 1.25rem;background:var(--surface-2);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.75rem;}
+.review-title{font-family:'Crimson Pro',serif;font-size:1.05rem;font-weight:600;color:var(--teal);}
+.rsub{font-family:'DM Mono',monospace;font-size:.68rem;padding:.35rem .85rem;background:var(--amber-soft);color:var(--amber);border-bottom:1px solid var(--amber-mid);}
+.review-nav{display:flex;gap:.5rem;align-items:center;padding:.6rem 1.25rem;border-bottom:1px solid var(--border);background:var(--surface);}
+.review-counter{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-2);flex:1;text-align:center;}
+.review-body{padding:1.25rem 1.5rem;}
+.review-close{background:transparent;border:1px solid var(--border-2);color:var(--text-2);border-radius:6px;padding:.25rem .6rem;cursor:pointer;font-size:.8rem;}
+.review-close:hover{background:var(--surface-3);color:var(--text);}
 
-/* Stats */
-.stats{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:12px;padding:13px 18px;
-  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
-  margin-bottom:10px;
-  box-shadow:0 18px 40px rgba(0,0,0,.2);
-}
-.stat{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
-.stat strong{color:var(--text)}
-.sep{color:var(--border-2)}
-.sactions{display:flex;gap:8px;align-items:center;margin-left:auto}
-.sbtn-lite{
-  background:none;border:1px solid var(--border);cursor:pointer;font-size:11px;
-  color:var(--text-2);font-family:'DM Mono',monospace;border-radius:999px;
-  padding:7px 12px;transition:all .12s
-}
-.sbtn-lite:hover:not(:disabled){color:var(--text);background:var(--surface-3);border-color:var(--border-2)}
-.sbtn-lite:disabled{opacity:.35;cursor:not-allowed}
-.review-btn{
-  background:var(--amber-soft);border:1px solid rgba(246,165,51,.28);
-  color:var(--amber);font-size:11px;font-family:'DM Sans',sans-serif;
-  padding:7px 12px;border-radius:999px;cursor:pointer;
-  transition:all .12s;display:none;align-items:center;gap:5px;
-}
-.review-btn.vis{display:inline-flex}
-.review-btn:hover{background:var(--amber-mid)}
-.reset-btn{
-  background:none;border:none;cursor:pointer;font-size:11px;
-  color:var(--text-3);font-family:'DM Mono',monospace;
-  text-decoration:underline;text-underline-offset:2px;
-}
-.reset-btn:hover{color:var(--text-2)}
-
-/* Review panel */
-.rhdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.rtitle{
-  font-family:'Crimson Pro',serif;font-size:17px;font-weight:600;
-  color:var(--amber);flex:1;
-}
-.rprog{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2)}
-.rsub{
-  font-size:11px;color:var(--text-2);font-family:'DM Mono',monospace;
-  background:var(--surface-3);border:1px solid var(--border);
-  padding:7px 12px;border-radius:7px;margin-bottom:14px;line-height:1.5;
-}
-
-/* Footer hint */
-.kbhint{
-  text-align:center;font-size:10px;color:var(--text-3);
-  font-family:'DM Mono',monospace;margin-top:10px;letter-spacing:.04em;
-}
+/* ── RESPONSIVE ── */
 @media(max-width:720px){
-  body{padding:22px 12px 64px}
-  header{padding:20px 16px 18px}
-  .hero-top,.theme-switch{justify-content:center}
-  .card-actions{padding:10px 12px}
-  .action-row,.card-meta,.sactions{width:100%}
-  .sactions{margin-left:0}
+  .action-btns,.stats-right,.meta-pills{width:100%;}
+  .map-wrap{padding:1rem;}
+  .panel-wrap{padding:0 1rem 1.5rem;}
+  .stats-bar{margin:1rem 1rem 0;}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
 
 <header>
   <div class="hero-top">
     <div class="hero-copy">
-      <div class="eyebrow">Block 5 · Week 38 · Dr. Morganelli</div>
-      <h1>Cortisol &amp; the HPA Axis</h1>
+      <div class="eyebrow">Block 5 · Dr. Peter Morganelli, Ph.D.</div>
+      <h1>Glucocorticoids &amp; the HPA Axis</h1>
       <p id="deckMeta" class="sub"></p>
     </div>
     <div class="theme-switch">
-      <button class="theme-btn active" type="button" data-theme="slate" onclick="setTheme('slate')">Slate</button>
-      <button class="theme-btn" type="button" data-theme="cream" onclick="setTheme('cream')">Cream</button>
-      <button class="theme-btn" type="button" data-theme="forest" onclick="setTheme('forest')">Forest</button>
+      <button class="theme-btn active" data-theme="slate" onclick="setTheme('slate')">Slate</button>
+      <button class="theme-btn" data-theme="cream" onclick="setTheme('cream')">Cream</button>
+      <button class="theme-btn" data-theme="forest" onclick="setTheme('forest')">Forest</button>
     </div>
   </div>
 </header>
@@ -517,741 +292,749 @@ h1{
 </div>
 
 <div class="map-wrap">
-<svg width="100%" viewBox="0 0 680 325" style="display:block">
-  <!-- connectors -->
-  <line class="conn" x1="115" y1="60" x2="280" y2="128"/>
-  <line class="conn" x1="265" y1="60" x2="310" y2="128"/>
-  <line class="conn" x1="415" y1="60" x2="370" y2="128"/>
-  <line class="conn" x1="565" y1="60" x2="400" y2="128"/>
-  <line class="conn" x1="115" y1="256" x2="280" y2="184"/>
-  <line class="conn" x1="265" y1="256" x2="310" y2="184"/>
-  <line class="conn" x1="415" y1="256" x2="370" y2="184"/>
-  <line class="conn" x1="565" y1="256" x2="400" y2="184"/>
-  <!-- center -->
-  <g class="c-gray">
-    <rect x="175" y="128" width="330" height="56" rx="10"/>
-    <text class="th" x="340" y="150" text-anchor="middle" dominant-baseline="central">Cortisol &amp; the HPA Axis</text>
-    <text class="ts" x="340" y="168" text-anchor="middle" dominant-baseline="central">Dr. Morganelli · Block 5 Endocrinology</text>
-  </g>
-  <!-- PLOs (top) -->
-  <g id="n-zones" class="node c-amber" onclick="selNode('zones')">
-    <rect x="50" y="16" width="130" height="44" rx="8"/>
-    <text class="th" x="115" y="31" text-anchor="middle" dominant-baseline="central">Zones &amp; Synth</text>
-    <text class="ts" x="115" y="49" text-anchor="middle" dominant-baseline="central">Sections 01–03</text>
-  </g>
-  <g id="n-hpa" class="node c-amber" onclick="selNode('hpa')">
-    <rect x="200" y="16" width="130" height="44" rx="8"/>
-    <text class="th" x="265" y="31" text-anchor="middle" dominant-baseline="central">HPA Axis</text>
-    <text class="ts" x="265" y="49" text-anchor="middle" dominant-baseline="central">LO 8 · POMC</text>
-  </g>
-  <g id="n-transport" class="node c-amber" onclick="selNode('transport')">
-    <rect x="350" y="16" width="130" height="44" rx="8"/>
-    <text class="th" x="415" y="31" text-anchor="middle" dominant-baseline="central">Transport &amp; GR</text>
-    <text class="ts" x="415" y="49" text-anchor="middle" dominant-baseline="central">LO 6 · Receptor</text>
-  </g>
-  <g id="n-effects" class="node c-amber" onclick="selNode('effects')">
-    <rect x="500" y="16" width="130" height="44" rx="8"/>
-    <text class="th" x="565" y="31" text-anchor="middle" dominant-baseline="central">Effects</text>
-    <text class="ts" x="565" y="49" text-anchor="middle" dominant-baseline="central">LO 7 · Medulla</text>
-  </g>
-  <!-- LOs (bottom) -->
-  <g id="n-hsd" class="node c-teal" onclick="selNode('hsd')">
-    <rect x="50" y="256" width="130" height="44" rx="8"/>
-    <text class="th" x="115" y="271" text-anchor="middle" dominant-baseline="central">11β-HSD</text>
-    <text class="ts" x="115" y="289" text-anchor="middle" dominant-baseline="central">LO 9 · MR protect</text>
-  </g>
-  <g id="n-insuff" class="node c-teal" onclick="selNode('insuff')">
-    <rect x="200" y="256" width="130" height="44" rx="8"/>
-    <text class="th" x="265" y="271" text-anchor="middle" dominant-baseline="central">Insufficiency</text>
-    <text class="ts" x="265" y="289" text-anchor="middle" dominant-baseline="central">Addison · Crisis</text>
-  </g>
-  <g id="n-cushing" class="node c-teal" onclick="selNode('cushing')">
-    <rect x="350" y="256" width="130" height="44" rx="8"/>
-    <text class="th" x="415" y="271" text-anchor="middle" dominant-baseline="central">Cushing</text>
-    <text class="ts" x="415" y="289" text-anchor="middle" dominant-baseline="central">LO 11 · Iatrogenic</text>
-  </g>
-  <g id="n-logic" class="node c-teal" onclick="selNode('logic')">
-    <rect x="500" y="256" width="130" height="44" rx="8"/>
-    <text class="th" x="565" y="271" text-anchor="middle" dominant-baseline="central">Endo Logic</text>
-    <text class="ts" x="565" y="289" text-anchor="middle" dominant-baseline="central">1° 2° 3° patterns</text>
-  </g>
-  <text class="hint-lbl" x="340" y="316" text-anchor="middle">Click any node to begin · ← → navigate · ✓/✗ score each term</text>
-</svg>
+  <div class="map-svg-container">
+    <svg class="map" viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg">
+      <!-- connectors PLO top row → center -->
+      <line class="conn" x1="115" y1="56" x2="275" y2="148"/>
+      <line class="conn" x1="270" y1="56" x2="310" y2="148"/>
+      <line class="conn" x1="450" y1="56" x2="410" y2="148"/>
+      <line class="conn" x1="605" y1="56" x2="445" y2="148"/>
+      <!-- connectors LO bottom row → center -->
+      <line class="conn" x1="115" y1="264" x2="275" y2="178"/>
+      <line class="conn" x1="270" y1="264" x2="310" y2="178"/>
+      <line class="conn" x1="450" y1="264" x2="410" y2="178"/>
+      <line class="conn" x1="605" y1="264" x2="445" y2="178"/>
+
+      <!-- PLO nodes (top row, amber) -->
+      <g id="n-plo1" class="node c-amber" onclick="selNode('plo1')">
+        <rect x="50" y="16" width="130" height="52" rx="7"/>
+        <text class="node-label" x="115" y="39" text-anchor="middle">PLO 1</text>
+        <text class="node-sub" x="115" y="56" text-anchor="middle">Adrenal Steroids &amp;</text>
+        <text class="node-sub" x="115" y="66" text-anchor="middle">Steroidogenesis</text>
+      </g>
+      <g id="n-plo2" class="node c-amber" onclick="selNode('plo2')">
+        <rect x="205" y="16" width="130" height="52" rx="7"/>
+        <text class="node-label" x="270" y="39" text-anchor="middle">PLO 2</text>
+        <text class="node-sub" x="270" y="56" text-anchor="middle">HPA Axis</text>
+        <text class="node-sub" x="270" y="66" text-anchor="middle">Regulation</text>
+      </g>
+      <g id="n-plo3" class="node c-amber" onclick="selNode('plo3')">
+        <rect x="385" y="16" width="130" height="52" rx="7"/>
+        <text class="node-label" x="450" y="39" text-anchor="middle">PLO 3</text>
+        <text class="node-sub" x="450" y="56" text-anchor="middle">Glucocorticoid</text>
+        <text class="node-sub" x="450" y="66" text-anchor="middle">Activity</text>
+      </g>
+      <g id="n-plo4" class="node c-amber" onclick="selNode('plo4')">
+        <rect x="540" y="16" width="130" height="52" rx="7"/>
+        <text class="node-label" x="605" y="39" text-anchor="middle">PLO 4</text>
+        <text class="node-sub" x="605" y="56" text-anchor="middle">Physiological</text>
+        <text class="node-sub" x="605" y="66" text-anchor="middle">Effects of Cortisol</text>
+      </g>
+
+      <!-- Center node -->
+      <g id="n-center" class="node c-gray">
+        <rect x="195" y="143" width="330" height="40" rx="8"/>
+        <text class="node-label" x="360" y="160" text-anchor="middle" style="font-size:10px;">Glucocorticoids &amp; the HPA Axis</text>
+        <text class="node-sub" x="360" y="174" text-anchor="middle">Block 5 · Dr. Morganelli</text>
+      </g>
+
+      <!-- LO nodes (bottom row, teal) -->
+      <g id="n-lo1" class="node c-teal" onclick="selNode('lo1')">
+        <rect x="50" y="250" width="130" height="52" rx="7"/>
+        <text class="node-label" x="115" y="273" text-anchor="middle">LO 1</text>
+        <text class="node-sub" x="115" y="290" text-anchor="middle">Adrenal Medulla</text>
+        <text class="node-sub" x="115" y="300" text-anchor="middle">&amp; Epinephrine</text>
+      </g>
+      <g id="n-lo2" class="node c-teal" onclick="selNode('lo2')">
+        <rect x="205" y="250" width="130" height="52" rx="7"/>
+        <text class="node-label" x="270" y="273" text-anchor="middle">LO 2</text>
+        <text class="node-sub" x="270" y="290" text-anchor="middle">Cortisol Transport</text>
+        <text class="node-sub" x="270" y="300" text-anchor="middle">&amp; CBG</text>
+      </g>
+      <g id="n-lo3" class="node c-teal" onclick="selNode('lo3')">
+        <rect x="385" y="250" width="130" height="52" rx="7"/>
+        <text class="node-label" x="450" y="273" text-anchor="middle">LO 3</text>
+        <text class="node-sub" x="450" y="290" text-anchor="middle">11-HSD Enzymes</text>
+        <text class="node-sub" x="450" y="300" text-anchor="middle">Cortisol Metabolism</text>
+      </g>
+      <g id="n-lo4" class="node c-teal" onclick="selNode('lo4')">
+        <rect x="540" y="250" width="130" height="52" rx="7"/>
+        <text class="node-label" x="605" y="273" text-anchor="middle">LO 4</text>
+        <text class="node-sub" x="605" y="290" text-anchor="middle">HPA Axis</text>
+        <text class="node-sub" x="605" y="300" text-anchor="middle">Dysregulation</text>
+      </g>
+
+      <text class="hint-lbl" x="360" y="322">← → navigate · click node to open · Esc close</text>
+    </svg>
+  </div>
 </div>
 
-<!-- Card panel -->
-<div id="panel" class="panel">
-  <div class="phead">
-    <span id="bdg" class="badge"></span>
-    <span id="ptitle" class="ptitle"></span>
-    <div id="dots" class="dots"></div>
-    <button class="xbtn" onclick="closePanel()">×</button>
-  </div>
-  <div id="ccard" class="card"></div>
-  <div id="cardActions" class="card-actions"></div>
-  <div class="nav">
-    <button class="nbtn" id="bprev" onclick="goCard(-1)">← Prev</button>
-    <div class="nmc">
-      <span id="cnt" class="ncnt"></span>
-      <button class="showall" onclick="revealAll()">Reveal this card</button>
+<!-- CARD PANEL -->
+<div class="panel-wrap">
+  <div id="cardPanel" class="card-panel">
+    <div class="panel-header">
+      <span id="panelLabel" class="panel-label pl-amber">PLO 1</span>
+      <span id="panelTitle" class="panel-title">Topic</span>
+      <button class="close-btn" onclick="closePanel()">✕ Close</button>
     </div>
-    <button class="nbtn" id="bnext" onclick="goCard(1)">Next →</button>
-  </div>
-</div>
-
-<!-- Review mode panel -->
-<div id="reviewPanel" class="review-panel">
-  <div class="rhdr">
-    <span class="rtitle">⟳ Spaced Repetition Review</span>
-    <span id="rprog" class="rprog"></span>
-    <button class="xbtn" onclick="closeReview()">×</button>
-  </div>
-  <div id="rsub" class="rsub"></div>
-  <div id="rccard" class="card"></div>
-  <div class="nav">
-    <button class="nbtn" id="rbprev" onclick="goReview(-1)">← Prev</button>
-    <div class="nmc">
-      <span id="rcnt" class="ncnt"></span>
-      <button class="showall" onclick="revAllReview()">Reveal</button>
+    <div class="card-nav">
+      <button class="nav-btn" id="btnPrev" onclick="prevCard()">← Prev</button>
+      <div class="card-counter">
+        <span id="cardCounterTxt"></span>
+        <div class="progress-dots" id="progressDots"></div>
+      </div>
+      <button class="nav-btn" id="btnNext" onclick="nextCard()">Next →</button>
     </div>
-    <button class="nbtn" id="rbnext" onclick="goReview(1)">Next →</button>
+    <div class="card-body">
+      <div class="card-title" id="cardTitle"></div>
+      <div class="card-text" id="cardText"></div>
+      <div class="card-hint" id="cardHint" style="display:none;"></div>
+    </div>
+    <div class="card-actions">
+      <div class="meta-pills" id="metaPills"></div>
+      <div class="action-btns">
+        <button class="btn-reveal" id="btnRevealCard" onclick="revealCard()">Reveal this card</button>
+        <button class="btn-knew-all" id="btnKnewAll" onclick="knewAllCurrentCard()" disabled>✓ Knew all</button>
+        <button class="btn-reset-card" id="btnResetCard" onclick="resetCard()" disabled>Reset card</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Stats -->
-<div class="stats">
-  <span class="stat"><strong id="st-rev">0</strong> revealed</span>
-  <span class="sep">·</span>
-  <span class="stat" style="color:var(--green)"><strong id="st-knew">0</strong> knew it</span>
-  <span class="sep">·</span>
-  <span class="stat" style="color:var(--amber)"><strong id="st-need">0</strong> needed help</span>
-  <span class="sep">·</span>
-  <span class="stat"><strong id="st-done">0</strong>/8 done</span>
-  <div class="sactions">
-    <button id="revealTopicBtn" class="sbtn-lite" onclick="revealTopic()" disabled>Reveal topic</button>
-    <button class="sbtn-lite" onclick="revealDeck()">Reveal deck</button>
-    <button id="reviewBtn" class="review-btn" onclick="startReview()">⟳ Review weak spots (<span id="rcount">0</span>)</button>
-    <button class="reset-btn" onclick="resetAll()">reset</button>
+<!-- STATS BAR -->
+<div class="stats-bar" id="statsBar">
+  <div class="stats-left">
+    <span class="stat-pill s-rev" id="stRev">0 revealed</span>
+    <span class="stat-pill s-knew" id="stKnew">0 knew</span>
+    <span class="stat-pill s-need" id="stNeed">0 needed</span>
+    <span class="stat-pill s-done" id="stDone">0 / 8 topics done</span>
+  </div>
+  <div class="stats-right">
+    <button class="btn-showall" onclick="revealTopicAll()" id="btnRevTopic" disabled>Reveal topic</button>
+    <button class="btn-showall" onclick="revealDeckAll()" id="btnRevDeck">Reveal deck</button>
+    <button class="btn-review" id="btnReview" onclick="startReview()">Review weak spots (0)</button>
+    <button class="btn-reset-all" onclick="resetAll()">Reset all</button>
   </div>
 </div>
 
-<div class="kbhint">← → arrow keys &nbsp;·&nbsp; ESC to close &nbsp;·&nbsp; ✓ knew it &nbsp;·&nbsp; ✗ needed help</div>
-
-</div><!-- /wrap -->
+<!-- REVIEW PANEL -->
+<div class="panel-wrap">
+  <div id="reviewPanel" class="review-panel">
+    <div class="review-header">
+      <span class="review-title">🔁 Spaced Repetition Review</span>
+      <button class="review-close" onclick="closeReview()">✕ Close</button>
+    </div>
+    <div class="rsub" id="rSubBar"></div>
+    <div class="review-nav">
+      <button class="nav-btn" id="rBtnPrev" onclick="reviewPrev()">← Prev</button>
+      <div class="review-counter" id="rCounter"></div>
+      <button class="nav-btn" id="rBtnNext" onclick="reviewNext()">Next →</button>
+    </div>
+    <div class="review-body">
+      <div class="card-title" id="rCardTitle"></div>
+      <div class="card-text" id="rCardText"></div>
+    </div>
+  </div>
+</div>
 
 <script>
-// ═══════════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════════
-const D={
-  zones:{label:'Zones & Synth',sub:'Adrenal zones, steroid synthesis, and rate-limiting enzymes',type:'PLO',cards:[
-    {t:'Why cortisol is indispensable',b:'Cortisol is the primary {glucocorticoid} hormone in humans. It is essential for life, affects essentially all {nucleated cells}, regulates metabolism at multiple levels, dampens {inflammation}, supports {cardiovascular responsiveness}, and helps the body deal with physical and psychological stressors.',h:'Steve-note: cortisol = major glucocorticoid. The adrenal cortex and medulla should be studied together because cortical cortisol supports medullary PNMT.'},
-    {t:'Adrenal zone mnemonic',b:'Memory tool — Salt, Sugar/Stress, Sex: Zona {glomerulosa} → {aldosterone} · Zona {fasciculata} → {cortisol} · Zona {reticularis} → {androgens (DHEA, androstenedione)} · Medulla → {catecholamines (epinephrine)}.',h:'Salt = glomerulosa, Sugar/Stress = fasciculata, Sex = reticularis. This is the exact Morganelli study-language.'},
-    {t:'Rate-limiting step and StAR',b:'Cholesterol is transported into the mitochondria by {StAR (Steroidogenic Acute Regulatory) protein}. The enzyme {cholesterol desmolase} (CYP11A1) converts cholesterol into {pregnenolone}, the precursor for all steroid hormones. This step is stimulated by {ACTH}.',h:'Cholesterol desmolase = rate-limiting step. ACTH drives the entire synthesis process forward.'},
-    {t:'Zone logic — enzyme distribution',b:'All zones can convert pregnenolone to progesterone via {3β-HSD}. Fasciculata and reticularis contain {17α-hydroxylase}; this is why cortisol and androgen pathways live there. Glomerulosa does not have 17α-hydroxylase, so it makes {aldosterone} instead. Negative feedback comes from {cortisol only} — not from aldosterone or adrenal androgens.',h:'The presence or absence of 17α-hydroxylase determines what each zone can produce. This is a Morganelli favorite.'},
-    {t:'Table quiz: synthesis pathways',b:'<div class="tblq-note"><div class="tblq-copy">Steroid synthesis pathways — tap cells to test zone-specific enzyme steps.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Pathway</th><th>Zone</th><th>Key Enzyme Steps</th></tr></thead><tbody><tr><th scope="row">Mineralocorticoid</th><td>{Zona glomerulosa}</td><td>{Progesterone → DOC (21-OH) → Corticosterone (11β-OH) → Aldosterone (18-OH/dehydrogenase)}</td></tr><tr><th scope="row">Glucocorticoid</th><td>{Zona fasciculata}</td><td>{17-OH progesterone (17α-hydroxylase) → 11-deoxycortisol (21-OH) → Cortisol (11β-OH)}</td></tr><tr><th scope="row">Androgen</th><td>{Zona reticularis}</td><td>{Pregnenolone → DHEA (17,20-lyase) → Androstenedione → peripheral conversion to testosterone/estradiol}</td></tr></tbody></table></div>',h:'21-hydroxylase appears in both mineralocorticoid and glucocorticoid pathways — this is why 21-OH deficiency affects both.'}
-  ]},
-  hpa:{label:'HPA Axis',sub:'CRH, ACTH, HPA axis regulation, and POMC cleavage',type:'PLO',cards:[
-    {t:'HPA axis sequence',b:'1. Hypothalamus detects stress and secretes {CRH} from the {paraventricular nucleus}. 2. CRH travels through the {hypophyseal portal system} to the anterior pituitary. 3. Pituitary releases {ACTH} into the systemic circulation. 4. ACTH binds {MC2R} on adrenal cortical cells and triggers cortisol synthesis. 5. High cortisol levels inhibit CRH and ACTH release by {negative feedback}.',h:'LO 8: The HPA axis consists of three parts — hypothalamus, pituitary, adrenal cortex. CRH is stimulated by stress and circadian rhythm.'},
-    {t:'POMC cleavage pearl',b:'Pro-opiomelanocortin (POMC) is a precursor polypeptide synthesized in {corticotroph cells}. Cleavage products include {ACTH}, {MSH}, {β-endorphins}, and {lipotropins}. Addison\'s disease causes {hyperpigmentation} because high ACTH contains the {α-MSH} sequence and overstimulates melanocytes.',h:'This is why primary adrenal insufficiency — but NOT secondary — causes hyperpigmentation. Secondary AI has low ACTH.'},
-    {t:'Table quiz: HPA hormones',b:'<div class="tblq-note"><div class="tblq-copy">HPA axis hormones — test source, target, and function.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Hormone</th><th>Source</th><th>Target</th><th>Function</th></tr></thead><tbody><tr><th scope="row">CRH</th><td>{Hypothalamus (paraventricular nucleus)}</td><td>{Anterior pituitary}</td><td>{Stimulates ACTH secretion; driven by stress and circadian rhythm}</td></tr><tr><th scope="row">ACTH</th><td>{Anterior pituitary}</td><td>{Adrenal cortex (zona fasciculata)}</td><td>{Stimulates cortisol production via MC2R; trophic for adrenal cortex}</td></tr></tbody></table></div>',h:'ACTH is trophic — prolonged absence leads to adrenal atrophy (iatrogenic Cushing mechanism).'}
-  ]},
-  transport:{label:'Transport & GR',sub:'Bound vs free cortisol, GR signaling, receptor selectivity',type:'PLO',cards:[
-    {t:'Bound vs free cortisol (LO 6)',b:'About {90%} of plasma cortisol is bound and inactive. The majority binds {CBG (transcortin)} (~80%), with a smaller fraction to {albumin} (~10%). Only the {free} fraction (~10%) is biologically active — it diffuses into cells and binds glucocorticoid receptors.',h:'LO 6: An increase in CBG decreases free cortisol; a decrease in CBG increases free cortisol. CBG-bound cortisol = reservoir.'},
-    {t:'CBG reservoir logic',b:'An increase in CBG by itself {decreases} free cortisol. A decrease in CBG {increases} free cortisol. Cortisol bound to CBG serves as a {reservoir} — it prolongs half-life and prevents rapid metabolism or excretion.',h:'Steve-note color call: bound cortisol = inactive reservoir, free cortisol = active.'},
-    {t:'GR signaling mechanism',b:'Cortisol diffuses through the plasma membrane because it is a {lipophilic steroid hormone}. It binds an intracellular glucocorticoid receptor associated with {heat shock proteins}. The receptor complex dimerizes and moves to the {nucleus}. The cortisol-GR complex binds {GREs (glucocorticoid response elements)} and acts as a {transcription factor}.',h:'Genes for gluconeogenesis, metabolism, and anti-inflammatory proteins are upregulated; pro-inflammatory genes are suppressed.'},
-    {t:'GR subtypes',b:'GRα / GR1 binds cortisol with {high affinity} and mediates major glucocorticoid metabolic and anti-inflammatory actions. It also binds {aldosterone}. GRβ / GR2 is a {dominant-negative inhibitor} of GRα signaling — increased expression is associated with {glucocorticoid resistance}.',h:'The specificity pearl: cortisol production far exceeds aldosterone, so the body needs 11β-HSD2 to protect MR in the kidney.'},
-    {t:'Table quiz: cortisol forms',b:'<div class="tblq-note"><div class="tblq-copy">Forms of cortisol in the bloodstream.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Form</th><th>% in Blood</th><th>Binding</th><th>Significance</th></tr></thead><tbody><tr><th scope="row">Bound (inactive)</th><td>{~90%}</td><td>{CBG (~80%) + Albumin (~10%)}</td><td>{Reservoir; prolongs half-life; prevents rapid metabolism}</td></tr><tr><th scope="row">Free (active)</th><td>{~10%}</td><td>{Unbound, circulating freely}</td><td>{Biologically active; diffuses into cells; binds GR; exerts effects}</td></tr></tbody></table></div>',h:'LO 6 table — the key clinical distinction is that only free cortisol is biologically active.'}
-  ]},
-  effects:{label:'Effects',sub:'Adrenal medulla, catecholamines, PNMT, and cortisol physiologic effects',type:'PLO',cards:[
-    {t:'Catecholamine release sequence',b:'Stress activates {sympathetic outflow}. Preganglionic sympathetic neurons release {ACh} onto adrenal {chromaffin cells}. ACh binds {nicotinic receptors} and triggers calcium influx. Vesicles release {epinephrine} (~80%) and {norepinephrine} (~20%) into blood.',h:'Dopamine is a small fraction and mainly serves as a precursor for norepinephrine.'},
-    {t:'PNMT pearl',b:'The catecholamine synthesis pathway: {Tyrosine} → DOPA → {Dopamine} → Norepinephrine → {Epinephrine}. The final step is catalyzed by {PNMT (phenylethanolamine-N-methyltransferase)}, which converts NE to epinephrine. PNMT production in chromaffin cells is stimulated and maintained by {cortisol}.',h:'This is the cortex-medulla connection: cortisol from the zona fasciculata maintains PNMT expression in the medulla.'},
-    {t:'Energy metabolism (LO 7)',b:'Cortisol elevates blood glucose and produces a {glucose-sparing} state. It stimulates {gluconeogenesis} by increasing PEPCK and G6Pase. Paradoxically, it also stimulates {glycogen synthesis} in liver. It inhibits {GLUT4} expression and insulin production, supporting {insulin resistance}. It stimulates {hormone-sensitive lipase} and {β-oxidation}.',h:'LO 7: Cortisol shifts peripheral tissues away from glucose toward fatty acid oxidation, preserving glucose for the brain.'},
-    {t:'Anti-inflammatory & immune (LO 7)',b:'Cortisol inhibits {phospholipase A2} → fewer prostanoids. It inhibits {NF-κB activation} → fewer proinflammatory cytokines. It inhibits {neutrophil transmigration} even though circulating neutrophils may rise. It induces {apoptosis of lymphoid and myeloid cells}.',h:'Exam pearl: cortisol stimulates anti-inflammatory cytokines (IL-4, IL-10, IL-13) while suppressing pro-inflammatory ones (TNF-α, IL-1, IL-6).'},
-    {t:'Cardiovascular & permissive effects',b:'Cortisol supports sympathetic responsiveness by increasing {adrenergic receptor expression}. It supports {angiotensin II} responsiveness and stimulates {PNMT} production. Cortisol deficiency causes {hypotension} because glucocorticoids are needed for normal vascular responsiveness to catecholamines.',h:'Primary effects = direct (e.g. gluconeogenesis). Permissive effects = cortisol enhances another hormone\'s action (e.g. adrenergic receptor upregulation).'},
-    {t:'Table quiz: cortisol effects summary',b:'<div class="tblq-note"><div class="tblq-copy">Comprehensive cortisol effects by category.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Category</th><th>Effects</th><th>Mechanism</th></tr></thead><tbody><tr><th scope="row">Carbohydrate / Lipid</th><td>{↑Blood glucose, ↑gluconeogenesis, ↑glycogen synthesis, ↑lipolysis, ↓GLUT4/insulin}</td><td>{↑PEPCK/G6Pase, ↑glycogen synthase, ↑HSL, ↓GLUT4 in muscle/adipose}</td></tr><tr><th scope="row">Immune / Anti-inflammatory</th><td>{↓Inflammation, ↓NF-κB, ↓neutrophil transmigration, ↑apoptosis lymphoid/myeloid}</td><td>{Blocks PLA2, suppresses NF-κB, ↓adhesion molecules, ↓TNF-α/IL-1/IL-6}</td></tr><tr><th scope="row">Cardiovascular</th><td>{↑Blood pressure, ↑vascular responsiveness, ↑PNMT}</td><td>{↑α1-adrenergic receptors, ↑catecholamine sensitivity, ↑Na⁺ retention}</td></tr></tbody></table></div>',h:'This table preserves the Steve-note color hierarchy: metabolism, lipid effects, immune, anti-inflammatory, blood pressure.'}
-  ]},
-  hsd:{label:'11β-HSD',sub:'How the kidney protects aldosterone signaling (LO 9)',type:'LO',cards:[
-    {t:'11β-HSD1 vs 11β-HSD2 (LO 9)',b:'11β-HSD1 is found in {most cell types} and performs {reversible} conversion between cortisol and cortisone — it can {regenerate cortisol} and increase cortisol action. 11β-HSD2 is found in {kidney and placenta} and performs {irreversible} conversion of cortisol → {cortisone}. This prevents cortisol from activating the {mineralocorticoid receptor} and allows aldosterone to act appropriately.',h:'LO 9: Reversible vs irreversible is the exact distinction worth locking down. 11β-HSD2 = the kidney\'s gatekeeper for aldosterone.'},
-    {t:'Overflow pathophysiology',b:'Too much cortisol can {overwhelm 11β-HSD2} in the kidney → cortisol begins activating {mineralocorticoid signaling} inappropriately → {Na⁺ and water retention}, hypertension, and hypokalemia.',h:'This is how excess cortisol (Cushing) can cause hypertension — it saturates the protective enzyme and acts like aldosterone.'},
-    {t:'Table quiz: 11β-HSD comparison',b:'<div class="tblq-note"><div class="tblq-copy">11β-HSD enzymes — test location, directionality, and consequence.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Enzyme</th><th>Location</th><th>Action</th><th>Net Consequence</th></tr></thead><tbody><tr><th scope="row">11β-HSD1</th><td>{Most cell types}</td><td>{Reversible: cortisol ↔ cortisone}</td><td>{Can regenerate cortisol; ↑ cortisol action locally}</td></tr><tr><th scope="row">11β-HSD2</th><td>{Kidney, placenta}</td><td>{Irreversible: cortisol → cortisone only}</td><td>{Prevents cortisol from activating MR; allows aldosterone to act}</td></tr></tbody></table></div>',h:'Receptor selectivity and 11β-HSD protection are tightly linked in how Morganelli explains steroid specificity.'}
-  ]},
-  insuff:{label:'Insufficiency',sub:'Primary (Addison), secondary, and acute adrenal crisis',type:'LO',cards:[
-    {t:'Addison disease (primary AI)',b:'Primary adrenal insufficiency is most commonly caused by {autoimmune destruction} of the adrenal cortex. ACTH is {elevated (↑)}, which causes {hyperpigmentation} via POMC/MSH. Classic presentation: fatigue, weight loss, {hypotension}, {salt craving}, and hypoglycemia. Electrolytes show {hyponatremia and hyperkalemia} because aldosterone is also decreased.',h:'Think: the gland is destroyed → everything upstream rises to try to compensate. ACTH ↑ → MSH ↑ → dark skin.'},
-    {t:'Secondary AI',b:'Secondary adrenal insufficiency results from {pituitary dysfunction / low ACTH}. Cortisol is low, ACTH is {low (↓)}. Aldosterone is {usually normal} because it is regulated by the renin-angiotensin system, not ACTH. There is {no} hyperpigmentation because ACTH is not elevated.',h:'Key differentiator from primary: no hyperpigmentation, normal aldosterone, milder electrolyte changes.'},
-    {t:'Acute adrenal crisis',b:'Adrenal crisis is a sudden, {life-threatening} drop in cortisol. It is triggered by {stress (infection, trauma, surgery)} in a patient with adrenal insufficiency. Treatment: rapid {IV hydrocortisone} + {fluid support}.',h:'Classic scenario: patient on chronic steroids undergoes surgery without stress-dose steroids → crisis.'},
-    {t:'Table quiz: primary vs secondary AI',b:'<div class="tblq-note"><div class="tblq-copy">Primary vs secondary adrenal insufficiency — the defining comparison.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Feature</th><th>Primary (Addison)</th><th>Secondary</th></tr></thead><tbody><tr><th scope="row">Site of problem</th><td>{Direct damage to adrenal cortex}</td><td>{Pituitary dysfunction / low ACTH}</td></tr><tr><th scope="row">Cortisol</th><td>{↓}</td><td>{↓}</td></tr><tr><th scope="row">ACTH</th><td>{↑}</td><td>{↓}</td></tr><tr><th scope="row">Aldosterone</th><td>{↓}</td><td>{Usually normal}</td></tr><tr><th scope="row">Hyperpigmentation</th><td>{Yes}</td><td>{No}</td></tr><tr><th scope="row">Electrolytes</th><td>{Hyponatremia, hyperkalemia}</td><td>{Often no major abnormality}</td></tr><tr><th scope="row">Hypotension</th><td>{Prominent}</td><td>{Mild or absent}</td></tr></tbody></table></div>',h:'This is the highest-yield comparison table — know every row for exam day.'}
-  ]},
-  cushing:{label:'Cushing',sub:'Cushing disease, syndrome, and iatrogenic Cushing (LO 11)',type:'LO',cards:[
-    {t:'Definitions (LO 11)',b:'Cushing\'s syndrome = condition caused by {excess cortisol}, regardless of the underlying cause. Cushing\'s disease = excess ACTH production by a {pituitary adenoma}. Iatrogenic Cushing\'s syndrome = chronic {exogenous glucocorticoid} exposure.',h:'LO 11: Disease ≠ Syndrome. Disease is specifically the pituitary adenoma subtype of the syndrome.'},
-    {t:'Clinical pattern of cortisol excess',b:'Both forms present with: obesity and body fat {redistribution}, {hyperglycemia}/diabetes, {hypertension}, thin skin, bruising, {bone loss}, and mood/cognitive changes.',h:'Think: all the things cortisol does at physiologic levels become pathologic at supraphysiologic levels.'},
-    {t:'HPA axis differences',b:'In Cushing\'s disease, the pituitary {overproduces ACTH}, overstimulating the adrenals. CRH is {↓} from excess cortisol negative feedback. In iatrogenic Cushing\'s, exogenous glucocorticoids {suppress ACTH and CRH}, leading to {adrenal atrophy} over time.',h:'The iatrogenic pathway: chronic prednisone → ACTH ↓↓ → adrenal atrophy → if steroids stopped abruptly → adrenal crisis.'},
-    {t:'Table quiz: Cushing disease vs iatrogenic',b:'<div class="tblq-note"><div class="tblq-copy">Cushing\'s Disease vs Iatrogenic Cushing\'s — ACTH is the key differentiator.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Feature</th><th>Cushing Disease</th><th>Iatrogenic Cushing</th></tr></thead><tbody><tr><th scope="row">Cortisol</th><td>{↑}</td><td>{↑ (from exogenous steroid)}</td></tr><tr><th scope="row">ACTH</th><td>{↑ (from tumor)}</td><td>{↓↓ (strong negative feedback)}</td></tr><tr><th scope="row">CRH</th><td>{↓}</td><td>{↓}</td></tr><tr><th scope="row">HPA axis effect</th><td>{Pituitary overproduces ACTH, overstimulating adrenals}</td><td>{Exogenous GCs suppress ACTH/CRH → adrenal atrophy}</td></tr></tbody></table></div>',h:'ACTH direction is the exam differentiator: ↑ in disease (tumor), ↓↓ in iatrogenic (feedback suppression).'}
-  ]},
-  logic:{label:'Endo Logic',sub:'Primary, secondary, tertiary — the general endocrine pattern',type:'LO',cards:[
-    {t:'Fast logic rules',b:'PRIMARY (gland issue): last organ fails, so upstream hormones {rise} from loss of negative feedback. SECONDARY (pituitary issue): pituitary fails, so pituitary hormone and final hormone both {fall}; hypothalamic hormone {rises}. TERTIARY (hypothalamus issue): hypothalamus fails, so {the entire axis falls}.',h:'This pattern applies to every endocrine axis — thyroid, gonadal, adrenal. Master it once and it works everywhere.'},
-    {t:'Table quiz: hormone level patterns',b:'<div class="tblq-note"><div class="tblq-copy">Where is the lesion? Use hormone levels to localize the defect.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealAll()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Disease Type</th><th>Hypothalamus Hormone</th><th>Pituitary Hormone</th><th>Final Hormone</th></tr></thead><tbody><tr><th scope="row">Primary (gland issue)</th><td>{Increased (↑)}</td><td>{Increased (↑)}</td><td>{Decreased (↓)}</td></tr><tr><th scope="row">Secondary (pituitary)</th><td>{Increased (↑)}</td><td>{Decreased (↓)}</td><td>{Decreased (↓)}</td></tr><tr><th scope="row">Tertiary (hypothalamus)</th><td>{Decreased (↓)}</td><td>{Decreased (↓)}</td><td>{Decreased (↓)}</td></tr></tbody></table></div>',h:'Primary = everything upstream ↑. Secondary = only hypothalamic hormone ↑. Tertiary = everything ↓.'}
-  ]}
+/* ── DATA ── */
+const D = {
+  plo1: {
+    label:'PLO 1', sub:'Adrenal Steroids & Steroidogenesis', type:'PLO',
+    cards:[
+      { t:'Adrenal Steroid Classes',
+        b:'All adrenal steroids are derivatives of {cholesterol}. Cortisol and aldosterone are {21-carbon} steroids. Androgens (androstenedione, DHEA) are {19-carbon} steroids. Cortisol is a {glucocorticoid}; aldosterone is a {mineralocorticoid}.',
+        h:'"C21 for corticosteroids, C19 for androgens" — both are far fewer carbons than the parent cholesterol (C27).' },
+      { t:'Zones of the Adrenal Cortex',
+        b:'The adrenal cortex has three zones: {zona glomerulosa} (ZG) produces aldosterone; {zona fasciculata} (ZF) produces cortisol; {zona reticularis} (ZR) produces androgens. Cortisol production far exceeds aldosterone — total AM serum cortisol is typically {>>5,000 ng/dL}, while aldosterone rarely exceeds {10 ng/dL}.',
+        h:'"GFR" mnemonic (outer → inner): Glomerulosa → Fasciculata → Reticularis. Width of ZF reflects the huge cortisol output.' },
+      { t:'Rate-Limiting Step of Steroidogenesis',
+        b:'The rate-limiting step is conversion of {cholesterol} (27 carbons) to {pregnenolone} (21 carbons) by {cholesterol desmolase} (cytochrome P-450 / Cyp11A1). ACTH stimulates this enzyme. Pregnenolone is then converted to {progesterone} by {3β-hydroxysteroid dehydrogenase} in all zones, and is an intermediate in aldosterone production.',
+        h:'ACTH stimulates cholesterol desmolase — this is the key regulatory node for the entire steroidogenesis pathway.' },
+      { t:'Zone-Specific Enzymes & 17-Hydroxylase',
+        b:'{17-hydroxylase} is present in ZF and ZR but NOT in {zona glomerulosa}; it converts progesterone to {17-OH progesterone}, which is essential for cortisol synthesis. Conversely, ZG contains {aldosterone synthase} (absent in ZF/ZR). This enzyme distribution confines {aldosterone} to ZG and {cortisol} to ZF/ZR — synthesis of each is {independently regulated}.',
+        h:'Missing 17-hydroxylase in ZG = cannot make cortisol. Missing aldosterone synthase in ZF/ZR = cannot make aldosterone.' },
+      { t:'Steroidogenesis Pathway — Table Quiz',
+        b:`<div class="tblq-note"><div class="tblq-copy">Table quiz — the Zone/Step column stays visible. Reveal each enzyme and product.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span><button class="tblq-btn" onclick="event.stopPropagation();revealCard()">Reveal All</button><button class="tblq-btn" onclick="event.stopPropagation();resetCard()">Reset</button></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Zone</th><th>Key Enzyme</th><th>Product</th></tr></thead><tbody><tr><th scope="row">All Zones (rate-limiting)</th><td>{Cholesterol Desmolase (Cyp11A1)}</td><td>{Pregnenolone}</td></tr><tr><th scope="row">All Zones</th><td>{3β-Hydroxysteroid Dehydrogenase}</td><td>{Progesterone}</td></tr><tr><th scope="row">ZF &amp; ZR only</th><td>{17-Hydroxylase}</td><td>{17-OH Progesterone → Cortisol}</td></tr><tr><th scope="row">ZG only</th><td>{Aldosterone Synthase}</td><td>{Aldosterone}</td></tr><tr><th scope="row">Adrenal medulla</th><td>{PNMT (stimulated by cortisol)}</td><td>{Epinephrine from NE}</td></tr></tbody></table></div>`,
+        h:'ACTH stimulates cholesterol desmolase in ZF/ZR; Angiotensin II and K⁺ regulate aldosterone synthase in ZG.' }
+    ]
+  },
+  plo2: {
+    label:'PLO 2', sub:'HPA Axis Regulation', type:'PLO',
+    cards:[
+      { t:'HPA Axis — Three-Tier Structure',
+        b:'The HPA axis begins with {CRH} (corticotropin-releasing hormone), a {41-amino acid} peptide secreted by {hypothalamic neurons} in response to stress. CRH travels via {hypophyseal portal capillaries} to stimulate anterior pituitary corticotrophs to release {ACTH}, a {39-amino acid} peptide, into the systemic circulation. ACTH stimulates cortisol synthesis in {ZF and ZR} of the adrenal cortex.',
+        h:'Three-tier axis: Hypothalamus (CRH) → Anterior Pituitary (ACTH) → Adrenal Cortex (Cortisol).' },
+      { t:'Negative Feedback in the HPA Axis',
+        b:'Cortisol — but NOT {aldosterone} or {androgens} — exerts negative feedback on the HPA axis. It inhibits synthesis and secretion of {CRH} from the hypothalamus, and inhibits {transcription and translation} of the {POMC} gene (ACTH precursor) in the anterior pituitary. Loss of this feedback in {Addison\'s} leads to chronically elevated ACTH.',
+        h:'Only cortisol provides HPA negative feedback — aldosterone is regulated by the RAAS, not the HPA axis.' },
+      { t:'POMC and ACTH Synthesis',
+        b:'ACTH is derived from the prohormone {pro-opiomelanocortin} (POMC), produced in the {anterior pituitary}, hypothalamus, and skin. It can be cleaved into different peptides depending on tissue. In the pituitary → {ACTH}; in skin → {α-MSH}. In high-ACTH states (e.g., Addison\'s), excess {α-MSH} stimulates {MCR1} in melanocytes causing {hyperpigmentation}.',
+        h:'POMC = polyprotein parent. The same gene generates ACTH or α-MSH depending on tissue-specific processing enzymes.' },
+      { t:'Actions of ACTH on the Adrenal Cortex',
+        b:'ACTH binds {melanocortin receptor 2 (MCR2)} on adrenal cortical cells. It stimulates two enzymes vital for cortisol production: {cholesterol desmolase} and {11-hydroxylase}. ACTH also stimulates synthesis of {LDL receptors} (increases cholesterol uptake), {cholesterol transporters} (delivers cholesterol to mitochondria), and maintains {adrenal blood flow}.',
+        h:'MCR2 = adrenal receptor; MCR1 = skin melanocyte receptor. ACTH has trophic (growth) effects on the adrenal — ACTH deficiency causes adrenal atrophy.' },
+      { t:'Circadian Cortisol Secretion',
+        b:'Cortisol follows a {circadian (diurnal)} pattern regulated by {pacemaker cells} in the hypothalamus. Plasma cortisol is highest at {~8:00 AM} and lowest at {midnight}; minor peaks occur after meals. Stressors can override this pattern. The pattern is {flattened} in Cushing\'s Syndrome; the HPA axis may reset to produce {lower} cortisol in {PTSD} or {higher} cortisol in {major depressive disorder (MDD)}.',
+        h:'Loss of diurnal variation = key marker of HPA dysregulation. 24-hour urinary free cortisol (UFC) reflects total output regardless of timing.' }
+    ]
+  },
+  plo3: {
+    label:'PLO 3', sub:'Regulation of Glucocorticoid Activity', type:'PLO',
+    cards:[
+      { t:'Free vs Bound Cortisol',
+        b:'Only {free (unbound)} cortisol is biologically active and able to diffuse into cells and bind glucocorticoid receptors. Distribution: {4–5%} free; {80–90%} bound to {corticosteroid-binding globulin} (CBG, aka transcortin), a protein produced by {hepatocytes}; {10–15%} bound to albumin. CBG acts as a cortisol {reservoir}; the HPA axis normally adjusts to maintain free cortisol within normal limits.',
+        h:'Exceptions to HPA compensation: {inflammation} (↓CBG, more free cortisol) and {pregnancy} (↑CBG due to estrogen → ↑total cortisol but free cortisol buffered).' },
+      { t:'GC Receptors — GR1 & GR2',
+        b:'{GR2} is present in {all nucleated cells} and is the physiological receptor for cortisol; it is activated by all synthetic GCs. {GR1} is present only in the {distal nephron} and normally functions as the {aldosterone receptor}. Cortisol has {equal} affinity for GR1 and GR2. Because cortisol is produced in far greater quantities than aldosterone, it has potential to {occupy GR1} and cause {mineralocorticoid side effects}.',
+        h:'Cortisol floods GR1 if not for 11-HSD2 inactivating cortisol in the kidney — see LO 3.' },
+      { t:'Mechanism of GC Action',
+        b:'Most GC effects result from changes in {gene activation} (genomic pathway). After cortisol binds to GRs, {heat shock proteins} (hsps) dissociate, and two receptor complexes {dimerize}. The dimer translocates through the {nuclear membrane} and binds to {glucocorticoid response elements} (GREs) in promoter regions of target genes, altering {RNA transcription and translation}. Onset of most effects takes {hours}.',
+        h:'GC-receptor complex = transcription factor. This genomic mechanism explains why GC effects are delayed (hours), unlike catecholamine effects (seconds).' },
+      { t:'Relative GR Binding Affinities — Table Quiz',
+        b:`<div class="tblq-note"><div class="tblq-copy">Table quiz — the Steroid column stays visible. Reveal GR1 and GR2 binding affinities and their clinical implications.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Steroid</th><th>GR2 (All Cells)</th><th>GR1 (Kidney / Aldosterone R)</th><th>Implication</th></tr></thead><tbody><tr><th scope="row">Cortisol</th><td>{High}</td><td>{High (same as GR2)}</td><td>{Needs 11-HSD2 in kidney to prevent mineralocorticoid excess}</td></tr><tr><th scope="row">Aldosterone</th><td>{Low}</td><td>{High}</td><td>{Selective mineralocorticoid actions in kidney}</td></tr><tr><th scope="row">Prednisone</th><td>{Binds GR2 poorly}</td><td>{Low}</td><td>{Fewer mineralocorticoid side effects}</td></tr><tr><th scope="row">Fludrocortisone / Methylprednisolone</th><td>{Moderate}</td><td>{High}</td><td>{Causes mineralocorticoid side effects — Na/water retention}</td></tr></tbody></table></div>`,
+        h:'Clinical pearl: choose prednisone (poor GR1 binder) when you want to avoid mineralocorticoid side effects; use fludrocortisone if you need mineralocorticoid activity.' }
+    ]
+  },
+  plo4: {
+    label:'PLO 4', sub:'Physiological Effects of Cortisol', type:'PLO',
+    cards:[
+      { t:'Energy Metabolism Effects',
+        b:'Cortisol counters insulin to promote peripheral {insulin resistance}, forcing a switch from glucose to {fatty acid} utilization. In liver: stimulates {gluconeogenesis} and {glycogen synthesis}; in skeletal muscle: {inhibits} glycogen synthesis. Stimulates {hormone-sensitive lipase} in adipose (liberates FAs) and enzymes for {β-oxidation}. Stimulates {glucagon receptor} expression (permissive effect). Also inhibits {GLUT4 expression} and {insulin production}.',
+        h:'Net effect: ↑blood glucose via gluconeogenesis + ↑FA mobilization. Essential during starvation or stress to maintain glucose supply for the brain.' },
+      { t:'Skeletal Muscle & Cardiovascular Effects',
+        b:'Skeletal muscle: cortisol stimulates {proteolysis}, inhibits {protein synthesis}, and inhibits {amino acid uptake} — supplying amino acids for hepatic gluconeogenesis. Excessive cortisol causes {skeletal muscle wasting}. Cardiovascular: stimulates expression of {adrenergic receptors} and {angiotensin II receptors} on cardiomyocytes/VSMCs; stimulates {PNMT} (norepinephrine → epinephrine). Without cortisol → {hypotension}.',
+        h:'Permissive cardiovascular effect: vasopressors cannot maintain BP without adequate cortisol. Adrenal crisis = life-threatening hypotension.' },
+      { t:'Anti-Inflammatory Mechanisms',
+        b:'Cortisol inhibits {phospholipase A2} (PLA2) via glucocorticoid-inducible protein {lipocortin}, reducing arachidonic acid → prostanoid production. Also inhibits {COX-1 and COX-2} (lesser degree). Inhibits activation of {NFκB}, blocking transcription of proinflammatory cytokines. Stimulates anti-inflammatory cytokines: {IL-4}, {IL-10}, {IL-13}.',
+        h:'PLA2 inhibition = primary anti-inflammatory mechanism of GCs. This is more upstream and potent than NSAIDs (which only inhibit COX). Explains why GCs are used for severe inflammation.' },
+      { t:'Immune, Skin, & Bone Effects',
+        b:'Immune: inhibits {neutrophil transmigration} (↑ blood neutrophil count, ↓ tissue neutrophils); induces apoptosis of {lymphoid and myeloid cells} → immunosuppression. Skin: inhibits {epidermal cell proliferation} and {fibroblast proliferation/collagen synthesis} → thin skin, easy bruising. Bone: inhibits {osteoblasts}, activates {osteoclasts}, induces {osteocyte apoptosis} → demineralization.',
+        h:'Cushing\'s classic triad of thin skin + easy bruising + osteoporosis is mechanistically explained by these effects. Immunosuppression explains infection susceptibility in Cushing\'s.' },
+      { t:'Why Cortisol Is Indispensable for Life',
+        b:'Cortisol affects all {nucleated cells} through direct or permissive effects. It is essential for maintaining homeostasis at rest and under stressors (physical or psychological). Without cortisol: {hypoglycemia}, {hypotension}, {immune hyperactivity}, failure to respond to stressors — leading to circulatory collapse, coma, and death within {one week}. Cortisol impacts {mood}, {cognitive function}, and {memory} as well.',
+        h:'Cortisol and aldosterone together are described as "essential for life" — adrenal insufficiency requires immediate corticosteroid replacement therapy.' }
+    ]
+  },
+  lo1: {
+    label:'LO 1', sub:'Adrenal Medulla & Epinephrine', type:'LO',
+    cards:[
+      { t:'Adrenal Medulla — Structure & Role',
+        b:'The adrenal medulla is a post-ganglionic division of the {sympathetic nervous system} (SNS). It stimulates {chromaffin cells} to release {epinephrine} (80%) and {norepinephrine} (20%) into systemic circulation for the "fight or flight" response. This response is critically dependent on adequate levels of {cortisol}.',
+        h:'Chromaffin cells are modified post-ganglionic sympathetic neurons. Acetylcholine from preganglionic fibers triggers catecholamine release. Cortisol reaches the medulla at very high concentrations via intra-adrenal portal circulation.' },
+      { t:'PNMT & Cortisol-Dependent Epinephrine Synthesis',
+        b:'Cortisol stimulates production of {phenylethanolamine-N-methyltransferase} (PNMT) in the adrenal medulla. PNMT catalyzes the conversion of {norepinephrine} to {epinephrine}. Without adequate cortisol → insufficient PNMT → reduced epinephrine production → blunted {fight or flight} response. This explains why adrenal insufficiency impairs acute stress responses.',
+        h:'Cortisol ↑ PNMT → ↑ epinephrine synthesis. Adrenal insufficiency = both cortisol and epinephrine deficiencies during acute stress — doubly dangerous.' },
+      { t:'Epinephrine Feedback on the HPA Axis',
+        b:'Epinephrine released from the adrenal medulla subsequently enhances secretion of {CRH} by the {hypothalamus}, increasing activity of the HPA axis. This forms a {positive feedback loop} between the adrenal medulla and HPA axis during acute stress, amplifying the cortisol response.',
+        h:'Stress → SNS → epinephrine → ↑CRH → ↑ACTH → ↑cortisol → ↑PNMT → more epinephrine. A coordinated, self-amplifying response to acute threat.' }
+    ]
+  },
+  lo2: {
+    label:'LO 2', sub:'Cortisol Transport & CBG', type:'LO',
+    cards:[
+      { t:'Corticosteroid-Binding Globulin (CBG)',
+        b:'{CBG} (corticosteroid-binding globulin, aka transcortin) is produced by {hepatocytes} and binds {80–90%} of plasma cortisol, serving as a {reservoir}. The HPA axis normally adjusts to maintain {free cortisol} within normal limits when CBG changes. Exception 1: {inflammation} reduces CBG → more free cortisol temporarily. Exception 2: {pregnancy} — elevated estrogens stimulate CBG production → ↑total cortisol, but HPA adjusts.',
+        h:'Measuring total serum cortisol can be misleading. Low CBG (e.g., cirrhosis) → low total cortisol but normal free cortisol — patient not hypocortisolic.' },
+      { t:'Cortisone vs Cortisol — Clinical & Historical',
+        b:'Cortisone is {biologically inactive} until converted to active {cortisol} by {hepatocytes} via 11-HSD1. A "cortisone injection" is clinically imprecise — it refers to injection of {hydrocortisone} (cortisol) or a synthetic GC. Historically: compound E ({cortisone}) required hepatic activation; compound F ({cortisol}) was approved by the FDA in {1952}. Philip Hench and Edward Kendall won the Nobel Prize in {1950} for their discovery.',
+        h:'Hench noted RA patients improved during pregnancy, jaundice, and surgical stress — all raise cortisol. This led him to suspect an adrenal-origin hormone — eventually identified as cortisol.' }
+    ]
+  },
+  lo3: {
+    label:'LO 3', sub:'11-HSD Enzymes & Cortisol Metabolism', type:'LO',
+    cards:[
+      { t:'11-HSD1 — Reversible Activation',
+        b:'{11-HSD1} is expressed in {liver, skin, skeletal muscle, adipocytes, and leukocytes}. It catalyzes a {reversible} reaction: cortisol ↔ cortisone. Importantly, in the liver it converts administered {cortisone} to active {cortisol} — explaining why cortisone prodrugs work. Most cortisol is modified by hepatocytes and excreted in urine. A small amount of {free cortisol} is excreted unchanged — the basis of the {urinary free cortisol (UFC) test} for Cushing\'s disease.',
+        h:'11-HSD1 in liver acts as a "cortisone activator." Elevated UFC = excess cortisol bypassing hepatic inactivation → reliable diagnostic for Cushing\'s.' },
+      { t:'11-HSD2 — Irreversible Renal Protection',
+        b:'{11-HSD2} is expressed exclusively in the {distal nephron (kidney)}. It catalyzes an {irreversible} reaction: cortisol → cortisone. This prevents cortisol from occupying and activating the {aldosterone receptor (GR1)}. Inhibition of 11-HSD2 → cortisol activates GR1 → {sodium and water retention, hypertension, hypokalemia} — known as {apparent mineralocorticoid excess (AME)}.',
+        h:'Without 11-HSD2 protection, cortisol (produced at >>aldosterone levels) would overwhelm GR1 receptors, causing constant mineralocorticoid effects.' },
+      { t:'Glycyrrhetinic Acid (Black Licorice)',
+        b:'{Glycyrrhetinic acid}, found in {black licorice}, inhibits both {11-HSD1} and {11-HSD2}. Inhibiting 11-HSD2 in the kidney leads to {apparent mineralocorticoid excess} (AME) — sodium retention, hypertension, and hypokalemia — from cortisol activating {GR1}. Has been used historically as a natural anti-inflammatory (via 11-HSD1 inhibition), but with risk of cardiovascular side effects at high doses.',
+        h:'Clinical pearl: hypertension + hypokalemia + low aldosterone → ask about licorice consumption. Also seen in 11-HSD2 deficiency (congenital AME syndrome).' },
+      { t:'11-HSD Enzymes Comparison — Table Quiz',
+        b:`<div class="tblq-note"><div class="tblq-copy">Table quiz — the Enzyme column stays visible. Reveal location, reaction type, and clinical significance.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Enzyme</th><th>Location</th><th>Reaction</th><th>Clinical Significance</th></tr></thead><tbody><tr><th scope="row">11-HSD1</th><td>{Liver, skin, muscle, adipose, leukocytes}</td><td>{Cortisol ↔ Cortisone (reversible)}</td><td>{Activates cortisone → cortisol; elevated UFC in Cushing's}</td></tr><tr><th scope="row">11-HSD2</th><td>{Distal nephron (kidney) only}</td><td>{Cortisol → Cortisone (irreversible)}</td><td>{Protects GR1 from cortisol; inhibited by glycyrrhetinic acid → AME}</td></tr></tbody></table></div>`,
+        h:'Both enzymes inhibited by glycyrrhetinic acid in black licorice. 11-HSD1 inhibitors are being investigated as treatments for metabolic syndrome.' }
+    ]
+  },
+  lo4: {
+    label:'LO 4', sub:'HPA Axis Dysregulation', type:'LO',
+    cards:[
+      { t:"Addison's Disease — Primary Adrenal Insufficiency",
+        b:"{Addison's Disease} is primary adrenocortical insufficiency caused by damage to the {adrenal cortex}, most commonly by {autoimmune disease} (~80%), but also infections, trauma, neoplasms, or genetic mutations. Both cortisol AND {aldosterone} are diminished. Loss of negative feedback → elevated {plasma ACTH} (key diagnostic). High ACTH stimulates {MCR1} in melanocytes → {hyperpigmentation}.",
+        h:'JFK had Addison\'s as part of Autoimmune Polyglandular Syndrome II (APS-2), which also included thyroid and other autoimmune diseases. Thomas Addison described it in 1855 from patients with "diseased suprarenal capsules."' },
+      { t:'Secondary Adrenal Insufficiency',
+        b:'Secondary adrenocortical insufficiency results from insufficient {ACTH} (not a primary adrenal problem), leading to diminished {cortisol} production. Key diagnostic: {reduced plasma ACTH} (opposite of primary Addison\'s). Causes: {autoimmune disease}, head trauma, {pituitary tumors}, or sudden {withdrawal of exogenous glucocorticoid therapy}. Aldosterone is {normal} in secondary insufficiency (ACTH does not regulate aldosterone).',
+        h:'Primary (Addison\'s) = ↑ACTH, ↓cortisol, ↓aldosterone, hyperpigmentation. Secondary = ↓ACTH, ↓cortisol, normal aldosterone, no hyperpigmentation.' },
+      { t:'Symptoms of Adrenal Insufficiency',
+        b:'Symptoms of cortisol deficiency: {hypoglycemia} (loss of gluconeogenesis support), {hypotension} (loss of vasopressor permissive effects), {muscular weakness} and fatigue, {cognitive deficits}, failure to respond to stressors, {immune hyperactivity}. If primary: {hyperpigmentation} (↑ACTH/MSH). Untreated → circulatory collapse, coma, and {death within one week}.',
+        h:'Each symptom has a direct mechanistic basis from the normal physiological roles of cortisol. Salt-wasting from aldosterone deficiency also causes hypotension in primary (Addison\'s) but not secondary insufficiency.' },
+      { t:"Cushing's Syndrome — Overview & Causes",
+        b:"{Cushing's Syndrome} = chronic supraphysiological glucocorticoid effects; the most common adrenal disorder. Most common cause: {exogenous/iatrogenic glucocorticoid therapy}. {Cushing's Disease} (specific) = excess ACTH from a {pituitary adenoma} → secondary hypercortisolism; cortisol unable to suppress ACTH; plasma ACTH and cortisol both {dramatically elevated}. Can be suppressed by {high-dose dexamethasone}. Rare causes: ectopic ACTH from neuroendocrine tumors; primary adrenal {neoplasms} (ACTH-independent).",
+        h:'High-dose dexamethasone suppression test: suppresses pituitary Cushing\'s (responsive to feedback) but NOT ectopic ACTH tumors or adrenal adenomas — used to distinguish causes.' },
+      { t:"Cushing's Syndrome — Symptoms & ACTH Suppression",
+        b:"Cushing's symptoms: {obesity} with central fat redistribution, {diabetes} (insulin resistance), {hypertension}, {buffalo hump} (dorsocervical fat), {moon face} (facial adiposity), {thinning of skin}, easy {bruising}, osteoporosis, immunosuppression. In primary and iatrogenic Cushing's, high cortisol completely inhibits {ACTH} production; lack of trophic ACTH → {adrenal atrophy}. Risk: stopping exogenous GCs abruptly → {adrenal crisis}.",
+        h:'Iatrogenic Cushing\'s is most common (from GC therapy). Adrenal atrophy during therapy means the patient\'s HPA axis cannot recover quickly — must taper GC therapy slowly.' },
+      { t:"Adrenal Insufficiency Comparison — Table Quiz",
+        b:`<div class="tblq-note"><div class="tblq-copy">Table quiz — Feature column stays visible. Compare primary (Addison's) vs secondary adrenal insufficiency and Cushing's syndrome.</div><div class="tblq-actions"><span class="tblq-pill">Quiz Mode On</span></div></div><div class="tblq-wrap"><table class="tblq"><thead><tr><th>Feature</th><th>Primary (Addison's)</th><th>Secondary</th><th>Cushing's Syndrome</th></tr></thead><tbody><tr><th scope="row">Cortisol</th><td>{Low}</td><td>{Low}</td><td>{High}</td></tr><tr><th scope="row">ACTH</th><td>{High ↑ (no feedback)}</td><td>{Low ↓}</td><td>{Low (primary/iatrogenic) or High (pituitary/ectopic)}</td></tr><tr><th scope="row">Aldosterone</th><td>{Low (adrenal damage)}</td><td>{Normal (not ACTH-regulated)}</td><td>{Normal or low}</td></tr><tr><th scope="row">Hyperpigmentation</th><td>{Yes — ↑ACTH → MCR1}</td><td>{No — ACTH is low}</td><td>{No (unless ectopic ACTH)}</td></tr><tr><th scope="row">Blood Pressure</th><td>{Low (hypotension)}</td><td>{Low}</td><td>{High (hypertension)}</td></tr><tr><th scope="row">Blood Glucose</th><td>{Low (hypoglycemia)}</td><td>{Low}</td><td>{High (diabetes/insulin resistance)}</td></tr></tbody></table></div>`,
+        h:'Ectopic ACTH tumors produce very high ACTH → hyperpigmentation despite Cushing\'s syndrome — useful distinguishing feature. High-dose dexamethasone: suppresses pituitary Cushing\'s but NOT ectopic or primary.' }
+    ]
+  }
 };
 
-const LINKS={
-  'ACTH':['hpa','HPA Axis','amber'],
-  'CRH':['hpa','HPA Axis','amber'],
-  'MC2R':['hpa','HPA Axis','amber'],
-  'negative feedback':['hpa','HPA Axis','amber'],
-  'cortisol':['zones','Zones & Synth','amber'],
-  'aldosterone':['zones','Zones & Synth','amber'],
-  'PNMT':['effects','Effects','amber'],
-  'epinephrine':['effects','Effects','amber'],
-  'gluconeogenesis':['effects','Effects','amber'],
-  'NF-κB activation':['effects','Effects','amber'],
-  'hyperpigmentation':['insuff','Insufficiency','teal'],
-  'adrenal atrophy':['cushing','Cushing','teal'],
-  'mineralocorticoid receptor':['hsd','11β-HSD','teal'],
-  '11β-HSD2':['hsd','11β-HSD','teal'],
-  'hypotension':['insuff','Insufficiency','teal'],
-  'pituitary adenoma':['cushing','Cushing','teal'],
-  'excess cortisol':['cushing','Cushing','teal'],
-  'α-MSH':['hpa','HPA Axis','amber'],
-  'corticotroph cells':['hpa','HPA Axis','amber']
+const LINKS = {
+  'cholesterol':['plo1','PLO 1','amber'], 'Cholesterol':['plo1','PLO 1','amber'],
+  'pregnenolone':['plo1','PLO 1','amber'], 'Pregnenolone':['plo1','PLO 1','amber'],
+  'ACTH':['plo2','PLO 2','amber'], 'CRH':['plo2','PLO 2','amber'],
+  'POMC':['plo2','PLO 2','amber'],
+  'GR1':['plo3','PLO 3','amber'], 'GR2':['plo3','PLO 3','amber'],
+  'CBG':['lo2','LO 2','teal'],
+  'corticosteroid-binding globulin':['lo2','LO 2','teal'],
+  'epinephrine':['lo1','LO 1','teal'], 'Epinephrine':['lo1','LO 1','teal'],
+  'norepinephrine':['lo1','LO 1','teal'],
+  'PNMT':['lo1','LO 1','teal'],
+  '11-HSD1':['lo3','LO 3','teal'], '11-HSD2':['lo3','LO 3','teal'],
+  'apparent mineralocorticoid excess (AME)':['lo3','LO 3','teal'],
+  'hyperpigmentation':['lo4','LO 4','teal'],
+  'gluconeogenesis':['plo4','PLO 4','amber'],
+  'NFκB':['plo4','PLO 4','amber'],
+  'lipocortin':['plo4','PLO 4','amber'],
 };
 
-const DECK_ID='morganelli_hpa_cortisol';
-const THEME_STORAGE_KEY=`${DECK_ID}_theme`;
-
-function setTheme(theme){
-  const next=theme||'slate';
-  if(next==='slate') document.documentElement.removeAttribute('data-theme');
-  else document.documentElement.setAttribute('data-theme',next);
-  document.querySelectorAll('.theme-btn').forEach(btn=>{
-    btn.classList.toggle('active',btn.dataset.theme===next);
-  });
-  try{localStorage.setItem(THEME_STORAGE_KEY,next);}catch(e){}
-}
-
-try{
-  setTheme(localStorage.getItem(THEME_STORAGE_KEY)||'slate');
-}catch(e){
-  setTheme('slate');
-}
-
-document.getElementById('deckMeta').textContent=`Active recall map · ${Object.keys(D).length} topics · ${Object.values(D).reduce((n,node)=>n+node.cards.length,0)} cards`;
-
-// ═══════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════
+/* ── STATE ── */
 let cur=null, ci=0;
-let tr={};       // tr[nid][cardIdx] = Set<termIdx>
-let sc={};       // sc[nid][cardIdx][termIdx] = 'knew'|'needed'
+let tr={}, sc={};
 let done=new Set();
 let totRev=0, totKnew=0, totNeed=0;
 let revQueue=[], revIdx=0, revTr={};
-const PROGRESS_COOKIE=`${DECK_ID}_progress_v1`;
 
-// ═══════════════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════════════
-function nT(b){return(b.match(/\{[^}]+\}/g)||[]).length}
-
+/* ── INIT ── */
 function initNode(id){
-  if(!tr[id]){
-    tr[id]={};sc[id]={};
-    D[id].cards.forEach((_,i)=>{tr[id][i]=new Set();sc[id][i]={}});
+  if(!tr[id]){tr[id]={}; sc[id]={};}
+  const n=D[id].cards.length;
+  for(let i=0;i<n;i++){
+    if(!tr[id][i]) tr[id][i]=new Set();
+    if(!sc[id][i]) sc[id][i]={};
   }
 }
 
-function setCookie(name,value,days){
-  const maxAge=days*24*60*60;
-  document.cookie=`${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax`;
+/* ── SELECT NODE ── */
+function selNode(id){
+  if(cur===id){closePanel();return;}
+  cur=id; ci=0;
+  initNode(id);
+  const node=D[id];
+  const panel=document.getElementById('cardPanel');
+  const lbl=document.getElementById('panelLabel');
+  lbl.textContent=node.label;
+  lbl.className='panel-label '+(node.type==='PLO'?'pl-amber':'pl-teal');
+  document.getElementById('panelTitle').textContent=node.sub;
+  panel.classList.add('open');
+  document.getElementById('btnRevTopic').disabled=false;
+  render();
+}
+function closePanel(){
+  document.getElementById('cardPanel').classList.remove('open');
+  cur=null;
+  document.getElementById('btnRevTopic').disabled=true;
 }
 
-function getCookie(name){
-  const prefix=`${name}=`;
-  return document.cookie.split('; ').reduce((found,part)=>{
-    if(found!==null) return found;
-    return part.indexOf(prefix)===0 ? decodeURIComponent(part.slice(prefix.length)) : null;
-  },null);
+/* ── RENDER ── */
+function countTerms(body){
+  return(body.match(/\{([^}]+)\}/g)||[]).length;
 }
-
-function clearCookie(name){
-  document.cookie=`${name}=; path=/; max-age=0; SameSite=Lax`;
-}
-
-function serializeProgress(){
-  const state={c:cur||'',i:ci||0,r:{},s:{}};
-  Object.keys(tr).forEach(nid=>{
-    const rows=D[nid].cards.map((_,cardIdx)=>{
-      const set=tr[nid][cardIdx];
-      return set&&set.size ? Array.from(set).sort((a,b)=>a-b).join('.') : '';
-    });
-    if(rows.some(Boolean)) state.r[nid]=rows;
+function render(){
+  if(!cur)return;
+  initNode(cur);
+  const cards=D[cur].cards;
+  const card=cards[ci];
+  document.getElementById('cardTitle').textContent=card.t;
+  document.getElementById('cardText').innerHTML=parseBody(card.b,cur,ci,{});
+  const hint=document.getElementById('cardHint');
+  if(card.h){hint.textContent=card.h;hint.style.display='block';}
+  else{hint.style.display='none';}
+  document.getElementById('cardCounterTxt').textContent=`Card ${ci+1} / ${cards.length}`;
+  document.getElementById('btnPrev').disabled=(ci===0);
+  document.getElementById('btnNext').disabled=(ci===cards.length-1);
+  // progress dots
+  const dotsEl=document.getElementById('progressDots');
+  dotsEl.innerHTML='';
+  cards.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='dot';
+    const n=countTerms(cards[i].b);
+    const rev=(tr[cur][i]||new Set()).size;
+    if(rev>0&&rev<n) d.classList.add('partial');
+    else if(n>0&&rev>=n) d.classList.add('done');
+    d.onclick=((idx)=>()=>{ci=idx;render();})(i);
+    d.style.cursor='pointer';
+    dotsEl.appendChild(d);
   });
-  Object.keys(sc).forEach(nid=>{
-    const rows=D[nid].cards.map((_,cardIdx)=>{
-      const obj=sc[nid][cardIdx]||{};
-      const packed=Object.keys(obj).sort((a,b)=>parseInt(a)-parseInt(b)).map(idx=>`${idx}${obj[idx]==='knew'?'k':'n'}`).join('.');
-      return packed;
-    });
-    if(rows.some(Boolean)) state.s[nid]=rows;
-  });
-  return JSON.stringify(state);
+  updateCardActions();
+  updateStats();
 }
 
-function saveProgress(){
-  try{
-    setCookie(PROGRESS_COOKIE,serializeProgress(),180);
-  }catch(e){}
-}
-
-function loadProgress(){
-  const raw=getCookie(PROGRESS_COOKIE);
-  if(!raw) return;
-  try{
-    const state=JSON.parse(raw);
-    tr={};sc={};
-
-    Object.keys(D).forEach(nid=>{
-      initNode(nid);
-      const revealedRows=(state.r&&state.r[nid])||[];
-      revealedRows.forEach((row,cardIdx)=>{
-        if(!row) return;
-        row.split('.').forEach(v=>{
-          if(v==='') return;
-          tr[nid][cardIdx].add(parseInt(v,10));
-        });
-      });
-
-      const scoredRows=(state.s&&state.s[nid])||[];
-      scoredRows.forEach((row,cardIdx)=>{
-        if(!row) return;
-        row.split('.').forEach(token=>{
-          if(!token) return;
-          const score=token.slice(-1)==='k' ? 'knew' : 'needed';
-          const idx=parseInt(token.slice(0,-1),10);
-          if(!Number.isNaN(idx)) sc[nid][cardIdx][idx]=score;
-        });
-      });
-    });
-
-    if(state.c&&D[state.c]){
-      cur=state.c;
-      ci=Math.max(0,Math.min(D[cur].cards.length-1,parseInt(state.i,10)||0));
-    }
-  }catch(e){
-    clearCookie(PROGRESS_COOKIE);
-  }
-}
-
-function cardMetrics(nid,cidx){
-  initNode(nid);
-  const total=nT(D[nid].cards[cidx].b);
-  const revealed=tr[nid][cidx].size;
-  let unscored=0, knew=0, needed=0;
-  for(let i=0;i<total;i++){
-    const score=sc[nid][cidx][i];
-    if(score==='knew') knew++;
-    else if(score==='needed') needed++;
-    else if(tr[nid][cidx].has(i)) unscored++;
-  }
-  return {total,revealed,unscored,knew,needed,allRevealed:total>0&&revealed>=total};
-}
-
-function parseBody(body, nid, cidx, opts={}){
-  // opts: {forReview, targetTermIdx}
+/* ── PARSE BODY ── */
+function parseBody(body,nid,cidx,opts){
+  if(body.includes('<div class="tblq')) return parseTblq(body,nid,cidx,opts);
   let i=0;
   return body.replace(/\{([^}]+)\}/g,(_,t)=>{
     const idx=i++;
-    let revealed, scored;
-
+    const revealed=(opts.forReview ? (opts.revealedSet&&opts.revealedSet.has(idx)) : (tr[nid]&&tr[nid][cidx]&&tr[nid][cidx].has(idx)));
+    const scored=(sc[nid]&&sc[nid][cidx]&&sc[nid][cidx][idx]);
+    const isTarget=opts.forReview&&idx===opts.targetTermIdx;
     if(opts.forReview){
-      revealed=opts.revealedSet ? opts.revealedSet.has(idx) : false;
-      scored=null;
-    } else {
-      revealed=tr[nid]&&tr[nid][cidx]&&tr[nid][cidx].has(idx);
-      scored=revealed&&sc[nid]&&sc[nid][cidx] ? (sc[nid][cidx][idx]||null) : null;
+      if(isTarget){
+        const cls=revealed?'occ unscored':'occ';
+        return `<span class="${cls}" onclick="revealReviewTerm(${idx})">${t}</span>`;
+      }
+      return `<span style="color:var(--text-2)">${t}</span>`;
     }
-
-    const link=LINKS[t];
-    const showJump=revealed&&link&&link[0]!==nid;
-    const isTarget=opts.forReview&&opts.targetTermIdx===idx;
-
+    // normal mode
     let cls='occ';
-    if(revealed||isTarget){
-      if(scored==='knew') cls+=' rev';
-      else if(scored==='needed') cls+=' needed';
-      else cls+=' unscored';
+    if(revealed){
+      if(scored==='knew') cls='occ rev';
+      else if(scored==='needed') cls='occ needed';
+      else cls='occ unscored';
     }
-
-    const da=opts.forReview?'':`data-nid="${nid}" data-ci="${cidx}" data-i="${idx}"`;
-    const onclick=(!revealed&&!opts.forReview)?` onclick="revTerm(this)"`
-      :(opts.forReview&&isTarget&&!opts.revealedSet?.has(idx))?' onclick="revRevTerm(this)"':'';
-
-    let html=`<span class="${cls}"${da}${onclick}>${t}</span>`;
-
-    if(revealed&&!scored&&!opts.forReview){
-      html+=`<span class="score-row" data-nid="${nid}" data-ci="${cidx}" data-i="${idx}">`+
-        `<button class="sbtn know" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button>`+
-        `<button class="sbtn need" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button>`+
-        `</span>`;
+    let html=`<span class="${cls}" onclick="revealTerm(event,'${nid}',${cidx},${idx})">${t}</span>`;
+    if(revealed&&!scored){
+      html+=`<span class="score-row"><button class="sc-btn sc-knew" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button><button class="sc-btn sc-need" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button></span>`;
     }
-    if(showJump){
-      html+=`<span class="jump ${link[2]}" onclick="jumpNode('${link[0]}',event)" title="Jump to ${link[1]}">→ ${link[1]}</span>`;
+    if(revealed&&LINKS[t]&&LINKS[t][0]!==nid){
+      const lk=LINKS[t];
+      html+=`<a class="jump-link" onclick="selNode('${lk[0]}')" style="border-color:var(--${lk[2]}-mid);color:var(--${lk[2]});background:var(--${lk[2]}-soft)">→ ${lk[1]}</a>`;
     }
     return html;
   });
 }
 
-// ═══════════════════════════════════════════════════
-// RENDER
-// ═══════════════════════════════════════════════════
-function render(){
-  const d=D[cur].cards[ci];
-  const m=cardMetrics(cur,ci);
-
-  // Dots
-  document.getElementById('dots').innerHTML=D[cur].cards.map((_,i)=>{
-    const tot=nT(D[cur].cards[i].b),got=tr[cur][i].size;
-    const cls=i===ci?'active':got>=tot&&tot>0?'done':got>0?'partial':'';
-    return `<span class="dot ${cls}"></span>`;
-  }).join('');
-
-  document.getElementById('cnt').textContent=`${ci+1} / ${D[cur].cards.length}`;
-  document.getElementById('bprev').disabled=ci===0;
-  document.getElementById('bnext').disabled=ci===D[cur].cards.length-1;
-  document.getElementById('revealTopicBtn').disabled=!cur;
-
-  document.getElementById('ccard').innerHTML=
-    `<div class="ctitle">${d.t}</div>`+
-    `<div class="cbody">${parseBody(d.b,cur,ci)}</div>`+
-    (d.h?`<div class="hint"><span class="hlbl">Clinical note</span>${d.h}</div>`:'');
-
-  document.getElementById('cardActions').innerHTML=
-    `<div class="card-meta">`+
-      `<span class="meta-pill"><strong>${m.revealed}</strong> / ${m.total} revealed</span>`+
-      `<span class="meta-pill"><strong>${m.knew}</strong> knew</span>`+
-      `<span class="meta-pill"><strong>${m.needed}</strong> needed help</span>`+
-      (m.unscored?`<span class="meta-pill"><strong>${m.unscored}</strong> waiting to score</span>`:'')+
-    `</div>`+
-    `<div class="action-row">`+
-      `<button class="action-btn primary" onclick="revealAll()" ${m.total===0||m.allRevealed?'disabled':''}>Reveal this card</button>`+
-      `<button class="action-btn amber" onclick="knewAllCurrentCard()" ${!m.allRevealed?'disabled':''}>Knew all</button>`+
-      `<button class="action-btn ghost" onclick="resetCard()" ${m.revealed===0&&m.knew===0&&m.needed===0?'disabled':''}>Reset this card</button>`+
-    `</div>`;
-}
-
-function renderReview(){
-  if(!revQueue.length) return;
-  const q=revQueue[revIdx];
-  const revSet=revTr[revIdx]||new Set();
-
-  document.getElementById('rprog').textContent=`${revIdx+1} / ${revQueue.length}`;
-  document.getElementById('rcnt').textContent=`${revIdx+1} / ${revQueue.length}`;
-  document.getElementById('rsub').innerHTML=
-    `<strong>${D[q.nid].label} — ${q.card.t}</strong><br>`+
-    `Term to recall: <span style="color:var(--amber)">${q.term}</span>`;
-  document.getElementById('rbprev').disabled=revIdx===0;
-  document.getElementById('rbnext').disabled=revIdx===revQueue.length-1;
-
-  // Build card body: only the target term is blanked; others shown in dim text
+function parseTblq(body,nid,cidx,opts){
   let i=0;
-  const body=q.card.b.replace(/\{([^}]+)\}/g,(_,t)=>{
+  return body.replace(/\{([^}]+)\}/g,(_,t)=>{
     const idx=i++;
-    const isTarget=idx===q.tidx;
-    const isRevealed=revSet.has(idx);
-    if(isTarget){
-      if(isRevealed){
-        return `<span class="occ needed">${t}</span>`;
-      } else {
-        return `<span class="occ" onclick="revRevTerm()" style="cursor:pointer">${t}</span>`;
-      }
+    const revealed=(opts.forReview ? (opts.revealedSet&&opts.revealedSet.has(idx)) : (tr[nid]&&tr[nid][cidx]&&tr[nid][cidx].has(idx)));
+    const scored=(sc[nid]&&sc[nid][cidx]&&sc[nid][cidx][idx]);
+    let cls='occ';
+    if(revealed){
+      if(scored==='knew') cls='occ rev';
+      else if(scored==='needed') cls='occ needed';
+      else cls='occ unscored';
     }
-    return `<span style="color:var(--text-2)">${t}</span>`;
+    let html=`<span class="${cls}" onclick="revealTerm(event,'${nid}',${cidx},${idx})">${t}</span>`;
+    if(revealed&&!scored&&!opts.forReview){
+      html+=`<div class="score-row"><button class="sc-btn sc-knew" onclick="scoreIt(event,'${nid}',${cidx},${idx},'knew')">✓ knew</button><button class="sc-btn sc-need" onclick="scoreIt(event,'${nid}',${cidx},${idx},'needed')">✗ needed</button></div>`;
+    }
+    return html;
   });
-
-  document.getElementById('rccard').innerHTML=
-    `<div class="ctitle">${q.card.t}</div>`+
-    `<div class="cbody">${body}</div>`+
-    (q.card.h?`<div class="hint"><span class="hlbl">Clinical note</span>${q.card.h}</div>`:'');
 }
 
-// ═══════════════════════════════════════════════════
-// INTERACTIONS
-// ═══════════════════════════════════════════════════
-function selNode(id){
-  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
-  document.getElementById('n-'+id).classList.add('sel-node');
-  cur=id;ci=0;
-  initNode(id);
-  const p=document.getElementById('panel');
-  p.classList.add('open');
-  const d=D[id];
-  const b=document.getElementById('bdg');
-  b.textContent=d.label;
-  b.className='badge '+(d.type==='PLO'?'b-plo':'b-lo');
-  document.getElementById('ptitle').textContent=d.sub;
-  render();
-  saveProgress();
-  p.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
-function jumpNode(id,e){
+/* ── REVEAL TERM ── */
+function revealTerm(e,nid,cidx,tidx){
   e.stopPropagation();
-  selNode(id);
-}
-
-function revTerm(s){
-  if(s.classList.contains('rev')||s.classList.contains('needed')||s.classList.contains('unscored')) return;
-  const nid=s.dataset.nid,cidx=parseInt(s.dataset.ci),tidx=parseInt(s.dataset.i);
   initNode(nid);
+  if(tr[nid][cidx].has(tidx)) return;
   tr[nid][cidx].add(tidx);
   totRev++;
-  updStats();
-  render();
+  if(nid===cur&&cidx===ci) render();
+  else updateStats();
+  checkDone(nid);
+  saveProgress();
 }
 
+/* ── SCORE ── */
 function scoreIt(e,nid,cidx,tidx,score){
   e.stopPropagation();
-  if(sc[nid][cidx][tidx]) return; // already scored
+  if(sc[nid][cidx][tidx]) return;
   sc[nid][cidx][tidx]=score;
   if(score==='knew') totKnew++;
   else totNeed++;
-  chkDone(nid);
-  updStats();
-  render();
+  if(nid===cur&&cidx===ci) render();
+  else updateStats();
+  saveProgress();
 }
 
-function revealAll(){
-  const d=D[cur].cards[ci];
-  const n=nT(d.b);
+/* ── CARD ACTIONS ── */
+function cardMetrics(){
+  if(!cur) return {total:0,revealed:0,unscored:0,knew:0,needed:0,allRevealed:false};
+  initNode(cur);
+  const body=D[cur].cards[ci].b;
+  const total=countTerms(body);
+  const revSet=tr[cur][ci]||new Set();
+  const revealed=revSet.size;
+  let knew=0,needed=0,unscored=0;
+  revSet.forEach(tidx=>{
+    const s=sc[cur][ci][tidx];
+    if(s==='knew') knew++;
+    else if(s==='needed') needed++;
+    else unscored++;
+  });
+  return{total,revealed,unscored,knew,needed,allRevealed:(total>0&&revealed>=total)};
+}
+function updateCardActions(){
+  const m=cardMetrics();
+  const pills=document.getElementById('metaPills');
+  pills.innerHTML='';
+  const add=(txt,cls)=>{const p=document.createElement('span');p.className='meta-pill '+cls;p.textContent=txt;pills.appendChild(p);};
+  add(`${m.revealed}/${m.total} revealed`,'p-rev');
+  if(m.knew>0) add(`${m.knew} knew`,'p-knew');
+  if(m.needed>0) add(`${m.needed} needed help`,'p-need');
+  if(m.unscored>0) add(`${m.unscored} to score`,'p-wait');
+  document.getElementById('btnRevealCard').disabled=(m.total===0||m.allRevealed);
+  document.getElementById('btnKnewAll').disabled=!m.allRevealed;
+  document.getElementById('btnResetCard').disabled=(m.revealed===0&&m.knew===0&&m.needed===0);
+}
+
+function revealCard(){
+  if(!cur) return;
+  initNode(cur);
+  const body=D[cur].cards[ci].b;
+  const n=countTerms(body);
   for(let i=0;i<n;i++){
     if(!tr[cur][ci].has(i)){tr[cur][ci].add(i);totRev++;}
   }
-  chkDone(cur);updStats();render();
+  checkDone(cur);
+  render();
+  saveProgress();
 }
-
 function knewAllCurrentCard(){
   if(!cur) return;
   initNode(cur);
-  const n=nT(D[cur].cards[ci].b);
+  const body=D[cur].cards[ci].b;
+  const n=countTerms(body);
   for(let i=0;i<n;i++){
-    if(!tr[cur][ci].has(i)){
-      tr[cur][ci].add(i);
-      totRev++;
-    }
     const prev=sc[cur][ci][i];
+    if(prev==='knew') continue;
     if(prev==='needed') totNeed--;
-    if(prev!=='knew') totKnew++;
     sc[cur][ci][i]='knew';
+    totKnew++;
   }
-  chkDone(cur);
-  updStats();
-  render();
-}
-
-function revealNodeCards(nid){
-  initNode(nid);
-  D[nid].cards.forEach((card,cidx)=>{
-    const n=nT(card.b);
-    for(let i=0;i<n;i++){
-      if(!tr[nid][cidx].has(i)){
-        tr[nid][cidx].add(i);
-        totRev++;
-      }
-    }
-    chkDone(nid);
-  });
-}
-
-function revealTopic(){
-  if(!cur) return;
-  revealNodeCards(cur);
-  updStats();
-  render();
-}
-
-function revealDeck(){
-  Object.keys(D).forEach(nid=>revealNodeCards(nid));
-  updStats();
-  if(cur) render();
-}
-
-function goCard(dir){
-  ci=Math.max(0,Math.min(D[cur].cards.length-1,ci+dir));
   render();
   saveProgress();
 }
-
-function closePanel(){
-  document.getElementById('panel').classList.remove('open');
-  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
-  cur=null;
-  document.getElementById('revealTopicBtn').disabled=true;
-  saveProgress();
-}
-
-function chkDone(id){
-  const all=D[id].cards.every((_,i)=>{
-    const t=nT(D[id].cards[i].b);
-    return t===0||tr[id][i].size>=t;
-  });
-  if(all){
-    done.add(id);
-    document.getElementById('n-'+id).classList.add('done-node');
-  }
-}
-
-function countNeeded(){
-  let n=0;
-  Object.keys(sc).forEach(nid=>Object.keys(sc[nid]).forEach(cidx=>
-    Object.values(sc[nid][cidx]).forEach(v=>{if(v==='needed')n++})
-  ));
-  return n;
-}
-
-function updStats(){
-  document.getElementById('st-rev').textContent=totRev;
-  document.getElementById('st-knew').textContent=totKnew;
-  document.getElementById('st-need').textContent=totNeed;
-  document.getElementById('st-done').textContent=done.size;
-  const n=countNeeded();
-  document.getElementById('rcount').textContent=n;
-  document.getElementById('reviewBtn').classList.toggle('vis',n>0);
-  saveProgress();
-}
-
-function recalcState(){
-  totRev=0;totKnew=0;totNeed=0;done=new Set();
-  document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('done-node'));
-
-  Object.keys(D).forEach(nid=>{
-    let all=true;
-    D[nid].cards.forEach((card,i)=>{
-      const got=tr[nid]&&tr[nid][i]?tr[nid][i].size:0;
-      const tot=nT(card.b);
-      totRev+=got;
-      Object.values(sc[nid]&&sc[nid][i]?sc[nid][i]:{}).forEach(v=>{
-        if(v==='knew') totKnew++;
-        else if(v==='needed') totNeed++;
-      });
-      if(!(tot===0||got>=tot)) all=false;
-    });
-    if(all){
-      done.add(nid);
-      const el=document.getElementById('n-'+nid);
-      if(el) el.classList.add('done-node');
-    }
-  });
-
-  updStats();
-}
-
 function resetCard(){
   if(!cur) return;
   initNode(cur);
-  tr[cur][ci]=new Set();
-  sc[cur][ci]={};
-  closeReview();
-  recalcState();
+  const body=D[cur].cards[ci].b;
+  const n=countTerms(body);
+  for(let i=0;i<n;i++){
+    if(tr[cur][ci].has(i)){tr[cur][ci].delete(i);totRev=Math.max(0,totRev-1);}
+    const s=sc[cur][ci][i];
+    if(s==='knew') totKnew=Math.max(0,totKnew-1);
+    else if(s==='needed') totNeed=Math.max(0,totNeed-1);
+    delete sc[cur][ci][i];
+  }
+  done.delete(cur);
+  document.getElementById('n-'+cur)&&document.getElementById('n-'+cur).classList.remove('done-node');
   render();
+  saveProgress();
 }
 
-function resetAll(){
-  tr={};sc={};done.clear();
-  totRev=0;totKnew=0;totNeed=0;
-  document.querySelectorAll('svg .node').forEach(g=>{
-    g.classList.remove('sel-node','done-node');
+/* ── NAVIGATION ── */
+function prevCard(){ if(ci>0){ci--;render();} }
+function nextCard(){ if(cur&&ci<D[cur].cards.length-1){ci++;render();} }
+
+/* ── BULK REVEALS ── */
+function revealTopicAll(){
+  if(!cur) return;
+  initNode(cur);
+  D[cur].cards.forEach((_,cidx)=>{
+    const n=countTerms(D[cur].cards[cidx].b);
+    for(let i=0;i<n;i++){
+      if(!tr[cur][cidx].has(i)){tr[cur][cidx].add(i);totRev++;}
+    }
   });
-  document.getElementById('revealTopicBtn').disabled=!cur;
-  updStats();
-  closeReview();
-  if(cur){initNode(cur);render();}
+  checkDone(cur); render(); saveProgress();
+}
+function revealDeckAll(){
+  Object.keys(D).forEach(id=>{
+    initNode(id);
+    D[id].cards.forEach((_,cidx)=>{
+      const n=countTerms(D[id].cards[cidx].b);
+      for(let i=0;i<n;i++){
+        if(!tr[id][cidx].has(i)){tr[id][cidx].add(i);totRev++;}
+      }
+    });
+    checkDone(id);
+  });
+  render(); saveProgress();
 }
 
-// ═══════════════════════════════════════════════════
-// REVIEW (SPACED REP)
-// ═══════════════════════════════════════════════════
+/* ── DONE CHECK ── */
+function checkDone(id){
+  if(done.has(id)) return;
+  const all=D[id].cards.every((_,cidx)=>{
+    const n=countTerms(D[id].cards[cidx].b);
+    return n===0||(tr[id][cidx]&&tr[id][cidx].size>=n);
+  });
+  if(all){done.add(id);document.getElementById('n-'+id)&&document.getElementById('n-'+id).classList.add('done-node');}
+}
+
+/* ── STATS ── */
+function updateStats(){
+  document.getElementById('stRev').textContent=`${totRev} revealed`;
+  document.getElementById('stKnew').textContent=`${totKnew} knew`;
+  document.getElementById('stNeed').textContent=`${totNeed} needed`;
+  document.getElementById('stDone').textContent=`${done.size} / ${Object.keys(D).length} done`;
+  const rBtn=document.getElementById('btnReview');
+  if(totNeed>0){rBtn.textContent=`Review weak spots (${totNeed})`;rBtn.style.display='inline-block';}
+  else{rBtn.style.display='none';}
+}
+
+/* ── RESET ALL ── */
+function resetAll(){
+  if(!confirm('Reset all progress?')) return;
+  tr={}; sc={}; done=new Set(); totRev=0; totKnew=0; totNeed=0;
+  document.querySelectorAll('.node').forEach(n=>n.classList.remove('done-node'));
+  closeReview();
+  if(cur) render(); updateStats();
+  document.cookie=COOKIE+'=; max-age=0; path=/; SameSite=Lax';
+}
+
+/* ── REVIEW MODE ── */
 function startReview(){
   revQueue=[];
-  Object.keys(sc).forEach(nid=>{
-    Object.keys(sc[nid]).forEach(cidx=>{
-      const card=D[nid].cards[parseInt(cidx)];
-      let termIdx=0;
+  Object.keys(D).forEach(id=>{
+    initNode(id);
+    D[id].cards.forEach((card,cidx)=>{
+      let i=0;
       card.b.replace(/\{([^}]+)\}/g,(_,t)=>{
-        const i=termIdx++;
-        if(sc[nid][cidx][i]==='needed'){
-          revQueue.push({nid,cidx:parseInt(cidx),tidx:i,term:t,card});
+        const idx=i++;
+        if(sc[id]&&sc[id][cidx]&&sc[id][cidx][idx]==='needed'){
+          revQueue.push({nid:id,cidx,tidx:idx,term:t,title:card.t});
         }
       });
     });
   });
-  // Fisher-Yates shuffle
-  for(let i=revQueue.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [revQueue[i],revQueue[j]]=[revQueue[j],revQueue[i]];
-  }
-  revIdx=0;revTr={};
-  if(!revQueue.length) return;
-  const rp=document.getElementById('reviewPanel');
-  rp.classList.add('open');
-  rp.scrollIntoView({behavior:'smooth',block:'nearest'});
+  shuffle(revQueue);
+  revIdx=0; revTr={};
+  if(revQueue.length===0) return;
+  document.getElementById('reviewPanel').classList.add('open');
   renderReview();
 }
-
-function revRevTerm(){
-  if(!revTr[revIdx]) revTr[revIdx]=new Set();
-  revTr[revIdx].add(revQueue[revIdx].tidx);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}}
+function closeReview(){document.getElementById('reviewPanel').classList.remove('open');}
+function reviewPrev(){if(revIdx>0){revIdx--;renderReview();}}
+function reviewNext(){if(revIdx<revQueue.length-1){revIdx++;renderReview();}}
+function revealReviewTerm(idx){
+  const key=revIdx;
+  if(!revTr[key]) revTr[key]=new Set();
+  revTr[key].add(idx);
   renderReview();
 }
-
-function revAllReview(){revRevTerm();}
-
-function goReview(dir){
-  revIdx=Math.max(0,Math.min(revQueue.length-1,revIdx+dir));
-  renderReview();
+function renderReview(){
+  const q=revQueue[revIdx];
+  if(!q) return;
+  const card=D[q.nid].cards[q.cidx];
+  const node=D[q.nid];
+  document.getElementById('rSubBar').textContent=`${node.label} — ${node.sub} · Card: "${card.t}" · Term to recall: ${q.term}`;
+  document.getElementById('rCardTitle').textContent=card.t;
+  const revSet=revTr[revIdx]||new Set();
+  document.getElementById('rCardText').innerHTML=parseBody(card.b,q.nid,q.cidx,{forReview:true,targetTermIdx:q.tidx,revealedSet:revSet});
+  document.getElementById('rCounter').textContent=`${revIdx+1} / ${revQueue.length}`;
+  document.getElementById('rBtnPrev').disabled=revIdx===0;
+  document.getElementById('rBtnNext').disabled=revIdx===revQueue.length-1;
 }
 
-function closeReview(){
-  document.getElementById('reviewPanel').classList.remove('open');
+/* ── COOKIE PERSISTENCE ── */
+const COOKIE='hpa_anki_v1';
+function saveProgress(){
+  const r={},s={};
+  Object.keys(tr).forEach(id=>{
+    r[id]=[]; s[id]=[];
+    const nc=D[id].cards.length;
+    for(let c=0;c<nc;c++){
+      const set=tr[id][c]||new Set();
+      r[id][c]=[...set].join('.');
+      const scores=sc[id][c]||{};
+      s[id][c]=Object.keys(scores).map(k=>k+(scores[k]==='knew'?'k':'n')).join('.');
+    }
+  });
+  const payload=JSON.stringify({c:cur,i:ci,r,s});
+  document.cookie=COOKIE+'='+encodeURIComponent(payload)+'; max-age='+60*60*24*180+'; path=/; SameSite=Lax';
 }
-
+function loadProgress(){
+  const match=document.cookie.split(';').find(c=>c.trim().startsWith(COOKIE+'='));
+  if(!match) return;
+  try{
+    const payload=JSON.parse(decodeURIComponent(match.split('=').slice(1).join('=')));
+    cur=payload.c||null; ci=payload.i||0;
+    Object.keys(payload.r||{}).forEach(id=>{
+      if(!D[id]) return;
+      initNode(id);
+      (payload.r[id]||[]).forEach((str,cidx)=>{
+        if(str) str.split('.').forEach(v=>{if(v!=='') tr[id][cidx].add(parseInt(v));});
+      });
+      (payload.s[id]||[]).forEach((str,cidx)=>{
+        if(str) str.split('.').forEach(tok=>{
+          if(!tok) return;
+          const isKnew=tok.endsWith('k');
+          const idx=parseInt(tok.slice(0,-1));
+          sc[id][cidx][idx]=isKnew?'knew':'needed';
+        });
+      });
+    });
+  }catch(e){console.warn('Progress load error',e);}
+}
+function recalcState(){
+  totRev=0;totKnew=0;totNeed=0;done=new Set();
+  Object.keys(D).forEach(id=>{
+    initNode(id);
+    D[id].cards.forEach((_,cidx)=>{
+      (tr[id][cidx]||new Set()).forEach(tidx=>{
+        totRev++;
+        const s=(sc[id][cidx]||{})[tidx];
+        if(s==='knew') totKnew++;
+        else if(s==='needed') totNeed++;
+      });
+    });
+    checkDone(id);
+    if(done.has(id)) document.getElementById('n-'+id)&&document.getElementById('n-'+id).classList.add('done-node');
+  });
+  updateStats();
+}
 function restoreSession(){
   loadProgress();
   recalcState();
   if(cur&&D[cur]){
-    document.querySelectorAll('svg .node').forEach(g=>g.classList.remove('sel-node'));
-    const nodeEl=document.getElementById('n-'+cur);
-    if(nodeEl) nodeEl.classList.add('sel-node');
-    const d=D[cur];
-    const p=document.getElementById('panel');
-    p.classList.add('open');
-    const b=document.getElementById('bdg');
-    b.textContent=d.label;
-    b.className='badge '+(d.type==='PLO'?'b-plo':'b-lo');
-    document.getElementById('ptitle').textContent=d.sub;
-    document.getElementById('revealTopicBtn').disabled=false;
+    selNode(cur);
+    ci=Math.min(ci,D[cur].cards.length-1);
     render();
-  }else{
-    document.getElementById('revealTopicBtn').disabled=true;
   }
 }
 
-restoreSession();
+/* ── THEME ── */
+function setTheme(t){
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.theme===t));
+  if(t==='slate') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme',t);
+  try{localStorage.setItem('hpa-anki-theme',t);}catch(_){}
+}
 
-// ═══════════════════════════════════════════════════
-// KEYBOARD
-// ═══════════════════════════════════════════════════
+/* ── KEYBOARD ── */
 document.addEventListener('keydown',e=>{
-  const inRev=document.getElementById('reviewPanel').classList.contains('open');
-  if(inRev){
-    if(e.key==='ArrowLeft'){e.preventDefault();goReview(-1)}
-    else if(e.key==='ArrowRight'){e.preventDefault();goReview(1)}
+  const revOpen=document.getElementById('reviewPanel').classList.contains('open');
+  if(revOpen){
+    if(e.key==='ArrowLeft') reviewPrev();
+    else if(e.key==='ArrowRight') reviewNext();
     else if(e.key==='Escape') closeReview();
     return;
   }
-  if(!cur) return;
-  if(e.key==='ArrowLeft'){e.preventDefault();goCard(-1)}
-  else if(e.key==='ArrowRight'){e.preventDefault();goCard(1)}
+  if(e.key==='ArrowLeft') prevCard();
+  else if(e.key==='ArrowRight') nextCard();
   else if(e.key==='Escape') closePanel();
+});
+
+/* ── BOOT ── */
+window.addEventListener('DOMContentLoaded',()=>{
+  const totalCards=Object.values(D).reduce((n,node)=>n+node.cards.length,0);
+  document.getElementById('deckMeta').textContent=
+    `Active recall map · ${Object.keys(D).length} topics · ${totalCards} cards`;
+  try{const t=localStorage.getItem('hpa-anki-theme');if(t)setTheme(t);}catch(_){}
+  restoreSession();
+  updateStats();
 });
 </script>
 </body>
