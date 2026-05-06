@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cervical Spine HVLA — OCS Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:       #fdf6ec;
+  --cream-mid:   #f5ead8;
+  --cream-dk:    #ede0ca;
+  --ink:         #1f1a14;
+  --ink-soft:    #5c5042;
+  --ink-muted:   #8a7868;
+  --coral:       #c8533a;
+  --teal:        #0e7c7b;
+  --gold:        #b8770a;
+  --violet:      #6b4fa0;
+  --sky:         #1878b8;
+  --green:       #2a7a3b;
+  --border:      rgba(31,26,20,0.12);
+  --border-mid:  rgba(31,26,20,0.18);
+  --shadow:      0 2px 16px rgba(31,26,20,0.09);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--cream); color: var(--ink); font-family: 'Nunito', sans-serif; font-size: 16px; line-height: 1.7; }
+
+/* ── HEADER ── */
+.page-header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--ink);
+  padding: 10px 28px;
+  border-bottom: 3px solid var(--coral);
+  display: flex; align-items: center; gap: 16px;
+}
+.page-header .block-tag {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
+  color: var(--coral); text-transform: uppercase; letter-spacing: 1.5px;
+  border: 1px solid var(--coral); padding: 2px 7px; border-radius: 3px;
+}
+.page-header h1 {
+  font-family: 'Crimson Pro', serif; font-size: 20px; font-weight: 600;
+  color: #fff; flex: 1;
+}
+.page-header .instructor {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  color: rgba(255,255,255,0.5); white-space: nowrap;
+}
+
+/* ── NAV ── */
+.lo-anchor-nav {
+  position: sticky; top: 51px; z-index: 99;
+  background: #fff;
+  border-bottom: 2px solid var(--border-mid);
+  display: flex; overflow-x: auto;
+  scrollbar-width: none;
+}
+.lo-anchor-nav::-webkit-scrollbar { display: none; }
+.lo-anchor-nav a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px; font-weight: 500;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 11px 20px;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.lo-anchor-nav a:hover,
+.lo-anchor-nav a.active { color: var(--coral); border-bottom-color: var(--coral); }
+
+/* ── CONTENT ── */
+.content-wrap { max-width: 960px; margin: 0 auto; padding: 40px 28px 80px; }
+.lo-section { padding: 48px 0 16px; }
+hr.section-divider { border: none; border-top: 2px solid var(--border); margin: 40px 0 0; }
+
+/* ── TYPOGRAPHY ── */
+h2 {
+  font-family: 'Crimson Pro', serif; font-size: 28px; font-weight: 700;
+  color: var(--ink); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 12px;
+}
+h3 {
+  font-family: 'Crimson Pro', serif; font-size: 20px; font-weight: 600;
+  color: var(--teal); margin: 28px 0 10px;
+}
+h4 {
+  font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700;
+  color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.8px;
+  margin: 20px 0 8px;
+}
+p { margin-bottom: 12px; color: var(--ink-soft); }
+ul, ol { padding-left: 22px; margin-bottom: 14px; color: var(--ink-soft); }
+li { margin-bottom: 5px; }
+em { color: var(--ink); font-style: italic; }
+strong { color: var(--ink); font-weight: 700; }
+
+/* ── LO BADGE ── */
+.lo-badge {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+  background: var(--coral); color: #fff;
+  padding: 3px 10px; border-radius: 4px; text-transform: uppercase;
+  flex-shrink: 0;
+}
+.lo-badge.teal  { background: var(--teal); }
+.lo-badge.gold  { background: var(--gold); }
+.lo-badge.violet { background: var(--violet); }
+.lo-badge.sky   { background: var(--sky); }
+.lo-badge.green { background: var(--green); }
+
+/* ── CALLOUT ── */
+.callout {
+  border-left: 4px solid var(--coral);
+  background: var(--cream-mid);
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  margin: 18px 0;
+}
+.callout-teal   { border-color: var(--teal); }
+.callout-gold   { border-color: var(--gold); }
+.callout-sky    { border-color: var(--sky); }
+.callout-violet { border-color: var(--violet); }
+.callout-green  { border-color: var(--green); }
+.callout-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+  color: var(--coral); text-transform: uppercase; letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+.callout-teal   .callout-label { color: var(--teal); }
+.callout-gold   .callout-label { color: var(--gold); }
+.callout-sky    .callout-label { color: var(--sky); }
+.callout-violet .callout-label { color: var(--violet); }
+.callout-green  .callout-label { color: var(--green); }
+
+/* ── SIGN GRID ── */
+.sign-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px; margin: 16px 0;
+}
+.sign-item {
+  background: var(--cream-mid); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px; text-align: center;
+}
+.sign-icon { font-size: 22px; display: block; margin-bottom: 6px; }
+.sign-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+  color: var(--coral); text-transform: uppercase; letter-spacing: 0.5px;
+  display: block; margin-bottom: 4px;
+}
+.sign-text {
+  font-family: 'Crimson Pro', serif; font-size: 16px; font-weight: 600;
+  color: var(--ink); display: block; margin-bottom: 4px;
+}
+.sign-detail { font-size: 12px; color: var(--ink-muted); display: block; }
+
+/* ── FLOW ROW ── */
+.flow-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  margin: 14px 0; padding: 14px 16px;
+  background: var(--cream-dk); border-radius: 8px;
+}
+.flow-node {
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500;
+  background: #fff; border: 1px solid var(--border-mid);
+  padding: 4px 10px; border-radius: 4px; color: var(--ink);
+}
+.flow-arrow { color: var(--ink-muted); font-size: 18px; }
+.flow-note { font-size: 12px; color: var(--ink-muted); font-style: italic; }
+
+/* ── COMPARISON TABLE ── */
+.comp-table {
+  width: 100%; border-collapse: collapse; margin: 18px 0;
+  font-size: 14px; border-radius: 8px; overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.comp-table th {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 10px 14px; background: var(--ink); color: #fff;
+  text-align: left;
+}
+.comp-table td {
+  padding: 9px 14px; border-bottom: 1px solid var(--border);
+  color: var(--ink-soft); vertical-align: top;
+}
+.comp-table tr:nth-child(even) td { background: var(--cream-mid); }
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table td:first-child {
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600;
+  color: var(--coral); background: var(--cream-dk); white-space: nowrap;
+}
+
+/* ── TWO-COL ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 14px 0; }
+@media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ── CASE BOX ── */
+.case-box {
+  background: var(--cream-mid); border: 1px solid var(--border-mid);
+  border-radius: 10px; padding: 20px 22px; margin: 20px 0;
+}
+.case-tag {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
+  color: var(--sky); text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 8px; display: block;
+}
+.case-box p { font-size: 14px; margin-bottom: 8px; }
+.case-box .pe { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-soft); background: var(--cream-dk); padding: 10px 12px; border-radius: 6px; line-height: 1.8; }
+
+/* ── QUESTION BOX ── */
+.q-box {
+  background: #fff; border: 1px solid var(--border-mid);
+  border-radius: 10px; padding: 20px 22px; margin: 20px 0;
+  box-shadow: var(--shadow);
+}
+.q-tag {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
+  color: var(--violet); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block;
+}
+.q-box p { font-size: 15px; color: var(--ink); margin-bottom: 12px; font-family: 'Crimson Pro', serif; font-size: 17px; }
+.q-options { list-style: none; padding: 0; }
+.q-options li {
+  padding: 7px 12px; border-radius: 6px; font-size: 14px;
+  color: var(--ink-soft); margin-bottom: 5px; cursor: pointer;
+  border: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.q-options li:hover { background: var(--cream-mid); }
+.q-options li.correct { background: #d4edda; border-color: var(--green); color: var(--green); font-weight: 600; }
+.q-options li.incorrect { background: #fdecea; border-color: var(--coral); color: var(--coral); }
+
+/* ── LABEL PILL ── */
+.label-pill {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+  background: var(--cream-dk); color: var(--ink-soft);
+  padding: 2px 7px; border-radius: 3px; display: inline-block;
+}
+
+/* ── REVEAL ANIMATION ── */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.5s, transform 0.5s; }
+.reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <span class="block-tag">OCS · OMM</span>
+  <h1>Cervical Spine HVLA</h1>
+  <span class="instructor">Smilowicz, D.O., FAAO · Apr 9 2026</span>
+</div>
+
+<nav class="lo-anchor-nav">
+  <a href="#epidemiology">Epidemiology</a>
+  <a href="#biomechanics">Biomechanics</a>
+  <a href="#cases">Cases</a>
+  <a href="#benefits">Benefits</a>
+  <a href="#complications">Complications</a>
+  <a href="#contraindications">Contraindications</a>
+  <a href="#technique">Technique</a>
+  <a href="#questions">Questions</a>
+</nav>
+
+<div class="content-wrap">
+
+  <!-- ── EPIDEMIOLOGY ── -->
+  <section id="epidemiology" class="lo-section">
+    <h2><span class="lo-badge">Epidemiology</span> Neck Pain Overview</h2>
+
+    <div class="callout callout-teal reveal">
+      <div class="callout-label">📊 Scope of the Problem</div>
+      Chronic pain affects over <strong>100 million Americans</strong> over age 18, costing <strong>$600 billion/year</strong> in healthcare and lost productivity. Back and neck pain are the two leading causes of chronic pain and disability.
+    </div>
+
+    <h3>Definition & Prevalence</h3>
+    <table class="comp-table reveal">
+      <thead><tr><th>Category</th><th>Definition / Key Stat</th></tr></thead>
+      <tbody>
+        <tr><td>Acute</td><td>Present for at least 2 weeks</td></tr>
+        <tr><td>Chronic</td><td>Present for 6+ months</td></tr>
+        <tr><td>Trauma-related</td><td>Low threshold for imaging</td></tr>
+        <tr><td>Lifetime prevalence</td><td>71%</td></tr>
+        <tr><td>Most common whiplash symptom</td><td>Neck pain</td></tr>
+        <tr><td>Risk factors</td><td>Genetics, poor psychologic health, tobacco exposure, job stress, occupational factors, extensive medical history</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Common Causes</h3>
+    <div class="two-col reveal">
+      <div>
+        <h4>Mechanical / Lifestyle</h4>
+        <ul>
+          <li>Poor posture</li>
+          <li>Sleep position</li>
+          <li>Repetitive overuse</li>
+          <li>Blunt trauma / MVA</li>
+          <li>Emotional trauma / stress</li>
+          <li>Breathing dysfunctions</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Pathologic</h4>
+        <ul>
+          <li>Head and neck infections</li>
+          <li>Orthopedic conditions</li>
+          <li>Rheumatologic conditions</li>
+          <li>Whiplash-associated disorder</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Key History Questions</h3>
+    <div class="callout callout-gold reveal">
+      <div class="callout-label">🗣️ History Taking Pearl</div>
+      Always categorize: <em>type, location, duration, severity, aggravating/relieving factors, prior treatments, prior imaging, and trajectory (better/worse/same).</em>
+      Ask specifically if the patient has had these symptoms before and how they resolved.
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── BIOMECHANICS ── -->
+  <section id="biomechanics" class="lo-section">
+    <h2><span class="lo-badge teal">Biomechanics</span> Cervical Spine Motion</h2>
+
+    <h3>Upper Cervical Unit</h3>
+    <table class="comp-table reveal">
+      <thead><tr><th>Joint</th><th>Nickname</th><th>Primary Motion</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>O-A (C0–C1)</td><td>"Yes" Joint</td><td>Flexion / Extension</td><td>Nodding motion; sidebending and rotation coupled in <em>opposite</em> directions</td></tr>
+        <tr><td>A-A (C1–C2)</td><td>"No" Joint</td><td>Rotation (~50% of total cervical rotation)</td><td>10–12° flexion/extension; only 1–2° sidebending</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Lower Cervical Unit (C2–C7)</h3>
+    <p class="reveal">Sidebending and rotation are <strong>coupled in the same direction</strong> due to:</p>
+    <div class="sign-grid reveal">
+      <div class="sign-item">
+        <span class="sign-icon">🏔️</span>
+        <span class="sign-label">Structure</span>
+        <span class="sign-text">Saddle-shaped vertebral body</span>
+        <span class="sign-detail">Guides coupled motion</span>
+      </div>
+      <div class="sign-item">
+        <span class="sign-icon">📐</span>
+        <span class="sign-label">Facets</span>
+        <span class="sign-text">Direction of facet facings</span>
+        <span class="sign-detail">Constrains coupled movement</span>
+      </div>
+      <div class="sign-item">
+        <span class="sign-icon">🔗</span>
+        <span class="sign-label">Joints</span>
+        <span class="sign-text">Uncovertebral Joints of Luschka</span>
+        <span class="sign-detail">Between bodies of adjacent cervical vertebrae; locks in Type 2 mechanics</span>
+      </div>
+    </div>
+
+    <div class="callout reveal">
+      <div class="callout-label">⚠️ Coupling Summary</div>
+      <div class="flow-row">
+        <span class="flow-node">Upper Unit (OA)</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">S &amp; R <em>opposite</em> directions</span>
+        <span class="flow-note">(Type 1 mechanics)</span>
+      </div>
+      <div class="flow-row">
+        <span class="flow-node">Lower Unit (C2–C7)</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">S &amp; R <em>same</em> direction</span>
+        <span class="flow-note">(Type 2 mechanics)</span>
+      </div>
+    </div>
+
+    <div class="callout callout-violet reveal">
+      <div class="callout-label">🧪 Implication for Motion Testing</div>
+      Because of the <em>reciprocal nature</em> of upper vs. lower cervical motion, <strong>regional motion testing is insufficient</strong> to identify specific areas of restriction. Segmental assessment is required.
+    </div>
+
+    <h3>Notable Vertebrae</h3>
+    <table class="comp-table reveal">
+      <thead><tr><th>Vertebra</th><th>Key Features</th></tr></thead>
+      <tbody>
+        <tr><td>C1 (Atlas)</td><td>Ring-shaped; no body; supports the skull; "Yes" joint above, "No" joint below</td></tr>
+        <tr><td>C2 (Axis)</td><td>Has the dens (odontoid process); provides the pivot for atlantoaxial rotation</td></tr>
+        <tr><td>C3–C6</td><td>Typical cervical; uncinate processes form uncovertebral (Luschka) joints</td></tr>
+        <tr><td>C7</td><td>Vertebra prominens; longest spinous process; transitional to thoracic spine</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── CASES ── -->
+  <section id="cases" class="lo-section">
+    <h2><span class="lo-badge gold">Cases</span> Clinical Presentations</h2>
+
+    <div class="case-box reveal">
+      <span class="case-tag">📋 Case 1 — Radiculopathy Pattern</span>
+      <p><strong>42 F</strong> — Shoveling wet snow → next-day neck stiffness + intense right arm pain. No weakness. PMHx non-contributory.</p>
+      <div class="pe">PE: Depressed C5 reflex (R) · Spurling's (+) right · OAESSl · C5–7ErRSR · Elevated 1st rib (R) · Paraspinal hypertonicity C–T spine</div>
+      <div class="callout callout-sky" style="margin-top:12px">
+        <div class="callout-label">🔍 Key Finding</div>
+        Spurling's maneuver = foraminal compression test. Positive when reproduces radicular pain. Combined with depressed C5 reflex → C5 radiculopathy pattern. Consider imaging (low threshold with radiculopathy).
+      </div>
+    </div>
+
+    <div class="case-box reveal">
+      <span class="case-tag">📋 Case 2 — Myelopathy Pattern</span>
+      <p><strong>68 M</strong> — Gradual onset neck pain. No radiculopathy. Reporting increased falls, unsteady gait. PMHx: Cervical DDD.</p>
+      <div class="pe">PE: Myelopathic gait pattern · Brisk UE &amp; LE reflexes · Hoffman's sign (+) · Spurling's (–) · Intact strength x4 extremities · OASSl · C2–3RSl · T4–7RrSl · L3–5RlSr · Left-on-left torsion</div>
+      <div class="callout callout-violet" style="margin-top:12px">
+        <div class="callout-label">⚠️ Hoffman's Sign</div>
+        Flick the nail of the middle finger. <strong>Positive:</strong> flexion of the distal thumb phalanx + 2nd/3rd finger phalanges. Indicates <em>upper motor neuron lesion</em>. HVLA is <strong>contraindicated</strong> in this patient — myelopathy signals cord compression.
+      </div>
+    </div>
+
+    <div class="case-box reveal">
+      <span class="case-tag">📋 Case 3 — Somatic Dysfunction Pattern</span>
+      <p><strong>32 F</strong> — "Woke up wrong," progressive over weeks. Worse with left rotation. No radiculopathy. PMHx: DDD at C5–6.</p>
+      <div class="pe">PE: NAD · Paraspinal hypertonicity · OAEssl · C2–3FRSl · C5Esrr · Locked 1st rib (L) · T3–5Rrls · T8–10RRSl · Tender points in rectus capitis &amp; semispinalis capitis reproducing primary pain · Spurling's (–) · Non-antalgic gait</div>
+      <div class="callout callout-green" style="margin-top:12px">
+        <div class="callout-label">✅ OMT Candidate</div>
+        Negative Spurling's, no neurologic deficits, identifiable somatic dysfunctions at multiple levels. Good candidate for cervical HVLA with attention to C2–3 and C5 diagnoses.
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── BENEFITS ── -->
+  <section id="benefits" class="lo-section">
+    <h2><span class="lo-badge sky">Evidence</span> Benefits of Cervical Manipulation</h2>
+
+    <h3>Summary of Evidence</h3>
+    <table class="comp-table reveal">
+      <thead><tr><th>Context</th><th>Finding</th></tr></thead>
+      <tbody>
+        <tr><td>Acute neck pain</td><td>Evidence for relief with spinal manipulation</td></tr>
+        <tr><td>Chronic/subacute neck pain</td><td>Superior to muscle relaxants or standard medical care</td></tr>
+        <tr><td>Chronic neck pain (Bronfort et al.)</td><td>Moderate evidence: manipulation &amp; mobilization superior to GP management in short-term</td></tr>
+        <tr><td>Long-term</td><td>High-tech exercise superior to manipulation alone for mixed acute/chronic</td></tr>
+        <tr><td>Tension-type headache</td><td>Short-term relief; comparable to first-line prophylaxis medications</td></tr>
+        <tr><td>Cervicogenic headache</td><td>Manipulation relieves symptoms</td></tr>
+        <tr><td>Efficacy enhancement</td><td>Manipulation + exercise &gt; manipulation alone</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-teal reveal">
+      <div class="callout-label">📝 AOA Position (2019)</div>
+      AOA Position Paper concludes that cervical HVLA is <strong>safe and effective</strong> and should be taught in medical school.
+    </div>
+
+    <div class="callout callout-gold reveal">
+      <div class="callout-label">💊 NSAID Comparison</div>
+      NSAIDs cause <strong>103,000 hospitalizations</strong> and at least <strong>16,500 deaths/year</strong> in the USA from GI toxicity — the 15th most common cause of death. 81% of GI bleeds from NSAIDs occur without prior symptoms. Cervical manipulation complications are rare by comparison.
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── COMPLICATIONS ── -->
+  <section id="complications" class="lo-section">
+    <h2><span class="lo-badge">Complications</span> Risks &amp; Adverse Events</h2>
+
+    <h3>Reported Complications</h3>
+    <div class="two-col reveal">
+      <div>
+        <h4>Minor (Common)</h4>
+        <ul>
+          <li>Muscle soreness</li>
+          <li>Discomfort at treatment site</li>
+          <li>Dizziness</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Major (Rare)</h4>
+        <ul>
+          <li>Vertebrobasilar artery (VBA) injury</li>
+          <li>Cervical artery dissection (CAD)</li>
+          <li>Bone fracture</li>
+          <li>Cauda equina syndrome</li>
+          <li>Disk herniation</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Incidence</h3>
+    <div class="sign-grid reveal">
+      <div class="sign-item">
+        <span class="sign-icon">⚡</span>
+        <span class="sign-label">Adverse Outcome</span>
+        <span class="sign-text">1 : 400,000 to 1 : 4,000,000</span>
+        <span class="sign-detail">Estimated incidence per manipulation</span>
+      </div>
+      <div class="sign-item">
+        <span class="sign-icon">🧠</span>
+        <span class="sign-label">Major Impairment</span>
+        <span class="sign-text">6.39 per 10 million</span>
+        <span class="sign-detail">Manipulations — very rare</span>
+      </div>
+      <div class="sign-item">
+        <span class="sign-icon">🫀</span>
+        <span class="sign-label">Spontaneous VBA</span>
+        <span class="sign-text">~2× the risk</span>
+        <span class="sign-detail">Spontaneous VBA risk is nearly TWICE that of manipulation-related VBA</span>
+      </div>
+    </div>
+
+    <h3>Vertebral Artery Accidents (VBA)</h3>
+    <div class="callout reveal">
+      <div class="callout-label">🩸 VBA Key Facts</div>
+      <ul>
+        <li>Rare on its own — accounts for 1.3 in 1,000 stroke cases</li>
+        <li>75% of VBA stroke patients have good functional recovery</li>
+        <li>Risk factors: <em>migraine, HTN, oral contraceptives, smoking, hypermobility</em></li>
+        <li>Average age for VBA injury (all causes): 37 years</li>
+        <li>Haldeman et al.: VBA following manipulation is <em>"idiosyncratic and rare"</em></li>
+        <li>25% who suffered VBA after manipulation had sudden-onset new/unusual headache + neck pain (possibly dissection already in progress)</li>
+      </ul>
+    </div>
+
+    <h3>Cervical Artery Dissection (CAD)</h3>
+    <div class="callout callout-teal reveal">
+      <div class="callout-label">📌 CAD Facts</div>
+      Rate: 2.9 per 100,000 in the general population. 89% have no symptoms or disability within 3 months. Most common complaint: headache + neck pain.
+      <br><br>Difficult to determine if manipulation caused CAD or if dissection was already present at time of treatment — the "chicken and egg" problem.
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── CONTRAINDICATIONS ── -->
+  <section id="contraindications" class="lo-section">
+    <h2><span class="lo-badge violet">Safety</span> Contraindications</h2>
+
+    <h3>Absolute Contraindications</h3>
+    <div class="callout reveal" style="border-color:var(--coral)">
+      <div class="callout-label">🚫 Absolute — Do Not Manipulate</div>
+      <ul>
+        <li>Structural disruption (fracture, instability)</li>
+        <li>Fragile bony or ligamentous structures</li>
+        <li>Neoplastic degradation of tissues (local)</li>
+        <li>Advanced RA in upper cervical spine</li>
+        <li>Patient refusal</li>
+      </ul>
+    </div>
+
+    <h3>Relative / Specific Contraindications</h3>
+    <div class="two-col reveal">
+      <div>
+        <h4>Vascular / Neurologic</h4>
+        <ul>
+          <li>Vascular insufficiency (cervical)</li>
+          <li>Acute CVA (stroke)</li>
+          <li>Severe vertigo</li>
+          <li>Acute herniated nucleus pulposus</li>
+          <li>Down Syndrome (Trisomy 21)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Structural / Systemic</h4>
+        <ul>
+          <li>Primary or metastatic bone tumor</li>
+          <li>Severe osteoporosis</li>
+          <li>Severe rheumatoid arthritis</li>
+          <li>Osteomyelitis</li>
+          <li>Anticoagulation / bleeding disorder</li>
+          <li>Metabolic bone disease</li>
+          <li>Hypermobility syndromes (e.g., Ehlers-Danlos)</li>
+          <li>Ocular lens implant (post-op period)</li>
+          <li>Fever</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout callout-gold reveal">
+      <div class="callout-label">📝 General Contraindication Categories</div>
+      <ul>
+        <li>Osteolytic conditions</li>
+        <li>Osteoporosis</li>
+        <li>Neoplastic degradation</li>
+        <li>Hyper-irritability of neurosensory unit</li>
+        <li>Patient apprehension</li>
+        <li>History of cervical fusion</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── TECHNIQUE ── -->
+  <section id="technique" class="lo-section">
+    <h2><span class="lo-badge green">Technique</span> Diagnosis &amp; HVLA Setup</h2>
+
+    <h3>Soft Tissue Preparation</h3>
+    <div class="callout callout-teal reveal">
+      <div class="callout-label">🖐️ Posterior Cervical Soft Tissue Technique</div>
+      Patient supine. One hand on forehead (counterforce). Other hand fingertips rhythmically stretch and compress soft tissue between spinous and articular processes while gently sidebending, rotating, and extending the C-spine. Applied bilaterally from OA to T1.
+      <br><strong>Note:</strong> Do not drag fingers across the patient's skin.
+    </div>
+
+    <h3>Diagnosis of Lower Cervical Spine (C2–C7)</h3>
+    <div class="callout reveal">
+      <div class="callout-label">🔎 Segmental Motion Testing</div>
+      <ol style="margin-top:8px">
+        <li>Patient supine; operator at head of table</li>
+        <li>Neck relaxed; index fingertip along articular pillars bilaterally</li>
+        <li>Apply medial translatory force to test sidebending at each segment</li>
+        <li>Test from <strong>C7 → C2</strong>, noting restrictions</li>
+        <li>Perform in both <em>flexion</em> and <em>extension</em></li>
+        <li>R→L translation = right sidebending; L→R = left sidebending</li>
+      </ol>
+    </div>
+
+    <h3>Lower Cervical HVLA Setup</h3>
+    <div class="callout callout-gold reveal">
+      <div class="callout-label">⚙️ HVLA Technique — Lower Cervical</div>
+      <strong>Key principle:</strong> All lower cervical dysfunctions (flexed or extended) are treated in <em>flexion</em> for patient safety.
+      <ol style="margin-top:8px">
+        <li>Patient supine; physician at head of table</li>
+        <li>Place index finger (DIP or PIP joint) over the articular pillar on the <strong>side of restricted sidebending</strong></li>
+        <li>Other hand cradles occiput, cups around ear, thumb gently on mandible</li>
+        <li>Sidebend head <em>toward</em> the fulcrum (index finger)</li>
+        <li>Rotate <em>away</em> from fulcrum; add flexion to localize at restricted segment</li>
+        <li>HVLA thrust: 50% sidebending + 50% rotation <strong>toward the opposite axilla</strong></li>
+        <li>Recheck diagnostic findings</li>
+      </ol>
+      <div style="margin-top:10px; font-size:13px; color:var(--ink-muted)">Optional: Use isometric contraction or respiratory cooperation to relax patient and better localize forces before thrust delivery.</div>
+    </div>
+
+    <div class="callout callout-sky reveal">
+      <div class="callout-label">🔢 Diagnosis Shorthand Examples</div>
+      <div class="flow-row">
+        <span class="flow-node">C3 restricted L sidebend</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">Finger on L articular pillar C3</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">Rotate R, sidebend L, flex</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">Thrust toward R axilla</span>
+      </div>
+      <div class="flow-row" style="margin-top:6px">
+        <span class="flow-node">C5 restricted R sidebend (worse in flexion)</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">Treat in flexion</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">Finger on R articular pillar C5</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-node">SB R, rotate L, flex</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ── QUESTIONS ── -->
+  <section id="questions" class="lo-section">
+    <h2><span class="lo-badge violet">Questions</span> Practice Questions</h2>
+    <p style="color:var(--ink-muted); font-size:13px; margin-bottom:20px;">Click an option to check your answer.</p>
+
+    <div class="q-box reveal">
+      <span class="q-tag">Question 1</span>
+      <p>A 25 yo with neck pain requests OMT. Which history is MOST contraindicated for HVLA?</p>
+      <ul class="q-options" data-answer="0">
+        <li>A. Joint instability</li>
+        <li>B. Fibromyalgia</li>
+        <li>C. HNP without radiculopathy</li>
+        <li>D. Osteoarthritis</li>
+        <li>E. Mild osteoporosis</li>
+      </ul>
+      <div class="q-explain" style="display:none; margin-top:10px; font-size:13px; color:var(--ink-soft); background:var(--cream-mid); padding:10px 12px; border-radius:6px;">
+        <strong>A — Joint instability</strong> is an absolute structural contraindication to HVLA. Fibromyalgia, HNP without radiculopathy, OA, and mild osteoporosis are relative/specific contraindications or not contraindications at this severity.
+      </div>
+    </div>
+
+    <div class="q-box reveal">
+      <span class="q-tag">Question 2</span>
+      <p>A 34 yo presents post-MVA with C3 restricted in left sidebending, worse in extension. To apply HVLA you must:</p>
+      <ul class="q-options" data-answer="3">
+        <li>A. Extend C-spine, index finger on right articular pillar C4</li>
+        <li>B. Flex C-spine, index finger on left articular pillar C4</li>
+        <li>C. Extend C-spine, index finger on left articular pillar C3</li>
+        <li>D. Flex C-spine, index finger on left articular pillar C3</li>
+        <li>E. Flex C-spine, index finger on right articular pillar C3</li>
+      </ul>
+      <div class="q-explain" style="display:none; margin-top:10px; font-size:13px; color:var(--ink-soft); background:var(--cream-mid); padding:10px 12px; border-radius:6px;">
+        <strong>D</strong> — Treat all lower cervical in <em>flexion</em> for safety. Restricted left sidebending → finger on left articular pillar of C3 (the dysfunctional level, not the level below). Sidebend L, rotate R toward opposite axilla.
+      </div>
+    </div>
+
+    <div class="q-box reveal">
+      <span class="q-tag">Question 3</span>
+      <p>A 24 yo has C5 worse in flexion, unable to translate R→L. HVLA setup includes:</p>
+      <ul class="q-options" data-answer="2">
+        <li>A. Extension, right SB and right rotation</li>
+        <li>B. Flexion, right SB and right rotation</li>
+        <li>C. Flexion, right SB and left rotation</li>
+        <li>D. Flexion, left SB and right rotation</li>
+        <li>E. Extension, left SB and left rotation</li>
+      </ul>
+      <div class="q-explain" style="display:none; margin-top:10px; font-size:13px; color:var(--ink-soft); background:var(--cream-mid); padding:10px 12px; border-radius:6px;">
+        <strong>C</strong> — C5 worse in flexion (extended dysfunction) but still treat in flexion for safety. Restricted R→L translation = restricted right sidebending → sidebend right. For lower cervical (C2–C7) Type 2 mechanics: SB right + rotate left (same direction coupling is for the barrier; thrust rotates opposite to sidebend direction). Thrust toward the left axilla.
+      </div>
+    </div>
+
+    <div class="q-box reveal">
+      <span class="q-tag">Question 4</span>
+      <p>A 74 yo with neck pain has dizziness on passive head rotation + extension. X-ray: moderate DJD. Compression of which structure is most likely?</p>
+      <ul class="q-options" data-answer="3">
+        <li>A. Brachiocephalic vein</li>
+        <li>B. Cervical ganglia of sympathetic trunk</li>
+        <li>C. Herniated NP at C4–5</li>
+        <li>D. Vertebral artery</li>
+        <li>E. Joints of Luschka</li>
+      </ul>
+      <div class="q-explain" style="display:none; margin-top:10px; font-size:13px; color:var(--ink-soft); background:var(--cream-mid); padding:10px 12px; border-radius:6px;">
+        <strong>D — Vertebral artery</strong>. Dizziness provoked by rotation + extension in an elderly patient with DJD is classic for vertebral artery compression (vertebrobasilar insufficiency). This pattern is a contraindication to HVLA.
+      </div>
+    </div>
+
+    <div class="q-box reveal">
+      <span class="q-tag">Question 5</span>
+      <p>A 62 yo requests OMT for neck pain. Which history is MOST contraindicated to HVLA?</p>
+      <ul class="q-options" data-answer="2">
+        <li>A. Fibromyalgia</li>
+        <li>B. Cervical disk protrusion</li>
+        <li>C. Rheumatoid arthritis</li>
+        <li>D. Osteoarthritis</li>
+        <li>E. Cervical facet restriction C5–6</li>
+      </ul>
+      <div class="q-explain" style="display:none; margin-top:10px; font-size:13px; color:var(--ink-soft); background:var(--cream-mid); padding:10px 12px; border-radius:6px;">
+        <strong>C — Rheumatoid arthritis</strong>. Especially in older patients, advanced RA in the upper cervical spine (atlantoaxial instability from pannus) is an absolute contraindication. Osteoarthritis and fibromyalgia are generally not contraindications. Cervical facet restriction is an indication <em>for</em> HVLA.
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<script>
+// ── REVEAL OBSERVER ──
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06 });
+document.querySelectorAll('.reveal').forEach(r => revealObs.observe(r));
+
+// ── ACTIVE NAV ON SCROLL ──
+const sections = document.querySelectorAll('.lo-section');
+const navLinks = document.querySelectorAll('.lo-anchor-nav a');
+const scrollObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.lo-anchor-nav a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => scrollObs.observe(s));
+
+// ── QUIZ ANSWER CHECKER ──
+document.querySelectorAll('.q-options').forEach(ul => {
+  const correctIndex = parseInt(ul.dataset.answer);
+  const explain = ul.nextElementSibling;
+  ul.querySelectorAll('li').forEach((li, idx) => {
+    li.addEventListener('click', () => {
+      if (ul.dataset.answered) return;
+      ul.dataset.answered = 'true';
+      li.classList.add(idx === correctIndex ? 'correct' : 'incorrect');
+      if (idx !== correctIndex) {
+        ul.querySelectorAll('li')[correctIndex].classList.add('correct');
+      }
+      if (explain) explain.style.display = 'block';
+    });
+  });
+});
+</script>
+</body>
+</html>

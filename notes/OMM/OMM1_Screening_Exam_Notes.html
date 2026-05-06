@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCS1-OMM | Osteopathic Screening Exam & Documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:      #fdf6ec;
+  --cream-mid:  #f5ead8;
+  --cream-dk:   #ede0ca;
+  --ink:        #1f1a14;
+  --ink-soft:   #5c5042;
+  --ink-muted:  #8a7868;
+  --coral:      #c8533a;
+  --teal:       #0e7c7b;
+  --gold:       #b8770a;
+  --violet:     #6b4fa0;
+  --sky:        #1878b8;
+  --green:      #2a7a3b;
+  --border:     rgba(31,26,20,0.12);
+  --border-mid: rgba(31,26,20,0.18);
+  --shadow:     0 2px 16px rgba(31,26,20,0.09);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--cream); color: var(--ink); font-family: 'Nunito', sans-serif; font-size: 15px; line-height: 1.7; }
+
+/* ── Header ── */
+.page-header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--ink); padding: 10px 28px;
+  border-bottom: 3px solid var(--coral);
+  display: flex; align-items: center; gap: 18px;
+}
+.page-header .block-tag {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
+  color: var(--coral); letter-spacing: .12em; text-transform: uppercase;
+}
+.page-header h1 {
+  font-family: 'Crimson Pro', serif; font-size: 19px; font-weight: 600; color: #fff;
+  flex: 1;
+}
+.page-header .date-tag {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: rgba(255,255,255,.45);
+}
+
+/* ── Anchor Nav ── */
+.lo-anchor-nav {
+  position: sticky; top: 51px; z-index: 99;
+  background: #fff; border-bottom: 2px solid var(--border-mid);
+  display: flex; overflow-x: auto; scrollbar-width: none;
+}
+.lo-anchor-nav::-webkit-scrollbar { display: none; }
+.lo-anchor-nav a {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500;
+  color: var(--ink-soft); text-decoration: none;
+  padding: 11px 18px; border-bottom: 3px solid transparent;
+  white-space: nowrap; transition: color .2s, border-color .2s;
+}
+.lo-anchor-nav a:hover,
+.lo-anchor-nav a.active { color: var(--coral); border-bottom-color: var(--coral); }
+
+/* ── Content ── */
+.content-wrap { max-width: 900px; margin: 0 auto; padding: 36px 28px 80px; }
+.lo-section { padding: 0 0 8px; }
+hr.section-divider { border: none; border-top: 2px solid var(--border); margin: 44px 0; }
+
+/* ── Typography ── */
+.lo-badge {
+  display: inline-block; font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  background: var(--coral); color: #fff; padding: 2px 9px; border-radius: 3px; margin-bottom: 10px;
+}
+.lo-badge.teal { background: var(--teal); }
+.lo-badge.gold { background: var(--gold); }
+.lo-badge.violet { background: var(--violet); }
+.lo-badge.sky { background: var(--sky); }
+
+h2.section-title {
+  font-family: 'Crimson Pro', serif; font-size: 28px; font-weight: 700;
+  color: var(--ink); margin-bottom: 6px; line-height: 1.2;
+}
+h3 { font-family: 'Crimson Pro', serif; font-size: 19px; font-weight: 600; color: var(--teal); margin: 26px 0 10px; }
+h4 { font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 700; color: var(--ink-soft); margin: 16px 0 6px; letter-spacing: .03em; text-transform: uppercase; }
+p { margin-bottom: 12px; }
+ul, ol { padding-left: 22px; margin-bottom: 12px; }
+li { margin-bottom: 4px; }
+em { color: var(--ink-soft); }
+strong { color: var(--ink); }
+
+/* ── Callout ── */
+.callout {
+  border-radius: 7px; padding: 14px 18px; margin: 18px 0;
+  border-left: 4px solid var(--coral); background: var(--cream-mid);
+}
+.callout.callout-teal  { border-left-color: var(--teal); }
+.callout.callout-gold  { border-left-color: var(--gold); }
+.callout.callout-sky   { border-left-color: var(--sky); }
+.callout.callout-violet{ border-left-color: var(--violet); }
+.callout.callout-green { border-left-color: var(--green); }
+.callout-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--coral); margin-bottom: 6px; }
+.callout.callout-teal  .callout-label { color: var(--teal); }
+.callout.callout-gold  .callout-label { color: var(--gold); }
+.callout.callout-sky   .callout-label { color: var(--sky); }
+.callout.callout-violet .callout-label { color: var(--violet); }
+.callout.callout-green .callout-label { color: var(--green); }
+
+/* ── Comparison Table ── */
+.comp-table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 13.5px; }
+.comp-table th {
+  background: var(--ink); color: #fff; font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
+  padding: 9px 13px; text-align: left;
+}
+.comp-table td {
+  padding: 8px 13px; border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.comp-table tr:nth-child(even) td { background: var(--cream-mid); }
+.comp-table td:first-child {
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600;
+  color: var(--coral); white-space: nowrap;
+}
+
+/* ── Flow row ── */
+.flow-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  margin: 14px 0; padding: 12px 16px; background: var(--cream-mid);
+  border-radius: 7px;
+}
+.flow-node {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 500;
+  background: var(--cream-dk); padding: 4px 10px; border-radius: 4px; color: var(--ink);
+}
+.flow-arrow { color: var(--coral); font-size: 16px; font-weight: 700; }
+.flow-note { font-size: 12px; color: var(--ink-muted); font-style: italic; }
+
+/* ── Two-col ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 16px 0; }
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ── Sign grid ── */
+.sign-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 14px 0; }
+.sign-item {
+  background: var(--cream-mid); border-radius: 7px; padding: 14px 14px 10px;
+  border: 1px solid var(--border);
+}
+.sign-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+.sign-label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; font-weight: 600;
+  color: var(--coral); text-transform: uppercase; letter-spacing: .06em; }
+.sign-text { font-weight: 700; font-size: 14px; margin: 2px 0; }
+.sign-detail { font-size: 12px; color: var(--ink-soft); }
+
+/* ── Label pill / mnemonic ── */
+.pill {
+  display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;
+  background: var(--cream-dk); padding: 1px 7px; border-radius: 3px; color: var(--ink);
+}
+
+/* ── Reveal ── */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .5s; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── Quiz ── */
+.quiz-wrap { margin: 18px 0; }
+.quiz-bar {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  background: var(--ink); padding: 8px 13px; border-radius: 6px 6px 0 0;
+}
+.quiz-bar-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
+  color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .08em; flex: 1; }
+.quiz-btn {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600;
+  background: rgba(255,255,255,.12); color: #fff; border: none; padding: 4px 10px;
+  border-radius: 3px; cursor: pointer; transition: background .15s;
+}
+.quiz-btn:hover { background: rgba(255,255,255,.22); }
+.quiz-progress-bar { height: 4px; background: var(--border-mid); border-radius: 0 0 3px 3px; margin-bottom: 2px; }
+.quiz-progress-fill { height: 100%; background: var(--coral); border-radius: 0 0 3px 3px; width: 0%; transition: width .3s; }
+
+.cell-inner { display: block; }
+td.quiz-hidden .cell-inner { filter: blur(4px); user-select: none; transition: filter .2s; }
+.cell-mask {
+  display: none; position: absolute; inset: 0;
+  background: rgba(237,224,202,.7); border-radius: 3px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 600;
+  color: var(--ink-muted); align-items: center; justify-content: center; cursor: pointer;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+td.quiz-hidden .cell-mask { display: flex; }
+td { position: relative; }
+
+@keyframes revealPop { 0%{transform:scale(.95);opacity:.6} 100%{transform:scale(1);opacity:1} }
+td.just-revealed .cell-inner { animation: revealPop .25s ease-out; }
+
+/* ── Quiz Q boxes ── */
+.quiz-q {
+  background: var(--cream-mid); border: 1px solid var(--border-mid);
+  border-radius: 8px; padding: 18px 20px; margin: 16px 0;
+}
+.quiz-q .q-num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700;
+  color: var(--coral); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+.quiz-q .q-stem { font-weight: 600; margin-bottom: 10px; }
+.quiz-q .q-choices { list-style: none; padding: 0; }
+.quiz-q .q-choices li {
+  padding: 6px 10px; border-radius: 5px; margin-bottom: 5px; cursor: pointer;
+  border: 1.5px solid var(--border); transition: background .15s;
+  font-size: 14px;
+}
+.quiz-q .q-choices li:hover { background: var(--cream-dk); }
+.quiz-q .q-choices li.correct { background: #d4edda; border-color: var(--green); }
+.quiz-q .q-choices li.wrong { background: #fde8e4; border-color: var(--coral); }
+.quiz-q .q-choices li.revealed-correct { background: #d4edda; border-color: var(--green); }
+.quiz-q .q-explain { margin-top: 10px; font-size: 13px; color: var(--ink-soft);
+  background: #fff; padding: 10px 14px; border-radius: 5px; display: none; }
+.quiz-q .q-explain.show { display: block; }
+
+/* ── Technique columns ── */
+.tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin: 14px 0; }
+.tech-col { background: var(--cream-mid); border-radius: 7px; padding: 12px 13px; border: 1px solid var(--border); }
+.tech-col-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700;
+  color: var(--teal); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 8px; }
+.tech-col ul { padding-left: 16px; margin: 0; }
+.tech-col li { font-size: 12.5px; margin-bottom: 3px; }
+
+/* ── Quote block ── */
+.quote-block {
+  border-left: 3px solid var(--gold); margin: 18px 0; padding: 12px 18px;
+  background: var(--cream-mid); border-radius: 0 7px 7px 0;
+  font-family: 'Crimson Pro', serif; font-size: 16px; font-style: italic; color: var(--ink-soft);
+}
+.quote-attr { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; font-style: normal;
+  color: var(--gold); margin-top: 6px; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <span class="block-tag">OCS1-OMM</span>
+  <h1>Osteopathic Screening Exam &amp; Documentation</h1>
+  <span class="date-tag">Dr. Sharkey · 4/16/2026</span>
+</header>
+
+<nav class="lo-anchor-nav">
+  <a href="#objectives">Objectives</a>
+  <a href="#documentation">Documentation</a>
+  <a href="#case">Case: 52F Rib Pain</a>
+  <a href="#treatment-planning">Treatment Planning</a>
+  <a href="#techniques">Techniques by Region</a>
+  <a href="#quiz">Quiz</a>
+</nav>
+
+<div class="content-wrap">
+
+<section id="objectives" class="lo-section">
+  <div class="lo-badge">Session Overview</div>
+  <h2 class="section-title">Objectives &amp; Plan for Today</h2>
+
+  <h3>Learning Objectives</h3>
+  <ul class="reveal">
+    <li>Communicate (lay terms &amp; medical terminology) <strong>before</strong> any exam or procedure; obtain consent first.</li>
+    <li>Demonstrate professionalism with careful, considerate, consensual touch.</li>
+    <li>Identify anatomic landmarks for the <strong>axial spine</strong>: cervical, thoracic, lumbar, ribs, sacrum, and pelvis.</li>
+    <li>Perform an <strong>Osteopathic Structural Exam (OSE)</strong> of the axial spine and ribs.</li>
+    <li>Interpret <strong>TART findings</strong>, strength (myotomes), sensation (dermatomes), reflexes, CounterStrain points, and special tests (Spurling's, SLR).</li>
+    <li>Translate TART findings into somatic dysfunction findings and billing diagnoses.</li>
+    <li>Document TART findings appropriately for axial spine and ribs.</li>
+    <li>Differentiate dysfunctions determined by OSE and determine best treatment approach using the <strong>Five Pathophysiologic Models</strong>.</li>
+    <li>Demonstrate proper OMT treatment of axial spine and rib region using any OMM 1 technique.</li>
+  </ul>
+
+  <h3>Plan for the Day</h3>
+  <div class="flow-row reveal">
+    <span class="flow-node">Documentation</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-node">Case Discussion</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-node">Sequencing OMT</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-node">Screening OSE Demo</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-node">Practice OSE + PE</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-node">Document TART + Billing Dx</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-node">Develop &amp; Execute OMT Plan</span>
+    <span class="flow-arrow">→</span>
+    <span class="flow-node">Quiz</span>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section id="documentation" class="lo-section">
+  <div class="lo-badge teal">Documentation</div>
+  <h2 class="section-title">SOAP Format &amp; Billing</h2>
+
+  <h3>SOAP Note Structure</h3>
+  <div class="quiz-wrap">
+  <table class="comp-table">
+    <thead><tr><th>Section</th><th>Contents</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>S — Subjective</td>
+        <td>
+          <span class="cell-inner">
+          CC · HPI (incl. previous occurrence &amp; ICEE) · Medical Hx · Surgical Hx · Medications (Rx) · Allergies · Family Hx · Social Hx · Review of Systems (ROS)
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>O — Objective</td>
+        <td><span class="cell-inner">Vital Signs · Physical Exam (PE) including OSE · Past diagnostic study results</span></td>
+      </tr>
+      <tr>
+        <td>A — Assessment</td>
+        <td><span class="cell-inner">
+          <strong>1° Dx</strong>: Primary diagnosis<br>
+          <strong>Diff Dx ×3</strong> with defenses: most likely, most urgent/lethal, can't rule out<br>
+          <strong>2° Dx</strong>: Somatic dysfunction (regions) / Osteopathic billing diagnoses
+        </span></td>
+      </tr>
+      <tr>
+        <td>P — Plan (5 parts)</td>
+        <td><span class="cell-inner">
+          1. Diagnostics<br>
+          2. Therapeutics &amp; Referrals<br>
+          3. OMT (procedure note here)<br>
+          4. Patient Education<br>
+          5. Follow-up (F/U)
+        </span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Somatic Dysfunction Billing Codes (ICD-10)</h3>
+  <div class="reveal">
+  <table class="comp-table">
+    <thead><tr><th>Region</th><th>ICD-10 Code</th></tr></thead>
+    <tbody>
+      <tr><td>Head</td><td><span class="cell-inner">M99.00</span></td></tr>
+      <tr><td>Cervical</td><td><span class="cell-inner">M99.01</span></td></tr>
+      <tr><td>Thorax</td><td><span class="cell-inner">M99.02</span></td></tr>
+      <tr><td>Lumbar</td><td><span class="cell-inner">M99.03</span></td></tr>
+      <tr><td>Sacrum</td><td><span class="cell-inner">M99.04</span></td></tr>
+      <tr><td>Pelvis (Innominate)</td><td><span class="cell-inner">M99.05</span></td></tr>
+      <tr><td>Lower Extremity</td><td><span class="cell-inner">M99.06</span></td></tr>
+      <tr><td>Upper Extremity</td><td><span class="cell-inner">M99.07</span></td></tr>
+      <tr><td>Ribs</td><td><span class="cell-inner">M99.08</span></td></tr>
+      <tr><td>Abdomen &amp; Other (Diaphragm, Viscera)</td><td><span class="cell-inner">M99.09</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Tricky Billing Questions</h3>
+  <div class="callout callout-gold reveal">
+    <div class="callout-label">⚡ Know This</div>
+    <ul>
+      <li><strong>OA finding</strong> → <em>Head</em> (M99.00) — it's primarily an occiput structure</li>
+      <li><strong>Cervicothoracic or Thoracolumbar junction</strong> → bill the region where the finding is most significant, or both regions</li>
+      <li><strong>Clavicle</strong> → Upper Extremity (M99.07)</li>
+      <li><strong>Psoas</strong> → Lumbar (M99.03)</li>
+      <li><strong>Piriformis</strong> → Pelvis/Sacrum (M99.04 or M99.05)</li>
+      <li><strong>Left hamstring imbalance + R tibia IR + R ankle inverted</strong> → <em>3 billable LE regions</em>: all are Lower Extremity, but may argue 1 region</li>
+    </ul>
+  </div>
+
+  <div class="callout callout-teal reveal">
+    <div class="callout-label">📋 Documentation Style Influences</div>
+    The "correct" way to document is however the attending, specialty, or hospital system directs. Style is shaped by:
+    CMS · State Licensing Board · Hospital System · EMR Software · Attending/Rotation/Department · Scribing (human or AI)
+  </div>
+
+  <h3>OMM Documentation Worksheet</h3>
+  <div class="two-col reveal">
+    <div>
+      <h4>Left Side — TART Findings (your exam)</h4>
+      <ul>
+        <li>OA restriction translating L→R, worse in flexion</li>
+        <li>AA restricted rotating right</li>
+        <li>Right elbow restricted in extension or R biceps hypertonicity</li>
+        <li>Ribs 8–10 tender on the left anterior</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Right Side — 3-Plane Osteopathic Diagnosis</h4>
+      <ul>
+        <li>OA ESrRl</li>
+        <li>AA Rotated Left</li>
+        <li>Right elbow flexed</li>
+        <li>CounterStrain Tenderpoints (CSTPs): DR 8–10 Left</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section id="case" class="lo-section">
+  <div class="lo-badge gold">Case</div>
+  <h2 class="section-title">52-Year-Old Female with Left Rib Pain</h2>
+
+  <h3>Subjective</h3>
+  <div class="sign-grid reveal">
+    <div class="sign-item">
+      <span class="sign-icon">📋</span>
+      <div class="sign-label">Chief Complaint</div>
+      <div class="sign-text">Left Rib Pain</div>
+      <div class="sign-detail">Bucket-handle ribs, left midaxillary to axillary line</div>
+    </div>
+    <div class="sign-item">
+      <span class="sign-icon">⏱️</span>
+      <div class="sign-label">Onset / Course</div>
+      <div class="sign-text">1 week</div>
+      <div class="sign-detail">After 2-wk sinus infection → PND → chest sx → cough. Still congested</div>
+    </div>
+    <div class="sign-item">
+      <span class="sign-icon">⬆️</span>
+      <div class="sign-label">Aggravating</div>
+      <div class="sign-text">Coughing</div>
+      <div class="sign-detail">Makes rib pain worse</div>
+    </div>
+    <div class="sign-item">
+      <span class="sign-icon">⬇️</span>
+      <div class="sign-label">Relieving</div>
+      <div class="sign-text">Yoga</div>
+      <div class="sign-detail">Helps with rib pain</div>
+    </div>
+    <div class="sign-item">
+      <span class="sign-icon">💊</span>
+      <div class="sign-label">Meds / Allergies</div>
+      <div class="sign-text">Cephalexin 500mg BID × 10d</div>
+      <div class="sign-detail">⚠️ Augmentin → Rash; Guaifenesin (Mucinex) → Rash</div>
+    </div>
+    <div class="sign-item">
+      <span class="sign-icon">👨‍👩‍👧</span>
+      <div class="sign-label">Family / Social Hx</div>
+      <div class="sign-text">Paralegal; husband; 3 dogs, 2 cats, 1 bird</div>
+      <div class="sign-detail">Father: MI @ 70, asthma, tobacco. Mother: hypothyroid, hearing impairment, 74yo</div>
+    </div>
+  </div>
+
+  <div class="callout callout-teal reveal">
+    <div class="callout-label">📝 PMHx / PSurgHx</div>
+    PMHx: No hospitalizations; recurrent ear infections; hx psoriasis on elbows (uses moisturizer)<br>
+    PSurgHx: Tympanostomy tubes bilaterally<br>
+    ROS Negative for: fever, chills, night sweats, wt loss, fatigue, SOB, DOE, TB exposure, pleurisy, jaw/arm pain, dizziness, syncope, orthopnea
+  </div>
+
+  <h3>Objective — Vitals &amp; Physical Exam</h3>
+  <div class="flow-row reveal">
+    <span class="flow-node">T: 98.4°F</span>
+    <span class="flow-node">HR: 55</span>
+    <span class="flow-node">RR: 15</span>
+    <span class="flow-node">BP: 112/72</span>
+  </div>
+
+  <table class="comp-table reveal">
+    <thead><tr><th>System</th><th>Findings</th></tr></thead>
+    <tbody>
+      <tr><td>General</td><td><span class="cell-inner">Well-appearing, pleasant, sitting comfortably on table</span></td></tr>
+      <tr><td>HEENT</td><td><span class="cell-inner">Normocephalic, atraumatic. No conjunctival injection. B/l tympanostomy tubes. No rhinorrhea, sinus tenderness, or pharyngeal erythema</span></td></tr>
+      <tr><td>Neck</td><td><span class="cell-inner">No cervical lymphadenopathy</span></td></tr>
+      <tr><td>Cardiovascular</td><td><span class="cell-inner">RRR, no M/R/G, no LE edema</span></td></tr>
+      <tr><td>Respiratory</td><td><span class="cell-inner">Normal A/P diameter, BS present all fields, no wheezes/rales/rhonchi, no dullness, normal tactile vocal fremitus, no egophony. Rib motion symmetric.</span></td></tr>
+      <tr><td>MSK</td><td><span class="cell-inner">Left upper &amp; mid thoracic paraspinal hypertonicity. Intact AROM b/l shoulders. L clavicle ↓ motion with inhalation vs R. Negative standing &amp; seated flexion test. Negative spring test.</span></td></tr>
+      <tr><td>Neuro</td><td><span class="cell-inner">C5–T1 intact to dull touch, normal reflexes, no weakness, normal gait</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>OSE Findings</h3>
+  <div class="callout reveal">
+    <div class="callout-label">🔍 Osteopathic Structural Exam</div>
+    Patient examined <strong>standing, supine, prone, and seated</strong>.
+    Slightly increased thoracic kyphosis. Scapular height asymmetric (R elevated). Symmetric iliac crests and arches. Equal leg lengths supine.
+  </div>
+
+  <table class="comp-table reveal">
+    <thead><tr><th>Region</th><th>Osteopathic Finding</th></tr></thead>
+    <tbody>
+      <tr><td>Head (OA)</td><td><span class="cell-inner">OA ESrRl</span></td></tr>
+      <tr><td>Cervical</td><td><span class="cell-inner">AA Rot L; C4 ERSr</span></td></tr>
+      <tr><td>Thoracic</td><td><span class="cell-inner">CT junction sidebent left; T7–T9 NSlRr</span></td></tr>
+      <tr><td>Lumbar</td><td><span class="cell-inner">T12–L3 SrRl</span></td></tr>
+      <tr><td>Ribs</td><td><span class="cell-inner">7–10 Left exhaled; Counterstrain pts: DR8–10 Left</span></td></tr>
+      <tr><td>Upper Extremity</td><td><span class="cell-inner">L clavicle depressed at SC joint</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Assessment</h3>
+  <div class="callout callout-gold reveal">
+    <div class="callout-label">1° Billing Dx — Rib Pain: Differential Diagnosis</div>
+    <ul>
+      <li><strong>Intercostal muscle strain</strong> from coughing: likely — mechanism fits, cough + hx</li>
+      <li><strong>Rib fracture</strong>: unlikely — no trauma, breath sounds intact</li>
+      <li><strong>Pneumonia</strong>: unlikely — no fever, clear lungs, no purulent sputum, normal fremitus</li>
+      <li><strong>Costochondritis</strong>: possible — but location is more lateral (bucket-handle), not costochondral junction</li>
+    </ul>
+    <br>
+    <strong>2° Dx:</strong> Somatic Dysfunction of Head, Cervical, Thoracic, Ribs, and Upper Extremity (M99.00, M99.01, M99.02, M99.08, M99.07)
+  </div>
+
+  <h3>Plan</h3>
+  <div class="two-col reveal">
+    <div>
+      <h4>1. Diagnostics</h4>
+      <p>Consider X-ray if no improvement with conservative treatment as below.</p>
+
+      <h4>2. Therapeutics</h4>
+      <p>Heating pad. Tylenol up to 500mg QID; max 2000mg/day.</p>
+
+      <h4>4. Patient Education</h4>
+      <p>Reassured pt unlikely to have pneumonia. Discussed red flags: fever, purulent productive cough, ↑ rib pain, new SOB → call if develops.</p>
+
+      <h4>5. Follow-up</h4>
+      <p>Reevaluate rib pain if recurs as needed. Reevaluate cough if not improved in 4 weeks or worsens.</p>
+    </div>
+    <div>
+      <h4>3. OMT Procedure Note Template</h4>
+      <div class="callout callout-teal">
+        <div class="callout-label">Procedure Note</div>
+        <strong>Procedure:</strong> Osteopathic Manipulative Treatment<br>
+        <strong>Physician/Student:</strong> OMT performed by ________, supervised by ________, DO.<br>
+        <strong>Indication:</strong> Somatic Dysfunction as documented. No contraindications today.<br>
+        <strong>Consent:</strong> Verbal consent obtained after risk/benefit discussion.<br>
+        <strong>Treatment (3–4 areas):</strong>
+        <ul>
+          <li>Head: Muscle Energy</li>
+          <li>Cervical: FPR (2nd year)</li>
+          <li>Thorax: ME, HVLA, Soft Tissue</li>
+          <li>Ribs: Strain-CounterStrain, ME</li>
+          <li>UE: BLT (2nd year)</li>
+        </ul>
+        <strong>Complications:</strong> None.<br>
+        <strong>Disposition:</strong> Well tolerated; subjective &amp; objective improvement. Take it easy 1–2 days.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section id="treatment-planning" class="lo-section">
+  <div class="lo-badge violet">Treatment Planning</div>
+  <h2 class="section-title">Making an Osteopathic Treatment Plan</h2>
+
+  <div class="two-col reveal">
+    <div>
+      <h3>The 5 Pathophysiologic Models</h3>
+      <div class="sign-grid" style="grid-template-columns:1fr;">
+        <div class="sign-item">
+          <span class="sign-icon">🦴</span>
+          <div class="sign-label">Biomechanical</div>
+          <div class="sign-detail">Structural and postural relationships</div>
+        </div>
+        <div class="sign-item">
+          <span class="sign-icon">🫁</span>
+          <div class="sign-label">Respiratory / Circulatory</div>
+          <div class="sign-detail">Fluid flow, lymphatics, breathing mechanics</div>
+        </div>
+        <div class="sign-item">
+          <span class="sign-icon">⚡</span>
+          <div class="sign-label">Neurologic</div>
+          <div class="sign-detail">Somatovisceral/viscerosomatic reflexes, facilitated segments</div>
+        </div>
+        <div class="sign-item">
+          <span class="sign-icon">🔋</span>
+          <div class="sign-label">Metabolic / Energetic</div>
+          <div class="sign-detail">Energy production, endocrine, immune function</div>
+        </div>
+        <div class="sign-item">
+          <span class="sign-icon">🧠</span>
+          <div class="sign-label">Behavioral / Psychosocial</div>
+          <div class="sign-detail">Mind-body, stress, social determinants of health</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3>The 4 Tenets of Osteopathic Medicine</h3>
+      <ol class="reveal">
+        <li>The body is a unit; the person is a <strong>mind, body, and spirit</strong>.</li>
+        <li>The body is capable of <strong>self-regulation, self-healing, and health maintenance</strong>.</li>
+        <li><strong>Structure and function are reciprocally interrelated</strong>.</li>
+        <li>Rational treatment is based on an understanding of body unity, self-regulation, and the interrelationship of structure and function.</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3>Ed Stiles' Sequencing Principles</h3>
+
+  <div class="quote-block reveal">
+    "When you step on a cat's tail, where does the sound come out?"
+    <div class="quote-attr">— George A. Laughlin, DO (AT Still's grandson), on treating away from the CC</div>
+  </div>
+
+  <div class="quote-block reveal">
+    "During a 20-minute treatment, you are better off spending 15 minutes examining and finding the Area of Greatest Restriction (AGR), then an effective 5-minute treatment will do more than an ineffective 20-minute treatment."
+    <div class="quote-attr">— Perrin T. Wilson</div>
+  </div>
+
+  <div class="callout callout-violet reveal">
+    <div class="callout-label">🧅 Sequencing Principles (Stiles)</div>
+    <ul>
+      <li>The body is a <strong>functional unit</strong> — a tensegrity system.</li>
+      <li>Pain is usually <em>not</em> at the AGR; it's in an area of ineffective adaptation.</li>
+      <li>Treatment is like <strong>peeling an onion</strong>: outside-in, never reversed.</li>
+      <li>Each patient is treated uniquely.</li>
+      <li>Find the AGR → establish segmental Dx → start treatment there → move to next regional AGR → continue until treated area won't release (you're done for that visit).</li>
+    </ul>
+  </div>
+
+  <h3>Screening for the Area of Greatest Restriction (AGR)</h3>
+  <table class="comp-table reveal">
+    <thead><tr><th>Finding on Screening</th><th>Implies AGR at…</th></tr></thead>
+    <tbody>
+      <tr><td>Gets worse as move laterally from vertebra along a rib</td><td><span class="cell-inner">Rib</span></td></tr>
+      <tr><td>Diffuse tightness medial border scapula</td><td><span class="cell-inner">Ipsilateral Upper Extremity</span></td></tr>
+      <tr><td>Diffuse tightness unilateral lumbar paraspinals</td><td><span class="cell-inner">Ipsilateral Lower Extremity</span></td></tr>
+      <tr><td>While sitting: AGR seems SI region</td><td><span class="cell-inner">Examine pelvis for S/D</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-teal reveal">
+    <div class="callout-label">🔬 Normal vs Dysfunctional Barrier</div>
+    <strong>Normal:</strong> Elastic physiological barrier — yield, spring, soft end feel<br>
+    <strong>Dysfunctional:</strong> Restrictive barrier — guarding, loss of tissue yield, no joint spring, hard end feel
+  </div>
+
+  <h3>Why It Works: Tensegrity</h3>
+  <div class="callout reveal">
+    <div class="callout-label">Engineering Concept (Donald Inger, MD, PhD)</div>
+    <ul>
+      <li><strong>Non-touching rods (bones)</strong> + <strong>tension wires (muscles &amp; fascia)</strong> = self-supporting structure</li>
+      <li>Tension continuously transmitted across all structural members. ↑ tension in one member → ↑ compression in all others.</li>
+      <li>Therefore: Somatic dysfunction and OMT have impact both <strong>locally and distally</strong>.</li>
+    </ul>
+  </div>
+
+  <h3>Historical Footnote — Why OMT Billing Codes Exist</h3>
+  <div class="quote-block reveal">
+    "Whenever a diagnosis comes up with 'somatic dysfunction,' the length of stay, the number of complications and the amount of drugs used is far less in Waterville Osteopathic Hospital than any of the surrounding hospitals, so you're saving us a lot of money."
+    <div class="quote-attr">— Head of Medicare in Maine to Edward G. Stiles, DO (1973), leading to the first five-level OMT coding system with Medicare</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section id="techniques" class="lo-section">
+  <div class="lo-badge sky">Techniques</div>
+  <h2 class="section-title">OMM 1 Techniques by Region</h2>
+  <p style="color:var(--ink-muted); margin-bottom:18px;">All techniques you learned this year, organized by region and modality.</p>
+
+  <h3>Upper Extremity</h3>
+  <div class="tech-grid reveal">
+    <div class="tech-col">
+      <div class="tech-col-label">CounterStrain</div>
+      <ul>
+        <li>Supraspinatus</li><li>Levator scapulae</li><li>Rhomboids</li><li>Latissimus dorsi</li>
+        <li>Subscapularis</li><li>Long head biceps brachii</li><li>Coracobrachialis</li><li>Pectoralis minor</li>
+        <li>Brachialis</li><li>Radial head lateral</li><li>Medial epicondyle</li><li>Dorsal wrist</li>
+        <li>Palmar wrist</li><li>Abductor pollicis brevis</li><li>Latissimus dorsi</li>
+      </ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Muscle Energy</div>
+      <ul><li>Seven Stages of Spencer Technique</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Articulatory</div>
+      <ul>
+        <li>Posterior radial head</li><li>Anterior radial head</li><li>Wrist treatment</li>
+        <li>Sternoclavicular mobilization</li><li>Acromioclavicular mobilization</li>
+        <li>Elbow wobble</li><li>Radial head articulation</li><li>Distal radioulnar joint</li>
+        <li>1st carpometacarpal articulation</li><li>AC joint</li><li>Radiocarpal joint</li>
+        <li>MCP and PIP joints</li>
+      </ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Soft Tissue</div>
+      <ul>
+        <li>Scapular lift</li><li>Pectoral axillary fold traction</li><li>Posterior axillary fold traction</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Lower Extremity</h3>
+  <div class="tech-grid reveal">
+    <div class="tech-col">
+      <div class="tech-col-label">CounterStrain</div>
+      <ul>
+        <li>Lateral trochanter</li><li>Adductor</li><li>Gluteus medius</li><li>Gluteus maximus</li>
+        <li>Popliteus</li><li>Medial / Lateral hamstring</li><li>Medial / Lateral meniscus</li>
+        <li>Gastrocnemius</li><li>Medial / Lateral ankle</li><li>Navicular</li><li>Flexed calcaneus</li>
+      </ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Muscle Energy</div>
+      <ul>
+        <li>Psoas imbalance</li><li>Adductor / Abductor imbalance</li>
+        <li>Hip internal / external rotator imbalance</li>
+        <li>Hamstring / Quadriceps imbalance</li>
+        <li>Anterior / Posterior fibular head</li>
+        <li>External / Internal tibial torsion</li><li>Ankle treatment</li>
+      </ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Articulatory</div>
+      <ul>
+        <li>Knee wobble</li><li>Anterior / Posterior fibular head</li><li>Cuboid dysfunction</li>
+        <li>External / Internal rotated tibia</li><li>Posterior tibia on femur</li>
+        <li>Longitudinal arch mobilization</li><li>Anterior tibia on talus</li>
+        <li>Navicular / Talotibial dysfunction</li>
+      </ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Soft Tissue</div>
+      <ul>
+        <li>Parasacral and gluteal tissue</li><li>Fibularis kneading</li><li>Popliteal fossa</li>
+        <li>Plantar fascia release</li><li>Longitudinal arch springing</li><li>Supine traction</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Thoracic Spine</h3>
+  <div class="tech-grid reveal">
+    <div class="tech-col">
+      <div class="tech-col-label">CounterStrain</div>
+      <ul><li>Anterior thorax 1–12</li><li>Posterior thorax 1–12</li><li>Rhomboids</li><li>Midline posterior T1–T12</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Muscle Energy</div>
+      <ul><li>Type I dysfunctions</li><li>Type II dysfunctions</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">HVLA</div>
+      <ul><li>Double arm thrust</li><li>Thoracic inlet</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Soft Tissue</div>
+      <ul><li>Thoracic soft tissue</li></ul>
+    </div>
+  </div>
+
+  <h3>Ribs</h3>
+  <div class="tech-grid reveal">
+    <div class="tech-col">
+      <div class="tech-col-label">CounterStrain</div>
+      <ul><li>Depressed ribs 1–2</li><li>Depressed ribs 3–10</li><li>Elevated rib 1</li><li>Elevated ribs 2–10</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Muscle Energy</div>
+      <ul><li>Exhaled ribs 1–12</li><li>Inhaled ribs 1–10</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Articulatory / HVLA</div>
+      <ul><li>Exhalation dysfunction</li><li>Inhalation dysfunction</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Soft Tissue</div>
+      <ul><li>Rib raising</li></ul>
+    </div>
+  </div>
+
+  <h3>Lumbar Spine</h3>
+  <div class="tech-grid reveal">
+    <div class="tech-col">
+      <div class="tech-col-label">CounterStrain</div>
+      <ul><li>Anterior lumbar 1–5</li><li>Posterior lumbar 1–5</li><li>Upper and lower pole L5</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Muscle Energy</div>
+      <ul><li>Type I dysfunction</li><li>Type II dysfunction</li><li>Bilateral flexed</li><li>Bilaterally extended</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Articulatory / HVLA</div>
+      <ul><li>Lateral Sims articulation</li><li>Type I / II thrusts</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Soft Tissue</div>
+      <ul><li>Lumbar soft tissue</li><li>Frog leg technique</li></ul>
+    </div>
+  </div>
+
+  <h3>Sacrum &amp; Pelvis</h3>
+  <div class="tech-grid reveal">
+    <div class="tech-col">
+      <div class="tech-col-label">CounterStrain</div>
+      <ul><li>High ilium sacroiliac</li><li>Piriformis</li><li>Coccygeus</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Muscle Energy</div>
+      <ul><li>Low ilium</li><li>Pubic symphysis dysfunctions</li><li>Innominate flare</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Articulatory / HVLA</div>
+      <ul><li>Innominate rotation</li><li>Upslip</li><li>Anterior / Posterior rotation</li><li>Traction tug</li></ul>
+    </div>
+  </div>
+
+  <h3>Cervical Spine</h3>
+  <div class="tech-grid reveal">
+    <div class="tech-col">
+      <div class="tech-col-label">CounterStrain</div>
+      <ul><li>Anterior cervical points</li><li>Posterior cervical points</li><li>Inion</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Muscle Energy</div>
+      <ul><li>OA dysfunction</li><li>AA dysfunction</li><li>Lower cervical dysfunction</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">HVLA</div>
+      <ul><li>SCM</li><li>Scalene</li><li>Lower cervical thrust</li></ul>
+    </div>
+    <div class="tech-col">
+      <div class="tech-col-label">Soft Tissue</div>
+      <ul><li>Suboccipital release</li><li>Longitudinal stretching</li><li>Lateral stretching</li></ul>
+    </div>
+  </div>
+
+  <h3>Lymphatics</h3>
+  <div class="callout callout-green reveal">
+    <div class="callout-label">🫧 Lymphatic Techniques</div>
+    Upper Thoracic Pump · Lower Thoracic Pump · Pedal Pumps · Posterior Axillary Fold ·
+    Thoracic Duct · Cisterna Chyli · Facial and Sinus Drainage
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<section id="quiz" class="lo-section">
+  <div class="lo-badge">Quiz</div>
+  <h2 class="section-title">Documentation Quiz</h2>
+  <p style="color:var(--ink-muted); margin-bottom:18px;">Click a choice to see if you're correct, then read the explanation.</p>
+
+  <div class="quiz-q" data-answer="B">
+    <div class="q-num">Question 1</div>
+    <div class="q-stem">A 25-year-old male presents for an annual physical. He reports ankle pain after a fall while walking to the clinic. In which section of the SOAP note should this be recorded?</div>
+    <ul class="q-choices">
+      <li data-choice="A">A. Objective</li>
+      <li data-choice="B">B. Subjective</li>
+      <li data-choice="C">C. Plan</li>
+      <li data-choice="D">D. Assessment</li>
+      <li data-choice="E">E. Diagnostics</li>
+    </ul>
+    <div class="q-explain">
+      <strong>B — Subjective.</strong> The patient <em>reports</em> ankle pain — this is information the patient tells you, which belongs in the Subjective section. The HPI includes mechanism of injury (the fall).
+    </div>
+  </div>
+
+  <div class="quiz-q" data-answer="B">
+    <div class="q-num">Question 2</div>
+    <div class="q-stem">A 70-year-old female has mid-back pain. You find prominent transverse processes on the LEFT from T2–T6 that do NOT change in flexion or extension. What is the osteopathic finding?</div>
+    <ul class="q-choices">
+      <li data-choice="A">A. T4 FRSl</li>
+      <li data-choice="B">B. T2–T6 NSrRl</li>
+      <li data-choice="C">C. T2–T6 FRSr</li>
+      <li data-choice="D">D. T2–T6 NSlRl</li>
+      <li data-choice="E">E. T4–T5 ESRl</li>
+    </ul>
+    <div class="q-explain">
+      <strong>B — T2–T6 NSrRl.</strong> Does NOT change in F/E = Type I = Neutral (N). Prominent TPs on the LEFT = rotated Left (Rl). In Type I (Fryette's Law I): sidebending and rotation are <em>opposite</em> → sidebent Right (Sr). So: N·Sr·Rl. Also, this is a <em>group</em> curve (T2–T6), which is characteristic of Type I.
+    </div>
+  </div>
+
+  <div class="quiz-q" data-answer="D">
+    <div class="q-num">Question 3</div>
+    <div class="q-stem">Same patient — 70F, mid-back pain, T2–T6 NSrRl. What is the <strong>Primary Diagnosis</strong> (Assessment)?</div>
+    <ul class="q-choices">
+      <li data-choice="A">A. Cervicalgia</li>
+      <li data-choice="B">B. Sacroiliitis</li>
+      <li data-choice="C">C. The Dwindles</li>
+      <li data-choice="D">D. Back Pain</li>
+      <li data-choice="E">E. Muscle Strain</li>
+    </ul>
+    <div class="q-explain">
+      <strong>D — Back Pain.</strong> The primary diagnosis reflects the chief complaint. The patient came in for mid-back pain → primary billing diagnosis is Back Pain (or dorsalgia). The osteopathic finding (T2–T6 NSrRl) becomes the secondary/osteopathic diagnosis, not the primary.
+    </div>
+  </div>
+
+  <div class="quiz-q" data-answer="C">
+    <div class="q-num">Question 4</div>
+    <div class="q-stem">Same patient — 70F, T2–T6 NSrRl. What is the <strong>Secondary / Osteopathic Billing Diagnosis</strong>?</div>
+    <ul class="q-choices">
+      <li data-choice="A">A. Cervicalgia</li>
+      <li data-choice="B">B. T2–T6 NSrRl</li>
+      <li data-choice="C">C. Somatic Dysfunction: Thoracic</li>
+      <li data-choice="D">D. Somatic Dysfunction: Lumbar</li>
+      <li data-choice="E">E. Muscle Strain</li>
+    </ul>
+    <div class="q-explain">
+      <strong>C — Somatic Dysfunction: Thoracic (M99.02).</strong> Billing diagnoses use regional categories, not the specific 3-plane notation. T2–T6 is in the thoracic region. The 3-plane notation (T2–T6 NSrRl) goes in the PE/OSE, not the billing code. D is wrong because T2–T6 is thoracic, not lumbar.
+    </div>
+  </div>
+
+  <div class="quiz-q" data-answer="A">
+    <div class="q-num">Question 5</div>
+    <div class="q-stem">After performing OMT during a clinic visit, where should patient tolerance of the procedure be recorded in the SOAP note?</div>
+    <ul class="q-choices">
+      <li data-choice="A">A. Plan</li>
+      <li data-choice="B">B. Assessment</li>
+      <li data-choice="C">C. Objective</li>
+      <li data-choice="D">D. Subjective</li>
+      <li data-choice="E">E. History of Present Illness</li>
+    </ul>
+    <div class="q-explain">
+      <strong>A — Plan.</strong> The OMT procedure note lives in the Plan section (part 3 of the 5-part plan). Patient tolerance, complications, and post-treatment disposition are all documented within the OMT procedure note in the Plan.
+    </div>
+  </div>
+</section>
+
+</div><!-- end content-wrap -->
+
+<script>
+// ── Reveal on scroll ──
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06 });
+document.querySelectorAll('.reveal').forEach(r => revealObs.observe(r));
+
+// ── Active nav on scroll ──
+const sections = document.querySelectorAll('.lo-section');
+const navLinks = document.querySelectorAll('.lo-anchor-nav a');
+const scrollObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const link = document.querySelector(`.lo-anchor-nav a[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => scrollObs.observe(s));
+
+// ── Quiz table engine ──
+function initQuizTables() {
+  document.querySelectorAll('.quiz-wrap table').forEach(table => {
+    const wrap = table.closest('.quiz-wrap');
+    if (!wrap || wrap.querySelector('.quiz-bar')) return;
+
+    const bar = document.createElement('div');
+    bar.className = 'quiz-bar';
+    bar.innerHTML = `
+      <span class="quiz-bar-label">📋 Table Quiz</span>
+      <button class="quiz-btn" onclick="toggleQuiz(this)">Start Quiz</button>
+      <button class="quiz-btn" onclick="revealAll(this)">Reveal All</button>
+      <button class="quiz-btn" onclick="hideAll(this)">Hide All</button>
+    `;
+    const progWrap = document.createElement('div');
+    progWrap.className = 'quiz-progress-bar';
+    progWrap.innerHTML = '<div class="quiz-progress-fill"></div>';
+
+    wrap.insertBefore(bar, table);
+    wrap.insertBefore(progWrap, table);
+
+    table.querySelectorAll('tbody td:not(:first-child)').forEach(td => {
+      const inner = td.querySelector('.cell-inner') || td;
+      if (!td.querySelector('.cell-inner')) {
+        const ci = document.createElement('span');
+        ci.className = 'cell-inner';
+        ci.innerHTML = td.innerHTML;
+        td.innerHTML = '';
+        td.appendChild(ci);
+      }
+      const mask = document.createElement('div');
+      mask.className = 'cell-mask';
+      mask.textContent = 'Tap to reveal';
+      mask.onclick = function() { revealCell(td, wrap); };
+      td.appendChild(mask);
+    });
+  });
+}
+
+function getQuizCells(wrap) { return wrap.querySelectorAll('table tbody td:not(:first-child)'); }
+function getProgress(wrap) {
+  const cells = getQuizCells(wrap);
+  const revealed = [...cells].filter(td => !td.classList.contains('quiz-hidden')).length;
+  return cells.length ? revealed / cells.length * 100 : 100;
+}
+function updateProgress(wrap) {
+  const fill = wrap.querySelector('.quiz-progress-fill');
+  if (fill) fill.style.width = getProgress(wrap) + '%';
+}
+function revealCell(td, wrap) {
+  td.classList.remove('quiz-hidden');
+  td.classList.add('just-revealed');
+  setTimeout(() => td.classList.remove('just-revealed'), 400);
+  updateProgress(wrap);
+}
+function toggleQuiz(btn) {
+  const wrap = btn.closest('.quiz-wrap');
+  const cells = getQuizCells(wrap);
+  const anyHidden = [...cells].some(td => td.classList.contains('quiz-hidden'));
+  if (anyHidden) { cells.forEach(td => td.classList.remove('quiz-hidden')); updateProgress(wrap); }
+  else { cells.forEach(td => td.classList.add('quiz-hidden')); updateProgress(wrap); }
+}
+function revealAll(btn) {
+  const wrap = btn.closest('.quiz-wrap');
+  getQuizCells(wrap).forEach(td => td.classList.remove('quiz-hidden'));
+  updateProgress(wrap);
+}
+function hideAll(btn) {
+  const wrap = btn.closest('.quiz-wrap');
+  getQuizCells(wrap).forEach(td => td.classList.add('quiz-hidden'));
+  updateProgress(wrap);
+}
+
+document.addEventListener('DOMContentLoaded', initQuizTables);
+if (document.readyState !== 'loading') initQuizTables();
+
+// ── MCQ Quiz ──
+document.querySelectorAll('.quiz-q').forEach(q => {
+  const answer = q.dataset.answer;
+  q.querySelectorAll('.q-choices li').forEach(li => {
+    li.addEventListener('click', function() {
+      if (q.querySelector('.correct, .wrong')) return; // already answered
+      const choice = li.dataset.choice;
+      if (choice === answer) {
+        li.classList.add('correct');
+      } else {
+        li.classList.add('wrong');
+        q.querySelector(`[data-choice="${answer}"]`).classList.add('revealed-correct');
+      }
+      q.querySelector('.q-explain').classList.add('show');
+    });
+  });
+});
+</script>
+</body>
+</html>
