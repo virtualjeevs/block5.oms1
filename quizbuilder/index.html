@@ -18,6 +18,7 @@
   --rule:#DBD5C9;--cream:#F6F3EC;--warm:#FBF8F3;--white:#FFFFFF;
   --sh:0 8px 24px rgba(18,32,60,.08);--sh2:0 14px 34px rgba(18,32,60,.10);--sh3:0 28px 70px rgba(18,32,60,.12);
   --tr:0.25s cubic-bezier(.4,0,.2,1);--r:14px;--rs:8px;
+  --stem-size:25px;--choice-size:15.5px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
@@ -111,6 +112,12 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
 .q-tool:hover{border-color:rgba(26,122,109,.32);color:var(--teal);transform:translateY(-1px);background:#fff}
 .q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00;box-shadow:0 0 0 3px rgba(211,175,43,.12)}
 .q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red);box-shadow:0 0 0 3px rgba(196,64,64,.08)}
+.font-tools{display:flex;align-items:center;gap:8px;flex:1 1 100%;padding:12px 14px;border-radius:14px;border:1.5px solid rgba(18,32,60,.08);background:rgba(255,255,255,.86);box-shadow:0 6px 16px rgba(18,32,60,.06)}
+.font-tools-label{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+.font-tools-group{display:flex;gap:8px;margin-left:auto}
+.font-btn{min-width:42px;padding:9px 12px;border-radius:12px;border:1.5px solid rgba(18,32,60,.1);background:#fff;color:var(--navy);font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;cursor:pointer;transition:var(--tr);box-shadow:0 6px 14px rgba(18,32,60,.05)}
+.font-btn:hover{transform:translateY(-1px);border-color:rgba(26,122,109,.34);color:var(--teal)}
+.font-btn.reset{min-width:54px}
 
 /* sidebar stack */
 .sidebar{display:flex;flex-direction:column;gap:14px;position:sticky;top:18px}
@@ -122,7 +129,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
 .qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
 .qbd{padding:28px 34px 26px}
 .qnum{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
-.qstem{font-family:'Crimson Pro',serif;font-size:25px;line-height:1.35;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.15px}
+.qstem{font-family:'Crimson Pro',serif;font-size:var(--stem-size);line-height:1.35;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.15px}
 .qstem mark{background:#FFFAAD;padding:1px 3px;border-radius:3px;color:inherit}
 .qstem s{color:var(--mist);text-decoration:line-through}
 .ach{display:grid;gap:10px}
@@ -136,7 +143,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
 .ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
 .ac.cor .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
 .ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
-.ac-txt{font-size:15.5px;font-weight:600;line-height:1.5;color:var(--ink);padding-top:9px}
+.ac-txt{font-size:var(--choice-size);font-weight:600;line-height:1.5;color:var(--ink);padding-top:9px}
 .ac-txt mark{background:#FFFAAD;padding:1px 2px;border-radius:3px;color:inherit}
 .ac-txt s{color:var(--mist);text-decoration:line-through}
 .submit-row{margin-top:24px;text-align:center}
@@ -186,7 +193,7 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
   .mode-toggle,.tool-panel{flex:1 1 100%}
   .timer-card{flex:1 1 160px}
 }
-@media(max-width:480px){.qbd{padding:20px 16px}.qstem{font-size:21px}.qnv{flex-direction:column;padding:14px 16px 18px}.nb{width:100%}}
+@media(max-width:480px){.qbd{padding:20px 16px}.qstem{font-size:max(21px,var(--stem-size))}.qnv{flex-direction:column;padding:14px 16px 18px}.nb{width:100%}.font-tools{flex-direction:column;align-items:stretch}.font-tools-group{margin-left:0;justify-content:space-between}}
 @media(max-width:560px){.setup-actions{flex-direction:column}}
 
 /* toast */
@@ -310,6 +317,14 @@ body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);mi
         <button class="q-tool hl-tool" id="hlTool" onclick="toggleTool('hl')">🖊 Highlight</button>
         <button class="q-tool st-tool" id="stTool" onclick="toggleTool('st')">✂ Strikethrough</button>
         <button class="q-tool" onclick="clearMarks()">✖ Clear Marks</button>
+        <div class="font-tools">
+          <span class="font-tools-label">Text Size</span>
+          <div class="font-tools-group">
+            <button class="font-btn" onclick="adjustFontSize(-1)" aria-label="Decrease question and answer text size">A-</button>
+            <button class="font-btn reset" onclick="resetFontSize()" aria-label="Reset question and answer text size">A</button>
+            <button class="font-btn" onclick="adjustFontSize(1)" aria-label="Increase question and answer text size">A+</button>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -330,6 +345,7 @@ var questions=[], answers={}, selected={}, NC=0, NI=0, CQ=0;
 var quizMode='learn';
 var toolMode='';
 var timerSec=0, timerRunning=false, timerInterval=null;
+var fontStep=0;
 var LETTERS=['A','B','C','D','E'];
 var PRELOADED_QUIZ_NAME="__QUIZ_BUILDER_PRELOADED_NAME__";
 var PRELOADED_QUESTIONS_JSON="__QUIZ_BUILDER_PRELOADED_QUESTIONS__";
@@ -367,7 +383,8 @@ Output ONLY a raw JSON array — no markdown, no backticks, no explanation.
 
 Rules:
 - "correct" is a NUMBER (0=A, 1=B, 2=C, 3=D, 4=E)
-- "wrongExplanations" keys are string numbers "1" "2" "3" "4" — never "0"
+- Include a wrong explanation for every wrong choice
+- Prefer using the actual choice index as the key, so if A is wrong use "0", if B is wrong use "1", etc.
 - Vary which letter is correct — don't always use 0
 - If converting questions with fewer than 5 choices, add distractors to reach 5
 - Keep all answer choices similar in length so the correct answer is not guessable by length
@@ -405,17 +422,32 @@ function shuffle(arr){
   }
   return out;
 }
+function buildWrongExplanationLookup(rawChoices, rawCorrect, wrongExplanations){
+  var lookup={};
+  if(!wrongExplanations||typeof wrongExplanations!=='object')return lookup;
+  var wrongChoiceIndices=[];
+  rawChoices.forEach(function(_,idx){if(idx!==rawCorrect)wrongChoiceIndices.push(idx);});
+  var directHits=wrongChoiceIndices.filter(function(idx){return !!wrongExplanations[String(idx)];}).length;
+  var orderedHits=wrongChoiceIndices.filter(function(_,orderPos){return !!wrongExplanations[String(orderPos+1)];}).length;
+  var useOrdered=orderedHits>directHits;
+  wrongChoiceIndices.forEach(function(idx,orderPos){
+    var chosenKey=useOrdered?String(orderPos+1):String(idx);
+    if(wrongExplanations[chosenKey])lookup[String(idx)]=String(wrongExplanations[chosenKey]);
+  });
+  return lookup;
+}
 function normQ(q){
   if(!q.stem||!Array.isArray(q.choices)||q.choices.length<2)return null;
   var rawChoices=q.choices.map(String);
   while(rawChoices.length<5)rawChoices.push('');
   var rawCorrect=typeof q.correct==='number'?q.correct:(parseInt(q.correct)||0);
   if(rawCorrect<0||rawCorrect>=rawChoices.length)rawCorrect=0;
+  var wrongLookup=buildWrongExplanationLookup(rawChoices, rawCorrect, q.wrongExplanations);
 
   var choiceMeta=rawChoices.map(function(choiceText,idx){
     var wrongText='';
-    if(idx!==rawCorrect&&q.wrongExplanations&&typeof q.wrongExplanations==='object'&&q.wrongExplanations[String(idx)]){
-      wrongText=String(q.wrongExplanations[String(idx)]);
+    if(idx!==rawCorrect&&wrongLookup[String(idx)]){
+      wrongText=wrongLookup[String(idx)];
     }
     return {
       text:choiceText,
@@ -445,6 +477,7 @@ function getNormalizedQuestionsFromRaw(raw){
 function startQuiz(valid,name){
   questions=valid;answers={};selected={};NC=0;NI=0;CQ=0;quizMode='learn';toolMode='';
   resetTimer();
+  applyFontSize();
   document.getElementById('quizName').value=name||'Custom Quiz';
   document.getElementById('qtName').textContent=name||'Custom Quiz';
   document.getElementById('modeLearn').classList.add('active');
@@ -616,6 +649,21 @@ function clearMarks(){
   var ach=document.getElementById('achEl');
   [stem,ach].forEach(function(el){if(!el)return;el.querySelectorAll('mark,s').forEach(function(m){m.replaceWith(document.createTextNode(m.textContent));});});
 }
+function applyFontSize(){
+  var root=document.documentElement;
+  var stemSize=25+(fontStep*2.5);
+  var choiceSize=15.5+(fontStep*1.2);
+  root.style.setProperty('--stem-size', stemSize.toFixed(1)+'px');
+  root.style.setProperty('--choice-size', choiceSize.toFixed(1)+'px');
+}
+function adjustFontSize(delta){
+  fontStep=Math.max(-2,Math.min(4,fontStep+delta));
+  applyFontSize();
+}
+function resetFontSize(){
+  fontStep=0;
+  applyFontSize();
+}
 document.addEventListener('mouseup',function(e){
   if(!toolMode)return;
   var sel=window.getSelection();
@@ -691,6 +739,7 @@ function showToast(msg,type){
   setTimeout(function(){t.style.animation='toastOut .28s ease forwards';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},300);},2800);
 }
 hydratePreloadedQuiz();
+applyFontSize();
 </script>
 </body>
 </html>
