@@ -1006,6 +1006,11 @@ function updateDots() {
   });
 }
 
+function getQuestionImageSrc(image) {
+  if (!image) return '';
+  return image.startsWith('data:image') ? image : `data:image/jpeg;base64,${image}`;
+}
+
 // === RENDER QUESTION ===
 function renderQuestion(idx) {
   currentIdx = idx;
@@ -1018,7 +1023,7 @@ function renderQuestion(idx) {
 
   // Image
   if (q.image) {
-    qImg.src = 'data:image/jpeg;base64,' + q.image;
+    qImg.src = getQuestionImageSrc(q.image);
     qImg.alt = q.imgAlt || `Pathology image for question ${idx + 1}`;
     qImgWrap.style.display = 'flex';
   } else {
@@ -1302,7 +1307,7 @@ function buildPrintReviewMarkup() {
     }
 
     const imgHtml = q.image
-      ? `<img src="data:image/jpeg;base64,${q.image}" style="max-width:100%; max-height:380px; display:block; margin:10px auto; border-radius:8px;" alt="Question ${i+1} image">`
+      ? `<img src="${getQuestionImageSrc(q.image)}" style="max-width:100%; max-height:380px; display:block; margin:10px auto; border-radius:8px;" alt="Question ${i+1} image">`
       : '';
 
     cards += `
