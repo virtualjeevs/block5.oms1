@@ -1,0 +1,740 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNE COM — Custom Quiz Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&amp;family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#12203C;--navy2:#1B2A4A;
+  --teal:#1A7A6D;--teal-glow:#3EC4B2;--teal-mid:#2BA393;--teal-light:#E3F5F2;--teal-deep:#125E54;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --gold-bg:#FDF6E3;
+  --coral:#E07A5F;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--cream:#F6F3EC;--warm:#FBF8F3;--white:#FFFFFF;
+  --sh:0 8px 24px rgba(18,32,60,.08);--sh2:0 14px 34px rgba(18,32,60,.10);--sh3:0 28px 70px rgba(18,32,60,.12);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);--r:14px;--rs:8px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased}
+.view{display:none}.view.active{display:block}
+
+/* ══ SETUP VIEW ══ */
+.setup-page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px}
+.setup-card{background:var(--white);border-radius:24px;border:1px solid var(--rule);box-shadow:var(--sh3);width:min(680px,100%);overflow:hidden}
+.setup-top{background:linear-gradient(135deg,var(--navy) 0%,#1B2A4A 100%);padding:36px 36px 30px;text-align:center}
+.setup-emoji{font-size:48px;margin-bottom:14px}
+.setup-title{font-family:'Crimson Pro',serif;font-size:36px;font-weight:700;color:#fff;letter-spacing:-.4px;margin-bottom:6px}
+.setup-title em{font-style:normal;color:var(--teal-glow)}
+.setup-sub{font-size:15px;color:rgba(255,255,255,.65);line-height:1.6}
+
+.setup-body{padding:32px 36px 36px}
+
+/* instruction steps */
+.how-title{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--mist);margin-bottom:16px}
+.steps{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.step{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:12px;background:var(--warm);border:1px solid var(--rule)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-family:'IBM Plex Mono',monospace}
+.step-text{font-size:14px;color:var(--ink2);line-height:1.6}
+.step-text strong{color:var(--ink);display:block;margin-bottom:2px}
+
+/* prompt copy box */
+.prompt-wrap{background:var(--navy);border-radius:12px;padding:16px 18px;position:relative;margin-bottom:8px}
+.prompt-inner{font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.75;color:#9AD3F2;white-space:pre-wrap;word-break:break-word;max-height:160px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.1) transparent;padding-right:70px}
+.copy-prompt-btn{position:absolute;top:12px;right:12px;padding:6px 12px;background:rgba(62,196,178,.15);border:1px solid rgba(62,196,178,.35);border-radius:7px;color:var(--teal-glow);font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .18s;white-space:nowrap}
+.copy-prompt-btn:hover{background:rgba(62,196,178,.28)}
+.copy-prompt-btn.ok{background:rgba(45,134,89,.2);border-color:rgba(45,134,89,.4);color:#5EC490}
+
+.divider{height:1px;background:var(--rule);margin:24px 0}
+
+/* paste area */
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.lbl{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate)}
+.inp{padding:10px 14px;border-radius:var(--rs);border:1.5px solid var(--rule);font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;color:var(--ink);background:var(--warm);outline:none;transition:border-color .18s;width:100%}
+.inp:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(62,196,178,.12);background:#fff}
+.ta{width:100%;padding:13px 15px;border-radius:var(--rs);border:1.5px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.7;color:var(--ink);background:var(--warm);resize:vertical;min-height:160px;outline:none;transition:border-color .18s}
+.ta:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(62,196,178,.12);background:#fff}
+.ta::placeholder{color:var(--mist)}
+.setup-actions{display:flex;gap:12px;margin-top:18px}
+.launch-btn{width:100%;padding:16px;border-radius:16px;border:none;background:linear-gradient(135deg,var(--teal-glow),var(--teal-mid));color:var(--navy);font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;letter-spacing:.3px;transition:all .2s;box-shadow:0 8px 22px rgba(62,196,178,.3);margin-top:18px}
+.launch-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(62,196,178,.38)}
+.setup-actions .launch-btn{margin-top:0;flex:1}
+.ghost-btn{padding:16px 18px;border-radius:16px;border:1.5px solid rgba(18,32,60,.12);background:#fff;color:var(--navy);font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;letter-spacing:.2px;transition:all .2s;box-shadow:0 8px 22px rgba(18,32,60,.08)}
+.ghost-btn:hover{transform:translateY(-2px);border-color:rgba(26,122,109,.34);color:var(--teal);box-shadow:0 14px 30px rgba(18,32,60,.12)}
+.err-msg{padding:10px 14px;border-radius:var(--rs);font-size:13px;font-weight:700;display:none;align-items:center;gap:8px;margin-top:10px;background:var(--red-bg);color:var(--red);border:1px solid rgba(196,64,64,.2)}
+.err-msg.show{display:flex}
+
+/* ══ QUIZ VIEW ══ */
+.quiz-page{min-height:100vh;display:flex;flex-direction:column}
+
+/* top bar */
+.qt-bar{background:linear-gradient(180deg,var(--navy) 0%,var(--navy2) 100%);display:flex;align-items:center;gap:14px;padding:0 22px;height:52px;flex-shrink:0;box-shadow:0 2px 12px rgba(18,32,60,.22)}
+.qt-name{font-family:'Crimson Pro',serif;font-size:18px;font-weight:700;color:#fff;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:-.2px}
+.qt-btn{padding:8px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.75);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;transition:all .18s}
+.qt-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+
+/* grid */
+.qin{max-width:1360px;margin:0 auto;width:100%;padding:22px 20px 72px;display:grid;grid-template-columns:320px minmax(0,1fr);gap:18px 22px;align-items:start}
+
+/* sidebar panels */
+.score-panel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:0}
+.score-box{position:relative;overflow:hidden;background:color-mix(in srgb,var(--white) 88%,var(--warm) 12%);border-radius:20px;padding:16px 12px 13px;text-align:center;box-shadow:var(--sh2);border:1px solid rgba(18,32,60,.08);transition:var(--tr)}
+.score-box::before{content:'';position:absolute;left:14px;right:14px;top:0;height:4px;border-radius:0 0 999px 999px;background:linear-gradient(90deg,rgba(26,122,109,.16),rgba(62,196,178,.5));opacity:.75}
+.score-box.correct{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(232,245,238,.98))}.score-box.correct::before{background:linear-gradient(90deg,rgba(45,134,89,.2),rgba(45,134,89,.72))}
+.score-box.incorrect{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(253,240,240,.98))}.score-box.incorrect::before{background:linear-gradient(90deg,rgba(196,64,64,.18),rgba(196,64,64,.68))}
+.sv{font-family:'Crimson Pro',serif;font-size:34px;font-weight:800;color:var(--navy);line-height:1}
+.sl{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;margin-top:7px}
+.score-box.correct .sv{color:var(--green)}.score-box.incorrect .sv{color:var(--red)}
+
+.mode-toggle{display:flex;gap:7px;padding:7px;border-radius:22px;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:var(--sh2)}
+.mode-btn{flex:1;padding:12px 14px;border-radius:16px;text-align:center;font-family:'Nunito',sans-serif;font-size:13.5px;font-weight:800;cursor:pointer;border:none;background:transparent;color:var(--slate);transition:all .22s}
+.mode-btn:hover{color:var(--navy);background:rgba(18,32,60,.04)}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;box-shadow:0 10px 22px rgba(27,42,74,.18)}
+.mode-btn .mode-icon{display:block;font-size:19px;margin-bottom:3px}
+
+.timer-card{position:relative;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:42px 16px 16px;background:rgba(255,255,255,.84);border-radius:22px;border:1px solid rgba(18,32,60,.08);box-shadow:var(--sh2);transition:var(--tr)}
+.timer-card.run{border-color:rgba(26,122,109,.34);box-shadow:0 0 0 4px rgba(26,122,109,.08),var(--sh2)}
+.timer-card.warn{border-color:rgba(224,122,95,.4);box-shadow:0 0 0 4px rgba(224,122,95,.08),var(--sh2)}
+.timer-lbl{position:absolute;top:13px;left:15px;font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--mist);font-weight:800;padding:5px 9px;border-radius:999px;background:rgba(18,32,60,.04)}
+.timer-time{font-family:'IBM Plex Mono',monospace;font-size:38px;font-weight:600;color:var(--navy);min-width:110px;text-align:center;letter-spacing:2px}
+.timer-card.warn .timer-time{color:var(--coral)}
+.tbtn{width:40px;height:40px;border-radius:50%;border:1.8px solid rgba(27,42,74,.24);background:rgba(255,255,255,.9);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:var(--tr);color:var(--navy);flex-shrink:0;box-shadow:0 6px 18px rgba(18,32,60,.08)}
+.tbtn:hover{background:var(--navy);color:#fff;transform:translateY(-1px) scale(1.04);border-color:var(--navy)}
+
+.tool-panel{display:flex;flex-wrap:wrap;gap:9px;padding:9px;border-radius:22px;background:rgba(255,255,255,.76);backdrop-filter:blur(8px);border:1px solid rgba(18,32,60,.08);box-shadow:var(--sh2)}
+.q-tool{flex:1 1 120px;min-width:0;padding:11px 14px;border-radius:14px;font-size:12.5px;font-weight:800;border:1.5px solid rgba(18,32,60,.08);background:rgba(255,255,255,.86);cursor:pointer;transition:var(--tr);font-family:'Nunito',sans-serif;color:var(--ink2);box-shadow:0 6px 16px rgba(18,32,60,.06);text-align:left}
+.q-tool:hover{border-color:rgba(26,122,109,.32);color:var(--teal);transform:translateY(-1px);background:#fff}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00;box-shadow:0 0 0 3px rgba(211,175,43,.12)}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red);box-shadow:0 0 0 3px rgba(196,64,64,.08)}
+
+/* sidebar stack */
+.sidebar{display:flex;flex-direction:column;gap:14px;position:sticky;top:18px}
+
+/* question card — pixel-perfect hub match */
+.qcd{background:color-mix(in srgb,var(--white) 94%,var(--warm) 6%);border-radius:28px;overflow:hidden;box-shadow:var(--sh3);border:1px solid rgba(18,32,60,.08);animation:cardIn .42s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.qpg{height:6px;background:color-mix(in srgb,var(--teal) 10%,transparent)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .5s cubic-bezier(.4,0,.2,1);border-radius:0 999px 999px 0}
+.qbd{padding:28px 34px 26px}
+.qnum{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;background:rgba(18,32,60,.045);font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
+.qstem{font-family:'Crimson Pro',serif;font-size:25px;line-height:1.35;margin-bottom:22px;font-weight:600;color:var(--ink);letter-spacing:-.15px}
+.qstem mark{background:#FFFAAD;padding:1px 3px;border-radius:3px;color:inherit}
+.qstem s{color:var(--mist);text-decoration:line-through}
+.ach{display:grid;gap:10px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:15px 18px;border:1.5px solid rgba(18,32,60,.09);border-radius:18px;cursor:pointer;transition:var(--tr);background:color-mix(in srgb,var(--warm) 78%,var(--white) 22%);box-shadow:0 6px 18px rgba(18,32,60,.04)}
+.ac:hover:not(.dis){border-color:rgba(26,122,109,.4);background:linear-gradient(180deg,#fff,#F0F7F5);transform:translateY(-1px)}
+.ac.sel{border-color:rgba(26,122,109,.5)!important;background:linear-gradient(180deg,#fff,#EFF7F5)!important;transform:translateY(-1px)}
+.ac.cor{border-color:rgba(45,134,89,.44)!important;background:linear-gradient(180deg,#fff,#EDF8F1)!important}
+.ac.inc{border-color:rgba(196,64,64,.4)!important;background:linear-gradient(180deg,#fff,#FDF2F2)!important}
+.ac.dis{cursor:default;transform:none!important}
+.cl{width:42px;height:42px;border-radius:50%;border:1.8px solid rgba(18,32,60,.12);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:700;flex-shrink:0;transition:var(--tr);background:#fff;box-shadow:0 6px 14px rgba(18,32,60,.05)}
+.ac.sel .cl{background:var(--teal)!important;border-color:var(--teal)!important;color:#fff!important}
+.ac.cor .cl{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.ac.inc .cl{background:var(--red)!important;border-color:var(--red)!important;color:#fff!important}
+.ac-txt{font-size:15.5px;font-weight:600;line-height:1.5;color:var(--ink);padding-top:9px}
+.ac-txt mark{background:#FFFAAD;padding:1px 2px;border-radius:3px;color:inherit}
+.ac-txt s{color:var(--mist);text-decoration:line-through}
+.submit-row{margin-top:24px;text-align:center}
+.submit-btn{padding:15px 54px;border-radius:18px;background:linear-gradient(135deg,var(--teal),var(--teal-mid));color:#fff;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;border:none;transition:var(--tr);box-shadow:0 10px 24px rgba(26,122,109,.24);letter-spacing:.4px}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px rgba(26,122,109,.3)}
+.submit-btn:disabled{opacity:.25;cursor:not-allowed;transform:none;box-shadow:none}
+.exb{margin-top:26px;border-radius:22px;overflow:hidden;display:none;border:1px solid rgba(18,32,60,.08);background:#fff}
+.exb.vis{display:block;animation:fadeUp .38s cubic-bezier(.4,0,.2,1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.exs{padding:20px 24px}.exs+.exs{border-top:1px solid rgba(18,32,60,.06)}
+.exs.exc{background:var(--green-bg);border-left:5px solid var(--green)}
+.exs.exw{background:var(--red-bg);border-left:5px solid var(--red)}
+.exs.exo{background:var(--amber-bg);border-left:5px solid var(--amber)}
+.exs.exe{background:var(--teal-light);border-left:5px solid var(--teal)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:10px}
+.exs.exc .exl{color:var(--green)}.exs.exw .exl{color:var(--red)}.exs.exo .exl{color:var(--amber)}.exs.exe .exl{color:var(--teal)}
+.ext{font-size:15px;line-height:1.65;color:var(--ink2)}
+.wce{margin-top:10px;padding-top:10px;border-top:1px solid rgba(196,64,64,.12)}
+.wce strong{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+.qnv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 24px 20px;border-top:1px solid rgba(18,32,60,.08);background:linear-gradient(180deg,color-mix(in srgb,var(--warm) 32%,transparent),color-mix(in srgb,var(--cream) 82%,transparent))}
+.nb{padding:12px 22px;border:1.8px solid rgba(27,42,74,.2);background:#fff;border-radius:16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--navy);transition:var(--tr);box-shadow:0 8px 18px rgba(18,32,60,.06)}
+.nb:hover{background:var(--navy);color:#fff;transform:translateY(-1px);border-color:var(--navy)}
+.nb.pr{background:linear-gradient(135deg,var(--navy),#2A3562);color:#fff;border-color:transparent}
+.nb.pr:hover{background:linear-gradient(135deg,var(--navy2),var(--navy))}
+.nb:disabled{opacity:.22;cursor:not-allowed;transform:none!important;box-shadow:none}
+.nav-dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;flex:1}
+.qd{width:10px;height:10px;border-radius:50%;background:rgba(18,32,60,.1);cursor:pointer;border:none;padding:0;transition:var(--tr)}
+.qd:hover{background:rgba(18,32,60,.28);transform:scale(1.25)}
+.qd.on{background:var(--teal-glow);box-shadow:0 0 0 3px rgba(62,196,178,.22)}
+.qd.dc{background:var(--green)}.qd.di{background:var(--red)}
+
+/* finish overlay */
+.fin{background:linear-gradient(135deg,var(--navy),#2A3562);border-radius:28px;padding:32px;text-align:center;color:#fff;box-shadow:var(--sh3);margin-bottom:18px}
+.fin-pct{font-family:'IBM Plex Mono',monospace;font-size:64px;font-weight:700;color:var(--teal-glow);line-height:1}
+.fin-pct-lbl{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin:4px 0 14px}
+.fin-msg{font-family:'Crimson Pro',serif;font-size:30px;font-weight:700;margin-bottom:6px}
+.fin-sub{font-size:14px;color:rgba(255,255,255,.6);margin-bottom:22px}
+.fin-btns{display:flex;gap:12px;justify-content:center}
+.fin-btn{padding:11px 20px;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.8);font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .18s}
+.fin-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+
+/* responsive */
+@media(max-width:820px){
+  .qin{grid-template-columns:1fr;padding:16px 14px 64px}
+  .sidebar{position:static;flex-direction:row;flex-wrap:wrap}
+  .score-panel{flex:1 1 200px}
+  .mode-toggle,.tool-panel{flex:1 1 100%}
+  .timer-card{flex:1 1 160px}
+}
+@media(max-width:480px){.qbd{padding:20px 16px}.qstem{font-size:21px}.qnv{flex-direction:column;padding:14px 16px 18px}.nb{width:100%}}
+@media(max-width:560px){.setup-actions{flex-direction:column}}
+
+/* toast */
+.toast-wrap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:999;pointer-events:none}
+.toast{padding:11px 20px;border-radius:999px;font-size:13.5px;font-weight:700;box-shadow:0 8px 28px rgba(0,0,0,.15);animation:toastIn .28s cubic-bezier(.2,.8,.2,1) both;white-space:nowrap}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(8px) scale(.95)}}
+.toast.ok{background:var(--navy);color:var(--teal-glow)}.toast.err{background:var(--red);color:#fff}
+</style>
+</head>
+<body>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ══════════ SETUP VIEW ══════════ -->
+<div class="view active" id="viewSetup">
+<div class="setup-page">
+<div class="setup-card">
+
+  <div class="setup-top">
+    <div class="setup-emoji">🧪</div>
+    <div class="setup-title">Custom <em>Quiz Builder</em></div>
+    <div class="setup-sub">Generate a quiz from any AI and run it in the same exam format as the study hub.</div>
+  </div>
+
+  <div class="setup-body">
+    <div class="how-title">How it works</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Copy the prompt below</strong>
+          Paste it into ChatGPT, Claude, Gemini, or any AI — then add your notes or questions after it and send.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>Copy the AI's response</strong>
+          It will return a formatted list of questions. Copy the whole thing.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>Paste it below and launch</strong>
+          Hit Launch and the quiz opens immediately in the full exam UI.
+        </div>
+      </div>
+    </div>
+
+    <!-- Prompt to copy -->
+    <div class="lbl" style="margin-bottom:8px">Your AI prompt</div>
+    <div class="prompt-wrap">
+      <button class="copy-prompt-btn" id="copyPromptBtn" onclick="copyPrompt()">📋 Copy prompt</button>
+      <div class="prompt-inner" id="promptText">You are a medical school question writer in Dr. Goode's style. You have TWO modes:
+
+MODE 1 — GENERATE: If I give you notes or lecture content, write quiz questions from it.
+MODE 2 — CONVERT: If I give you already-written questions in any format, convert them into the format below without changing the medical content.
+
+Output ONLY a raw JSON array — no markdown, no backticks, no explanation.
+
+[
+  {
+    "stem": "Question text here?",
+    "choices": [
+      "A. Short, plausible answer choice",
+      "B. Short, plausible answer choice",
+      "C. Short, plausible answer choice",
+      "D. Short, plausible answer choice",
+      "E. Short, plausible answer choice"
+    ],
+    "correct": 0,
+    "explanation": "Why the correct answer is right. Use arrows (→) to show mechanisms.",
+    "wrongExplanations": {
+      "1": "Why B is wrong — be specific.",
+      "2": "Why C is wrong — be specific.",
+      "3": "Why D is wrong — be specific.",
+      "4": "Why E is wrong — be specific."
+    },
+    "eli5": "Explain the concept like the student is 10. Max 3 sentences."
+  }
+]
+
+Rules:
+- Keep stems short and literal
+- Use 5 answer choices unless the source truly requires 4
+- Keep all choices in the same conceptual family
+- Keep choice lengths and grammar roughly similar
+- Do NOT make the correct answer consistently shortest or longest
+- Make distractors plausible for someone who half-knows the material
+- "correct" is a NUMBER (0=A, 1=B, 2=C, 3=D, 4=E)
+- "wrongExplanations" keys are string numbers for the wrong choices only
+- Vary which letter is correct
+- If converting questions with fewer than 5 choices, add plausible distractors to reach 5
+- Output ONLY the JSON array
+
+MY CONTENT:
+</div>
+    </div>
+    <p style="font-size:12px;color:var(--mist);margin-bottom:24px;margin-top:6px">Paste your notes or existing questions <em>after</em> this prompt before sending to your AI.</p>
+
+    <div class="divider"></div>
+
+    <div class="field">
+      <label class="lbl">Quiz name (optional)</label>
+      <input class="inp" id="quizName" placeholder="e.g. Ferland — Confidence Intervals — Bank 1">
+    </div>
+    <div class="field">
+      <label class="lbl">Paste AI response here</label>
+      <textarea class="ta" id="pasteArea" placeholder="Paste the AI's response here and hit Launch…"></textarea>
+    </div>
+    <div class="setup-actions">
+      <button class="launch-btn" onclick="launchQuiz()">🚀 Launch Quiz</button>
+      <button class="ghost-btn" onclick="downloadQuiz()">⬇ Download My Quiz</button>
+    </div>
+    <div class="err-msg" id="errMsg"></div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<!-- ══════════ QUIZ VIEW ══════════ -->
+<div class="view" id="viewQuiz">
+<div class="quiz-page">
+
+  <!-- top bar -->
+  <div class="qt-bar">
+    <div class="qt-name" id="qtName">Quiz</div>
+    <button class="qt-btn" onclick="downloadQuiz()">⬇ Download Quiz</button>
+    <button class="qt-btn" onclick="resetQuiz()">↺ Reset</button>
+    <button class="qt-btn" onclick="exitQuiz()">✕ Close</button>
+  </div>
+
+  <!-- grid -->
+  <div class="qin">
+
+    <!-- LEFT SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- score boxes -->
+      <div class="score-panel">
+        <div class="score-box correct"><div class="sv" id="sC">0</div><div class="sl">Correct</div></div>
+        <div class="score-box incorrect"><div class="sv" id="sI">0</div><div class="sl">Incorrect</div></div>
+        <div class="score-box"><div class="sv" id="sP">—</div><div class="sl">Score</div></div>
+      </div>
+
+      <!-- mode toggle -->
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="modeLearn" onclick="setMode('learn')"><span class="mode-icon">📚</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam" onclick="setMode('exam')"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <!-- timer -->
+      <div class="timer-card" id="timerCard">
+        <div class="timer-lbl">TIMER</div>
+        <div class="timer-time" id="timerTime">00:00</div>
+        <button class="tbtn" id="timerPlayBtn" onclick="toggleTimer()">▶</button>
+        <button class="tbtn" onclick="resetTimer()">↺</button>
+      </div>
+
+      <!-- tools -->
+      <div class="tool-panel">
+        <button class="q-tool hl-tool" id="hlTool" onclick="toggleTool('hl')">🖊 Highlight</button>
+        <button class="q-tool st-tool" id="stTool" onclick="toggleTool('st')">✂ Strikethrough</button>
+        <button class="q-tool" onclick="clearMarks()">✖ Clear Marks</button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: QUESTION -->
+    <div>
+      <div id="finBanner"></div>
+      <div id="qArea"></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+// ── STATE ──
+var questions=[], answers={}, selected={}, NC=0, NI=0, CQ=0;
+var quizMode='learn';
+var toolMode='';
+var timerSec=0, timerRunning=false, timerInterval=null;
+var LETTERS=['A','B','C','D','E'];
+var PRELOADED_QUIZ_NAME="Goode CE prep";
+var PRELOADED_QUESTIONS_JSON="[{\"stem\":\"What is the defining hallmark of Sjögren's disease?\",\"choices\":[\"A. Photosensitive malar rash with anti-dsDNA antibodies\",\"B. Symmetric erosive polyarthritis with anti-CCP antibodies\",\"C. Reduced lacrimal and salivary gland function\",\"D. Skin thickening with anti-Scl-70 antibodies\",\"E. Noncaseating granulomas with hilar adenopathy\"],\"correct\":2,\"explanation\":\"Sjögren's disease is a chronic inflammatory autoimmune disease of the exocrine glands → diminished lacrimal and salivary gland function produces the classic sicca features: keratoconjunctivitis sicca (dry eyes) and xerostomia (dry mouth). Lymphocytic infiltration → epithelial cell destruction → loss of secretory function.\",\"wrongExplanations\":{\"0\":\"Malar rash and anti-dsDNA define SLE. Sjögren's can occur secondary to SLE, but the dsDNA/malar pattern is not the Sjögren's hallmark.\",\"1\":\"Symmetric polyarthritis with RF/anti-CCP describes rheumatoid arthritis. Patients with primary Sjögren's may have arthralgia, but joint destruction is not the hallmark.\",\"3\":\"Anti-centromere (limited scleroderma/CREST) and anti-Scl-70 (diffuse scleroderma) define systemic sclerosis. Sjögren's may be secondary to systemic sclerosis, but skin thickening is not its hallmark.\",\"4\":\"Hilar lymphadenopathy and non-caseating granulomas describe sarcoidosis, which is on the differential for sicca symptoms but is a granulomatous disease, not Sjögren's.\"},\"eli5\":\"Sjögren's is the autoimmune disease where your tear and spit glands stop working. So your eyes and mouth feel like a desert all the time.\"},{\"stem\":\"What feature defines secondary Sjögren's disease?\",\"choices\":[\"A. Sicca disease with another autoimmune disorder\",\"B. Much higher anti-Ro titers than primary disease\",\"C. Extraglandular disease preceding sicca symptoms\",\"D. Predominant genetic risk from non-MHC loci\",\"E. Onset before age 30 with male predominance\"],\"correct\":0,\"explanation\":\"Secondary Sjögren's disease (sSjD) = sicca/exocrinopathy occurring in the setting of another autoimmune disease, most commonly RA, SLE, or systemic sclerosis. Primary Sjögren's (pSjD) = exocrinopathy alone, with no overlying autoimmune disease.\",\"wrongExplanations\":{\"2\":\"Sicca symptoms are typically present in secondary Sjögren's; the defining feature is the coexisting autoimmune disease, not the sequence of symptoms.\",\"3\":\"Both forms have strong MHC associations. There is no genetic feature that uniquely defines secondary Sjögren's.\",\"4\":\"Sjögren's overall has female predominance (15–20:1) and onset >50 years, regardless of primary or secondary form. Male predominance and onset <30 are not features of either.\"},\"eli5\":\"Sjögren's comes in two flavors. Primary means it shows up alone. Secondary means it tags along with another autoimmune disease like lupus or RA.\"},{\"stem\":\"What is the most serious long-term complication of Sjögren's disease?\",\"choices\":[\"A. Pulmonary hypertension from chronic interstitial lung disease\",\"B. Corneal ulceration with progressive visual loss\",\"C. Extranodal marginal zone B-cell lymphoma\",\"D. End-stage renal disease from chronic interstitial nephritis\",\"E. Adult complete heart block\"],\"correct\":2,\"explanation\":\"The most serious complication is non-Hodgkin lymphoma, typically MALToma, developing within 10–15 years. Mechanism: chronic auto-reactive B cell stimulation in periductal lymphoid aggregates + high BAFF → malignant B cell transformation.\",\"wrongExplanations\":{\"0\":\"ILD can occur but pulmonary hypertension is more associated with systemic sclerosis. It is not the signature life-threatening complication of Sjögren's.\",\"3\":\"Renal involvement in Sjögren's is most often distal (Type 1) RTA, not progression to ESRD. ESRD is more characteristic of lupus nephritis.\",\"4\":\"Congenital heart block occurs in fetuses of anti-Ro+ mothers, not in adult patients. Adult Sjögren's does not cause complete heart block.\"},\"eli5\":\"When B cells in your spit glands keep getting yelled at to grow for years, some of them eventually turn into cancer cells. That's why people with Sjögren's can develop a special kind of lymphoma called MALToma.\"},{\"stem\":\"Anti-Ro/SSA antibodies in Sjögren's target Ro52, a cytoplasmic protein. What is the normal function of Ro52?\",\"choices\":[\"A. Ubiquitin-tagging proteins for proteasomal degradation\",\"B. Clearing defective RNA transcripts in the nucleus\",\"C. Stabilizing nuclear pore complexes during cell stress\",\"D. Binding small nuclear RNAs during ribonucleoprotein assembly\",\"E. Catalyzing pre-mRNA splicing within spliceosomes\"],\"correct\":0,\"explanation\":\"Ro52 is a cytoplasmic E3 ubiquitin ligase → it tags substrate proteins with ubiquitin → marks them for proteasomal degradation. Anti-Ro52 antibodies (with Ro60 and La/SSB) form the Sjögren's autoantibody panel.\",\"wrongExplanations\":{\"1\":\"Clearing defective RNA transcripts is the function of Ro60, the nuclear component of the Ro/SSA complex — distinct from Ro52.\",\"2\":\"Nuclear pore complex stabilization is not a function of Ro52. Antibodies against nuclear pore proteins (e.g., gp210) are seen in primary biliary cholangitis.\",\"3\":\"Binding snRNAs for ribosomal assembly is unrelated to Ro52, which is cytoplasmic and acts on protein ubiquitination.\"},\"eli5\":\"Ro52 is one of the proteins your body makes antibodies against in Sjögren's. Its normal job is to put a little 'trash' tag on broken proteins so the cell can throw them away.\"},{\"stem\":\"What is the normal function of the La/SSB autoantigen?\",\"choices\":[\"A. Tagging proteins with ubiquitin for degradation\",\"B. Binding newly synthesized RNA transcripts\",\"C. Clearing misfolded proteins through chaperone autophagy\",\"D. Anchoring the inner nuclear membrane to chromatin\",\"E. Adding poly-A tails to messenger RNA\"],\"correct\":1,\"explanation\":\"La/SSB is an RNA-binding protein → associates with newly synthesized RNA transcripts (particularly RNA polymerase III products) → stabilizes them and assists in maturation. Anti-La/SSB is found in 60–80% of Sjögren's patients.\",\"wrongExplanations\":{\"0\":\"E3 ubiquitin ligase activity describes Ro52, the cytoplasmic component of the Ro/SSA complex — not La/SSB.\",\"2\":\"Chaperone-mediated autophagy is performed by HSC70 and lysosomal LAMP-2A, not La/SSB.\",\"4\":\"Poly-A tailing is performed by poly(A) polymerase, not La. La binds RNA but does not catalyze polyadenylation.\"},\"eli5\":\"La/SSB is a protein that grabs onto new RNA strands to help them mature. People with Sjögren's make antibodies against it.\"},{\"stem\":\"Which cell type initiates and maintains the inflammatory response in the salivary glands of Sjögren's disease?\",\"choices\":[\"A. Salivary epithelial cells\",\"B. Plasmacytoid dendritic cells\",\"C. Autoreactive B cells\",\"D. IL-17-producing Th17 cells\",\"E. Tissue-resident macrophages\"],\"correct\":0,\"explanation\":\"Salivary epithelial cells initiate and maintain the disease → activated by type I IFN → express MHC II and costimulatory molecules → activate CD4+ T cells → release IL-1, IL-6, TNF-α, BAFF, and chemokines → recruit lymphocytes (Th1/17) and DCs. This is the 'autoimmune epithelitis' concept central to Sjögren's pathogenesis.\",\"wrongExplanations\":{\"2\":\"Auto-reactive B cells generate periductal lymphoid aggregates and antibodies, but they emerge later as a consequence of EC-driven inflammation, not its initiator.\",\"3\":\"Th17 cells are recruited downstream by chemokines from activated ECs; they amplify but do not initiate the response.\",\"4\":\"Macrophages contribute to tissue damage but are not the lesion's initiating cell. The unique feature of Sjögren's is that the epithelium itself drives the immune response.\"},\"eli5\":\"In Sjögren's, the spit gland cells themselves are the troublemakers. They wave a flag at immune cells, which come in and start attacking the gland.\"},{\"stem\":\"Chronic B cell stimulation in Sjögren's can transform into MALToma. Which cytokine, expressed at high levels, is most associated with this transformation?\",\"choices\":[\"A. APRIL from stromal support cells\",\"B. IL-6 from activated epithelial cells\",\"C. BAFF from activated epithelial cells\",\"D. TNF-alpha from infiltrating Th1 cells\",\"E. IL-21 from follicular helper T cells\"],\"correct\":2,\"explanation\":\"BAFF (B-cell activating factor) → released by activated epithelial cells → drives survival, activation, and clonal expansion of self-reactive B cells in periductal lymphoid aggregates → high BAFF environment → malignant B cell transformation → MALToma.\",\"wrongExplanations\":{\"0\":\"APRIL is a related TNF-family cytokine that can also support B cell survival, but the lecture specifically names BAFF as the driver.\",\"1\":\"IL-6 supports plasma cell differentiation and contributes to inflammation but is not the named driver of MALT lymphoma transformation in this lecture.\",\"3\":\"TNF-α is part of the inflammatory milieu but not the cytokine specifically linked to malignant B cell transformation in Sjögren's.\",\"4\":\"IL-21 supports germinal center reactions but is not the high-yield link to MALToma emphasized here.\"},\"eli5\":\"BAFF is like fertilizer for B cells. When there's way too much of it for years, some of those B cells grow out of control and become a cancer called MALToma.\"},{\"stem\":\"What is the role of type I interferon (IFN-α/β) in Sjögren's pathogenesis?\",\"choices\":[\"A. Driving local Th17 differentiation\",\"B. Suppressing tissue FoxP3+ regulatory T cells\",\"C. Promoting autoreactive IgG class switching\",\"D. Activating salivary epithelial cells\",\"E. Recruiting fibroblasts for glandular fibrosis\"],\"correct\":3,\"explanation\":\"Type I IFN activates salivary epithelial cells → ECs upregulate MHC II and costimulatory molecules → activate CD4+ T cells → release of pro-inflammatory cytokines (IL-1, IL-6, TNF-α, BAFF) → chemokine-driven lymphocyte and DC infiltration. This is step 2 of the pathogenesis cascade.\",\"wrongExplanations\":{\"0\":\"Th17 differentiation requires IL-6 + TGF-β; type I IFN actually tends to oppose Th17 polarization.\",\"1\":\"Type I IFN is not a primary suppressor of Treg numbers in Sjögren's pathogenesis.\",\"4\":\"Type I IFN has anti-fibrotic effects more often than pro-fibrotic; fibrosis in Sjögren's is mediated by other factors.\"},\"eli5\":\"Type I interferon is normally an alarm for viruses. In Sjögren's, this alarm gets stuck on and activates the spit gland cells, which then call in immune cells that wreck the gland.\"},{\"stem\":\"What Schirmer's test result supports a diagnosis of Sjögren's disease?\",\"choices\":[\"A. More than 5 mm of wetting after 10 minutes\",\"B. Less than 15 mm of wetting after 10 minutes\",\"C. Less than 10 mm of wetting after 5 minutes\",\"D. 5 mm or less of wetting after 5 minutes\",\"E. Rose bengal corneal staining alone\"],\"correct\":3,\"explanation\":\"Schirmer's test threshold for Sjögren's = ≤5 mm of moisture on the filter paper after 5 minutes → confirms decreased tear production (aqueous-deficient dry eye). Filter paper is placed in the lower lid for 5 minutes.\",\"wrongExplanations\":{\"0\":\">5 mm/10 min would actually argue against Sjögren's (more wetting, longer time).\",\"2\":\"<10 mm/5 min is not the diagnostic cutoff used in the Sjögren's criteria; the relevant threshold is ≤5 mm.\",\"4\":\"Rose bengal staining shows damaged corneal/conjunctival epithelium but is a separate test from Schirmer's; a positive stain alone does not establish the Schirmer's threshold.\"},\"eli5\":\"Doctors hang a tiny strip of paper from your lower eyelid for 5 minutes to see how wet it gets. If it wets less than 5 mm, you probably have Sjögren's-level dry eyes.\"},{\"stem\":\"A 32-year-old woman with Sjögren's disease and high titers of anti-Ro/SSA antibodies becomes pregnant. What is the most concerning fetal complication?\",\"choices\":[\"A. Complete congenital heart block\",\"B. Neural tube defects\",\"C. Cleft palate formation\",\"D. First-trimester fetal loss\",\"E. Intrauterine growth restriction\"],\"correct\":0,\"explanation\":\"Anti-Ro/SSA crosses the placenta → binds fetal cardiac conduction tissue (especially the AV node) → inflammation/fibrosis of the conducting system → congenital complete heart block. Anti-Ro+ mothers also confer risk of neonatal lupus (rash, transaminitis) and fetal loss.\",\"wrongExplanations\":{\"1\":\"Neural tube defects relate to folate, not anti-Ro/SSA antibodies.\",\"3\":\"Fetal loss can occur with anti-phospholipid antibodies (more SLE-associated) or active disease, but the specific cardiac complication of anti-Ro is the most distinctive concern.\",\"4\":\"IUGR is nonspecific. The signature anti-Ro complication is conduction tissue damage, not placental vasculopathy.\"},\"eli5\":\"Anti-Ro antibodies sneak across the placenta and attack the part of the baby's heart that keeps the beat going. The baby can be born with a heart that beats too slowly and may need a pacemaker.\"},{\"stem\":\"Which renal complication is most characteristic of Sjögren's disease?\",\"choices\":[\"A. Distal (type 1) renal tubular acidosis\",\"B. Membranous nephropathy\",\"C. Pauci-immune crescentic glomerulonephritis\",\"D. Focal segmental glomerulosclerosis\",\"E. Diffuse proliferative glomerulonephritis\"],\"correct\":0,\"explanation\":\"Sjögren's targets epithelial cells, including the renal tubular epithelium → lymphocytic interstitial nephritis → impaired distal H+ secretion → distal (Type 1) RTA → non-anion gap metabolic acidosis with hypokalemia and inability to acidify urine below pH 5.5.\",\"wrongExplanations\":{\"1\":\"Membranous nephropathy is the prototypical lesion of certain malignancies and primary autoimmune membranous (anti-PLA2R), not Sjögren's.\",\"2\":\"Pauci-immune crescentic GN with ANCA points to ANCA-associated vasculitis, not Sjögren's.\",\"4\":\"Full-house DPGN is the classic lesion of lupus nephritis (Class IV), not Sjögren's.\"},\"eli5\":\"Sjögren's also attacks the kidney's tubule cells. That makes the kidney bad at dumping acid into urine, so acid builds up in the blood — this is called Type 1 RTA.\"},{\"stem\":\"What is the most appropriate pharmacologic treatment for xerostomia in Sjögren's disease?\",\"choices\":[\"A. Topical cyclosporine mouth rinse\",\"B. High-dose oral prednisone\",\"C. Hydroxychloroquine monotherapy\",\"D. Rituximab for isolated sicca symptoms\",\"E. A muscarinic agonist such as pilocarpine\"],\"correct\":4,\"explanation\":\"Muscarinic agonists (e.g., pilocarpine, cevimeline) → bind M3 receptors on residual salivary acinar cells → stimulate saliva production. Used along with hydration, regular dental care, and artificial saliva for symptomatic relief of xerostomia.\",\"wrongExplanations\":{\"0\":\"Topical cyclosporine is used for dry EYES (Restasis), not for xerostomia.\",\"1\":\"Systemic steroids are reserved for serious extraglandular disease, not symptomatic dry mouth, due to the side-effect burden.\",\"2\":\"Hydroxychloroquine is used for extraglandular manifestations (arthralgias, fatigue), not as first-line specifically for xerostomia symptom relief.\",\"3\":\"Anti-CD20 (rituximab) is reserved for severe extraglandular involvement and is not the standard answer for routine dry mouth management.\"},\"eli5\":\"Muscarinic agonists are like a doorbell that tells the leftover spit-making cells to start working. Pilocarpine is the most common one used.\"},{\"stem\":\"Which immune cell is the most important defense against tumors?\",\"choices\":[\"A. Natural killer cells\",\"B. Tumor-specific plasma cells\",\"C. M1-polarized macrophages\",\"D. CD8+ cytotoxic T lymphocytes\",\"E. Th1-polarized CD4+ T cells\"],\"correct\":3,\"explanation\":\"CTLs are the most important defense against tumors → recognize tumor antigens (especially neoantigens) presented on MHC I → release perforin/granzyme → induce apoptosis. Higher tumor-infiltrating CD8+ CTLs correlate with better prognosis.\",\"wrongExplanations\":{\"0\":\"NK cells contribute to surveillance, especially when tumors lose MHC I (escape from CTLs), but CTLs are the principal anti-tumor effector.\",\"1\":\"Antibody-mediated ADCC is a real mechanism but contributes less than direct CTL killing in most solid tumors.\",\"4\":\"Th1 cells help (enhance CTL responses, drive M1 polarization via IFN-γ), but they are not the direct cytotoxic effector.\"},\"eli5\":\"CD8 T cells (the killers) are the immune system's main weapon against cancer. They spot weird proteins on cancer cells and kill them directly.\"},{\"stem\":\"Which class of tumor antigen is the most important inducer of protective anti-tumor immune responses?\",\"choices\":[\"A. Cancer-testis antigens\",\"B. Tissue differentiation antigens\",\"C. Viral oncoproteins\",\"D. Overexpressed self antigens\",\"E. Mutation-derived neoantigens\"],\"correct\":4,\"explanation\":\"Neoantigens are produced by randomly mutated genes (or less commonly mutated oncogenes/tumor suppressors) → genuinely new peptides not present in the thymus → no central tolerance → highly immunogenic → most important inducers of protective anti-tumor responses.\",\"wrongExplanations\":{\"0\":\"Cancer/testis antigens (e.g., MAGE) are de-repressed self-proteins → reasonable immunogenicity but lower than neoantigens because partial tolerance exists.\",\"1\":\"Tissue-specific antigens (tyrosinase, MART-1) are self-proteins → low immunogenicity due to tolerance.\",\"3\":\"Overexpressed oncogenic proteins (HER2/neu) are still self-proteins → low immunogenicity due to tolerance.\"},\"eli5\":\"Neoantigens are brand-new proteins that come from a tumor's random mutations. They look totally foreign to your immune system, so it's much easier to make a strong attack against them.\"},{\"stem\":\"What occurs during cross-presentation by dendritic cells?\",\"choices\":[\"A. Tumor cells donate intact MHC I complexes to DCs\",\"B. DCs load ingested tumor antigens onto MHC II only\",\"C. Tumor cells shuttle processed antigens into DC cytosol\",\"D. DCs load ingested tumor antigens onto MHC I\",\"E. DCs present tumor exosomes only on MHC II\"],\"correct\":3,\"explanation\":\"Cross-presentation = DCs ingest tumor cells/antigens → process them → present on MHC class I (in addition to canonical MHC II presentation) → migrate to LN → activate Th cells via MHC II + provide signal for naive CD8+ T cell differentiation into tumor-specific CTLs.\",\"wrongExplanations\":{\"1\":\"MHC II presentation alone is canonical presentation, not cross-presentation. The defining feature of cross-presentation is loading exogenous antigens onto MHC I.\",\"2\":\"Antigens are not shuttled directly between tumor and DC cytosol. DCs ingest antigen via endocytosis/phagocytosis and re-route to the MHC I pathway.\",\"4\":\"Exosome uptake can occur, but cross-presentation specifically requires loading onto MHC I, not MHC II only.\"},\"eli5\":\"Normally, MHC class I shows off proteins made INSIDE a cell. Cross-presentation is the trick where dendritic cells eat outside stuff (like tumor pieces) and still show it on MHC I, so they can wake up CD8 killer T cells.\"},{\"stem\":\"How do CD4+ Th1 cells enhance the anti-tumor activity of macrophages?\",\"choices\":[\"A. CD40L-CD40 ligation\",\"B. TGF-beta secretion\",\"C. IFN-gamma secretion\",\"D. IL-4 secretion\",\"E. Perforin and granzyme release\"],\"correct\":2,\"explanation\":\"Th1 cells secrete IFN-γ → drives macrophage polarization toward M1 phenotype → upregulates MHC I expression on tumor cells (better CTL recognition) → enhances tumor cell lysis. This is why high tumor-infiltrating Th1 correlates with good prognosis.\",\"wrongExplanations\":{\"0\":\"CD40L–CD40 ligation does occur during T-cell help, but the lecture's emphasis for macrophage activation is IFN-γ, not CD40L–CD40 directly inducing NO.\",\"1\":\"TGF-β is immunosuppressive — secreted by tumors and Tregs to inhibit anti-tumor immunity, not to enhance macrophage anti-tumor activity.\",\"3\":\"IL-4 drives M2 polarization (pro-tumor, angiogenic) — the opposite of the desired anti-tumor effect.\"},\"eli5\":\"Th1 helper cells shoot out IFN-gamma like a megaphone. Macrophages hear it and become 'M1' killers, and tumor cells are forced to put their ID badges (MHC I) on, so the CD8 killers can find them.\"},{\"stem\":\"What change in tumor cells makes them most susceptible to killing by NK cells?\",\"choices\":[\"A. Loss of TAP1/TAP2 peptide loading\",\"B. Up-regulation of PD-L1\",\"C. Increased TGF-beta secretion\",\"D. Tumor expression of CTLA-4\",\"E. Down-regulation of MHC class I\"],\"correct\":4,\"explanation\":\"NK cells are activated by 'missing self' → tumor cells that down-regulate MHC class I (to escape CTLs) lose the inhibitory signal to NK cells → NK killer activation receptors dominate → NK-mediated lysis. Tumors are also susceptible to NK killing when they up-regulate ligands for activating receptors (like NKG2D ligands).\",\"wrongExplanations\":{\"0\":\"TAP1/TAP2 loss does indirectly cause MHC I down-regulation (no peptide loading), but the direct trigger for NK killing is the absence of MHC I — not the molecular cause of it.\",\"1\":\"PD-L1 up-regulation suppresses CTL responses, not NK-mediated killing.\",\"2\":\"TGF-β suppresses both NK and T cell function — it makes tumors LESS susceptible to NK killing, not more.\",\"3\":\"CTLA-4 is expressed on T cells, not tumors. Even if it were, it would suppress T cell activation, not enhance NK susceptibility.\"},\"eli5\":\"NK cells get suspicious when a cell hides its ID badge (MHC I). Tumors that drop their MHC I to avoid CD8 cells get caught by NK cells instead.\"},{\"stem\":\"Which surface marker identifies tumor-associated macrophages with the M2 phenotype, and what does its presence indicate prognostically?\",\"choices\":[\"A. CD68; favorable prognosis\",\"B. CD163; unfavorable prognosis\",\"C. iNOS; favorable prognosis\",\"D. MHC class II; favorable prognosis\",\"E. CD80; strong antitumor T-cell response\"],\"correct\":1,\"explanation\":\"CD163 = M2 marker → M2 TAMs secrete VEGF (promotes angiogenesis) and MMPs (promotes metastasis) → pro-tumor → CD163+ TAMs correlate with unfavorable prognosis.\",\"wrongExplanations\":{\"0\":\"CD68 is a pan-macrophage marker that does not distinguish M1 from M2 polarization.\",\"3\":\"MHC II is upregulated on M1 (activated, antigen-presenting) macrophages → opposite of the M2 phenotype.\",\"4\":\"CD80 is a costimulatory molecule, more characteristic of M1/activated APCs → associated with anti-tumor activity.\"},\"eli5\":\"Macrophages come in M1 (cancer-killer) and M2 (cancer-helper) flavors. CD163 is the 'helper' tag, and lots of CD163+ macrophages in a tumor means worse outcomes.\"},{\"stem\":\"Through which mechanism do myeloid-derived suppressor cells (MDSCs) inhibit anti-tumor immunity?\",\"choices\":[\"A. Perforin-mediated killing of CTLs\",\"B. Phagocytosis of antigen-presenting DCs\",\"C. Competition for CD8 engagement via MHC class I\",\"D. Secretion of IL-10 and TGF-beta\",\"E. Production of IFN-gamma\"],\"correct\":3,\"explanation\":\"MDSCs are heterogeneous immature myeloid precursors that suppress innate and T cell anti-tumor responses → secrete IL-10, TGF-β, and prostaglandins → also promote Treg expansion. Net effect = profound suppression of effective anti-tumor immunity.\",\"wrongExplanations\":{\"1\":\"MDSCs do not phagocytose DCs; their suppression is cytokine-based plus Treg-based.\",\"2\":\"MDSCs do not function by competing for T cell engagement via MHC I.\",\"4\":\"MDSCs do not make appreciable IFN-γ; IFN-γ would actually be anti-tumor (M1 polarization).\"},\"eli5\":\"MDSCs are immature 'baby' immune cells that the tumor recruits to play defense. They squirt out IL-10 and TGF-β to dampen CTLs and call in Tregs to make things even worse.\"},{\"stem\":\"Where does CTLA-4 primarily inhibit T cell activation?\",\"choices\":[\"A. At the tumor cell surface in the periphery\",\"B. During priming in secondary lymphoid organs\",\"C. At chronic peripheral effector sites\",\"D. In the thymic medulla during negative selection\",\"E. In the bone marrow during precursor maturation\"],\"correct\":1,\"explanation\":\"CTLA-4 acts at secondary lymphoid organs (LNs) → during T cell priming → CTLA-4 outcompetes CD28 for B7 on APCs (10–20× higher affinity) → blocks costimulation → prevents T cell proliferation and survival. PD-1, in contrast, acts in the periphery on effector T cells.\",\"wrongExplanations\":{\"0\":\"PD-1/PD-L1 acts at the tumor cell surface in the periphery, not CTLA-4. CTLA-4 acts upstream at priming.\",\"3\":\"Thymic negative selection removes self-reactive thymocytes via TCR-MHC affinity, not via CTLA-4.\",\"4\":\"T cell precursors mature in the thymus, not the bone marrow (B cells mature there). CTLA-4 does not act here.\"},\"eli5\":\"CTLA-4 is the brake that gets pulled when T cells are being trained in lymph nodes. PD-1 is the brake out in tissues. Different brakes, different places.\"},{\"stem\":\"PD-1 inhibits T cell activation primarily in which setting?\",\"choices\":[\"A. In peripheral effector tissues\",\"B. At mucosal inductive sites\",\"C. During naive T-cell priming in lymph nodes\",\"D. In bone marrow homeostatic niches\",\"E. During positive selection in the thymic cortex\"],\"correct\":0,\"explanation\":\"PD-1 acts in the periphery → chronic TCR stimulation upregulates PD-1 on T cells → some tumors upregulate PD-L1 → PD-1/PD-L1 ligation inhibits effector T cell function (exhaustion). CTLA-4, in contrast, acts in secondary lymphoid organs at priming.\",\"wrongExplanations\":{\"1\":\"Mucosal IgA class switching is regulated by TGF-β and Th17/Tfh signals, not by PD-1.\",\"2\":\"Secondary lymphoid organ priming is the site of CTLA-4 action, not PD-1.\",\"3\":\"PD-1 is not the relevant inhibitor in bone marrow homeostasis.\",\"4\":\"Thymic positive selection uses TCR–self-MHC interactions to rescue thymocytes, not PD-1 inhibition.\"},\"eli5\":\"PD-1 is the brake that gets pressed in tissues — out where T cells are actually trying to fight. Tumors hit the brake by putting up PD-L1 like a stop sign.\"},{\"stem\":\"What does the term 'immune editing' refer to in tumor immunology?\",\"choices\":[\"A. CRISPR repair of tumor suppressor genes\",\"B. Checkpoint blockade of inhibitory receptors\",\"C. Neoantigen vaccination of the host\",\"D. Immune selection of less immunogenic tumor clones\",\"E. CAR-T engineering of patient T cells\"],\"correct\":3,\"explanation\":\"Immune editing = the immune response itself selects against more immunogenic tumor cells → less immunogenic variants survive and outgrow → e.g., loss of MHC I, β2-microglobulin, TAP1/TAP2 → tumors become less visible to CTLs. Notably, this only happens in immune-competent hosts.\",\"wrongExplanations\":{\"0\":\"CRISPR correction of tumor mutations is gene editing of tumors, not immune editing.\",\"2\":\"Neoantigen vaccination expands T cell responses but is not immune editing — that term refers to immune-driven tumor selection.\",\"4\":\"CAR-T engineering is a separate therapy concept, not immune editing.\"},\"eli5\":\"Immune editing is like natural selection inside a tumor. The CTL cops kill the cancer cells they can see, and the cancer cells that are good at hiding survive and take over.\"},{\"stem\":\"What is a major adverse effect of checkpoint blockade therapy with anti-CTLA-4 or anti-PD-1?\",\"choices\":[\"A. Tumor lysis syndrome\",\"B. Cytokine release syndrome\",\"C. Bone marrow aplasia\",\"D. Opportunistic fungal infection\",\"E. Autoimmune-like tissue inflammation\"],\"correct\":4,\"explanation\":\"Checkpoint blockade enhances T cell activation → because CTLA-4 and PD-1 normally prevent autoimmunity → blocking them produces autoimmune-like inflammation: colitis, pneumonitis, hepatitis, endocrinopathies (thyroiditis, hypophysitis). Anti-CTLA-4 may also deplete Tregs, worsening this.\",\"wrongExplanations\":{\"0\":\"Tumor lysis syndrome occurs with rapidly cytoreductive therapies, not the usual gradual response to checkpoint inhibitors.\",\"2\":\"Bone marrow aplasia is more typical of cytotoxic chemotherapy, not checkpoint blockade.\",\"3\":\"Checkpoint blockade unleashes immunity rather than suppressing it — opportunistic infections are not the typical adverse effect.\"},\"eli5\":\"When you take the brakes off T cells, they kill cancer — but they also start attacking healthy organs. So patients can get inflammation in the colon, lungs, liver, or thyroid.\"},{\"stem\":\"Which tumor antigen is targeted by FDA-approved CAR-T cell therapies for B-cell lymphoma and acute lymphoblastic leukemia?\",\"choices\":[\"A. CD3 on T lymphocytes\",\"B. CD20 on mature B-cell lymphomas\",\"C. HER2 on breast carcinomas\",\"D. CD19 on B-cell malignancies\",\"E. BCMA on plasma cell malignancies\"],\"correct\":3,\"explanation\":\"CD19 = pan-B cell marker → expressed on virtually all B-lineage malignancies → target of FDA-approved anti-CD19 CAR-T cells (axicabtagene ciloleucel, brexucabtagene autoleucel, lisocabtagene maraleucel, tisagenlecleucel) for large B-cell lymphoma, mantle cell lymphoma, and ALL.\",\"wrongExplanations\":{\"0\":\"CD3 is the TCR signaling chain — a target of bispecific antibodies (e.g., blinatumomab), not CAR-T.\",\"1\":\"CD20 is the target of rituximab (a monoclonal antibody), not the FDA-approved CAR-T therapies for these indications.\",\"4\":\"BCMA is the target of FDA-approved CAR-T for multiple myeloma (idecabtagene vicleucel, ciltacabtagene autoleucel) — different target, different indication.\"},\"eli5\":\"CAR-T cells for blood cancers are programmed to find CD19, a tag on B cells. Then they kill the cancerous B cells (and unfortunately the normal ones too).\"},{\"stem\":\"What is the defining feature of a tolerogen?\",\"choices\":[\"A. An antigen that activates innate danger signaling\",\"B. An antigen that triggers strong adaptive immunity\",\"C. An antigen that bypasses MHC restriction\",\"D. An antigen that induces immunologic unresponsiveness\",\"E. An antigen that breaks peripheral tolerance\"],\"correct\":3,\"explanation\":\"Tolerogen = antigen that induces tolerance (a state of unresponsiveness). Whether an antigen is a tolerogen or an immunogen depends on conditions of exposure: prolonged antigen presence, absence of co-stimulation, and immature DCs favor tolerance.\",\"wrongExplanations\":{\"1\":\"An antigen that triggers a robust response is an immunogen — the opposite of a tolerogen.\",\"2\":\"Bypassing MHC restriction and activating polyclonally describes superantigens (e.g., staphylococcal toxins), not tolerogens.\",\"4\":\"Tolerogens preserve tolerance; they do not destroy Tregs or break tolerance.\"},\"eli5\":\"A tolerogen is an antigen that teaches your immune system to chill out instead of attack. Your own body proteins are the most important tolerogens.\"},{\"stem\":\"What is the function of AIRE (autoimmune regulator) in central tolerance?\",\"choices\":[\"A. Thymocyte egress from the medulla\",\"B. V(D)J recombination in thymocytes\",\"C. mTEC expression of peripheral tissue antigens\",\"D. Direct FoxP3 induction in immature thymocytes\",\"E. Suppression of positive selection in the cortex\"],\"correct\":2,\"explanation\":\"AIRE = transcriptional regulator → expressed in medullary thymic epithelial cells (mTECs) → forces ectopic expression of peripheral tissue–restricted antigens (insulin, thyroglobulin, etc.) in the thymus → exposes developing thymocytes to these self-antigens → enables central deletion of self-reactive clones.\",\"wrongExplanations\":{\"0\":\"Thymocyte egress is regulated by S1P/S1PR1, not AIRE.\",\"1\":\"V(D)J recombination is mediated by RAG1/RAG2, not AIRE.\",\"3\":\"Treg generation is influenced by FoxP3, but AIRE's primary role is enabling negative selection (and some Treg generation) by displaying peripheral antigens — not directly inducing FoxP3.\",\"4\":\"AIRE has no role in suppressing positive selection. Positive selection is governed by TCR–self-MHC affinity in the cortex.\"},\"eli5\":\"AIRE makes the thymus pretend to be every other organ in the body — showing samples of insulin, thyroid stuff, etc. — so any T cell that would attack those organs gets killed before it leaves.\"},{\"stem\":\"A young patient is diagnosed with autoimmune polyendocrine syndrome type 1 (APS-1) due to AIRE mutations. What is the classic clinical triad?\",\"choices\":[\"A. Candidiasis, hypoparathyroidism, adrenal insufficiency\",\"B. Lymphadenopathy, hepatosplenomegaly, double-negative T cells\",\"C. Recurrent sinopulmonary infections, eczema, elevated IgE\",\"D. Severe combined immunodeficiency with absent thymic shadow\",\"E. Type 1 diabetes, enteropathy, eczema\"],\"correct\":0,\"explanation\":\"APS-1 (also called APECED) classic triad = chronic mucocutaneous candidiasis + hypoparathyroidism + adrenal insufficiency. Mechanism: AIRE mutation → mTECs fail to express peripheral self-antigens → autoreactive T cells escape thymus → multi-organ autoimmunity targeting parathyroids, adrenals, and pancreatic islets. Candidiasis is from anti-IL-17/IL-22 autoantibodies.\",\"wrongExplanations\":{\"2\":\"Recurrent bacterial infections + eczema + ↑IgE = Hyper-IgE/Job's syndrome (STAT3), not APS-1.\",\"3\":\"SCID + absent thymus = different congenital immunodeficiencies (e.g., SCID, DiGeorge), not APS-1.\",\"4\":\"T1DM + severe diarrhea + eczema = IPEX syndrome (FoxP3 mutation), not APS-1.\"},\"eli5\":\"If AIRE breaks, the thymus doesn't show off all the body's organs to T cells, and T cells leave still wanting to attack the parathyroid, adrenals, and surfaces. That gives kids hypoparathyroid, adrenal failure, and yeast infections.\"},{\"stem\":\"A male infant presents with severe watery diarrhea, type 1 diabetes, and eczema. Genetic testing reveals a mutation in FoxP3. What is the underlying immunologic defect?\",\"choices\":[\"A. Failed B-cell receptor editing\",\"B. Failed Fas-mediated peripheral deletion\",\"C. Failed AIRE-mediated central tolerance\",\"D. Loss of functional regulatory T cells\",\"E. Failed thymic negative selection\"],\"correct\":3,\"explanation\":\"FoxP3 = master transcription factor for Tregs → mutation → no functional Tregs → loss of peripheral suppression → IPEX syndrome (Immune dysregulation, Polyendocrinopathy, Enteropathy, X-linked). Classic triad: severe watery diarrhea (enteropathy), T1DM, and eczema.\",\"wrongExplanations\":{\"0\":\"Failed B cell receptor editing is a B-cell central tolerance issue, not the mechanism in FoxP3 mutations.\",\"1\":\"Defective Fas-mediated apoptosis = ALPS (autoimmune lymphoproliferative syndrome), not IPEX.\",\"4\":\"Defective negative selection is a different mechanism (related to AIRE or Bim deficiencies), not FoxP3.\"},\"eli5\":\"FoxP3 is the master gene that makes Treg 'peacekeeper' cells. Without Tregs, the immune system has no off-switch and attacks the gut, pancreas, and skin — that's IPEX.\"},{\"stem\":\"How does CTLA-4 inhibit T cell activation through its interaction with B7?\",\"choices\":[\"A. Binds B7 with similar affinity to CD28\",\"B. Binds a ligand distinct from CD28\",\"C. Binds B7 with higher affinity than CD28\",\"D. Is constitutively expressed on naive T cells\",\"E. Enzymatically cleaves B7 from the APC surface\"],\"correct\":2,\"explanation\":\"CTLA-4 binds B7 (CD80/CD86) with 10–20× higher affinity than CD28 → outcompetes CD28 for B7 → no costimulation → T cell anergy or reduced proliferation/survival. CTLA-4 is upregulated after activation; constitutively expressed only on Tregs.\",\"wrongExplanations\":{\"0\":\"CTLA-4 has higher affinity than CD28 (10–20×), not similar affinity. The competitive advantage is the key mechanism.\",\"3\":\"CTLA-4 is upregulated after T cell activation (and constitutive on Tregs), not on naïve T cells.\",\"4\":\"CTLA-4 does not enzymatically cleave B7. It can transendocytose B7 in some contexts, but does not enzymatically degrade it on the APC surface.\"},\"eli5\":\"Both CTLA-4 and CD28 want to grab the same handle (B7) on the APC. CTLA-4 grips it 10–20 times harder, so it wins, and the T cell doesn't get its 'go' signal.\"},{\"stem\":\"Which autoimmune disease best illustrates a Type II hypersensitivity mechanism?\",\"choices\":[\"A. Graves disease with TSH receptor stimulation\",\"B. Rheumatoid arthritis with Th17 synovitis\",\"C. Multiple sclerosis with T-cell demyelination\",\"D. Systemic lupus erythematosus with immune complexes\",\"E. Type 1 diabetes with CD8-mediated beta-cell loss\"],\"correct\":0,\"explanation\":\"Graves' disease = Type II hypersensitivity → IgG autoantibodies (TSI) against the TSH receptor → bind and STIMULATE the receptor (target cell dysfunction subtype of Type II) → continuous thyroid hormone production → hyperthyroidism. Type II = antibody-mediated, against cell-surface antigens.\",\"wrongExplanations\":{\"1\":\"RA has Type IV (cell-mediated) features, with Th17 contributions. Anti-CCP antibodies are present but the dominant lecture-style classification is Type IV.\",\"2\":\"MS is Type IV (cell-mediated demyelination by autoreactive CD4+ T cells and macrophages).\",\"3\":\"SLE is the prototypical Type III hypersensitivity disease — soluble immune complex deposition.\"},\"eli5\":\"In Graves', antibodies stick to the TSH receptor on the thyroid and squeeze it like a stuck horn. The thyroid keeps blasting hormone nonstop. That's a Type II reaction — antibodies against a cell-surface protein.\"},{\"stem\":\"Which feature most accurately characterizes Type III hypersensitivity reactions?\",\"choices\":[\"A. IgE-mediated mast cell degranulation\",\"B. Autoantibody-mediated receptor stimulation\",\"C. NK-cell ADCC against antibody-coated targets\",\"D. Tissue deposition of soluble immune complexes\",\"E. Th1-mediated delayed cell injury\"],\"correct\":3,\"explanation\":\"Type III = soluble immune complex hypersensitivity → soluble antigen + IgG → complexes deposit in tissues (vessel walls, glomeruli, joints) → activate complement → recruit neutrophils → tissue injury. Classic example: SLE (lupus nephritis with full-house IF).\",\"wrongExplanations\":{\"0\":\"IgE-mediated mast cell degranulation = Type I hypersensitivity (allergic reactions, anaphylaxis).\",\"1\":\"Receptor stimulation/blockade by autoantibodies = Type II (target cell dysfunction subtype) — Graves', Myasthenia gravis.\",\"4\":\"Cell-mediated, delayed, Th1/macrophage-driven = Type IV hypersensitivity (e.g., contact dermatitis, Hashimoto's).\"},\"eli5\":\"Type III is when antibodies and antigens float around, stick together into clumps, and those clumps land in places like blood vessels, joints, or the kidney filter. The body sends inflammation to those clumps and damages those organs.\"},{\"stem\":\"Hashimoto's thyroiditis features lymphocytic infiltration and gradual thyroid destruction. Which hypersensitivity mechanism predominantly underlies this disease?\",\"choices\":[\"A. Type IV cell-mediated thyroid destruction\",\"B. Type I IgE-mediated mast cell activation\",\"C. NK-mediated ADCC against thyroid cells\",\"D. Type II antibody-mediated receptor stimulation\",\"E. Type III immune complex deposition\"],\"correct\":0,\"explanation\":\"Hashimoto's = Type IV hypersensitivity → CD4+ T cells + cytotoxic CD8+ T cells + macrophages mediate gradual destruction of thyroid follicular cells (with anti-TPO and anti-Tg antibodies as serologic markers but T cells as the primary effectors).\",\"wrongExplanations\":{\"1\":\"Type I (IgE/mast cells) is for allergic reactions, not autoimmune thyroiditis.\",\"2\":\"ADCC is a Type II mechanism. Hashimoto's anti-TPO/Tg antibodies are present but the dominant lecture-style answer is Type IV cell-mediated.\",\"3\":\"Type II antibody-mediated destruction against TSHR is more characteristic of Graves' (stimulating antibodies). In Hashimoto's, anti-TPO/Tg antibodies are present but cellular destruction is the dominant mechanism.\",\"4\":\"Type III (immune complex) is more characteristic of SLE, not Hashimoto's.\"},\"eli5\":\"In Hashimoto's, T cells slowly march into the thyroid and kill it over years. Antibodies are along for the ride, but the T cells do most of the damage — that's why it's classified as Type IV.\"},{\"stem\":\"Immature B cells in the bone marrow that recognize self-antigens with high avidity can avoid deletion through what mechanism?\",\"choices\":[\"A. Migration to the thymic medulla for re-selection\",\"B. Differentiation into IL-10-producing Bregs\",\"C. Anergic conversion after chronic self-antigen exposure\",\"D. Class-switch recombination to alter specificity\",\"E. Receptor editing with new light-chain rearrangement\"],\"correct\":4,\"explanation\":\"Receptor editing = strong cross-linking of the BCR by self-antigen reactivates RAG1/RAG2 → new round of V-J recombination at the Igκ light chain → produces a new BCR with new specificity → if no longer self-reactive, the B cell is rescued from deletion. Primary mechanism for high-avidity self-reactivity in central B cell tolerance.\",\"wrongExplanations\":{\"0\":\"B cells do not migrate to the thymus; B cells mature in the bone marrow. AIRE acts on T cells in the thymus.\",\"1\":\"Bregs exist in the periphery and produce IL-10 but are not the central tolerance rescue mechanism for high-avidity immature B cells.\",\"2\":\"Anergy is for B cells with LOW avidity to self-antigen (soluble antigen, weak cross-linking), not high avidity.\"},\"eli5\":\"If a young B cell makes a receptor that grabs onto your own body too strongly, it gets a second chance to rebuild that receptor (receptor editing). If the new version is safe, the B cell lives.\"},{\"stem\":\"After a streptococcal pharyngitis, a child develops carditis with antibodies that cross-react with myocardial proteins. What mechanism best explains this?\",\"choices\":[\"A. Bystander activation during local inflammation\",\"B. Polyclonal activation by streptococcal superantigens\",\"C. Transient AIRE failure after infection\",\"D. Molecular mimicry between strep and cardiac antigens\",\"E. Epitope spreading after tissue injury\"],\"correct\":3,\"explanation\":\"Molecular mimicry = microbial antigen structurally resembles a self-antigen → antibodies/T cells generated against the microbe cross-react with self → autoimmunity. Rheumatic fever: anti-streptococcal M protein antibodies cross-react with cardiac myosin → carditis.\",\"wrongExplanations\":{\"1\":\"Superantigens (e.g., staphylococcal TSST) cause massive polyclonal activation but not typically antigen-specific cross-reactivity.\",\"2\":\"Streptococcal infection does not transiently disable AIRE.\",\"4\":\"Epitope spreading is the secondary acquisition of new self-antigens AFTER initial autoimmunity. The initiating cross-reactivity here is molecular mimicry.\"},\"eli5\":\"Strep bacteria have proteins that look like proteins on heart muscle. When your antibodies target the strep, they accidentally also attack your heart — that's molecular mimicry.\"},{\"stem\":\"A child has chronic lymphadenopathy, hepatosplenomegaly, and expansion of double-negative T cells. Mutations in Fas (CD95) or FasL are identified. Which tolerance mechanism is defective?\",\"choices\":[\"A. Treg-mediated peripheral suppression\",\"B. Peripheral deletion of activated lymphocytes\",\"C. Receptor editing in the bone marrow\",\"D. Negative selection in the thymus\",\"E. Induced Treg generation in peripheral tissues\"],\"correct\":1,\"explanation\":\"Fas (CD95)–FasL engagement → caspase-8 → mitochondrial pathway → apoptosis of activated, repeatedly stimulated lymphocytes (the death-receptor / extrinsic pathway of peripheral deletion). Loss-of-function → ALPS (autoimmune lymphoproliferative syndrome): chronic lymphadenopathy, hepatosplenomegaly, expansion of α/β double-negative T cells, autoimmune cytopenias.\",\"wrongExplanations\":{\"2\":\"B cell receptor editing depends on RAG1/RAG2, not Fas/FasL.\",\"3\":\"Central deletion in the thymus uses TCR–self-MHC affinity, not Fas/FasL as the primary mechanism.\",\"4\":\"Induced Treg generation requires TGF-β and retinoic acid; Fas/FasL is not the core mechanism here.\"},\"eli5\":\"Fas is the 'self-destruct' button for T cells that have been activated for too long. If it's broken, those T cells refuse to die, pile up everywhere, and start attacking the body — that's ALPS.\"}]";
+var DOWNLOAD_TEMPLATE='';
+
+// ── PROMPT ──
+var PROMPT=`You are a medical school question writer in Dr. Goode's style. You have TWO modes:
+
+MODE 1 — GENERATE: If I give you notes or lecture content, write quiz questions from it.
+MODE 2 — CONVERT: If I give you already-written questions in any format, convert them into the format below without changing the medical content.
+
+Output ONLY a raw JSON array — no markdown, no backticks, no explanation.
+
+[
+  {
+    "stem": "Question text here?",
+    "choices": [
+      "A. Short, plausible answer choice",
+      "B. Short, plausible answer choice",
+      "C. Short, plausible answer choice",
+      "D. Short, plausible answer choice",
+      "E. Short, plausible answer choice"
+    ],
+    "correct": 0,
+    "explanation": "Why the correct answer is right. Use arrows (→) to show mechanisms.",
+    "wrongExplanations": {
+      "1": "Why B is wrong — be specific.",
+      "2": "Why C is wrong — be specific.",
+      "3": "Why D is wrong — be specific.",
+      "4": "Why E is wrong — be specific."
+    },
+    "eli5": "Explain the concept like the student is 10. Max 3 sentences."
+  }
+]
+
+Rules:
+- Keep stems short and literal
+- Use 5 answer choices unless the source truly requires 4
+- Keep all choices in the same conceptual family
+- Keep choice lengths and grammar roughly similar
+- Do NOT make the correct answer consistently shortest or longest
+- Make distractors plausible for someone who half-knows the material
+- "correct" is a NUMBER (0=A, 1=B, 2=C, 3=D, 4=E)
+- "wrongExplanations" keys are string numbers for the wrong choices only
+- Vary which letter is correct
+- If converting questions with fewer than 5 choices, add plausible distractors to reach 5
+- Output ONLY the JSON array
+
+MY CONTENT:
+`;
+document.getElementById('promptText').textContent=PROMPT;
+DOWNLOAD_TEMPLATE=document.documentElement.outerHTML;
+
+function copyPrompt(){
+  navigator.clipboard.writeText(PROMPT).then(function(){
+    var b=document.getElementById('copyPromptBtn');
+    b.textContent='✅ Copied!';b.classList.add('ok');
+    showToast('Prompt copied! Add your content after it.','ok');
+    setTimeout(function(){b.textContent='📋 Copy prompt';b.classList.remove('ok');},2500);
+  });
+}
+
+// ── PARSE ──
+function parseRaw(raw){
+  raw=raw.trim().replace(/^```(?:json)?\s*/i,'').replace(/\s*```\s*$/,'').trim();
+  try{return JSON.parse(raw);}catch(e){}
+  var m=raw.match(/\[[\s\S]*\]/);
+  if(m){try{return JSON.parse(m[0]);}catch(e){}}
+  return null;
+}
+function shuffle(arr){
+  var out=arr.slice();
+  for(var i=out.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var tmp=out[i];
+    out[i]=out[j];
+    out[j]=tmp;
+  }
+  return out;
+}
+function normQ(q){
+  if(!q.stem||!Array.isArray(q.choices)||q.choices.length<2)return null;
+  var rawChoices=q.choices.map(String);
+  while(rawChoices.length<5)rawChoices.push('');
+  var rawCorrect=typeof q.correct==='number'?q.correct:(parseInt(q.correct)||0);
+  if(rawCorrect<0||rawCorrect>=rawChoices.length)rawCorrect=0;
+
+  var choiceMeta=rawChoices.map(function(choiceText,idx){
+    var wrongText='';
+    if(idx!==rawCorrect&&q.wrongExplanations&&typeof q.wrongExplanations==='object'&&q.wrongExplanations[String(idx)]){
+      wrongText=String(q.wrongExplanations[String(idx)]);
+    }
+    return {
+      text:choiceText,
+      isCorrect:idx===rawCorrect,
+      wrongExplanation:wrongText
+    };
+  });
+
+  var realChoices=choiceMeta.filter(function(choice){return choice.text.trim();});
+  var blankChoices=choiceMeta.filter(function(choice){return !choice.text.trim();});
+  var shuffledChoices=shuffle(realChoices).concat(blankChoices);
+  var nq={stem:String(q.stem),choices:[],correct:0,explanation:String(q.explanation||''),wrongExplanations:{},eli5:String(q.eli5||'')};
+  shuffledChoices.forEach(function(choice,idx){
+    nq.choices.push(choice.text);
+    if(choice.isCorrect)nq.correct=idx;
+    else if(choice.wrongExplanation)nq.wrongExplanations[String(idx)]=choice.wrongExplanation;
+  });
+  return nq;
+}
+function getNormalizedQuestionsFromRaw(raw){
+  var parsed=parseRaw(raw);
+  if(!parsed||!Array.isArray(parsed))return null;
+  var valid=[];
+  parsed.forEach(function(q){var nq=normQ(q);if(nq)valid.push(nq);});
+  return valid.length?valid:null;
+}
+function startQuiz(valid,name){
+  questions=valid;answers={};selected={};NC=0;NI=0;CQ=0;quizMode='learn';toolMode='';
+  resetTimer();
+  document.getElementById('quizName').value=name||'Custom Quiz';
+  document.getElementById('qtName').textContent=name||'Custom Quiz';
+  document.getElementById('modeLearn').classList.add('active');
+  document.getElementById('modeExam').classList.remove('active');
+  document.getElementById('hlTool').classList.remove('active');
+  document.getElementById('stTool').classList.remove('active');
+  document.getElementById('errMsg').className='err-msg';
+  switchView('viewQuiz');
+  renderQ();
+}
+function getQuizPayload(){
+  if(Array.isArray(questions)&&questions.length){
+    return {
+      name:document.getElementById('qtName').textContent.trim()||document.getElementById('quizName').value.trim()||'Custom Quiz',
+      questions:questions
+    };
+  }
+  var raw=document.getElementById('pasteArea').value.trim();
+  if(!raw)return null;
+  var valid=getNormalizedQuestionsFromRaw(raw);
+  if(!valid)return null;
+  return {
+    name:document.getElementById('quizName').value.trim()||'Custom Quiz',
+    questions:valid
+  };
+}
+function slugifyFileName(name){
+  return (name||'custom-quiz').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,64)||'custom-quiz';
+}
+function toEmbeddedJSONString(value){
+  return JSON.stringify(value).replace(/<\/script/gi,'<\\/script').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029');
+}
+function buildDownloadHTML(payload){
+  return DOWNLOAD_TEMPLATE
+    .replace('"__QUIZ_BUILDER_PRELOADED_NAME__"', toEmbeddedJSONString(payload.name||'Custom Quiz'))
+    .replace('"__QUIZ_BUILDER_PRELOADED_QUESTIONS__"', toEmbeddedJSONString(JSON.stringify(payload.questions||[])));
+}
+function downloadQuiz(){
+  var payload=getQuizPayload();
+  if(!payload){
+    showErr("Paste a valid quiz first so I have something to save.");
+    return;
+  }
+  var html=buildDownloadHTML(payload);
+  var blob=new Blob([html],{type:'text/html'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download=slugifyFileName(payload.name)+'.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},1000);
+  document.getElementById('errMsg').className='err-msg';
+  showToast('Downloaded a standalone copy of your quiz.','ok');
+}
+function hydratePreloadedQuiz(){
+  if(PRELOADED_QUIZ_NAME!=="__QUIZ_BUILDER_PRELOADED_NAME__"){
+    document.getElementById('quizName').value=PRELOADED_QUIZ_NAME;
+  }
+  if(PRELOADED_QUESTIONS_JSON==="__QUIZ_BUILDER_PRELOADED_QUESTIONS__")return;
+  try{
+    var preloaded=JSON.parse(PRELOADED_QUESTIONS_JSON);
+    if(!Array.isArray(preloaded)||!preloaded.length)return;
+    document.getElementById('pasteArea').value=JSON.stringify(preloaded,null,2);
+    startQuiz(preloaded, PRELOADED_QUIZ_NAME||'Custom Quiz');
+    showToast('Saved quiz loaded.','ok');
+  }catch(e){}
+}
+
+// ── LAUNCH ──
+function launchQuiz(){
+  var raw=document.getElementById('pasteArea').value.trim();
+  if(!raw){showErr('Paste your AI response first.');return;}
+  var valid=getNormalizedQuestionsFromRaw(raw);
+  if(!valid){showErr("Couldn't read the format. Make sure you copied the full response from your AI.");return;}
+  startQuiz(valid, document.getElementById('quizName').value.trim()||'Custom Quiz');
+}
+
+// ── RENDER ──
+function renderQ(){
+  document.getElementById('finBanner').innerHTML='';
+  var q=questions[CQ],tot=questions.length,ans=answers[CQ],sel=selected[CQ];
+  var pg=((CQ+1)/tot*100).toFixed(1);
+  var isExam=quizMode==='exam';
+
+  var choicesHTML=q.choices.map(function(c,ci){
+    var cls='ac';
+    if(ans){cls+=' dis';if(ci===q.correct)cls+=' cor';else if(ci===ans.s)cls+=' inc';}
+    else if(isExam&&answers[CQ]===undefined&&sel===ci){cls+=' sel';}
+    else if(!isExam&&sel===ci){cls+=' sel';}
+    var txt=c.replace(/^[A-E]\.\s*/i,'');
+    return '<div class="'+cls+'" onclick="pick('+ci+')"><div class="cl">'+LETTERS[ci]+'</div><div class="ac-txt">'+txt+'</div></div>';
+  }).join('');
+
+  var submitHTML='';
+  if(!ans&&!isExam){submitHTML='<div class="submit-row"><button class="submit-btn" onclick="submitAns()"'+(sel!==undefined?'':' disabled')+'>Submit Answer</button></div>';}
+
+  var expHTML='';
+  if(ans&&!isExam){
+    var cL=LETTERS[q.correct],sL=LETTERS[ans.s];
+    var myW=ans.s!==q.correct&&q.wrongExplanations&&q.wrongExplanations[String(ans.s)]?'<div class="exs exw"><div class="exl">✗ Why '+sL+' is Wrong</div><div class="ext">'+q.wrongExplanations[String(ans.s)]+'</div></div>':'';
+    var others='';
+    if(q.wrongExplanations){var oks=Object.keys(q.wrongExplanations).filter(function(k){return +k!==q.correct&&(!ans||+k!==ans.s)&&q.wrongExplanations[k];});if(oks.length)others='<div class="exs exo"><div class="exl">✗ Other Wrong Choices</div><div class="ext">'+oks.map(function(k){return'<div class="wce"><strong>'+LETTERS[+k]+':</strong> '+q.wrongExplanations[k]+'</div>';}).join('')+'</div></div>';}
+    var eli5=q.eli5?'<div class="exs exe"><div class="exl">💡 ELI5</div><div class="ext">'+q.eli5+'</div></div>':'';
+    expHTML='<div class="exb vis"><div class="exs exc"><div class="exl">✓ Why '+cL+' is Correct</div><div class="ext">'+q.explanation+'</div></div>'+myW+others+eli5+'</div>';
+  }
+
+  var dots=questions.map(function(_,i){var dc=answers[i]?(answers[i].r==='c'?' dc':' di'):(i===CQ?' on':'');return '<button class="qd'+dc+'" onclick="goQ('+i+')" title="Q'+(i+1)+'"></button>';}).join('');
+
+  document.getElementById('qArea').innerHTML=
+    '<div class="qcd">'+
+      '<div class="qpg"><div class="qpf" style="width:'+pg+'%"></div></div>'+
+      '<div class="qbd">'+
+        '<div class="qnum">Question '+(CQ+1)+' of '+tot+'</div>'+
+        '<div class="qstem" id="stemEl">'+q.stem+'</div>'+
+        '<div class="ach" id="achEl">'+choicesHTML+'</div>'+
+        submitHTML+expHTML+
+      '</div>'+
+      '<div class="qnv">'+
+        '<button class="nb" onclick="prevQ()"'+(CQ===0?' disabled':'')+'>← Prev</button>'+
+        '<div class="nav-dots">'+dots+'</div>'+
+        '<button class="nb pr" onclick="nextQ()"'+(CQ===tot-1?' disabled':'')+'>Next →</button>'+
+      '</div>'+
+    '</div>';
+  updScore();
+}
+
+function pick(ci){
+  if(answers[CQ])return;
+  selected[CQ]=ci;
+  renderQ();
+}
+
+function submitAns(){
+  if(answers[CQ]||selected[CQ]===undefined)return;
+  var ok=selected[CQ]===questions[CQ].correct;
+  answers[CQ]={s:selected[CQ],r:ok?'c':'i'};
+  if(ok)NC++;else NI++;
+  updScore();renderQ();
+  if(Object.keys(answers).length===questions.length)setTimeout(showFinish,500);
+}
+
+function prevQ(){if(CQ>0){CQ--;renderQ();}}
+function nextQ(){if(CQ<questions.length-1){CQ++;renderQ();}}
+function goQ(i){CQ=i;renderQ();}
+
+function updScore(){
+  document.getElementById('sC').textContent=NC;
+  document.getElementById('sI').textContent=NI;
+  var t=NC+NI;document.getElementById('sP').textContent=t>0?Math.round(NC/t*100)+'%':'—';
+}
+
+// ── MODE ──
+function setMode(m){
+  quizMode=m;
+  document.getElementById('modeLearn').classList.toggle('active',m==='learn');
+  document.getElementById('modeExam').classList.toggle('active',m==='exam');
+  renderQ();
+}
+
+// ── TOOLS ──
+function toggleTool(t){
+  if(toolMode===t){toolMode='';document.getElementById(t==='hl'?'hlTool':'stTool').classList.remove('active');}
+  else{toolMode=t;document.getElementById('hlTool').classList.toggle('active',t==='hl');document.getElementById('stTool').classList.toggle('active',t==='st');}
+}
+function clearMarks(){
+  var stem=document.getElementById('stemEl');
+  var ach=document.getElementById('achEl');
+  [stem,ach].forEach(function(el){if(!el)return;el.querySelectorAll('mark,s').forEach(function(m){m.replaceWith(document.createTextNode(m.textContent));});});
+}
+document.addEventListener('mouseup',function(e){
+  if(!toolMode)return;
+  var sel=window.getSelection();
+  if(!sel||sel.isCollapsed)return;
+  var range=sel.getRangeAt(0);
+  var container=range.commonAncestorContainer;
+  var qArea=document.getElementById('qArea');
+  if(!qArea||!qArea.contains(container))return;
+  try{
+    var tag=toolMode==='hl'?'mark':'s';
+    var el=document.createElement(tag);
+    range.surroundContents(el);
+    sel.removeAllRanges();
+  }catch(e){}
+});
+
+// ── TIMER ──
+function toggleTimer(){
+  if(timerRunning)pauseTimer();else startTimer();
+}
+function startTimer(){
+  timerRunning=true;
+  document.getElementById('timerPlayBtn').textContent='⏸';
+  document.getElementById('timerCard').classList.add('run');
+  timerInterval=setInterval(function(){timerSec++;updTimer();},1000);
+}
+function pauseTimer(){
+  timerRunning=false;
+  document.getElementById('timerPlayBtn').textContent='▶';
+  document.getElementById('timerCard').classList.remove('run');
+  clearInterval(timerInterval);
+}
+function resetTimer(){
+  pauseTimer();timerSec=0;updTimer();
+  document.getElementById('timerCard').classList.remove('warn');
+}
+function updTimer(){
+  var m=Math.floor(timerSec/60).toString().padStart(2,'0');
+  var s=(timerSec%60).toString().padStart(2,'0');
+  document.getElementById('timerTime').textContent=m+':'+s;
+  if(timerSec>90)document.getElementById('timerCard').classList.add('warn');
+  else document.getElementById('timerCard').classList.remove('warn');
+}
+
+// ── FINISH ──
+function showFinish(){
+  var tot=questions.length,pct=Math.round(NC/tot*100);
+  var msg=pct>=80?'🎉 Strong work!':pct>=60?'📈 Getting there.':'📚 Keep reviewing.';
+  document.getElementById('finBanner').innerHTML=
+    '<div class="fin">'+
+      '<div class="fin-pct">'+pct+'%</div>'+
+      '<div class="fin-pct-lbl">Final Score</div>'+
+      '<div class="fin-msg">'+msg+'</div>'+
+      '<div class="fin-sub">'+NC+' correct · '+NI+' incorrect · '+tot+' questions</div>'+
+      '<div class="fin-btns">'+
+        '<button class="fin-btn" onclick="resetQuiz()">↺ Retake</button>'+
+        '<button class="fin-btn" onclick="exitQuiz()">✕ Exit</button>'+
+      '</div>'+
+    '</div>';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function resetQuiz(){answers={};selected={};NC=0;NI=0;CQ=0;resetTimer();document.getElementById('finBanner').innerHTML='';renderQ();window.scrollTo({top:0,behavior:'smooth'});}
+function exitQuiz(){pauseTimer();switchView('viewSetup');}
+
+// ── VIEW ──
+function switchView(id){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+
+// ── HELPERS ──
+function showErr(msg){var el=document.getElementById('errMsg');el.textContent='❌ '+msg;el.className='err-msg show';}
+function showToast(msg,type){
+  var w=document.getElementById('toastWrap'),t=document.createElement('div');
+  t.className='toast '+type;t.textContent=msg;w.appendChild(t);
+  setTimeout(function(){t.style.animation='toastOut .28s ease forwards';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},300);},2800);
+}
+hydratePreloadedQuiz();
+</script></body></html>
