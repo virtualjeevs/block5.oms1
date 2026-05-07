@@ -1890,12 +1890,7 @@ OMK:{fullName:"Osteopathic Manipulative Knowledge",
     {name:"Ophthalmology Pharmacology",links:[
       {label:"Comprehensive",href:"notes/week44/quiz/ophthalmology_pharm_quiz.html",style:"prac"}
     ]}
-  ],assessments:[
-    {name:"Goode — CE Prep",links:[
-      {label:"Easier Set",href:"notes/week44/quiz/goode_ce_prep_easier.html",style:"prac"},
-      {label:"Representative Set",href:"notes/week44/quiz/goode_ce_prep_representative.html",style:"prac"}
-    ]}
-  ]}}},
+  ],assessments:[]}}},
 OCS:{fullName:"Osteopathic Clinical Skills",
   assessLabel:"PQs",assessIcon:"\uD83D\uDCCB",assessFull:"Progress Quizzes",
   weeks:{
@@ -2160,7 +2155,10 @@ var LOGO='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYmm1AklYXu49IjG
 var PTESTS=[
   {name:"Progress Test #9",kind:"progress",date:"April 6",notes:"",quiz:null},
   {name:"Progress Test #10",kind:"progress",date:"April 27",notes:"",quiz:null},
-  {name:"Comprehensive Exam",kind:"ce",date:"May 1 Week",notes:"",quiz:null}
+  {name:"Comprehensive Exam",kind:"ce",date:"May 1 Week",notes:"",quiz:null,links:[
+    {label:"Goode — Easier Set",href:"notes/week44/quiz/goode_ce_prep_easier.html",style:"prac"},
+    {label:"Goode — Representative Set",href:"notes/week44/quiz/goode_ce_prep_representative.html",style:"prac"}
+  ]}
 ];
 var WEEK_EXAMS={
   4:[{label:"Progress Test #9",icon:"🎯",ptIndex:0}],
@@ -2270,13 +2268,31 @@ var b='';if(CV==='overview')b=rNT(wk)+rQZ(wk)+rAS(wk)+rPT();else if(CV==='notes'
 document.getElementById('bd').innerHTML=b}
 function rMNpt(i){var p=PTESTS[i];
 document.getElementById('hd').innerHTML='<div><h2>'+p.name+'</h2><div class="bc">'+DATA[CC].fullName+(p.date?' \u203A '+p.date:'')+'</div></div>';
-var b='<div class="sec"><div class="sec-hd"><h3>\uD83D\uDCDD Notes</h3></div>';
-if(p.notes)b+='<div class="ng"><div class="nc"><div class="nc-top"><span class="ni">\uD83D\uDCDA</span><div><div class="nt">'+p.name+' Notes</div></div></div><div class="nc-btns"><button class="nc-btn open" onclick="window.open(\''+p.notes+'\',\'_blank\')">Open \u2192</button></div></div></div>';
-else b+='<div class="emp"><div class="ei">\uD83D\uDCDD</div><h4>No notes yet</h4><p>Add notes link in PTESTS config</p></div>';
-b+='</div><div class="sec"><div class="sec-hd"><h3>\uD83D\uDCDA Practice Questions</h3></div>';
-if(p.quiz!==null)b+='<div class="qg"><div class="qc" onclick="openPTQ('+i+')"><div class="qn">'+p.name+' Practice</div><div class="qs">Click to start</div></div></div>';
-else b+='<div class="emp"><div class="ei">\uD83D\uDCDA</div><h4>No practice questions yet</h4><p>Add quiz data in PTESTS config</p></div>';
-b+='</div>';document.getElementById('bd').innerHTML=b}
+var b='';
+if(p.links&&p.links.length){
+  b+='<div class="sec"><div class="sec-hd"><h3>\uD83D\uDCDA Practice Sets</h3><span class="cnt">'+p.links.length+'</span></div><div class="rat-card"><div class="rat-name">'+p.name+'</div><div class="rat-btns link-grid">';
+  p.links.forEach(function(lk){
+    if(lk.disabled){
+      b+='<span class="rat-btn '+(lk.style||'prac')+'" style="text-decoration:none;opacity:.42;cursor:not-allowed;pointer-events:none">'+lk.label+'</span>';
+    }else{
+      b+='<a class="rat-btn '+(lk.style||'prac')+'" href="'+lk.href+'" target="_blank" style="text-decoration:none">'+lk.label+'</a>';
+    }
+  });
+  b+='</div></div></div>';
+}
+if(p.notes||(!p.links||!p.links.length)){
+  b+='<div class="sec"><div class="sec-hd"><h3>\uD83D\uDCDD Notes</h3></div>';
+  if(p.notes)b+='<div class="ng"><div class="nc"><div class="nc-top"><span class="ni">\uD83D\uDCDA</span><div><div class="nt">'+p.name+' Notes</div></div></div><div class="nc-btns"><button class="nc-btn open" onclick="window.open(\''+p.notes+'\',\'_blank\')">Open \u2192</button></div></div></div>';
+  else b+='<div class="emp"><div class="ei">\uD83D\uDCDD</div><h4>No notes yet</h4><p>Add notes link in PTESTS config</p></div>';
+  b+='</div>';
+}
+if(p.quiz!==null||(!p.links||!p.links.length)){
+  b+='<div class="sec"><div class="sec-hd"><h3>\uD83D\uDCDA Practice Questions</h3></div>';
+  if(p.quiz!==null)b+='<div class="qg"><div class="qc" onclick="openPTQ('+i+')"><div class="qn">'+p.name+' Practice</div><div class="qs">Click to start</div></div></div>';
+  else b+='<div class="emp"><div class="ei">\uD83D\uDCDA</div><h4>No practice questions yet</h4><p>Add quiz data in PTESTS config</p></div>';
+  b+='</div>';
+}
+document.getElementById('bd').innerHTML=b}
 
 /* Media registry — maps index → {previewUrl, openUrl, isPodcast} so onclick never needs escaped quotes */
 var MEDIA_REG=[];
@@ -2413,7 +2429,18 @@ return h+'<div class="anki-card"><div class="anki-icon">\uD83C\uDFB4</div><div c
 function rPT(){
 var progress=PTESTS.filter(function(p){return p.kind!=='ce'}),ce=PTESTS.filter(function(p){return p.kind==='ce'});
 function cardHTML(p,i){
-  return '<div class="pt-card"><div class="pt-name">'+p.name+'</div>'+(p.date?'<div class="pt-date">📅 '+p.date+'</div>':'<div class="pt-date">📅 TBD</div>')+'<div class="pt-btns">'+(p.notes?'<button class="pt-btn notes" onclick="window.open(\''+p.notes+'\',\'_blank\')">Notes →</button>':'<button class="pt-btn notes" disabled style="opacity:0.3">Notes</button>')+(p.quiz!==null?'<button class="pt-btn prac" onclick="openPTQ('+i+')">Practice</button>':'<button class="pt-btn prac" disabled style="opacity:0.3">Practice</button>')+'</div></div>';
+  var buttons='';
+  if(p.notes)buttons+='<button class="pt-btn notes" onclick="window.open(\''+p.notes+'\',\'_blank\')">Notes →</button>';
+  if(p.links&&p.links.length){
+    buttons+=p.links.map(function(lk){
+      if(lk.disabled)return '<span class="pt-btn '+(lk.style||'prac')+'" style="opacity:0.42;cursor:not-allowed;pointer-events:none">'+lk.label+'</span>';
+      return '<a class="pt-btn '+(lk.style||'prac')+'" href="'+lk.href+'" target="_blank" style="text-decoration:none">'+lk.label+'</a>';
+    }).join('');
+  }else{
+    if(!p.notes)buttons+='<button class="pt-btn notes" disabled style="opacity:0.3">Notes</button>';
+    buttons+=(p.quiz!==null?'<button class="pt-btn prac" onclick="openPTQ('+i+')">Practice</button>':'<button class="pt-btn prac" disabled style="opacity:0.3">Practice</button>');
+  }
+  return '<div class="pt-card"><div class="pt-name">'+p.name+'</div>'+(p.date?'<div class="pt-date">📅 '+p.date+'</div>':'<div class="pt-date">📅 TBD</div>')+'<div class="pt-btns">'+buttons+'</div></div>';
 }
 var h='<div class="sec"><div class="sec-hd"><h3>🎯 Exams</h3></div>';
 if(progress.length){
