@@ -36,6 +36,10 @@
     --sti-soft: #fbf0dc;
     --sti-deep: #7d4509;
 
+    --osteo: #5e4983;      /* slate violet */
+    --osteo-soft: #ece6f3;
+    --osteo-deep: #3f3163;
+
     --danger: #b1281b;
     --warn: #c97a05;
     --ok: #1f7a4f;
@@ -58,6 +62,7 @@
       radial-gradient(circle at 15% 8%, rgba(45,91,142,0.04), transparent 35%),
       radial-gradient(circle at 85% 25%, rgba(15,122,92,0.04), transparent 35%),
       radial-gradient(circle at 30% 70%, rgba(157,41,86,0.04), transparent 35%),
+      radial-gradient(circle at 60% 50%, rgba(94,73,131,0.04), transparent 35%),
       radial-gradient(circle at 75% 90%, rgba(180,100,16,0.04), transparent 35%);
   }
 
@@ -133,10 +138,15 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
+
+  .stat-row.stat-row-5 { grid-template-columns: repeat(5, 1fr); }
+  @media (max-width: 1100px) { .stat-row.stat-row-5 { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px) { .stat-row.stat-row-5 { grid-template-columns: repeat(2, 1fr); } }
   .stat.eye .num { color: var(--eye); }
   .stat.dm .num { color: var(--dm); }
   .stat.steroid .num { color: var(--steroid); }
   .stat.sti .num { color: var(--sti); }
+  .stat.osteo .num { color: var(--osteo); }
 
   /* ───────────── Sticky Nav ───────────── */
   nav.topnav {
@@ -179,6 +189,7 @@
   .topnav-inner a.dm:hover { background: var(--dm-soft); color: var(--dm-deep); }
   .topnav-inner a.steroid:hover { background: var(--steroid-soft); color: var(--steroid-deep); }
   .topnav-inner a.sti:hover { background: var(--sti-soft); color: var(--sti-deep); }
+  .topnav-inner a.osteo:hover { background: var(--osteo-soft); color: var(--osteo-deep); }
   .topnav-inner a.idx { margin-left: auto; border: 1px solid var(--rule); }
   .nav-pill {
     width: 8px; height: 8px; border-radius: 50%;
@@ -188,6 +199,7 @@
   .nav-pill.dm { background: var(--dm); }
   .nav-pill.steroid { background: var(--steroid); }
   .nav-pill.sti { background: var(--sti); }
+  .nav-pill.osteo { background: var(--osteo); }
 
   /* ───────────── Sections ───────────── */
   section.topic {
@@ -235,6 +247,7 @@
   section.topic.dm .section-head { border-color: var(--dm); }
   section.topic.steroid .section-head { border-color: var(--steroid); }
   section.topic.sti .section-head { border-color: var(--sti); }
+  section.topic.osteo .section-head { border-color: var(--osteo); }
 
   /* ───────────── Cards ───────────── */
   .grid { display: grid; gap: 18px; }
@@ -259,11 +272,13 @@
   .card.tinted-dm { background: linear-gradient(180deg, var(--dm-soft) 0%, transparent 100%); }
   .card.tinted-steroid { background: linear-gradient(180deg, var(--steroid-soft) 0%, transparent 100%); }
   .card.tinted-sti { background: linear-gradient(180deg, var(--sti-soft) 0%, transparent 100%); }
+  .card.tinted-osteo { background: linear-gradient(180deg, var(--osteo-soft) 0%, transparent 100%); }
 
   .card.bordered-eye { border-left: 4px solid var(--eye); }
   .card.bordered-dm { border-left: 4px solid var(--dm); }
   .card.bordered-steroid { border-left: 4px solid var(--steroid); }
   .card.bordered-sti { border-left: 4px solid var(--sti); }
+  .card.bordered-osteo { border-left: 4px solid var(--osteo); }
 
   .card h3 {
     font-family: 'Fraunces', serif;
@@ -365,6 +380,7 @@
   .tbl-wrap.dm thead th { background: var(--dm-soft); color: var(--dm-deep); }
   .tbl-wrap.steroid thead th { background: var(--steroid-soft); color: var(--steroid-deep); }
   .tbl-wrap.sti thead th { background: var(--sti-soft); color: var(--sti-deep); }
+  .tbl-wrap.osteo thead th { background: var(--osteo-soft); color: var(--osteo-deep); }
 
   /* ───────────── Callouts ───────────── */
   .callout {
@@ -431,6 +447,7 @@
   ul.checks.dm li::before { color: var(--dm); }
   ul.checks.steroid li::before { color: var(--steroid); }
   ul.checks.sti li::before { color: var(--sti); }
+  ul.checks.osteo li::before { color: var(--osteo); }
 
   /* ───────────── Flow / Mechanism boxes ───────────── */
   .flow {
@@ -519,6 +536,7 @@
   .idx-row .topic-tag.dm { background: var(--dm-soft); color: var(--dm-deep); }
   .idx-row .topic-tag.steroid { background: var(--steroid-soft); color: var(--steroid-deep); }
   .idx-row .topic-tag.sti { background: var(--sti-soft); color: var(--sti-deep); }
+  .idx-row .topic-tag.osteo { background: var(--osteo-soft); color: var(--osteo-deep); }
 
   /* ───────────── Footer ───────────── */
   footer.foot {
@@ -637,12 +655,13 @@
       <span>Jeevs</span>
     </div>
     <h1 class="title">Four lectures, <em>one cheat sheet.</em></h1>
-    <p class="lede">A high-yield distillation of Glaucoma &amp; Dry Eye, Diabetes drugs, Corticosteroids, and STI Pharmacology — color-coded by topic, organized for fast vignette recall, designed for the cumulative exam.</p>
-    <div class="stat-row">
+    <p class="lede">A high-yield distillation of Glaucoma &amp; Dry Eye, Diabetes drugs, Corticosteroids, STI Pharmacology, and Osteoporosis Pharmacology — color-coded by topic, organized for fast vignette recall, designed for the cumulative exam.</p>
+    <div class="stat-row stat-row-5">
       <div class="stat eye"><div class="num">7</div><div class="label">Glaucoma drug classes</div></div>
       <div class="stat dm"><div class="num">10</div><div class="label">Diabetes drug classes</div></div>
       <div class="stat steroid"><div class="num">8</div><div class="label">Synthetic steroids</div></div>
       <div class="stat sti"><div class="num">11</div><div class="label">STI pathogens</div></div>
+      <div class="stat osteo"><div class="num">8</div><div class="label">Osteoporosis classes</div></div>
     </div>
   </div>
 </header>
@@ -653,6 +672,7 @@
     <a href="#dm" class="dm"><span class="nav-pill dm"></span>Diabetes</a>
     <a href="#steroid" class="steroid"><span class="nav-pill steroid"></span>Corticosteroids</a>
     <a href="#sti" class="sti"><span class="nav-pill sti"></span>STIs</a>
+    <a href="#osteo" class="osteo"><span class="nav-pill osteo"></span>Osteoporosis</a>
     <a href="#bridges">Cross-Topic Bridges</a>
     <a href="#index" class="idx">Drug Index ↓</a>
   </div>
@@ -1501,6 +1521,390 @@
   </div>
 </section>
 
+
+<!-- ════════════════════════ OSTEOPOROSIS ════════════════════════ -->
+<section class="topic osteo" id="osteo">
+  <div class="wrap">
+
+    <div class="prof-banner"><span class="nav-pill osteo"></span><span class="who">Professor Ly · Block 5 · Pharmacology of Osteoporosis</span></div>
+
+    <div class="section-head">
+      <span class="num">05 · METABOLIC BONE PHARM</span>
+      <h2>Osteoporosis</h2>
+      <span class="prof">— RANK/RANKL/OPG axis &amp; the antiresorptive vs anabolic split</span>
+      <p class="blurb">Osteoporosis pharm is fundamentally about the resorption-vs-formation balance. Eight drug classes split into three buckets: antiresorptive (block osteoclasts), anabolic (drive osteoblasts), and dual (romosozumab). Master the patient-constraint decision tree — Dr. Ly's "most/least likely" prompts depend on it.</p>
+    </div>
+
+    <!-- Pathophysiology recap -->
+    <div class="grid c2" style="margin-bottom: 22px;">
+      <div class="card bordered-osteo">
+        <h3><span class="sub">PLO 1 · Pathophysiology</span>The RANK / RANKL / OPG Axis</h3>
+        <p style="margin-top:10px; color:var(--ink-soft);">Bone is constantly remodeled — osteoclasts resorb, osteoblasts rebuild. In osteoporosis, that balance tilts to <b>resorption &gt; formation</b>. Almost every drug targets one node:</p>
+        <ul class="checks osteo" style="font-size:14px;">
+          <li><b>RANKL</b> (made by osteoblasts) → binds RANK on osteoclast precursors → <b>osteoclast activation</b></li>
+          <li><b>OPG</b> = endogenous decoy receptor → mops up RANKL → ↓ resorption</li>
+          <li><b>Sclerostin</b> (made by osteocytes) → blocks Wnt → puts brakes on bone <b>formation</b></li>
+          <li><b>PTH</b> intermittent → anabolic (↑ formation); <b>PTH continuous</b> → catabolic (↑ resorption)</li>
+          <li><b>Estrogen</b> → ↓ RANKL → ↓ resorption (lost at menopause = postmenopausal osteoporosis)</li>
+        </ul>
+        <div class="callout key" style="margin-top:14px;">
+          <div class="label">⚓ Diagnosis anchor</div>
+          <b>T-score ≤ −2.5</b> at lumbar spine, femoral neck, or total hip on DXA. Osteopenia = −1.0 to −2.5. Hip fracture carries <b>20% one-year mortality.</b>
+        </div>
+      </div>
+
+      <div class="card tinted-osteo">
+        <h3>Three Buckets — One Glance</h3>
+        <table class="tbl compact">
+          <thead><tr><th>Bucket</th><th>Drugs</th><th>Net effect</th></tr></thead>
+          <tbody>
+            <tr><td><b>Antiresorptive</b></td><td>Bisphosphonates · Denosumab · Raloxifene · TSEC · Calcitonin</td><td>↓ Osteoclast activity</td></tr>
+            <tr><td><b>Anabolic</b></td><td>Teriparatide · Abaloparatide</td><td>↑ Osteoblast activity</td></tr>
+            <tr><td><b>Dual</b></td><td><b>Romosozumab</b></td><td>↑ Formation <b>+</b> ↓ Resorption</td></tr>
+          </tbody>
+        </table>
+        <div class="callout danger" style="margin-top:10px;">
+          <div class="label">⚠ Risk-factor pearls</div>
+          <b>#1 secondary cause</b> = chronic <b>glucocorticoids</b> (see Corticosteroid section). Other risks: postmenopausal estrogen ↓, age, smoking, alcohol, low Ca/D intake, small frame, family Hx, immobilization, hyperthyroidism, hypogonadism, RA, CKD/liver disease.
+        </div>
+      </div>
+    </div>
+
+    <!-- Calcium + Vit D foundation -->
+    <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; margin:8px 0 14px; letter-spacing:-0.01em;">Calcium &amp; Vitamin D — the foundation</h3>
+    <p style="color:var(--ink-soft); margin-bottom:18px;">Without adequate Ca²⁺ + Vit D, every pharmacologic agent is less effective. Correct hypocalcemia <b>before</b> starting any antiresorptive (bisphosphonate, denosumab, romosozumab).</p>
+
+    <div class="grid c3">
+      <div class="card bordered-osteo">
+        <h3>Calcium Carbonate <span class="pill osteo" style="background:var(--osteo-soft); color:var(--osteo-deep); vertical-align:middle; margin-left:6px;">with food</span></h3>
+        <p style="font-size:13px; color:var(--ink-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Os-Cal · Tums</p>
+        <dl class="kv">
+          <dt>Key rule</dt><dd>Needs <b>gastric acid</b> → take <b>WITH food</b>. Avoid concomitant PPI.</dd>
+          <dt>Target</dt><dd>1000 mg/day (M ≤70, W ≤50) · 1200 mg/day (W ≥51, M ≥71). Cap doses at <b>500–600 mg elemental Ca per dose.</b></dd>
+          <dt>AEs</dt><dd>Constipation, bloating</dd>
+        </dl>
+      </div>
+      <div class="card bordered-osteo">
+        <h3>Calcium Citrate <span class="pill osteo" style="background:var(--osteo-soft); color:var(--osteo-deep); vertical-align:middle; margin-left:6px;">PPI / achlorhydria</span></h3>
+        <p style="font-size:13px; color:var(--ink-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">Citracal</p>
+        <dl class="kv">
+          <dt>Key rule</dt><dd>Does <b>NOT</b> require acid → take <b>WITHOUT food</b>. Preferred on PPIs, H₂-blockers, post-gastric-bypass, achlorhydria.</dd>
+          <dt>AEs</dt><dd>Less constipation than carbonate</dd>
+        </dl>
+      </div>
+      <div class="card bordered-osteo">
+        <h3>Vitamin D₃ &gt; D₂</h3>
+        <p style="font-size:13px; color:var(--ink-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">cholecalciferol &gt; ergocalciferol</p>
+        <dl class="kv">
+          <dt>MOA</dt><dd>D₃ → liver (25-OH-D, storage / lab measurement) → kidney (<b>1,25-OH₂-D₃ = calcitriol</b>, active) → ↑ intestinal Ca²⁺ absorption · ↑ renal Ca²⁺ reabsorption · bone mineralization · modulates PTH</dd>
+          <dt>Dose</dt><dd>800–2000 IU/day · target 25-OH-D ≥ <b>30 ng/mL</b> in osteoporosis</dd>
+          <dt>Toxicity</dt><dd>Hypercalcemia, hypercalciuria, nephrolithiasis, soft-tissue calcification</dd>
+          <dt>CKD 4–5</dt><dd>Kidney can't activate D → use <b>calcitriol</b> directly</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- DRUG CLASSES -->
+    <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; margin:36px 0 14px; letter-spacing:-0.01em;">Antiresorptive Drug Classes</h3>
+
+    <div class="drug-class-grid">
+
+      <!-- BISPHOSPHONATES -->
+      <div class="card bordered-osteo">
+        <h3>Bisphosphonates <span class="pill" style="background:var(--osteo-soft); color:var(--osteo-deep); vertical-align:middle; margin-left:6px;">1st line</span></h3>
+        <div style="font-size:13px; color:var(--ink-muted); font-family:'JetBrains Mono',monospace; margin-bottom:6px;">— dronate</div>
+        <p><b>Oral:</b> <span class="rx">alendronate ★</span> (Fosamax 70 mg/wk) · <span class="rx">risedronate</span> (Actonel 35 mg/wk or 150 mg/mo) · <span class="rx">ibandronate</span> (Boniva 150 mg/mo PO or 3 mg IV q3mo)<br>
+           <b>IV:</b> <span class="rx">zoledronic acid</span> (Reclast 5 mg IV <b>once yearly</b>)</p>
+        <dl class="kv">
+          <dt>MOA</dt><dd>Bind hydroxyapatite at active remodeling sites → osteoclasts internalize them → inhibit <b>FPPS</b> (farnesyl pyrophosphate synthase) in mevalonate pathway → ↓ prenylation of small GTPases → osteoclast cytoskeletal collapse + apoptosis → <b>↓ resorption</b></dd>
+          <dt>Oral rules</dt><dd>Empty stomach, full glass of plain water, <b>upright ≥30 min</b> (60 min for ibandronate). No food/drink/meds for 30 min. Failure → esophageal injury.</dd>
+          <dt>Key AEs</dt><dd><b class="hl">Esophagitis / esophageal ulceration</b> (oral) · <b>ONJ</b> (osteonecrosis of jaw — ↑ risk with IV, dental procedures, cancer dose) · <b>atypical femoral fractures</b> (subtrochanteric, after &gt;5 yr; thigh/groin pain prodrome) · hypocalcemia · <b>acute phase reaction</b> (fever, myalgia within 72 h of first IV zoledronate)</dd>
+          <dt>CIs</dt><dd>Hypocalcemia (correct first) · esophageal abnormalities (achalasia, stricture) · inability to stand/sit upright · <b>CrCl &lt; 35 mL/min</b></dd>
+          <dt>Drug holiday</dt><dd>Consider after <b>3–5 yr oral / 3 yr IV</b> in low-risk patients to ↓ AFF risk. Reassess BMD + FRAX before continuing.</dd>
+        </dl>
+      </div>
+
+      <!-- DENOSUMAB -->
+      <div class="card bordered-osteo">
+        <h3>Denosumab — RANKL Inhibitor <span class="pill" style="background:var(--osteo-soft); color:var(--osteo-deep); vertical-align:middle; margin-left:6px;">CrCl &lt; 35 OK</span></h3>
+        <p><span class="rx">denosumab ★</span> (Prolia <b>60 mg SQ q6mo</b> for osteoporosis · Xgeva 120 mg SQ q4wk for oncology)</p>
+        <dl class="kv">
+          <dt>MOA</dt><dd>Fully human <b>IgG2 mAb</b> against <b>RANKL</b> → blocks RANK activation on osteoclast precursors → ↓ osteoclast formation, function, survival. <i>Mimics endogenous OPG.</i></dd>
+          <dt>Pearl</dt><dd><b>NOT renally cleared</b> (it's a mAb) → preferred when bisphosphonates contraindicated (CrCl &lt; 35).</dd>
+          <dt class="hl-red">⚠ Rebound effect</dt><dd><b>Do NOT discontinue abruptly.</b> Stopping → osteoclast surge → rapid BMD loss + multiple vertebral fractures within 6–12 months. <b>Bridge to a bisphosphonate</b> if stopping.</dd>
+          <dt>Key AEs</dt><dd><b class="hl">Hypocalcemia</b> (worst in CKD/dialysis) · <b>infections</b> (cellulitis, UTI, pneumonia — RANKL on immune cells) · ONJ · AFF · injection-site reactions · dermatitis</dd>
+          <dt>CIs</dt><dd>Hypocalcemia · pregnancy (Cat X — RANKL needed for fetal lymph node development) · <b>latex allergy</b> (prefilled needle cap)</dd>
+        </dl>
+      </div>
+
+      <!-- RALOXIFENE -->
+      <div class="card bordered-osteo">
+        <h3>Raloxifene — SERM / EAA <span class="pill" style="background:var(--osteo-soft); color:var(--osteo-deep); vertical-align:middle; margin-left:6px;">breast Ca chemo-prev</span></h3>
+        <p><span class="rx">raloxifene ★</span> (Evista 60 mg PO daily)</p>
+        <dl class="kv">
+          <dt>MOA — tissue selectivity</dt><dd>Binds ER but recruits different coactivators in different tissues:<br>
+            • <b>AGONIST at bone</b> → ↓ resorption (estrogen-like)<br>
+            • <b>AGONIST on lipids</b> → ↓ LDL<br>
+            • <b>ANTAGONIST at breast</b> → FDA-approved for breast cancer chemoprevention<br>
+            • <b>ANTAGONIST at uterus</b> → no endometrial stimulation (unlike estrogen)<br>
+            • <b>ANTAGONIST at hypothalamus</b> → <b>worsens hot flashes</b></dd>
+          <dt>Key AEs</dt><dd><b class="hl-red">VTE (DVT/PE)</b> — most important; comparable to estrogen · <b>worsens vasomotor symptoms</b> · leg cramps · edema</dd>
+          <dt>CIs</dt><dd><b>Active or prior VTE</b> · prolonged immobilization (hold before elective surgery) · premenopausal · pregnancy (Cat X)</dd>
+          <dt>DI</dt><dd>Cholestyramine ↓ raloxifene absorption 60% — separate</dd>
+        </dl>
+      </div>
+
+      <!-- TSEC -->
+      <div class="card bordered-osteo">
+        <h3>TSEC — Estrogen + SERM <span class="pill" style="background:var(--osteo-soft); color:var(--osteo-deep); vertical-align:middle; margin-left:6px;">VMx + uterus</span></h3>
+        <p><span class="rx">conjugated estrogens / bazedoxifene ★</span> (Duavee 0.45 mg CE / 20 mg BZA · PO daily)</p>
+        <dl class="kv">
+          <dt>MOA</dt><dd><b>Conjugated estrogens</b> = ER agonist → ↓ resorption + relieves hot flashes. <b>Bazedoxifene</b> = SERM that antagonizes the uterine ER → <b>blocks endometrial proliferation</b> WITHOUT a progestin. Avoids the breast cancer / mood AEs of progestins.</dd>
+          <dt>Indication</dt><dd>Postmenopausal woman <b>with intact uterus</b> + vasomotor symptoms + osteoporosis. <i>Hysterectomy → just use estrogen alone.</i></dd>
+          <dt>Key AEs</dt><dd><b>VTE</b> (estrogen) · nausea · muscle spasms · oropharyngeal pain · dizziness · CV risk (estrogen)</dd>
+          <dt>CIs</dt><dd>VTE Hx · estrogen-sensitive cancer (breast, endometrial) · undiagnosed uterine bleeding · hepatic impairment · pregnancy (Cat X)</dd>
+          <dt>DI</dt><dd>CYP3A4 inducers (rifampin, phenytoin) ↓ levels · CYP3A4 inhibitors ↑ levels · cholestyramine ↓ BZA absorption</dd>
+        </dl>
+      </div>
+
+      <!-- CALCITONIN -->
+      <div class="card bordered-osteo">
+        <h3>Salmon Calcitonin <span class="pill" style="background:var(--osteo-soft); color:var(--osteo-deep); vertical-align:middle; margin-left:6px;">2nd / last-line</span></h3>
+        <p><span class="rx">calcitonin-salmon</span> (Miacalcin · Fortical 200 IU intranasal daily, or 100 IU SQ/IM)</p>
+        <dl class="kv">
+          <dt>MOA</dt><dd>Synthetic <b>salmon</b> calcitonin (more potent than human form) → binds calcitonin receptors on osteoclasts → ↓ ruffled border + proton pump → ↓ resorption. Also <b>analgesic</b> via central endorphin release → useful for acute vertebral compression fracture pain.</dd>
+          <dt class="hl-red">⚠ FDA warning</dt><dd>Long-term use linked to a possible <b>↑ malignancy</b> signal (2013) → now <b>second-line / last resort.</b></dd>
+          <dt>Key AEs</dt><dd>Intranasal: <b>rhinitis, epistaxis</b>, nasal dryness · injectable: nausea/vomiting, flushing · <b>tachyphylaxis</b> (antibody formation) · mild hypocalcemia</dd>
+          <dt class="hl-red">CI — CRITICAL</dt><dd><b>Salmon allergy</b> — perform skin test before first dose if fish allergy suspected. Hypersensitivity to calcitonin-salmon.</dd>
+        </dl>
+      </div>
+
+    </div>
+
+    <!-- Anabolic + Dual -->
+    <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; margin:36px 0 14px; letter-spacing:-0.01em;">Anabolic &amp; Dual-Mechanism Agents</h3>
+
+    <div class="callout key">
+      <div class="label">⚓ The PTH paradox — high yield</div>
+      <b>Intermittent</b> PTH (daily SQ) → <b>anabolic</b> (osteoblast &gt; osteoclast) → builds bone. <b>Continuous</b> PTH (as in primary hyperparathyroidism) → <b>catabolic</b> → bone loss. Same hormone, opposite effects depending on exposure pattern.
+    </div>
+
+    <div class="drug-class-grid">
+
+      <!-- TERIPARATIDE -->
+      <div class="card bordered-osteo">
+        <h3>Teriparatide — PTH 1-34 <span class="pill" style="background:#fdf2f0; color:#8b1f15; vertical-align:middle; margin-left:6px;">⚫ BBW</span></h3>
+        <p><span class="rx">teriparatide ★</span> (Forteo 20 mcg SQ daily · <b>max 2 yr lifetime</b>)</p>
+        <dl class="kv">
+          <dt>MOA</dt><dd>Recombinant human PTH 1–34 (active N-terminal). Intermittent dosing → binds PTH1R on osteoblasts → <b>↑ Wnt + IGF-1</b> → osteoblast proliferation/survival → <b>↑ formation</b>. Affects both trabecular AND cortical bone.</dd>
+          <dt class="hl-red">⚫ Black box</dt><dd><b>Osteosarcoma</b> in rats (dose- and duration-dependent). Risk in humans unknown but assumed → <b>do not exceed 2 yr cumulative lifetime</b> (combined with abaloparatide).</dd>
+          <dt>Key AEs</dt><dd><b>Orthostatic hypotension</b> within 4 h of injection (sit/lie after dosing) · nausea, dizziness · leg cramps · <b>transient hypercalcemia + hypercalciuria</b> (↑ stone risk) · hyperuricemia</dd>
+          <dt>CIs</dt><dd><b>Paget's disease</b> · prior <b>skeletal radiation</b> · <b>open epiphyses</b> (children) · pre-existing hypercalcemia · bone metastases / skeletal malignancy · &gt;2 yr cumulative use</dd>
+          <dt>Sequencing</dt><dd>After completion → <b>follow with antiresorptive</b> (bisphosphonate or denosumab) to lock in BMD gains. Don't combine simultaneously with antiresorptive (blunts anabolic effect).</dd>
+        </dl>
+      </div>
+
+      <!-- ABALOPARATIDE -->
+      <div class="card bordered-osteo">
+        <h3>Abaloparatide — PTHrP[1-34] <span class="pill" style="background:#fdf2f0; color:#8b1f15; vertical-align:middle; margin-left:6px;">⚫ BBW</span></h3>
+        <p><span class="rx">abaloparatide ★</span> (Tymlos 80 mcg SQ daily · max 2 yr <i>combined with teriparatide</i>)</p>
+        <dl class="kv">
+          <dt>MOA — receptor bias</dt><dd>Synthetic PTHrP[1–34] analog. Binds PTH1R but preferentially stabilizes the <b>RG (Gs/cAMP) conformation</b> over the R0 (arrestin-recruiting) conformation → more anabolic, <b>less hypercalcemia &amp; hypercalciuria</b> than teriparatide.</dd>
+          <dt>vs Teriparatide pearl</dt><dd>If patient at <b>↑ risk of hypercalcemia or nephrolithiasis</b> + needs anabolic → choose <b>abaloparatide</b>.</dd>
+          <dt class="hl-red">⚫ Black box</dt><dd>Same osteosarcoma signal as teriparatide. 2 yr lifetime cap (combined).</dd>
+          <dt>Key AEs</dt><dd>Orthostatic hypotension · dizziness · palpitations · less hypercalcemia/hypercalciuria than teriparatide · injection-site reactions</dd>
+          <dt>CIs</dt><dd>Same as teriparatide · <b>avoid CrCl &lt; 30</b> (renally cleared, exposure ↑)</dd>
+        </dl>
+      </div>
+
+      <!-- ROMOSOZUMAB -->
+      <div class="card bordered-osteo" style="grid-column: 1 / -1;">
+        <h3>Romosozumab — Sclerostin Inhibitor <span class="pill" style="background:#fdf2f0; color:#8b1f15; vertical-align:middle; margin-left:6px;">⚫ BBW · CV</span> <span class="pill osteo" style="background:var(--osteo-soft); color:var(--osteo-deep); vertical-align:middle; margin-left:6px;">DUAL effect</span></h3>
+        <p><span class="rx">romosozumab ★</span> (Evenity 210 mg SQ monthly × 12 months — given as two 105 mg injections)</p>
+        <dl class="kv">
+          <dt>MOA — the dual punch</dt><dd>mAb against <b>sclerostin</b> (osteocyte glycoprotein that inhibits Wnt). Blocking it does TWO things simultaneously:<br>
+            • <b>↑ Wnt / β-catenin</b> → ↑ osteoblasts → ↑ bone formation (anabolic)<br>
+            • <b>↓ RANKL + ↑ OPG</b> → ↓ osteoclasts → ↓ bone resorption (antiresorptive)<br>
+            <b>Only agent that does both at once.</b> Effect wanes after ~12 mo (hence the cap).</dd>
+          <dt class="hl-red">⚫ Black box — CV risk</dt><dd><b>↑ MI and stroke risk.</b> Do <b>NOT</b> initiate within 1 yr of MI or stroke. Discontinue if a CV event occurs on therapy.</dd>
+          <dt>Key AEs</dt><dd>Injection-site reactions · arthralgias · headache · <b>hypocalcemia</b> (correct before starting) · ONJ (rare) · AFF (rare) · CV events (BBW)</dd>
+          <dt>CIs</dt><dd>Hypocalcemia · MI or stroke within past year · use beyond 12 months not recommended (diminishing returns)</dd>
+          <dt>Sequencing</dt><dd>After 12-mo course → <b>transition to antiresorptive</b> (bisphosphonate or denosumab) to maintain gains. Stopping with nothing → BMD slips back.</dd>
+          <dt>Renal</dt><dd>mAb → no dose adjustment. Monitor Ca²⁺ closely in severe CKD.</dd>
+        </dl>
+      </div>
+
+    </div>
+
+    <!-- Master comparison -->
+    <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; margin:36px 0 14px; letter-spacing:-0.01em;">Master Osteoporosis Table</h3>
+    <div class="tbl-wrap osteo">
+      <table class="tbl">
+        <thead><tr><th>Drug</th><th>Class</th><th>Mechanism</th><th>Key AE</th><th>Key CI</th><th>Renal</th><th>Pregnancy</th><th>BBW?</th></tr></thead>
+        <tbody>
+          <tr><td><b>Alendronate</b><br><span style="font-size:12px;color:var(--ink-muted);">Fosamax</span></td><td>Bisphosphonate (PO)</td><td>FPPS inhibition → osteoclast apoptosis</td><td>Esophagitis · ONJ · AFF</td><td>CrCl &lt;35 · esophageal disease</td><td>Avoid &lt;35</td><td>Avoid (C/D)</td><td>—</td></tr>
+          <tr><td><b>Zoledronic acid</b><br><span style="font-size:12px;color:var(--ink-muted);">Reclast</span></td><td>Bisphosphonate (IV)</td><td>FPPS inhibition</td><td>Acute phase rxn · ONJ · AFF</td><td>CrCl &lt;35 · hypocalcemia</td><td>Avoid &lt;35</td><td>Avoid</td><td>—</td></tr>
+          <tr><td><b>Denosumab</b><br><span style="font-size:12px;color:var(--ink-muted);">Prolia</span></td><td>RANKL mAb</td><td>Mimics OPG → ↓ osteoclasts</td><td>Hypocalcemia · infections · <b>rebound fractures</b></td><td>Hypocalcemia · latex allergy</td><td>No adjust</td><td>Cat X</td><td>—</td></tr>
+          <tr><td><b>Raloxifene</b><br><span style="font-size:12px;color:var(--ink-muted);">Evista</span></td><td>SERM / EAA</td><td>Bone agonist · breast/uterus antagonist</td><td><b>VTE</b> · hot flashes ↑ · leg cramps</td><td>Active/prior VTE · premenopausal</td><td>Caution hepatic</td><td>Cat X</td><td>—</td></tr>
+          <tr><td><b>CE / Bazedoxifene</b><br><span style="font-size:12px;color:var(--ink-muted);">Duavee</span></td><td>TSEC</td><td>Estrogen + SERM (uterine block)</td><td>VTE · nausea · dizziness</td><td>VTE Hx · estrogen-sensitive Ca</td><td>Caution; CI hepatic</td><td>Cat X</td><td>—</td></tr>
+          <tr><td><b>Salmon calcitonin</b><br><span style="font-size:12px;color:var(--ink-muted);">Miacalcin</span></td><td>Calcitonin</td><td>↓ Osteoclast activity + analgesia</td><td>Rhinitis · nausea · <b>?malignancy</b></td><td><b>Salmon allergy</b></td><td>Caution</td><td>Cat C</td><td>—</td></tr>
+          <tr><td><b>Teriparatide</b><br><span style="font-size:12px;color:var(--ink-muted);">Forteo</span></td><td>PTH 1-34 (rh)</td><td>Intermittent PTH → ↑ osteoblasts</td><td>Orthostasis · hypercalcemia · hypercalciuria</td><td>Paget's · prior XRT · open epiphyses · hyperCa · bone mets</td><td>Caution; avoid severe</td><td>Cat C</td><td><b>Yes — osteosarc</b></td></tr>
+          <tr><td><b>Abaloparatide</b><br><span style="font-size:12px;color:var(--ink-muted);">Tymlos</span></td><td>PTHrP[1-34]</td><td>RG-biased PTH1R → anabolic</td><td>Orthostasis · less hyperCa than PTH</td><td>Same as PTH · <b>CrCl &lt;30</b></td><td>Avoid &lt;30</td><td>Avoid</td><td><b>Yes — osteosarc</b></td></tr>
+          <tr><td><b>Romosozumab</b><br><span style="font-size:12px;color:var(--ink-muted);">Evenity</span></td><td>Sclerostin mAb</td><td>↑ Wnt + ↓ RANKL → <b>dual</b></td><td>Hypocalcemia · injection-site · MI/stroke</td><td><b>MI/stroke past 1 yr</b> · hypocalcemia</td><td>No adjust</td><td>Avoid</td><td><b>Yes — CV</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Clinical Decision Tree (Ly's signature) -->
+    <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; margin:36px 0 14px; letter-spacing:-0.01em;">Dr. Ly's Clinical Decision Tree — "Most / Least Likely"</h3>
+    <p style="color:var(--ink-soft); margin-bottom:18px;">Ly's signature question style: a patient constraint, then "most likely" or "least likely" agent. These are the patterns:</p>
+
+    <div class="grid c2">
+      <div class="card tinted-osteo">
+        <h4 style="margin-top:0;">💉 Allergy &amp; Intolerance</h4>
+        <ul class="checks osteo" style="font-size:14px;">
+          <li><b>Salmon allergy</b> → <b>avoid calcitonin</b>; choose any other class</li>
+          <li><b>Latex allergy</b> → avoid the denosumab prefilled-syringe needle cap</li>
+          <li><b>GI intolerance / can't sit upright</b> → switch from oral bisphosphonate to <b>IV zoledronic acid</b> or <b>denosumab SQ</b></li>
+        </ul>
+      </div>
+      <div class="card tinted-osteo">
+        <h4 style="margin-top:0;">🧪 Renal Function</h4>
+        <ul class="checks osteo" style="font-size:14px;">
+          <li><b>CrCl &lt; 35</b> → <b>avoid bisphosphonates</b>; preferred = <b>denosumab</b> (mAb, not renally cleared) or raloxifene</li>
+          <li><b>Dialysis</b> → denosumab fine but monitor Ca²⁺ closely (high hypocalcemia risk)</li>
+          <li><b>CrCl &lt; 30</b> → also avoid <b>abaloparatide</b> (renally cleared)</li>
+          <li><b>CKD 4–5</b> → use <b>calcitriol</b> (active vit D) since kidneys can't activate it</li>
+        </ul>
+      </div>
+      <div class="card tinted-osteo">
+        <h4 style="margin-top:0;">⚠ VTE History / Risk</h4>
+        <ul class="checks osteo" style="font-size:14px;">
+          <li><b>Active or prior DVT/PE</b> → <b>avoid raloxifene AND TSEC</b> (estrogen) → choose bisphosphonate or denosumab</li>
+          <li>Prolonged immobilization upcoming → hold raloxifene before elective surgery</li>
+        </ul>
+      </div>
+      <div class="card tinted-osteo">
+        <h4 style="margin-top:0;">❤ Cardiovascular</h4>
+        <ul class="checks osteo" style="font-size:14px;">
+          <li><b>MI or stroke in past year</b> → <b>avoid romosozumab</b> (BBW)</li>
+          <li>High CV risk → prefer bisphosphonate or denosumab over romosozumab/TSEC</li>
+        </ul>
+      </div>
+      <div class="card tinted-osteo">
+        <h4 style="margin-top:0;">🌡 Vasomotor Symptoms + Bone</h4>
+        <ul class="checks osteo" style="font-size:14px;">
+          <li>Postmenopausal woman <b>WITH uterus</b> + hot flashes + osteoporosis → <b>TSEC (Duavee) MOST LIKELY</b> — treats both without progestin</li>
+          <li><b>Avoid raloxifene</b> here — it worsens hot flashes</li>
+          <li>Hysterectomy → just use estrogen alone (no TSEC needed)</li>
+        </ul>
+      </div>
+      <div class="card tinted-osteo">
+        <h4 style="margin-top:0;">🩺 Breast Cancer Risk</h4>
+        <ul class="checks osteo" style="font-size:14px;">
+          <li>Postmenopausal + ↑ breast Ca risk + osteoporosis → <b>raloxifene MOST LIKELY</b> (FDA-approved chemoprevention + bone)</li>
+          <li>No VTE Hx required; no endometrial stimulation</li>
+        </ul>
+      </div>
+      <div class="card tinted-osteo">
+        <h4 style="margin-top:0;">🏗 Severe Osteoporosis / Fracturing on Antiresorptive</h4>
+        <ul class="checks osteo" style="font-size:14px;">
+          <li>T-score ≤ −3.0, prior fragility Fx, or failure on antiresorptive → consider <b>teriparatide</b> or <b>abaloparatide</b></li>
+          <li>↑ hypercalcemia / nephrolithiasis risk → <b>abaloparatide &gt; teriparatide</b></li>
+          <li>After anabolic (or 12 mo of romo) → <b>must follow with antiresorptive</b> to lock in gains</li>
+        </ul>
+      </div>
+      <div class="card tinted-osteo">
+        <h4 style="margin-top:0;">🔬 Lab-driven choices</h4>
+        <ul class="checks osteo" style="font-size:14px;">
+          <li><b>Hypocalcemia present</b> → correct first; bisphosphonates, denosumab, romosozumab all CI'd until corrected</li>
+          <li><b>Hypercalcemia</b> → CI for teriparatide/abaloparatide (rule out hyperparathyroidism)</li>
+          <li>Low 25-OH-D → supplement before starting any pharm</li>
+          <li>Bone-turnover markers: <b>CTX</b> = resorption · <b>P1NP</b> = formation</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Drug interactions -->
+    <h3 style="font-family:'Fraunces',serif; font-size:24px; font-weight:500; margin:36px 0 14px; letter-spacing:-0.01em;">Drug Interactions Summary</h3>
+
+    <div class="grid c3">
+      <div class="card bordered-osteo">
+        <h4 style="margin-top:0;">Bisphosphonates</h4>
+        <ul class="tight" style="font-size:14px;">
+          <li><b>Cations chelate them</b>: Ca²⁺, antacids, Fe, Mg → ↓ absorption · separate by ≥30–60 min</li>
+          <li>NSAIDs → additive GI irritation</li>
+          <li>Aminoglycosides → additive hypocalcemia</li>
+        </ul>
+      </div>
+      <div class="card bordered-osteo">
+        <h4 style="margin-top:0;">Denosumab / Romosozumab</h4>
+        <ul class="tight" style="font-size:14px;">
+          <li>Loop diuretics, aminoglycosides, calcitonin → additive <b>hypocalcemia</b></li>
+          <li>Immunosuppressants (denosumab) → additive infection risk</li>
+          <li><b>Minimal CYP-based interactions</b> (mAbs)</li>
+        </ul>
+      </div>
+      <div class="card bordered-osteo">
+        <h4 style="margin-top:0;">SERM &amp; TSEC</h4>
+        <ul class="tight" style="font-size:14px;">
+          <li><b>Cholestyramine</b> ↓ absorption (raloxifene 60%, also BZA) — separate</li>
+          <li>Raloxifene + warfarin → slight ↓ PT, monitor INR</li>
+          <li>TSEC: <b>CYP3A4 inducers ↓ levels</b> (rifampin, phenytoin); inhibitors ↑ levels</li>
+        </ul>
+      </div>
+      <div class="card bordered-osteo">
+        <h4 style="margin-top:0;">Teriparatide / Abaloparatide</h4>
+        <ul class="tight" style="font-size:14px;">
+          <li><b>Digoxin</b>: drug-induced hypercalcemia ↑ digitalis toxicity → monitor</li>
+          <li>Don't combine simultaneously with antiresorptive (blunts anabolic)</li>
+        </ul>
+      </div>
+      <div class="card bordered-osteo">
+        <h4 style="margin-top:0;">Calcitonin</h4>
+        <ul class="tight" style="font-size:14px;">
+          <li>Prior bisphosphonate → ↓ calcitonin receptor sensitivity</li>
+          <li>Lithium → ↑ renal Li clearance (may ↓ Li levels)</li>
+        </ul>
+      </div>
+      <div class="card bordered-osteo">
+        <h4 style="margin-top:0;">All antiresorptives</h4>
+        <ul class="tight" style="font-size:14px;">
+          <li><b>Correct hypocalcemia first</b> (bisphosphonate, denosumab, romosozumab)</li>
+          <li>Adequate Ca + Vit D supplementation throughout therapy</li>
+          <li>Dental clearance before high-dose IV (ONJ prevention)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sequencing -->
+    <div class="card bordered-osteo" style="margin-top:22px;">
+      <h3>Sequencing Strategy — "Build, then lock"</h3>
+      <p style="color:var(--ink-soft);">A high-yield concept that recurs in Ly's vignettes:</p>
+      <ul class="checks osteo" style="font-size:14px;">
+        <li><b>Anabolic first, antiresorptive after</b>: After teriparatide/abaloparatide course → <b>follow with bisphosphonate or denosumab</b> to lock in BMD gains. Don't stop with nothing.</li>
+        <li><b>Romosozumab → antiresorptive</b>: Same logic — 12 mo of romo, then bridge.</li>
+        <li><b>Stopping denosumab</b> → <b>bridge with a bisphosphonate</b>, never abrupt stop (rebound fractures).</li>
+        <li><b>Bisphosphonate drug holiday</b>: 3–5 yr oral / 3 yr IV in low-risk patients to ↓ AFF risk; reassess BMD + FRAX.</li>
+      </ul>
+    </div>
+
+    <div class="callout exam">
+      <div class="label">🎯 Exam patterns — Osteoporosis</div>
+      <b>Postmenopausal woman, T-score −2.7, no comorbidities</b> → start with <b>oral bisphosphonate (alendronate)</b> + Ca/D.<br>
+      <b>Postmenopausal + uterus + hot flashes + osteoporosis</b> → <b>TSEC / Duavee</b>. Avoid raloxifene.<br>
+      <b>CrCl 28, osteoporosis</b> → bisphosphonates contraindicated → choose <b>denosumab</b>.<br>
+      <b>Patient on chronic prednisone</b> + osteoporosis on DXA → glucocorticoid-induced osteoporosis → bisphosphonate or denosumab plus Ca/D.<br>
+      <b>Stops denosumab abruptly, presents 9 months later with multiple new vertebral compression fractures</b> → <b>rebound effect</b>; should have been bridged to a bisphosphonate.<br>
+      <b>Severe osteoporosis with prior fragility fracture, failed alendronate</b> → step up to <b>teriparatide</b> (or abaloparatide if hypercalcemia/stones a concern).<br>
+      <b>Patient with recent MI 6 months ago, severe osteoporosis</b> → <b>avoid romosozumab</b> (BBW). Choose bisphosphonate or denosumab.<br>
+      <b>First IV zoledronic acid, develops fever and myalgia 24 h later</b> → <b>acute phase reaction</b>, self-limited; not an allergy. Pre-medicate with acetaminophen on next infusion.<br>
+      <b>Long-term alendronate (7 yr), develops thigh/groin pain</b> → think <b>atypical femoral fracture</b> prodrome → imaging, drug holiday.
+    </div>
+
+  </div>
+</section>
+
 <!-- ════════════════════════ CROSS-TOPIC BRIDGES ════════════════════════ -->
 <section class="topic" id="bridges" style="background: var(--bg-soft);">
   <div class="wrap">
@@ -1518,6 +1922,7 @@
           <li><b>Diabetes:</b> #1 drug-induced hyperglycemia — ↑ hepatic glucose production, ↓ peripheral sensitivity</li>
           <li><b>Glaucoma:</b> systemic GCs ↑ IOP and ↑ cataract risk; <b>not for chronic DED</b></li>
           <li><b>Endocrine:</b> abrupt withdrawal → adrenal crisis → IV hydrocortisone</li>
+          <li><b>Bone:</b> chronic GC use is the <b>#1 secondary cause of osteoporosis</b> (↓ osteoblasts + ↑ osteoclasts) — co-prescribe bisphosphonate or denosumab + Ca/D</li>
           <li><b>Drug interactions:</b> CYP3A inducers (rifampin) ↓ effect; inhibitors ↑ effect</li>
         </ul>
       </div>
@@ -1577,6 +1982,21 @@
         <p style="font-size:14px;">A high-yield framing question. Drugs whose effect is <b>glucose-dependent</b> (low hypo risk): <b>GLP-1 analogs, tirzepatide, DPP-4i, meglitinides (semi)</b>. Drugs that are <b>glucose-independent</b> (high hypo risk): <b>sulfonylureas, insulin</b>. The mechanism difference: cAMP-mediated insulin enhancement requires glucose-driven KATP closure first; sulfonylureas force KATP closure regardless.</p>
       </div>
 
+      <div class="card">
+        <h3>Hormonal repurposing — same molecule, different context</h3>
+        <ul class="tight" style="font-size:14px;">
+          <li><b>Estrogen:</b> bone (↓ resorption — TSEC for osteoporosis) · breast/uterus (caution in cancer) · vasomotor symptoms (relief)</li>
+          <li><b>PTH:</b> intermittent SQ → anabolic (teriparatide for osteoporosis) · continuous (1° hyperparathyroidism) → catabolic / bone loss</li>
+          <li><b>PTH + calcium signaling:</b> teriparatide-induced hypercalcemia ↑ <b>digoxin toxicity</b> — same Ca-dependent mechanism that explains hypercalcemia → arrhythmias broadly</li>
+          <li><b>Calcitonin:</b> bone (↓ resorption, second-line) + central <b>analgesia</b> for vertebral compression fracture pain — pain relief is a bonus mechanism not seen with other antiresorptives</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Pregnancy &amp; bone — what's safe vs avoided</h3>
+        <p style="font-size:14px;">Almost <b>all osteoporosis drugs are avoided in pregnancy</b> (Cat C–X). For premenopausal women with osteoporosis: optimize <b>Ca + Vit D</b> first, manage with specialist. Bisphosphonates incorporate into fetal bone long-term → especially avoided. Denosumab (Cat X — RANKL needed for fetal lymph node development), SERM, TSEC, teriparatide, abaloparatide, romosozumab — all not for pregnancy.</p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1592,15 +2012,18 @@
 
     <div class="idx-grid">
       <div class="idx-letter">A</div>
+      <div class="idx-row"><span class="name">abaloparatide (Tymlos)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">acarbose</span><span class="topic-tag dm">DM</span></div>
       <div class="idx-row"><span class="name">acetazolamide</span><span class="topic-tag eye">EYE</span></div>
       <div class="idx-row"><span class="name">acyclovir</span><span class="topic-tag sti">STI</span></div>
+      <div class="idx-row"><span class="name">alendronate (Fosamax)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">alogliptin</span><span class="topic-tag dm">DM</span></div>
       <div class="idx-row"><span class="name">apraclonidine</span><span class="topic-tag eye">EYE</span></div>
       <div class="idx-row"><span class="name">aspart</span><span class="topic-tag dm">DM</span></div>
       <div class="idx-row"><span class="name">azithromycin</span><span class="topic-tag sti">STI</span></div>
 
       <div class="idx-letter">B</div>
+      <div class="idx-row"><span class="name">bazedoxifene (Duavee)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">benzathine PCN G</span><span class="topic-tag sti">STI</span></div>
       <div class="idx-row"><span class="name">betamethasone</span><span class="topic-tag steroid">STER</span></div>
       <div class="idx-row"><span class="name">betaxolol</span><span class="topic-tag eye">EYE</span></div>
@@ -1610,17 +2033,24 @@
       <div class="idx-row"><span class="name">brinzolamide</span><span class="topic-tag eye">EYE</span></div>
 
       <div class="idx-letter">C</div>
+      <div class="idx-row"><span class="name">calcitonin (salmon)</span><span class="topic-tag osteo">OSTEO</span></div>
+      <div class="idx-row"><span class="name">calcitriol</span><span class="topic-tag osteo">OSTEO</span></div>
+      <div class="idx-row"><span class="name">calcium carbonate</span><span class="topic-tag osteo">OSTEO</span></div>
+      <div class="idx-row"><span class="name">calcium citrate</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">canagliflozin</span><span class="topic-tag dm">DM</span></div>
       <div class="idx-row"><span class="name">carbachol</span><span class="topic-tag eye">EYE</span></div>
       <div class="idx-row"><span class="name">carteolol</span><span class="topic-tag eye">EYE</span></div>
       <div class="idx-row"><span class="name">ceftriaxone</span><span class="topic-tag sti">STI</span></div>
+      <div class="idx-row"><span class="name">cholecalciferol (D₃)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">ciprofloxacin</span><span class="topic-tag sti">STI</span></div>
       <div class="idx-row"><span class="name">clarithromycin</span><span class="topic-tag steroid">STER</span></div>
+      <div class="idx-row"><span class="name">conjugated estrogens / bazedoxifene (Duavee)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">cyclosporine (Restasis)</span><span class="topic-tag eye">EYE</span></div>
 
       <div class="idx-letter">D</div>
       <div class="idx-row"><span class="name">dapagliflozin</span><span class="topic-tag dm">DM</span></div>
       <div class="idx-row"><span class="name">degludec</span><span class="topic-tag dm">DM</span></div>
+      <div class="idx-row"><span class="name">denosumab (Prolia)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">dexamethasone</span><span class="topic-tag steroid">STER</span></div>
       <div class="idx-row"><span class="name">dorzolamide</span><span class="topic-tag eye">EYE</span></div>
       <div class="idx-row"><span class="name">doxycycline</span><span class="topic-tag sti">STI</span></div>
@@ -1628,6 +2058,7 @@
 
       <div class="idx-letter">E</div>
       <div class="idx-row"><span class="name">empagliflozin</span><span class="topic-tag dm">DM</span></div>
+      <div class="idx-row"><span class="name">ergocalciferol (D₂)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">ertugliflozin</span><span class="topic-tag dm">DM</span></div>
       <div class="idx-row"><span class="name">erythromycin</span><span class="topic-tag sti">STI</span></div>
       <div class="idx-row"><span class="name">exenatide</span><span class="topic-tag dm">DM</span></div>
@@ -1648,6 +2079,7 @@
       <div class="idx-row"><span class="name">hydrocortisone</span><span class="topic-tag steroid">STER</span></div>
 
       <div class="idx-letter">I</div>
+      <div class="idx-row"><span class="name">ibandronate (Boniva)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">imiquimod</span><span class="topic-tag sti">STI</span></div>
       <div class="idx-row"><span class="name">insulin (regular)</span><span class="topic-tag dm">DM</span></div>
       <div class="idx-row"><span class="name">ivermectin</span><span class="topic-tag sti">STI</span></div>
@@ -1687,8 +2119,11 @@
       <div class="idx-row"><span class="name">pyrethrins + piperonyl butoxide</span><span class="topic-tag sti">STI</span></div>
 
       <div class="idx-letter">R</div>
+      <div class="idx-row"><span class="name">raloxifene (Evista)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">repaglinide</span><span class="topic-tag dm">DM</span></div>
       <div class="idx-row"><span class="name">rifampin</span><span class="topic-tag steroid">STER</span></div>
+      <div class="idx-row"><span class="name">risedronate (Actonel)</span><span class="topic-tag osteo">OSTEO</span></div>
+      <div class="idx-row"><span class="name">romosozumab (Evenity)</span><span class="topic-tag osteo">OSTEO</span></div>
 
       <div class="idx-letter">S</div>
       <div class="idx-row"><span class="name">saxagliptin</span><span class="topic-tag dm">DM</span></div>
@@ -1698,6 +2133,7 @@
 
       <div class="idx-letter">T</div>
       <div class="idx-row"><span class="name">tafluprost</span><span class="topic-tag eye">EYE</span></div>
+      <div class="idx-row"><span class="name">teriparatide (Forteo)</span><span class="topic-tag osteo">OSTEO</span></div>
       <div class="idx-row"><span class="name">timolol</span><span class="topic-tag eye">EYE</span></div>
       <div class="idx-row"><span class="name">tinidazole</span><span class="topic-tag sti">STI</span></div>
       <div class="idx-row"><span class="name">tirzepatide</span><span class="topic-tag dm">DM</span></div>
@@ -1707,6 +2143,9 @@
       <div class="idx-letter">V</div>
       <div class="idx-row"><span class="name">valacyclovir</span><span class="topic-tag sti">STI</span></div>
       <div class="idx-row"><span class="name">varenicline (Tyrvaya)</span><span class="topic-tag eye">EYE</span></div>
+
+      <div class="idx-letter">Z</div>
+      <div class="idx-row"><span class="name">zoledronic acid (Reclast)</span><span class="topic-tag osteo">OSTEO</span></div>
     </div>
   </div>
 </section>
