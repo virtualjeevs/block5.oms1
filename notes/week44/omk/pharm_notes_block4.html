@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Block 4 Pharmacology Notes — Johnson & Steve</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:    #2563EB;
+    --blue-l:  #DBEAFE;
+    --blue-m:  #93C5FD;
+    --green:   #059669;
+    --green-l: #D1FAE5;
+    --green-m: #6EE7B7;
+    --purple:  #7C3AED;
+    --purple-l:#EDE9FE;
+    --purple-m:#C4B5FD;
+    --orange:  #D97706;
+    --orange-l:#FEF3C7;
+    --orange-m:#FCD34D;
+    --red:     #DC2626;
+    --red-l:   #FEE2E2;
+    --red-m:   #FCA5A5;
+    --gray:    #374151;
+    --gray-l:  #F3F4F6;
+    --gray-m:  #D1D5DB;
+    --ink:     #111827;
+    --white:   #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #F8FAFF;
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ─── HERO ─────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #1E3A8A 0%, #4F46E5 50%, #7C3AED 100%);
+    color: white;
+    padding: 48px 40px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.05) 0%, transparent 60%);
+  }
+  .hero h1 { font-size: 2.4rem; font-weight: 900; letter-spacing: -0.5px; position: relative; }
+  .hero p  { margin-top: 8px; font-size: 1rem; opacity: 0.85; position: relative; }
+  .color-legend {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-top: 28px; position: relative;
+  }
+  .legend-pill {
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px; padding: 5px 14px 5px 8px;
+    font-size: 0.82rem; font-weight: 700; color: white; backdrop-filter: blur(4px);
+  }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ─── LAYOUT ────────────────────────────────────────── */
+  .container { max-width: 920px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* ─── PART SEPARATOR ────────────────────────────────── */
+  .part-sep {
+    display: flex; align-items: center; gap: 16px;
+    margin: 48px 0 8px;
+  }
+  .part-sep .line { flex: 1; height: 2px; background: var(--gray-m); border-radius: 2px; }
+  .part-sep .part-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; white-space: nowrap;
+    padding: 5px 16px; border-radius: 999px;
+    border: 1.5px solid var(--purple-m);
+    background: var(--purple-l); color: var(--purple);
+  }
+
+  /* ─── SECTION CARDS ─────────────────────────────────── */
+  .section-card {
+    border-radius: 20px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 28px; color: white;
+    font-weight: 900; font-size: 1.15rem; letter-spacing: -0.2px;
+  }
+  .section-icon { font-size: 1.5rem; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; font-weight: 700;
+    background: rgba(255,255,255,0.2);
+    border-radius: 6px; padding: 3px 8px;
+    letter-spacing: 0.05em; flex-shrink: 0;
+  }
+  .section-body { padding: 24px 28px; background: white; }
+
+  .s-blue   .section-header { background: linear-gradient(90deg, var(--blue), #60A5FA); }
+  .s-blue   { border: 2px solid var(--blue-m); }
+  .s-green  .section-header { background: linear-gradient(90deg, var(--green), #34D399); }
+  .s-green  { border: 2px solid var(--green-m); }
+  .s-purple .section-header { background: linear-gradient(90deg, var(--purple), #A78BFA); }
+  .s-purple { border: 2px solid var(--purple-m); }
+  .s-orange .section-header { background: linear-gradient(90deg, var(--orange), #FBBF24); }
+  .s-orange { border: 2px solid var(--orange-m); }
+  .s-red    .section-header { background: linear-gradient(90deg, var(--red), #F87171); }
+  .s-red    { border: 2px solid var(--red-m); }
+  .s-gray   .section-header { background: linear-gradient(90deg, var(--gray), #6B7280); }
+  .s-gray   { border: 2px solid var(--gray-m); }
+
+  /* ─── SUBSECTION ─────────────────────────────────────── */
+  .subsection { margin-bottom: 22px; }
+  .subsection-title {
+    font-size: 0.92rem; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 0.8px; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .s-blue   .subsection-title { color: var(--blue); }
+  .s-green  .subsection-title { color: var(--green); }
+  .s-purple .subsection-title { color: var(--purple); }
+  .s-orange .subsection-title { color: var(--orange); }
+  .s-red    .subsection-title { color: var(--red); }
+  .s-gray   .subsection-title { color: var(--gray); }
+
+  /* ─── ELI5 BOX ───────────────────────────────────────── */
+  .eli5 {
+    border-radius: 12px; padding: 12px 16px; margin-bottom: 14px;
+    font-size: 0.93rem; font-weight: 600;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .eli5-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+  .s-blue   .eli5 { background: var(--blue-l);   border-left: 4px solid var(--blue); }
+  .s-green  .eli5 { background: var(--green-l);  border-left: 4px solid var(--green); }
+  .s-purple .eli5 { background: var(--purple-l); border-left: 4px solid var(--purple); }
+  .s-orange .eli5 { background: var(--orange-l); border-left: 4px solid var(--orange); }
+  .s-red    .eli5 { background: var(--red-l);    border-left: 4px solid var(--red); }
+  .s-gray   .eli5 { background: var(--gray-l);   border-left: 4px solid var(--gray); }
+
+  /* ─── ALERT BOXES ────────────────────────────────────── */
+  .alert {
+    border-radius: 10px; padding: 11px 15px; margin: 10px 0 14px;
+    font-size: 0.9rem; font-weight: 700;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .alert-warn { background: #FFF7ED; border: 1.5px solid #FB923C; color: #92400E; }
+  .alert-tip  { background: #F0FDF4; border: 1.5px solid #4ADE80; color: #166534; }
+  .alert-key  { background: #FFF1F2; border: 1.5px solid #FB7185; color: #9F1239; }
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+  /* ─── TABLE ───────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 0.88rem; }
+  th {
+    padding: 9px 12px; text-align: left; font-weight: 800;
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; color: white;
+  }
+  .s-blue   th { background: var(--blue); }
+  .s-green  th { background: var(--green); }
+  .s-purple th { background: var(--purple); }
+  .s-orange th { background: #B45309; }
+  .s-red    th { background: var(--red); }
+  .s-gray   th { background: var(--gray); }
+  td { padding: 8px 12px; border-bottom: 1px solid #F1F5F9; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FAFBFF; }
+
+  /* ─── PILL TAGS ──────────────────────────────────────── */
+  .tag {
+    display: inline-block; border-radius: 999px; padding: 2px 10px;
+    font-size: 0.75rem; font-weight: 800; margin: 2px 3px 2px 0;
+  }
+  .tag-red    { background: var(--red-l);    color: var(--red);    border: 1px solid var(--red-m); }
+  .tag-green  { background: var(--green-l);  color: var(--green);  border: 1px solid var(--green-m); }
+  .tag-blue   { background: var(--blue-l);   color: var(--blue);   border: 1px solid var(--blue-m); }
+  .tag-orange { background: var(--orange-l); color: var(--orange); border: 1px solid var(--orange-m); }
+  .tag-purple { background: var(--purple-l); color: var(--purple); border: 1px solid var(--purple-m); }
+  .tag-gray   { background: var(--gray-l);   color: var(--gray);   border: 1px solid var(--gray-m); }
+
+  /* ─── GRID CARDS ─────────────────────────────────────── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 10px 0 14px; }
+  .mini-card { border-radius: 12px; padding: 14px 16px; font-size: 0.87rem; }
+  .mini-card strong { display: block; font-size: 0.82rem; font-weight: 900; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .s-blue   .mini-card { background: var(--blue-l);   border: 1.5px solid var(--blue-m); }
+  .s-blue   .mini-card strong { color: var(--blue); }
+  .s-green  .mini-card { background: var(--green-l);  border: 1.5px solid var(--green-m); }
+  .s-green  .mini-card strong { color: var(--green); }
+  .s-purple .mini-card { background: var(--purple-l); border: 1.5px solid var(--purple-m); }
+  .s-purple .mini-card strong { color: var(--purple); }
+  .s-orange .mini-card { background: var(--orange-l); border: 1.5px solid var(--orange-m); }
+  .s-orange .mini-card strong { color: var(--orange); }
+  .s-red    .mini-card { background: var(--red-l);    border: 1.5px solid var(--red-m); }
+  .s-red    .mini-card strong { color: var(--red); }
+  .s-gray   .mini-card { background: var(--gray-l);   border: 1.5px solid var(--gray-m); }
+  .s-gray   .mini-card strong { color: var(--gray); }
+
+  /* ─── STEP LIST ──────────────────────────────────────── */
+  .step-list { list-style: none; counter-reset: steps; margin: 10px 0 4px; }
+  .step-list li {
+    counter-increment: steps;
+    display: flex; gap: 12px; align-items: flex-start;
+    margin-bottom: 8px; font-size: 0.91rem;
+  }
+  .step-list li::before {
+    content: counter(steps); width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 0.8rem; flex-shrink: 0; color: white;
+  }
+  .s-blue   .step-list li::before { background: var(--blue); }
+  .s-green  .step-list li::before { background: var(--green); }
+  .s-purple .step-list li::before { background: var(--purple); }
+  .s-orange .step-list li::before { background: var(--orange); }
+  .s-red    .step-list li::before { background: var(--red); }
+  .s-gray   .step-list li::before { background: var(--gray); }
+
+  /* ─── MONO ────────────────────────────────────────────── */
+  .mono { font-family: 'JetBrains Mono', monospace; background: #F1F5F9; border-radius: 6px; padding: 2px 7px; font-size: 0.82rem; color: var(--gray); }
+
+  /* ─── CASE CARD ──────────────────────────────────────── */
+  .case-card { border-radius: 16px; overflow: hidden; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .case-header { padding: 12px 18px; font-weight: 900; font-size: 0.95rem; color: white; }
+  .case-body { background: white; padding: 16px 18px; }
+  .c-red    .case-header { background: linear-gradient(90deg, #B91C1C, #F87171); }
+  .c-red    { border: 2px solid var(--red-m); }
+  .c-orange .case-header { background: linear-gradient(90deg, #B45309, #FBBF24); }
+  .c-orange { border: 2px solid var(--orange-m); }
+  .c-blue   .case-header { background: linear-gradient(90deg, #1D4ED8, #60A5FA); }
+  .c-blue   { border: 2px solid var(--blue-m); }
+  .c-purple .case-header { background: linear-gradient(90deg, #6D28D9, #A78BFA); }
+  .c-purple { border: 2px solid var(--purple-m); }
+
+  @media(max-width: 600px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.7rem; }
+    .section-body { padding: 18px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>💊 Block 4 Pharmacology Notes</h1>
+  <p>Johnson &amp; Steve · Gastric Acid · GI Motility · Antimicrobials · IV Fluids · Volume Regulation · Hepatic · N&amp;V · Pharmacokinetics · Color-coded high-yield review</p>
+  <div class="color-legend">
+    <div class="legend-pill"><div class="legend-dot" style="background:#FCD34D"></div> Core Concept / MOA</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#60A5FA"></div> Drug Name / Agent</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#F87171"></div> High-Yield / Testable</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#34D399"></div> Adverse Effects</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#A78BFA"></div> Drug Interactions / CI</div>
+    <div class="legend-pill"><div class="legend-dot" style="background:#FBBF24"></div> Clinical Pearl</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════════
+     PART I — GASTRIC ACID DRUGS (Johnson)
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part I · Gastric Acid Drugs (Johnson)</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 01 — PUD Overview -->
+<div class="section-card s-orange">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-icon">🔬</span>
+    Peptic Ulcer Disease — Big Picture
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🎯</span>
+      <span><strong>Core Theme:</strong> Antisecretory drugs are the mainstay. Histamine stimulates H⁺ secretion → increases cAMP → drives H⁺/K⁺-ATPase. Prostaglandins + somatostatin <em>inhibit</em> it. Everything else is downstream of this pump.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">PUD — What You Need to Know</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Definition</strong>
+          Ulcers extend deep into the <span class="tag tag-orange">muscularis mucosa</span><br>
+          Range: mild epigastric pain → life-threatening GI bleed, perforation, obstruction
+        </div>
+        <div class="mini-card">
+          <strong>3 Most Common Forms ★</strong>
+          <span class="tag tag-red">H. pylori-positive</span><br>
+          <span class="tag tag-red">NSAID-induced</span><br>
+          <span class="tag tag-red">Stress ulcers</span> (critical illness)
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Pharmacological Mainstays</div>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>Antisecretory (Main)</strong>
+          <span class="tag tag-blue">PPIs</span> — "-prazoles"<br>
+          <span class="tag tag-blue">H2RAs</span> — "-tidines"<br>
+          <span class="tag tag-blue">PCABs</span> — "-prazans"
+        </div>
+        <div class="mini-card">
+          <strong>Supportive Others</strong>
+          <span class="tag tag-gray">Antacids</span><br>
+          <span class="tag tag-gray">Misoprostol</span><br>
+          <span class="tag tag-gray">Sucralfate</span>
+        </div>
+        <div class="mini-card">
+          <strong>Target Eradication</strong>
+          <span class="tag tag-green">Antimicrobials</span> (H. pylori)<br>
+          Combined with antisecretory agents
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 02 — PPIs -->
+<div class="section-card s-blue">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-icon">💙</span>
+    Proton Pump Inhibitors (PPIs) — "-prazole"
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🔑</span>
+      <span><strong>MOA:</strong> Form a <strong>covalent disulfide bond</strong> with a cysteinyl residue in the <strong>activated proton pump</strong> → <strong>irreversibly inhibit</strong> H⁺/K⁺-ATPase → block up to <span class="tag tag-blue">95% of gastric acid</span> secretion. More effective than H2RAs.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Agents ★</div>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>Rx + OTC Available</strong>
+          <span class="tag tag-blue">Omeprazole</span> (Prilosec)<br>
+          <span class="tag tag-blue">Esomeprazole</span> (Nexium)<br>
+          <span class="tag tag-blue">Lansoprazole</span> (Prevacid)
+        </div>
+        <div class="mini-card">
+          <strong>Rx Only (oral)</strong>
+          <span class="tag tag-blue">Dexlansoprazole</span> (Dexilant)<br>
+          <span class="tag tag-blue">Pantoprazole</span> (Protonix)<br>
+          <span class="tag tag-blue">Rabeprazole</span> (Aciphex)
+        </div>
+        <div class="mini-card">
+          <strong>Also IV Available</strong>
+          <span class="tag tag-blue">Esomeprazole</span><br>
+          <span class="tag tag-blue">Pantoprazole</span><br>
+          (injection form exists)
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Pharmacokinetics ★ — Very Testable</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Key PK Facts</strong>
+          Acid-labile <span class="tag tag-red">prodrugs</span><br>
+          Metabolized by <span class="tag tag-red">CYP2C19</span><br>
+          t½ ~ 1 hour but duration <span class="tag tag-red">24–48 hours</span>
+        </div>
+        <div class="mini-card">
+          <strong>Dosing Rules ★</strong>
+          Take <span class="tag tag-red">30–60 min BEFORE first meal of the day</span><br>
+          Maximal effect <span class="tag tag-red">not achieved until &gt;4 days</span><br>
+          "As needed" dosing is suboptimal
+        </div>
+      </div>
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <span>Highest concentration of H⁺/K⁺-ATPase is AFTER prolonged fasting — that's why timing before the first meal matters most.</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Indications</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Primary Uses</strong>
+          PUD (heal in <span class="tag tag-green">4 weeks</span>)<br>
+          GERD / heartburn (pyrosis)<br>
+          Dyspepsia<br>
+          Prevention of NSAID-induced ulcers
+        </div>
+        <div class="mini-card">
+          <strong>Special Indications</strong>
+          <span class="tag tag-orange">Zollinger-Ellison Syndrome</span> (gastrin-secreting tumors)<br>
+          Severe peptic ulcer bleeding: IV loading dose → <span class="tag tag-orange">72-hour continuous infusion</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Adverse Effects &amp; Drug Interactions ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>AEs</strong>
+          Nausea, diarrhea, headache<br>
+          Abdominal cramping, flatulence<br>
+          <span class="tag tag-red">C. difficile</span> intestinal infection risk
+        </div>
+        <div class="mini-card">
+          <strong>Drug Interactions (via CYP2C19) ★</strong>
+          <span class="tag tag-red">Diazepam</span> ↑ levels<br>
+          <span class="tag tag-red">Phenytoin</span> ↑ levels<br>
+          <span class="tag tag-red">Clopidogrel</span> ↓ activation (↓ antiplatelet effect)<br>
+          ↓ absorption of: itraconazole, atazanavir<br>
+          <span class="tag tag-red">Rilpivirine — CONTRAINDICATED</span><br>
+          <em style="font-size:0.8rem">Note: Mostly omeprazole &amp; esomeprazole</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-key">
+      <span class="alert-icon">🔑</span>
+      <span>PPIs can cause <strong>false-negative urea breath test (UBT) and fecal antigen test</strong> for H. pylori eradication confirmation — switch to H2RA before testing. Antibody detection is NOT affected.</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 03 — H2RAs -->
+<div class="section-card s-green">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-icon">💚</span>
+    Histamine-2 Receptor Antagonists (H2RAs) — "-tidine"
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🧩</span>
+      <span><strong>MOA:</strong> Compete with histamine for H2 receptors on <strong>gastric parietal cells</strong> → inhibit both <strong>meal-stimulated and basal acid secretion</strong>. 2nd-line vs PPIs — slower ulcer healing (6–8 weeks vs 4 weeks).</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Agents + PK</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Agents ★</strong>
+          <span class="tag tag-green">Cimetidine</span> (Tagamet) — rarely used now<br>
+          <span class="tag tag-green">Famotidine</span> (Pepcid)<br>
+          <span class="tag tag-green">Nizatidine</span> (Axid)
+        </div>
+        <div class="mini-card">
+          <strong>PK</strong>
+          Well-absorbed orally<br>
+          Metabolized by liver, excreted by kidneys<br>
+          Short t½ but duration <span class="tag tag-green">~12 hours</span><br>
+          <span class="tag tag-red">Dose adjust in renal insufficiency</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Indications ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Primary Uses (2nd-line)</strong>
+          PUD — heals in <span class="tag tag-orange">6–8 weeks</span> (2nd-line)<br>
+          GERD (2nd-line; consider 1st in mild, non-erosive NERD)<br>
+          Dyspepsia
+        </div>
+        <div class="mini-card">
+          <strong>Specific Uses</strong>
+          Prevention of GI bleeding in critically ill patients (PPIs preferred)<br>
+          PUD for <span class="tag tag-green">2 weeks post-H. pylori treatment</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Adverse Effects &amp; Drug Interactions ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>AEs</strong>
+          Generally well-tolerated<br>
+          Diarrhea, headache, fatigue<br>
+          <span class="tag tag-red">Mental status changes</span> (confusion, hallucinations, agitation) — IV use in elderly ICU w/ renal/hepatic dysfunction<br>
+          <span class="tag tag-red">Gynecomastia with cimetidine</span> ★ (still HY!)
+        </div>
+        <div class="mini-card">
+          <strong>Drug Interactions ★</strong>
+          <span class="tag tag-red">Cimetidine = CYP450 inhibitor</span> (2C9, 2D6, 3A4)<br>
+          Other H2RAs do NOT significantly inhibit these enzymes<br>
+          All H2RAs ↓ absorption of drugs needing gastric acid (itraconazole, etc.)
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 04 — Antacids -->
+<div class="section-card s-gray">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-icon">💊</span>
+    Antacids
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">⚗️</span>
+      <span><strong>MOA:</strong> Weak bases that react with HCl → salt + water → neutralize gastric acid → ↑ stomach pH. Effective for <strong>up to 2 hours</strong>. Used as-needed for symptomatic relief (dyspepsia, GERD) — not for ulcer healing.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Agents &amp; Their Adverse Effects ★</div>
+      <table>
+        <tr><th>Agent</th><th>Brand Example</th><th>Key AE ★</th></tr>
+        <tr><td><strong>Aluminum hydroxide</strong></td><td>Maalox, Mylanta (combo)</td><td><span class="tag tag-orange">Constipation</span></td></tr>
+        <tr><td><strong>Magnesium hydroxide</strong></td><td>Maalox, Mylanta (combo)</td><td><span class="tag tag-red">Diarrhea ★</span></td></tr>
+        <tr><td><strong>Calcium carbonate</strong></td><td>Tums</td><td><span class="tag tag-orange">Constipation ★</span></td></tr>
+        <tr><td><strong>Sodium bicarbonate</strong></td><td>—</td><td><span class="tag tag-red">Alkalosis — AVOID in pregnancy</span></td></tr>
+      </table>
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <span>Caution with renal insufficiency — Mg and Al can accumulate. Maalox/Mylanta combine Al (constipation) + Mg (diarrhea) to balance GI effects.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 05 — Misoprostol -->
+<div class="section-card s-purple">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-icon">💜</span>
+    Misoprostol (Prostaglandin Analog)
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">MOA &amp; Indications ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>MOA</strong>
+          <span class="tag tag-purple">Prostaglandin E1 analog</span> — acts as PGE2 agonist<br>
+          EP2, EP3, EP4 receptor agonist<br>
+          EP3 → ↓ H⁺ secretion<br>
+          EP4 → ↑ mucous + bicarbonate secretion<br>
+          Net: <span class="tag tag-green">Cytoprotective</span>
+        </div>
+        <div class="mini-card">
+          <strong>Indications ★</strong>
+          <span class="tag tag-red">Ulcer prevention in long-term NSAID users</span><br>
+          Cervical ripening / labor induction<br>
+          Early pregnancy termination (w/ mifepristone)
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Adverse Effects ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>AEs</strong>
+          <span class="tag tag-red">Diarrhea</span> (most common)<br>
+          <span class="tag tag-red">Abortifacient — CONTRAINDICATED in pregnancy</span><br>
+          Uterine rupture reported in labor induction &amp; medical abortion
+        </div>
+        <div class="mini-card">
+          <strong>Drug Interactions</strong>
+          No significant DIs<br>
+          <em>Remember: contraindication is pregnancy itself</em>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 06 — PCABs -->
+<div class="section-card s-red">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-icon">🆕</span>
+    Potassium-Competitive Acid Blockers (PCABs) — "-prazan"
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">⚡</span>
+      <span><strong>Novel class.</strong> Unlike PPIs (which need activation first), PCABs block <strong>both active AND resting proton pumps</strong> by competing with K⁺ on the luminal side. Faster onset (&lt;4 hours), no need to dose before meals.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Details ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Agent</strong>
+          <span class="tag tag-red">Vonoprazan</span> (Voquenzna) — FDA approved 11/2023<br>
+          Revaprazan, tegoprazan (not yet FDA-approved)<br>
+          <em>Suffix: "-prazan"</em>
+        </div>
+        <div class="mini-card">
+          <strong>PK + Indications</strong>
+          Onset &lt;<span class="tag tag-red">4 hours</span><br>
+          Take with or without food<br>
+          Indications: <span class="tag tag-red">erosive esophagitis</span> + <span class="tag tag-red">H. pylori eradication</span><br>
+          Reserve for severe erosions not responsive to PPIs
+        </div>
+      </div>
+      <div class="alert alert-tip">
+        <span class="alert-icon">💡</span>
+        <span>AEs similar to PPIs (diarrhea, nausea, cramping). Long-term risk likely similar to PPIs. MOA: competes with K⁺ on luminal side of H⁺/K⁺-ATPase.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 07 — GERD -->
+<div class="section-card s-blue">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <span class="section-icon">🔥</span>
+    GERD Management
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">GERD — Causes &amp; Stats</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Clinical Pearl ★</strong>
+          <span class="tag tag-red">~50% of patients with chest pain + normal ECG have GERD</span><br>
+          Refluxed stomach contents → troublesome symptoms and/or complications
+        </div>
+        <div class="mini-card">
+          <strong>Causes</strong>
+          ↓ lower esophageal sphincter pressure<br>
+          Abnormal anatomy · Delayed gastric emptying<br>
+          ↓ mucosal resistance · ↓ salivary buffering<br>
+          Improper esophageal clearance
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">GERD Treatment Options</div>
+      <table>
+        <tr><th>Drug Class</th><th>Role</th><th>Pearl</th></tr>
+        <tr><td><span class="tag tag-blue">PPIs</span></td><td>Mainstay — 1st-line</td><td>Best efficacy</td></tr>
+        <tr><td><span class="tag tag-green">H2RAs</span></td><td>2nd-line; 1st-line for mild/non-erosive (NERD)</td><td>—</td></tr>
+        <tr><td><span class="tag tag-gray">Antacids</span></td><td>As-needed symptomatic relief</td><td>Short duration (2h)</td></tr>
+        <tr><td><span class="tag tag-gray">Alginate (Gaviscon)</span></td><td>Mild reflux; 1st-line in pregnancy</td><td>Floats as a "raft" on stomach</td></tr>
+        <tr><td><span class="tag tag-orange">Metoclopramide</span></td><td>If gastroparesis present</td><td>ACG guidelines against routine use in GERD</td></tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Alginate (Gaviscon) — Key Details</div>
+      <div class="mini-card" style="background:var(--blue-l);border:1.5px solid var(--blue-m)">
+        <strong style="color:var(--blue)">MOA</strong>
+        Polysaccharide from brown seaweed → reacts with gastric acid → forms a floating <span class="tag tag-blue">"raft"</span> that displaces the postprandial acid pocket in the proximal stomach<br>
+        AEs: abdominal bloating and cramping<br>
+        <span class="tag tag-green">Safe in pregnancy — considered 1st-line pharmacotherapy in pregnancy</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 08 — Metoclopramide -->
+<div class="section-card s-purple">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <span class="section-icon">⚠️</span>
+    Metoclopramide (Reglan) — Prokinetic Agent
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🚨</span>
+      <span><strong>High-Yield AE Alert:</strong> Metoclopramide causes <strong>extrapyramidal effects (dystonias)</strong> including <strong>irreversible tardive dyskinesia</strong> (lip smacking, tongue protrusion, facial grimacing). Know this cold.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">MOA — Triple Receptor Activity ★</div>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>D2 Antagonist</strong>
+          <span class="tag tag-purple">Prokinetic effect</span><br>
+          Prevents dopamine-mediated GI smooth muscle relaxation<br>
+          Also blocks D2 in CTZ → antiemetic
+        </div>
+        <div class="mini-card">
+          <strong>5-HT4 Agonist</strong>
+          <span class="tag tag-purple">Prokinetic effect</span><br>
+          Increases ACh release in enteric nervous system → ↑ motility
+        </div>
+        <div class="mini-card">
+          <strong>5-HT3 Antagonist</strong>
+          <span class="tag tag-purple">Antiemetic effect</span><br>
+          Blocks serotonin in CTZ and vagal afferents
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">PK, Indications &amp; AEs</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>PK + Indications</strong>
+          Available orally and IV<br>
+          <span class="tag tag-purple">GERD</span> · <span class="tag tag-purple">Diabetic gastroparesis</span> · <span class="tag tag-purple">Nausea</span><br>
+          ACG guidelines: against use in GERD <em>unless gastroparesis present</em>
+        </div>
+        <div class="mini-card">
+          <strong>AEs ★ HIGH YIELD</strong>
+          <span class="tag tag-red">Extrapyramidal effects (dystonias)</span><br>
+          <span class="tag tag-red">Irreversible tardive dyskinesia</span><br>
+          (lip smacking, tongue protrusion, facial grimacing)<br>
+          Hyperprolactinemia
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PART II — ANTIMICROBIALS (Johnson)
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part II · GI/PUD Antimicrobials (Johnson + Dr. Ly)</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 09 — H. pylori Regimens -->
+<div class="section-card s-orange">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <span class="section-icon">🦠</span>
+    Antimicrobials for H. pylori Eradication
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">Individual Drug Profiles ★</div>
+      <table>
+        <tr><th>Drug</th><th>Key AEs</th><th>Key DIs</th></tr>
+        <tr><td><strong>Bismuth salicylate</strong></td><td><span class="tag tag-orange">Darkening of tongue &amp; stool</span>, constipation</td><td>↓ tetracycline absorption</td></tr>
+        <tr><td><strong>Metronidazole</strong></td><td><span class="tag tag-red">Metallic taste</span>, <span class="tag tag-red">disulfiram-like reaction with EtOH</span></td><td>Avoid alcohol 3 days post-d/c; CI: disulfiram use within 2 weeks</td></tr>
+        <tr><td><strong>Tetracycline</strong></td><td>Photosensitivity, tooth discoloration, GI distress, esophagitis</td><td>Bismuth, dairy, CaCO₃, Mg(OH)₂ ↓ absorption</td></tr>
+        <tr><td><strong>Clarithromycin</strong></td><td>GI distress, <span class="tag tag-red">↑ QT interval</span>, metallic taste, hypersensitivity</td><td><span class="tag tag-red">CYP3A4 inhibitor</span> — any 3A4 substrate</td></tr>
+        <tr><td><strong>Amoxicillin</strong></td><td>Hypersensitivity reaction</td><td>—</td></tr>
+        <tr><td><strong>Levofloxacin</strong></td><td><span class="tag tag-red">Tendonitis &amp; rupture</span>, phototoxicity, peripheral neuropathy, <span class="tag tag-red">QT prolongation</span></td><td>Cations (dairy, antacids) ↓ absorption</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 10 — C. diff + Traveler's Diarrhea -->
+<div class="section-card s-red">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <span class="section-icon">💊</span>
+    C. diff, Traveler's Diarrhea &amp; GI Antimicrobials (Dr. Ly)
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">Metronidazole — Full Profile ★</div>
+      <div class="case-card c-red">
+        <div class="case-header">🦠 Metronidazole</div>
+        <div class="case-body">
+          <div class="grid-2">
+            <div class="mini-card">
+              <strong>MOA</strong>
+              Reduced to <span class="tag tag-red">nitro radicals in anaerobes</span> → damages DNA &amp; proteins → bactericidal against <span class="tag tag-red">anaerobes &amp; protozoa</span>
+            </div>
+            <div class="mini-card">
+              <strong>AEs ★</strong>
+              GI upset, <span class="tag tag-red">metallic taste</span>, red-brown urine<br>
+              CNS neurotoxicity (peripheral neuropathy, seizures)<br>
+              Hepatotoxicity, QT prolongation<br>
+              <span class="tag tag-red">Disulfiram-like reaction with alcohol</span>
+            </div>
+          </div>
+          <div class="alert alert-warn" style="margin-top:8px">
+            <span class="alert-icon">⚠️</span>
+            <span><strong>CIs:</strong> Disulfiram use within 2 weeks; alcohol within 3 days of discontinuation. Pregnancy: other agents preferred for CDI.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Fidaxomicin &amp; Rifaximin — C. diff / GI-Specific</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Fidaxomicin</strong>
+          MOA: Inhibits <span class="tag tag-red">sigma subunit of RNA polymerase</span> → blocks transcription → cell death<br>
+          AEs: Abdominal pain, N/V, ↑ LFTs; rare: anemia, neutropenia, thrombocytopenia<br>
+          CI: <span class="tag tag-red">Caution in macrolide allergy</span>; not for systemic infections; minimal DIs<br>
+          Pregnancy: limited fetal exposure
+        </div>
+        <div class="mini-card">
+          <strong>Rifaximin</strong>
+          MOA: Binds <span class="tag tag-red">beta-subunit of DNA-dependent RNA polymerase</span> → inhibits RNA synthesis<br>
+          AEs: Nausea, dizziness, peripheral edema; postmarketing: anaphylaxis, angioedema, exfoliative dermatitis<br>
+          Use: Traveler's diarrhea, Hepatic Encephalopathy (HE)
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Bacterial Gastroenteritis — Antimicrobial Choices ★</div>
+      <table>
+        <tr><th>Bug</th><th>First Choice</th><th>Alternative</th><th>Note</th></tr>
+        <tr><td><strong>C. diff (CDI)</strong></td><td>Fidaxomicin (preferred) or Vancomycin oral</td><td>Metronidazole, Rifaximin</td><td>Metronidazole + Rifaximin = multi-drug CDI; FMT for recurrence ≥18</td></tr>
+        <tr><td><strong>ETC (Traveler's diarrhea)</strong></td><td>Azithromycin</td><td>Fluoroquinolones (cipro/ofloxacin), Rifaximin</td><td>Azithromycin preferred for dysentery or if FQ not suitable</td></tr>
+        <tr><td><strong>Salmonella</strong></td><td>Usually not indicated</td><td>Azithromycin or Fluoroquinolone</td><td>Treat immunocompromised, &lt;12mo, &gt;50 yrs, or with severe illness</td></tr>
+        <tr><td><strong>Campylobacter</strong></td><td>Azithromycin</td><td>Ciprofloxacin, levofloxacin</td><td>FQ resistance rising</td></tr>
+        <tr><td><strong>Shigella</strong></td><td>Azithromycin, Cipro, or Cefixime</td><td>TMP-SMX (if susceptible)</td><td>Drug susceptibility testing first</td></tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">FMT — Fecal Microbiota Transplantation</div>
+      <div class="mini-card" style="background:var(--red-l);border:1.5px solid var(--red-m)">
+        <strong style="color:var(--red)">Labeled Indication</strong>
+        Prevention of <span class="tag tag-red">recurrence of C. diff</span> in patients ≥18 following antibiotic treatment<br>
+        <em>Not indicated for treatment of active CDI</em><br>
+        AEs: GI abdominal distention or pain, nausea
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PART III — GI MOTILITY (Johnson)
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part III · Constipation, Diarrhea &amp; GI Motility (Johnson)</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 11 — Constipation -->
+<div class="section-card s-green">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <span class="section-icon">💚</span>
+    Drugs for Constipation — Laxatives
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">📋</span>
+      <span><strong>Rome IV Criteria:</strong> ≥6 months of symptoms, with ≥2 of the following for &gt;25% of defecations: straining, hard stools, incomplete evacuation, anorectal obstruction, manual maneuvers, or &lt;3 BMs/week.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Laxative Classes — Summary Table ★</div>
+      <table>
+        <tr><th>Class</th><th>Agent(s)</th><th>MOA</th><th>Key AE ★</th></tr>
+        <tr><td><strong>Bulk-forming</strong></td><td>Psyllium, methylcellulose, polycarbophil</td><td>Absorb water → ↑ stool mass → peristalsis</td><td>Bloating, flatulence</td></tr>
+        <tr><td><strong>Osmotic</strong></td><td>Lactulose, sorbitol, PEG (Miralax)</td><td>Not absorbed → osmotic effect → water retention in colon</td><td>Gas &amp; bloating (less with PEG — not fermented)</td></tr>
+        <tr><td><strong>Emollient/stool softener</strong></td><td>Docusate (Colace)</td><td>"Mush not push" — allows water into stool. NOT effective for treating constipation.</td><td>Few AEs; use for prevention</td></tr>
+        <tr><td><strong>Stimulant</strong></td><td>Bisacodyl, Senna</td><td>Stimulate mucosal nerve plexus → ↑ peristalsis</td><td><span class="tag tag-red">Chronic: electrolyte imbalances, melanosis coli (senna), permanent colonic dysfunction (bisacodyl)</span></td></tr>
+        <tr><td><strong>Saline cathartic</strong></td><td>Mg, sulfate, phosphate, citrate</td><td>Attract/retain water in lumen → ↑ peristalsis</td><td><span class="tag tag-red">Hypermagnesemia/hyperphosphatemia if renal dysfunction</span>; pre-procedure bowel prep</td></tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Secretory Agents ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Lubiprostone</strong>
+          MOA: <span class="tag tag-green">Activates ClC-2 chloride channels</span> → ↑ intestinal fluid → ↑ motility<br>
+          Indications: IBS-C (women ≥18), chronic idiopathic constipation, opioid-induced constipation<br>
+          AEs: <span class="tag tag-orange">Nausea (take with food)</span>, diarrhea, abdominal pain
+        </div>
+        <div class="mini-card">
+          <strong>Linaclotide + Plecanatide</strong>
+          MOA: Activate <span class="tag tag-green">guanylyl cyclase C (GC-C)</span> → ↑ cGMP → activates CFTR → ↑ intestinal secretion<br>
+          Indications: IBS-C ≥18 yrs (linaclotide), chronic idiopathic constipation<br>
+          <span class="tag tag-red">⚫ BLACK BOX WARNING: Contraindicated &lt;18 yrs — deaths due to dehydration</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Opioid Antagonists (for Opioid-Induced Constipation) ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Methylnaltrexone</strong>
+          MOA: Binds peripheral µ-opioid receptors → prevents opioid-induced constipation<br>
+          Route: <span class="tag tag-purple">SQ only</span> (also oral)<br>
+          Indication: Advanced illness/palliative care OR chronic non-cancer pain
+        </div>
+        <div class="mini-card">
+          <strong>Naldemedine + Naloxegol</strong>
+          Same MOA but limited CNS effect — <span class="tag tag-purple">substrates for P-glycoprotein</span> (BBB efflux transporter)<br>
+          Route: Oral only<br>
+          Indication: Opioid-induced constipation in chronic non-cancer pain patients
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 12 — Diarrhea -->
+<div class="section-card s-orange">
+  <div class="section-header">
+    <span class="section-num">12</span>
+    <span class="section-icon">💧</span>
+    Drugs for Diarrhea
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">ORS + Drug Overview</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>WHO-ORS Target Values</strong>
+          Total osmolality: <span class="tag tag-orange">200–310 mOsm/L</span><br>
+          Glucose: &lt;20 g/L (111 mmol/L)<br>
+          Na: 60–90 mEq/L · K: 15–25 mEq/L<br>
+          ✅ Pedialyte, WHO-ORS · ❌ Gatorade, Apple Juice (too sugary!)
+        </div>
+        <div class="mini-card">
+          <strong>Drug Categories</strong>
+          <span class="tag tag-orange">Opioids</span> — loperamide, diphenoxylate + atropine<br>
+          <span class="tag tag-orange">Antisecretory</span> — bismuth subsalicylate, octreotide<br>
+          <em>Acute: &lt;14 days · Persistent: 15–29 days · Chronic: &gt;30 days</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Opioids for Diarrhea ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Loperamide (OTC) + Diphenoxylate/Atropine (Sch-V) ★</strong>
+          MOA: <span class="tag tag-orange">Selectively act at intestinal opioid receptors</span> with little CNS activity → ↓ motility<br>
+          Indication: Non-infectious acute diarrhea (&lt;3 days); loperamide also for chronic unknown-origin diarrhea
+        </div>
+        <div class="mini-card">
+          <strong>AEs ★</strong>
+          <span class="tag tag-red">Abuse potential (both)</span><br>
+          Diphenoxylate/atropine AEs: blurred vision, dry mouth, constipation (due to <span class="tag tag-orange">atropine component</span>)<br>
+          Paregoric — rarely used due to high abuse potential
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Antisecretory Agents ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Bismuth Subsalicylate</strong>
+          MOA: Inhibits intestinal secretions; anti-inflammatory + antibacterial<br>
+          Best for infectious diarrhea (strong antisecretory)<br>
+          AEs: <span class="tag tag-red">↑ bleeding risk</span> (salicylate + NSAIDs/anticoagulants)<br>
+          Salicylism (tinnitus, N/V) · Darkening of tongue/stool<br>
+          DI: ↓ tetracycline absorption
+        </div>
+        <div class="mini-card">
+          <strong>Octreotide</strong>
+          MOA: Synthetic somatostatin analog → blocks serotonin + peptide release → <span class="tag tag-orange">mesenteric arterial vasoconstriction</span><br>
+          Indications: <span class="tag tag-orange">Carcinoid tumor</span>, VIPoma, Dumping syndrome, Chemotherapy-induced diarrhea<br>
+          AEs: Cholelithiasis, N/V/D, steatorrhea, injection pain<br>
+          Route: SC injection
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PART IV — UTIs (Johnson)
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part IV · Urinary Tract Infections (Johnson)</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 13 — UTI Drugs -->
+<div class="section-card s-purple">
+  <div class="section-header">
+    <span class="section-num">13</span>
+    <span class="section-icon">🫘</span>
+    UTI Antibiotics — Oral Options
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">First-Line Agents for Uncomplicated Cystitis ★</div>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>Nitrofurantoin ★</strong>
+          MOA: Reduced by bacterial nitrofuran reductase → reactive intermediates → damage DNA, ribosomal proteins, cell wall<br>
+          AEs: N/V/D, hepatitis, <span class="tag tag-red">hemolytic anemia (↑ in G6PD deficiency)</span>, <span class="tag tag-red">acute pneumonitis / pulmonary fibrosis (chronic use)</span>, peripheral neuropathy<br>
+          <span class="tag tag-red">CI at term (38–42 wks), labor, delivery</span>; OK for asymptomatic bacteriuria in pregnancy
+        </div>
+        <div class="mini-card">
+          <strong>TMP-SMX ★</strong>
+          MOA: <span class="tag tag-purple">Sequential folate blockade</span> — SMX inhibits dihydropteroate synthase (PABA analog) + TMP inhibits dihydrofolate reductase → ↓ tetrahydrofolate → ↓ DNA synthesis<br>
+          AEs: Crystalluria, hypersensitivity, hemolytic anemia (G6PD), megaloblastic anemia, leukopenia, <span class="tag tag-red">hyperkalemia, AIN/ARF, severe dermatologic (SJS/TEN)</span>, kernicterus<br>
+          <span class="tag tag-red">Avoid 1st trimester (neural tube) &amp; last month/3rd trimester (kernicterus)</span>; many DIs (warfarin!)
+        </div>
+        <div class="mini-card">
+          <strong>Fosfomycin ★</strong>
+          MOA: PEP analog → inhibits MurA → blocks early <span class="tag tag-purple">peptidoglycan synthesis</span> → bacterial cell death<br>
+          AEs: Nausea, diarrhea, headache, vaginitis<br>
+          <span class="tag tag-green">Safe in pregnancy</span> — effective for asymptomatic bacteriuria &amp; acute cystitis; NOT for pyelonephritis
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Pivmecillinam (Alternative) + Pregnancy Antibiotic Chart</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Pivmecillinam</strong>
+          MOA: Prodrug → mecillinam; <span class="tag tag-purple">selectively binds PBP-2</span> → inhibits cell wall synthesis → bacterial lysis<br>
+          AEs: N/V/D, headache, urticaria, esophagitis<br>
+          CI: Serious hypersensitivity; <span class="tag tag-red">carnitine deficiency</span>; acute porphyria; C. diff risk
+        </div>
+        <div class="mini-card">
+          <strong>Pregnancy UTI Antibiotic Rules ★</strong>
+          Asymptomatic bacteriuria: Beta-lactams preferred (amoxicillin-clavulanate, fosfomycin, cephalosporins)<br>
+          Acute cystitis: same agents + TMP-SMX (avoid 1st tri &amp; 3rd tri)<br>
+          Pyelonephritis: preferred ceftriaxone or ampicillin + gentamicin<br>
+          <span class="tag tag-red">Nitrofurantoin: avoid at term</span>; TMP-SMX: avoid 1st &amp; last month
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PART V — IV FLUIDS (Steve)
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part V · IV Fluids &amp; Volume Regulation (Steve)</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 14 — IV Fluids Big Picture -->
+<div class="section-card s-blue">
+  <div class="section-header">
+    <span class="section-num">14</span>
+    <span class="section-icon">💧</span>
+    IV Fluids — Big Picture
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🎯</span>
+      <span><strong>Core Concept:</strong> Total body water = <strong>0.6 × body weight</strong>. ⅔ is intracellular (ICF), ⅓ is extracellular (ECF). Of the ECF, ¾ is interstitial and ¼ is plasma (intravascular). Water follows solute.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Compartment Fractions ★ — Must Memorize</div>
+      <table>
+        <tr><th>Compartment</th><th>Fraction of TBW</th><th>Fraction of ECF</th></tr>
+        <tr><td><strong>ICF</strong></td><td><span class="tag tag-blue">⅔ TBW</span></td><td>—</td></tr>
+        <tr><td><strong>ECF</strong></td><td><span class="tag tag-blue">⅓ TBW</span></td><td>—</td></tr>
+        <tr><td><strong>Plasma (intravascular)</strong></td><td><span class="tag tag-blue">1/12 TBW</span></td><td>¼ ECF</td></tr>
+        <tr><td><strong>Interstitial</strong></td><td>3/16 TBW</td><td>¾ ECF</td></tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Hypovolemia vs Dehydration ★ Critical Distinction</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Hypovolemia = loss of ECF</strong>
+          Losing <span class="tag tag-red">salt + water at ~1:1 (isotonic)</span><br>
+          Causes: hemorrhage, vomiting, diarrhea, third spacing, burns<br>
+          ↓ plasma volume, ↓ interstitial fluid, ↓ intravascular volume<br>
+          Correct with: <span class="tag tag-blue">Isotonic fluids (NS, LR, Plasmalyte)</span><br>
+          Signs: poor perfusion (HR ↑, BP ↓, oliguria, dry mucous membranes)
+        </div>
+        <div class="mini-card">
+          <strong>Dehydration = loss of free water (ICF + ECF)</strong>
+          Losing <span class="tag tag-red">free water, NOT salt → HYPEROSMOLAR</span><br>
+          ↑ serum Na (sodium stays behind)<br>
+          Water shifts from ICF into ECF<br>
+          Causes: Diabetes insipidus, fever, osmotic diuresis, not drinking<br>
+          Correct with: <span class="tag tag-blue">Hypotonic fluids (D5W, ½NS, ½NS + D5W)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Colloids vs Crystalloids ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Colloids</strong>
+          Large proteins → stay in vascular space<br>
+          Examples: 5% albumin, 25% albumin, 6% hetastarch, 10% dextran-40<br>
+          <span class="tag tag-green">Largest plasma expansion</span> — 4.5× volume expansion<br>
+          Uses (2nd line): hemorrhagic shock, low effective arterial blood volume (cirrhosis, nephrotic)<br>
+          <span class="tag tag-red">NOT useful for ICF</span> — do nothing for dehydration
+        </div>
+        <div class="mini-card">
+          <strong>Crystalloids</strong>
+          Electrolytes ± sugars → distributes based on tonicity<br>
+          Isotonic: stays in ECF; Hypotonic: enters ICF; Hypertonic: pulls water out of ICF<br>
+          <span class="tag tag-red">DO NOT use colloids in: Sepsis, ARDS</span> (capillary integrity lost)<br>
+          <span class="tag tag-blue">NS vs LR:</span> LR has lactate (relies on hepatic function) + avoids hyperchloremic acidosis from NS
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-key">
+      <span class="alert-icon">🔑</span>
+      <span><strong>Volume Replacement Math:</strong> To replace 1L intravascular volume: isotonic fluids = need 4L (¼ stays intravascular). Hypotonic fluids = need ~6L ½NS. Colloids = stays in vasculature (~1:1).</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Serum Sodium Correction ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Hyponatremia — Correct SLOWLY</strong>
+          <span class="tag tag-red">Risk of cerebral edema if overcorrected rapidly</span><br>
+          Max rate: <span class="tag tag-red">≤0.5 mmol/hr</span> (common conservative rate)<br>
+          Oral rehydration preferred; D5W if IV fluids needed<br>
+          Treatment of hypernatremia: use D5W to provide free water
+        </div>
+        <div class="mini-card">
+          <strong>Normal Sodium = 135–145 mMol/L</strong>
+          Maintenance: water 25–30 mL/kg/day<br>
+          Sodium + potassium + chloride up to 1 mmol/kg/day<br>
+          Glucose: 50–100 g/day
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 15 — Diuretics + RAAS -->
+<div class="section-card s-green">
+  <div class="section-header">
+    <span class="section-num">15</span>
+    <span class="section-icon">💚</span>
+    Volume Regulation — Diuretics &amp; RAAS Drugs
+  </div>
+  <div class="section-body">
+
+    <div class="eli5">
+      <span class="eli5-icon">🗺️</span>
+      <span><strong>A Major Focus Should Be MOA!</strong> Know where each diuretic acts along the nephron: PCT → Loop → DCT → Collecting Duct. Everything else flows from that.</span>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Diuretics — MOA by Location ★</div>
+      <table>
+        <tr><th>Drug</th><th>Site</th><th>MOA ★</th><th>Key AE</th></tr>
+        <tr><td><strong>Mannitol</strong></td><td>PCT</td><td>Filtered but not reabsorbed → <span class="tag tag-green">osmotic diuresis</span></td><td>Fluid/electrolyte imbalance, pulmonary edema, acidosis</td></tr>
+        <tr><td><strong>Acetazolamide</strong></td><td>PCT</td><td>Inhibits carbonic anhydrase → ↓ Na⁺/H⁺ exchange → <span class="tag tag-green">↓ Na⁺ + HCO₃⁻ reabsorption</span></td><td><span class="tag tag-red">Metabolic acidosis</span>; CI: sulfonamide allergy</td></tr>
+        <tr><td><strong>SGLT2 inhibitors (gliflozins)</strong></td><td>PCT</td><td>Block sodium-glucose cotransporter → glycosuria + natriuresis</td><td><span class="tag tag-green">Renal &amp; cardioprotective ♥</span>; UTI risk</td></tr>
+        <tr><td><strong>Furosemide / Ethacrynic acid</strong></td><td>Loop of Henle</td><td>Inhibit <span class="tag tag-blue">NKCC2</span> (Na-K-2Cl cotransporter) in thick ascending limb</td><td><span class="tag tag-red">Ototoxicity, hypokalemia, hyperuricemia → gout</span></td></tr>
+        <tr><td><strong>HCTZ (Thiazide)</strong></td><td>DCT</td><td>Inhibit <span class="tag tag-blue">NCC</span> (Na-Cl cotransporter)</td><td><span class="tag tag-red">Hypokalemia, hyponatremia, hypokalemic metabolic alkalosis</span>, ↑ glucose, ↑ uric acid</td></tr>
+        <tr><td><strong>Spironolactone / Eplerenone</strong></td><td>Collecting duct</td><td>Competitive inhibition of <span class="tag tag-blue">mineralocorticoid receptor</span> (aldosterone antagonist)</td><td>Hyperkalemia, gynecomastia (spironolactone — cross-reacts with androgen/estradiol receptor)</td></tr>
+        <tr><td><strong>Amiloride / Triamterene</strong></td><td>Collecting duct</td><td>Block <span class="tag tag-blue">ENaC</span> (epithelial sodium channel) on principal cells</td><td>Hyperkalemia, electrolyte imbalances</td></tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">RAAS Drugs ★</div>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>ACEi — "-prils" ★</strong>
+          Captopril, Lisinopril, Enalapril<br>
+          MOA: Inhibit ACE → ↓ Ang II → vasodilation + ↑ bradykinin<br>
+          AEs: <span class="tag tag-red">Dry cough (bradykinin), angioedema, hyperkalemia</span><br>
+          CI: <span class="tag tag-red">Pregnancy (teratogenic), history of angioedema</span><br>
+          Note: 5× risk in Black patients; Enalapril is a prodrug
+        </div>
+        <div class="mini-card">
+          <strong>ARBs — "-sartans" ★</strong>
+          Losartan, Valsartan<br>
+          MOA: Competitively antagonize AT1 receptor → Ang II can't act<br>
+          AEs: Diarrhea, hypotension, renal failure, rhabdomyolysis<br>
+          CI: <span class="tag tag-red">Pregnancy; concurrent ACEi + aliskiren in DM</span><br>
+          <span class="tag tag-green">No dry cough (no bradykinin)</span> — use if ACEi cough intolerant
+        </div>
+        <div class="mini-card">
+          <strong>Renin Inhibitor — Aliskiren</strong>
+          MOA: Binds active site of renin → inhibits function<br>
+          AEs: Dizziness, hyperkalemia, renal failure<br>
+          CI: <span class="tag tag-red">Pregnancy; concurrent ACEi/ARB in DM or ↓ GFR (&lt;60)</span><br>
+          Indications: Hypertension, patients with renal insufficiency
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Special Volume Regulation Drugs</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Vasopressin Receptor Antagonists (Vaptans) ★</strong>
+          Conivaptan (non-selective), Tolvaptan (V2-selective)<br>
+          MOA: Block V2 receptors → prevent aquaporin-2 insertion → block ADH → <span class="tag tag-blue">aquaresis (water-only diuresis)</span><br>
+          Indications: Euvolemic &amp; hypervolemic <span class="tag tag-red">hyponatremia</span>, heart failure<br>
+          AEs: Polyuria, thirst, GI upset, hypovolemia<br>
+          CI: Hypovolemic hyponatremia, anuria
+        </div>
+        <div class="mini-card">
+          <strong>BNP — Nesiritide</strong>
+          MOA: Recombinant human natriuretic peptide → ↓ systemic vascular resistance, ↓ pulmonary hydrostatic pressure → ↑ hemodynamic function<br>
+          Indication: <span class="tag tag-blue">Short-term management of decompensated heart failure</span><br>
+          AEs: Hypotension, ↑ risk of renal dysfunction
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PART VI — HEPATIC DISORDERS (Steve)
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part VI · Hepatic Disorders (Steve)</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 16 — Hepatitis -->
+<div class="section-card s-orange">
+  <div class="section-header">
+    <span class="section-num">16</span>
+    <span class="section-icon">🦠</span>
+    Drugs for Hepatitis
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">Hepatitis Overview — Curable? ★</div>
+      <table>
+        <tr><th>Hepatitis</th><th>Transmission</th><th>Curable?</th><th>Primary Treatment</th></tr>
+        <tr><td><strong>A</strong></td><td>Fecal-oral</td><td>Self-limited</td><td>Supportive; Ig for PEP; Vaccination (preventive)</td></tr>
+        <tr><td><strong>B</strong></td><td>Parenteral, sexual, perinatal</td><td><span class="tag tag-red">No</span></td><td>Antivirals + prophylaxis</td></tr>
+        <tr><td><strong>C</strong></td><td>Parenteral, sexual</td><td><span class="tag tag-green">Yes! ★</span></td><td>DAAs (direct-acting antivirals)</td></tr>
+        <tr><td><strong>D</strong></td><td>Parenteral (needs HBV)</td><td>No specific therapy</td><td>Treat underlying HBV</td></tr>
+        <tr><td><strong>E</strong></td><td>Fecal-oral</td><td>Self-limited</td><td>Supportive</td></tr>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Hep B — Oral Reverse Transcriptase Inhibitors (1st-Line) ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Tenofovir ★ (Preferred)</strong>
+          <span class="tag tag-orange">DOC for HBV in pregnancy + HBV/HIV coinfection</span><br>
+          Nucleotide analog<br>
+          AEs: well-tolerated; rare: rash, headache, pain, diarrhea; renal impairment (monitor tenofovir)<br>
+          Precaution: existing renal impairment
+        </div>
+        <div class="mini-card">
+          <strong>Entecavir (Also Preferred)</strong>
+          Nucleoside analog<br>
+          1st-line for HBV<br>
+          AEs: well-tolerated overall<br>
+          Also: Adefovir, Lamivudine (older, less preferred)
+        </div>
+      </div>
+      <div class="alert alert-tip">
+        <span class="alert-icon">💡</span>
+        <span><strong>Hep B Prophylaxis:</strong> Vaccination = primary prevention. Post-exposure: HB Ig + initiate HBV vaccine series (14 days if sexual, 7 days if percutaneous). <strong>Interferons for HBV:</strong> Largely replaced by oral antivirals. Pegylated Interferon-α2a still used — but causes neuropsychiatric problems.</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Hep C — DAAs (Direct-Acting Antivirals) ★ — CURES Hep C!</div>
+      <div class="mini-card" style="background:var(--orange-l);border:1.5px solid var(--orange-m);margin-bottom:14px">
+        <strong style="color:var(--orange)">Goal: Sustained Virologic Response (SVR) = Undetectable HCV RNA 24 weeks after treatment ★</strong>
+        DAAs target <span class="tag tag-orange">HCV replicase genes</span> — always a combination of components:
+      </div>
+      <table>
+        <tr><th>Component</th><th>Target</th><th>Suffix</th><th>Brand Examples</th></tr>
+        <tr><td><strong>NS3/4A Protease inhibitor</strong></td><td>HCV protease</td><td><span class="tag tag-red">-previr</span></td><td>Glecaprevir, Grazoprevir, Paritaprevir</td></tr>
+        <tr><td><strong>NS5A inhibitor</strong></td><td>NS5A protein</td><td><span class="tag tag-red">-asvir</span></td><td>Velpatasvir, Ledipasvir, Pibrentasvir</td></tr>
+        <tr><td><strong>NS5B inhibitor</strong></td><td>HCV RNA polymerase</td><td><span class="tag tag-red">-buvir</span></td><td>Sofosbuvir, Dasabuvir</td></tr>
+      </table>
+      <div class="alert alert-warn">
+        <span class="alert-icon">⚠️</span>
+        <span><strong>DAA Risk:</strong> Potential risk of HBV reactivation associated with DAA use. Significant DIs: carbapenem antibiotics, rifampin, St. John's wort, PPIs, H2-blockers, antacids, carbamazepine, atazanavir, ritonavir.</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 17 — Cirrhosis / Portal HTN / Hepatic Encephalopathy -->
+<div class="section-card s-red">
+  <div class="section-header">
+    <span class="section-num">17</span>
+    <span class="section-icon">❤️</span>
+    Cirrhosis, Portal HTN &amp; Hepatic Encephalopathy
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">Variceal Prophylaxis ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Primary &amp; Secondary Prophylaxis DOC ★</strong>
+          <span class="tag tag-red">Carvedilol</span> — β₁, β₂, &gt;α₁ antagonist<br>
+          <span class="tag tag-red">DOC for primary prophylaxis and first-line for secondary prophylaxis</span><br>
+          Non-selective β-blockers (propranolol, nadolol) as alternatives
+        </div>
+        <div class="mini-card">
+          <strong>Mechanism of Varices</strong>
+          ↓ venous compliance in liver → ↑ portal resistance → blood backs up → shunts into left gastric vein → gastric varices<br>
+          Carvedilol reduces portal venous flow
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Variceal Hemorrhage ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Terlipressin (Preferred) ★</strong>
+          MOA: Vasopressin analog → <span class="tag tag-red">agonist at V1 &gt;&gt; V2 receptors</span> → mesenteric arterial vasoconstriction → ↓ portal venous flow<br>
+          Preferred over octreotide due to <span class="tag tag-red">longer half-life = sustained ↓ portal pressure</span><br>
+          AEs: <span class="tag tag-red">Hyponatremia, cardiac ischemia, mesenteric ischemia, respiratory failure, peripheral ischemia, hypovolemia</span>
+        </div>
+        <div class="mini-card">
+          <strong>Octreotide (Alternative)</strong>
+          MOA: Somatostatin analog → mesenteric arterial vasoconstriction → ↓ portal venous flow<br>
+          AEs: GI disturbances<br>
+          Less preferred than terlipressin (shorter half-life)
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Hepatic Encephalopathy ★</div>
+      <div class="eli5">
+        <span class="eli5-icon">🧠</span>
+        <span>Major cause: <strong>elevated ammonia</strong> → broken down in the liver (urea cycle) → any process that ↓ liver filtration (portal HTN, shunts) → ammonia builds up. Treatment goal: <strong>remove ammonia &amp; nitrogenous waste from blood.</strong></span>
+      </div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Lactulose — DOC ★</strong>
+          MOA: Forms lactic, acetic, &amp; formic acids in colon → <span class="tag tag-red">acidification converts NH₃ → NH₄⁺ (ammonium)</span> → not absorbed → ↓ plasma ammonia<br>
+          AEs: Flatulence, N/V<br>
+          <em>Small studies have shown superiority over neomycin but more AEs</em>
+        </div>
+        <div class="mini-card">
+          <strong>Rifaximin (Adjunct)</strong>
+          Broad-spectrum antibiotic with <span class="tag tag-green">low systemic absorption</span> → enters ammonia-producing bacteria in gut<br>
+          <em>Similar efficacy to neomycin but fewer AEs</em><br>
+          Used in combination with lactulose for refractory HE
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Gallstones — Ursodiol</div>
+      <div class="mini-card" style="background:var(--red-l);border:1.5px solid var(--red-m)">
+        <strong style="color:var(--red)">Ursodiol — Treatment of Gallstones</strong>
+        MOA: Reduces cholesterol content of bile by <span class="tag tag-red">reducing hepatic cholesterol synthesis and secretion</span> + increases bile flow + reduces detergent properties of bile salts<br>
+        Clinical Uses: Dissolution of small (&lt;1 cm) cholesterol gallstones; gallstone prophylaxis in patients during rapid weight loss; primary biliary cholangitis (previously primary biliary cirrhosis)<br>
+        During chronic therapy, ursodiol becomes 30–50% of circulating hydrophobic bile acids (→ decreasing endogenous ones)
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PART VII — NAUSEA & VOMITING (Steve)
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part VII · Nausea &amp; Vomiting (Steve)</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 18 — Antiemetics Overview -->
+<div class="section-card s-purple">
+  <div class="section-header">
+    <span class="section-num">18</span>
+    <span class="section-icon">🤢</span>
+    Antiemetics — Overview &amp; Emetic Receptors
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">Terms You Need to Know ★</div>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>Emesis / CINV / RINV</strong>
+          Emesis = vomiting<br>
+          CINV = chemo-induced N/V<br>
+          RINV = radiation-induced N/V
+        </div>
+        <div class="mini-card">
+          <strong>PONV / PINV / ANV</strong>
+          PONV = postoperative N/V<br>
+          PINV = pregnancy-induced N/V<br>
+          ANV = anticipatory N/V (before chemo)
+        </div>
+        <div class="mini-card">
+          <strong>Emetogenic</strong>
+          A drug/stimulus that induces vomiting<br>
+          High, moderately, low, minimally emetogenic chemotherapy regimens
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Emetic Receptor Map ★ — Know Cold</div>
+      <table>
+        <tr><th>Receptor</th><th>Drugs Targeting It</th></tr>
+        <tr><td><strong>5-HT3</strong></td><td><span class="tag tag-purple">Ondansetron, Granisetron, Dolasetron, Palonosetron</span> ("-setrons")</td></tr>
+        <tr><td><strong>NK1</strong></td><td><span class="tag tag-purple">Aprepitant, Fosaprepitant, Netupitant, Rolapitant</span> ("-pitants")</td></tr>
+        <tr><td><strong>D2</strong></td><td>Metoclopramide, Phenothiazines, Droperidol, Haloperidol</td></tr>
+        <tr><td><strong>H1</strong></td><td>Diphenhydramine, Meclizine, Doxylamine</td></tr>
+        <tr><td><strong>Muscarinic</strong></td><td>Scopolamine</td></tr>
+        <tr><td><strong>CB1</strong></td><td>Dronabinol (cannabinoids)</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 19 — Drug-by-Drug Antiemetics -->
+<div class="section-card s-blue">
+  <div class="section-header">
+    <span class="section-num">19</span>
+    <span class="section-icon">💊</span>
+    Antiemetics — Drug-by-Drug
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">5-HT3 Antagonists ("-setrons") ★</div>
+      <div class="case-card c-blue">
+        <div class="case-header">💊 Ondansetron &amp; the "-setrons"</div>
+        <div class="case-body">
+          <div class="grid-2">
+            <div class="mini-card">
+              <strong>MOA</strong>
+              Primary: Block presynaptic serotonin receptors on the <span class="tag tag-blue">sensory vagal fibers of gut wall</span><br>
+              Secondary: Block 5-HT3 in the CTZ and vomiting center<br>
+              <span class="tag tag-blue">Significantly ↓ episodes of CINV</span> — use in combination with dexamethasone
+            </div>
+            <div class="mini-card">
+              <strong>AEs ★</strong>
+              Generally well-tolerated<br>
+              Constipation, headache, dizziness<br>
+              <span class="tag tag-red">QT prolongation with ondansetron</span> — two-fold ↑ risk with high-dose, palonosetron safest for QT<br>
+              QT: only POref for CINV and high-dose<br>
+              Serotonergic drugs could ↑ serotonin syndrome risk<br>
+              <span class="tag tag-red">There was an ↑ use of ondansetron for pregnancy-induced nausea — possible ↑ cardiac defects in 1st trimester?</span>
+            </div>
+          </div>
+          <div class="alert alert-key">
+            <span class="alert-icon">🔑</span>
+            <span>Indications: CINV (in combo w/ dexamethasone), PONV, RINV. Also effective for ANV and RINV. Chlorpromazine = only FDA-approved for <strong>hiccups</strong>.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">NK1 Receptor Antagonists ("-pitants") ★</div>
+      <div class="mini-card" style="background:var(--blue-l);border:1.5px solid var(--blue-m);margin-bottom:14px">
+        <strong style="color:var(--blue)">Aprepitant, Fosaprepitant, Netupitant, Rolapitant</strong>
+        MOA: Block NK1 receptor (NK1R is the preferred receptor for substance P in the STN)<br>
+        Used in combination with 5-HT3 receptors &amp; corticosteroids for prevention of <span class="tag tag-blue">acute and delayed CINV from highly emetogenic regimens</span><br>
+        Also approved for prevention of PONV (tradipitant only)<br>
+        Motion sickness (tradipitant only)
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Dopamine Antagonists, Corticosteroids &amp; Others ★</div>
+      <div class="grid-3">
+        <div class="mini-card">
+          <strong>Phenothiazines (D2 Ant.) ★</strong>
+          Chlorpromazine, Prochlorperazine, Promethazine<br>
+          MOA: D2 + M + H1 blockade in CTZ<br>
+          <span class="tag tag-red">Chlorpromazine = only FDA-approved for hiccups</span><br>
+          Available as suppositories (useful for severe N/V)<br>
+          AEs: Sedation, extrapyramidal effects
+        </div>
+        <div class="mini-card">
+          <strong>Corticosteroids ★</strong>
+          <span class="tag tag-blue">Dexamethasone</span> (methylprednisolone also used)<br>
+          MOA proposed: inhibit peritumoral inflammation + ↓ prostaglandin production<br>
+          Indication: Enhance efficacy of 5-HT3 antagonists in CINV (moderate-high emetogenic); prevention of PONV
+        </div>
+        <div class="mini-card">
+          <strong>Cannabinoids</strong>
+          Dronabinol (Marinol® — delta-9-THC)<br>
+          MOA: Stimulates CB1 receptors → ↓ dorsal vagal complex tone + ↓ gastric motility<br>
+          Indication: <span class="tag tag-orange">CINV refractory to other antiemetics</span><br>
+          Precautions: Euphoria, dysphoria, sedation, hallucinations, hypotension, dronabinol
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:8px">
+        <div class="mini-card">
+          <strong>Antihistamine-Anticholinergics</strong>
+          Scopolamine → <span class="tag tag-green">motion sickness PREVENTION</span> (transdermal patch)<br>
+          Meclizine → vertigo<br>
+          Dimenhydrinate, Diphenhydramine → treatment of active motion sickness<br>
+          Doxylamine + Pyridoxine → <span class="tag tag-green">1st-line for PINV</span><br>
+          AEs: Dizziness, sedation, confusion, dry mouth, blurred vision
+        </div>
+        <div class="mini-card">
+          <strong>Benzodiazepines</strong>
+          Agents: Lorazepam, Alprazolam<br>
+          MOA: Relatively weak antiemetics<br>
+          Indication: Useful to prevent anxiety-provoked N/V + for <span class="tag tag-orange">ANV (anticipatory nausea)</span> in patients receiving highly emetogenic chemo<br>
+          Sedation = most common AE
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Quick Reference — Which Drug for Which N/V? ★</div>
+      <table>
+        <tr><th>Context</th><th>Preferred Drug(s)</th></tr>
+        <tr><td>CINV (moderately–highly emetogenic)</td><td><span class="tag tag-blue">5-HT3 antagonists + NK1 antagonists + Dexamethasone +/- Metoclopramide</span></td></tr>
+        <tr><td>CINV Refractory</td><td><span class="tag tag-orange">Cannabinoids (Dronabinol)</span></td></tr>
+        <tr><td>PONV</td><td><span class="tag tag-blue">5-HT3 antagonists, NK1 antagonists, Metoclopramide, Dexamethasone, Ondansetron</span></td></tr>
+        <tr><td>PINV (pregnancy-induced)</td><td><span class="tag tag-green">Doxylamine + Pyridoxine (preferred!)</span>, Metoclopramide</td></tr>
+        <tr><td>Motion sickness (prevention)</td><td><span class="tag tag-green">Scopolamine</span></td></tr>
+        <tr><td>Active motion sickness</td><td>Dimenhydrinate, Diphenhydramine, Meclizine</td></tr>
+        <tr><td>ANV (anticipatory)</td><td><span class="tag tag-orange">Benzodiazepines</span></td></tr>
+        <tr><td>RINV</td><td><span class="tag tag-blue">Ondansetron</span></td></tr>
+        <tr><td>GERD / Gastroparesis</td><td>Metoclopramide</td></tr>
+        <tr><td>Hiccups</td><td><span class="tag tag-red">Chlorpromazine (only FDA-approved)</span></td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PART VIII — PHARMACOKINETICS (Steve)
+══════════════════════════════════════════════ -->
+<div class="part-sep">
+  <div class="line"></div>
+  <div class="part-label">Part VIII · Clinical Pharmacokinetics (Steve)</div>
+  <div class="line"></div>
+</div>
+
+<!-- SECTION 20 — PK -->
+<div class="section-card s-gray">
+  <div class="section-header">
+    <span class="section-num">20</span>
+    <span class="section-icon">📐</span>
+    Clinical Pharmacokinetics — Ion Trapping, Vd, Dosing
+  </div>
+  <div class="section-body">
+
+    <div class="subsection">
+      <div class="subsection-title">Drug Movement — Ion Trapping ★</div>
+      <div class="eli5">
+        <span class="eli5-icon">⚗️</span>
+        <span>Only <strong>NON-ionized molecules</strong> can cross lipid membranes. Ionized molecules get "trapped." Use Henderson-Hasselbalch: <span class="tag tag-gray">pH − pKa</span> tells you the ratio of ionized to non-ionized.</span>
+      </div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Weak Acids: HA ⇌ H⁺ + A⁻</strong>
+          pH &lt; pKa → more HA (non-ionized) → <span class="tag tag-green">better absorbed</span><br>
+          pH &gt; pKa → more A⁻ (ionized) → <span class="tag tag-red">poorly absorbed / trapped</span><br>
+          <em>Acidic drugs absorbed well in the stomach (low pH)</em>
+        </div>
+        <div class="mini-card">
+          <strong>Weak Bases: B ⇌ BH⁺</strong>
+          pH &lt; pKa → more BH⁺ (ionized) → <span class="tag tag-red">poorly absorbed</span><br>
+          pH &gt; pKa → more B (non-ionized) → <span class="tag tag-green">better absorbed</span><br>
+          <em>Basic drugs absorbed better in the intestine (higher pH)</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Key Formulas ★ — PAY ATTENTION TO UNITS!</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Volume of Distribution + Clearance</strong>
+          <span class="tag tag-gray">Vd = Dose / Plasma concentration</span> (Vd given for 70 kg patient)<br>
+          <span class="tag tag-gray">CL = (rate of elimination) / plasma concentration</span><br>
+          <span class="tag tag-gray">t½ = (0.693 × Vd) / CL</span><br>
+          4 half-lives = steady state<br>
+          5 half-lives = essentially eliminated
+        </div>
+        <div class="mini-card">
+          <strong>Therapeutic Dosing Formulas</strong>
+          <span class="tag tag-gray">Css = Bioavailability × dose / (interval × clearance)</span><br>
+          <span class="tag tag-gray">Loading dose = Vd × Css</span><br>
+          <span class="tag tag-gray">Maintenance dose = Vd × Css × clearance</span><br>
+          <span class="tag tag-gray">Dose_new = Dose_current × Bioavailability_current / Bioavailability_new</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Kinetics Rules ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>First-Order Kinetics</strong>
+          T½ is <span class="tag tag-green">constant</span> — constant <em>percentage</em> eliminated per unit time<br>
+          Most drugs follow first-order kinetics<br>
+          Steady state = 4 half-lives
+        </div>
+        <div class="mini-card">
+          <strong>Zero-Order Kinetics</strong>
+          A <span class="tag tag-red">constant amount</span> eliminated over time (NOT dose-based)<br>
+          Saturation kinetics — enzymes maxed out<br>
+          Examples: Ethanol, phenytoin (at high doses), aspirin (at toxic doses)
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="subsection-title">Steady-State Dosing — Continuous IV vs Oral ★</div>
+      <div class="grid-2">
+        <div class="mini-card">
+          <strong>Continuous IV Infusion</strong>
+          Maintenance dose rate = <span class="tag tag-gray">CL × Css</span><br>
+          (convert units first! e.g., ug/mL → ug/L)<br>
+          Loading dose: initial dose to rapidly reach therapeutic concentration in both plasma and tissue = Vd × Css
+        </div>
+        <div class="mini-card">
+          <strong>Oral Steady State</strong>
+          <span class="tag tag-gray">Css = (F × Dose rate) / CL</span><br>
+          Where Dose rate = Dose / dosing interval<br>
+          F = bioavailability (0–1)<br>
+          <em>Affects how quickly steady state is achieved, not what Css is (that depends on F × dose rate and CL)</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-key">
+      <span class="alert-icon">🔑</span>
+      <span><strong>Interval options for dosing interval "tau":</strong> IV = 1 hr · BID = 12 hrs · Daily = 24 hrs · TID = 8 hrs. Always double-check units before plugging into formulas — this is where exam points are lost.</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- Final High-Yield Summary -->
+<div class="section-card s-gray">
+  <div class="section-header">
+    <span class="section-num">★</span>
+    <span class="section-icon">📋</span>
+    High-Yield Summary — Know Cold
+  </div>
+  <div class="section-body">
+
+    <div class="grid-2">
+      <div class="mini-card">
+        <strong>Drug Suffix Decoder ★</strong>
+        <span class="tag tag-blue">-prazole</span> = PPI (proton pump inhibitor)<br>
+        <span class="tag tag-blue">-prazan</span> = PCAB (K⁺-competitive acid blocker)<br>
+        <span class="tag tag-green">-tidine</span> = H2 receptor antagonist<br>
+        <span class="tag tag-purple">-setron</span> = 5-HT3 antagonist (antiemetic)<br>
+        <span class="tag tag-purple">-pitant</span> = NK1 antagonist (antiemetic)<br>
+        <span class="tag tag-orange">-previr</span> = NS3/4 protease inhibitor (Hep C)<br>
+        <span class="tag tag-orange">-asvir</span> = NS5A inhibitor (Hep C)<br>
+        <span class="tag tag-orange">-buvir</span> = NS5B inhibitor (Hep C)
+      </div>
+      <div class="mini-card">
+        <strong>High-Yield Single Facts ★</strong>
+        Gynecomastia → <span class="tag tag-red">Cimetidine</span><br>
+        Metallic taste → <span class="tag tag-red">Metronidazole</span> (+ disulfiram + clarithromycin)<br>
+        Irreversible tardive dyskinesia → <span class="tag tag-red">Metoclopramide</span><br>
+        Only FDA drug for hiccups → <span class="tag tag-red">Chlorpromazine</span><br>
+        Only FDA drug for PONV (as "-pitant") → <span class="tag tag-red">Tradipitant</span><br>
+        Black box warning: dehydration deaths → <span class="tag tag-red">Linaclotide &lt;18 yrs</span><br>
+        DOC HBV in pregnancy → <span class="tag tag-red">Tenofovir</span><br>
+        DOC hepatic encephalopathy → <span class="tag tag-red">Lactulose</span><br>
+        DOC variceal prophylaxis → <span class="tag tag-red">Carvedilol</span><br>
+        DOC variceal hemorrhage → <span class="tag tag-red">Terlipressin</span>
+      </div>
+    </div>
+
+    <div class="alert alert-tip" style="margin-top:8px">
+      <span class="alert-icon">💡</span>
+      <span><strong>PPIs vs H2RAs:</strong> PPIs heal ulcers in 4 weeks; H2RAs need 6–8 weeks. PPIs falsely negative UBT/fecal antigen test for H. pylori. Cimetidine (H2RA) = CYP450 inhibitor (2C9, 2D6, 3A4). Other H2RAs do NOT inhibit CYP450.</span>
+    </div>
+
+  </div>
+</div>
+
+<p style="text-align:center;font-size:0.8rem;color:#9CA3AF;margin-top:20px;padding-bottom:20px">
+  Johnson &amp; Steve · Block 4 Pharmacology Notes · GI / Volume / Hepatic / N&amp;V / PK · Colored = High Yield
+</p>
+
+</div><!-- end container -->
+</body>
+</html>
