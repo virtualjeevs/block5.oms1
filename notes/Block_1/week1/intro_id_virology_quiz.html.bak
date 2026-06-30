@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intro to ID & Virology — 23 MCQs</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal:#1A7A6D;--teal-deep:#125E54;--teal-light:#E3F5F2;--teal-mid:#2BA393;--teal-glow:#3EC4B2;
+  --navy:#1B2A4A;--navy2:#12203C;
+  --coral:#E07A5F;--coral-bg:#FEF0EB;
+  --gold:#D4A843;--gold-bg:#FDF6E3;--gold-warm:#E8C76A;
+  --plum:#7B5EA7;--plum-bg:#F3EEF9;
+  --sky:#4A9AE8;--sky-bg:#EAF2FC;
+  --warm:#FBF8F3;--cream:#F6F3EC;--white:#FFFFFF;
+  --ink:#1E1E20;--ink2:#3E4555;--slate:#6B7689;--mist:#A0AAB8;
+  --rule:#DBD5C9;--rule2:#E9E4DA;
+  --green:#2D8659;--green-bg:#E8F5EE;
+  --red:#C44040;--red-bg:#FDF0F0;
+  --amber:#C07B1A;--amber-bg:#FEF5E6;
+  --r:14px;--rs:8px;
+  --sh:0 1px 4px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.03);
+  --sh2:0 8px 32px rgba(0,0,0,.08);
+  --sh3:0 12px 48px rgba(0,0,0,.10);
+  --tr:0.25s cubic-bezier(.4,0,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+/* LAUNCH */
+.launch-wrap{min-height:100vh;display:grid;place-items:center;padding:32px;
+  background:radial-gradient(circle at 15% 20%,rgba(62,196,178,.16),transparent 28%),
+             radial-gradient(circle at 82% 20%,rgba(123,94,167,.12),transparent 30%),
+             linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.launch-card{max-width:760px;width:100%;background:rgba(255,255,255,.8);backdrop-filter:blur(10px);
+  border-radius:28px;border:1px solid rgba(18,32,60,.08);box-shadow:0 24px 80px rgba(18,32,60,.12);padding:40px 44px}
+.launch-card h1{font-family:'Crimson Pro',serif;font-size:38px;font-weight:800;color:var(--navy);margin-bottom:10px;line-height:1.2}
+.launch-card p{color:var(--slate);font-size:16px;margin-bottom:22px;line-height:1.6}
+.launch-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.chip{display:inline-flex;align-items:center;padding:7px 13px;border-radius:999px;background:var(--white);
+  border:1px solid var(--rule2);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink2)}
+.launch-btn{background:linear-gradient(135deg,var(--teal-mid),var(--teal-deep));color:#fff;
+  border:none;border-radius:var(--r);padding:14px 32px;font-family:'Nunito',sans-serif;font-size:16px;
+  font-weight:700;cursor:pointer;transition:var(--tr);box-shadow:0 4px 18px rgba(26,122,109,.28)}
+.launch-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,122,109,.36)}
+
+/* OVERLAY */
+.qo{display:none;position:fixed;inset:0;z-index:200;overflow-y:auto;
+  background:radial-gradient(circle at 10% 0%,color-mix(in srgb,var(--teal-glow) 18%,transparent),transparent 24%),
+             radial-gradient(circle at 92% 8%,color-mix(in srgb,var(--plum) 16%,transparent),transparent 22%),
+             linear-gradient(180deg,var(--warm) 0%,var(--cream) 100%)}
+.qo.open{display:block;animation:fi .35s cubic-bezier(.4,0,.2,1)}
+.qo.closing{display:block;pointer-events:none;animation:fo .34s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes fi{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:none}}
+@keyframes fo{from{opacity:1}to{opacity:0}}
+
+/* TOP BAR */
+.qt-bar{position:sticky;top:0;z-index:12;padding:16px 26px;display:flex;align-items:center;
+  justify-content:space-between;gap:14px;color:#fff;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--navy2) 94%,transparent),color-mix(in srgb,var(--navy) 92%,transparent));
+  border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);
+  box-shadow:0 10px 28px rgba(18,32,60,.16)}
+.qt-bar h2{font-family:'Crimson Pro',serif;font-size:20px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qt-btns{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fs-ctrl{display:flex;align-items:center;gap:4px;padding:4px 8px;background:rgba(255,255,255,.07);border-radius:var(--rs)}
+.fs-label{font-size:11px;color:rgba(255,255,255,.5);margin-right:4px;font-family:'IBM Plex Mono',monospace}
+.fs-btn{background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);
+  border-radius:6px;padding:3px 7px;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:12px;transition:var(--tr)}
+.fs-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+.qt-btn{border:none;border-radius:var(--rs);padding:8px 16px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;transition:var(--tr)}
+.qt-btn.reset,.qt-btn.close{background:rgba(255,255,255,.07);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.1)}
+.qt-btn.reset:hover,.qt-btn.close:hover{background:rgba(255,255,255,.15)}
+.qt-btn.print{background:linear-gradient(135deg,var(--gold-warm),var(--gold));color:var(--navy2);font-weight:900}
+
+/* GRID */
+.qin{max-width:1380px;margin:0 auto;padding:28px 28px 84px;display:grid;
+  grid-template-columns:360px minmax(0,1fr);gap:18px 24px;align-items:start}
+
+/* LEFT COLUMN */
+.score-panel{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);
+  padding:18px 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  box-shadow:var(--sh);animation:slideUp .4s cubic-bezier(.4,0,.2,1) both}
+.score-box{background:var(--cream);border-radius:var(--rs);padding:14px 10px;text-align:center;position:relative;overflow:hidden}
+.score-box::before{content:'';position:absolute;left:16px;right:16px;top:0;height:4px;border-radius:0 0 999px 999px;
+  background:linear-gradient(90deg,rgba(26,122,109,.16),rgba(62,196,178,.5))}
+.score-box .sv{font-family:'Crimson Pro',serif;font-size:34px;font-weight:800;color:var(--navy)}
+.score-box .sl{font-size:11px;color:var(--mist);text-transform:uppercase;letter-spacing:.06em;font-family:'IBM Plex Mono',monospace;margin-top:2px}
+.score-box.correct .sv{color:var(--green)}
+.score-box.incorrect .sv{color:var(--red)}
+
+.mode-toggle{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);
+  padding:6px;display:flex;gap:4px;box-shadow:var(--sh);animation:slideUp .4s .04s cubic-bezier(.4,0,.2,1) both}
+.mode-btn{flex:1;border:none;border-radius:10px;padding:10px 6px;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:13px;font-weight:700;color:var(--slate);background:transparent;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:6px}
+.mode-btn.active{background:linear-gradient(135deg,var(--navy2),var(--navy));color:#fff;box-shadow:0 3px 10px rgba(18,32,60,.2)}
+.mode-icon{font-size:14px}
+
+.timer-panel{display:grid;grid-template-columns:1fr 1fr;gap:10px;animation:slideUp .4s .08s cubic-bezier(.4,0,.2,1) both}
+.timer-card,.cd-card{background:var(--white);border:1px solid var(--rule);border-radius:var(--r);
+  padding:14px 16px;box-shadow:var(--sh);text-align:center}
+.timer-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--mist);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.timer-time,.cd-time{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.tbtn{background:var(--cream);border:1px solid var(--rule);border-radius:6px;padding:4px 8px;
+  cursor:pointer;font-size:13px;margin:0 2px;transition:var(--tr);color:var(--ink2)}
+.tbtn:hover{background:var(--teal-light);border-color:var(--teal)}
+.cd-controls{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.cd-pm{background:var(--cream);border:1px solid var(--rule);border-radius:6px;width:26px;height:26px;
+  cursor:pointer;font-size:16px;font-weight:700;color:var(--ink2);display:flex;align-items:center;justify-content:center;transition:var(--tr)}
+.cd-pm:hover{background:var(--teal-light);border-color:var(--teal)}
+.cd-val{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;color:var(--navy);min-width:20px;text-align:center}
+.cd-unit{font-size:11px;color:var(--mist);font-family:'IBM Plex Mono',monospace}
+.cd-go{background:linear-gradient(135deg,var(--teal-mid),var(--teal));color:#fff;border:none;
+  border-radius:6px;padding:4px 10px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;transition:var(--tr)}
+.cd-go:hover{filter:brightness(1.1)}
+
+.tool-panel{background:var(--white);border:1px solid var(--rule);border-radius:var(--r);
+  padding:14px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;box-shadow:var(--sh);animation:slideUp .4s .14s cubic-bezier(.4,0,.2,1) both}
+.q-tool{background:var(--cream);border:1px solid var(--rule2);border-radius:var(--rs);
+  padding:8px 6px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;
+  color:var(--ink2);text-align:center;transition:var(--tr);line-height:1.3}
+.q-tool:hover{background:var(--teal-light);border-color:var(--teal);color:var(--teal-deep)}
+.q-tool.active.hl-tool{background:#FFF8B8;border-color:#D3AF2B;color:#6B5C00}
+.q-tool.active.st-tool{background:var(--red-bg);border-color:rgba(196,64,64,.44);color:var(--red)}
+.tool-status{padding:6px 16px;font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--mist);text-align:center}
+.tool-status.active-highlight{color:#8a6a00}
+.tool-status.active-strike{color:var(--red)}
+
+.exam-submit-row{background:var(--white);border:1px solid var(--rule);border-radius:var(--r);
+  padding:16px;box-shadow:var(--sh);text-align:center}
+.exam-submit-row.exam-live{box-shadow:0 0 0 3px rgba(224,122,95,.10),0 14px 34px rgba(18,32,60,.08)}
+.exam-progress{font-size:12px;color:var(--slate);margin-bottom:10px;font-family:'IBM Plex Mono',monospace}
+.exam-submit-btn{background:linear-gradient(135deg,var(--coral),#c86040);color:#fff;
+  border:none;border-radius:var(--rs);padding:11px 22px;width:100%;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;transition:var(--tr)}
+.exam-submit-btn:disabled{opacity:.45;cursor:not-allowed}
+.exam-submit-row.exam-done .exam-submit-btn{background:linear-gradient(135deg,var(--green),#3aa56f)}
+
+/* RIGHT COLUMN — QUESTION CARD */
+.qcd{background:var(--white);border-radius:var(--r);border:1px solid var(--rule);
+  box-shadow:var(--sh2);overflow:hidden;animation:cardIn .4s cubic-bezier(.4,0,.2,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.99)}to{opacity:1;transform:none}}
+.qpg{height:5px;background:var(--rule2)}
+.qpf{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-glow));transition:width .4s var(--tr);border-radius:0 4px 4px 0}
+.qbd{padding:28px 30px 24px}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--mist);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+.qstem{font-family:'Crimson Pro',serif;font-size:26px;font-weight:600;color:var(--navy);line-height:1.45;
+  margin-bottom:22px;padding:16px 18px;background:var(--warm);border-radius:var(--rs);
+  border:1px solid var(--rule2);cursor:default;transition:var(--tr)}
+.qstem.tool-hover{box-shadow:inset 0 0 0 2px rgba(26,122,109,.16);background:rgba(26,122,109,.04)}
+.qstem.hl-applied{background:linear-gradient(180deg,#FFF4A8,#FFF7C9)!important;box-shadow:inset 0 0 0 2px rgba(212,168,67,.34)}
+.qstem.st-applied{background:linear-gradient(180deg,#FFF3F3,#FFF8F8)!important;box-shadow:inset 0 0 0 2px rgba(196,64,64,.22)}
+.qstem .stem-hl{background:#FFF1A6;border-radius:4px;padding:0 .1em;box-shadow:0 0 0 1px rgba(212,168,67,.18)}
+.qstem .stem-st{text-decoration:line-through;text-decoration-color:var(--red);color:#8B2C2C!important}
+
+.ach{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.ac{display:flex;align-items:flex-start;gap:14px;padding:13px 16px;background:var(--cream);
+  border:1.5px solid var(--rule2);border-radius:var(--rs);cursor:pointer;transition:var(--tr);user-select:none}
+.ac:hover:not(.dis){border-color:var(--teal);background:var(--teal-light)}
+.ac.sel{border-color:var(--teal);background:color-mix(in srgb,var(--teal-light) 70%,white)}
+.ac.cor{border-color:var(--green)!important;background:var(--green-bg)!important}
+.ac.inc{border-color:var(--red)!important;background:var(--red-bg)!important}
+.ac.shc{border-color:var(--green)!important;background:var(--green-bg)!important}
+.ac.dis{cursor:default}
+.ac.hl-applied{background:#FFFCE8;border-color:#D3AF2B}
+.ac.st-applied{background:var(--red-bg);border-color:rgba(196,64,64,.3)}
+.ac.st-applied .ctx{text-decoration:line-through;color:#8B2C2C;opacity:.7}
+.cl{width:28px;height:28px;border-radius:50%;background:var(--rule);display:flex;align-items:center;
+  justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;
+  color:var(--slate);flex-shrink:0;transition:var(--tr)}
+.ac.sel .cl{background:var(--teal);color:#fff}
+.ac.cor .cl{background:var(--green);color:#fff}
+.ac.inc .cl{background:var(--red);color:#fff}
+.ac.shc .cl{background:var(--green);color:#fff}
+.ctx{font-size:15px;line-height:1.55;color:var(--ink);padding-top:3px}
+
+.submit-row{text-align:right;margin-bottom:18px}
+.submit-btn{background:linear-gradient(135deg,var(--teal-mid),var(--teal-deep));color:#fff;
+  border:none;border-radius:var(--rs);padding:10px 24px;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:14px;font-weight:800;transition:var(--tr)}
+.submit-btn:disabled{opacity:.38;cursor:not-allowed}
+.submit-btn:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,122,109,.3)}
+
+.exb{display:none;flex-direction:column;gap:10px;margin-top:6px}
+.exb.vis{display:flex;animation:fi .3s cubic-bezier(.4,0,.2,1)}
+.exs{border-radius:var(--rs);padding:14px 16px}
+.exc{background:var(--green-bg);border-left:4px solid var(--green)}
+.exe{background:var(--teal-light);border-left:4px solid var(--teal)}
+.exw{background:var(--red-bg);border-left:4px solid var(--red)}
+.exl{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--mist);margin-bottom:6px}
+.ext{font-size:14px;line-height:1.6;color:var(--ink2)}
+.wce{margin-bottom:5px}
+.wce:last-child{margin-bottom:0}
+
+/* NAV BAR */
+.qnv{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px 30px;border-top:1px solid var(--rule2);background:var(--warm)}
+.nb{background:var(--white);border:1.5px solid var(--rule);border-radius:var(--rs);
+  padding:9px 18px;cursor:pointer;font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;
+  color:var(--ink2);transition:var(--tr)}
+.nb:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}
+.nb:disabled{opacity:.3;cursor:default}
+.nb.pr{background:linear-gradient(135deg,var(--teal-mid),var(--teal-deep));color:#fff;border-color:transparent}
+.nb.pr:hover:not(:disabled){filter:brightness(1.08)}
+.qdots{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;max-width:260px}
+.qd{width:14px;height:14px;border-radius:50%;background:var(--white);border:1.5px solid var(--rule);
+  cursor:pointer;transition:var(--tr);padding:0}
+.qd:hover{border-color:var(--teal)}
+.qd.cur{background:var(--teal);border-color:var(--teal)}
+.qd.acor{background:var(--green);border-color:var(--green)}
+.qd.ainc{background:var(--red);border-color:var(--red)}
+.qd.asel{background:var(--gold);border-color:var(--gold)}
+
+/* ANIMATIONS */
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* FONT SIZE SYSTEM */
+#qo[data-fs="sm"] .ctx{font-size:13px}
+#qo[data-fs="md"] .ctx{font-size:15px}
+#qo[data-fs="lg"] .ctx{font-size:18px}
+#qo[data-fs="xl"] .ctx{font-size:21px}
+
+/* PRINT */
+#printReviewRoot{display:none}
+body.print-review-active .launch-wrap,
+body.print-review-active .qo{display:none!important}
+body.print-review-active #printReviewRoot{display:block;padding:32px;background:#fff}
+.print-shell{max-width:960px;margin:0 auto;font-family:'Nunito',sans-serif}
+.print-card{break-inside:avoid;border:1px solid #ddd;border-radius:12px;padding:20px;margin-bottom:18px}
+.print-choice{padding:8px 12px;border-radius:6px;margin-bottom:6px;border:1px solid #ddd;font-size:14px}
+.print-choice.correct{border-color:#2D8659;background:#E8F5EE}
+.print-choice.incorrect{border-color:#C44040;background:#FDF0F0}
+.print-explainer{padding:10px 14px;border-radius:6px;margin-top:8px;font-size:13px;line-height:1.6}
+.print-explainer.correct-box{background:#E8F5EE;border-left:4px solid #2D8659}
+.print-explainer.teach-box{background:#E3F5F2;border-left:4px solid #1A7A6D}
+.print-explainer.wrong-box{background:#FDF0F0;border-left:4px solid #C44040}
+@media print{
+  body.print-review-active .launch-wrap,
+  body.print-review-active .qo{display:none!important}
+  body.print-review-active #printReviewRoot{display:block!important;padding:0}
+}
+
+/* RESPONSIVE */
+@media(max-width:920px){
+  .qin{grid-template-columns:1fr;padding:22px 18px 72px;gap:16px}
+  .timer-panel{grid-template-columns:1fr 1fr}
+  .tool-panel{grid-template-columns:1fr 1fr 1fr}
+}
+@media(max-width:700px){
+  .qt-bar{flex-direction:column;align-items:flex-start}
+  .qin{padding:18px 14px 64px}
+  .timer-panel,.tool-panel{grid-template-columns:1fr}
+  .qnv{flex-direction:column;align-items:stretch}
+  .qdots{order:3}
+  .nb{width:100%}
+  .qstem{font-size:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- LAUNCH SCREEN -->
+<div class="launch-wrap">
+  <div class="launch-card">
+    <h1>Intro to ID &amp; Virology</h1>
+    <p>23 multiple-choice questions covering infectious disease epidemiology, host–parasite interactions, modes of transmission, virus structure, replication, pathogenesis, and viral exanthems.</p>
+    <div class="launch-meta">
+      <span class="chip">23 Questions</span>
+      <span class="chip">Learn &amp; Exam Modes</span>
+      <span class="chip">ID · Virology · Exanthems</span>
+      <span class="chip">Year 1 Medicine</span>
+    </div>
+    <button class="launch-btn" id="openDemo">Open quiz</button>
+  </div>
+</div>
+
+<!-- QUIZ OVERLAY -->
+<div class="qo" id="qo" data-fs="md">
+
+  <!-- TOP BAR -->
+  <div class="qt-bar">
+    <h2>Intro to ID &amp; Virology — 23 MCQs</h2>
+    <div class="qt-btns">
+      <div class="fs-ctrl">
+        <span class="fs-label">Text</span>
+        <button class="fs-btn" data-fs-btn="sm">A-</button>
+        <button class="fs-btn" data-fs-btn="md">A</button>
+        <button class="fs-btn" data-fs-btn="lg">A+</button>
+        <button class="fs-btn" data-fs-btn="xl">A++</button>
+      </div>
+      <button class="qt-btn print" id="printQuizBtn">Print</button>
+      <button class="qt-btn reset" id="resetQuiz">Reset</button>
+      <button class="qt-btn close" id="closeQuiz">Close</button>
+    </div>
+  </div>
+
+  <!-- TWO-COLUMN GRID -->
+  <div class="qin">
+
+    <!-- LEFT COLUMN -->
+    <div class="q-left">
+
+      <!-- Score Panel -->
+      <div class="score-panel">
+        <div class="score-box">
+          <div class="sv" id="svCurrent">1</div>
+          <div class="sl">Current</div>
+        </div>
+        <div class="score-box correct">
+          <div class="sv" id="svCorrect">0</div>
+          <div class="sl">Correct</div>
+        </div>
+        <div class="score-box incorrect">
+          <div class="sv" id="svIncorrect">0</div>
+          <div class="sl">Incorrect</div>
+        </div>
+      </div>
+
+      <!-- Mode Toggle -->
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" id="modeLearn"><span class="mode-icon">🧠</span>Learn Mode</button>
+        <button class="mode-btn" id="modeExam"><span class="mode-icon">📝</span>Exam Mode</button>
+      </div>
+
+      <!-- Timers -->
+      <div class="timer-panel">
+        <div class="timer-card">
+          <div class="timer-lbl">Timer</div>
+          <div class="timer-time" id="timerTime">00:00</div>
+          <div>
+            <button class="tbtn" id="timerStart">▶</button>
+            <button class="tbtn" id="timerPause">⏸</button>
+            <button class="tbtn" id="timerReset">↺</button>
+          </div>
+        </div>
+        <div class="cd-card">
+          <div class="timer-lbl">Countdown</div>
+          <div class="cd-time" id="cdTime">05:00</div>
+          <div class="cd-controls">
+            <button class="cd-pm" id="cdMinus">−</button>
+            <div class="cd-val" id="cdVal">5</div>
+            <div class="cd-unit">min</div>
+            <button class="cd-pm" id="cdPlus">+</button>
+            <button class="cd-go" id="cdGo">Start</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="tool-panel">
+        <button class="q-tool hl-tool" id="toolHighlight">Highlight tool</button>
+        <button class="q-tool st-tool" id="toolStrike">Strikeout tool</button>
+        <button class="q-tool" id="toolReveal">Reveal answer</button>
+      </div>
+      <div class="tool-status" id="toolStatus">Tool mode: none</div>
+
+      <!-- Exam Submit -->
+      <div class="exam-submit-row" id="examSubmitRow">
+        <div class="exam-progress" id="examProgress">0 of 23 answered</div>
+        <button class="exam-submit-btn" id="submitExamBtn" disabled>Submit Exam</button>
+      </div>
+
+    </div><!-- /q-left -->
+
+    <!-- RIGHT COLUMN — QUESTION CARD -->
+    <div id="qA">
+      <div class="qcd">
+        <div class="qpg"><div class="qpf" id="qpf" style="width:4.35%"></div></div>
+        <div class="qbd">
+          <div class="qnum" id="qnum">Question 1 of 23</div>
+          <div class="qstem" id="qStem"><span class="stem-text"></span></div>
+          <div class="ach" id="achEl"></div>
+          <div class="submit-row">
+            <button class="submit-btn" id="submitOne" disabled>Submit Answer</button>
+          </div>
+          <div class="exb" id="exBlock"></div>
+        </div>
+        <div class="qnv">
+          <button class="nb" id="prevBtn">← Previous</button>
+          <div class="qdots" id="qdots"></div>
+          <button class="nb pr" id="nextBtn">Next →</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /qin -->
+</div><!-- /qo -->
+
+<div id="printReviewRoot" aria-hidden="true"></div>
+
+<script>
+const questions=[
+  {
+    stem:"The epidemiological triad of infectious disease consists of three interacting components. Which of the following correctly identifies all three components?",
+    choices:[
+      "Host, infectious agent, and immune response",
+      "Host, infectious agent, and environment",
+      "Infectious agent, vector, and reservoir",
+      "Host, virulence factors, and mode of transmission"
+    ],
+    correct:1,
+    explanation:{
+      correct:"The epidemiological triad consists of the host, the infectious agent, and the environment. All three must interact for disease to occur; modifying any one component can interrupt transmission.",
+      teaching:"Host factors include age, immune status, nutritional status, occupation, and genetic susceptibility. Agent factors include virulence, infectivity, and ability to survive outside the host. Environmental factors include temperature, humidity, sanitation level, and overall healthcare quality of the population.",
+      wrongs:[
+        "A — The immune response is a host factor, not a separate triad component.",
+        "C — Vector and reservoir are transmission-related concepts, not the three core triad elements.",
+        "D — Virulence factors belong to the agent component, and mode of transmission is not one of the three triad elements."
+      ]
+    }
+  },
+  {
+    stem:"A patient is found to have antibodies to hepatitis A virus but has never had any symptoms of hepatitis. The organism was detectable by stool testing for several weeks during this period. This presentation is best described as which of the following?",
+    choices:[
+      "Latent infection",
+      "Carrier state",
+      "Subclinical infection",
+      "Chronic infection"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Subclinical infection means the host mounts an immunological response (producing antibodies) but experiences no clinical symptoms, while still actively shedding the organism and remaining capable of transmitting it to others.",
+      teaching:"Subclinical infections are epidemiologically significant because the individual doesn't know they are infected yet can spread disease. This contrasts with latent infection, where the organism is hidden and neither actively replicating nor being shed.",
+      wrongs:[
+        "A — In latent infection the organism is dormant, no shedding occurs, and there is no detectable immune activation during the quiet phase.",
+        "B — A carrier state typically implies a chronic, persistent asymptomatic carriage (e.g., Typhoid Mary's gallbladder reservoir), not an acute response with antibody production.",
+        "D — Chronic infection involves ongoing low-level viral replication and release over a sustained period; acute antibody production with no symptoms points to subclinical rather than chronic infection."
+      ]
+    }
+  },
+  {
+    stem:"A nurse develops a catheter-associated urinary tract infection 5 days after Foley catheter placement during her hospitalization for a hip fracture. This infection is best classified as which type?",
+    choices:[
+      "Opportunistic infection",
+      "Nosocomial iatrogenic infection",
+      "Zoonotic infection",
+      "Subclinical infection"
+    ],
+    correct:1,
+    explanation:{
+      correct:"A nosocomial infection is one acquired in a healthcare facility. When it results directly from a medical intervention — in this case Foley catheter insertion — it is more specifically classified as iatrogenic. Both terms apply and are not mutually exclusive.",
+      teaching:"Approximately 90,000–100,000 patients per year die from nosocomial infections in the United States. Iatrogenic infections include those introduced by IV line insertion, surgical procedures, and urinary catheterization. These patients are often already immunocompromised by their underlying illness.",
+      wrongs:[
+        "A — Opportunistic infections involve low-virulence organisms that cause disease only because of an existing immune deficit; the scenario does not specify immunodeficiency as the driver.",
+        "C — Zoonotic infections are transmitted from animals to humans; this infection arose from a medical device.",
+        "D — Subclinical infection is asymptomatic; a UTI causing clinical signs is not subclinical."
+      ]
+    }
+  },
+  {
+    stem:"Lactobacilli normally colonize the vaginal tract and produce an acidic environment. If a young woman is treated with broad-spectrum antibiotics for a UTI and subsequently develops a vaginal yeast infection, the most accurate explanation is which of the following?",
+    choices:[
+      "The antibiotics directly stimulated Candida growth as a side effect",
+      "Candida was introduced exogenously by the antibiotic tablets",
+      "Antibiotic elimination of lactobacilli removed the acidic environment that inhibited Candida growth",
+      "The UTI pathogen shared a surface antigen with Candida, causing cross-reactive overgrowth"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Lactobacilli metabolize glycogen to produce lactic acid, lowering vaginal pH. Candida albicans is inhibited by this acid environment. Broad-spectrum antibiotics kill the lactobacilli, pH rises, and Candida — a normal low-level resident — overgrows to cause symptomatic vaginitis.",
+      teaching:"This is a classic example of a mutualistic relationship being disrupted. The lactobacillus–host relationship is mutualistic: the host provides nutrients and a home; the lactobacillus provides protection via acid production. Disrupting one partner benefits the pathogen (Candida). This same mechanism explains antibiotic-associated diarrhea with C. difficile overgrowth.",
+      wrongs:[
+        "A — Antibiotics do not directly stimulate fungal growth; they work by eliminating the bacterial competitors.",
+        "B — Candida is typically already present in low numbers as a commensal organism; it does not need to be introduced externally.",
+        "D — Cross-reactive antigens between UTI bacteria and Candida are not the mechanism involved here."
+      ]
+    }
+  },
+  {
+    stem:"Which of the following statements best explains why most prokaryotic pathogens can outgrow and outcompete host cells in terms of replication speed?",
+    choices:[
+      "Prokaryotes have multiple nuclei, allowing simultaneous protein synthesis across all cell compartments",
+      "Prokaryotic cells lack a cell wall, making division faster and less energy-dependent",
+      "The simple design of prokaryotes allows rapid macromolecular synthesis and cell division, with a single cell able to grow ~10 times faster than a eukaryotic cell",
+      "Prokaryotes replicate only inside host cells, exploiting host ATP and ribosomes for faster replication"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Prokaryotic cells are structurally simpler than eukaryotic cells, with no membrane-bound organelles. This simplicity allows rapid macromolecular synthesis and faster cell division — a single prokaryotic cell can grow approximately 10 times faster than a eukaryotic cell, giving them a significant competitive advantage during infection.",
+      teaching:"This rapid replication advantage is one reason infectious disease can escalate quickly without early immune or antibiotic intervention. It also explains why small inoculating doses (low infectious doses) of some bacteria can still cause significant illness.",
+      wrongs:[
+        "A — Prokaryotes have a single chromosome and no nucleus, let alone multiple nuclei.",
+        "B — Most bacteria do have a cell wall (which is actually a target for antibiotics like penicillin); the absence of a wall is not the reason for faster growth.",
+        "D — Most bacteria are extracellular pathogens; obligate intracellular bacteria (e.g., Rickettsia, Chlamydia) are a specific subset and do not represent prokaryotes in general."
+      ]
+    }
+  },
+  {
+    stem:"Streptococcus pneumoniae can be found in the upper respiratory tract of 15–20% of healthy adults without causing illness. Under which of the following conditions would this commensal organism most likely become a pathogen?",
+    choices:[
+      "When the individual is exposed to a new strain of S. pneumoniae for the first time",
+      "When the organism acquires plasmid-encoded toxin genes from other bacteria",
+      "When the organism translocates past epithelial barriers, such as in a hospitalized, immunocompromised patient",
+      "When the organism is transmitted via aerosol to a non-immune host"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Commensal organisms become pathogens when they are able to transgress epithelial barriers and reach sterile sites. In hospitalized patients who may be immunocompromised and have invasive devices (IVs, catheters), S. pneumoniae can gain access to the bloodstream or meninges, transforming from harmless colonizer to serious pathogen.",
+      teaching:"This principle applies to many organisms. Staphylococcus epidermidis — found on nearly 97% of skin — normally causes no disease, but in hospitalized patients with IV access it can cause systemic infections. The organism itself has not changed; its access to a normally sterile site is what triggers disease.",
+      wrongs:[
+        "A — S. pneumoniae is already present in the host; encountering a 'new strain' is not the primary mechanism described for commensals becoming pathogenic.",
+        "B — While horizontal gene transfer does occur, the lecture specifically highlights barrier breach, not toxin acquisition, as the key mechanism for commensal-to-pathogen transition.",
+        "D — Aerosol transmission describes how infection spreads between people; it does not explain why a commensal organism already in the same host becomes pathogenic."
+      ]
+    }
+  },
+  {
+    stem:"A rapid increase in the number of measles cases above the expected baseline is observed in a region where routine vaccination rates have dropped significantly over the past several years. This event is best classified as which of the following?",
+    choices:[
+      "A pandemic caused by a novel pathogen",
+      "An endemic with widening geographic spread",
+      "An epidemic due to reduced population immunity to an established pathogen",
+      "An iatrogenic outbreak related to vaccine administration"
+    ],
+    correct:2,
+    explanation:{
+      correct:"An epidemic is defined as a rapid spread of disease above the normally expected rate in a region or population. When vaccination rates drop, herd immunity is lost, producing a population with reduced immunity to an existing pathogen — a classic cause of epidemic emergence for a previously controlled disease like measles.",
+      teaching:"Epidemic can arise in two main ways: (1) reduced immunity in a population to an established pathogen (e.g., through vaccine refusal), or (2) the emergence of a completely novel pathogen to which no population immunity exists. This case represents the first mechanism. Endemic disease is a steady-state baseline level, and pandemic requires spread across multiple countries or continents.",
+      wrongs:[
+        "A — A pandemic involves global spread of a novel pathogen; measles is an established pathogen and this scenario is regional.",
+        "B — Endemic implies a stable baseline level in an area, not a sudden increase above baseline.",
+        "D — Iatrogenic implies harm caused by a medical intervention; declining vaccination rates represent a public health failure, not a medical procedure."
+      ]
+    }
+  },
+  {
+    stem:"An infectious organism is transmitted from an infected deer tick to a human after the tick feeds on blood. For this transmission to successfully cause disease, which of the following conditions is most critical?",
+    choices:[
+      "The organism must be able to survive in the environment for at least 24 hours before entering the host",
+      "The organism must be capable of replicating within the tick vector",
+      "The infectious dose must exceed 10^8 organisms per milliliter of blood",
+      "The organism must first colonize the tick's external surface before entering the human host"
+    ],
+    correct:1,
+    explanation:{
+      correct:"For vector-borne biological transmission to be effective, the organism must be able to replicate within the vector. Replication in the tick amplifies the pathogen, so that when the tick feeds again, it delivers a substantial inoculum. Without replication in the vector, the organism would be present in only trace amounts and unlikely to establish infection.",
+      teaching:"This is the key distinction between biological vectors (organism replicates in the vector — e.g., ticks carrying Lyme disease, mosquitoes carrying malaria) and mechanical vectors (organism is merely carried on body parts without replication — e.g., a fly transmitting bacteria from feces to food). Early concern about HIV transmission via mosquito bites was refuted because HIV cannot replicate in mosquito gut tissue.",
+      wrongs:[
+        "A — Environmental survival matters for fomite transmission; for biological vector transmission the critical requirement is replication in the vector.",
+        "C — Different organisms have vastly different infectious doses; a high threshold dose is not the defining feature of vector-borne transmission, and many tick-borne diseases require very few organisms.",
+        "D — Biologically transmitted organisms replicate in internal vector tissues (gut, salivary glands), not on external surfaces."
+      ]
+    }
+  },
+  {
+    stem:"A medical student is studying influenza transmission. She learns that influenza has a lipid envelope. Based on this structural feature alone, which of the following transmission routes would be LEAST favorable for the influenza virus?",
+    choices:[
+      "Transmission via large respiratory droplets from a coughing patient",
+      "Transmission via contact with respiratory secretions on a fomite",
+      "Prolonged aerosol suspension in a dry, well-ventilated room",
+      "Direct inoculation of the mucosa via contaminated hands"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Enveloped viruses are highly labile to desiccation because their lipid bilayer is disrupted by drying, acidic conditions, detergents, and UV light. In a dry, well-ventilated room, aerosol particles evaporate rapidly, drying out the virus and destroying its envelope before it can reach a new host. Enveloped viruses therefore fare poorly with aerosol transmission compared to naked (non-enveloped) viruses.",
+      teaching:"This structural vulnerability explains why enveloped viruses — including influenza, RSV, COVID-19, HIV, and herpes viruses — are primarily transmitted via large droplet contact (short range), direct mucous membrane contact, or fluid transfer, rather than through stable aerosols. COVID-19 follow-up studies confirmed that large droplet transmission was its most efficient route, consistent with its enveloped nature.",
+      wrongs:[
+        "A — Large droplets remain moist and deposit quickly, preserving the lipid envelope over the short distance involved.",
+        "B — Fomites can carry moist secretions; while enveloped viruses survive less well on dry surfaces, this is still more favorable than prolonged dry aerosol suspension.",
+        "D — Direct mucous membrane inoculation via hands is a highly efficient route for enveloped viruses because the virus remains in moist secretions throughout transfer."
+      ]
+    }
+  },
+  {
+    stem:"Which of the following best explains why viruses are classified as obligate intracellular parasites rather than independent living organisms?",
+    choices:[
+      "Viruses contain both DNA and RNA simultaneously, making independent replication impossible",
+      "Viruses rely entirely on host-provided ribosomes, energy (ATP), and building blocks (amino acids, nucleotides, lipids) to synthesize new viral components",
+      "Viruses replicate by binary fission inside host cells, requiring host enzymes only for cell wall synthesis",
+      "Viruses are surrounded by a lipid envelope that prevents independent metabolic activity"
+    ],
+    correct:1,
+    explanation:{
+      correct:"Viruses cannot synthesize proteins (no ribosomes), cannot generate or store energy (no ATP machinery), and cannot independently synthesize their nucleic acid without host machinery. They therefore parasitize the host cell entirely, commandeering its ribosomes, energy, and building blocks to produce new viral components — making them obligate intracellular parasites.",
+      teaching:"This total dependence distinguishes viruses from even the most obligate bacterial intracellular parasites (Rickettsia, Chlamydia), which retain some independent metabolic function. Viral mRNA essentially 'hijacks' the host ribosome to produce viral proteins. Nucleotide and amino acid building blocks come entirely from host cell pools.",
+      wrongs:[
+        "A — Viruses contain either DNA or RNA, not both (with rare exceptions still under debate). The lack of both nucleic acid types is not the reason they require intracellular replication.",
+        "C — Viruses do not replicate by binary fission; they undergo host-mediated assembly of components that are then released en masse (lytic) or by budding (enveloped viruses).",
+        "D — Many viruses are non-enveloped (naked) yet are still obligate intracellular parasites; the envelope is not the basis for this classification."
+      ]
+    }
+  },
+  {
+    stem:"Which of the following viral structural features serves as the primary antigenic determinant for a non-enveloped (naked) virus, and is also responsible for binding to specific host cell receptors?",
+    choices:[
+      "The viral nucleic acid core",
+      "The matrix proteins lying beneath the envelope",
+      "The glycoprotein spikes embedded in the lipid envelope",
+      "The protein capsid surrounding the nucleic acid"
+    ],
+    correct:3,
+    explanation:{
+      correct:"In non-enveloped (naked) viruses, the outermost structure is the protein capsid. The capsid serves as both the antigenic fingerprint of the virus (the target for antibodies in serological testing) and the site of host cell receptor-binding proteins. It may also contain fusion proteins that help the virus penetrate host cells.",
+      teaching:"For enveloped viruses, the lipid envelope's glycoproteins serve these same two functions — antigenic identity and receptor binding. The classic example is the SARS-CoV-2 spike protein, which is both the receptor-binding domain (binding ACE2) and the primary antigen targeted by vaccines and serological tests.",
+      wrongs:[
+        "A — The nucleic acid core is inside the capsid and is not exposed for antigen-antibody interaction or receptor binding.",
+        "B — Matrix proteins are found in enveloped viruses and lie between the envelope and nucleocapsid; they are not the primary surface antigen of naked viruses.",
+        "C — Glycoprotein spikes in a lipid envelope describe enveloped virus structure; naked viruses lack a lipid envelope."
+      ]
+    }
+  },
+  {
+    stem:"A single-stranded positive-sense RNA virus enters a host cell. Which of the following most accurately describes the immediate next step in its replication cycle after uncoating?",
+    choices:[
+      "The RNA must first be reverse-transcribed into double-stranded DNA before any protein synthesis can occur",
+      "The positive-sense RNA acts directly as mRNA and is immediately translated by host ribosomes to produce viral proteins",
+      "The RNA is transported to the nucleus where a viral DNA polymerase transcribes it into mRNA",
+      "The positive-sense RNA is first converted to a negative-sense strand, which then serves as the mRNA template"
+    ],
+    correct:1,
+    explanation:{
+      correct:"Positive-sense (+) single-stranded RNA has the same polarity as mRNA. After uncoating, it is immediately recognized and translated by host ribosomes without any prior transcription step. Examples include poliovirus, Coxsackievirus, echovirus, and hepatitis A virus — all of which use their genomic RNA directly as messenger.",
+      teaching:"This is a key replication shortcut: positive-strand RNA viruses are 'infectious' in a sense — even naked RNA injected into a cell could start replication. Negative-strand RNA viruses (e.g., influenza, paramyxoviruses) must first use a virion-packaged RNA-dependent RNA polymerase to produce a positive-sense mRNA before translation can begin.",
+      wrongs:[
+        "A — Reverse transcription (RNA→DNA) is the mechanism of retroviruses like HIV, not positive-sense RNA viruses.",
+        "C — Positive-strand RNA viruses replicate primarily in the cytoplasm and do not require nuclear transport for transcription.",
+        "D — A negative-sense strand being used as a template applies to negative-strand RNA viruses, not positive-strand viruses, which skip this step entirely."
+      ]
+    }
+  },
+  {
+    stem:"During a herpes simplex virus (HSV) reactivation, viral particles that had been dormant in the dorsal root ganglia re-emerge and travel to the skin surface. Which type of viral infection outcome had been occurring during the dormant period?",
+    choices:[
+      "Chronic infection with low-level ongoing viral replication",
+      "Subclinical infection with continual antibody production",
+      "Latent infection with viral genome persisting without producing progeny virus",
+      "Acute lytic infection with local cell destruction confined to the ganglion"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Latent infection is characterized by the persistence of the viral genome — either as an episomal element in the cytoplasm or integrated into the host chromosome — without active production of progeny virus. No cytopathic effect occurs during latency. The genome is replicated passively along with the host cell. Reactivation can be triggered by stress, immunosuppression, or other stimuli.",
+      teaching:"HSV establishes latency in sensory nerve ganglia (trigeminal for HSV-1, sacral for HSV-2). Varicella-zoster virus similarly persists in dorsal root ganglia after chickenpox and can reactivate decades later as shingles. The key distinguishing feature of latency is: viral genome present, NO progeny being produced.",
+      wrongs:[
+        "A — Chronic infection involves ongoing low-level virion production; latency is distinguished by the absence of progeny virus.",
+        "B — Subclinical infection involves active replication with immune stimulation but no symptoms; latency involves no active replication.",
+        "D — Acute lytic infection produces large numbers of progeny and destroys host cells; this contradicts the silent dormant period described."
+      ]
+    }
+  },
+  {
+    stem:"A patient with chronic hepatitis C infection presents after 20 years of asymptomatic infection with newly diagnosed cirrhosis. Which type of viral infection outcome does this clinical course best represent?",
+    choices:[
+      "Latent infection with reactivation",
+      "Chronic infection with prolonged low-level viral replication causing gradual host injury",
+      "Subclinical infection progressing to an acute lytic phase",
+      "Opportunistic infection occurring due to progressive immune senescence"
+    ],
+    correct:1,
+    explanation:{
+      correct:"Chronic infection is characterized by continued production and release of viral progeny at lower levels than acute infection, without immediate host cell death. Over a prolonged period, this sustained low-level damage accumulates, eventually leading to organ injury. Hepatitis C and B are the classic examples, where progressive fibrosis leads to cirrhosis over decades.",
+      teaching:"The clinical implication is that patients may feel well for years while irreversible hepatic fibrosis develops silently. This makes screening programs critical. Chronic HBV and HCV infection can also predispose to hepatocellular carcinoma through sustained inflammatory damage and possible viral genome integration.",
+      wrongs:[
+        "A — Latent infection produces no progeny and causes no injury during dormancy; reactivation would present as an acute episode rather than a slow 20-year course.",
+        "C — Subclinical infection describes an asymptomatic acute phase with immune response; it does not describe 20 years of viral replication causing organ damage.",
+        "D — Opportunistic infections occur in immunocompromised hosts and are typically caused by low-virulence organisms; HCV readily infects immunocompetent individuals."
+      ]
+    }
+  },
+  {
+    stem:"During a cytokine storm in a severely ill COVID-19 patient, the host's inflammatory mediators damage lung tissue extensively. This represents which type of viral pathogenesis mechanism?",
+    choices:[
+      "Direct viral damage from lytic replication destroying host cell synthetic pathways",
+      "Indirect damage from the host immune response causing collateral tissue injury",
+      "Direct damage from viral genome integration into host chromosomes",
+      "Indirect damage from viral competition with host ribosomes for mRNA translation"
+    ],
+    correct:1,
+    explanation:{
+      correct:"Indirect viral damage occurs when the host's own immune response — particularly excessive release of pro-inflammatory cytokines — causes tissue injury. The cytokines are directed at the pathogen but also destroy surrounding healthy cells. This is the mechanism of cytokine storm seen in severe COVID-19, influenza, and sepsis.",
+      teaching:"Indirect viral damage mechanisms include: (1) excessive cytokine-mediated inflammation; (2) viral genome integration causing host gene mutations or transformation; (3) release of toxic products from infected cells. A good rule: viruses don't want to kill the host (it ends transmission), but cytokine storms represent a dysregulated host response that does the killing.",
+      wrongs:[
+        "A — Direct lytic damage refers to the virus disrupting the host cell's own machinery during active replication inside that cell, not systemic immune-mediated damage.",
+        "C — Genome integration causing mutations is another form of indirect damage but leads to cancer or cellular dysfunction over time, not an acute cytokine storm.",
+        "D — Ribosome competition is a direct damage mechanism occurring inside infected cells, not a systemic immune response pattern."
+      ]
+    }
+  },
+  {
+    stem:"Which of the following best explains why a bioterrorism agent like anthrax (Bacillus anthracis) has historically been associated with animal reservoirs?",
+    choices:[
+      "Animals developed the pathogen de novo through spontaneous mutation in livestock settings",
+      "The domestication of animals approximately 12,000 years ago allowed pathogens that evolved in animals to adapt to and infect humans",
+      "Anthrax was introduced to the animal kingdom through contaminated human food supplies during the agricultural revolution",
+      "Anthrax evolved exclusively in soil environments and was transmitted to animals before spreading to humans via fomites"
+    ],
+    correct:1,
+    explanation:{
+      correct:"The domestication of animals approximately 12,000 years ago brought humans into sustained close contact with animal pathogens, allowing zoonotic transmission and adaptation to human hosts. Anthrax, plague, smallpox, influenza, and COVID-19 all originated in animal reservoirs and adapted to infect humans through this process.",
+      teaching:"Zoonotic diseases are those transmitted from animals to humans. More than 200 established zoonotic diseases exist. The two most common modes of zoonotic transmission to humans are hematophagous arthropod vectors (blood-sucking insects/ticks) and direct contact with infected animals. Encroachment into animal habitats (Lyme disease, Mpox) continues this evolutionary process today.",
+      wrongs:[
+        "A — Pathogens evolve by natural selection over long time scales; spontaneous de novo generation in livestock is not how anthrax or other pathogens originate.",
+        "C — Anthrax did not originate in human food supplies; it is a zoonosis that jumped from animals to humans through domestication.",
+        "D — While anthrax spores do survive in soil, the primary vector of adaptation to humans was animal contact, not independent soil evolution transmitted via fomites."
+      ]
+    }
+  },
+  {
+    stem:"A child presents with a 3-day history of high fever followed by the sudden appearance of a maculopapular rash that began on the trunk and spread to the arms and legs. The fever resolves as the rash appears. Which of the following pathogens and its key characteristics are the most likely explanation?",
+    choices:[
+      "Parvovirus B19 — non-enveloped, single-stranded DNA virus causing a 'slapped cheek' rash starting on the face",
+      "Coxsackievirus A16 — single-stranded RNA virus causing vesicular lesions on the hands, feet, and oral mucosa",
+      "Human herpesvirus 6 — causing roseola (sixth disease) with high fever followed by a trunk-first maculopapular rash",
+      "Measles virus — paramyxovirus causing fever, Koplik spots, and a rash that spreads from the face downward"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Roseola (exanthem subitum / sixth disease) is caused by human herpesvirus 6 (HHV-6). It classically presents with a sudden high fever in a young child that defervesces, after which a maculopapular rash appears on the trunk and spreads to the extremities. This fever-then-rash temporal pattern is pathognomonic.",
+      teaching:"HHV-6 is a common board trap because students assume all herpes viruses cause vesicular rashes. HHV-6 causes a maculopapular rash, not vesicles. The temporal sequence — fever first, rash appears as fever breaks — is the clinical key. This is distinct from measles (rash while fever persists) and fifth disease (rash without significant fever).",
+      wrongs:[
+        "A — Parvovirus B19 (fifth disease) causes a 'slapped cheek' erythematous rash that starts on the face, not the trunk, and the fever is typically low-grade.",
+        "B — Coxsackievirus A16 causes hand, foot, and mouth disease with vesicular lesions specifically on those surfaces and oral mucosa; the rash type and distribution are both wrong.",
+        "D — Measles causes a rash while fever is still present; Koplik spots appear before the rash; and the rash spreads downward from the face, not outward from the trunk."
+      ]
+    }
+  },
+  {
+    stem:"A 7-year-old unvaccinated child develops fever, coryza, conjunctivitis, and a macular rash that progresses to maculopapular, spreading from the face to the trunk. On oral examination, tiny white lesions with red halos are found on the buccal mucosa. Which of the following is the most likely causative agent and its structural classification?",
+    choices:[
+      "Varicella-zoster virus — enveloped double-stranded DNA herpesvirus",
+      "Measles virus (Rubeola) — enveloped single-stranded RNA paramyxovirus",
+      "Parvovirus B19 — non-enveloped single-stranded DNA parvovirus",
+      "Coxsackievirus A16 — non-enveloped single-stranded RNA picornavirus"
+    ],
+    correct:1,
+    explanation:{
+      correct:"The white lesions with red halos on the buccal mucosa are Koplik spots — pathognomonic for measles (Rubeola). Measles is caused by a paramyxovirus, which is an enveloped, single-stranded negative-sense RNA virus approximately 200–250 nm in size. The rash characteristically begins on the face and spreads caudally to the trunk and extremities.",
+      teaching:"Koplik spots appear 1–2 days before the measles rash and are diagnostic even before the rash emerges. Measles transmission is via direct contact and large respiratory droplets. The classic presentation is the '3 Cs': cough, coryza, conjunctivitis — plus fever and Koplik spots before the maculopapular rash appears.",
+      wrongs:[
+        "A — Varicella-zoster causes a vesicular (not maculopapular) rash that begins on the trunk, not the face, and does not produce Koplik spots.",
+        "C — Parvovirus B19 causes fifth disease, with a slapped-cheek rash starting on the face, but produces no Koplik spots and the rash is primarily erythematous macules on the cheeks.",
+        "D — Coxsackievirus causes hand, foot, and mouth disease with vesicular lesions at those specific sites; it does not cause Koplik spots or a spreading facial-to-trunk rash."
+      ]
+    }
+  },
+  {
+    stem:"An older adult who had chickenpox at age 6 now presents at age 72 with painful, burning vesicular lesions distributed along a single thoracic dermatome on the right side. Which of the following best explains the pathophysiology of this presentation?",
+    choices:[
+      "Re-exposure to Varicella-zoster virus from a grandchild with active chickenpox triggered a new primary infection",
+      "Varicella-zoster virus remained latent in the dorsal root ganglia for decades and reactivated due to declining immune surveillance",
+      "A new herpes simplex type 2 infection spread along sensory nerve fibers from a genital site to the thoracic dermatome",
+      "Chronic Varicella-zoster infection progressed slowly over decades, finally manifesting as dermatomal rash"
+    ],
+    correct:1,
+    explanation:{
+      correct:"Shingles (herpes zoster) is the reactivation of Varicella-zoster virus (HHV-3), which establishes latency in dorsal root ganglia following primary chickenpox infection. Decades later, when immune surveillance declines (as in older adults or immunocompromised patients), the virus reactivates, replicates in the ganglion, and travels along the sensory nerve to cause a painful vesicular rash in a single dermatome.",
+      teaching:"The dermatomal distribution — the hallmark of shingles — reflects the anatomy of sensory nerve distribution from a single ganglion. The thoracic and lumbar dermatomes are most commonly affected. Post-herpetic neuralgia (persistent pain after rash resolution) is a significant complication in older patients, which is why the recombinant zoster vaccine is recommended for adults ≥50 years.",
+      wrongs:[
+        "A — Re-exposure could boost immunity, but primary chickenpox in a previously immune individual does not cause a new primary vesicular eruption along dermatomes; it would appear as diffuse chickenpox.",
+        "C — HSV-2 is associated with genital/sacral dermatomal distribution, not thoracic; and a new HSV infection would not explain dormancy since childhood.",
+        "D — Varicella-zoster does not cause a chronic infection; it causes acute chickenpox, establishes latency, and then reactivates — it is not a chronic low-level process."
+      ]
+    }
+  },
+  {
+    stem:"During a food poisoning outbreak linked to a deli worker, investigators find that the worker was asymptomatic but had Staphylococcus aureus growing in the nasopharynx. Hand hygiene was poor. Which mode of transmission is the MOST important in explaining how the food became contaminated?",
+    choices:[
+      "Aerosol transmission of S. aureus from sneezing in the kitchen environment",
+      "Vector-borne transmission via insects feeding on the worker before touching the food",
+      "Vehicle-borne transmission via fomite: hands contaminated by nasal carriage transferred the organism to food",
+      "Transplacental transmission of S. aureus from the worker to food preparation surfaces"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Staphylococcus aureus most commonly colonizes the anterior nares. Contamination of food by S. aureus most frequently occurs via the fomite/vehicle route: the carrier touches their nose, transfers the organism to their hands, and then inoculates food during preparation. The food then serves as a vehicle for transmission to consumers.",
+      teaching:"S. aureus food poisoning is preformed toxin-mediated — the organism produces toxin in the food before it is consumed. Symptoms are rapid (1–6 hours after ingestion). The epidemiological lesson is that asymptomatic carriage (carrier state) combined with poor hand hygiene is the classic transmission chain for S. aureus food poisoning.",
+      wrongs:[
+        "A — While S. aureus can be aerosolized during sneezing, the lecture specifically identifies nasal carriage → hands → food as the primary chain, not aerosol contamination of the food itself.",
+        "B — Insects are not described as vectors for this outbreak, and S. aureus is not a classic arthropod-borne pathogen.",
+        "D — Transplacental transmission refers to mother-to-fetus transmission in utero; it is entirely inapplicable to a food contamination scenario."
+      ]
+    }
+  },
+  {
+    stem:"A 4-year-old attending daycare develops small vesicular lesions on the palms, soles, and oral mucosa in September. Several classmates have similar presentations. What is the most likely causative agent and relevant virology?",
+    choices:[
+      "Varicella-zoster virus — enveloped herpesvirus causing dermatomal vesicles in older adults",
+      "Herpes simplex virus type 1 — enveloped double-stranded DNA virus causing oral cold sores",
+      "Coxsackievirus A16 — non-enveloped single-stranded RNA enterovirus causing hand, foot, and mouth disease",
+      "Measles virus — enveloped single-stranded RNA paramyxovirus causing maculopapular facial rash"
+    ],
+    correct:2,
+    explanation:{
+      correct:"Hand, foot, and mouth disease (HFMD) is caused primarily by Coxsackievirus A16, a non-enveloped single-stranded RNA enterovirus (Picornaviridae). It classically presents in young children in late summer/early fall, spreads rapidly in daycare settings, and causes vesicular lesions specifically distributed on the hands, feet, and oral mucosa with associated sore throat.",
+      teaching:"HFMD is highly contagious in childcare settings through direct contact, fomites, and fecal-oral route. Outbreaks in August–September are characteristic. Enterovirus 71 is another causative agent and is associated with more severe neurological complications. Being a non-enveloped virus, Coxsackievirus is more environmentally stable than enveloped viruses.",
+      wrongs:[
+        "A — Varicella-zoster causes diffuse itchy vesicles starting on the trunk and face, not limited to hands, feet, and mouth; dermatomal distribution is shingles in adults.",
+        "B — HSV-1 causes perioral vesicles (cold sores) and oral herpes; it does not cause the characteristic palm/sole distribution of HFMD.",
+        "D — Measles causes a maculopapular (not vesicular) rash that starts on the face and spreads downward, not vesicles localized to extremities and mouth."
+      ]
+    }
+  },
+  {
+    stem:"Which of the following best explains why a worldwide eradication of all infectious diseases, as predicted by the US Surgeon General in 1969, has not been achieved?",
+    choices:[
+      "Infectious agents have developed the ability to replicate in eukaryotic cells, making antibiotic treatment permanently ineffective",
+      "Underestimation of microbial genetic adaptability, expansion of immunocompromised populations, AIDS, rapid global travel, and emergence of novel zoonotic pathogens",
+      "Political failure to fund vaccine development programs across the majority of nations in the 20th century",
+      "The shift from endemic to epidemic disease patterns following rapid urbanization eliminated the effectiveness of herd immunity"
+    ],
+    correct:1,
+    explanation:{
+      correct:"Multiple factors confounded the optimistic 1969 prediction: (1) underestimation of microbial genetic adaptability and drug resistance; (2) inability to anticipate the consequences of life-prolonging medicine increasing the immunocompromised population; (3) the AIDS epidemic; (4) emergence of new zoonotic pathogens; and (5) rapid global travel enabling rapid spread of novel pathogens across continents.",
+      teaching:"This is a framework question about why infectious disease remains a leading cause of global mortality. The 1969 Surgeon General who made the 'close the book on infectious disease' prediction subsequently died of pneumonia — a memorable irony. Today, antibiotic resistance, climate-driven vector expansion, and novel zoonoses continue to demonstrate the evolutionary resilience of microbial pathogens.",
+      wrongs:[
+        "A — Antibiotics were never effective against viral agents; bacteria replicating in eukaryotic cells was already understood; this does not explain why elimination failed.",
+        "C — While funding disparities exist, the lecture identifies biological and epidemiological factors — not political funding — as the primary reasons eradication failed.",
+        "D — Herd immunity is not eliminated by urbanization; in fact, dense urban populations can enhance herd immunity for vaccine-preventable diseases. This choice conflates several concepts incorrectly."
+      ]
+    }
+  },
+  {
+    stem:"Which of the following virus families is CORRECTLY matched with its nucleic acid type, envelope status, and an associated disease?",
+    choices:[
+      "Picornaviridae — enveloped, double-stranded RNA — rhinovirus (common cold)",
+      "Parvoviridae — non-enveloped, single-stranded DNA — erythema infectiosum (fifth disease)",
+      "Herpesviridae — non-enveloped, double-stranded DNA — chickenpox",
+      "Retroviridae — non-enveloped, single-stranded RNA — HIV infection"
+    ],
+    correct:1,
+    explanation:{
+      correct:"Parvoviridae (parvovirus B19) is non-enveloped, contains single-stranded DNA — one of the few single-stranded DNA viruses — and causes erythema infectiosum (fifth disease) in children. This is correctly matched on all three features.",
+      teaching:"Parvovirus B19 is an important exception to the rule that most human pathogens are single-stranded RNA viruses — it is one of the rare single-stranded DNA viruses. Remember: Picornaviridae are NON-enveloped (+ssRNA); Herpesviridae are ENVELOPED (dsDNA); Retroviridae are ENVELOPED (+ssRNA with reverse transcriptase). The envelope status of each family is a high-yield distinction.",
+      wrongs:[
+        "A — Picornaviridae (picornaviruses) are non-enveloped, not enveloped, and they contain single-stranded positive-sense RNA, not double-stranded RNA.",
+        "C — Herpesviridae are enveloped viruses; listing them as non-enveloped is incorrect, even though the dsDNA content and chickenpox association are correct.",
+        "D — HIV (Retroviridae) is an enveloped virus; retroviral lipid envelope is essential for cell entry via membrane fusion. Listing it as non-enveloped is incorrect."
+      ]
+    }
+  },
+  {
+    stem:"A researcher studying viral tropism notes that influenza virus specifically binds to sialic acid residues on respiratory epithelial cells. If the researcher then separates influenza nucleic acid and injects it directly into liver hepatocytes, which of the following outcomes would most likely occur?",
+    choices:[
+      "The injected nucleic acid would produce functional influenza virions that could then infect respiratory cells normally",
+      "The injected nucleic acid could replicate and produce viral proteins inside hepatocytes, but the progeny virions would be unable to infect new cells because hepatocytes lack the sialic acid receptor",
+      "The nucleic acid would be immediately degraded by hepatocyte nucleases without any viral protein synthesis",
+      "The progeny virions would acquire liver-cell tropism and shift infection from the respiratory to the hepatic system"
+    ],
+    correct:1,
+    explanation:{
+      
